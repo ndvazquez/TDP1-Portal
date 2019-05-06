@@ -3,6 +3,7 @@
 //
 #include "Window.h"
 #include "Sprite.h"
+#include "AnimatedSprite.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
@@ -40,12 +41,102 @@ void drawStaticChell(){
     }
 }
 
+void drawIdleChell(){
+    int totalFrames = 7;
+    std::string title = "Portal";
+    std::string spritePath = "client/resources/Chell/RestingIdle.png";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    AnimatedSprite restingIdleChell(spritePath, newWindow, totalFrames);
+
+    int x = (SCREEN_WIDTH - restingIdleChell.getWidth()) / 2;
+    int y = (SCREEN_HEIGHT - restingIdleChell.getHeight()) / 2;
+
+    bool quit = false;
+
+    SDL_Event e;
+
+    while(!quit) {
+        while(SDL_PollEvent( &e ) != 0) {
+            if(e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        newWindow.clear();
+        restingIdleChell.draw(newWindow, x, y);
+        restingIdleChell.updateFrameStep();
+        newWindow.render();
+    }
+}
+
+void drawRunningChell(){
+    int totalFrames = 12;
+    std::string title = "Portal";
+    std::string spritePath = "client/resources/Chell/Run.png";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    AnimatedSprite runningChell(spritePath, newWindow, totalFrames);
+
+    int x = (SCREEN_WIDTH - runningChell.getWidth()) / 2;
+    int y = (SCREEN_HEIGHT - runningChell.getHeight()) / 2;
+
+    bool quit = false;
+
+    SDL_Event e;
+
+    while(!quit) {
+        while(SDL_PollEvent( &e ) != 0) {
+            if(e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        newWindow.clear();
+        runningChell.draw(newWindow, x, y);
+        runningChell.updateFrameStep();
+        newWindow.render();
+    }
+}
+
+void drawEnterChell(){
+    int totalFrames = 16;
+    std::string title = "Portal";
+    std::string spritePath = "client/resources/Chell/Enter.png";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    AnimatedSprite runningChell(spritePath, newWindow, totalFrames);
+
+    int x = (SCREEN_WIDTH - runningChell.getWidth()) / 2;
+    int y = (SCREEN_HEIGHT - runningChell.getHeight()) / 2;
+
+    bool quit = false;
+
+    SDL_Event e;
+
+    while(!quit) {
+        while(SDL_PollEvent( &e ) != 0) {
+            if(e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        newWindow.clear();
+        runningChell.draw(newWindow, x, y);
+        runningChell.updateFrameStep();
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDL_Init(SDL_INIT_VIDEO);
     int imgFlags = IMG_INIT_PNG;
     IMG_Init(imgFlags);
 
     drawStaticChell();
+    SDL_Delay(1000);
+    drawIdleChell();
+    SDL_Delay(1000);
+    drawRunningChell();
+    SDL_Delay(1000);
+    drawEnterChell();
 
     IMG_Quit();
     SDL_Quit();

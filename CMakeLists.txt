@@ -15,7 +15,8 @@ include_directories(${PROJECT_SOURCE_DIR}/client)
 set(CLIENT_SOURCE_FILES
         client/main.cpp
         client/Window.cpp
-        client/Sprite.cpp)
+        client/Sprite.cpp
+        client/AnimatedSprite.cpp)
 
 add_executable(Portal ${CLIENT_SOURCE_FILES})
 target_link_libraries(Portal ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
