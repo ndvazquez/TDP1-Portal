@@ -35,5 +35,4 @@ public:
             SDL_Rect& destRect);
 };
 
-
 #endif //PORTAL_WINDOW_H

@@ -31,5 +31,4 @@ public:
     int getHeight();
 };
 
-
 #endif //PORTAL_SPRITE_H
