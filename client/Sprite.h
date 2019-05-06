@@ -26,7 +26,7 @@ public:
     Sprite(const std::string& path, Window& window);
     ~Sprite();
     void free();
-    void draw(Window& destWindow, int x, int y);
+    void draw(Window& destWindow, int x, int y, SDL_Rect* destRect);
     int getWidth();
     int getHeight();
 };

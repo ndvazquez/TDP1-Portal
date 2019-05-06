@@ -14,6 +14,7 @@
 void drawStaticChell(){
     std::string title = "Portal";
     std::string spritePath = "client/resources/Chell/EnterHold.png";
+    SDL_Rect* destRect = nullptr;
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     Sprite newSprite(spritePath, newWindow);
@@ -33,7 +34,7 @@ void drawStaticChell(){
             }
 
             newWindow.clear();
-            newSprite.draw(newWindow, x, y);
+            newSprite.draw(newWindow, x, y, destRect);
             newWindow.render();
         }
     }

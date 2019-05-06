@@ -26,11 +26,13 @@ Sprite::~Sprite() {
     this->free();
 }
 
-void Sprite::draw(Window &destWindow, int x, int y) {
-    SDL_Rect sourceRect = { 0, 0, this->imageWidth, this->imageHeight};
+void Sprite::draw(Window &destWindow, int x, int y, SDL_Rect *sourceRect) {
     SDL_Rect destRect = {x, y ,this->imageWidth ,this->imageHeight};
-
-    destWindow.draw(*this->texture, sourceRect, destRect);
+    if (sourceRect != nullptr){
+        destRect.w = sourceRect->w;
+        destRect.h = sourceRect->h;
+    }
+    destWindow.draw(*this->texture, *sourceRect, destRect);
 }
 
 void Sprite::free(){
