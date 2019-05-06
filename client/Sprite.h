@@ -12,23 +12,24 @@
 
 class SpriteInitException: public std::exception {
     virtual const char* what() const throw () {
-        std::string message = "There was an error while trying to initialize a sprite: ";
+        std::string message = "There was an error initializing the sprite: ";
         message += SDL_GetError();
         return message.c_str();
     }
 };
 
 class Sprite {
+protected:
     SDL_Texture* texture;
     int imageWidth;
     int imageHeight;
 public:
     Sprite(const std::string& path, Window& window);
-    ~Sprite();
+    virtual ~Sprite();
     void free();
-    void draw(Window& destWindow, int x, int y, SDL_Rect* destRect);
-    int getWidth();
-    int getHeight();
+    void draw(Window& destWindow, int x, int y, SDL_Rect* sourceRect);
+    virtual int getWidth();
+    virtual int getHeight();
 };
 
 #endif //PORTAL_SPRITE_H
