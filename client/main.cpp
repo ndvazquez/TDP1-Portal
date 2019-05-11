@@ -14,7 +14,7 @@
 
 void drawStaticChell(){
     std::string title = "Portal";
-    std::string spritePath = "client/resources/Chell/EnterHold.png";
+    std::string spritePath = "resources/Chell/EnterHold.png";
     SDL_Rect* destRect = nullptr;
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
@@ -44,7 +44,7 @@ void drawStaticChell(){
 void drawIdleChell(){
     int totalFrames = 7;
     std::string title = "Portal";
-    std::string spritePath = "client/resources/Chell/RestingIdle.png";
+    std::string spritePath = "resources/Chell/RestingIdle.png";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     AnimatedSprite restingIdleChell(spritePath, newWindow, totalFrames);
@@ -72,7 +72,7 @@ void drawIdleChell(){
 void drawRunningChell(){
     int totalFrames = 12;
     std::string title = "Portal";
-    std::string spritePath = "client/resources/Chell/Run.png";
+    std::string spritePath = "resources/Chell/Run.png";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     AnimatedSprite runningChell(spritePath, newWindow, totalFrames);
@@ -100,7 +100,7 @@ void drawRunningChell(){
 void drawEnterChell(){
     int totalFrames = 16;
     std::string title = "Portal";
-    std::string spritePath = "client/resources/Chell/Enter.png";
+    std::string spritePath = "resources/Chell/Enter.png";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     AnimatedSprite runningChell(spritePath, newWindow, totalFrames);
