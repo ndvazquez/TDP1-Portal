@@ -15,7 +15,7 @@ AnimatedSprite::AnimatedSprite(const std::string &path, Window &window,
         frames(totalFrames),
         currentFrame(0),
         currentFrameStep(0),
-        time(0){
+        timeSinceLastUpdate(0){
     this->frameWidth = (this->imageWidth / this->frames) - 1;
     this->frameHeight = this->imageHeight;
     this->framerate = 1000 / frames;
@@ -24,11 +24,11 @@ AnimatedSprite::AnimatedSprite(const std::string &path, Window &window,
 AnimatedSprite::~AnimatedSprite() {}
 
 void AnimatedSprite::updateFrameStep() {
-    if (time + framerate > SDL_GetTicks()){
+    if (timeSinceLastUpdate + framerate > SDL_GetTicks()){
         return;
     }
 
-    time = SDL_GetTicks();
+    timeSinceLastUpdate = SDL_GetTicks();
 
     if (currentFrame  >= frames - 1){
         currentFrame = 0;

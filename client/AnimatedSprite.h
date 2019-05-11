@@ -14,14 +14,14 @@
 
 class AnimatedSprite : public Sprite {
     // We define a frame width and height, to preserve the original sprite sheet
-    // width and height.
+    // width and height in case we need it for something.
     int frameWidth;
     int frameHeight;
     int frames;
     int currentFrame;
     // Step to render the current frame on the sprite sheet.
     int currentFrameStep;
-    unsigned long time;
+    unsigned long timeSinceLastUpdate;
     int framerate;
 public:
     AnimatedSprite(const std::string& path, Window& window, int totalFrames);
