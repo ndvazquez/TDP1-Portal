@@ -8,6 +8,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
+#include "SDLSession.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -126,9 +127,7 @@ void drawEnterChell(){
 }
 
 int main(int argc, char* argv[]){
-    SDL_Init(SDL_INIT_VIDEO);
-    int imgFlags = IMG_INIT_PNG;
-    IMG_Init(imgFlags);
+    SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawStaticChell();
     SDL_Delay(1000);
@@ -137,7 +136,4 @@ int main(int argc, char* argv[]){
     drawRunningChell();
     SDL_Delay(1000);
     drawEnterChell();
-
-    IMG_Quit();
-    SDL_Quit();
 }

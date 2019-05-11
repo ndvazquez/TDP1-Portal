@@ -16,7 +16,8 @@ set(CLIENT_SOURCE_FILES
         client/main.cpp
         client/Window.cpp
         client/Sprite.cpp
-        client/AnimatedSprite.cpp)
+        client/AnimatedSprite.cpp
+        client/SDLSession.cpp)
 
 add_executable(Portal ${CLIENT_SOURCE_FILES})
 target_link_libraries(Portal ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
