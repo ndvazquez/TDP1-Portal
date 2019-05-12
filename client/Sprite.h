@@ -27,7 +27,10 @@ public:
     Sprite(const std::string& path, Window& window);
     virtual ~Sprite();
     void free();
-    void draw(Window& destWindow, int x, int y, SDL_Rect* sourceRect);
+    // Draw the whole texture to a given coordinate.
+    void draw(Window& destWindow, int x, int y);
+    // Draw the whole texture to a given rectangle on the window.
+    void draw(Window& destWindow, SDL_Rect* destRect);
     virtual int getWidth();
     virtual int getHeight();
 };

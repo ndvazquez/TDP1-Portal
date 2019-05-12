@@ -16,9 +16,10 @@ Window, and then just call `.clear()` before drawing and `.render()` after doing
 
 This is a wrapper to draw static sprites on a Window.
 The constructor takes a file path for the image, and a Window object.
-To use it, just call `.draw()` with the corresponding Window, `x, y` coordinates corresponding to where we want
- to draw on the screen and a `SDL_Rect` pointer (it can point to `nullptr` if we don't want to restrict the drawing
- on a certain area).
+To use it, just call `.draw()` with the corresponding Window, and then you have two options:
+* We can pass `x, y` coordinates corresponding to where we want to render the whole texture on the Window.
+* Or we can pass a `SDL_Rect` to specify to which area of the Window we want to render the whole texture, this method will
+stretch or shrink the texture to fit the area of the rectangle.
 
 ## AnimatedSprite
 

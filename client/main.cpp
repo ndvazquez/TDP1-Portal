@@ -16,7 +16,7 @@
 void drawStaticChell(){
     std::string title = "Portal";
     std::string spritePath = "resources/Chell/EnterHold.png";
-    SDL_Rect* destRect = nullptr;
+
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     Sprite newSprite(spritePath, newWindow);
@@ -36,7 +36,7 @@ void drawStaticChell(){
             }
 
             newWindow.clear();
-            newSprite.draw(newWindow, x, y, destRect);
+            newSprite.draw(newWindow, x, y);
             newWindow.render();
         }
     }
@@ -130,10 +130,10 @@ int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawStaticChell();
-    SDL_Delay(1000);
+    SDL_Delay(500);
     drawIdleChell();
-    SDL_Delay(1000);
+    SDL_Delay(500);
     drawRunningChell();
-    SDL_Delay(1000);
+    SDL_Delay(500);
     drawEnterChell();
 }
