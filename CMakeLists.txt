@@ -11,6 +11,7 @@ include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
 
 include_directories(${PROJECT_SOURCE_DIR}/client)
+include_directories(${PROJECT_SOURCE_DIR}/server)
 
 set(CLIENT_SOURCE_FILES
         client/main.cpp
@@ -19,5 +20,14 @@ set(CLIENT_SOURCE_FILES
         client/AnimatedSprite.cpp
         client/SDLSession.cpp)
 
-add_executable(Portal ${CLIENT_SOURCE_FILES})
-target_link_libraries(Portal ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+set(SERVER_SOURCE_FILES
+        server/main.cpp server/main.cpp)
+
+add_executable(Client ${CLIENT_SOURCE_FILES})
+add_executable(Server ${SERVER_SOURCE_FILES} server/main.cpp)
+
+target_link_libraries(Client ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+
+add_subdirectory(3rdparty)
+target_compile_features(Server PUBLIC cxx_std_17)
+target_link_libraries(Server TG::Box2D)
