@@ -21,13 +21,13 @@ set(CLIENT_SOURCE_FILES
         client/SDLSession.cpp)
 
 set(SERVER_SOURCE_FILES
-        server/main.cpp server/main.cpp)
+        server/main.cpp server/main.cpp server/Stage.cpp server/Stage.h)
 
 add_executable(Client ${CLIENT_SOURCE_FILES})
 add_executable(Server ${SERVER_SOURCE_FILES} server/main.cpp)
 
 target_link_libraries(Client ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
 
-add_subdirectory(3rdparty)
+add_subdirectory(Box2D)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_link_libraries(Server TG::Box2D)
