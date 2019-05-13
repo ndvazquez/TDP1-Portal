@@ -1,14 +1,14 @@
 //
 // Created by ndv on 5/5/19.
 //
-#include "Window.h"
-#include "Sprite.h"
-#include "AnimatedSprite.h"
+#include "../common/Window.h"
+#include "../common/Sprite.h"
+#include "../common/AnimatedSprite.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
-#include "SDLSession.h"
+#include "../common/SDLSession.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
