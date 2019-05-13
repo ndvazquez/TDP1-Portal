@@ -13,6 +13,9 @@ private:
     b2Body* body;
 public:
     Item(b2Body* body);
+    virtual float getHorizontalPosition();
+    virtual float getVerticalPosition();
+    virtual size_t getSide();
 };
 
 #endif //PORTAL_ITEM_H

@@ -19,25 +19,30 @@ int main( int argc, char *argv[] ) {
     status = CxxTest::Main< CxxTest::ErrorPrinter >( tmp, argc, argv );
     return status;
 }
-bool suite_StageTest_init = false;
+bool suite_RockBlockTest_init = false;
 #include "MyTestSuite.h"
 
-static StageTest suite_StageTest;
+static RockBlockTest suite_RockBlockTest;
 
-static CxxTest::List Tests_StageTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_StageTest( "MyTestSuite.h", 7, "StageTest", suite_StageTest, Tests_StageTest );
+static CxxTest::List Tests_RockBlockTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_RockBlockTest( "MyTestSuite.h", 9, "RockBlockTest", suite_RockBlockTest, Tests_RockBlockTest );
 
-static class TestDescription_suite_StageTest_testFloorPosition : public CxxTest::RealTestDescription {
+static class TestDescription_suite_RockBlockTest_testRockBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_StageTest_testFloorPosition() : CxxTest::RealTestDescription( Tests_StageTest, suiteDescription_StageTest, 13, "testFloorPosition" ) {}
- void runTest() { suite_StageTest.testFloorPosition(); }
-} testDescription_suite_StageTest_testFloorPosition;
+ TestDescription_suite_RockBlockTest_testRockBlock() : CxxTest::RealTestDescription( Tests_RockBlockTest, suiteDescription_RockBlockTest, 18, "testRockBlock" ) {}
+ void runTest() { suite_RockBlockTest.testRockBlock(); }
+} testDescription_suite_RockBlockTest_testRockBlock;
 
-static class TestDescription_suite_StageTest_testSubstraction : public CxxTest::RealTestDescription {
+static MetalBlockTest suite_MetalBlockTest;
+
+static CxxTest::List Tests_MetalBlockTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_MetalBlockTest( "MyTestSuite.h", 35, "MetalBlockTest", suite_MetalBlockTest, Tests_MetalBlockTest );
+
+static class TestDescription_suite_MetalBlockTest_testMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_StageTest_testSubstraction() : CxxTest::RealTestDescription( Tests_StageTest, suiteDescription_StageTest, 24, "testSubstraction" ) {}
- void runTest() { suite_StageTest.testSubstraction(); }
-} testDescription_suite_StageTest_testSubstraction;
+ TestDescription_suite_MetalBlockTest_testMetalBlock() : CxxTest::RealTestDescription( Tests_MetalBlockTest, suiteDescription_MetalBlockTest, 44, "testMetalBlock" ) {}
+ void runTest() { suite_MetalBlockTest.testMetalBlock(); }
+} testDescription_suite_MetalBlockTest_testMetalBlock;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

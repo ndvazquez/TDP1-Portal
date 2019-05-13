@@ -15,6 +15,9 @@ private:
 
 public:
     MetalBlock(size_t side, b2Body* body);
+    virtual float getHorizontalPosition() override;
+    virtual float getVerticalPosition() override;
+    virtual size_t getSide() override;
 };
 
 #endif //PORTAL_METALBLOCK_H

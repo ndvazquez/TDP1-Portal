@@ -8,3 +8,15 @@ MetalBlock::MetalBlock(size_t side, b2Body* body):
     Item(body),
     side(side), body(body) {
 }
+
+float MetalBlock::getHorizontalPosition() {
+    return this->body->GetPosition().x;
+}
+
+float MetalBlock::getVerticalPosition() {
+    return this->body->GetPosition().y;
+}
+
+size_t MetalBlock::getSide() {
+    return this->side;
+}

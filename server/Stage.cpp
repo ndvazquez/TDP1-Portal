@@ -48,7 +48,7 @@ bool Stage::addRockBlock(size_t side, float x_pos, float y_pos) {
         return false;
     } //excepciones o booleano?
 
-    Coordinates* coordinates = new Coordinates(x_pos, y_pos);
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2BodyDef body;
     body.type = b2_staticBody;
@@ -74,7 +74,7 @@ bool Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
         return false;
     } //excepciones o booleano?
 
-    Coordinates* coordinates = new Coordinates(x_pos, y_pos);
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2BodyDef body;
     body.type = b2_staticBody;
@@ -100,7 +100,7 @@ bool Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float a
         return false;
     } //excepciones o booleano?
 
-    Coordinates* coordinates = new Coordinates(x_pos, y_pos);
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2BodyDef body;
     body.type = b2_staticBody;
@@ -124,6 +124,7 @@ bool Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float a
     //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);
 
     Item* block = new DiagonalMetalBlock(side, block_body);
+
     items.insert(std::make_pair(coordinates, block));
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
@@ -144,6 +145,14 @@ bool Stage::addEnergyTransmitter(float x_position, float y_position) {
 bool Stage::addEnergyBar(float x_position, float y_position) {
     return true;
 }
+
+Item* Stage::getItem(Coordinate* coordinate) {
+    for (auto item = items.begin(); item != items.end(); item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
 
 Stage::~Stage() {
     delete world;

@@ -15,7 +15,9 @@ private:
 
 public:
     RockBlock(size_t side, b2Body* body);
+    virtual float getHorizontalPosition() override;
+    virtual float getVerticalPosition() override;
+    virtual size_t getSide() override;
 };
-
 
 #endif //PORTAL_ROCKBLOCK_H
