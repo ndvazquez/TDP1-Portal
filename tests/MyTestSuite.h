@@ -1,10 +1,22 @@
-  #include <cxxtest/TestSuite.h>
+#ifndef __MYTESTSUITE_H
+#define __MYTESTSUITE_H
 
-  class MyTestSuite : public CxxTest::TestSuite
+#include <cxxtest/TestSuite.h>
+#include "../server/Stage.h"
+
+  class StageTest : public CxxTest::TestSuite
   {
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+
   public:
-      void testAddition( void )
+      void testFloorPosition( void )
       {
+          std::cout << "Testing the floor position" << std::endl;
+
+
+
+
           TS_ASSERT( 1 + 1 > 1 );
           TS_ASSERT_EQUALS( 1 + 1, 2 );
       }
@@ -15,3 +27,6 @@
           TS_ASSERT_EQUALS ( 1 - 1, 0);
       }
   };
+
+
+#endif
