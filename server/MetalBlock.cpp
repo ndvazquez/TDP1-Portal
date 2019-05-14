@@ -5,7 +5,6 @@
 #include "MetalBlock.h"
 
 MetalBlock::MetalBlock(size_t side, b2Body* body):
-    Item(body),
     side(side), body(body) {
 }
 

@@ -3,10 +3,12 @@
 
 #include <cxxtest/TestSuite.h>
 #include "../server/Stage.h"
-#include "../server/Item.h"
-#include "../server/RockBlock.h"
+#include "BrickBlock.h"
+#include "MetalBlock.h"
+#include "DiagonalMetalBlock.h"
 
-  class RockBlockTest : public CxxTest::TestSuite
+
+  class BrickBlockTest : public CxxTest::TestSuite
   {
     size_t width_stage = 500;
     size_t height_stage = 500;
@@ -15,14 +17,15 @@
     size_t side = 2;
 
   public:
-      void testRockBlock( void ) {
-          std::cout << "Testing the rock block dimentions" << std::endl;
+      void testBrickBlock( void ) {
+          std::cout << "Testing the brick block dimentions" << std::endl;
+
           Stage stage(width_stage, height_stage);
-          stage.addRockBlock(side, x_pos, y_pos);
+          stage.addBrickBlock(side, x_pos, y_pos);
 
           Coordinate *coordinates = new Coordinate(x_pos, y_pos);
 
-          Item *block = stage.getItem(coordinates);
+          BrickBlock* block = stage.getBrickBlock(coordinates);
 
           TS_ASSERT_EQUALS(x_pos, block->getHorizontalPosition());
           TS_ASSERT_EQUALS(y_pos, block->getVerticalPosition());
@@ -48,7 +51,7 @@ public:
 
         Coordinate *coordinates = new Coordinate(x_pos, y_pos);
 
-        Item *block = stage.getItem(coordinates);
+        MetalBlock* block = stage.getMetalBlock(coordinates);
 
         TS_ASSERT_EQUALS(x_pos, block->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, block->getVerticalPosition());

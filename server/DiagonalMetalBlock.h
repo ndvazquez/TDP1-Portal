@@ -6,9 +6,8 @@
 #define PORTAL_DIAGONALMETALBLOCK_H
 
 #include <Box2D/Dynamics/b2Body.h>
-#include "Item.h"
 
-class DiagonalMetalBlock: public Item {
+class DiagonalMetalBlock {
 private:
     size_t side;
     b2Body* body;

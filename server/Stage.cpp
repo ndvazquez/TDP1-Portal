@@ -7,7 +7,7 @@
 # define DEGTORAD 0.0174532925199432957f
 
 #include "Stage.h"
-#include "RockBlock.h"
+#include "BrickBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 
@@ -43,7 +43,7 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 }
 
-bool Stage::addRockBlock(size_t side, float x_pos, float y_pos) {
+bool Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         return false;
     } //excepciones o booleano?
@@ -63,8 +63,8 @@ bool Stage::addRockBlock(size_t side, float x_pos, float y_pos) {
     fixture.shape = &shape;
     block_body->CreateFixture(&fixture);
 
-    Item* block = new RockBlock(side, block_body);
-    items.insert({coordinates, block});
+    BrickBlock* block = new BrickBlock(side, block_body);
+    brick_blocks.insert({coordinates, block});
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
@@ -89,8 +89,8 @@ bool Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
     fixture.shape = &shape;
     block_body->CreateFixture(&fixture);
 
-    Item* block = new MetalBlock(side, block_body);
-    items.insert({coordinates, block});
+    MetalBlock* block = new MetalBlock(side, block_body);
+    metal_blocks.insert({coordinates, block});
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
@@ -123,9 +123,9 @@ bool Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float a
 
     //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);
 
-    Item* block = new DiagonalMetalBlock(side, block_body);
+    DiagonalMetalBlock* block = new DiagonalMetalBlock(side, block_body);
 
-    items.insert(std::make_pair(coordinates, block));
+    diagonal_metal_blocks.insert(std::make_pair(coordinates, block));
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
@@ -146,8 +146,22 @@ bool Stage::addEnergyBar(float x_position, float y_position) {
     return true;
 }
 
-Item* Stage::getItem(Coordinate* coordinate) {
-    for (auto item = items.begin(); item != items.end(); item++) {
+BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
+    for (auto item = brick_blocks.begin() ; item != brick_blocks.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+MetalBlock* Stage::getMetalBlock(Coordinate* coordinate) {
+    for (auto item = metal_blocks.begin() ; item != metal_blocks.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
+    for (auto item = diagonal_metal_blocks.begin() ; item != diagonal_metal_blocks.end() ; item++) {
         if (*item->first == *coordinate) return item->second;
     }
     return nullptr;
@@ -156,9 +170,19 @@ Item* Stage::getItem(Coordinate* coordinate) {
 
 Stage::~Stage() {
     delete world;
-    for (auto item = items.begin() ; item != items.end() ; item++) {
+
+    for (auto item = brick_blocks.begin() ; item != brick_blocks.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = metal_blocks.begin() ; item != metal_blocks.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = diagonal_metal_blocks.begin() ; item != diagonal_metal_blocks.end() ; item++) {
         delete item->first;
         delete item->second;
     }
 }
-
