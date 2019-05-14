@@ -17,7 +17,8 @@ set(CLIENT_SOURCE_FILES
         common/Window.cpp
         common/Sprite.cpp
         common/AnimatedSprite.cpp
-        common/SDLSession.cpp)
+        common/SDLSession.cpp
+        common/StageView.cpp)
 
 add_executable(Portal ${CLIENT_SOURCE_FILES})
-target_link_libraries(Portal ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(Portal yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
