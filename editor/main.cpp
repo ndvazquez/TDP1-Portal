@@ -5,8 +5,8 @@
 #include "../common/SDLSession.h"
 #include "../common/Window.h"
 #include "Matrix.h"
-#include "BrickBlock.h"
-#include "BrickBlockContainer.h"
+#include "BrickBlockImage.h"
+#include "BrickBlockImageContainer.h"
 #include "Menu.h"
 #include <SDL.h>
 #include <SDL_image.h>
@@ -45,10 +45,9 @@ int main(int argc, char* argv[]){
     Window window(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 
-    BrickBlockContainer brickBlocks;
+    BrickBlockImageContainer brickBlocks;
     //SDL_Rect *rect = matrix.getRectangle(0,0);
     //brickBlocks.insert(rect);
-
 
     bool quit = false;
     SDL_Event e;

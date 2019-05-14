@@ -5,20 +5,20 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
-#include "BrickBlock.h"
+#include "BrickBlockImage.h"
 #define PATH "resources/block/breakblock.png"
 
 
 
-BrickBlock::BrickBlock(Window& window) : window(window), sprite(PATH, window) {}
+BrickBlockImage::BrickBlockImage(Window& window) : window(window), sprite(PATH, window) {}
 
-BrickBlock::~BrickBlock() {}
+BrickBlockImage::~BrickBlockImage() = default;
 
-void BrickBlock::draw(int x, int y) {
+void BrickBlockImage::draw(int x, int y) {
     this->sprite.draw(this->window, x, y);
 }
 
 
-void BrickBlock::draw(SDL_Rect* rect) {
+void BrickBlockImage::draw(SDL_Rect* rect) {
     this->sprite.draw(this->window, rect);
 }

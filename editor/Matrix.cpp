@@ -37,10 +37,6 @@ void Matrix::insert(int x, int y, int w, int h) {
 }
 
 SDL_Rect *Matrix::getRectangle(int x, int y) {
-    std::cerr << "x: " << x << std::endl;
-    std::cerr << "y: " << y << std::endl;
     struct SDL_Rect* rect = this->rectangles[x][y];
-    std::cerr << "rect->x: " << rect->x << std::endl;
     return rect;
 }
-

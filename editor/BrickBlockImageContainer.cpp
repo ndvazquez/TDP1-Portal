@@ -2,17 +2,17 @@
 // Created by camix on 13/05/19.
 //
 
-#include "BrickBlockContainer.h"
+#include "BrickBlockImageContainer.h"
 
 
-BrickBlockContainer::BrickBlockContainer() {}
-BrickBlockContainer::~BrickBlockContainer() {}
+BrickBlockImageContainer::BrickBlockImageContainer() = default;
+BrickBlockImageContainer::~BrickBlockImageContainer() = default;
 
-void BrickBlockContainer::insert(SDL_Rect* rect) {
+void BrickBlockImageContainer::insert(SDL_Rect* rect) {
     this->BrickBlocks.push_back(rect);
 }
 
-void BrickBlockContainer::draw(Window& window) {
+void BrickBlockImageContainer::draw(Window& window) {
     BrickBlockImage brickBlock(window);
     std::vector<SDL_Rect*>::iterator it = BrickBlocks.begin();
     for (; it != BrickBlocks.end(); it++) {
