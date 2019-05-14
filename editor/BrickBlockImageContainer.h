@@ -6,7 +6,7 @@
 #define PORTAL_BRICKBLOCKCONTAINER_H
 #include <vector>
 #include <map>
-#include "BrickBlock.h"
+#include "BrickBlockImage.h"
 #include <SDL.h>
 #include <SDL_image.h>
 

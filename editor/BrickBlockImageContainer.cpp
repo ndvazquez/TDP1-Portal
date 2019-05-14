@@ -13,7 +13,7 @@ void BrickBlockContainer::insert(SDL_Rect* rect) {
 }
 
 void BrickBlockContainer::draw(Window& window) {
-    BrickBlock brickBlock(window);
+    BrickBlockImage brickBlock(window);
     std::vector<SDL_Rect*>::iterator it = BrickBlocks.begin();
     for (; it != BrickBlocks.end(); it++) {
         brickBlock.draw(*it);

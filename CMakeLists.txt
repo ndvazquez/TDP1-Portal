@@ -21,3 +21,23 @@ set(CLIENT_SOURCE_FILES
 
 add_executable(Portal ${CLIENT_SOURCE_FILES})
 target_link_libraries(Portal ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+
+#EDITOR CONFIG
+
+set(EDITOR_SOURCE_FILES
+        editor/main.cpp
+        common/Window.cpp
+        common/Sprite.cpp
+        common/AnimatedSprite.cpp
+        common/SDLSession.cpp
+        editor/BrickBlockImage.cpp
+        editor/BrickBlockImage.h
+        editor/Matrix.cpp
+        editor/Matrix.h
+        editor/BrickBlockImageContainer.cpp
+        editor/BrickBlockImageContainer.h
+        editor/Menu.cpp
+        editor/Menu.h editor/MetalBlockImage.cpp editor/MetalBlockImage.h)
+
+add_executable(Editor ${EDITOR_SOURCE_FILES})
+target_link_libraries(Editor ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
