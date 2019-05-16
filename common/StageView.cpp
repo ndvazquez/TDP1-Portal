@@ -4,11 +4,13 @@
 
 #include "StageView.h"
 #include "Sprite.h"
-#include <iostream>
+#include <utility>
 #include "yaml-cpp/yaml.h"
+#include <map>
 
-StageView::StageView(Window& window, YAML::Node& texturesInfo) {
-    const YAML::Node& staticObjects = texturesInfo[TEXTURES_KEY];
+StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
+    matrixToPixelFactor(factor) {
+    const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
     for (YAML::const_iterator it = staticObjects.begin();
     it != staticObjects.end(); ++it){
         const YAML::Node& node = *it;
@@ -25,23 +27,32 @@ StageView::~StageView() {
     }
 }
 
-void StageView::draw(Window& window){
-    int windowHeight = window.getWindowHeight();
-    Sprite* sprite = textures["MetalBlock"];
-    int yStartingPos = windowHeight - sprite->getHeight();
+void StageView::draw(Window& window, SDL_Rect* camera) {
+    SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
+    int camPosX = camera->x / matrixToPixelFactor;
+    int camPosY = camera->y / matrixToPixelFactor;
+    // We'll draw NxM tiles on the screen, to cover the camera.
+    int n = camera->w / matrixToPixelFactor + EXTRA_TILES;
+    int m = camera->h / matrixToPixelFactor + EXTRA_TILES;
 
-    SDL_Rect destRect = { 0, yStartingPos, sprite->getWidth(), sprite->getHeight()};
-    sprite->draw(window, &destRect);
-    destRect.x += sprite->getWidth();
-    sprite->draw(window, &destRect);
-    destRect.x += sprite->getWidth();
-    sprite->draw(window, &destRect);
-    destRect.x += sprite->getWidth();
-    sprite->draw(window, &destRect);
-    destRect.x += sprite->getWidth();
-    sprite->draw(window, &destRect);
-    destRect.x += sprite->getWidth();
-    sprite->draw(window, &destRect);
-    destRect.x += sprite->getWidth();
-    sprite->draw(window, &destRect);
+    Sprite* sprite = nullptr;
+    for (int i = camPosX; i < camPosX + n; ++i){
+        for (int j = camPosY; j < camPosY + m; ++j){
+            auto point = tiles.find(std::make_pair(i, j));
+            if (point == tiles.end()){
+                continue;
+            }
+            sprite = textures[point->second];
+            destRect.x = (point->first.first - camPosX) * matrixToPixelFactor;
+            destRect.y = (point->first.second - camPosY) * matrixToPixelFactor;
+            sprite->draw(window, &destRect);
+        }
+    }
+}
+
+void StageView::addTile(int x, int y, std::string& tileName) {
+    if (textures.count(tileName) == 0) {
+        throw StageViewAddTileException();
+    }
+    tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
 }

@@ -10,4 +10,6 @@ Chell:
 
 StaticObjects:
   - name: MetalBlock
-    path: resources/Blocks/MetalBlock.png
+    path: resources/blocks/switchblock.png
+  - name: RockBlock
+    path: resources/blocks/breakblock.png
