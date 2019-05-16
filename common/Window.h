@@ -20,6 +20,8 @@ class WindowInitException: public std::exception {
 
 class Window {
     friend class Sprite;
+    int windowWidth;
+    int windowHeight;
 public:
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -33,6 +35,8 @@ public:
     void draw(SDL_Texture& texture,
             SDL_Rect& sourceRect,
             SDL_Rect& destRect);
+    int getWindowWidth();
+    int getWindowHeight();
 };
 
 #endif //PORTAL_WINDOW_H

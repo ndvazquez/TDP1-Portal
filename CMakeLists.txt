@@ -19,7 +19,8 @@ set(CLIENT_SOURCE_FILES
         common/Window.cpp
         common/Sprite.cpp
         common/AnimatedSprite.cpp
-        common/SDLSession.cpp)
+        common/SDLSession.cpp
+        common/StageView.cpp)
 
 set(SERVER_SOURCE_FILES
         server/main.cpp server/Stage.cpp server/Stage.h server/Coordinates.cpp server/Coordinates.h server/Item.cpp server/Item.h server/RockBlock.cpp server/RockBlock.h server/MetalBlock.cpp server/MetalBlock.h server/DiagonalMetalBlock.cpp server/DiagonalMetalBlock.h)
@@ -31,7 +32,7 @@ add_executable(Client ${CLIENT_SOURCE_FILES})
 add_executable(Server ${SERVER_SOURCE_FILES})
 add_executable(Test ${TEST_SOURCE_FILES})
 
-target_link_libraries(Client ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
 
 add_subdirectory(Box2D)
 target_compile_features(Server PUBLIC cxx_std_17)
