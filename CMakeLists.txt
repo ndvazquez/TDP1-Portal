@@ -23,10 +23,30 @@ set(CLIENT_SOURCE_FILES
         common/StageView.cpp)
 
 set(SERVER_SOURCE_FILES
-        server/main.cpp server/Stage.cpp server/Stage.h server/Coordinates.cpp server/Coordinates.h server/Item.cpp server/Item.h server/RockBlock.cpp server/RockBlock.h server/MetalBlock.cpp server/MetalBlock.h server/DiagonalMetalBlock.cpp server/DiagonalMetalBlock.h)
+        server/main.cpp
+        server/Stage.cpp
+        server/Stage.h
+        server/Coordinate.cpp
+        server/Coordinate.h
+        server/BrickBlock.cpp
+        server/BrickBlock.cpp
+        server/MetalBlock.cpp
+        server/MetalBlock.h
+        server/DiagonalMetalBlock.cpp
+        server/DiagonalMetalBlock.h)
 
 set(TEST_SOURCE_FILES
-        tests/tests.cpp server/Stage.cpp server/Stage.h server/Coordinates.cpp server/Coordinates.h server/Item.cpp server/Item.h server/RockBlock.cpp server/RockBlock.h server/MetalBlock.cpp server/MetalBlock.h server/DiagonalMetalBlock.cpp server/DiagonalMetalBlock.h)
+        tests/tests.cpp
+        server/Stage.cpp
+        server/Stage.h
+        server/Coordinate.cpp
+        server/Coordinate.h
+        server/BrickBlock.cpp
+        server/BrickBlock.cpp
+        server/MetalBlock.cpp
+        server/MetalBlock.h
+        server/DiagonalMetalBlock.cpp
+        server/DiagonalMetalBlock.h)
 
 add_executable(Client ${CLIENT_SOURCE_FILES})
 add_executable(Server ${SERVER_SOURCE_FILES})
