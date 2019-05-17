@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/Client.dir/client/main.cpp.o CMakeFiles/Client.dir/common/Window.cpp.o CMakeFiles/Client.dir/common/Sprite.cpp.o CMakeFiles/Client.dir/common/AnimatedSprite.cpp.o CMakeFiles/Client.dir/common/SDLSession.cpp.o CMakeFiles/Client.dir/common/StageView.cpp.o  -o Client -lyaml-cpp -Wl,-Bstatic -lSDL2main -Wl,-Bdynamic -lSDL2 -lpthread -lSDL2_image 

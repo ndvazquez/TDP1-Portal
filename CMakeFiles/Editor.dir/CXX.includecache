@@ -34,14 +34,6 @@ exception
 string
 -
 
-/home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.cpp
-SDLSession.h
-/home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.h
-SDL.h
--
-SDL_image.h
--
-
 /home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.h
 SDL.h
 -

@@ -1,4 +1,9 @@
 /home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/rebuild_cache.dir
-/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Portal.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Test.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Client.dir
 /home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/edit_cache.dir
 /home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Server.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/Box2D/CMakeFiles/rebuild_cache.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/Box2D/CMakeFiles/Box2D-cmake.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/Box2D/CMakeFiles/edit_cache.dir

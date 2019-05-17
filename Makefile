@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/70/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/snap/clion/70/bin/cmake/linux/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -111,17 +111,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Portal
+# Target rules for targets named Test
 
 # Build rule for target.
-Portal: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Portal
-.PHONY : Portal
+Test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Test
+.PHONY : Test
 
 # fast build rule for target.
-Portal/fast:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/build
-.PHONY : Portal/fast
+Test/fast:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/build
+.PHONY : Test/fast
+
+#=============================================================================
+# Target rules for targets named Client
+
+# Build rule for target.
+Client: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Client
+.PHONY : Client
+
+# fast build rule for target.
+Client/fast:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
+.PHONY : Client/fast
 
 #=============================================================================
 # Target rules for targets named Editor
@@ -136,13 +149,39 @@ Editor/fast:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/build
 .PHONY : Editor/fast
 
+#=============================================================================
+# Target rules for targets named Server
+
+# Build rule for target.
+Server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Server
+.PHONY : Server
+
+# fast build rule for target.
+Server/fast:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
+.PHONY : Server/fast
+
+#=============================================================================
+# Target rules for targets named Box2D-cmake
+
+# Build rule for target.
+Box2D-cmake: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Box2D-cmake
+.PHONY : Box2D-cmake
+
+# fast build rule for target.
+Box2D-cmake/fast:
+	$(MAKE) -f Box2D/CMakeFiles/Box2D-cmake.dir/build.make Box2D/CMakeFiles/Box2D-cmake.dir/build
+.PHONY : Box2D-cmake/fast
+
 client/main.o: client/main.cpp.o
 
 .PHONY : client/main.o
 
 # target to build an object file
 client/main.cpp.o:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/client/main.cpp.o
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/main.cpp.o
 .PHONY : client/main.cpp.o
 
 client/main.i: client/main.cpp.i
@@ -151,7 +190,7 @@ client/main.i: client/main.cpp.i
 
 # target to preprocess a source file
 client/main.cpp.i:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/client/main.cpp.i
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/main.cpp.i
 .PHONY : client/main.cpp.i
 
 client/main.s: client/main.cpp.s
@@ -160,7 +199,7 @@ client/main.s: client/main.cpp.s
 
 # target to generate assembly for a file
 client/main.cpp.s:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/client/main.cpp.s
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/client/main.cpp.s
 .PHONY : client/main.cpp.s
 
 common/AnimatedSprite.o: common/AnimatedSprite.cpp.o
@@ -169,7 +208,7 @@ common/AnimatedSprite.o: common/AnimatedSprite.cpp.o
 
 # target to build an object file
 common/AnimatedSprite.cpp.o:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/AnimatedSprite.cpp.o
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/AnimatedSprite.cpp.o
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/AnimatedSprite.cpp.o
 .PHONY : common/AnimatedSprite.cpp.o
 
@@ -179,7 +218,7 @@ common/AnimatedSprite.i: common/AnimatedSprite.cpp.i
 
 # target to preprocess a source file
 common/AnimatedSprite.cpp.i:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/AnimatedSprite.cpp.i
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/AnimatedSprite.cpp.i
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/AnimatedSprite.cpp.i
 .PHONY : common/AnimatedSprite.cpp.i
 
@@ -189,7 +228,7 @@ common/AnimatedSprite.s: common/AnimatedSprite.cpp.s
 
 # target to generate assembly for a file
 common/AnimatedSprite.cpp.s:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/AnimatedSprite.cpp.s
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/AnimatedSprite.cpp.s
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/AnimatedSprite.cpp.s
 .PHONY : common/AnimatedSprite.cpp.s
 
@@ -199,7 +238,7 @@ common/SDLSession.o: common/SDLSession.cpp.o
 
 # target to build an object file
 common/SDLSession.cpp.o:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/SDLSession.cpp.o
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/SDLSession.cpp.o
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/SDLSession.cpp.o
 .PHONY : common/SDLSession.cpp.o
 
@@ -209,7 +248,7 @@ common/SDLSession.i: common/SDLSession.cpp.i
 
 # target to preprocess a source file
 common/SDLSession.cpp.i:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/SDLSession.cpp.i
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/SDLSession.cpp.i
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/SDLSession.cpp.i
 .PHONY : common/SDLSession.cpp.i
 
@@ -219,7 +258,7 @@ common/SDLSession.s: common/SDLSession.cpp.s
 
 # target to generate assembly for a file
 common/SDLSession.cpp.s:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/SDLSession.cpp.s
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/SDLSession.cpp.s
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/SDLSession.cpp.s
 .PHONY : common/SDLSession.cpp.s
 
@@ -229,7 +268,7 @@ common/Sprite.o: common/Sprite.cpp.o
 
 # target to build an object file
 common/Sprite.cpp.o:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/Sprite.cpp.o
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/Sprite.cpp.o
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Sprite.cpp.o
 .PHONY : common/Sprite.cpp.o
 
@@ -239,7 +278,7 @@ common/Sprite.i: common/Sprite.cpp.i
 
 # target to preprocess a source file
 common/Sprite.cpp.i:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/Sprite.cpp.i
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/Sprite.cpp.i
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Sprite.cpp.i
 .PHONY : common/Sprite.cpp.i
 
@@ -249,9 +288,36 @@ common/Sprite.s: common/Sprite.cpp.s
 
 # target to generate assembly for a file
 common/Sprite.cpp.s:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/Sprite.cpp.s
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/Sprite.cpp.s
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Sprite.cpp.s
 .PHONY : common/Sprite.cpp.s
+
+common/StageView.o: common/StageView.cpp.o
+
+.PHONY : common/StageView.o
+
+# target to build an object file
+common/StageView.cpp.o:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/StageView.cpp.o
+.PHONY : common/StageView.cpp.o
+
+common/StageView.i: common/StageView.cpp.i
+
+.PHONY : common/StageView.i
+
+# target to preprocess a source file
+common/StageView.cpp.i:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/StageView.cpp.i
+.PHONY : common/StageView.cpp.i
+
+common/StageView.s: common/StageView.cpp.s
+
+.PHONY : common/StageView.s
+
+# target to generate assembly for a file
+common/StageView.cpp.s:
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/StageView.cpp.s
+.PHONY : common/StageView.cpp.s
 
 common/Window.o: common/Window.cpp.o
 
@@ -259,7 +325,7 @@ common/Window.o: common/Window.cpp.o
 
 # target to build an object file
 common/Window.cpp.o:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/Window.cpp.o
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/Window.cpp.o
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Window.cpp.o
 .PHONY : common/Window.cpp.o
 
@@ -269,7 +335,7 @@ common/Window.i: common/Window.cpp.i
 
 # target to preprocess a source file
 common/Window.cpp.i:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/Window.cpp.i
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/Window.cpp.i
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Window.cpp.i
 .PHONY : common/Window.cpp.i
 
@@ -279,7 +345,7 @@ common/Window.s: common/Window.cpp.s
 
 # target to generate assembly for a file
 common/Window.cpp.s:
-	$(MAKE) -f CMakeFiles/Portal.dir/build.make CMakeFiles/Portal.dir/common/Window.cpp.s
+	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/Window.cpp.s
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Window.cpp.s
 .PHONY : common/Window.cpp.s
 
@@ -499,6 +565,210 @@ editor/main.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/main.cpp.s
 .PHONY : editor/main.cpp.s
 
+server/BrickBlock.o: server/BrickBlock.cpp.o
+
+.PHONY : server/BrickBlock.o
+
+# target to build an object file
+server/BrickBlock.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/BrickBlock.cpp.o
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/BrickBlock.cpp.o
+.PHONY : server/BrickBlock.cpp.o
+
+server/BrickBlock.i: server/BrickBlock.cpp.i
+
+.PHONY : server/BrickBlock.i
+
+# target to preprocess a source file
+server/BrickBlock.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/BrickBlock.cpp.i
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/BrickBlock.cpp.i
+.PHONY : server/BrickBlock.cpp.i
+
+server/BrickBlock.s: server/BrickBlock.cpp.s
+
+.PHONY : server/BrickBlock.s
+
+# target to generate assembly for a file
+server/BrickBlock.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/BrickBlock.cpp.s
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/BrickBlock.cpp.s
+.PHONY : server/BrickBlock.cpp.s
+
+server/Coordinate.o: server/Coordinate.cpp.o
+
+.PHONY : server/Coordinate.o
+
+# target to build an object file
+server/Coordinate.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/Coordinate.cpp.o
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/Coordinate.cpp.o
+.PHONY : server/Coordinate.cpp.o
+
+server/Coordinate.i: server/Coordinate.cpp.i
+
+.PHONY : server/Coordinate.i
+
+# target to preprocess a source file
+server/Coordinate.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/Coordinate.cpp.i
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/Coordinate.cpp.i
+.PHONY : server/Coordinate.cpp.i
+
+server/Coordinate.s: server/Coordinate.cpp.s
+
+.PHONY : server/Coordinate.s
+
+# target to generate assembly for a file
+server/Coordinate.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/Coordinate.cpp.s
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/Coordinate.cpp.s
+.PHONY : server/Coordinate.cpp.s
+
+server/DiagonalMetalBlock.o: server/DiagonalMetalBlock.cpp.o
+
+.PHONY : server/DiagonalMetalBlock.o
+
+# target to build an object file
+server/DiagonalMetalBlock.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/DiagonalMetalBlock.cpp.o
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/DiagonalMetalBlock.cpp.o
+.PHONY : server/DiagonalMetalBlock.cpp.o
+
+server/DiagonalMetalBlock.i: server/DiagonalMetalBlock.cpp.i
+
+.PHONY : server/DiagonalMetalBlock.i
+
+# target to preprocess a source file
+server/DiagonalMetalBlock.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/DiagonalMetalBlock.cpp.i
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/DiagonalMetalBlock.cpp.i
+.PHONY : server/DiagonalMetalBlock.cpp.i
+
+server/DiagonalMetalBlock.s: server/DiagonalMetalBlock.cpp.s
+
+.PHONY : server/DiagonalMetalBlock.s
+
+# target to generate assembly for a file
+server/DiagonalMetalBlock.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/DiagonalMetalBlock.cpp.s
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/DiagonalMetalBlock.cpp.s
+.PHONY : server/DiagonalMetalBlock.cpp.s
+
+server/MetalBlock.o: server/MetalBlock.cpp.o
+
+.PHONY : server/MetalBlock.o
+
+# target to build an object file
+server/MetalBlock.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/MetalBlock.cpp.o
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/MetalBlock.cpp.o
+.PHONY : server/MetalBlock.cpp.o
+
+server/MetalBlock.i: server/MetalBlock.cpp.i
+
+.PHONY : server/MetalBlock.i
+
+# target to preprocess a source file
+server/MetalBlock.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/MetalBlock.cpp.i
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/MetalBlock.cpp.i
+.PHONY : server/MetalBlock.cpp.i
+
+server/MetalBlock.s: server/MetalBlock.cpp.s
+
+.PHONY : server/MetalBlock.s
+
+# target to generate assembly for a file
+server/MetalBlock.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/MetalBlock.cpp.s
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/MetalBlock.cpp.s
+.PHONY : server/MetalBlock.cpp.s
+
+server/Stage.o: server/Stage.cpp.o
+
+.PHONY : server/Stage.o
+
+# target to build an object file
+server/Stage.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/Stage.cpp.o
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/Stage.cpp.o
+.PHONY : server/Stage.cpp.o
+
+server/Stage.i: server/Stage.cpp.i
+
+.PHONY : server/Stage.i
+
+# target to preprocess a source file
+server/Stage.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/Stage.cpp.i
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/Stage.cpp.i
+.PHONY : server/Stage.cpp.i
+
+server/Stage.s: server/Stage.cpp.s
+
+.PHONY : server/Stage.s
+
+# target to generate assembly for a file
+server/Stage.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/server/Stage.cpp.s
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/Stage.cpp.s
+.PHONY : server/Stage.cpp.s
+
+server/main.o: server/main.cpp.o
+
+.PHONY : server/main.o
+
+# target to build an object file
+server/main.cpp.o:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/main.cpp.o
+.PHONY : server/main.cpp.o
+
+server/main.i: server/main.cpp.i
+
+.PHONY : server/main.i
+
+# target to preprocess a source file
+server/main.cpp.i:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/main.cpp.i
+.PHONY : server/main.cpp.i
+
+server/main.s: server/main.cpp.s
+
+.PHONY : server/main.s
+
+# target to generate assembly for a file
+server/main.cpp.s:
+	$(MAKE) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/server/main.cpp.s
+.PHONY : server/main.cpp.s
+
+tests/tests.o: tests/tests.cpp.o
+
+.PHONY : tests/tests.o
+
+# target to build an object file
+tests/tests.cpp.o:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tests/tests.cpp.o
+.PHONY : tests/tests.cpp.o
+
+tests/tests.i: tests/tests.cpp.i
+
+.PHONY : tests/tests.i
+
+# target to preprocess a source file
+tests/tests.cpp.i:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tests/tests.cpp.i
+.PHONY : tests/tests.cpp.i
+
+tests/tests.s: tests/tests.cpp.s
+
+.PHONY : tests/tests.s
+
+# target to generate assembly for a file
+tests/tests.cpp.s:
+	$(MAKE) -f CMakeFiles/Test.dir/build.make CMakeFiles/Test.dir/tests/tests.cpp.s
+.PHONY : tests/tests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -506,9 +776,12 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... Portal"
+	@echo "... Test"
+	@echo "... Client"
 	@echo "... edit_cache"
 	@echo "... Editor"
+	@echo "... Server"
+	@echo "... Box2D-cmake"
 	@echo "... client/main.o"
 	@echo "... client/main.i"
 	@echo "... client/main.s"
@@ -521,6 +794,9 @@ help:
 	@echo "... common/Sprite.o"
 	@echo "... common/Sprite.i"
 	@echo "... common/Sprite.s"
+	@echo "... common/StageView.o"
+	@echo "... common/StageView.i"
+	@echo "... common/StageView.s"
 	@echo "... common/Window.o"
 	@echo "... common/Window.i"
 	@echo "... common/Window.s"
@@ -548,6 +824,27 @@ help:
 	@echo "... editor/main.o"
 	@echo "... editor/main.i"
 	@echo "... editor/main.s"
+	@echo "... server/BrickBlock.o"
+	@echo "... server/BrickBlock.i"
+	@echo "... server/BrickBlock.s"
+	@echo "... server/Coordinate.o"
+	@echo "... server/Coordinate.i"
+	@echo "... server/Coordinate.s"
+	@echo "... server/DiagonalMetalBlock.o"
+	@echo "... server/DiagonalMetalBlock.i"
+	@echo "... server/DiagonalMetalBlock.s"
+	@echo "... server/MetalBlock.o"
+	@echo "... server/MetalBlock.i"
+	@echo "... server/MetalBlock.s"
+	@echo "... server/Stage.o"
+	@echo "... server/Stage.i"
+	@echo "... server/Stage.s"
+	@echo "... server/main.o"
+	@echo "... server/main.i"
+	@echo "... server/main.s"
+	@echo "... tests/tests.o"
+	@echo "... tests/tests.i"
+	@echo "... tests/tests.s"
 .PHONY : help
 
 

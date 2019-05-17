@@ -1,0 +1,15 @@
+Chell:
+  - name: Enter
+    path: resources/Chell/Enter.png
+  - name: EnterHold
+    path: resources/Chell/EnterHold.png
+  - name: RestingIdle
+    path: resources/Chell/RestingIdle.png
+  - name: Run
+    path: resources/Chell/Run.png
+
+StaticObjects:
+  - name: MetalBlock
+    path: resources/blocks/switchblock.png
+  - name: RockBlock
+    path: resources/blocks/breakblock.png

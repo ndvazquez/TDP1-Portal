@@ -6,7 +6,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-Window::Window(const std::string& title, int width, int height, int flags) {
+Window::Window(const std::string& title, int width, int height, int flags) :
+    windowWidth(width), windowHeight(height){
     if (SDL_CreateWindowAndRenderer(width, height, flags, &this->window, &this->renderer)){
         throw WindowInitException();
     }
@@ -36,4 +37,12 @@ void Window::clear(){
 void Window::draw(SDL_Texture& texture, SDL_Rect& sourceRect,
         SDL_Rect& destRect) {
     SDL_RenderCopy(this->renderer, &texture, &sourceRect, &destRect);
+}
+
+int Window::getWindowWidth() {
+    return windowWidth;
+}
+
+int Window::getWindowHeight() {
+    return windowHeight;
 }

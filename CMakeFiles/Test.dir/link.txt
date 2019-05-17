@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/Test.dir/tests/tests.cpp.o CMakeFiles/Test.dir/server/Stage.cpp.o CMakeFiles/Test.dir/server/Coordinate.cpp.o CMakeFiles/Test.dir/server/BrickBlock.cpp.o CMakeFiles/Test.dir/server/MetalBlock.cpp.o CMakeFiles/Test.dir/server/DiagonalMetalBlock.cpp.o  -o Test Box2D/libBox2D-cmake.a 
