@@ -9,11 +9,10 @@
 
 class DiagonalMetalBlock {
 private:
-    size_t side;
     b2Body* body;
 
 public:
-    DiagonalMetalBlock(size_t side, b2Body* body);
+    DiagonalMetalBlock(b2Body* body);
 };
 
 

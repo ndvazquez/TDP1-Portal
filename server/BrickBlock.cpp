@@ -4,8 +4,8 @@
 
 #include "BrickBlock.h"
 
-BrickBlock::BrickBlock(size_t side, b2Body *body):
-    side(side), body(body) {
+BrickBlock::BrickBlock(b2Body* body):
+    body(body) {
 }
 
 float BrickBlock::getHorizontalPosition() {
@@ -14,9 +14,4 @@ float BrickBlock::getHorizontalPosition() {
 
 float BrickBlock::getVerticalPosition() {
     return this->body->GetPosition().y;
-}
-
-
-size_t BrickBlock::getSide() {
-    return this->side;
 }

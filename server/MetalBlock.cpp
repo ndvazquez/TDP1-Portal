@@ -4,8 +4,8 @@
 
 #include "MetalBlock.h"
 
-MetalBlock::MetalBlock(size_t side, b2Body* body):
-    side(side), body(body) {
+MetalBlock::MetalBlock(b2Body* body):
+    body(body) {
 }
 
 float MetalBlock::getHorizontalPosition() {
@@ -14,8 +14,4 @@ float MetalBlock::getHorizontalPosition() {
 
 float MetalBlock::getVerticalPosition() {
     return this->body->GetPosition().y;
-}
-
-size_t MetalBlock::getSide() {
-    return this->side;
 }

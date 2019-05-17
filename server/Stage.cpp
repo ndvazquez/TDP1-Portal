@@ -10,6 +10,8 @@
 #include "BrickBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
+#include "EnergyBar.h"
+#include "Button.h"
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
@@ -43,6 +45,41 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 }
 
+b2Body* Stage::addStaticSquare(size_t side, float x_pos, float y_pos) {
+    b2BodyDef body;
+    body.type = b2_staticBody;
+    body.position.Set(x_pos, y_pos);
+
+    b2Body* square_body = this->world->CreateBody(&body);
+
+    b2PolygonShape shape;
+    shape.SetAsBox(side/2, side/2);
+
+    b2FixtureDef fixture;
+    fixture.shape = &shape;
+    square_body->CreateFixture(&fixture);
+
+    return square_body;
+}
+
+
+b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+    b2BodyDef body;
+    body.type = b2_staticBody;
+    body.position.Set(x_pos, y_pos);
+
+    b2Body* rectangle_body = this->world->CreateBody(&body);
+
+    b2PolygonShape shape;
+    shape.SetAsBox(h_side/2, v_side/2);
+
+    b2FixtureDef fixture;
+    fixture.shape = &shape;
+    rectangle_body->CreateFixture(&fixture);
+
+    return rectangle_body;
+}
+
 bool Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         return false;
@@ -50,20 +87,9 @@ bool Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2BodyDef body;
-    body.type = b2_staticBody;
-    body.position.Set(x_pos, y_pos);
+    b2Body* block_body = addStaticSquare(side, x_pos, y_pos);
 
-    b2Body* block_body = this->world->CreateBody(&body);
-
-    b2PolygonShape shape;
-    shape.SetAsBox(side/2, side/2);
-
-    b2FixtureDef fixture;
-    fixture.shape = &shape;
-    block_body->CreateFixture(&fixture);
-
-    BrickBlock* block = new BrickBlock(side, block_body);
+    BrickBlock* block = new BrickBlock(block_body);
     brick_blocks.insert({coordinates, block});
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
@@ -76,20 +102,9 @@ bool Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2BodyDef body;
-    body.type = b2_staticBody;
-    body.position.Set(x_pos, y_pos);
+    b2Body* block_body = addStaticSquare(side, x_pos, y_pos);
 
-    b2Body* block_body = this->world->CreateBody(&body);
-
-    b2PolygonShape shape;
-    shape.SetAsBox(side/2, side/2);
-
-    b2FixtureDef fixture;
-    fixture.shape = &shape;
-    block_body->CreateFixture(&fixture);
-
-    MetalBlock* block = new MetalBlock(side, block_body);
+    MetalBlock* block = new MetalBlock(block_body);
     metal_blocks.insert({coordinates, block});
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
@@ -123,27 +138,71 @@ bool Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float a
 
     //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);
 
-    DiagonalMetalBlock* block = new DiagonalMetalBlock(side, block_body);
+    DiagonalMetalBlock* block = new DiagonalMetalBlock(block_body);
 
     diagonal_metal_blocks.insert(std::make_pair(coordinates, block));
 
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addButton(float x_position, float y_position) {
-    return true;
+bool Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        return false;
+    } //excepciones o booleano?
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* energy_transmitter_body = addStaticSquare(side, x_pos, y_pos);
+
+    EnergyTransmitter* energy = new EnergyTransmitter(energy_transmitter_body);
+    energy_transmitters.insert({coordinates, energy});
+
+    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addRock(float x_position, float y_position) {
-    return true;
+bool Stage::addRock(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        return false;
+    } //excepciones o booleano?
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* rock_body = addStaticSquare(side, x_pos, y_pos);
+
+    Rock* rock = new Rock(rock_body);
+    rocks.insert({coordinates, rock});
+
+    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addEnergyTransmitter(float x_position, float y_position) {
-    return true;
+bool Stage::addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        return false;
+    } //excepciones o booleano?
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* energy_bar_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    EnergyBar* energy_bar = new EnergyBar(energy_bar_body);
+    energy_bars.insert({coordinates, energy_bar});
+
+    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addEnergyBar(float x_position, float y_position) {
-    return true;
+bool Stage::addButton(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        return false;
+    } //excepciones o booleano?
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* button_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Button* button = new Button(button_body);
+    buttons.insert({coordinates, button});
+
+    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
@@ -162,6 +221,34 @@ MetalBlock* Stage::getMetalBlock(Coordinate* coordinate) {
 
 DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
     for (auto item = diagonal_metal_blocks.begin() ; item != diagonal_metal_blocks.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+EnergyTransmitter* Stage::getEnergyTransmitter(Coordinate *coordinate) {
+    for (auto item = energy_transmitters.begin() ; item != energy_transmitters.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+Rock* Stage::getRock(Coordinate *coordinate) {
+    for (auto item = rocks.begin() ; item != rocks.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+EnergyBar* Stage::getEnergyBar(Coordinate *coordinate) {
+    for (auto item = energy_bars.begin() ; item != energy_bars.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+Button* Stage::getButton(Coordinate *coordinate) {
+    for (auto item = buttons.begin() ; item != buttons.end() ; item++) {
         if (*item->first == *coordinate) return item->second;
     }
     return nullptr;
