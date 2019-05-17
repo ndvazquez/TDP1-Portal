@@ -10,6 +10,8 @@
 #include "BrickBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
+#include "../editor/Stage.h"
+
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {

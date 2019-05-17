@@ -148,6 +148,56 @@ CMakeFiles/Editor.dir/common/Sprite.cpp.o: /usr/include/SDL2/SDL_video.h
 CMakeFiles/Editor.dir/common/Sprite.cpp.o: /usr/include/SDL2/begin_code.h
 CMakeFiles/Editor.dir/common/Sprite.cpp.o: /usr/include/SDL2/close_code.h
 
+CMakeFiles/Editor.dir/common/StageView.cpp.o: common/Sprite.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: common/StageView.cpp
+CMakeFiles/Editor.dir/common/StageView.cpp.o: common/StageView.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: common/Window.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_assert.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_atomic.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_audio.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_blendmode.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_clipboard.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_config.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_cpuinfo.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_endian.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_error.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_events.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_filesystem.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_gamecontroller.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_gesture.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_haptic.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_hints.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_image.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_joystick.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_keyboard.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_keycode.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_loadso.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_log.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_main.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_messagebox.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_mouse.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_mutex.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_pixels.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_platform.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_power.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_quit.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_rect.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_render.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_rwops.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_scancode.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_shape.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_stdinc.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_surface.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_system.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_thread.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_timer.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_touch.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_version.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/SDL_video.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/begin_code.h
+CMakeFiles/Editor.dir/common/StageView.cpp.o: /usr/include/SDL2/close_code.h
+
 CMakeFiles/Editor.dir/common/Window.cpp.o: common/Window.cpp
 CMakeFiles/Editor.dir/common/Window.cpp.o: common/Window.h
 CMakeFiles/Editor.dir/common/Window.cpp.o: /usr/include/SDL2/SDL.h
@@ -298,6 +348,8 @@ CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o: /usr/include/SDL2/b
 CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o: /usr/include/SDL2/close_code.h
 
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: common/SDLSession.h
+CMakeFiles/Editor.dir/editor/Editor.cpp.o: common/Sprite.h
+CMakeFiles/Editor.dir/editor/Editor.cpp.o: common/StageView.h
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: common/Window.h
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: editor/Editor.cpp
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: editor/Editor.h
@@ -349,6 +401,7 @@ CMakeFiles/Editor.dir/editor/Editor.cpp.o: /usr/include/SDL2/SDL_video.h
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: /usr/include/SDL2/begin_code.h
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: /usr/include/SDL2/close_code.h
 
+CMakeFiles/Editor.dir/editor/Menu.cpp.o: common/Sprite.h
 CMakeFiles/Editor.dir/editor/Menu.cpp.o: common/Window.h
 CMakeFiles/Editor.dir/editor/Menu.cpp.o: editor/Menu.cpp
 CMakeFiles/Editor.dir/editor/Menu.cpp.o: editor/Menu.h
@@ -448,9 +501,9 @@ CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o: /usr/include/SDL2/SDL_video.
 CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o: /usr/include/SDL2/begin_code.h
 CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o: /usr/include/SDL2/close_code.h
 
-CMakeFiles/Editor.dir/editor/Pixel.cpp.o: editor/Pixel.cpp
-CMakeFiles/Editor.dir/editor/Pixel.cpp.o: editor/Pixel.h
-
+CMakeFiles/Editor.dir/editor/Stage.cpp.o: common/Sprite.h
+CMakeFiles/Editor.dir/editor/Stage.cpp.o: common/StageView.h
+CMakeFiles/Editor.dir/editor/Stage.cpp.o: common/Window.h
 CMakeFiles/Editor.dir/editor/Stage.cpp.o: editor/Stage.cpp
 CMakeFiles/Editor.dir/editor/Stage.cpp.o: editor/Stage.h
 CMakeFiles/Editor.dir/editor/Stage.cpp.o: /usr/include/SDL2/SDL.h
@@ -500,6 +553,8 @@ CMakeFiles/Editor.dir/editor/Stage.cpp.o: /usr/include/SDL2/begin_code.h
 CMakeFiles/Editor.dir/editor/Stage.cpp.o: /usr/include/SDL2/close_code.h
 
 CMakeFiles/Editor.dir/editor/main.cpp.o: common/SDLSession.h
+CMakeFiles/Editor.dir/editor/main.cpp.o: common/Sprite.h
+CMakeFiles/Editor.dir/editor/main.cpp.o: common/StageView.h
 CMakeFiles/Editor.dir/editor/main.cpp.o: common/Window.h
 CMakeFiles/Editor.dir/editor/main.cpp.o: editor/Editor.h
 CMakeFiles/Editor.dir/editor/main.cpp.o: editor/Menu.h

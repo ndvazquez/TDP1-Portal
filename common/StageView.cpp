@@ -10,15 +10,13 @@
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
     matrixToPixelFactor(factor) {
-    const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
-    for (YAML::const_iterator it = staticObjects.begin();
-    it != staticObjects.end(); ++it){
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        Sprite* newSprite = new Sprite(path, window);
-        textures[name] = newSprite;
-    }
+    this->set(window, texturesInfo);
+}
+
+StageView::StageView(Window &window, std::string yamlPath, int factor) :
+        matrixToPixelFactor(factor)  {
+    YAML::Node textures = YAML::LoadFile(yamlPath);
+    this->set(window, textures);
 }
 
 StageView::~StageView() {
@@ -27,8 +25,8 @@ StageView::~StageView() {
     }
 }
 
-void StageView::draw(Window& window, SDL_Rect* camera) {
-    SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
+void StageView::draw(Window& window, SDL_Rect* camera, int xStart) {
+    SDL_Rect destRect = {xStart , 0, matrixToPixelFactor, matrixToPixelFactor};
     int camPosX = camera->x / matrixToPixelFactor;
     int camPosY = camera->y / matrixToPixelFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.
@@ -50,9 +48,27 @@ void StageView::draw(Window& window, SDL_Rect* camera) {
     }
 }
 
+void StageView::draw(Window& window, SDL_Rect* camera) {
+    this->draw(window, camera, 0);
+}
+
 void StageView::addTile(int x, int y, std::string& tileName) {
     if (textures.count(tileName) == 0) {
         throw StageViewAddTileException();
     }
     tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
 }
+
+void StageView::set(Window &window, YAML::Node& texturesInfo) {
+    const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
+    for (YAML::const_iterator it = staticObjects.begin();
+         it != staticObjects.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        Sprite* newSprite = new Sprite(path, window);
+        textures[name] = newSprite;
+    }
+}
+
+

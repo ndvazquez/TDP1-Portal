@@ -122,9 +122,22 @@ CMakeFiles/Editor.dir/common/SDLSession.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/common/SDLSession.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.cpp -o CMakeFiles/Editor.dir/common/SDLSession.cpp.s
 
+CMakeFiles/Editor.dir/common/StageView.cpp.o: CMakeFiles/Editor.dir/flags.make
+CMakeFiles/Editor.dir/common/StageView.cpp.o: common/StageView.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Editor.dir/common/StageView.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/common/StageView.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/common/StageView.cpp
+
+CMakeFiles/Editor.dir/common/StageView.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/common/StageView.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/camix/Fiuba/Taller/TDP1-Portal/common/StageView.cpp > CMakeFiles/Editor.dir/common/StageView.cpp.i
+
+CMakeFiles/Editor.dir/common/StageView.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/common/StageView.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/camix/Fiuba/Taller/TDP1-Portal/common/StageView.cpp -o CMakeFiles/Editor.dir/common/StageView.cpp.s
+
 CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o: editor/BrickBlockImage.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImage.cpp
 
 CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.i: cmake_force
@@ -137,7 +150,7 @@ CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.s: cmake_force
 
 CMakeFiles/Editor.dir/editor/Stage.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/editor/Stage.cpp.o: editor/Stage.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Editor.dir/editor/Stage.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Editor.dir/editor/Stage.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/Stage.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.cpp
 
 CMakeFiles/Editor.dir/editor/Stage.cpp.i: cmake_force
@@ -150,7 +163,7 @@ CMakeFiles/Editor.dir/editor/Stage.cpp.s: cmake_force
 
 CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o: editor/BrickBlockImageContainer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImageContainer.cpp
 
 CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.i: cmake_force
@@ -163,7 +176,7 @@ CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.s: cmake_force
 
 CMakeFiles/Editor.dir/editor/Menu.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/editor/Menu.cpp.o: editor/Menu.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/Editor.dir/editor/Menu.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Editor.dir/editor/Menu.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/Menu.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.cpp
 
 CMakeFiles/Editor.dir/editor/Menu.cpp.i: cmake_force
@@ -176,7 +189,7 @@ CMakeFiles/Editor.dir/editor/Menu.cpp.s: cmake_force
 
 CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o: editor/MetalBlockImage.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockImage.cpp
 
 CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.s: cmake_force
 
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: CMakeFiles/Editor.dir/flags.make
 CMakeFiles/Editor.dir/editor/Editor.cpp.o: editor/Editor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/Editor.dir/editor/Editor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Editor.dir/editor/Editor.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/Editor.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.cpp
 
 CMakeFiles/Editor.dir/editor/Editor.cpp.i: cmake_force
@@ -200,19 +213,6 @@ CMakeFiles/Editor.dir/editor/Editor.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/editor/Editor.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.cpp -o CMakeFiles/Editor.dir/editor/Editor.cpp.s
 
-CMakeFiles/Editor.dir/editor/Pixel.cpp.o: CMakeFiles/Editor.dir/flags.make
-CMakeFiles/Editor.dir/editor/Pixel.cpp.o: editor/Pixel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/Editor.dir/editor/Pixel.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Editor.dir/editor/Pixel.cpp.o -c /home/camix/Fiuba/Taller/TDP1-Portal/editor/Pixel.cpp
-
-CMakeFiles/Editor.dir/editor/Pixel.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Editor.dir/editor/Pixel.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/camix/Fiuba/Taller/TDP1-Portal/editor/Pixel.cpp > CMakeFiles/Editor.dir/editor/Pixel.cpp.i
-
-CMakeFiles/Editor.dir/editor/Pixel.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Editor.dir/editor/Pixel.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/camix/Fiuba/Taller/TDP1-Portal/editor/Pixel.cpp -o CMakeFiles/Editor.dir/editor/Pixel.cpp.s
-
 # Object files for target Editor
 Editor_OBJECTS = \
 "CMakeFiles/Editor.dir/editor/main.cpp.o" \
@@ -220,13 +220,13 @@ Editor_OBJECTS = \
 "CMakeFiles/Editor.dir/common/Sprite.cpp.o" \
 "CMakeFiles/Editor.dir/common/AnimatedSprite.cpp.o" \
 "CMakeFiles/Editor.dir/common/SDLSession.cpp.o" \
+"CMakeFiles/Editor.dir/common/StageView.cpp.o" \
 "CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o" \
 "CMakeFiles/Editor.dir/editor/Stage.cpp.o" \
 "CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o" \
 "CMakeFiles/Editor.dir/editor/Menu.cpp.o" \
 "CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o" \
-"CMakeFiles/Editor.dir/editor/Editor.cpp.o" \
-"CMakeFiles/Editor.dir/editor/Pixel.cpp.o"
+"CMakeFiles/Editor.dir/editor/Editor.cpp.o"
 
 # External object files for target Editor
 Editor_EXTERNAL_OBJECTS =
@@ -236,13 +236,13 @@ Editor: CMakeFiles/Editor.dir/common/Window.cpp.o
 Editor: CMakeFiles/Editor.dir/common/Sprite.cpp.o
 Editor: CMakeFiles/Editor.dir/common/AnimatedSprite.cpp.o
 Editor: CMakeFiles/Editor.dir/common/SDLSession.cpp.o
+Editor: CMakeFiles/Editor.dir/common/StageView.cpp.o
 Editor: CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o
 Editor: CMakeFiles/Editor.dir/editor/Stage.cpp.o
 Editor: CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o
 Editor: CMakeFiles/Editor.dir/editor/Menu.cpp.o
 Editor: CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o
 Editor: CMakeFiles/Editor.dir/editor/Editor.cpp.o
-Editor: CMakeFiles/Editor.dir/editor/Pixel.cpp.o
 Editor: CMakeFiles/Editor.dir/build.make
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2main.a
 Editor: /usr/lib/x86_64-linux-gnu/libSDL2.so

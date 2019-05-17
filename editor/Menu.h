@@ -9,21 +9,24 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../common/Window.h"
+#include "../common/Sprite.h"
+
+#define WIDTH_PROPORTION 10
 
 
 class Menu {
 private:
-    uint8_t& current;
-    uint32_t xEnd;
-    uint32_t yEnd;
+    Window& window;
+//uint8_t& current;
     std::vector<struct SDL_Rect*> options;
-    std::vector<Sprite> images;
-    //struct SDL_Rect me;
+    struct SDL_Rect* me;
+    void set();
 
 public:
-    Menu();
+    //Menu()
+    explicit Menu(Window &window);
     ~Menu();
-    void draw(Window& window);
+    void draw();
 };
 
 

@@ -18,19 +18,19 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define INVALID_CURRENT -1
+#define INVALID_CURRENT ""
 
 
 
 class Editor {
 private:
-    int8_t current;
-    Menu menu(current, 800/11, SCREEN_HEIGHT);
-    Stage stage(current, 800 - 800/11);
-    Window window("Editor", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    std::string current;
+    Window& window;
+    Menu menu; //(current, 800/11, SCREEN_HEIGHT);
+    Stage stage; //(current, 800 - 800/11);//("Editor", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 public:
-    Editor();
+    Editor(Window& window);
     ~Editor();
     void draw();
 };

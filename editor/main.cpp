@@ -3,12 +3,14 @@
 //
 
 #include "Editor.h"
-
-
+#define TOTAL_WIDTH  1500
+#define TOTAL_HEIGHT 1000
 
 
 int main(int argc, char* argv[]) {
     SDLSession sdlSession(SDL_INIT_VIDEO);
+    Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
+    Editor editor(window);
 
     bool quit = false;
     SDL_Event e;
@@ -31,11 +33,11 @@ int main(int argc, char* argv[]) {
             if(e.type == SDL_QUIT) {
                 quit = true;
             }
-
-            window.clear();
-            menu.draw(window);
-            brickBlocks.draw(window);
-            window.render();
+            editor.draw();
+            //window.clear();
+            //menu.draw(window);
+            //brickBlocks.draw(window);
+            //window.render();
         }
     }
 

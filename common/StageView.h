@@ -30,10 +30,15 @@ class StageView {
     std::map<std::pair<int, int>, std::string> tiles;
 
 public:
+    StageView(Window& window, std::string yamlPath, int factor);
     StageView(Window& window, YAML::Node& texturesInfo, int factor);
     ~StageView();
     void addTile(int x, int y, std::string& tileName);
     void draw(Window& window, SDL_Rect* camera);
+    void draw(Window &window, SDL_Rect *camera, int xStart);
+
+private:
+    void set(Window& window, YAML::Node& texturesInfo);
 };
 
 

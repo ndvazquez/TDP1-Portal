@@ -69,8 +69,8 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/snap/clion/70/bin/cmake/linux/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/snap/clion/70/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -299,6 +299,7 @@ common/StageView.o: common/StageView.cpp.o
 # target to build an object file
 common/StageView.cpp.o:
 	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/StageView.cpp.o
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/StageView.cpp.o
 .PHONY : common/StageView.cpp.o
 
 common/StageView.i: common/StageView.cpp.i
@@ -308,6 +309,7 @@ common/StageView.i: common/StageView.cpp.i
 # target to preprocess a source file
 common/StageView.cpp.i:
 	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/StageView.cpp.i
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/StageView.cpp.i
 .PHONY : common/StageView.cpp.i
 
 common/StageView.s: common/StageView.cpp.s
@@ -317,6 +319,7 @@ common/StageView.s: common/StageView.cpp.s
 # target to generate assembly for a file
 common/StageView.cpp.s:
 	$(MAKE) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/common/StageView.cpp.s
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/StageView.cpp.s
 .PHONY : common/StageView.cpp.s
 
 common/Window.o: common/Window.cpp.o
@@ -483,33 +486,6 @@ editor/MetalBlockImage.s: editor/MetalBlockImage.cpp.s
 editor/MetalBlockImage.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.s
 .PHONY : editor/MetalBlockImage.cpp.s
-
-editor/Pixel.o: editor/Pixel.cpp.o
-
-.PHONY : editor/Pixel.o
-
-# target to build an object file
-editor/Pixel.cpp.o:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Pixel.cpp.o
-.PHONY : editor/Pixel.cpp.o
-
-editor/Pixel.i: editor/Pixel.cpp.i
-
-.PHONY : editor/Pixel.i
-
-# target to preprocess a source file
-editor/Pixel.cpp.i:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Pixel.cpp.i
-.PHONY : editor/Pixel.cpp.i
-
-editor/Pixel.s: editor/Pixel.cpp.s
-
-.PHONY : editor/Pixel.s
-
-# target to generate assembly for a file
-editor/Pixel.cpp.s:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Pixel.cpp.s
-.PHONY : editor/Pixel.cpp.s
 
 editor/Stage.o: editor/Stage.cpp.o
 
@@ -815,9 +791,6 @@ help:
 	@echo "... editor/MetalBlockImage.o"
 	@echo "... editor/MetalBlockImage.i"
 	@echo "... editor/MetalBlockImage.s"
-	@echo "... editor/Pixel.o"
-	@echo "... editor/Pixel.i"
-	@echo "... editor/Pixel.s"
 	@echo "... editor/Stage.o"
 	@echo "... editor/Stage.i"
 	@echo "... editor/Stage.s"

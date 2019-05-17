@@ -9,19 +9,28 @@
 #include <map>
 #include <SDL.h>
 #include <SDL_image.h>
+#include "../common/Window.h"
+#include "../common/StageView.h"
 
 class Stage {
 private:
-    map<map<char, int>, uint8_t> matrix;
-    uint8_t& current;
+    Window& window;
+    StageView stageView;
+    std::string& current;
+    struct SDL_Rect* me;
+    int xPortion;
+    //map<map<char, int>, uint8_t> matrix;
+    //uint8_t& current;
     //for now is hard
-    uint32_t xStart;
 
 public:
-    Stage(uint8_t& current, uint32_t xStart);
+    explicit Stage(Window& window, std::string& current, int xPortion);
+
+    //Stage(uint8_t& current)//, uint32_t xStart);
     ~Stage();
+    void setSize();
     // (x,y) pixeles.
-    void insert(Pixel position);
+    void insert(uint32_t x, uint32_t y);
     void draw();
 };
 

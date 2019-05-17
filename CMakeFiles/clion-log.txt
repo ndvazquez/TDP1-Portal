@@ -1,9 +1,4 @@
 /snap/clion/70/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/camix/Fiuba/Taller/TDP1-Portal
-CMake Error at CMakeLists.txt:26:
-  Parse error.  Expected a command name, got unquoted argument with text
-  "<<<<<<<".
-
-
--- Configuring incomplete, errors occurred!
-See also "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/CMakeOutput.log".
-See also "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/CMakeError.log".
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/camix/Fiuba/Taller/TDP1-Portal

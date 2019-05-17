@@ -6,16 +6,20 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define INVALID_CURRENT -1
 
 
-Editor::Editor() {
+
+Editor::Editor(Window& window) : window(window), menu(window), stage(window, current, WIDTH_PROPORTION) {
     this->current = INVALID_CURRENT;
 }
 
 Editor::~Editor() {}
 
 void Editor::draw() {
-    menu.draw(window);
-    stage.draw(window);
+    current = std::string("RockBlock");
+    stage.insert(0,0);
+    window.clear();
+    menu.draw();
+    stage.draw();
+    window.render();
 }

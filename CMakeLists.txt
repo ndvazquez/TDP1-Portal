@@ -31,20 +31,13 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
+        common/StageView.cpp
         editor/BrickBlockImage.cpp
-        #editor/BrickBlockImage.h
         editor/Stage.cpp
-        #editor/Stage.h
         editor/BrickBlockImageContainer.cpp
-        #editor/BrickBlockImageContainer.h
         editor/Menu.cpp
-        #editor/Menu.h
         editor/MetalBlockImage.cpp
-        #editor/MetalBlockImage.h
-        #editor/Editor.h
         editor/Editor.cpp
-        editor/Pixel.cpp
-        #editor/Pixel.h)
         )
 
 
@@ -79,7 +72,7 @@ add_executable(Server ${SERVER_SOURCE_FILES})
 add_executable(Test ${TEST_SOURCE_FILES})
 add_executable(Editor ${EDITOR_SOURCE_FILES})
 
-target_link_libraries(Editor ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
 target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
 
 add_subdirectory(Box2D)
