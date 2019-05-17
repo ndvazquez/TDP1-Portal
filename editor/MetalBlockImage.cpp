@@ -3,7 +3,7 @@
 //
 
 #include "MetalBlockImage.h"
-#define PATH "resources/block/switchblock.png"
+#define PATH "resources/blocks/switchblock.png"
 
 MetalBlockImage::MetalBlockImage(Window &window) : window(window), sprite(PATH, window){
 }

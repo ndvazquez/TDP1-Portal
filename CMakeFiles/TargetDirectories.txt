@@ -1,0 +1,4 @@
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/rebuild_cache.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Portal.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/edit_cache.dir
+/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir

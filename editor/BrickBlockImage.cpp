@@ -6,7 +6,7 @@
 #include <string>
 #include <iostream>
 #include "BrickBlockImage.h"
-#define PATH "resources/block/breakblock.png"
+#define PATH "resources/blocks/breakblock.png"
 
 
 

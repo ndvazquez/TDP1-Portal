@@ -1,0 +1,15 @@
+/snap/clion/70/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/camix/Fiuba/Taller/TDP1-Portal
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - not found
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found SDL2: /usr/lib/x86_64-linux-gnu/libSDL2main.a;/usr/lib/x86_64-linux-gnu/libSDL2.so;-lpthread  
+-- Found SDL2_image: /usr/lib/x86_64-linux-gnu/libSDL2_image.so (found version "2.0.3") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/camix/Fiuba/Taller/TDP1-Portal

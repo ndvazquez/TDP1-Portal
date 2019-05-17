@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 2.8)
 project(Portal)
 
-set(CMAKE_CXX_STANDARD 11)
 
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
+
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
@@ -31,13 +32,20 @@ set(EDITOR_SOURCE_FILES
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
         editor/BrickBlockImage.cpp
-        editor/BrickBlockImage.h
-        editor/Matrix.cpp
-        editor/Matrix.h
+        #editor/BrickBlockImage.h
+        editor/Stage.cpp
+        #editor/Stage.h
         editor/BrickBlockImageContainer.cpp
-        editor/BrickBlockImageContainer.h
+        #editor/BrickBlockImageContainer.h
         editor/Menu.cpp
-        editor/Menu.h editor/MetalBlockImage.cpp editor/MetalBlockImage.h)
+        #editor/Menu.h
+        editor/MetalBlockImage.cpp
+        #editor/MetalBlockImage.h
+        #editor/Editor.h
+        editor/Editor.cpp
+        editor/Pixel.cpp
+        #editor/Pixel.h)
+        )
 
 add_executable(Editor ${EDITOR_SOURCE_FILES})
 target_link_libraries(Editor ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})

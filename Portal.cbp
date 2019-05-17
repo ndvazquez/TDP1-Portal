@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Portal"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Portal">
+				<Option output="/home/camix/Fiuba/Taller/TDP1-Portal/Portal" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/camix/Fiuba/Taller/TDP1-Portal/client"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 Portal"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Portal/fast">
+				<Option output="/home/camix/Fiuba/Taller/TDP1-Portal/Portal" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/camix/Fiuba/Taller/TDP1-Portal/client"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 Portal/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Editor">
+				<Option output="/home/camix/Fiuba/Taller/TDP1-Portal/Editor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/camix/Fiuba/Taller/TDP1-Portal/client"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 Editor"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Editor/fast">
+				<Option output="/home/camix/Fiuba/Taller/TDP1-Portal/Editor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/camix/Fiuba/Taller/TDP1-Portal"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/SDL2"/>
+					<Add directory="/home/camix/Fiuba/Taller/TDP1-Portal/client"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 Editor/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/camix/Fiuba/Taller/TDP1-Portal/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/client/main.cpp">
+			<Option target="Portal"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/AnimatedSprite.cpp">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/AnimatedSprite.h">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.cpp">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.h">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.cpp">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.h">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.cpp">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h">
+			<Option target="Portal"/>
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImage.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImage.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImageContainer.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImageContainer.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockImage.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockImage.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Pixel.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Pixel.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/main.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/cmake/FindSDL2.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/cmake/FindSDL2_image.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -13,7 +13,13 @@
 
 class Menu {
 private:
+    uint8_t& current;
+    uint32_t xEnd;
+    uint32_t yEnd;
     std::vector<struct SDL_Rect*> options;
+    std::vector<Sprite> images;
+    //struct SDL_Rect me;
+
 public:
     Menu();
     ~Menu();

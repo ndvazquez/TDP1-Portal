@@ -4,10 +4,12 @@
 
 #ifndef PORTAL_METALBLOCKIMAGE_H
 #define PORTAL_METALBLOCKIMAGE_H
+
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../common/Window.h"
 #include "../common/Sprite.h"
+
 
 class MetalBlockImage {
 private:
