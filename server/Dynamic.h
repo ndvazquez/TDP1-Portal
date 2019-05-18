@@ -2,18 +2,19 @@
 // Created by cecix on 18/05/19.
 //
 
-#ifndef PORTAL_CHELL_H
-#define PORTAL_CHELL_H
+#ifndef PORTAL_DYNAMIC_H
+#define PORTAL_DYNAMIC_H
+
 
 #include <Box2D/Dynamics/b2Body.h>
-#include "Dynamic.h"
 
-class Chell {
+class Dynamic {
 private:
-    Dynamic dynamic;
+    b2Body* body;
 
 public:
-    Chell(b2Body* body);
+    Dynamic(b2Body* body);
+    ~Dynamic();
     float getHorizontalPosition();
     float getVerticalPosition();
     void moveRight();
@@ -23,4 +24,4 @@ public:
     float getVerticalVelocity();
 };
 
-#endif //PORTAL_CHELL_H
+#endif //PORTAL_DYNAMIC_H

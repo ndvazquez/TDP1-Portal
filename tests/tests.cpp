@@ -111,5 +111,16 @@ public:
  void runTest() { suite_OutOfRangeTest.testOutOfRange(); }
 } testDescription_suite_OutOfRangeTest_testOutOfRange;
 
+static ChellTest suite_ChellTest;
+
+static CxxTest::List Tests_ChellTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_ChellTest( "MyTestSuite.h", 228, "ChellTest", suite_ChellTest, Tests_ChellTest );
+
+static class TestDescription_suite_ChellTest_testChellInit : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ChellTest_testChellInit() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 237, "testChellInit" ) {}
+ void runTest() { suite_ChellTest.testChellInit(); }
+} testDescription_suite_ChellTest_testChellInit;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

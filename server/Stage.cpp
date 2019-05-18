@@ -46,24 +46,6 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 }
 
-b2Body* Stage::addStaticSquare(size_t side, float x_pos, float y_pos) {
-    b2BodyDef body;
-    body.type = b2_staticBody;
-    body.position.Set(x_pos, y_pos);
-
-    b2Body* square_body = this->world->CreateBody(&body);
-
-    b2PolygonShape shape;
-    shape.SetAsBox(side/2, side/2);
-
-    b2FixtureDef fixture;
-    fixture.shape = &shape;
-    square_body->CreateFixture(&fixture);
-
-    return square_body;
-}
-
-
 b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     b2BodyDef body;
     body.type = b2_staticBody;
@@ -81,6 +63,25 @@ b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side, float x_pos, flo
     return rectangle_body;
 }
 
+b2Body* Stage::addDynamicRectangle(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+    b2BodyDef body;
+    body.type = b2_dynamicBody;
+    body.position.Set(x_pos, y_pos);
+
+    b2Body* rectangle_body = this->world->CreateBody(&body);
+
+    b2PolygonShape shape;
+    shape.SetAsBox(h_side/2, v_side/2);
+
+    b2FixtureDef fixture;
+    fixture.shape = &shape;
+    fixture.density = 1;
+    fixture.friction = 0.6;
+    rectangle_body->CreateFixture(&fixture);
+
+    return rectangle_body;
+}
+
 void Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -88,7 +89,7 @@ void Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* block_body = addStaticSquare(side, x_pos, y_pos);
+    b2Body* block_body = addStaticRectangle(side, side, x_pos, y_pos);
 
     BrickBlock* block = new BrickBlock(block_body);
     brick_blocks.insert({coordinates, block});
@@ -101,7 +102,7 @@ void Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* block_body = addStaticSquare(side, x_pos, y_pos);
+    b2Body* block_body = addStaticRectangle(side, side, x_pos, y_pos);
 
     MetalBlock* block = new MetalBlock(block_body);
     metal_blocks.insert({coordinates, block});
@@ -147,7 +148,7 @@ void Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* energy_transmitter_body = addStaticSquare(side, x_pos, y_pos);
+    b2Body* energy_transmitter_body = addStaticRectangle(side, side, x_pos, y_pos);
 
     EnergyTransmitter* energy = new EnergyTransmitter(energy_transmitter_body);
     energy_transmitters.insert({coordinates, energy});
@@ -160,7 +161,7 @@ void Stage::addRock(size_t side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* rock_body = addStaticSquare(side, x_pos, y_pos);
+    b2Body* rock_body = addDynamicRectangle(side, side, x_pos, y_pos);
 
     Rock* rock = new Rock(rock_body);
     rocks.insert({coordinates, rock});
@@ -199,10 +200,23 @@ void Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* button_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+    b2Body* acid_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
-    Acid* button = new Acid(button_body);
+    Acid* button = new Acid(acid_body);
     acids.insert({coordinates, button});
+}
+
+void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* chell_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+
+    Chell* chell = new Chell(chell_body);
+    chells.insert({coordinates, chell});
 }
 
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
@@ -256,6 +270,13 @@ Button* Stage::getButton(Coordinate *coordinate) {
 
 Acid* Stage::getAcid(Coordinate *coordinate) {
     for (auto item = acids.begin() ; item != acids.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
+
+Chell* Stage::getChell(Coordinate* coordinate) {
+    for (auto item = chells.begin() ; item != chells.end() ; item++) {
         if (*item->first == *coordinate) return item->second;
     }
     return nullptr;

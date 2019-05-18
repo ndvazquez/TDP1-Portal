@@ -17,6 +17,7 @@
 #include "EnergyBar.h"
 #include "Button.h"
 #include "Acid.h"
+#include "Chell.h"
 
 class StageOutOfRangeException : public std::exception{
     virtual const char* what() const throw () {
@@ -38,12 +39,13 @@ private:
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
     std::unordered_map<Coordinate*, Button*> buttons;
     std::unordered_map<Coordinate*, Acid*> acids;
+    std::unordered_map<Coordinate*, Chell*> chells;
 
 public:
     Stage(size_t width, size_t height);
     ~Stage();
-    b2Body* addStaticSquare(size_t side, float x_pos, float y_pos);
     b2Body* addStaticRectangle(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    b2Body* addDynamicRectangle(size_t v_side, size_t h_side, float x_pos, float y_pos);
 
     void addBrickBlock(size_t side, float x_pos, float y_pos);
     void addMetalBlock(size_t side, float x_pos, float y_pos);
@@ -54,7 +56,8 @@ public:
     void addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
 
-    //bool addEnergyBall(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    //void addEnergyBall(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    void addChell(size_t v_side, size_t h_side, float x_pos, float y_pos);
 
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
@@ -64,6 +67,7 @@ public:
     EnergyBar* getEnergyBar(Coordinate* coordinate);
     Button* getButton(Coordinate* coordinate);
     Acid* getAcid(Coordinate* coordinate);
+    Chell* getChell(Coordinate* coordinate);
 };
 
 #endif //PORTAL_STAGE_H

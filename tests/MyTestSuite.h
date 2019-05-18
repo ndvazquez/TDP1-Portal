@@ -224,4 +224,28 @@ public:
         TS_ASSERT_EQUALS(1, 0);
     }
 };
+
+class ChellTest : public CxxTest::TestSuite {
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t initial_position_x = 500;
+    size_t initial_position_y = 10;
+    size_t v_side = 50;
+    size_t h_side = 40;
+
+public:
+    void testChellInit(void) {
+        std::cout << "Testing the creation of Chell" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addChell(v_side, h_side, initial_position_x, initial_position_y);
+        Coordinate *coordinates = new Coordinate(initial_position_x, initial_position_y);
+        Chell *chell = stage.getChell(coordinates);
+
+        TS_ASSERT_EQUALS(initial_position_x, chell->getHorizontalPosition());
+        TS_ASSERT_EQUALS(initial_position_y, chell->getVerticalPosition());
+        TS_ASSERT_EQUALS(0, chell->getHorizontalVelocity());
+        TS_ASSERT_EQUALS(0, chell->getVerticalVelocity());
+    }
+};
+
 #endif
