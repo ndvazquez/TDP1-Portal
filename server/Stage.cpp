@@ -344,5 +344,10 @@ Stage::~Stage() {
         delete i->second;
     }
 
+    for (auto i = chells.begin() ; i != chells.end() ; i++) {
+        delete i->first;
+        delete i->second;
+    }
+    
     delete world;
 }
