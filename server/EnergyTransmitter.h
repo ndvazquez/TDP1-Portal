@@ -10,7 +10,7 @@ private:
     b2Body* body;
 
 public:
-    EnergyTransmitter(b2Body* body);
+    explicit EnergyTransmitter(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

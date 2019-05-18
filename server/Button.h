@@ -12,7 +12,7 @@ private:
     b2Body* body;
 
 public:
-    Button(b2Body* body);
+    explicit Button(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

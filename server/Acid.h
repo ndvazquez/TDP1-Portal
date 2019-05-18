@@ -12,7 +12,7 @@ private:
     b2Body* body;
 
 public:
-    Acid(b2Body* body);
+    explicit Acid(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

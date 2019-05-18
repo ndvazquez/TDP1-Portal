@@ -9,8 +9,6 @@
 #include "Dynamic.h"
 
 class MoveRight: public Dynamic {
-private:
-
 public:
     explicit MoveRight(b2Body* body);
     virtual void move() override;

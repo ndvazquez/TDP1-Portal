@@ -12,7 +12,7 @@ class EnergyBar {
     b2Body* body;
 
 public:
-    EnergyBar(b2Body* body);
+    explicit EnergyBar(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

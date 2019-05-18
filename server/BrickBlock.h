@@ -12,7 +12,7 @@ private:
     b2Body* body;
 
 public:
-    BrickBlock(b2Body* body);
+    explicit BrickBlock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

@@ -12,7 +12,7 @@ private:
     b2Body* body;
 
 public:
-    DiagonalMetalBlock(b2Body* body);
+    explicit DiagonalMetalBlock(b2Body* body);
 };
 
 

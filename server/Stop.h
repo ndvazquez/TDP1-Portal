@@ -9,10 +9,8 @@
 #include "Dynamic.h"
 
 class Stop: public Dynamic {
-private:
-
 public:
-    Stop(b2Body* body);
+    explicit Stop(b2Body* body);
     virtual void move() override;
     virtual ~Stop();
 };

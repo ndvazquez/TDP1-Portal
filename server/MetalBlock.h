@@ -12,7 +12,7 @@ private:
     b2Body* body;
 
 public:
-    MetalBlock(b2Body* body);
+    explicit MetalBlock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

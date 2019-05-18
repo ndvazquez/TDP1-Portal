@@ -13,7 +13,7 @@ private:
     b2Body* body;
 
 public:
-    Dynamic(b2Body* body);
+    explicit Dynamic(b2Body* body);
     virtual ~Dynamic();
     float getHorizontalPosition();
     float getVerticalPosition();

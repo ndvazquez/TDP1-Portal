@@ -12,7 +12,7 @@ private:
     b2Body* body;
 
 public:
-    Rock(b2Body* body);
+    explicit Rock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
 };

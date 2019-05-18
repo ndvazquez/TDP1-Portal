@@ -15,7 +15,7 @@ private:
     Dynamic* actual_movement;
 
 public:
-    Chell(b2Body* body);
+    explicit Chell(b2Body* body);
     ~Chell();
     float getHorizontalPosition();
     float getVerticalPosition();
