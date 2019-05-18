@@ -18,7 +18,7 @@
 #define LEVEL_WIDTH 1500
 #define LEVEL_HEIGHT 1500
 #define MATRIX_TO_PIXEL_FACTOR 100
-#define REFRESH_STEP 16
+#define REFRESH_STEP 16 // 16ms
 #define CHELL_VELOCITY 12
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
@@ -82,13 +82,13 @@ void drawStageAndChell(){
         stageView.addTile(14, i, rockBlock);
     }
 
-    int x = 0;
-    int y = 0;
+    int chellInitPosX = 0;
+    int chellInitPosY = 0;
     int chellVelocityX = 0;
     int chellVelocityY = 0;
 
-    ChellView chell(newWindow, x, y, textures);
-
+    ChellView chell(newWindow, chellInitPosX, chellInitPosY, textures);
+    // This will be our camera, for now it's just a SDL_Rect
     SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
     bool quit = false;
@@ -104,7 +104,7 @@ void drawStageAndChell(){
             fakeChellSimulation(e, chellVelocityX, chellVelocityY);
         }
         SDL_Delay(REFRESH_STEP);
-
+        //TODO: Here we'll use the position on the world given by the server.
         chell.move(chell.getPosX() + chellVelocityX, chell.getPosY() + chellVelocityY,
                 LEVEL_WIDTH, LEVEL_HEIGHT);
 

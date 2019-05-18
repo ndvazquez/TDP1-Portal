@@ -29,11 +29,12 @@ ChellView::ChellView(Window &window, int xPos, int yPos, YAML::Node texturesData
         AnimatedSprite* newSprite = new AnimatedSprite(path, window, frames);
         int spriteWidth = newSprite->getWidth();
         int spriteHeight = newSprite->getHeight();
+        // This is wrong, we should use a set Width and Height.
         if (spriteWidth > chellWidth) chellWidth = spriteWidth;
         if (spriteHeight > chellHeight) chellHeight = spriteHeight;
         animations[name] = newSprite;
     }
-    currentAnimation = DEFAULT_ANIMATION;
+    currentAnimation = CHELL_RESTING_IDLE;
 }
 
 ChellView::~ChellView() {
@@ -47,7 +48,7 @@ void ChellView::playAnimation(SDL_Rect& camera) {
     animation->draw(gameWindow, xPos - camera.x, yPos - camera.y, flip);
     animation->updateFrameStep();
 }
-
+//TODO: Gotta fix a bug where you can moonwalk while running.
 void ChellView::handleEvent(SDL_Event& e){
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
         switch (e.key.keysym.sym){
@@ -108,7 +109,7 @@ void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) 
         camera.y = levelHeight - camera.h;
     }
 }
-
+//This will be gone when we merge server and client.
 int ChellView::getPosX() {
     return xPos;
 }

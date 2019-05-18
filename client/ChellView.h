@@ -12,7 +12,6 @@
 #include <yaml-cpp/yaml.h>
 
 #define TEXTURES_INFO_KEY "Chell"
-#define DEFAULT_ANIMATION "RestingIdle"
 #define CHELL_RUN "Run"
 #define CHELL_RESTING_IDLE "RestingIdle"
 
