@@ -11,7 +11,8 @@
 class Chell {
 private:
     Dynamic dynamic;
-    size_t actual_movement; //0 stopped, 1 right, 2 left
+    b2Body* body;
+    Dynamic* actual_movement;
 
 public:
     Chell(b2Body* body);

@@ -290,8 +290,6 @@ Chell* Stage::getChell(Coordinate* coordinate) {
 }
 
 Stage::~Stage() {
-    delete world;
-
     for (auto item = brick_blocks.begin() ; item != brick_blocks.end() ; item++) {
         delete item->first;
         delete item->second;
@@ -331,4 +329,6 @@ Stage::~Stage() {
         delete item->first;
         delete item->second;
     }
+
+    delete world;
 }

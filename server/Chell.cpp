@@ -3,10 +3,14 @@
 //
 
 #include "Chell.h"
+#include "MoveRight.h"
+#include "Stop.h"
+#include "MoveLeft.h"
 
 Chell::Chell(b2Body* body):
         dynamic(body) {
-    this->actual_movement = 0;
+    this->body = body;
+    this->actual_movement = new Stop(body);
 }
 
 float Chell::getHorizontalPosition() {
@@ -18,15 +22,15 @@ float Chell::getVerticalPosition() {
 }
 
 void Chell::moveRight() {
-    this->actual_movement = 1;
+    this->actual_movement = new MoveRight(body);
 }
 
 void Chell::moveLeft() {
-    this->actual_movement = 2;
+    this->actual_movement = new MoveLeft(body);
 }
 
 void Chell::stop() {
-    this->actual_movement = 0;
+    this->actual_movement = new Stop(body);
 }
 
 
@@ -39,7 +43,5 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
-    if (this->actual_movement == 1) this->dynamic.moveRight();
-    if (this->actual_movement == 2) this->dynamic.moveLeft();
-    else this->dynamic.stop();
+    this->actual_movement->move();
 };

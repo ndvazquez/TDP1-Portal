@@ -9,6 +9,9 @@ Dynamic::Dynamic(b2Body* body):
     body(body) {
 }
 
+void Dynamic::move() {
+}
+
 float Dynamic::getHorizontalPosition() {
     return body->GetPosition().x;
 }
@@ -38,4 +41,7 @@ float Dynamic::getHorizontalVelocity() {
 
 float Dynamic::getVerticalVelocity() {
     return body->GetLinearVelocity().y;
+}
+
+Dynamic::~Dynamic() {
 }

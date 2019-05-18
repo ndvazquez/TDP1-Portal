@@ -14,9 +14,10 @@ private:
 
 public:
     Dynamic(b2Body* body);
-    ~Dynamic();
+    virtual ~Dynamic();
     float getHorizontalPosition();
     float getVerticalPosition();
+    virtual void move();
     void moveRight();
     void moveLeft();
     void stop();
