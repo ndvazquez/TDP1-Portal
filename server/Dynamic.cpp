@@ -2,6 +2,7 @@
 // Created by cecix on 18/05/19.
 //
 
+#include <iostream>
 #include "Dynamic.h"
 
 Dynamic::Dynamic(b2Body* body):
@@ -17,12 +18,12 @@ float Dynamic::getVerticalPosition() {
 }
 
 void Dynamic::moveRight() {
-    float force = 500; //TODO: change this harcoded variable
+    float force = 1000; //TODO: change this harcoded variable
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
 void Dynamic::moveLeft() {
-    float force = -500; //TODO: change this harcoded variable
+    float force = -1000; //TODO: change this harcoded variable
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 

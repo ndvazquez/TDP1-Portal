@@ -2,8 +2,6 @@
 // Created by cecix on 12/05/19.
 //
 
-//Preguntar hasta que punto las cosas son representables en BOX2D
-
 # define DEGTORAD 0.0174532925199432957f
 
 #include "Stage.h"
@@ -218,6 +216,15 @@ void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     Chell* chell = new Chell(chell_body);
     chells.insert({coordinates, chell});
 }
+
+void Stage::step(Chell* chell) {
+    chell->update();
+    float timeStep = 1.0f / 60.0f;
+    int velocityIterations = 8;
+    int positionIterations = 2;
+    world->Step(timeStep, velocityIterations, positionIterations);
+}
+
 
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto item = brick_blocks.begin() ; item != brick_blocks.end() ; item++) {

@@ -226,25 +226,94 @@ public:
 };
 
 class ChellTest : public CxxTest::TestSuite {
-    size_t width_stage = 500;
-    size_t height_stage = 500;
+
+    size_t width_stage = 1000;
+    size_t height_stage = 1000;
     size_t initial_position_x = 500;
-    size_t initial_position_y = 10;
-    size_t v_side = 50;
-    size_t h_side = 40;
+    size_t initial_position_y = 100;
+    size_t v_side = 10;
+    size_t h_side = 10;
+    size_t mass = v_side * h_side;
 
 public:
-    void testChellInit(void) {
+    void testChellInit( void ) {
         std::cout << "Testing the creation of Chell" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addChell(v_side, h_side, initial_position_x, initial_position_y);
-        Coordinate *coordinates = new Coordinate(initial_position_x, initial_position_y);
-        Chell *chell = stage.getChell(coordinates);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(coordinates);
 
         TS_ASSERT_EQUALS(initial_position_x, chell->getHorizontalPosition());
         TS_ASSERT_EQUALS(initial_position_y, chell->getVerticalPosition());
         TS_ASSERT_EQUALS(0, chell->getHorizontalVelocity());
         TS_ASSERT_EQUALS(0, chell->getVerticalVelocity());
+    }
+
+    void testChellFalls ( void ) {
+        std::cout << "Testing chell falling" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(coordinate);
+
+        float dt = 1.0f/60.0f;
+        float gravity = -10.0f;
+        float velocity_y = 0;
+        float position = initial_position_y;
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step(chell);
+            velocity_y += gravity * dt;
+            position += velocity_y * dt;
+            TS_ASSERT_DELTA(position, chell->getVerticalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_y, chell->getVerticalVelocity(), 0.1f);
+        }
+    }
+
+    void testChellMovesRight ( void ) {
+        std::cout << "Testing chell moving right" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(coordinate);
+        chell->moveRight();
+
+        float dt = 1.0f/60.0f;
+        float velocity_x = 0;
+        float position = initial_position_x;
+        float force = 1000;
+        float acceleration = force / mass;
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step(chell);
+            velocity_x += acceleration * dt;
+            position += velocity_x * dt;
+            TS_ASSERT_DELTA(position, chell->getHorizontalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_x, chell->getHorizontalVelocity(), 0.1f);
+        }
+    }
+
+    void testChellMovesLeft ( void ) {
+        std::cout << "Testing chell moving left" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(coordinate);
+        chell->moveLeft();
+
+        float dt = 1.0f/60.0f;
+        float velocity_x = 0;
+        float position = initial_position_x;
+        float force = -1000;
+        float acceleration = force / mass;
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step(chell);
+            velocity_x += acceleration * dt;
+            position += velocity_x * dt;
+            TS_ASSERT_DELTA(position, chell->getHorizontalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_x, chell->getHorizontalVelocity(), 0.1f);
+        }
     }
 };
 

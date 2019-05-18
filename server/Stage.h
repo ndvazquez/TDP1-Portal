@@ -58,6 +58,7 @@ public:
 
     //void addEnergyBall(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addChell(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    void step(Chell* chell);
 
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);

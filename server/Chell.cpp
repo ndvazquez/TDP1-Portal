@@ -6,6 +6,7 @@
 
 Chell::Chell(b2Body* body):
         dynamic(body) {
+    this->actual_movement = 0;
 }
 
 float Chell::getHorizontalPosition() {
@@ -17,15 +18,15 @@ float Chell::getVerticalPosition() {
 }
 
 void Chell::moveRight() {
-    this->dynamic.moveRight();
+    this->actual_movement = 1;
 }
 
 void Chell::moveLeft() {
-    this->dynamic.moveLeft();
+    this->actual_movement = 2;
 }
 
 void Chell::stop() {
-    this->dynamic.stop();
+    this->actual_movement = 0;
 }
 
 
@@ -36,3 +37,9 @@ float Chell::getHorizontalVelocity() {
 float Chell::getVerticalVelocity() {
     return this->dynamic.getVerticalVelocity();
 }
+
+void Chell::update() {
+    if (this->actual_movement == 1) this->dynamic.moveRight();
+    if (this->actual_movement == 2) this->dynamic.moveLeft();
+    else this->dynamic.stop();
+};

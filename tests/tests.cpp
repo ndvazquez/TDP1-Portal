@@ -118,9 +118,27 @@ CxxTest::StaticSuiteDescription suiteDescription_ChellTest( "MyTestSuite.h", 228
 
 static class TestDescription_suite_ChellTest_testChellInit : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellInit() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 237, "testChellInit" ) {}
+ TestDescription_suite_ChellTest_testChellInit() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 239, "testChellInit" ) {}
  void runTest() { suite_ChellTest.testChellInit(); }
 } testDescription_suite_ChellTest_testChellInit;
+
+static class TestDescription_suite_ChellTest_testChellFalls : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ChellTest_testChellFalls() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 252, "testChellFalls" ) {}
+ void runTest() { suite_ChellTest.testChellFalls(); }
+} testDescription_suite_ChellTest_testChellFalls;
+
+static class TestDescription_suite_ChellTest_testChellMovesRight : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ChellTest_testChellMovesRight() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 273, "testChellMovesRight" ) {}
+ void runTest() { suite_ChellTest.testChellMovesRight(); }
+} testDescription_suite_ChellTest_testChellMovesRight;
+
+static class TestDescription_suite_ChellTest_testChellMovesLeft : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ChellTest_testChellMovesLeft() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 295, "testChellMovesLeft" ) {}
+ void runTest() { suite_ChellTest.testChellMovesLeft(); }
+} testDescription_suite_ChellTest_testChellMovesLeft;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
