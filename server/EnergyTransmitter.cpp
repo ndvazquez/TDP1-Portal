@@ -16,4 +16,3 @@ float EnergyTransmitter::getHorizontalPosition() {
 float EnergyTransmitter::getVerticalPosition() {
     return this->body->GetPosition().y;
 }
-

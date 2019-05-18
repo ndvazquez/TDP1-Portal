@@ -13,6 +13,21 @@ Chell::Chell(b2Body* body):
     this->actual_movement = new Stop(body);
 }
 
+void Chell::moveRight() {
+    destroyActualMovement();
+    this->actual_movement = new MoveRight(body);
+}
+
+void Chell::moveLeft() {
+    destroyActualMovement();
+    this->actual_movement = new MoveLeft(body);
+}
+
+void Chell::stop() {
+    destroyActualMovement();
+    this->actual_movement = new Stop(body);
+}
+
 float Chell::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();
 }
@@ -21,18 +36,9 @@ float Chell::getVerticalPosition() {
     return this->dynamic.getVerticalPosition();
 }
 
-void Chell::moveRight() {
-    this->actual_movement = new MoveRight(body);
-}
-
-void Chell::moveLeft() {
-    this->actual_movement = new MoveLeft(body);
-}
-
-void Chell::stop() {
-    this->actual_movement = new Stop(body);
-}
-
+void Chell::destroyActualMovement() {
+    delete this->actual_movement;
+};
 
 float Chell::getHorizontalVelocity() {
     return this->dynamic.getHorizontalVelocity();
@@ -44,4 +50,8 @@ float Chell::getVerticalVelocity() {
 
 void Chell::update() {
     this->actual_movement->move();
+}
+
+Chell::~Chell() {
+    destroyActualMovement();
 };

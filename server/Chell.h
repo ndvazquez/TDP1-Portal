@@ -16,11 +16,13 @@ private:
 
 public:
     Chell(b2Body* body);
+    ~Chell();
     float getHorizontalPosition();
     float getVerticalPosition();
     void moveRight();
     void moveLeft();
     void stop();
+    void destroyActualMovement();
     void update();
     float getHorizontalVelocity();
     float getVerticalVelocity();

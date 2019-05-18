@@ -290,6 +290,14 @@ Chell* Stage::getChell(Coordinate* coordinate) {
 }
 
 Stage::~Stage() {
+
+    b2Body* body = world->GetBodyList();
+    while (body != nullptr) {
+        b2Body* act = body;
+        body = body->GetNext();
+        world->DestroyBody(act);
+    }
+
     for (auto item = brick_blocks.begin() ; item != brick_blocks.end() ; item++) {
         delete item->first;
         delete item->second;

@@ -15,4 +15,3 @@ float Acid::getHorizontalPosition() {
 float Acid::getVerticalPosition() {
     return this->body->GetPosition().y;
 }
-
