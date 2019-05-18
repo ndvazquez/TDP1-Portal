@@ -35,6 +35,10 @@ public:
     void draw(SDL_Texture& texture,
             SDL_Rect& sourceRect,
             SDL_Rect& destRect);
+    void draw(SDL_Texture& texture,
+              SDL_Rect& sourceRect,
+              SDL_Rect& destRect,
+              SDL_RendererFlip& flip);
     int getWindowWidth();
     int getWindowHeight();
 };
