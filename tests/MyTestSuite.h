@@ -2,6 +2,7 @@
 #define __MYTESTSUITE_H
 
 #include <cxxtest/TestSuite.h>
+#include <Acid.h>
 #include "../server/Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -162,5 +163,33 @@ public:
         delete coordinates;
     }
 };
+
+class AcidTest : public CxxTest::TestSuite
+{
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t x_pos = 10;
+    size_t y_pos = 10;
+    size_t v_side = 2;
+    size_t h_side = 4;
+
+public:
+    void testButton( void ) {
+        std::cout << "Testing the acid dimentions" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addAcid(v_side, h_side, x_pos, y_pos);
+
+        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+        Acid* button = stage.getAcid(coordinates);
+
+        TS_ASSERT_EQUALS(x_pos, button->getHorizontalPosition());
+        TS_ASSERT_EQUALS(y_pos, button->getVerticalPosition());
+
+        delete coordinates;
+    }
+};
+
+
 
 #endif

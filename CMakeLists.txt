@@ -33,7 +33,7 @@ set(SERVER_SOURCE_FILES
         server/MetalBlock.cpp
         server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
-        server/DiagonalMetalBlock.h server/EnergyTransmitter.cpp server/EnergyTransmitter.h server/Rock.cpp server/Rock.h server/EnergyBar.cpp server/EnergyBar.h server/Button.cpp server/Button.h)
+        server/DiagonalMetalBlock.h server/EnergyTransmitter.cpp server/EnergyTransmitter.h server/Rock.cpp server/Rock.h server/EnergyBar.cpp server/EnergyBar.h server/Button.cpp server/Button.h server/Acid.cpp server/Acid.h)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp
@@ -46,7 +46,7 @@ set(TEST_SOURCE_FILES
         server/MetalBlock.cpp
         server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
-        server/DiagonalMetalBlock.h server/EnergyTransmitter.cpp server/EnergyTransmitter.h server/Rock.cpp server/Rock.h server/EnergyBar.cpp server/EnergyBar.h server/Button.cpp server/Button.h)
+        server/DiagonalMetalBlock.h server/EnergyTransmitter.cpp server/EnergyTransmitter.h server/Rock.cpp server/Rock.h server/EnergyBar.cpp server/EnergyBar.h server/Button.cpp server/Button.h server/Acid.cpp server/Acid.h)
 
 add_executable(Client ${CLIENT_SOURCE_FILES})
 add_executable(Server ${SERVER_SOURCE_FILES})

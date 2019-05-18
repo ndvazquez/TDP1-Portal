@@ -16,6 +16,7 @@
 #include "Rock.h"
 #include "EnergyBar.h"
 #include "Button.h"
+#include "Acid.h"
 
 class Stage {
 private:
@@ -29,6 +30,7 @@ private:
     std::unordered_map<Coordinate*, Rock*> rocks;
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
     std::unordered_map<Coordinate*, Button*> buttons;
+    std::unordered_map<Coordinate*, Acid*> acids;
 
 public:
     Stage(size_t width, size_t height);
@@ -43,6 +45,9 @@ public:
     bool addRock(size_t side, float x_pos, float y_pos);
     bool addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
     bool addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    bool addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
+
+    //bool addEnergyBall(size_t v_side, size_t h_side, float x_pos, float y_pos);
 
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
@@ -51,6 +56,7 @@ public:
     Rock* getRock(Coordinate* coordinate);
     EnergyBar* getEnergyBar(Coordinate* coordinate);
     Button* getButton(Coordinate* coordinate);
+    Acid* getAcid(Coordinate* coordinate);
 };
 
 #endif //PORTAL_STAGE_H

@@ -25,68 +25,79 @@ bool suite_BrickBlockTest_init = false;
 static BrickBlockTest suite_BrickBlockTest;
 
 static CxxTest::List Tests_BrickBlockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_BrickBlockTest( "MyTestSuite.h", 11, "BrickBlockTest", suite_BrickBlockTest, Tests_BrickBlockTest );
+CxxTest::StaticSuiteDescription suiteDescription_BrickBlockTest( "MyTestSuite.h", 12, "BrickBlockTest", suite_BrickBlockTest, Tests_BrickBlockTest );
 
 static class TestDescription_suite_BrickBlockTest_testBrickBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_BrickBlockTest_testBrickBlock() : CxxTest::RealTestDescription( Tests_BrickBlockTest, suiteDescription_BrickBlockTest, 20, "testBrickBlock" ) {}
+ TestDescription_suite_BrickBlockTest_testBrickBlock() : CxxTest::RealTestDescription( Tests_BrickBlockTest, suiteDescription_BrickBlockTest, 21, "testBrickBlock" ) {}
  void runTest() { suite_BrickBlockTest.testBrickBlock(); }
 } testDescription_suite_BrickBlockTest_testBrickBlock;
 
 static MetalBlockTest suite_MetalBlockTest;
 
 static CxxTest::List Tests_MetalBlockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_MetalBlockTest( "MyTestSuite.h", 37, "MetalBlockTest", suite_MetalBlockTest, Tests_MetalBlockTest );
+CxxTest::StaticSuiteDescription suiteDescription_MetalBlockTest( "MyTestSuite.h", 38, "MetalBlockTest", suite_MetalBlockTest, Tests_MetalBlockTest );
 
 static class TestDescription_suite_MetalBlockTest_testMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MetalBlockTest_testMetalBlock() : CxxTest::RealTestDescription( Tests_MetalBlockTest, suiteDescription_MetalBlockTest, 46, "testMetalBlock" ) {}
+ TestDescription_suite_MetalBlockTest_testMetalBlock() : CxxTest::RealTestDescription( Tests_MetalBlockTest, suiteDescription_MetalBlockTest, 47, "testMetalBlock" ) {}
  void runTest() { suite_MetalBlockTest.testMetalBlock(); }
 } testDescription_suite_MetalBlockTest_testMetalBlock;
 
 static EnergyTransmitterTest suite_EnergyTransmitterTest;
 
 static CxxTest::List Tests_EnergyTransmitterTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_EnergyTransmitterTest( "MyTestSuite.h", 62, "EnergyTransmitterTest", suite_EnergyTransmitterTest, Tests_EnergyTransmitterTest );
+CxxTest::StaticSuiteDescription suiteDescription_EnergyTransmitterTest( "MyTestSuite.h", 63, "EnergyTransmitterTest", suite_EnergyTransmitterTest, Tests_EnergyTransmitterTest );
 
 static class TestDescription_suite_EnergyTransmitterTest_testEnergyTransmitter : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyTransmitterTest_testEnergyTransmitter() : CxxTest::RealTestDescription( Tests_EnergyTransmitterTest, suiteDescription_EnergyTransmitterTest, 71, "testEnergyTransmitter" ) {}
+ TestDescription_suite_EnergyTransmitterTest_testEnergyTransmitter() : CxxTest::RealTestDescription( Tests_EnergyTransmitterTest, suiteDescription_EnergyTransmitterTest, 72, "testEnergyTransmitter" ) {}
  void runTest() { suite_EnergyTransmitterTest.testEnergyTransmitter(); }
 } testDescription_suite_EnergyTransmitterTest_testEnergyTransmitter;
 
 static RockTest suite_RockTest;
 
 static CxxTest::List Tests_RockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_RockTest( "MyTestSuite.h", 88, "RockTest", suite_RockTest, Tests_RockTest );
+CxxTest::StaticSuiteDescription suiteDescription_RockTest( "MyTestSuite.h", 89, "RockTest", suite_RockTest, Tests_RockTest );
 
 static class TestDescription_suite_RockTest_testRock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_RockTest_testRock() : CxxTest::RealTestDescription( Tests_RockTest, suiteDescription_RockTest, 97, "testRock" ) {}
+ TestDescription_suite_RockTest_testRock() : CxxTest::RealTestDescription( Tests_RockTest, suiteDescription_RockTest, 98, "testRock" ) {}
  void runTest() { suite_RockTest.testRock(); }
 } testDescription_suite_RockTest_testRock;
 
 static EnergyBarTest suite_EnergyBarTest;
 
 static CxxTest::List Tests_EnergyBarTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_EnergyBarTest( "MyTestSuite.h", 113, "EnergyBarTest", suite_EnergyBarTest, Tests_EnergyBarTest );
+CxxTest::StaticSuiteDescription suiteDescription_EnergyBarTest( "MyTestSuite.h", 114, "EnergyBarTest", suite_EnergyBarTest, Tests_EnergyBarTest );
 
 static class TestDescription_suite_EnergyBarTest_testEnergyBar : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBarTest_testEnergyBar() : CxxTest::RealTestDescription( Tests_EnergyBarTest, suiteDescription_EnergyBarTest, 123, "testEnergyBar" ) {}
+ TestDescription_suite_EnergyBarTest_testEnergyBar() : CxxTest::RealTestDescription( Tests_EnergyBarTest, suiteDescription_EnergyBarTest, 124, "testEnergyBar" ) {}
  void runTest() { suite_EnergyBarTest.testEnergyBar(); }
 } testDescription_suite_EnergyBarTest_testEnergyBar;
 
 static ButtonTest suite_ButtonTest;
 
 static CxxTest::List Tests_ButtonTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ButtonTest( "MyTestSuite.h", 140, "ButtonTest", suite_ButtonTest, Tests_ButtonTest );
+CxxTest::StaticSuiteDescription suiteDescription_ButtonTest( "MyTestSuite.h", 141, "ButtonTest", suite_ButtonTest, Tests_ButtonTest );
 
 static class TestDescription_suite_ButtonTest_testButton : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ButtonTest_testButton() : CxxTest::RealTestDescription( Tests_ButtonTest, suiteDescription_ButtonTest, 150, "testButton" ) {}
+ TestDescription_suite_ButtonTest_testButton() : CxxTest::RealTestDescription( Tests_ButtonTest, suiteDescription_ButtonTest, 151, "testButton" ) {}
  void runTest() { suite_ButtonTest.testButton(); }
 } testDescription_suite_ButtonTest_testButton;
+
+static AcidTest suite_AcidTest;
+
+static CxxTest::List Tests_AcidTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_AcidTest( "MyTestSuite.h", 167, "AcidTest", suite_AcidTest, Tests_AcidTest );
+
+static class TestDescription_suite_AcidTest_testButton : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_AcidTest_testButton() : CxxTest::RealTestDescription( Tests_AcidTest, suiteDescription_AcidTest, 177, "testButton" ) {}
+ void runTest() { suite_AcidTest.testButton(); }
+} testDescription_suite_AcidTest_testButton;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

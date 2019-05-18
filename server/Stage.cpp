@@ -12,6 +12,7 @@
 #include "DiagonalMetalBlock.h"
 #include "EnergyBar.h"
 #include "Button.h"
+#include "Acid.h"
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
@@ -205,6 +206,21 @@ bool Stage::addButton(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
+bool Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        return false;
+    } //excepciones o booleano?
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* button_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Acid* button = new Acid(button_body);
+    acids.insert({coordinates, button});
+
+    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
+}
+
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto item = brick_blocks.begin() ; item != brick_blocks.end() ; item++) {
         if (*item->first == *coordinate) return item->second;
@@ -254,6 +270,12 @@ Button* Stage::getButton(Coordinate *coordinate) {
     return nullptr;
 }
 
+Acid* Stage::getAcid(Coordinate *coordinate) {
+    for (auto item = acids.begin() ; item != acids.end() ; item++) {
+        if (*item->first == *coordinate) return item->second;
+    }
+    return nullptr;
+}
 
 Stage::~Stage() {
     delete world;
