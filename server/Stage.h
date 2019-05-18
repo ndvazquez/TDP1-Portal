@@ -18,6 +18,13 @@
 #include "Button.h"
 #include "Acid.h"
 
+class StageOutOfRangeException : public std::exception{
+    virtual const char* what() const throw () {
+        std::string message = "This object doesn't fit in the stage!\n";
+        return message.c_str();
+    }
+};
+
 class Stage {
 private:
     size_t width;
@@ -38,14 +45,14 @@ public:
     b2Body* addStaticSquare(size_t side, float x_pos, float y_pos);
     b2Body* addStaticRectangle(size_t v_side, size_t h_side, float x_pos, float y_pos);
 
-    bool addBrickBlock(size_t side, float x_pos, float y_pos);
-    bool addMetalBlock(size_t side, float x_pos, float y_pos);
-    bool addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float angle);
-    bool addEnergyTransmitter(size_t side, float x_pos, float y_pos);
-    bool addRock(size_t side, float x_pos, float y_pos);
-    bool addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    bool addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    bool addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    void addBrickBlock(size_t side, float x_pos, float y_pos);
+    void addMetalBlock(size_t side, float x_pos, float y_pos);
+    void addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float angle);
+    void addEnergyTransmitter(size_t side, float x_pos, float y_pos);
+    void addRock(size_t side, float x_pos, float y_pos);
+    void addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    void addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
+    void addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
 
     //bool addEnergyBall(size_t v_side, size_t h_side, float x_pos, float y_pos);
 

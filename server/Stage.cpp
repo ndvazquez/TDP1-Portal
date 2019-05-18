@@ -81,10 +81,10 @@ b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side, float x_pos, flo
     return rectangle_body;
 }
 
-bool Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
+void Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -92,14 +92,12 @@ bool Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
 
     BrickBlock* block = new BrickBlock(block_body);
     brick_blocks.insert({coordinates, block});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
+void Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -107,14 +105,12 @@ bool Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
 
     MetalBlock* block = new MetalBlock(block_body);
     metal_blocks.insert({coordinates, block});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float angle) {
+void Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float angle) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -142,14 +138,12 @@ bool Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos, float a
     DiagonalMetalBlock* block = new DiagonalMetalBlock(block_body);
 
     diagonal_metal_blocks.insert(std::make_pair(coordinates, block));
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -157,14 +151,12 @@ bool Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
 
     EnergyTransmitter* energy = new EnergyTransmitter(energy_transmitter_body);
     energy_transmitters.insert({coordinates, energy});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addRock(size_t side, float x_pos, float y_pos) {
+void Stage::addRock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -172,14 +164,12 @@ bool Stage::addRock(size_t side, float x_pos, float y_pos) {
 
     Rock* rock = new Rock(rock_body);
     rocks.insert({coordinates, rock});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+void Stage::addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -187,14 +177,12 @@ bool Stage::addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos)
 
     EnergyBar* energy_bar = new EnergyBar(energy_bar_body);
     energy_bars.insert({coordinates, energy_bar});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addButton(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+void Stage::addButton(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -202,14 +190,12 @@ bool Stage::addButton(size_t v_side, size_t h_side, float x_pos, float y_pos) {
 
     Button* button = new Button(button_body);
     buttons.insert({coordinates, button});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
-bool Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+void Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        return false;
-    } //excepciones o booleano?
+        throw StageOutOfRangeException();
+    }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -217,8 +203,6 @@ bool Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
 
     Acid* button = new Acid(button_body);
     acids.insert({coordinates, button});
-
-    return true; // despues si no entra devolver false. Como hago para saber si hay otro objeto ahi?
 }
 
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
@@ -291,6 +275,31 @@ Stage::~Stage() {
     }
 
     for (auto item = diagonal_metal_blocks.begin() ; item != diagonal_metal_blocks.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = energy_transmitters.begin() ; item != energy_transmitters.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = rocks.begin() ; item != rocks.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = energy_bars.begin() ; item != energy_bars.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = buttons.begin() ; item != buttons.end() ; item++) {
+        delete item->first;
+        delete item->second;
+    }
+
+    for (auto item = acids.begin() ; item != acids.end() ; item++) {
         delete item->first;
         delete item->second;
     }

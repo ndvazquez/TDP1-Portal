@@ -8,8 +8,7 @@
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 
-
-  class BrickBlockTest : public CxxTest::TestSuite
+class BrickBlockTest : public CxxTest::TestSuite
   {
     size_t width_stage = 500;
     size_t height_stage = 500;
@@ -190,6 +189,39 @@ public:
     }
 };
 
+class OutOfRangeTest : public CxxTest::TestSuite
+{
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t x_pos_bad = 600;
+    size_t x_pos_ok = 1;
+    size_t y_pos_bad = 600;
+    size_t y_pos_ok = 1;
 
-
+public:
+    void testOutOfRange ( void ) {
+        std::cout << "Testing the out of range excepcion" << std::endl;
+        Stage stage(width_stage, height_stage);
+        try {
+            stage.addBrickBlock(5, x_pos_bad, y_pos_ok);
+        }
+        catch (...) {
+            std::cout << "Catching the excepcion correctly 1" << std::endl;
+        }
+        try {
+            stage.addBrickBlock(5, x_pos_ok, y_pos_bad);
+        }
+        catch (...) {
+            std::cout << "Catching the excepcion correctly 2" << std::endl;
+        }
+        try {
+            stage.addBrickBlock(5, x_pos_bad, y_pos_bad);
+        }
+        catch (...) {
+            std::cout << "Catching the excepcion correctly 3" << std::endl;
+            return;
+        }
+        TS_ASSERT_EQUALS(1, 0);
+    }
+};
 #endif
