@@ -20,13 +20,12 @@ void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
 }
 
 Stage::Stage(Window& window, std::string& current, int xPortion):
-    window(window), stageView(window, TEXTURE_CONFIG_FILE, 200) , current(current), xPortion(xPortion) {
+    window(window), stageView(window, TEXTURE_CONFIG_FILE, 100) , current(current), xPortion(xPortion) {
     this->me = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
     this->setSize();
 }
 
 void Stage::setSize() {
-    std::cerr << "AL RPINCIPIO X:" << std::endl;
     setSDL_Rect(this->me, X, Y, W, H);
 }
 
@@ -36,12 +35,15 @@ Stage::~Stage() {
 
 
 void Stage::insert(uint32_t x, uint32_t y) {
+    if (current.empty()) {
+        //throw()
+    }
     stageView.addTile(x,y, this->current);
 }
 
 void Stage::draw() {
+    SDL_Rect matrixRect = {0 , 0, W, H};
     Sprite bgSprite("resources/editor-stage-bg.png", window);
     bgSprite.draw(window, this->me);
-    std::cerr << X << std::endl;
-    stageView.draw(window, this->me, X);
+    stageView.draw(window, &matrixRect , X);
 }

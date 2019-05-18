@@ -16,8 +16,6 @@ Editor::Editor(Window& window) : window(window), menu(window), stage(window, cur
 Editor::~Editor() {}
 
 void Editor::draw() {
-    current = std::string("RockBlock");
-    stage.insert(0,0);
     window.clear();
     menu.draw();
     stage.draw();

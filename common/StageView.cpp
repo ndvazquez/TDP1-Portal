@@ -26,7 +26,7 @@ StageView::~StageView() {
 }
 
 void StageView::draw(Window& window, SDL_Rect* camera, int xStart) {
-    SDL_Rect destRect = {xStart , 0, matrixToPixelFactor, matrixToPixelFactor};
+    SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
     int camPosX = camera->x / matrixToPixelFactor;
     int camPosY = camera->y / matrixToPixelFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.
@@ -41,7 +41,7 @@ void StageView::draw(Window& window, SDL_Rect* camera, int xStart) {
                 continue;
             }
             sprite = textures[point->second];
-            destRect.x = (point->first.first - camPosX) * matrixToPixelFactor;
+            destRect.x = xStart + (point->first.first - camPosX) * matrixToPixelFactor;
             destRect.y = (point->first.second - camPosY) * matrixToPixelFactor;
             sprite->draw(window, &destRect);
         }

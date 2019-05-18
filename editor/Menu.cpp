@@ -71,6 +71,7 @@ void Menu::draw() {
 
 
 Menu::~Menu() {
+    delete(this->me);
     auto it = this->options.begin();
     while (it != this->options.end()) {
         delete(*it);
