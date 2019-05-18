@@ -94,11 +94,11 @@ static AcidTest suite_AcidTest;
 static CxxTest::List Tests_AcidTest = { 0, 0 };
 CxxTest::StaticSuiteDescription suiteDescription_AcidTest( "MyTestSuite.h", 166, "AcidTest", suite_AcidTest, Tests_AcidTest );
 
-static class TestDescription_suite_AcidTest_testButton : public CxxTest::RealTestDescription {
+static class TestDescription_suite_AcidTest_testAcid : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_AcidTest_testButton() : CxxTest::RealTestDescription( Tests_AcidTest, suiteDescription_AcidTest, 176, "testButton" ) {}
- void runTest() { suite_AcidTest.testButton(); }
-} testDescription_suite_AcidTest_testButton;
+ TestDescription_suite_AcidTest_testAcid() : CxxTest::RealTestDescription( Tests_AcidTest, suiteDescription_AcidTest, 176, "testAcid" ) {}
+ void runTest() { suite_AcidTest.testAcid(); }
+} testDescription_suite_AcidTest_testAcid;
 
 static OutOfRangeTest suite_OutOfRangeTest;
 
@@ -107,7 +107,7 @@ CxxTest::StaticSuiteDescription suiteDescription_OutOfRangeTest( "MyTestSuite.h"
 
 static class TestDescription_suite_OutOfRangeTest_testOutOfRange : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_OutOfRangeTest_testOutOfRange() : CxxTest::RealTestDescription( Tests_OutOfRangeTest, suiteDescription_OutOfRangeTest, 200, "testOutOfRange" ) {}
+ TestDescription_suite_OutOfRangeTest_testOutOfRange() : CxxTest::RealTestDescription( Tests_OutOfRangeTest, suiteDescription_OutOfRangeTest, 202, "testOutOfRange" ) {}
  void runTest() { suite_OutOfRangeTest.testOutOfRange(); }
 } testDescription_suite_OutOfRangeTest_testOutOfRange;
 

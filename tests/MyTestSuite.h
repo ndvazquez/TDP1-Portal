@@ -173,7 +173,7 @@ class AcidTest : public CxxTest::TestSuite
     size_t h_side = 4;
 
 public:
-    void testButton( void ) {
+    void testAcid( void ) {
         std::cout << "Testing the acid dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addAcid(v_side, h_side, x_pos, y_pos);
