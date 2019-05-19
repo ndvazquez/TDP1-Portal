@@ -49,6 +49,7 @@ void ChellView::playAnimation(SDL_Rect& camera) {
     animation->updateFrameStep();
 }
 
+
 void ChellView::handleEvent(SDL_Event& e, const Uint8 *keys){
     if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
         currentAnimation = CHELL_RUN;
@@ -63,14 +64,9 @@ void ChellView::handleEvent(SDL_Event& e, const Uint8 *keys){
     }
 }
 
-void ChellView::move(int newPosX, int newPosY, int levelWidth, int levelHeight){
-    if (newPosX >= 0 && newPosX + chellWidth < levelWidth){
+void ChellView::move(int newPosX, int newPosY){
         xPos = newPosX;
-    }
-
-    if (newPosY >= 0 && newPosY + chellHeight < levelHeight){
         yPos = newPosY;
-    }
 }
 
 void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) {
@@ -89,12 +85,4 @@ void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) 
     if(camera.y > levelHeight - camera.h){
         camera.y = levelHeight - camera.h;
     }
-}
-//This will be gone when we merge server and client.
-int ChellView::getPosX() {
-    return xPos;
-}
-
-int ChellView::getPosY() {
-    return yPos;
 }
