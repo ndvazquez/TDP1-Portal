@@ -4,6 +4,7 @@
 
 # define DEGTORAD 0.0174532925199432957f
 
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -240,7 +241,12 @@ void Stage::step() {
     }
 
     for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
-        i->second->fly();
+        try {
+            i->second->fly();
+        }
+        catch (...) {
+            energy_balls.erase(i->first);
+        }
     }
 
     float timeStep = 1.0f / 60.0f;
