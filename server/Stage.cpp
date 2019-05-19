@@ -234,8 +234,10 @@ void Stage::addEnergyBall(size_t side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
-void Stage::step(Chell* chell) {
-    chell->update();
+void Stage::step() {
+    for (auto i = chells.begin(); i != chells.end(); i++) {
+        i->second->update();
+    }
     float timeStep = 1.0f / 60.0f;
     int velocityIterations = 8;
     int positionIterations = 2;

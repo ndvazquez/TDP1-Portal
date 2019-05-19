@@ -64,7 +64,7 @@ public:
     void addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addChell(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addEnergyBall(size_t side, float x_pos, float y_pos);
-    void step(Chell* chell);
+    void step();
 
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
