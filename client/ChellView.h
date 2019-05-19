@@ -31,7 +31,7 @@ public:
     ChellView(Window &window, int xPos, int yPos, YAML::Node texturesData);
     ~ChellView();
     void playAnimation(SDL_Rect& camera);
-    void handleEvent(SDL_Event& e);
+    void handleEvent(SDL_Event& e, const Uint8 *keys);
     void move(int newPosX, int newPosY, int levelWidth, int levelHeight);
     // This method is only used by the playable Chell;
     void updateCamera(SDL_Rect& camera, int levelWidth, int levelHeight);
