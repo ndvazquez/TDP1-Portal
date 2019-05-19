@@ -9,14 +9,12 @@
 
 class MetalBlock {
 private:
-    size_t side;
     b2Body* body;
 
 public:
-    MetalBlock(size_t side, b2Body* body);
+    explicit MetalBlock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
-    size_t getSide();
 };
 
 #endif //PORTAL_METALBLOCK_H

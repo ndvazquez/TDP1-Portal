@@ -9,14 +9,12 @@
 
 class BrickBlock {
 private:
-    size_t side;
     b2Body* body;
 
 public:
-    BrickBlock(size_t side, b2Body* body);
+    explicit BrickBlock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
-    size_t getSide();
 };
 
 #endif //PORTAL_BRICKBLOCK_H

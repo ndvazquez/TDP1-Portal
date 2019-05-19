@@ -4,6 +4,6 @@
 
 #include "DiagonalMetalBlock.h"
 
-DiagonalMetalBlock::DiagonalMetalBlock(size_t side, b2Body *body):
-    side(side), body(body) {
+DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
+    body(body) {
 }

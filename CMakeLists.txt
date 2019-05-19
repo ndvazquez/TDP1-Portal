@@ -26,28 +26,40 @@ set(CLIENT_SOURCE_FILES
 set(SERVER_SOURCE_FILES
         server/main.cpp
         server/Stage.cpp
-        server/Stage.h
         server/Coordinate.cpp
-        server/Coordinate.h
         server/BrickBlock.cpp
         server/BrickBlock.cpp
         server/MetalBlock.cpp
-        server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
-        server/DiagonalMetalBlock.h)
+        server/EnergyTransmitter.cpp
+        server/Rock.cpp
+        server/EnergyBar.cpp
+        server/Button.cpp
+        server/Acid.cpp
+        server/Chell.cpp
+        server/Dynamic.cpp
+        server/MoveRight.cpp
+        server/MoveLeft.cpp
+        server/Stop.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp
         server/Stage.cpp
-        server/Stage.h
         server/Coordinate.cpp
-        server/Coordinate.h
         server/BrickBlock.cpp
         server/BrickBlock.cpp
         server/MetalBlock.cpp
-        server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
-        server/DiagonalMetalBlock.h)
+        server/EnergyTransmitter.cpp
+        server/Rock.cpp
+        server/EnergyBar.cpp
+        server/Button.cpp
+        server/Acid.cpp
+        server/Chell.cpp
+        server/Dynamic.cpp
+        server/MoveRight.cpp
+        server/MoveLeft.cpp
+        server/Stop.cpp)
 
 add_executable(Client ${CLIENT_SOURCE_FILES})
 add_executable(Server ${SERVER_SOURCE_FILES})
