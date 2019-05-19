@@ -21,12 +21,12 @@ float Dynamic::getVerticalPosition() {
 }
 
 void Dynamic::moveRight() {
-    float force = 1000; //TODO: change this harcoded variable
+    float force = 15; //TODO: change this harcoded variable
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
 void Dynamic::moveLeft() {
-    float force = -1000; //TODO: change this harcoded variable
+    float force = -15; //TODO: change this harcoded variable
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 

@@ -48,48 +48,24 @@ void ChellView::playAnimation(SDL_Rect& camera) {
     animation->draw(gameWindow, xPos - camera.x, yPos - camera.y, flip);
     animation->updateFrameStep();
 }
-//TODO: Gotta fix a bug where you can moonwalk while running.
-void ChellView::handleEvent(SDL_Event& e){
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
-        switch (e.key.keysym.sym){
-            case SDLK_d:
-                xVelocity += 1;
-                currentAnimation = CHELL_RUN;
-                flip = flip == SDL_FLIP_NONE ? flip : SDL_FLIP_NONE;
-                break;
-            case SDLK_a:
-                xVelocity += 1;
-                currentAnimation = CHELL_RUN;
-                flip = flip == SDL_FLIP_NONE ? SDL_FLIP_HORIZONTAL : flip;
-                break;
-            default:
-                break;
-        }
+
+void ChellView::handleEvent(SDL_Event& e, const Uint8* keys){
+    if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+        currentAnimation = CHELL_RUN;
+        flip = flip == SDL_FLIP_NONE ? flip : SDL_FLIP_NONE;
     }
-    if (e.type == SDL_KEYUP && e.key.repeat == 0){
-        switch (e.key.keysym.sym){
-            case SDLK_d:
-                xVelocity -= 1;
-                if (xVelocity == 0) currentAnimation = CHELL_RESTING_IDLE;
-                break;
-            case SDLK_a:
-                xVelocity -= 1;
-                if (xVelocity == 0) currentAnimation = CHELL_RESTING_IDLE;
-                break;
-            default:
-                break;
-        }
+    if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+        currentAnimation = CHELL_RUN;
+        flip = flip == SDL_FLIP_NONE ? SDL_FLIP_HORIZONTAL : flip;
+    }
+    if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]){
+        currentAnimation = CHELL_RESTING_IDLE;
     }
 }
 
-void ChellView::move(int newPosX, int newPosY, int levelWidth, int levelHeight){
-    if (newPosX >= 0 && newPosX + chellWidth < levelWidth){
+void ChellView::move(int newPosX, int newPosY){
         xPos = newPosX;
-    }
-
-    if (newPosY >= 0 && newPosY + chellHeight < levelHeight){
         yPos = newPosY;
-    }
 }
 
 void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) {
@@ -108,12 +84,4 @@ void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) 
     if(camera.y > levelHeight - camera.h){
         camera.y = levelHeight - camera.h;
     }
-}
-//This will be gone when we merge server and client.
-int ChellView::getPosX() {
-    return xPos;
-}
-
-int ChellView::getPosY() {
-    return yPos;
 }

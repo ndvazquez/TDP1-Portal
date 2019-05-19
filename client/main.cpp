@@ -12,64 +12,26 @@
 #include "../common/SDLSession.h"
 #include "ChellView.h"
 #include <yaml-cpp/yaml.h>
+#include <Stage.h>
 
-#define SCREEN_WIDTH 1000
+#define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define LEVEL_WIDTH 1500
 #define LEVEL_HEIGHT 1500
 #define MATRIX_TO_PIXEL_FACTOR 100
-#define REFRESH_STEP 16 // 16ms
-#define CHELL_VELOCITY 12
+#define FACTOR 100
+#define CHELL_HEIGHT 230
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-void fakeChellSimulation(SDL_Event& e, int& chellVelocityX, int& chellVelocityY){
-    if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
-        switch (e.key.keysym.sym){
-            case SDLK_d:
-                chellVelocityX += CHELL_VELOCITY;
-                break;
-            case SDLK_a:
-                chellVelocityX -= CHELL_VELOCITY;
-                break;
-            case SDLK_w:
-                chellVelocityY -= CHELL_VELOCITY;
-                break;
-            case SDLK_s:
-                chellVelocityY += CHELL_VELOCITY;
-                break;
-            default:
-                break;
-        }
-    }
-    if (e.type == SDL_KEYUP && e.key.repeat == 0){
-        switch (e.key.keysym.sym){
-            case SDLK_d:
-                chellVelocityX -= CHELL_VELOCITY;
-                break;
-            case SDLK_a:
-                chellVelocityX += CHELL_VELOCITY;
-                break;
-            case SDLK_w:
-                chellVelocityY += CHELL_VELOCITY;
-                break;
-            case SDLK_s:
-                chellVelocityY -= CHELL_VELOCITY;
-                break;
-            default:
-                break;
-        }
-    }
-}
-
-void drawStageAndChell(){
+void drawChellWithBox2D(){
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    StageView stageView(newWindow, textures, MATRIX_TO_PIXEL_FACTOR);
 
     std::string bgPath = "resources/Backgrounds/Industrial.png";
     Sprite background(bgPath, newWindow);
 
+    StageView stageView(newWindow, textures, MATRIX_TO_PIXEL_FACTOR);
     // We'll setup a very basic map.
     std::string metalBlock = "MetalBlock";
     std::string rockBlock = "RockBlock";
@@ -82,38 +44,50 @@ void drawStageAndChell(){
         stageView.addTile(14, i, rockBlock);
     }
 
-    int chellInitPosX = 0;
-    int chellInitPosY = 0;
-    int chellVelocityX = 0;
-    int chellVelocityY = 0;
+    // Box2D Stuff.
+    float xPos = 1;
+    float yPos = 1;
+    float chellHeight = 2;
+    float chellWidth = 2;
+    Stage stage(15, 15); // 1m == 1 block == 100px
+    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    Coordinate* coordinate = new Coordinate(xPos, yPos);
+    Chell* chell = stage.getChell(coordinate);
 
-    ChellView chell(newWindow, chellInitPosX, chellInitPosY, textures);
+    int chellInitPosX = xPos * FACTOR + LEVEL_WIDTH;
+    int chellInitPosY = yPos * FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
+
+    ChellView chellView(newWindow, chellInitPosX, chellInitPosY, textures);
     // This will be our camera, for now it's just a SDL_Rect
-    SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+    SDL_Rect camera = {chellInitPosX, chellInitPosY, SCREEN_WIDTH, SCREEN_HEIGHT};
 
     bool quit = false;
-
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
     while(!quit) {
-        while(SDL_PollEvent( &e ) != 0) {
-            if(e.type == SDL_QUIT) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            chell.handleEvent(e);
-            fakeChellSimulation(e, chellVelocityX, chellVelocityY);
+            chellView.handleEvent(e, keys);
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]){
+                    chell->stop();
+            }
+
         }
-        SDL_Delay(REFRESH_STEP);
-        //TODO: Here we'll use the position on the world given by the server.
-        chell.move(chell.getPosX() + chellVelocityX, chell.getPosY() + chellVelocityY,
-                LEVEL_WIDTH, LEVEL_HEIGHT);
-
-        chell.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
-
+        stage.step(chell);
+        std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
+        int newPosX = chell->getHorizontalPosition() * FACTOR;
+        int newPosY = chell->getVerticalPosition() * FACTOR * -1 + LEVEL_HEIGHT - 230;
+        chellView.move(newPosX, newPosY);
+        chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
         newWindow.clear();
         background.draw(newWindow, nullptr);
         stageView.draw(newWindow, &camera);
-        chell.playAnimation(camera);
+        chellView.playAnimation(camera);
         newWindow.render();
     }
 }
@@ -121,5 +95,6 @@ void drawStageAndChell(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
-    drawStageAndChell();
+    //drawStageAndChell();
+    drawChellWithBox2D();
 }
