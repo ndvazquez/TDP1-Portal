@@ -22,6 +22,8 @@ public:
     void moveRight();
     void moveLeft();
     void stop();
+    void fly(float velocity);
+    bool isColliding();
     float getHorizontalVelocity();
     float getVerticalVelocity();
 };

@@ -47,6 +47,24 @@ float Dynamic::getHorizontalVelocity() {
 float Dynamic::getVerticalVelocity() {
     return body->GetLinearVelocity().y;
 }
+/*
+bool Dynamic::isColliding() {
+    for (b2ContactEdge* edge = body->GetContactList(); edge; edge = edge->next){
+        return true;
+    }
+    return false;
+}
 
+
+void Dynamic::fly(float velocity) {
+    float impulse = body->GetMass() * velocity;
+    body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter(), true);
+    if (isColliding()) {
+        stop();
+        body->ApplyLinearImpulse(b2Vec2(0, -impulse), body->GetWorldCenter(), true); //TODO: vertical collisions
+    }
+}
+
+*/
 Dynamic::~Dynamic() {
 }
