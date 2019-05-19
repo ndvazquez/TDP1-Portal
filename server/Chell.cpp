@@ -52,6 +52,10 @@ void Chell::update() {
     this->actual_movement->move();
 }
 
+void Chell::jump() {
+    this->dynamic.jump();
+};
+
 Chell::~Chell() {
     destroyActualMovement();
 };

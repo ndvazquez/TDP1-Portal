@@ -22,6 +22,7 @@ public:
     void moveRight();
     void moveLeft();
     void stop();
+    void jump();
     void destroyActualMovement();
     void update();
     float getHorizontalVelocity();

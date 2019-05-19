@@ -136,9 +136,15 @@ public:
 
 static class TestDescription_suite_ChellTest_testChellMovesLeft : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellMovesLeft() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 295, "testChellMovesLeft" ) {}
+ TestDescription_suite_ChellTest_testChellMovesLeft() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 296, "testChellMovesLeft" ) {}
  void runTest() { suite_ChellTest.testChellMovesLeft(); }
 } testDescription_suite_ChellTest_testChellMovesLeft;
+
+static class TestDescription_suite_ChellTest_testChellJumps : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ChellTest_testChellJumps() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 319, "testChellJumps" ) {}
+ void runTest() { suite_ChellTest.testChellJumps(); }
+} testDescription_suite_ChellTest_testChellJumps;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
