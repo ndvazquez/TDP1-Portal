@@ -163,11 +163,17 @@ public:
  void runTest() { suite_EnergyBallTest.testEnergyBallDoesntFall(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallDoesntFall;
 
-static class TestDescription_suite_EnergyBallTest_testEnergyBallCollidesAndChangeDirection : public CxxTest::RealTestDescription {
+static class TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAndChangeDirection : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallCollidesAndChangeDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 380, "testEnergyBallCollidesAndChangeDirection" ) {}
- void runTest() { suite_EnergyBallTest.testEnergyBallCollidesAndChangeDirection(); }
-} testDescription_suite_EnergyBallTest_testEnergyBallCollidesAndChangeDirection;
+ TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAndChangeDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 380, "testEnergyBallHorizontalCollidesAndChangeDirection" ) {}
+ void runTest() { suite_EnergyBallTest.testEnergyBallHorizontalCollidesAndChangeDirection(); }
+} testDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAndChangeDirection;
+
+static class TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndChangeDirection : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndChangeDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 400, "testEnergyBallVerticalCollidesAndChangeDirection" ) {}
+ void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAndChangeDirection(); }
+} testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndChangeDirection;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

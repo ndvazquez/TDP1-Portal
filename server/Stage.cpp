@@ -13,6 +13,8 @@
 #include "Button.h"
 #include "Acid.h"
 #include "EnergyBall.h"
+#include "EnergyBallHorizontal.h"
+#include "EnergyBallVertical.h"
 
 Stage::Stage(size_t width, size_t height):
         width(width), height(height) {
@@ -222,7 +224,7 @@ void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     chells.insert({coordinates, chell});
 }
 
-void Stage::addEnergyBall(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyBallHorizontal(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -231,7 +233,20 @@ void Stage::addEnergyBall(size_t side, float x_pos, float y_pos) {
 
     b2Body* energy_ball_body = addDynamicRectangle(side, side, x_pos, y_pos);
 
-    EnergyBall* energy_ball = new EnergyBall(energy_ball_body);
+    EnergyBall* energy_ball = new EnergyBallHorizontal(energy_ball_body);
+    energy_balls.insert({coordinates, energy_ball});
+}
+
+void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* energy_ball_body = addDynamicRectangle(side, side, x_pos, y_pos);
+
+    EnergyBall* energy_ball = new EnergyBallVertical(energy_ball_body);
     energy_balls.insert({coordinates, energy_ball});
 }
 
@@ -244,7 +259,7 @@ void Stage::step() {
         try {
             i->second->fly();
         }
-        catch (...) {
+        catch(...) {
             energy_balls.erase(i->first);
         }
     }

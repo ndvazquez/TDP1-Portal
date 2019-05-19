@@ -47,7 +47,7 @@ bool Dynamic::isColliding() {
     return false;
 }
 
-void Dynamic::fly() {
+void Dynamic::flyHorizontal() {
     //Eliminate gravity
     float mass = body->GetMass();
     float gravity = -1;
@@ -58,13 +58,32 @@ void Dynamic::fly() {
 
     if (isColliding()) {
         impulse = -impulse;
-        body->ApplyLinearImpulse(b2Vec2(impulse, 0), body->GetWorldCenter() , true);
-    }
-    else {
-        body->ApplyLinearImpulse(b2Vec2(impulse, 0), body->GetWorldCenter() , true);
+        body->ApplyLinearImpulse(b2Vec2(impulse, 0),
+                body->GetWorldCenter(), true);
+    } else {
+        body->ApplyLinearImpulse(b2Vec2(impulse, 0),
+                body->GetWorldCenter(), true);
     }
 }
 
+void Dynamic::flyVertical() {
+    //Eliminate gravity
+    float mass = body->GetMass();
+    float gravity = -1;
+    float force_y = - (mass * gravity);
+    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+
+    if (body->GetLinearVelocity().y != 0) return; //Already flying
+
+    if (isColliding()) {
+        impulse = -impulse;
+        body->ApplyLinearImpulse(b2Vec2(0, impulse),
+                                 body->GetWorldCenter(), true);
+    } else {
+        body->ApplyLinearImpulse(b2Vec2(0, impulse),
+                                 body->GetWorldCenter(), true);
+    }
+}
 
 float Dynamic::getHorizontalPosition() {
     return body->GetPosition().x;

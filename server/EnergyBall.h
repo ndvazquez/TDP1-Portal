@@ -5,8 +5,8 @@
 #ifndef PORTAL_ENERGYBALL_H
 #define PORTAL_ENERGYBALL_H
 
+#include <string>
 #include "Dynamic.h"
-
 
 class EnergyBallDeadException : public std::exception {
     virtual const char* what() const throw() {
@@ -17,13 +17,12 @@ class EnergyBallDeadException : public std::exception {
 
 
 class EnergyBall {
-private:
+protected:
     Dynamic dynamic;
-    size_t life_steps;
 
 public:
-    EnergyBall(b2Body* body);
-    void fly();
+    explicit EnergyBall(b2Body* body);
+    virtual void fly();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

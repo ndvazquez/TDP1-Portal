@@ -345,7 +345,7 @@ class EnergyBallTest : public CxxTest::TestSuite {
     size_t width_stage = 1000;
     size_t height_stage = 1000;
     size_t initial_position_x = 500;
-    size_t initial_position_y = 100;
+    size_t initial_position_y = 500;
     size_t side = 10;
     size_t mass = side * side;
 
@@ -353,7 +353,7 @@ public:
     void testEnergyBallInit(void) {
         std::cout << "Testing the creation of EnergyBall" << std::endl;
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBall(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
 
@@ -366,7 +366,7 @@ public:
     void testEnergyBallDoesntFall(void) {
         std::cout << "Testing that the energy ball doesn't fall" << std::endl;
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBall(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
 
@@ -377,10 +377,10 @@ public:
         }
     }
 
-    void testEnergyBallCollidesAndChangeDirection(void) {
-        std::cout << "Testing that the energy ball collides and change direction" << std::endl;
+    void testEnergyBallHorizontalCollidesAndChangeDirection(void) {
+        std::cout << "Testing that the horizontal energy ball collides and change direction" << std::endl;
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBall(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
 
@@ -396,5 +396,27 @@ public:
             TS_ASSERT_DELTA(position, energy_ball->getHorizontalPosition(), 1.0f);
         }
     }
+
+    void testEnergyBallVerticalCollidesAndChangeDirection(void) {
+        std::cout << "Testing that the vertical energy ball collides and change direction" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        energy_ball->fly();
+        float position = energy_ball->getVerticalPosition();
+        float velocity;
+        float dt = 1.0f/60.f;
+
+        for (size_t i = 0; i < 1200; i++) { //2s
+            stage.step();
+            velocity = energy_ball->getVerticalVelocity();
+            position += velocity * dt;
+            TS_ASSERT_DELTA(position, energy_ball->getVerticalPosition(), 1.0f);
+        }
+    }
+
+
 };
 #endif

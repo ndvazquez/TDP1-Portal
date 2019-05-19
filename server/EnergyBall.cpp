@@ -5,21 +5,11 @@
 #include <iostream>
 #include "EnergyBall.h"
 
-// No se si agregarlo al escenario
-
 EnergyBall::EnergyBall(b2Body* body):
     dynamic(body) {
-    life_steps = 0;
 }
 
-void EnergyBall::fly() { //TODO: velocity in the other direction
-    if (life_steps <= 1200) {
-        dynamic.fly(); //TODO: change this harcoded variable
-    } else {
-        throw EnergyBallDeadException();
-    }
-    life_steps++;
-
+void EnergyBall::fly() {
 }
 
 float EnergyBall::getHorizontalPosition() {
@@ -37,4 +27,3 @@ float EnergyBall::getHorizontalVelocity() {
 float EnergyBall::getVerticalVelocity() {
     return this->dynamic.getVerticalVelocity();
 }
-
