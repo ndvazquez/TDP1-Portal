@@ -146,5 +146,16 @@ public:
  void runTest() { suite_ChellTest.testChellJumps(); }
 } testDescription_suite_ChellTest_testChellJumps;
 
+static EnergyBallTest suite_EnergyBallTest;
+
+static CxxTest::List Tests_EnergyBallTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_EnergyBallTest( "MyTestSuite.h", 344, "EnergyBallTest", suite_EnergyBallTest, Tests_EnergyBallTest );
+
+static class TestDescription_suite_EnergyBallTest_testEnergyBallInit : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_EnergyBallTest_testEnergyBallInit() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 353, "testEnergyBallInit" ) {}
+ void runTest() { suite_EnergyBallTest.testEnergyBallInit(); }
+} testDescription_suite_EnergyBallTest_testEnergyBallInit;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

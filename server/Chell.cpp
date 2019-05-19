@@ -28,25 +28,9 @@ void Chell::stop() {
     this->actual_movement = new Stop(body);
 }
 
-float Chell::getHorizontalPosition() {
-    return this->dynamic.getHorizontalPosition();
-}
-
-float Chell::getVerticalPosition() {
-    return this->dynamic.getVerticalPosition();
-}
-
 void Chell::destroyActualMovement() {
     delete this->actual_movement;
 };
-
-float Chell::getHorizontalVelocity() {
-    return this->dynamic.getHorizontalVelocity();
-}
-
-float Chell::getVerticalVelocity() {
-    return this->dynamic.getVerticalVelocity();
-}
 
 void Chell::update() {
     this->actual_movement->move();
@@ -55,6 +39,23 @@ void Chell::update() {
 void Chell::jump() {
     this->dynamic.jump();
 };
+
+
+float Chell::getHorizontalPosition() {
+    return this->dynamic.getHorizontalPosition();
+}
+
+float Chell::getVerticalPosition() {
+    return this->dynamic.getVerticalPosition();
+}
+
+float Chell::getHorizontalVelocity() {
+    return this->dynamic.getHorizontalVelocity();
+}
+
+float Chell::getVerticalVelocity() {
+    return this->dynamic.getVerticalVelocity();
+}
 
 Chell::~Chell() {
     destroyActualMovement();

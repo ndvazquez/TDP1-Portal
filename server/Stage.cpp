@@ -11,10 +11,11 @@
 #include "EnergyBar.h"
 #include "Button.h"
 #include "Acid.h"
+#include "EnergyBall.h"
 
 Stage::Stage(size_t width, size_t height):
-    width(width), height(height) {
-    b2Vec2 gravity(0.0f, -10.0f);
+        width(width), height(height) {
+    b2Vec2 gravity(0.0f, -1.0f);
     this->world = new b2World(gravity);
 
     // Setting initial configuration
@@ -44,7 +45,7 @@ Stage::Stage(size_t width, size_t height):
 }
 
 b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
-        float x_pos, float y_pos) {
+                                  float x_pos, float y_pos) {
     b2BodyDef body;
     body.type = b2_staticBody;
     body.position.Set(x_pos, y_pos);
@@ -62,7 +63,7 @@ b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
 }
 
 b2Body* Stage::addDynamicRectangle(size_t v_side, size_t h_side,
-        float x_pos, float y_pos) {
+                                   float x_pos, float y_pos) {
     b2BodyDef body;
     body.type = b2_dynamicBody;
     body.position.Set(x_pos, y_pos);
@@ -108,7 +109,7 @@ void Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
 }
 
 void Stage::addDiagonalMetalBlock(size_t side, float x_pos,
-        float y_pos, float angle) {
+                                  float y_pos, float angle) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -168,7 +169,7 @@ void Stage::addRock(size_t side, float x_pos, float y_pos) {
 }
 
 void Stage::addEnergyBar(size_t v_side, size_t h_side,
-        float x_pos, float y_pos) {
+                         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -220,6 +221,19 @@ void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     chells.insert({coordinates, chell});
 }
 
+void Stage::addEnergyBall(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* energy_ball_body = addDynamicRectangle(side, side, x_pos, y_pos);
+
+    EnergyBall* energy_ball = new EnergyBall(energy_ball_body);
+    energy_balls.insert({coordinates, energy_ball});
+}
+
 void Stage::step(Chell* chell) {
     chell->update();
     float timeStep = 1.0f / 60.0f;
@@ -245,7 +259,7 @@ MetalBlock* Stage::getMetalBlock(Coordinate* coordinate) {
 
 DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
     for (auto i = diagonal_metal_blocks.begin() ;
-    i != diagonal_metal_blocks.end() ; i++) {
+         i != diagonal_metal_blocks.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
     }
     return nullptr;
@@ -253,7 +267,7 @@ DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
 
 EnergyTransmitter* Stage::getEnergyTransmitter(Coordinate *coordinate) {
     for (auto i = energy_transmitters.begin() ;
-    i != energy_transmitters.end() ; i++) {
+         i != energy_transmitters.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
     }
     return nullptr;
@@ -294,6 +308,13 @@ Chell* Stage::getChell(Coordinate* coordinate) {
     return nullptr;
 }
 
+EnergyBall* Stage::getEnergyBall(Coordinate* coordinate) {
+    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
+        if (*i->first == *coordinate) return i->second;
+    }
+    return nullptr;
+}
+
 Stage::~Stage() {
     b2Body* body = world->GetBodyList();
     while (body != nullptr) {
@@ -313,13 +334,13 @@ Stage::~Stage() {
     }
 
     for (auto i = diagonal_metal_blocks.begin() ;
-    i != diagonal_metal_blocks.end() ; i++) {
+         i != diagonal_metal_blocks.end() ; i++) {
         delete i->first;
         delete i->second;
     }
 
     for (auto i = energy_transmitters.begin() ;
-    i != energy_transmitters.end() ; i++) {
+         i != energy_transmitters.end() ; i++) {
         delete i->first;
         delete i->second;
     }
@@ -348,6 +369,12 @@ Stage::~Stage() {
         delete i->first;
         delete i->second;
     }
-    
+
+    //just in case an energy balls isn't deleted before the end of the game
+    for (auto i = energy_balls.begin() ; i != energy_balls.end() ; i++) {
+        delete i->first;
+        delete i->second;
+    }
+
     delete world;
 }

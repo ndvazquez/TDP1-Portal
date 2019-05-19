@@ -17,14 +17,15 @@ private:
 public:
     explicit Chell(b2Body* body);
     ~Chell();
-    float getHorizontalPosition();
-    float getVerticalPosition();
+
     void moveRight();
     void moveLeft();
     void stop();
     void jump();
     void destroyActualMovement();
     void update();
+    float getHorizontalPosition();
+    float getVerticalPosition();
     float getHorizontalVelocity();
     float getVerticalVelocity();
 };

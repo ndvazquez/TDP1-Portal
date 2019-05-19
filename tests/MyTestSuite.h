@@ -257,7 +257,7 @@ public:
         Chell* chell = stage.getChell(coordinate);
 
         float dt = 1.0f/60.0f;
-        float gravity = -10.0f;
+        float gravity = -1.0f;
         float velocity_y = 0;
         float position = initial_position_y;
 
@@ -328,7 +328,7 @@ public:
 
         float velocity_y = chell->getVerticalVelocity();
         float dt = 1.0f/60.f;
-        float gravity = -10.0f;
+        float gravity = -1.0f;
 
         for (size_t i = 0; i < 130; i++) { //2s
             stage.step(chell);
@@ -341,4 +341,27 @@ public:
     }
 };
 
+class EnergyBallTest : public CxxTest::TestSuite {
+    size_t width_stage = 1000;
+    size_t height_stage = 1000;
+    size_t initial_position_x = 500;
+    size_t initial_position_y = 100;
+    size_t side = 10;
+    size_t mass = side * side;
+
+public:
+    void testEnergyBallInit(void) {
+        std::cout << "Testing the creation of EnergyBall" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBall(side, initial_position_x, initial_position_y);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        TS_ASSERT_EQUALS(initial_position_x, energy_ball->getHorizontalPosition());
+        TS_ASSERT_EQUALS(initial_position_y, energy_ball->getVerticalPosition());
+        TS_ASSERT_EQUALS(0, energy_ball->getHorizontalVelocity());
+        TS_ASSERT_EQUALS(0, energy_ball->getVerticalVelocity());
+    }
+
+};
 #endif
