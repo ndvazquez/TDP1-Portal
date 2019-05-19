@@ -315,6 +315,30 @@ public:
             TS_ASSERT_DELTA(velocity_x, chell->getHorizontalVelocity(), 0.1f);
         }
     }
+
+    void testChellJumps ( void ) {
+        std::cout << "Testing chell jumping" << std::endl;
+        Stage stage(width_stage, height_stage);
+        float position = 5;
+
+        stage.addChell(h_side, v_side, initial_position_x, position);
+        Coordinate* coordinate = new Coordinate(initial_position_x, position);
+        Chell* chell = stage.getChell(coordinate);
+        chell->jump();
+
+        float velocity_y = chell->getVerticalVelocity();
+        float dt = 1.0f/60.f;
+        float gravity = -10.0f;
+
+        for (size_t i = 0; i < 130; i++) { //2s
+            stage.step(chell);
+            velocity_y += gravity * dt;
+            position += velocity_y * dt;
+            if (position <= 5) continue; //it has reached the floor
+            TS_ASSERT_DELTA(velocity_y, chell->getVerticalVelocity(), 0.1f);
+            TS_ASSERT_DELTA(position, chell->getVerticalPosition(), 0.1f);
+        }
+    }
 };
 
 #endif

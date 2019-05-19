@@ -49,7 +49,8 @@ void ChellView::playAnimation(SDL_Rect& camera) {
     animation->updateFrameStep();
 }
 
-void ChellView::handleEvent(SDL_Event& e, const Uint8* keys){
+
+void ChellView::handleEvent(SDL_Event& e, const Uint8 *keys){
     if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
         currentAnimation = CHELL_RUN;
         flip = flip == SDL_FLIP_NONE ? flip : SDL_FLIP_NONE;

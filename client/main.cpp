@@ -18,8 +18,7 @@
 #define SCREEN_HEIGHT 600
 #define LEVEL_WIDTH 1500
 #define LEVEL_HEIGHT 1500
-#define MATRIX_TO_PIXEL_FACTOR 100
-#define METER_TO_PIXEL 100
+#define MTP_FACTOR 100
 #define CHELL_HEIGHT 210
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
@@ -31,7 +30,7 @@ void drawChellWithBox2D(){
     std::string bgPath = "resources/Backgrounds/Industrial.png";
     Sprite background(bgPath, newWindow);
 
-    StageView stageView(newWindow, textures, MATRIX_TO_PIXEL_FACTOR);
+    StageView stageView(newWindow, textures, MTP_FACTOR);
     // We'll setup a very basic map, 15x15 blocks.
     std::string metalBlock = "MetalBlock";
     std::string rockBlock = "RockBlock";
@@ -56,9 +55,9 @@ void drawChellWithBox2D(){
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
-    int chellInitPosX = xPos * METER_TO_PIXEL;
+    int chellInitPosX = xPos * MTP_FACTOR;
     // Inverted y axis.
-    int chellInitPosY = yPos * METER_TO_PIXEL * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
+    int chellInitPosY = yPos * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
 
     ChellView chellView(newWindow, chellInitPosX, chellInitPosY, textures);
     // This will be our camera, for now it's just a SDL_Rect
@@ -81,8 +80,8 @@ void drawChellWithBox2D(){
         }
         stage.step(chell);
         std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
-        int newPosX = chell->getHorizontalPosition() * METER_TO_PIXEL;
-        int newPosY = chell->getVerticalPosition() * METER_TO_PIXEL * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
+        int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
+        int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
         // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY);
         // Gotta update the camera now to center it around Chell.
