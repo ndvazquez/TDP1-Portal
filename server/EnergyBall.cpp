@@ -10,8 +10,8 @@ EnergyBall::EnergyBall(b2Body* body):
     dynamic(body) {
 }
 
-void EnergyBall::fly(float velocity) { //TODO: velocity in the other direction
-    dynamic.fly(velocity);
+void EnergyBall::fly() { //TODO: velocity in the other direction
+    dynamic.fly();
 }
 
 float EnergyBall::getHorizontalPosition() {

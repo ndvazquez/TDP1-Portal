@@ -238,6 +238,11 @@ void Stage::step() {
     for (auto i = chells.begin(); i != chells.end(); i++) {
         i->second->update();
     }
+
+    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
+        i->second->fly();
+    }
+
     float timeStep = 1.0f / 60.0f;
     int velocityIterations = 8;
     int positionIterations = 2;

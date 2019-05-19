@@ -262,7 +262,7 @@ public:
         float position = initial_position_y;
 
         for (size_t i = 0; i < 120; i++) { //2s
-            stage.step(chell);
+            stage.step();
             velocity_y += gravity * dt;
             position += velocity_y * dt;
             TS_ASSERT_DELTA(position, chell->getVerticalPosition(), 0.1f);
@@ -285,7 +285,7 @@ public:
         float acceleration = force / mass;
 
         for (size_t i = 0; i < 120; i++) { //2s
-            stage.step(chell);
+            stage.step();
             velocity_x += acceleration * dt;
             position += velocity_x * dt;
             TS_ASSERT_DELTA(position, chell->getHorizontalPosition(), 0.1f);
@@ -308,7 +308,7 @@ public:
         float acceleration = force / mass;
 
         for (size_t i = 0; i < 120; i++) { //2s
-            stage.step(chell);
+            stage.step();
             velocity_x += acceleration * dt;
             position += velocity_x * dt;
             TS_ASSERT_DELTA(position, chell->getHorizontalPosition(), 0.1f);
@@ -331,7 +331,7 @@ public:
         float gravity = -1.0f;
 
         for (size_t i = 0; i < 130; i++) { //2s
-            stage.step(chell);
+            stage.step();
             velocity_y += gravity * dt;
             position += velocity_y * dt;
             if (position <= 5) continue; //it has reached the floor
@@ -361,6 +361,20 @@ public:
         TS_ASSERT_EQUALS(initial_position_y, energy_ball->getVerticalPosition());
         TS_ASSERT_EQUALS(0, energy_ball->getHorizontalVelocity());
         TS_ASSERT_EQUALS(0, energy_ball->getVerticalVelocity());
+    }
+
+    void testEnergyBallDoesntFall(void) {
+        std::cout << "Testing that the energy ball doesn't fall" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBall(side, initial_position_x, initial_position_y);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step();
+            TS_ASSERT_EQUALS(initial_position_y, energy_ball->getVerticalPosition());
+            TS_ASSERT_EQUALS(0, energy_ball->getVerticalVelocity());
+        }
     }
 
 };

@@ -15,15 +15,15 @@ private:
 public:
     explicit Dynamic(b2Body* body);
     virtual ~Dynamic();
-    float getHorizontalPosition();
-    float getVerticalPosition();
     virtual void move();
     void jump();
     void moveRight();
     void moveLeft();
     void stop();
-    void fly(float velocity);
+    void fly();
     bool isColliding();
+    float getHorizontalPosition();
+    float getVerticalPosition();
     float getHorizontalVelocity();
     float getVerticalVelocity();
 };

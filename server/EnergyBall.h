@@ -13,7 +13,7 @@ private:
     Dynamic dynamic;
 public:
     EnergyBall(b2Body* body);
-    void fly(float velocity);
+    void fly();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

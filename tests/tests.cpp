@@ -157,5 +157,11 @@ public:
  void runTest() { suite_EnergyBallTest.testEnergyBallInit(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallInit;
 
+static class TestDescription_suite_EnergyBallTest_testEnergyBallDoesntFall : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_EnergyBallTest_testEnergyBallDoesntFall() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 366, "testEnergyBallDoesntFall" ) {}
+ void runTest() { suite_EnergyBallTest.testEnergyBallDoesntFall(); }
+} testDescription_suite_EnergyBallTest_testEnergyBallDoesntFall;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
