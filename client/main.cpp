@@ -92,7 +92,7 @@ void drawStageAndChell(){
     SDL_Rect camera = {0, 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 
     bool quit = false;
-
+    const Uint8 *keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
     while(!quit) {
@@ -100,7 +100,7 @@ void drawStageAndChell(){
             if(e.type == SDL_QUIT) {
                 quit = true;
             }
-            chell.handleEvent(e);
+            chell.handleEvent(e, keys);
             fakeChellSimulation(e, chellVelocityX, chellVelocityY);
         }
         SDL_Delay(REFRESH_STEP);
