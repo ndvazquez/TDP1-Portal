@@ -25,13 +25,10 @@ set(CLIENT_SOURCE_FILES
 set(SERVER_SOURCE_FILES
         server/main.cpp
         server/Stage.cpp
-        server/Stage.h
         server/Coordinate.cpp
-        server/Coordinate.h
         server/BrickBlock.cpp
         server/BrickBlock.cpp
         server/MetalBlock.cpp
-        server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
         server/EnergyTransmitter.cpp
         server/Rock.cpp
@@ -47,13 +44,10 @@ set(SERVER_SOURCE_FILES
 set(TEST_SOURCE_FILES
         tests/tests.cpp
         server/Stage.cpp
-        server/Stage.h
         server/Coordinate.cpp
-        server/Coordinate.h
         server/BrickBlock.cpp
         server/BrickBlock.cpp
         server/MetalBlock.cpp
-        server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
         server/EnergyTransmitter.cpp
         server/Rock.cpp
