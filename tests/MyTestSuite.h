@@ -281,7 +281,7 @@ public:
         float dt = 1.0f/60.0f;
         float velocity_x = 0;
         float position = initial_position_x;
-        float force = 1000;
+        float force = 15;
         float acceleration = force / mass;
 
         for (size_t i = 0; i < 120; i++) { //2s
@@ -304,7 +304,7 @@ public:
         float dt = 1.0f/60.0f;
         float velocity_x = 0;
         float position = initial_position_x;
-        float force = -1000;
+        float force = -15;
         float acceleration = force / mass;
 
         for (size_t i = 0; i < 120; i++) { //2s

@@ -49,7 +49,7 @@ void drawChellWithBox2D(){
     float yPos = 1;
     float chellHeight = 2;
     float chellWidth = 2;
-    Stage stage(15, 15); // 1m == 1 block == 100px
+    Stage stage(14, 15); // 1m == 1 block == 100px
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
@@ -79,7 +79,7 @@ void drawChellWithBox2D(){
 
         }
         stage.step(chell);
-        std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
+        //std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
         int newPosX = chell->getHorizontalPosition() * FACTOR;
         int newPosY = chell->getVerticalPosition() * FACTOR * -1 + LEVEL_HEIGHT - 230;
         chellView.move(newPosX, newPosY);
