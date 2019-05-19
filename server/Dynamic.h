@@ -18,6 +18,7 @@ public:
     float getHorizontalPosition();
     float getVerticalPosition();
     virtual void move();
+    void jump();
     void moveRight();
     void moveLeft();
     void stop();

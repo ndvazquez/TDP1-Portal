@@ -35,6 +35,11 @@ void Dynamic::stop() {
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
+void Dynamic::jump() {
+    float impulse = body->GetMass() * 10;
+    body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+}
+
 float Dynamic::getHorizontalVelocity() {
     return body->GetLinearVelocity().x;
 }
