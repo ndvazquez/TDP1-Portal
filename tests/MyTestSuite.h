@@ -17,7 +17,7 @@ class BrickBlockTest : public CxxTest::TestSuite
     size_t side = 2;
 
   public:
-      void testBrickBlock( void ) {
+      void testBrickBlock(void) {
           std::cout << "Testing the brick block dimentions" << std::endl;
 
           Stage stage(width_stage, height_stage);
@@ -43,7 +43,7 @@ class MetalBlockTest : public CxxTest::TestSuite
     size_t side = 2;
 
 public:
-    void testMetalBlock( void ) {
+    void testMetalBlock(void) {
         std::cout << "Testing the metal block dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addMetalBlock(side, x_pos, y_pos);
@@ -68,7 +68,7 @@ class EnergyTransmitterTest : public CxxTest::TestSuite
     size_t side = 2;
 
 public:
-    void testEnergyTransmitter( void ) {
+    void testEnergyTransmitter(void) {
         std::cout << "Testing the energy transmitter dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addEnergyTransmitter(side, x_pos, y_pos);
@@ -94,7 +94,7 @@ class RockTest : public CxxTest::TestSuite
     size_t side = 2;
 
 public:
-    void testRock( void ) {
+    void testRock(void) {
         std::cout << "Testing the rock dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addRock(side, x_pos, y_pos);
@@ -120,7 +120,7 @@ class EnergyBarTest : public CxxTest::TestSuite
     size_t h_side = 4;
 
 public:
-    void testEnergyBar( void ) {
+    void testEnergyBar(void) {
         std::cout << "Testing the energy bar dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addEnergyBar(v_side, h_side, x_pos, y_pos);
@@ -147,7 +147,7 @@ class ButtonTest : public CxxTest::TestSuite
     size_t h_side = 4;
 
 public:
-    void testButton( void ) {
+    void testButton(void) {
         std::cout << "Testing the button dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addButton(v_side, h_side, x_pos, y_pos);
@@ -173,7 +173,7 @@ class AcidTest : public CxxTest::TestSuite
     size_t h_side = 4;
 
 public:
-    void testAcid( void ) {
+    void testAcid(void) {
         std::cout << "Testing the acid dimentions" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addAcid(v_side, h_side, x_pos, y_pos);
@@ -199,7 +199,7 @@ class OutOfRangeTest : public CxxTest::TestSuite
     size_t y_pos_ok = 1;
 
 public:
-    void testOutOfRange ( void ) {
+    void testOutOfRange(void) {
         std::cout << "Testing the out of range excepcion" << std::endl;
         Stage stage(width_stage, height_stage);
         try {
@@ -236,7 +236,7 @@ class ChellTest : public CxxTest::TestSuite {
     size_t mass = v_side * h_side;
 
 public:
-    void testChellInit( void ) {
+    void testChellInit(void) {
         std::cout << "Testing the creation of Chell" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addChell(v_side, h_side, initial_position_x, initial_position_y);
@@ -249,7 +249,7 @@ public:
         TS_ASSERT_EQUALS(0, chell->getVerticalVelocity());
     }
 
-    void testChellFalls ( void ) {
+    void testChellFalls(void) {
         std::cout << "Testing chell falling" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
@@ -270,7 +270,7 @@ public:
         }
     }
 
-    void testChellMovesRight ( void ) {
+    void testChellMovesRight(void) {
         std::cout << "Testing chell moving right" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
@@ -293,7 +293,7 @@ public:
         }
     }
 
-    void testChellMovesLeft ( void ) {
+    void testChellMovesLeft(void) {
         std::cout << "Testing chell moving left" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
@@ -316,7 +316,7 @@ public:
         }
     }
 
-    void testChellJumps ( void ) {
+    void testChellJumps(void) {
         std::cout << "Testing chell jumping" << std::endl;
         Stage stage(width_stage, height_stage);
         float position = 5;
@@ -377,5 +377,17 @@ public:
         }
     }
 
+    void testEnergyBallCollidesAndChangeDirection(void) {
+        std::cout << "Testing that the energy ball collides and change direction" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBall(side, initial_position_x, initial_position_y);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+            std::cout << "Position: " << energy_ball->getHorizontalPosition() << std::endl;
+        }
+    }
 };
 #endif

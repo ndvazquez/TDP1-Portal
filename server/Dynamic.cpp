@@ -47,18 +47,21 @@ bool Dynamic::isColliding() {
 }
 
 void Dynamic::fly() {
-    float force = 15; //TODO: change this harcoded variable
-    if (body->GetLinearVelocity().x > 0.5) force = 0;
-    body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
-
+    //Eliminate gravity
     float mass = body->GetMass();
     float gravity = -1;
     float force_y = - (mass * gravity);
     body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
 
+    if (body->GetLinearVelocity().x != 0) return; //Already flying
+
+    float impulse = body->GetMass() * 2000;
+
     if (isColliding()) {
-        stop();
-        body->ApplyForce(b2Vec2(-force,0), body->GetWorldCenter(), true); //TODO: vertical collisions
+        body->ApplyLinearImpulse(b2Vec2(-impulse, 0), body->GetWorldCenter() , true);
+    }
+    else {
+        body->ApplyLinearImpulse(b2Vec2(impulse, 0), body->GetWorldCenter() , true);
     }
 }
 
