@@ -384,9 +384,16 @@ public:
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
 
-        for (size_t i = 0; i < 1200; i++) {
+        energy_ball->fly();
+        float position = energy_ball->getHorizontalPosition();
+        float velocity;
+        float dt = 1.0f/60.f;
+
+        for (size_t i = 0; i < 120000; i++) { //2s
             stage.step();
-            std::cout << "Position: " << energy_ball->getHorizontalPosition() << std::endl;
+            velocity = energy_ball->getHorizontalVelocity();
+            position += velocity * dt;
+            TS_ASSERT_DELTA(position, energy_ball->getHorizontalPosition(), 1.0f);
         }
     }
 };

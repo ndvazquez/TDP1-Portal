@@ -11,6 +11,7 @@
 class Dynamic {
 private:
     b2Body* body;
+    float impulse;
 
 public:
     explicit Dynamic(b2Body* body);

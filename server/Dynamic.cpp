@@ -8,6 +8,7 @@
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
+    impulse = body->GetMass() * 50;
 }
 
 void Dynamic::move() {
@@ -55,10 +56,9 @@ void Dynamic::fly() {
 
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
-    float impulse = body->GetMass() * 2000;
-
     if (isColliding()) {
-        body->ApplyLinearImpulse(b2Vec2(-impulse, 0), body->GetWorldCenter() , true);
+        impulse = -impulse;
+        body->ApplyLinearImpulse(b2Vec2(impulse, 0), body->GetWorldCenter() , true);
     }
     else {
         body->ApplyLinearImpulse(b2Vec2(impulse, 0), body->GetWorldCenter() , true);
