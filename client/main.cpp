@@ -14,13 +14,13 @@
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
-#define SCREEN_WIDTH 800
+#define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
 #define LEVEL_WIDTH 1500
 #define LEVEL_HEIGHT 1500
 #define MATRIX_TO_PIXEL_FACTOR 100
-#define FACTOR 100
-#define CHELL_HEIGHT 230
+#define METER_TO_PIXEL 100
+#define CHELL_HEIGHT 210
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
 void drawChellWithBox2D(){
@@ -32,7 +32,7 @@ void drawChellWithBox2D(){
     Sprite background(bgPath, newWindow);
 
     StageView stageView(newWindow, textures, MATRIX_TO_PIXEL_FACTOR);
-    // We'll setup a very basic map.
+    // We'll setup a very basic map, 15x15 blocks.
     std::string metalBlock = "MetalBlock";
     std::string rockBlock = "RockBlock";
     for (int i = 0; i < 15; ++i){
@@ -49,13 +49,16 @@ void drawChellWithBox2D(){
     float yPos = 1;
     float chellHeight = 2;
     float chellWidth = 2;
-    Stage stage(14, 15); // 1m == 1 block == 100px
+    // We'll subtract 1 block from the world stage for now because it will make Chell collide
+    // with the borders of what's being rendered on screen.
+    Stage stage(14, 14); // 1m == 1 block == 100px
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
-    int chellInitPosX = xPos * FACTOR + LEVEL_WIDTH;
-    int chellInitPosY = yPos * FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
+    int chellInitPosX = xPos * METER_TO_PIXEL;
+    // Inverted y axis.
+    int chellInitPosY = yPos * METER_TO_PIXEL * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
 
     ChellView chellView(newWindow, chellInitPosX, chellInitPosY, textures);
     // This will be our camera, for now it's just a SDL_Rect
@@ -71,18 +74,18 @@ void drawChellWithBox2D(){
                 quit = true;
             }
             chellView.handleEvent(e, keys);
+            // This should be done server side, but we'll do the event handling here for now.
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
-            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]){
-                    chell->stop();
-            }
-
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
         stage.step(chell);
-        //std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
-        int newPosX = chell->getHorizontalPosition() * FACTOR;
-        int newPosY = chell->getVerticalPosition() * FACTOR * -1 + LEVEL_HEIGHT - 230;
+        std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
+        int newPosX = chell->getHorizontalPosition() * METER_TO_PIXEL;
+        int newPosY = chell->getVerticalPosition() * METER_TO_PIXEL * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
+        // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY);
+        // Gotta update the camera now to center it around Chell.
         chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
         newWindow.clear();
         background.draw(newWindow, nullptr);
@@ -90,11 +93,11 @@ void drawChellWithBox2D(){
         chellView.playAnimation(camera);
         newWindow.render();
     }
+    delete coordinate;
 }
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
-    //drawStageAndChell();
     drawChellWithBox2D();
 }
