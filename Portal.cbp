@@ -568,12 +568,6 @@
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.h">
 			<Option target="Editor"/>
 		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockButton.cpp">
-			<Option target="Editor"/>
-		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockButton.h">
-			<Option target="Editor"/>
-		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.cpp">
 			<Option target="Editor"/>
 		</Unit>
@@ -584,12 +578,6 @@
 			<Option target="Editor"/>
 		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h">
-			<Option target="Editor"/>
-		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockBlockButton.cpp">
-			<Option target="Editor"/>
-		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockBlockButton.h">
 			<Option target="Editor"/>
 		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.cpp">

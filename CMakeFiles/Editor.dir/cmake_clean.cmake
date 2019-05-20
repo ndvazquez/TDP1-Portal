@@ -9,8 +9,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/Editor.dir/editor/Menu.cpp.o"
   "CMakeFiles/Editor.dir/editor/Editor.cpp.o"
   "CMakeFiles/Editor.dir/editor/MenuButton.cpp.o"
-  "CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.o"
-  "CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.o"
   "CMakeFiles/Editor.dir/editor/RockButton.cpp.o"
   "CMakeFiles/Editor.dir/editor/Event.cpp.o"
   "CMakeFiles/Editor.dir/editor/MouseButtonDown.cpp.o"

@@ -460,33 +460,6 @@ editor/MenuButton.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MenuButton.cpp.s
 .PHONY : editor/MenuButton.cpp.s
 
-editor/MetalBlockButton.o: editor/MetalBlockButton.cpp.o
-
-.PHONY : editor/MetalBlockButton.o
-
-# target to build an object file
-editor/MetalBlockButton.cpp.o:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.o
-.PHONY : editor/MetalBlockButton.cpp.o
-
-editor/MetalBlockButton.i: editor/MetalBlockButton.cpp.i
-
-.PHONY : editor/MetalBlockButton.i
-
-# target to preprocess a source file
-editor/MetalBlockButton.cpp.i:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.i
-.PHONY : editor/MetalBlockButton.cpp.i
-
-editor/MetalBlockButton.s: editor/MetalBlockButton.cpp.s
-
-.PHONY : editor/MetalBlockButton.s
-
-# target to generate assembly for a file
-editor/MetalBlockButton.cpp.s:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.s
-.PHONY : editor/MetalBlockButton.cpp.s
-
 editor/MouseButtonDown.o: editor/MouseButtonDown.cpp.o
 
 .PHONY : editor/MouseButtonDown.o
@@ -540,33 +513,6 @@ editor/MouseButtonUp.s: editor/MouseButtonUp.cpp.s
 editor/MouseButtonUp.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonUp.cpp.s
 .PHONY : editor/MouseButtonUp.cpp.s
-
-editor/RockBlockButton.o: editor/RockBlockButton.cpp.o
-
-.PHONY : editor/RockBlockButton.o
-
-# target to build an object file
-editor/RockBlockButton.cpp.o:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.o
-.PHONY : editor/RockBlockButton.cpp.o
-
-editor/RockBlockButton.i: editor/RockBlockButton.cpp.i
-
-.PHONY : editor/RockBlockButton.i
-
-# target to preprocess a source file
-editor/RockBlockButton.cpp.i:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.i
-.PHONY : editor/RockBlockButton.cpp.i
-
-editor/RockBlockButton.s: editor/RockBlockButton.cpp.s
-
-.PHONY : editor/RockBlockButton.s
-
-# target to generate assembly for a file
-editor/RockBlockButton.cpp.s:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.s
-.PHONY : editor/RockBlockButton.cpp.s
 
 editor/RockButton.o: editor/RockButton.cpp.o
 
@@ -896,18 +842,12 @@ help:
 	@echo "... editor/MenuButton.o"
 	@echo "... editor/MenuButton.i"
 	@echo "... editor/MenuButton.s"
-	@echo "... editor/MetalBlockButton.o"
-	@echo "... editor/MetalBlockButton.i"
-	@echo "... editor/MetalBlockButton.s"
 	@echo "... editor/MouseButtonDown.o"
 	@echo "... editor/MouseButtonDown.i"
 	@echo "... editor/MouseButtonDown.s"
 	@echo "... editor/MouseButtonUp.o"
 	@echo "... editor/MouseButtonUp.i"
 	@echo "... editor/MouseButtonUp.s"
-	@echo "... editor/RockBlockButton.o"
-	@echo "... editor/RockBlockButton.i"
-	@echo "... editor/RockBlockButton.s"
 	@echo "... editor/RockButton.o"
 	@echo "... editor/RockButton.i"
 	@echo "... editor/RockButton.s"
