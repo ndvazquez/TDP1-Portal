@@ -130,6 +130,11 @@ void Dynamic::moveDown(float force) {
     body->ApplyForce(b2Vec2(0, -force), body->GetWorldCenter(), true);
 }
 
+void Dynamic::downloadToEarth() {
+    body->ApplyForce(b2Vec2(0, -15), body->GetWorldCenter(), true);
+    if (isColliding()) stop(0);
+}
+
 float Dynamic::getHorizontalPosition() {
     return body->GetPosition().x;
 }

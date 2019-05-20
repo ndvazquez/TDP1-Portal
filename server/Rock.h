@@ -21,6 +21,7 @@ public:
     float getVerticalVelocity();
     float getHorizontalVelocity();
     void eliminateGravity();
+    void downloadToEarth();
     void moveRight();
     void moveLeft();
     void moveDown();

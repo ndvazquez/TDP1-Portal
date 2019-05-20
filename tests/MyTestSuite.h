@@ -718,7 +718,6 @@ public:
             stage.step();
             velocity_y += acceleration * dt;
             position += velocity_y * dt;
-
             TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 3.5f);
             TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 3.5f);
         }
@@ -732,7 +731,13 @@ public:
         Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
         Rock* rock = stage.getRock(coordinate);
 
-        //rock->download();
+        rock->eliminateGravity();
+        rock->downloadToEarth();
+
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+            //std::cout << rock->getVerticalPosition() << std::endl;
+        }
     }
 
 };

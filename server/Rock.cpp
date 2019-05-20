@@ -2,6 +2,7 @@
 // Created by cecix on 17/05/19.
 //
 
+#include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
 #include "MoveLeft.h"
@@ -47,12 +48,18 @@ void Rock::destroyActualMovement() {
 };
 
 void Rock::update() {
+    eliminateGravity();
     this->actual_movement->move(rockForce);
 }
 
 void Rock::eliminateGravity() {
     this->dynamic.eliminateGravity();
 }
+
+void Rock::downloadToEarth() {
+    this->dynamic.downloadToEarth();
+}
+
 
 float Rock::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();

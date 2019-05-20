@@ -26,6 +26,7 @@ public:
     void flyHorizontal();
     void flyVertical();
     bool isColliding();
+    void downloadToEarth();
     bool handleCollisions();
     void eliminateGravity();
     float getHorizontalPosition();
