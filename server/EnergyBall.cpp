@@ -2,7 +2,8 @@
 // Created by cecix on 19/05/19.
 //
 
-#include <iostream>
+#include <string>
+
 #include "EnergyBall.h"
 
 #define energyBallType "EnergyBall"
@@ -18,8 +19,11 @@ EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
 
 void EnergyBall::fly() {
     if (life_steps >= 1200) throw EnergyBallDeadException();
-    if (is_vertical) dynamic.flyVertical();
-    else dynamic.flyHorizontal();
+    if (is_vertical) {
+        dynamic.flyVertical();
+    } else {
+        dynamic.flyHorizontal();
+    }
     life_steps++;
 }
 
@@ -40,13 +44,8 @@ bool EnergyBall::isVertical() {
 }
 
 void EnergyBall::handleCollision(Entity* entity) {
-    std::cout << "entro al handle collision de energy ball" << std::endl;
     if (entity->getType() == "BrickBlock") die();
-    else if (entity->getType() == "DiagonalMetalBlock") {
-        std::cout << "entro al if correspondiente" << std::endl;
-        changeDirection();
-    }
-    else std::cout << "fuck" << std::endl;
+    else if (entity->getType() == "DiagonalMetalBlock") changeDirection();
 }
 
 float EnergyBall::getHorizontalPosition() {

@@ -58,8 +58,7 @@ set(SERVER_SOURCE_FILES
         server/MoveLeft.cpp
         server/Stop.cpp
         server/EnergyBall.cpp
-        server/Entity.cpp
-        )
+        server/Entity.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp
@@ -80,8 +79,7 @@ set(TEST_SOURCE_FILES
         server/MoveLeft.cpp
         server/Stop.cpp
         server/EnergyBall.cpp
-        server/Entity.cpp
-        )
+        server/Entity.cpp)
 
 add_executable(Client ${CLIENT_SOURCE_FILES})
 add_executable(Server ${SERVER_SOURCE_FILES})

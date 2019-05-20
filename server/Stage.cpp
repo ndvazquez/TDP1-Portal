@@ -135,7 +135,7 @@ void Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos) {
     b2FixtureDef fixture;
 
     fixture.shape = &shape;
-    block_body->CreateFixture(&fixture);
+    block_body->CreateFixture(&fixture);*/
 
     //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);*/
 

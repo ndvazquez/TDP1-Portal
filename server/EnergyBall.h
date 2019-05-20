@@ -24,7 +24,8 @@ protected:
     size_t life_steps;
 
 public:
-    explicit EnergyBall(b2Body* body, bool is_vertical); //se que es horrendo pero sino como hago que cambie de direccion?
+    explicit EnergyBall(b2Body* body, bool is_vertical);
+    //se que es horrendo pero sino como hago que cambie de direccion?
     void fly();
     void die();
     bool isDead();

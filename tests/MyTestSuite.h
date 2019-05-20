@@ -564,17 +564,37 @@ public:
         stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
         stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        Coordinate* coordinates_diagonal = new Coordinate(initial_position_x_diagonal_block, initial_position_y_diagonal_block);
         EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
-        DiagonalMetalBlock* diagonal_block = stage.getDiagonalMetalBlock(coordinates_diagonal);
 
         energy_ball->fly();
 
         bool test = false;
         for (size_t i = 0; i < 300; i++) { //2s
-            std::cout << "Diagonal: " << diagonal_block->getHorizontalPosition() << std::endl;
-            std::cout << energy_ball->getHorizontalPosition() << std::endl;
             if (energy_ball->isVertical()) {
+                test = true;
+                break;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(test, true);
+    }
+
+    void testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection() {
+        float initial_position_x_diagonal_block = initial_position_x;
+        float initial_position_y_diagonal_block = initial_position_y + 100; //colliding
+
+        std::cout << "Testing that the vertical energy ball collides against diagonal metal block and changes direction" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        energy_ball->fly();
+
+        bool test = false;
+        for (size_t i = 0; i < 300; i++) { //2s
+            if (! energy_ball->isVertical()) {
                 test = true;
                 break;
             }

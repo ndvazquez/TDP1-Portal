@@ -54,13 +54,13 @@ bool Dynamic::handleCollisions() {
     while (edge != NULL) {
         b2Contact* contact = edge->contact;
         if (contact->IsTouching()) {
-            void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-            void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
-            if (bodyUserDataA != NULL && bodyUserDataB != NULL) {
-                std::cout << "Entro en el if correcto" << std::endl;
-                static_cast<Entity*>(bodyUserDataA)->handleCollision(static_cast<Entity*>(bodyUserDataB));
+            void* user_A = contact->GetFixtureA()->GetBody()->GetUserData();
+            void* user_B = contact->GetFixtureB()->GetBody()->GetUserData();
+            if (user_A != NULL && user_B != NULL) {
+                Entity* entity_A = static_cast<Entity*>(user_A);
+                Entity* entity_B = static_cast<Entity*> (user_B);
+                entity_A->handleCollision(entity_B);
             }
-            else std::cout << "No entro al if correcto" << std::endl;
             resul = true;
         }
         edge = edge->next;
@@ -78,12 +78,10 @@ void Dynamic::flyHorizontal() {
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
     if (handleCollisions()) {
-        std::cout << "Entro al handle collision" << std::endl;
         impulse = -impulse;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
                 body->GetWorldCenter(), true);
     } else {
-        std::cout << "No entro al handle collision" << std::endl;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
                 body->GetWorldCenter(), true);
     }

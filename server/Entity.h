@@ -12,7 +12,7 @@ protected:
     std::string type;
 
 public:
-    Entity(std::string type);
+    explicit Entity(std::string type);
     std::string getType();
     virtual void handleCollision(Entity* entity) = 0;
 };

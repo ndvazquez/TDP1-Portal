@@ -14,7 +14,6 @@ DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
 }
 
 void DiagonalMetalBlock::handleCollision(Entity* entity) {
-    std::cout << "Entro al handlecollison de diagonalmetalblock" << std::endl;
     if (entity->getType() == "EnergyBall") {
         static_cast<EnergyBall*>(entity)->changeDirection();
     }
