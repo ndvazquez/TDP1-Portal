@@ -2,8 +2,6 @@
 // Created by cecix on 18/05/19.
 //
 
-#define chellForce 15
-
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"

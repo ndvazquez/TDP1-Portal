@@ -5,6 +5,9 @@
 #ifndef PORTAL_DYNAMIC_H
 #define PORTAL_DYNAMIC_H
 
+#define delta 0.01
+#define impulseFactor 50
+#define jumpFactor 4
 
 #include <Box2D/Dynamics/b2Body.h>
 

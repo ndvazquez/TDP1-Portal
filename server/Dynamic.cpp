@@ -2,10 +2,6 @@
 // Created by cecix on 18/05/19.
 //
 
-#define delta 0.01
-#define impulseFactor 50
-#define jumpFactor 4
-
 #include <iostream>
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
