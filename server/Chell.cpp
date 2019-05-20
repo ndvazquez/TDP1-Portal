@@ -32,7 +32,7 @@ void Chell::stop() {
 
 void Chell::destroyActualMovement() {
     delete this->actual_movement;
-};
+}
 
 void Chell::update() {
     this->actual_movement->move(chellForce);

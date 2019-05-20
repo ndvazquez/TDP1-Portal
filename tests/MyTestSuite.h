@@ -634,8 +634,67 @@ public:
                 up = true;
             }
         }
+        TS_ASSERT(bounces > 0);
+    }
 
-        std::cout << bounces << std::endl;
+    void testRockBlockMovesRight() {
+        std::cout << "Testing that the rock block moves right" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addRock(side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Rock* rock = stage.getRock(coordinate);
+        rock->moveRight();
+
+        float dt = 1.0f/60.0f;
+        float velocity_x = 0;
+        float position = initial_position_x;
+        float force = 5;
+        float acceleration = force / mass;
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step();
+            velocity_x += acceleration * dt;
+            position += velocity_x * dt;
+            TS_ASSERT_DELTA(position, rock->getHorizontalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_x, rock->getHorizontalVelocity(), 0.1f);
+        }
+    }
+
+    void testRockBlockMovesLeft() {
+        std::cout << "Testing that the rock block moves left" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addRock(side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Rock* rock = stage.getRock(coordinate);
+        rock->moveLeft();
+
+        float dt = 1.0f/60.0f;
+        float velocity_x = 0;
+        float position = initial_position_x;
+        float force = -5;
+        float acceleration = force / mass;
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step();
+            velocity_x += acceleration * dt;
+            position += velocity_x * dt;
+            TS_ASSERT_DELTA(position, rock->getHorizontalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_x, rock->getHorizontalVelocity(), 0.1f);
+        }
+    }
+
+    void testRockBlockMovesUp() {
+
+    }
+
+    void testRockBlockMovesDown() {
+
+    }
+
+    void testRockBlockDownloadsRight() {
+
     }
 
 };

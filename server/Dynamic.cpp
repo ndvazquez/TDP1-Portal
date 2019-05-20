@@ -108,7 +108,7 @@ void Dynamic::flyVertical() {
     }
 }
 
-void Dynamic::moveRock() {
+void Dynamic::makeBouncement() {
     float mass = body->GetMass();
     float gravity = -1;
     float force_y = - (mass * gravity);

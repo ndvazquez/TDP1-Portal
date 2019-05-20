@@ -11,6 +11,8 @@
 class Rock {
 private:
     Dynamic dynamic;
+    b2Body* body;
+    Dynamic* actual_movement;
 
 public:
     explicit Rock(b2Body* body);
@@ -18,7 +20,12 @@ public:
     float getVerticalPosition();
     float getVerticalVelocity();
     float getHorizontalVelocity();
-    void move();
+    void makeBouncement();
+    void moveRight();
+    void moveLeft();
+    void stop();
+    void destroyActualMovement();
+    void update();
 };
 
 #endif //PORTAL_ROCK_H

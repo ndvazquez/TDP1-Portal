@@ -264,7 +264,8 @@ void Stage::step() {
     }
 
     for (auto i = rocks.begin(); i != rocks.end(); i++) {
-        i->second->move();
+        i->second->makeBouncement();
+        i->second->update(); //to move right, left and stuff
     }
 
     float timeStep = 1.0f / 60.0f;

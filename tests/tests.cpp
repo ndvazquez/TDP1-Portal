@@ -233,5 +233,35 @@ public:
  void runTest() { suite_MovingRockTest.testRockBlockMovesUpAndDown(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown;
 
+static class TestDescription_suite_MovingRockTest_testRockBlockMovesRight : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 640, "testRockBlockMovesRight" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
+} testDescription_suite_MovingRockTest_testRockBlockMovesRight;
+
+static class TestDescription_suite_MovingRockTest_testRockBlockMovesLeft : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 664, "testRockBlockMovesLeft" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
+} testDescription_suite_MovingRockTest_testRockBlockMovesLeft;
+
+static class TestDescription_suite_MovingRockTest_testRockBlockMovesUp : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_MovingRockTest_testRockBlockMovesUp() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 668, "testRockBlockMovesUp" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesUp(); }
+} testDescription_suite_MovingRockTest_testRockBlockMovesUp;
+
+static class TestDescription_suite_MovingRockTest_testRockBlockMovesDown : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_MovingRockTest_testRockBlockMovesDown() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 672, "testRockBlockMovesDown" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesDown(); }
+} testDescription_suite_MovingRockTest_testRockBlockMovesDown;
+
+static class TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 676, "testRockBlockDownloadsRight" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockDownloadsRight(); }
+} testDescription_suite_MovingRockTest_testRockBlockDownloadsRight;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
