@@ -32,12 +32,16 @@ set(EDITOR_SOURCE_FILES
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
         common/StageView.cpp
-        editor/BrickBlockImage.cpp
         editor/Stage.cpp
-        editor/BrickBlockImageContainer.cpp
         editor/Menu.cpp
-        editor/MetalBlockImage.cpp
         editor/Editor.cpp
+        editor/MenuButton.cpp
+        editor/RockBlockButton.cpp
+        editor/MetalBlockButton.cpp
+        editor/RockButton.cpp
+        editor/Event.cpp
+        editor/MouseButtonDown.cpp
+        editor/MouseButtonUp.cpp
         )
 
 

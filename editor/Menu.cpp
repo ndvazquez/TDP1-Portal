@@ -7,6 +7,10 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
+#include "RockBlockButton.h"
+#include "MetalBlockButton.h"
+#include "RockButton.h"
+#include "MouseButtonUp.h"
 
 #define BRICK_BLOCK_POS 0
 #define METAL_BLOCK_POS 1
@@ -17,15 +21,10 @@
 #define GATE_POS 6
 
 #define TOTAL_OPTIONS 7
-#define BRICK_BLOCK_PATH "resources/blocks/breakblock.png"
-#define METAL_BLOCK_PATH "resources/blocks/switchblock.png"
-#define ROCK1_PATH "resources/rocks/1.png"
-#define ROCK2_PATH "resources/rocks/2.png"
-#define ROCK3_PATH "resources/rocks/3.png"
 #define BUTTON_PATH "resources/button/off.png"
 #define GATE_PATH "resources/gate.png"
 #define BACKGROUND "resources/editor-menu-bg.png"
-
+#define NO_BUTTON ""
 
 struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
     struct SDL_Rect* rect = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
@@ -37,11 +36,6 @@ struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
 }
 
 
-Menu::Menu(Window &window) :
-        window(window){
-    this->set();
-}
-
 void Menu::set() {
     //this->current = current;
 
@@ -50,31 +44,84 @@ void Menu::set() {
     // Set de rectangles
     int totalY = window.getWindowHeight() / TOTAL_OPTIONS;
     int spaceBetweenY = totalY/6;
+
     int w = totalY - spaceBetweenY;
-    int spaceBetweenX = (window.getWindowWidth()/WIDTH_PROPORTION) - w; //12 me lo van a pasar por param en futuro
+    int spaceBetweenX = (window.getWindowWidth()/WIDTH_PROPORTION) - w;
+
+    std::vector<struct SDL_Rect*> rectangles;
     for (int i = 0; i < TOTAL_OPTIONS; i++) {
         struct SDL_Rect* rect = createSDL_Rect(spaceBetweenX/2, spaceBetweenY + i*totalY, w, w);
-        this->options.push_back(rect);
+        rectangles.push_back(rect);
     }
-}
+    MenuButton* mbb = new MetalBlockButton(rectangles[0]);
+    MenuButton* rbb = new RockBlockButton(rectangles[1]);
+    this->options.push_back(mbb);
+    this->options.push_back(rbb);
+ }
 
 void Menu::draw() {
-    std::vector<std::string> path = {BRICK_BLOCK_PATH, METAL_BLOCK_PATH,\
-        ROCK1_PATH, ROCK2_PATH, ROCK3_PATH, BUTTON_PATH, GATE_PATH};
+    //std::cerr << "\nMenu draw: \n";
+
     Sprite bgSprite(BACKGROUND, window);
+    //std::cerr << "Sprite creado \n";
+
     bgSprite.draw(window, this->me);
-    for (int i = 0; i < TOTAL_OPTIONS; i++) {
-        Sprite sprite(path[i], this->window);
-        sprite.draw(this->window, this->options[i]);
+    //std::cerr << "Sprite draweado \n";
+
+    auto it = options.begin();
+    //std::cerr << "Creo iterador \n";
+    int i = 0;
+    for (; it != options.end(); it++) {
+
+        (**it).draw(this->window);
+        //std::cerr << "dibujo OPTION " << i << std::endl;
+        //Sprite sprite(path[i], this->window);
+        //sprite.draw(this->window, this->options[i]);
+        i++;
     }
 }
 
 
 Menu::~Menu() {
     delete(this->me);
+
     auto it = this->options.begin();
     while (it != this->options.end()) {
         delete(*it);
     }
+}
+
+/*
+bool Menu::has(Sint32 x, Sint32 y) {
+    SDL_Point sdlPoint = {x, y};
+    std::cerr << "sdlPoint.x = " << sdlPoint.x << std::endl;
+    std::cerr << "sdlPoint.y = " << sdlPoint.y << std::endl;
+    return (bool) SDL_PointInRect(&sdlPoint, this->me);
+}*/
+void Menu::handle(MouseButtonDown *event) {
+    auto it = options.begin();
+    for (; it != options.end(); it++) {
+        if ((**it).has(event->getX(), event->getY())) {
+            current = (**it).getName();
+            std::cerr << "New current is: " << current<< std::endl;
+            return;
+        }
+    }
+}
+
+void Menu::handle(MouseButtonUp *event) {
+    SDL_Point sdlPoint = {event->getX(), event->getY()};
+    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
+    if (isIn) {
+        current = NO_BUTTON;
+        std::cerr << "New current is: " << current<< std::endl;
+        return;
+    }
+}
+
+
+Menu::Menu(Window &window, std::string &current) :
+        window(window), current(current) {
+    this->set();
 }
 

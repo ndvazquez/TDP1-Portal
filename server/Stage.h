@@ -12,6 +12,7 @@
 #include "BrickBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
+#include "../editor/MouseButtonDown.h"
 
 class Stage {
 private:

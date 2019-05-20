@@ -44,9 +44,23 @@ string
 exception
 -
 
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.h
+SDL_types.h
+-
+Event.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
+Event.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
+
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.cpp
 Stage.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.h
+MouseButtonUp.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 iostream
 -
 
@@ -63,6 +77,10 @@ SDL_image.h
 /home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
 ../common/StageView.h
 /home/camix/Fiuba/Taller/TDP1-Portal/common/StageView.h
+MouseButtonDown.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.h
+MouseButtonUp.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 
 /usr/include/SDL2/SDL.h
 SDL_main.h
@@ -627,6 +645,10 @@ begin_code.h
 /usr/include/SDL2/begin_code.h
 close_code.h
 /usr/include/SDL2/close_code.h
+
+/usr/include/SDL2/SDL_types.h
+SDL_stdinc.h
+/usr/include/SDL2/SDL_stdinc.h
 
 /usr/include/SDL2/SDL_version.h
 SDL_stdinc.h

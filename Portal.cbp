@@ -544,22 +544,16 @@
 			<Option target="Client"/>
 			<Option target="Editor"/>
 		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImage.cpp">
-			<Option target="Editor"/>
-		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImage.h">
-			<Option target="Editor"/>
-		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImageContainer.cpp">
-			<Option target="Editor"/>
-		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/BrickBlockImageContainer.h">
-			<Option target="Editor"/>
-		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.cpp">
 			<Option target="Editor"/>
 		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h">
 			<Option target="Editor"/>
 		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.cpp">
@@ -568,10 +562,40 @@
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.h">
 			<Option target="Editor"/>
 		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockImage.cpp">
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.cpp">
 			<Option target="Editor"/>
 		</Unit>
-		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockImage.h">
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockButton.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MetalBlockButton.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockBlockButton.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockBlockButton.h">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.cpp">
+			<Option target="Editor"/>
+		</Unit>
+		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.h">
 			<Option target="Editor"/>
 		</Unit>
 		<Unit filename="/home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.cpp">

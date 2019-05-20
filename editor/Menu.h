@@ -10,6 +10,11 @@
 #include <SDL_image.h>
 #include "../common/Window.h"
 #include "../common/Sprite.h"
+#include "MenuButton.h"
+#include "MetalBlockButton.h"
+#include "RockBlockButton.h"
+#include "MouseButtonDown.h"
+#include "MouseButtonUp.h"
 
 #define WIDTH_PROPORTION 10
 
@@ -17,16 +22,24 @@
 class Menu {
 private:
     Window& window;
-//uint8_t& current;
-    std::vector<struct SDL_Rect*> options;
+    std::string& current;
+    //MetalBlockButton mbb;
+    //RockBlockButton rbb;
+    std::vector<MenuButton*> options;
     struct SDL_Rect* me;
     void set();
 
 public:
     //Menu()
-    explicit Menu(Window &window);
+    explicit Menu(Window &window, std::string& current);
     ~Menu();
     void draw();
+
+
+
+    void handle(MouseButtonDown *event);
+
+    void handle(MouseButtonUp *event);
 };
 
 

@@ -11,14 +11,18 @@
 #include <SDL_image.h>
 #include "../common/Window.h"
 #include "../common/StageView.h"
+#include "MouseButtonDown.h"
+#include "MouseButtonUp.h"
 
 class Stage {
 private:
     Window& window;
+    YAML::Node textures;
     StageView stageView;
     std::string& current;
-    struct SDL_Rect* me;
     int xPortion;
+    struct SDL_Rect* me;
+    struct SDL_Rect* camera;
     //map<map<char, int>, uint8_t> matrix;
     //uint8_t& current;
     //for now is hard
@@ -32,6 +36,10 @@ public:
     // (x,y) pixeles.
     void insert(uint32_t x, uint32_t y);
     void draw();
+
+    void handle(MouseButtonDown *event);
+
+    void handle(MouseButtonUp *event);
 };
 
 

@@ -15,6 +15,9 @@
 #include "../common/Window.h"
 #include "Stage.h"
 #include "Menu.h"
+#include "Event.h"
+#include "MouseButtonDown.h"
+#include "MouseButtonUp.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -26,13 +29,15 @@ class Editor {
 private:
     std::string current;
     Window& window;
-    Menu menu; //(current, 800/11, SCREEN_HEIGHT);
-    Stage stage; //(current, 800 - 800/11);//("Editor", SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    Stage stage;
+    Menu menu;
 
 public:
-    Editor(Window& window);
+    explicit Editor(Window& window);
     ~Editor();
     void draw();
+    void handle(MouseButtonUp *event);
+    void handle(MouseButtonDown *event);
 };
 
 

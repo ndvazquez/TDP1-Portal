@@ -352,60 +352,6 @@ common/Window.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/common/Window.cpp.s
 .PHONY : common/Window.cpp.s
 
-editor/BrickBlockImage.o: editor/BrickBlockImage.cpp.o
-
-.PHONY : editor/BrickBlockImage.o
-
-# target to build an object file
-editor/BrickBlockImage.cpp.o:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.o
-.PHONY : editor/BrickBlockImage.cpp.o
-
-editor/BrickBlockImage.i: editor/BrickBlockImage.cpp.i
-
-.PHONY : editor/BrickBlockImage.i
-
-# target to preprocess a source file
-editor/BrickBlockImage.cpp.i:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.i
-.PHONY : editor/BrickBlockImage.cpp.i
-
-editor/BrickBlockImage.s: editor/BrickBlockImage.cpp.s
-
-.PHONY : editor/BrickBlockImage.s
-
-# target to generate assembly for a file
-editor/BrickBlockImage.cpp.s:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/BrickBlockImage.cpp.s
-.PHONY : editor/BrickBlockImage.cpp.s
-
-editor/BrickBlockImageContainer.o: editor/BrickBlockImageContainer.cpp.o
-
-.PHONY : editor/BrickBlockImageContainer.o
-
-# target to build an object file
-editor/BrickBlockImageContainer.cpp.o:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.o
-.PHONY : editor/BrickBlockImageContainer.cpp.o
-
-editor/BrickBlockImageContainer.i: editor/BrickBlockImageContainer.cpp.i
-
-.PHONY : editor/BrickBlockImageContainer.i
-
-# target to preprocess a source file
-editor/BrickBlockImageContainer.cpp.i:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.i
-.PHONY : editor/BrickBlockImageContainer.cpp.i
-
-editor/BrickBlockImageContainer.s: editor/BrickBlockImageContainer.cpp.s
-
-.PHONY : editor/BrickBlockImageContainer.s
-
-# target to generate assembly for a file
-editor/BrickBlockImageContainer.cpp.s:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/BrickBlockImageContainer.cpp.s
-.PHONY : editor/BrickBlockImageContainer.cpp.s
-
 editor/Editor.o: editor/Editor.cpp.o
 
 .PHONY : editor/Editor.o
@@ -432,6 +378,33 @@ editor/Editor.s: editor/Editor.cpp.s
 editor/Editor.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Editor.cpp.s
 .PHONY : editor/Editor.cpp.s
+
+editor/Event.o: editor/Event.cpp.o
+
+.PHONY : editor/Event.o
+
+# target to build an object file
+editor/Event.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Event.cpp.o
+.PHONY : editor/Event.cpp.o
+
+editor/Event.i: editor/Event.cpp.i
+
+.PHONY : editor/Event.i
+
+# target to preprocess a source file
+editor/Event.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Event.cpp.i
+.PHONY : editor/Event.cpp.i
+
+editor/Event.s: editor/Event.cpp.s
+
+.PHONY : editor/Event.s
+
+# target to generate assembly for a file
+editor/Event.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Event.cpp.s
+.PHONY : editor/Event.cpp.s
 
 editor/Menu.o: editor/Menu.cpp.o
 
@@ -460,32 +433,167 @@ editor/Menu.cpp.s:
 	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/Menu.cpp.s
 .PHONY : editor/Menu.cpp.s
 
-editor/MetalBlockImage.o: editor/MetalBlockImage.cpp.o
+editor/MenuButton.o: editor/MenuButton.cpp.o
 
-.PHONY : editor/MetalBlockImage.o
+.PHONY : editor/MenuButton.o
 
 # target to build an object file
-editor/MetalBlockImage.cpp.o:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.o
-.PHONY : editor/MetalBlockImage.cpp.o
+editor/MenuButton.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MenuButton.cpp.o
+.PHONY : editor/MenuButton.cpp.o
 
-editor/MetalBlockImage.i: editor/MetalBlockImage.cpp.i
+editor/MenuButton.i: editor/MenuButton.cpp.i
 
-.PHONY : editor/MetalBlockImage.i
+.PHONY : editor/MenuButton.i
 
 # target to preprocess a source file
-editor/MetalBlockImage.cpp.i:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.i
-.PHONY : editor/MetalBlockImage.cpp.i
+editor/MenuButton.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MenuButton.cpp.i
+.PHONY : editor/MenuButton.cpp.i
 
-editor/MetalBlockImage.s: editor/MetalBlockImage.cpp.s
+editor/MenuButton.s: editor/MenuButton.cpp.s
 
-.PHONY : editor/MetalBlockImage.s
+.PHONY : editor/MenuButton.s
 
 # target to generate assembly for a file
-editor/MetalBlockImage.cpp.s:
-	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockImage.cpp.s
-.PHONY : editor/MetalBlockImage.cpp.s
+editor/MenuButton.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MenuButton.cpp.s
+.PHONY : editor/MenuButton.cpp.s
+
+editor/MetalBlockButton.o: editor/MetalBlockButton.cpp.o
+
+.PHONY : editor/MetalBlockButton.o
+
+# target to build an object file
+editor/MetalBlockButton.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.o
+.PHONY : editor/MetalBlockButton.cpp.o
+
+editor/MetalBlockButton.i: editor/MetalBlockButton.cpp.i
+
+.PHONY : editor/MetalBlockButton.i
+
+# target to preprocess a source file
+editor/MetalBlockButton.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.i
+.PHONY : editor/MetalBlockButton.cpp.i
+
+editor/MetalBlockButton.s: editor/MetalBlockButton.cpp.s
+
+.PHONY : editor/MetalBlockButton.s
+
+# target to generate assembly for a file
+editor/MetalBlockButton.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MetalBlockButton.cpp.s
+.PHONY : editor/MetalBlockButton.cpp.s
+
+editor/MouseButtonDown.o: editor/MouseButtonDown.cpp.o
+
+.PHONY : editor/MouseButtonDown.o
+
+# target to build an object file
+editor/MouseButtonDown.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonDown.cpp.o
+.PHONY : editor/MouseButtonDown.cpp.o
+
+editor/MouseButtonDown.i: editor/MouseButtonDown.cpp.i
+
+.PHONY : editor/MouseButtonDown.i
+
+# target to preprocess a source file
+editor/MouseButtonDown.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonDown.cpp.i
+.PHONY : editor/MouseButtonDown.cpp.i
+
+editor/MouseButtonDown.s: editor/MouseButtonDown.cpp.s
+
+.PHONY : editor/MouseButtonDown.s
+
+# target to generate assembly for a file
+editor/MouseButtonDown.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonDown.cpp.s
+.PHONY : editor/MouseButtonDown.cpp.s
+
+editor/MouseButtonUp.o: editor/MouseButtonUp.cpp.o
+
+.PHONY : editor/MouseButtonUp.o
+
+# target to build an object file
+editor/MouseButtonUp.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonUp.cpp.o
+.PHONY : editor/MouseButtonUp.cpp.o
+
+editor/MouseButtonUp.i: editor/MouseButtonUp.cpp.i
+
+.PHONY : editor/MouseButtonUp.i
+
+# target to preprocess a source file
+editor/MouseButtonUp.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonUp.cpp.i
+.PHONY : editor/MouseButtonUp.cpp.i
+
+editor/MouseButtonUp.s: editor/MouseButtonUp.cpp.s
+
+.PHONY : editor/MouseButtonUp.s
+
+# target to generate assembly for a file
+editor/MouseButtonUp.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/MouseButtonUp.cpp.s
+.PHONY : editor/MouseButtonUp.cpp.s
+
+editor/RockBlockButton.o: editor/RockBlockButton.cpp.o
+
+.PHONY : editor/RockBlockButton.o
+
+# target to build an object file
+editor/RockBlockButton.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.o
+.PHONY : editor/RockBlockButton.cpp.o
+
+editor/RockBlockButton.i: editor/RockBlockButton.cpp.i
+
+.PHONY : editor/RockBlockButton.i
+
+# target to preprocess a source file
+editor/RockBlockButton.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.i
+.PHONY : editor/RockBlockButton.cpp.i
+
+editor/RockBlockButton.s: editor/RockBlockButton.cpp.s
+
+.PHONY : editor/RockBlockButton.s
+
+# target to generate assembly for a file
+editor/RockBlockButton.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockBlockButton.cpp.s
+.PHONY : editor/RockBlockButton.cpp.s
+
+editor/RockButton.o: editor/RockButton.cpp.o
+
+.PHONY : editor/RockButton.o
+
+# target to build an object file
+editor/RockButton.cpp.o:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockButton.cpp.o
+.PHONY : editor/RockButton.cpp.o
+
+editor/RockButton.i: editor/RockButton.cpp.i
+
+.PHONY : editor/RockButton.i
+
+# target to preprocess a source file
+editor/RockButton.cpp.i:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockButton.cpp.i
+.PHONY : editor/RockButton.cpp.i
+
+editor/RockButton.s: editor/RockButton.cpp.s
+
+.PHONY : editor/RockButton.s
+
+# target to generate assembly for a file
+editor/RockButton.cpp.s:
+	$(MAKE) -f CMakeFiles/Editor.dir/build.make CMakeFiles/Editor.dir/editor/RockButton.cpp.s
+.PHONY : editor/RockButton.cpp.s
 
 editor/Stage.o: editor/Stage.cpp.o
 
@@ -776,21 +884,33 @@ help:
 	@echo "... common/Window.o"
 	@echo "... common/Window.i"
 	@echo "... common/Window.s"
-	@echo "... editor/BrickBlockImage.o"
-	@echo "... editor/BrickBlockImage.i"
-	@echo "... editor/BrickBlockImage.s"
-	@echo "... editor/BrickBlockImageContainer.o"
-	@echo "... editor/BrickBlockImageContainer.i"
-	@echo "... editor/BrickBlockImageContainer.s"
 	@echo "... editor/Editor.o"
 	@echo "... editor/Editor.i"
 	@echo "... editor/Editor.s"
+	@echo "... editor/Event.o"
+	@echo "... editor/Event.i"
+	@echo "... editor/Event.s"
 	@echo "... editor/Menu.o"
 	@echo "... editor/Menu.i"
 	@echo "... editor/Menu.s"
-	@echo "... editor/MetalBlockImage.o"
-	@echo "... editor/MetalBlockImage.i"
-	@echo "... editor/MetalBlockImage.s"
+	@echo "... editor/MenuButton.o"
+	@echo "... editor/MenuButton.i"
+	@echo "... editor/MenuButton.s"
+	@echo "... editor/MetalBlockButton.o"
+	@echo "... editor/MetalBlockButton.i"
+	@echo "... editor/MetalBlockButton.s"
+	@echo "... editor/MouseButtonDown.o"
+	@echo "... editor/MouseButtonDown.i"
+	@echo "... editor/MouseButtonDown.s"
+	@echo "... editor/MouseButtonUp.o"
+	@echo "... editor/MouseButtonUp.i"
+	@echo "... editor/MouseButtonUp.s"
+	@echo "... editor/RockBlockButton.o"
+	@echo "... editor/RockBlockButton.i"
+	@echo "... editor/RockBlockButton.s"
+	@echo "... editor/RockButton.o"
+	@echo "... editor/RockButton.i"
+	@echo "... editor/RockButton.s"
 	@echo "... editor/Stage.o"
 	@echo "... editor/Stage.i"
 	@echo "... editor/Stage.s"

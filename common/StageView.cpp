@@ -7,31 +7,36 @@
 #include <utility>
 #include "yaml-cpp/yaml.h"
 #include <map>
+#include <iostream>
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
     matrixToPixelFactor(factor) {
-    this->set(window, texturesInfo);
-}
-
-StageView::StageView(Window &window, std::string yamlPath, int factor) :
-        matrixToPixelFactor(factor)  {
-    YAML::Node textures = YAML::LoadFile(yamlPath);
-    this->set(window, textures);
+    const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
+    for (YAML::const_iterator it = staticObjects.begin();
+         it != staticObjects.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        Sprite* newSprite = new Sprite(path, window);
+        textures[name] = newSprite;
+    }
 }
 
 StageView::~StageView() {
-    for (auto it = textures.begin(); it != textures.end(); ++it){
+    for (auto it = textures.begin(); it != textures.end(); ++it) {
         delete it->second;
     }
 }
 
 void StageView::draw(Window& window, SDL_Rect* camera, int xStart) {
     SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
+
     int camPosX = camera->x / matrixToPixelFactor;
     int camPosY = camera->y / matrixToPixelFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.
     int n = camera->w / matrixToPixelFactor + EXTRA_TILES;
     int m = camera->h / matrixToPixelFactor + EXTRA_TILES;
+
 
     Sprite* sprite = nullptr;
     for (int i = camPosX; i < camPosX + n; ++i){
@@ -59,16 +64,17 @@ void StageView::addTile(int x, int y, std::string& tileName) {
     tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
 }
 
-void StageView::set(Window &window, YAML::Node& texturesInfo) {
-    const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
-    for (YAML::const_iterator it = staticObjects.begin();
-         it != staticObjects.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        Sprite* newSprite = new Sprite(path, window);
-        textures[name] = newSprite;
+void StageView::removeTile(int x, int y) {
+    tiles.erase(std::make_pair(x, y));
+}
+
+std::string &StageView::getName(int x, int y) {
+    auto point = tiles.find(std::make_pair(x, y));
+    if (point == tiles.end()) {
+        throw StageViewAddPositionException();
     }
+    return point->second;
+
 }
 
 

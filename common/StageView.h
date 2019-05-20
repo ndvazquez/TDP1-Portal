@@ -24,21 +24,28 @@ class StageViewAddTileException : public std::exception{
     }
 };
 
+class StageViewAddPositionException : public std::exception{
+    virtual const char* what() const throw () {
+        std::string message = "Couldn't remove the tile, that's position is empty!\n";
+        return message.c_str();
+    }
+};
+
 class StageView {
     int matrixToPixelFactor;
     std::unordered_map<std::string, Sprite*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
 
 public:
-    StageView(Window& window, std::string yamlPath, int factor);
     StageView(Window& window, YAML::Node& texturesInfo, int factor);
     ~StageView();
     void addTile(int x, int y, std::string& tileName);
     void draw(Window& window, SDL_Rect* camera);
     void draw(Window &window, SDL_Rect *camera, int xStart);
 
-private:
-    void set(Window& window, YAML::Node& texturesInfo);
+    std::string &getName(int x, int y);
+
+    void removeTile(int x, int y);
 };
 
 
