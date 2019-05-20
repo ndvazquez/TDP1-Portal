@@ -6,6 +6,42 @@
 
 #IncludeRegexTransform: 
 
+/home/camix/Fiuba/Taller/TDP1-Portal/common/AnimatedSprite.cpp
+AnimatedSprite.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/AnimatedSprite.h
+Window.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
+SDL.h
+-
+SDL_image.h
+-
+exception
+-
+string
+-
+
+/home/camix/Fiuba/Taller/TDP1-Portal/common/AnimatedSprite.h
+Window.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
+Sprite.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.h
+SDL.h
+-
+SDL_image.h
+-
+exception
+-
+string
+-
+
+/home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.cpp
+SDLSession.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.h
+SDL.h
+-
+SDL_image.h
+-
+
 /home/camix/Fiuba/Taller/TDP1-Portal/common/SDLSession.h
 SDL.h
 -
@@ -15,6 +51,16 @@ exception
 -
 string
 -
+
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.cpp
+Sprite.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.h
+SDL.h
+-
+SDL_image.h
+-
+Window.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
 
 /home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.h
 SDL.h
@@ -56,6 +102,16 @@ Sprite.h
 utility
 -
 string
+-
+
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.cpp
+Window.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
+SDL.h
+-
+SDL_image.h
+-
+iostream
 -
 
 /home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
@@ -102,7 +158,51 @@ MouseButtonDown.h
 MouseButtonUp.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/EditorStageView.cpp
+iostream
+-
+yaml-cpp/yaml.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/yaml-cpp/yaml.h
+EditorStageView.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/EditorStageView.h
+../common/AnimatedSprite.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/AnimatedSprite.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/EditorStageView.h
+yaml-cpp/node/node.h
+-
+unordered_map
+-
+map
+-
+../common/Window.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
+../common/Sprite.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.cpp
+Event.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.cpp
+Menu.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.h
+SDL.h
+-
+SDL_image.h
+-
+string
+-
+iostream
+-
+yaml-cpp/yaml.h
+-
+RockButton.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.h
+MouseButtonUp.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.h
 vector
@@ -122,6 +222,14 @@ MouseButtonDown.h
 MouseButtonUp.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.cpp
+iostream
+-
+MenuButton.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.h
+../common/Sprite.h
+/home/camix/Fiuba/Taller/TDP1-Portal/common/Sprite.h
+
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.h
 SDL.h
 -
@@ -132,15 +240,35 @@ string
 ../common/Window.h
 /home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
 
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.cpp
+MouseButtonDown.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.h
+
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.h
 SDL_types.h
 -
 Event.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
 
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.cpp
+SDL_types.h
+-
+MouseButtonUp.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
+
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 Event.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.cpp
+RockButton.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.h
+
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/RockButton.h
+MenuButton.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.h
+vector
+-
 
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.cpp
 Stage.h
@@ -148,6 +276,8 @@ Stage.h
 MouseButtonUp.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
 iostream
+-
+yaml-cpp/yaml.h
 -
 
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/Stage.h
@@ -161,12 +291,12 @@ SDL_image.h
 -
 ../common/Window.h
 /home/camix/Fiuba/Taller/TDP1-Portal/common/Window.h
-../common/StageView.h
-/home/camix/Fiuba/Taller/TDP1-Portal/common/StageView.h
 MouseButtonDown.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonDown.h
 MouseButtonUp.h
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/MouseButtonUp.h
+EditorStageView.h
+/home/camix/Fiuba/Taller/TDP1-Portal/editor/EditorStageView.h
 
 /home/camix/Fiuba/Taller/TDP1-Portal/editor/main.cpp
 fstream

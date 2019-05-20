@@ -13,6 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Editor.dir/editor/Event.cpp.o"
   "CMakeFiles/Editor.dir/editor/MouseButtonDown.cpp.o"
   "CMakeFiles/Editor.dir/editor/MouseButtonUp.cpp.o"
+  "CMakeFiles/Editor.dir/editor/EditorStageView.cpp.o"
   "Editor.pdb"
   "Editor"
 )

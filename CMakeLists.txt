@@ -40,6 +40,7 @@ set(EDITOR_SOURCE_FILES
         editor/Event.cpp
         editor/MouseButtonDown.cpp
         editor/MouseButtonUp.cpp
+        editor/EditorStageView.cpp
         )
 
 

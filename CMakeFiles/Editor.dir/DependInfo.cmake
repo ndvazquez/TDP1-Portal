@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/camix/Fiuba/Taller/TDP1-Portal/common/StageView.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/common/StageView.cpp.o"
   "/home/camix/Fiuba/Taller/TDP1-Portal/common/Window.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/common/Window.cpp.o"
   "/home/camix/Fiuba/Taller/TDP1-Portal/editor/Editor.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/editor/Editor.cpp.o"
+  "/home/camix/Fiuba/Taller/TDP1-Portal/editor/EditorStageView.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/editor/EditorStageView.cpp.o"
   "/home/camix/Fiuba/Taller/TDP1-Portal/editor/Event.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/editor/Event.cpp.o"
   "/home/camix/Fiuba/Taller/TDP1-Portal/editor/Menu.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/editor/Menu.cpp.o"
   "/home/camix/Fiuba/Taller/TDP1-Portal/editor/MenuButton.cpp" "/home/camix/Fiuba/Taller/TDP1-Portal/CMakeFiles/Editor.dir/editor/MenuButton.cpp.o"

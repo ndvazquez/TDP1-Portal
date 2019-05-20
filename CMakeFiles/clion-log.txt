@@ -1,4 +1,0 @@
-/snap/clion/70/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE= -G "CodeBlocks - Unix Makefiles" /home/camix/Fiuba/Taller/TDP1-Portal
--- Configuring done
--- Generating done
--- Build files have been written to: /home/camix/Fiuba/Taller/TDP1-Portal
