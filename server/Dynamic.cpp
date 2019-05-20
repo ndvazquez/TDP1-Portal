@@ -82,10 +82,10 @@ void Dynamic::flyHorizontal() {
     if (handleCollisions()) {
         impulse = -impulse;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
-                body->GetWorldCenter(), true);
+                                 body->GetWorldCenter(), true);
     } else {
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
-                body->GetWorldCenter(), true);
+                                 body->GetWorldCenter(), true);
     }
 }
 
