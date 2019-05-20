@@ -10,20 +10,20 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../common/Window.h"
-#include "../common/StageView.h"
 #include "MouseButtonDown.h"
 #include "MouseButtonUp.h"
+#include "EditorStageView.h"
 
 class Stage {
 private:
     Window& window;
     YAML::Node textures;
-    StageView stageView;
+    EditorStageView stageView;
     std::string& current;
     int xPortion;
     struct SDL_Rect* me;
     struct SDL_Rect* camera;
-    //map<map<char, int>, uint8_t> matrix;
+    std::map<std::string, bool> gravity;
     //uint8_t& current;
     //for now is hard
 

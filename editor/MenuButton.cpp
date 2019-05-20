@@ -42,21 +42,9 @@ MenuButton::MenuButton(const MenuButton& origin)  :
         myPosition(origin.myPosition), name(origin.name), path(origin.path) {}
 
 int MenuButton::setRectangle(int x, int y, int w, int h) {
-    std::cerr << "my name is: " << this->name << std::endl;
-
-    std::cerr << "w was " << myPosition->w << std::endl;
-    std::cerr << "h was " << myPosition->h << std::endl;
-
     myPosition->x = x;
     myPosition->y = y;
     myPosition->w = myPosition->w * w;
     myPosition->h = myPosition->h * h;
-    std::cerr << "x is " << myPosition->x << std::endl;
-
-    std::cerr << "y is " << myPosition->y << std::endl;
-
-    std::cerr << "w is " << myPosition->w << std::endl;
-
-    std::cerr << "h is " << myPosition->x << std::endl;
     return myPosition->h;
 }

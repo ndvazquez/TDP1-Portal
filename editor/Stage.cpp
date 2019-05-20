@@ -5,7 +5,9 @@
 #include "Stage.h"
 #include "MouseButtonUp.h"
 #include <iostream>
-#define TEXTURE_CONFIG_FILE "config/textures.yaml"
+#include <yaml-cpp/yaml.h>
+
+#define TEXTURE_CONFIG_FILE "editor/stage-textures-type.yaml"
 #define Y 0
 #define H this->window.getWindowHeight()
 #define TOTAL_X this->window.getWindowWidth()
@@ -27,8 +29,8 @@ void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
 
 Stage::Stage(Window& window, std::string& current, int xPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
-    stageView(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current), xPortion(xPortion) {
-
+    stageView(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
+    xPortion(xPortion) {
     this->me = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
     this->setSize();
     this->camera = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
@@ -46,9 +48,12 @@ Stage::~Stage() {
 
 
 void Stage::draw() {
+//    std::cerr << "Entro a draaw" << std::endl;
     Sprite bgSprite("resources/editor-stage-bg.png", window);
     bgSprite.draw(window, this->me);
     stageView.draw(window, this->camera , X);
+
+//    std::cerr << "Termino a draaw" << std::endl;
 }
 
 void Stage::handle(MouseButtonDown *event) {
@@ -64,7 +69,7 @@ void Stage::handle(MouseButtonDown *event) {
     try {
         current = stageView.getName(x, y);
     }
-    catch (StageViewEmptyPositionException) {
+    catch (EditorStageViewEmptyPositionException) {
         return;
     }
     stageView.removeTile(x,y);
@@ -72,6 +77,7 @@ void Stage::handle(MouseButtonDown *event) {
 }
 
 void Stage::handle(MouseButtonUp *event) {
+
     int xPixel = X_PIXEL(*event);
     int yPixel = Y_PIXEL(*event);
     int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
@@ -85,7 +91,11 @@ void Stage::handle(MouseButtonUp *event) {
     try {
         stageView.addTile(x, y, current);
     }
-    catch (StageViewAddTileException) {
+    catch (EditorStageViewAddTileNameException) {
+        return;
+    }
+    catch (EditorStageViewAddTileGravityException) {
+        std::cerr << "y no me dejaron agregarlo" << std::endl;
         return;
     }
     current = "";

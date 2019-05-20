@@ -39,7 +39,7 @@ StaticObjects:
     path: resources/rocks/3.png
     x: 1
     y: 1  
-  - name: EnterHold
+  - name: Chell
     path: resources/Chell/EnterHold.png
     x: 1
     y: 2

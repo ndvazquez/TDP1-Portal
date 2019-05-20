@@ -21,8 +21,6 @@ class Menu {
 private:
     Window& window;
     std::string& current;
-    //MetalBlockButton mbb;
-    //RockBlockButton rbb;
     std::vector<MenuButton*> options;
     struct SDL_Rect* me;
     void set();
