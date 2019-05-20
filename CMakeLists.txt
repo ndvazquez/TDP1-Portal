@@ -58,8 +58,6 @@ set(SERVER_SOURCE_FILES
         server/MoveLeft.cpp
         server/Stop.cpp
         server/EnergyBall.cpp
-        server/EnergyBallHorizontal.cpp
-        server/EnergyBallVertical.cpp
         server/Entity.cpp
         )
 
@@ -82,8 +80,6 @@ set(TEST_SOURCE_FILES
         server/MoveLeft.cpp
         server/Stop.cpp
         server/EnergyBall.cpp
-        server/EnergyBallHorizontal.cpp
-        server/EnergyBallVertical.cpp
         server/Entity.cpp
         )
 

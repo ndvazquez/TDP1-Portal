@@ -8,14 +8,23 @@
 #define energyBallType "EnergyBall"
 #define deathNumber 1200;
 
-EnergyBall::EnergyBall(b2Body* body):
+EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(std::string(energyBallType)),
     dynamic(body) {
+    this->is_vertical = is_vertical;
     life_steps = 0;
     body->SetUserData(this); //to handle collisions
 }
 
 void EnergyBall::fly() {
+    if (life_steps >= 1200) throw EnergyBallDeadException();
+    if (is_vertical) dynamic.flyVertical();
+    else dynamic.flyHorizontal();
+    life_steps++;
+}
+
+void EnergyBall::changeDirection() {
+    this->is_vertical = ! is_vertical;
 }
 
 void EnergyBall::die() {
@@ -26,10 +35,18 @@ bool EnergyBall::isDead() {
     return life_steps >= deathNumber;
 }
 
+bool EnergyBall::isVertical() {
+    return this->is_vertical;
+}
+
 void EnergyBall::handleCollision(Entity* entity) {
-    if (entity->getType() == "BrickBlock") {
-        die();
+    std::cout << "entro al handle collision de energy ball" << std::endl;
+    if (entity->getType() == "BrickBlock") die();
+    else if (entity->getType() == "DiagonalMetalBlock") {
+        std::cout << "entro al if correspondiente" << std::endl;
+        changeDirection();
     }
+    else std::cout << "fuck" << std::endl;
 }
 
 float EnergyBall::getHorizontalPosition() {

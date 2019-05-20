@@ -19,14 +19,17 @@ class EnergyBallDeadException : public std::exception {
 
 class EnergyBall: public Entity {
 protected:
+    bool is_vertical;
     Dynamic dynamic;
     size_t life_steps;
 
 public:
-    explicit EnergyBall(b2Body* body);
-    virtual void fly();
+    explicit EnergyBall(b2Body* body, bool is_vertical); //se que es horrendo pero sino como hago que cambie de direccion?
+    void fly();
     void die();
     bool isDead();
+    bool isVertical();
+    void changeDirection();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

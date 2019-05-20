@@ -56,7 +56,7 @@ public:
     void addBrickBlock(size_t side, float x_pos, float y_pos);
     void addMetalBlock(size_t side, float x_pos, float y_pos);
     void addDiagonalMetalBlock(size_t side, float x_pos,
-            float y_pos, float angle);
+            float y_pos);
     void addEnergyTransmitter(size_t side, float x_pos, float y_pos);
     void addRock(size_t side, float x_pos, float y_pos);
     void addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);

@@ -13,8 +13,6 @@
 #include "Button.h"
 #include "Acid.h"
 #include "EnergyBall.h"
-#include "EnergyBallHorizontal.h"
-#include "EnergyBallVertical.h"
 
 Stage::Stage(size_t width, size_t height):
         width(width), height(height) {
@@ -111,24 +109,25 @@ void Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
     metal_blocks.insert({coordinates, block});
 }
 
-void Stage::addDiagonalMetalBlock(size_t side, float x_pos,
-                                  float y_pos, float angle) {
+void Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2BodyDef body;
+    b2Body* block_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    /*b2BodyDef body;
     body.type = b2_staticBody;
     body.position.Set(x_pos, y_pos);
 
     b2Body* block_body = this->world->CreateBody(&body);
 
     b2Vec2 vertices[3]; // TODO: other variants as well
-    vertices[0].Set(x_pos,  y_pos);
     vertices[1].Set(x_pos, y_pos + side);
     vertices[2].Set(x_pos + side, y_pos);
+    vertices[0].Set(x_pos,  y_pos);
 
     b2PolygonShape shape;
     shape.Set(vertices, 3);
@@ -138,7 +137,7 @@ void Stage::addDiagonalMetalBlock(size_t side, float x_pos,
     fixture.shape = &shape;
     block_body->CreateFixture(&fixture);
 
-    //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);
+    //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);*/
 
     DiagonalMetalBlock* block = new DiagonalMetalBlock(block_body);
 
@@ -233,7 +232,7 @@ void Stage::addEnergyBallHorizontal(size_t side, float x_pos, float y_pos) {
 
     b2Body* energy_ball_body = addDynamicRectangle(side, side, x_pos, y_pos);
 
-    EnergyBall* energy_ball = new EnergyBallHorizontal(energy_ball_body);
+    EnergyBall* energy_ball = new EnergyBall(energy_ball_body, false);
     energy_balls.insert({coordinates, energy_ball});
 }
 
@@ -246,7 +245,7 @@ void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
 
     b2Body* energy_ball_body = addDynamicRectangle(side, side, x_pos, y_pos);
 
-    EnergyBall* energy_ball = new EnergyBallVertical(energy_ball_body);
+    EnergyBall* energy_ball = new EnergyBall(energy_ball_body, true);
     energy_balls.insert({coordinates, energy_ball});
 }
 

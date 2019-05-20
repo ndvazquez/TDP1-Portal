@@ -23,7 +23,6 @@ float BrickBlock::getVerticalPosition() {
 }
 
 void BrickBlock::handleCollision(Entity* entity) {
-    std::cout << "Entro al handlecollison de brickblock" << std::endl;
     if (entity->getType() == "EnergyBall") {
         static_cast<EnergyBall*>(entity)->die();
     }

@@ -57,8 +57,10 @@ bool Dynamic::handleCollisions() {
             void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
             void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
             if (bodyUserDataA != NULL && bodyUserDataB != NULL) {
+                std::cout << "Entro en el if correcto" << std::endl;
                 static_cast<Entity*>(bodyUserDataA)->handleCollision(static_cast<Entity*>(bodyUserDataB));
             }
+            else std::cout << "No entro al if correcto" << std::endl;
             resul = true;
         }
         edge = edge->next;
@@ -76,10 +78,12 @@ void Dynamic::flyHorizontal() {
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
     if (handleCollisions()) {
+        std::cout << "Entro al handle collision" << std::endl;
         impulse = -impulse;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
                 body->GetWorldCenter(), true);
     } else {
+        std::cout << "No entro al handle collision" << std::endl;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
                 body->GetWorldCenter(), true);
     }
