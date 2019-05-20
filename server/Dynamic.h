@@ -11,19 +11,22 @@
 class Dynamic {
 private:
     b2Body* body;
+    float impulse;
 
 public:
     explicit Dynamic(b2Body* body);
     virtual ~Dynamic();
-    float getHorizontalPosition();
-    float getVerticalPosition();
     virtual void move();
     void jump();
     void moveRight();
     void moveLeft();
     void stop();
-    void fly(float velocity);
+    void flyHorizontal();
+    void flyVertical();
     bool isColliding();
+    bool handleCollisions();
+    float getHorizontalPosition();
+    float getVerticalPosition();
     float getHorizontalVelocity();
     float getVerticalVelocity();
 };
