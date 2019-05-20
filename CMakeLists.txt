@@ -36,8 +36,6 @@ set(EDITOR_SOURCE_FILES
         editor/Menu.cpp
         editor/Editor.cpp
         editor/MenuButton.cpp
-        editor/RockBlockButton.cpp
-        editor/MetalBlockButton.cpp
         editor/RockButton.cpp
         editor/Event.cpp
         editor/MouseButtonDown.cpp
