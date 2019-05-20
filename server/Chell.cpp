@@ -2,6 +2,8 @@
 // Created by cecix on 18/05/19.
 //
 
+#define chellForce 15
+
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -33,13 +35,12 @@ void Chell::destroyActualMovement() {
 };
 
 void Chell::update() {
-    this->actual_movement->move();
+    this->actual_movement->move(chellForce);
 }
 
 void Chell::jump() {
     this->dynamic.jump();
-};
-
+}
 
 float Chell::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();

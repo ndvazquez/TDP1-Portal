@@ -3,6 +3,8 @@
 //
 
 #define delta 0.01
+#define impulseFactor 50
+#define jumpFactor 4
 
 #include <iostream>
 #include <Box2D/Box2D.h>
@@ -11,33 +13,31 @@
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
-    impulse = body->GetMass() * 50;
+    impulse = body->GetMass() * impulseFactor;
 }
 
-void Dynamic::move() {
+void Dynamic::move(float force) {
 }
 
-void Dynamic::moveRight() {
-    float force = 15; //TODO: change this harcoded variable
+void Dynamic::moveRight(float force) {
     if (body->GetLinearVelocity().x > 0.5) force = 0;
-    body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
+    body->ApplyForce(b2Vec2(force, 0), body->GetWorldCenter(), true);
 }
 
-void Dynamic::moveLeft() {
-    float force = -15; //TODO: change this harcoded variable
+void Dynamic::moveLeft(float force) {
     if (body->GetLinearVelocity().x < -0.5) force = 0;
-    body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
+    body->ApplyForce(b2Vec2(-force, 0), body->GetWorldCenter(), true);
 }
 
-void Dynamic::stop() {
-    float force = 0;
+void Dynamic::stop(float force) {
+    force = 0;
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
 void Dynamic::jump() {
     if (body->GetLinearVelocity().y != 0) return; //Shouldn't jump twice
-    float impulse = body->GetMass() * 4;
-    body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+    float impulse = body->GetMass() * jumpFactor;
+    body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter() , true);
 }
 
 bool Dynamic::isColliding() {
