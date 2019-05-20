@@ -24,9 +24,9 @@ class StageViewAddTileException : public std::exception{
     }
 };
 
-class StageViewAddPositionException : public std::exception{
+class StageViewEmptyPositionException : public std::exception{
     virtual const char* what() const throw () {
-        std::string message = "Couldn't remove the tile, that's position is empty!\n";
+        std::string message = "Couldn't get tile's name, that's position is empty!\n";
         return message.c_str();
     }
 };

@@ -71,10 +71,9 @@ void StageView::removeTile(int x, int y) {
 std::string &StageView::getName(int x, int y) {
     auto point = tiles.find(std::make_pair(x, y));
     if (point == tiles.end()) {
-        throw StageViewAddPositionException();
+        throw StageViewEmptyPositionException();
     }
     return point->second;
-
 }
 
 

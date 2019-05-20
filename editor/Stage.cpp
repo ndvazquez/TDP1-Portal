@@ -94,7 +94,7 @@ void Stage::handle(MouseButtonDown *event) {
     try {
         current = stageView.getName(x, y);
     }
-    catch (StageViewAddPositionException) {
+    catch (StageViewEmptyPositionException) {
         return;
     }
     stageView.removeTile(x,y);
