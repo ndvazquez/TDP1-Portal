@@ -264,7 +264,7 @@ void Stage::step() {
     }
 
     for (auto i = rocks.begin(); i != rocks.end(); i++) {
-        i->second->makeBouncement();
+        i->second->eliminateGravity();
         i->second->update(); //to move right, left and stuff
     }
 

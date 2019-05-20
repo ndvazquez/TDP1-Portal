@@ -108,7 +108,7 @@ void Dynamic::flyVertical() {
     }
 }
 
-void Dynamic::makeBouncement() {
+void Dynamic::eliminateGravity() {
     float mass = body->GetMass();
     float gravity = -1;
     float force_y = - (mass * gravity);
@@ -117,13 +117,17 @@ void Dynamic::makeBouncement() {
     float actual_velocity = body->GetLinearVelocity().y;
 
     if (actual_velocity > delta || actual_velocity < -delta) return; //Already flying
+}
 
-    if (actual_velocity < delta && actual_velocity > 0
-            || (actual_velocity > -delta && actual_velocity < 0)) {
-        impulse = -impulse; //fly in the other way
-    }
-    body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+void Dynamic::moveUp(float force) {
+    if (body->GetLinearVelocity().y > 0.5) force = 0;
+    body->ApplyForce(b2Vec2(0, force), body->GetWorldCenter(), true);
+}
 
+
+void Dynamic::moveDown(float force) {
+    if (body->GetLinearVelocity().y < -0.5) force = 0;
+    body->ApplyForce(b2Vec2(0, -force), body->GetWorldCenter(), true);
 }
 
 float Dynamic::getHorizontalPosition() {

@@ -6,6 +6,8 @@
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
+#include "MoveUp.h"
+#include "MoveDown.h"
 
 #define rockForce 5
 
@@ -25,6 +27,16 @@ void Rock::moveLeft() {
     this->actual_movement = new MoveLeft(body);
 }
 
+void Rock::moveUp() {
+    destroyActualMovement();
+    this->actual_movement = new MoveUp(body);
+}
+
+void Rock::moveDown() {
+    destroyActualMovement();
+    this->actual_movement = new MoveDown(body);
+}
+
 void Rock::stop() {
     destroyActualMovement();
     this->actual_movement = new Stop(body);
@@ -38,10 +50,9 @@ void Rock::update() {
     this->actual_movement->move(rockForce);
 }
 
-void Rock::makeBouncement() {
-    this->dynamic.makeBouncement();
+void Rock::eliminateGravity() {
+    this->dynamic.eliminateGravity();
 }
-
 
 float Rock::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();

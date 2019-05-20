@@ -227,39 +227,39 @@ static MovingRockTest suite_MovingRockTest;
 static CxxTest::List Tests_MovingRockTest = { 0, 0 };
 CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h", 607, "MovingRockTest", suite_MovingRockTest, Tests_MovingRockTest );
 
-static class TestDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown : public CxxTest::RealTestDescription {
+static class TestDescription_suite_MovingRockTest_testRockBlockNoGravity : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 616, "testRockBlockMovesUpAndDown" ) {}
- void runTest() { suite_MovingRockTest.testRockBlockMovesUpAndDown(); }
-} testDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown;
+ TestDescription_suite_MovingRockTest_testRockBlockNoGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 616, "testRockBlockNoGravity" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockNoGravity(); }
+} testDescription_suite_MovingRockTest_testRockBlockNoGravity;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 640, "testRockBlockMovesRight" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 630, "testRockBlockMovesRight" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesRight;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesLeft : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 664, "testRockBlockMovesLeft" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 654, "testRockBlockMovesLeft" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesLeft;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesUp : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesUp() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 668, "testRockBlockMovesUp" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesUp() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 678, "testRockBlockMovesUp" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesUp(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesUp;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesDown : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesDown() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 672, "testRockBlockMovesDown" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesDown() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 699, "testRockBlockMovesDown" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesDown(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesDown;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 676, "testRockBlockDownloadsRight" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 703, "testRockBlockDownloadsRight" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockDownloadsRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockDownloadsRight;
 

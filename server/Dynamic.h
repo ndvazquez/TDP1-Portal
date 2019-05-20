@@ -20,12 +20,14 @@ public:
     void jump();
     void moveRight(float force);
     void moveLeft(float force);
+    void moveDown(float force);
+    void moveUp(float force);
     void stop(float force);
     void flyHorizontal();
     void flyVertical();
     bool isColliding();
     bool handleCollisions();
-    void makeBouncement();
+    void eliminateGravity();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

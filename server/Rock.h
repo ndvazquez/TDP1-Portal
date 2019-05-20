@@ -20,9 +20,11 @@ public:
     float getVerticalPosition();
     float getVerticalVelocity();
     float getHorizontalVelocity();
-    void makeBouncement();
+    void eliminateGravity();
     void moveRight();
     void moveLeft();
+    void moveDown();
+    void moveUp();
     void stop();
     void destroyActualMovement();
     void update();

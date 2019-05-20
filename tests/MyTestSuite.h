@@ -613,28 +613,18 @@ class MovingRockTest :  public CxxTest::TestSuite {
     size_t mass = side * side;
 
 public:
-    void testRockBlockMovesUpAndDown() {
-        std::cout << "Testing that the rock moves up and down" << std::endl;
+    void testRockBlockNoGravity() {
+        std::cout << "Testing that the rock doesn't have gravity" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addRock(side, initial_position_x, initial_position_y);
         Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
         Rock* rock = stage.getRock(coordinate);
 
-        size_t bounces = 0;
-        bool up = true;
-
         for (size_t i = 0; i < 12000; i++) { //2s
             stage.step();
-            if (rock->getVerticalVelocity() < 0 && up) {
-                bounces++;
-                up = false;
-            }
-            if (rock->getVerticalVelocity() > 0 && !up) {
-                bounces++;
-                up = true;
-            }
+            TS_ASSERT_EQUALS(rock->getVerticalVelocity(), 0);
+            TS_ASSERT_EQUALS(rock->getVerticalPosition(), initial_position_y);
         }
-        TS_ASSERT(bounces > 0);
     }
 
     void testRockBlockMovesRight() {
@@ -686,11 +676,53 @@ public:
     }
 
     void testRockBlockMovesUp() {
+        std::cout << "Testing that the rock block moves up" << std::endl;
 
+        Stage stage(width_stage, height_stage);
+        stage.addRock(side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Rock* rock = stage.getRock(coordinate);
+        rock->moveUp();
+
+        float dt = 1.0f/60.0f;
+        float force = 5;
+        float velocity_y = 0;
+        float position = initial_position_y;
+        float acceleration = force / mass;
+
+        for (size_t i = 0; i < 1200; i++) { //2s
+            stage.step();
+            velocity_y += acceleration * dt;
+            position += velocity_y * dt;
+            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 3.5f);
+            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 3.5f);
+        }
     }
 
-    void testRockBlockMovesDown() {
 
+    void testRockBlockMovesDown() {
+        std::cout << "Testing that the rock block moves down" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addRock(side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Rock* rock = stage.getRock(coordinate);
+        rock->moveDown();
+
+        float dt = 1.0f/60.0f;
+        float force = -5;
+        float velocity_y = rock->getVerticalVelocity();
+        float position = rock->getVerticalPosition();
+        float acceleration = force / mass;
+
+        for (size_t i = 0; i < 1200; i++) { //2s
+            stage.step();
+            velocity_y += acceleration * dt;
+            position += velocity_y * dt;
+
+            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 3.5f);
+            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 3.5f);
+        }
     }
 
     void testRockBlockDownloadsRight() {
