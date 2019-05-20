@@ -21,7 +21,6 @@ window(window), factor(factor) {
 
         Sprite* newSprite;
         if (node["animated"].as<int>()) {
-            std::cerr<< "creando sprite animado de: " << name << std::endl;
             newSprite = new AnimatedSprite(path, window, node["frames"].as<int>());
         } else {
             newSprite = new Sprite(path, window);
@@ -61,11 +60,6 @@ void EditorStageView::draw(Window& window, SDL_Rect* camera, int xStart) {
 void EditorStageView::addTile(int x, int y, std::string& tileName) {
     std::cerr << std::endl;
     std::cerr << tileName << std::endl;
-    //std::cerr << "gravedad?: " << gravity[tileName] << std::endl;
-    //std::string abajo = tiles[std::make_pair(x,y-1)];
-
-    //std::cerr << "Abajo hay: "<< abajo << std::endl;
-    ;
     if (gravity[tileName]) {
         auto it = tiles.find(std::make_pair(x, y + 1));
         if (it == tiles.end()) {
@@ -73,7 +67,6 @@ void EditorStageView::addTile(int x, int y, std::string& tileName) {
         }
     }
     if (textures.count(tileName) == 0) {
-        std::cerr << "no existe el nombre loco" << std::endl;
         throw EditorStageViewAddTileNameException();
     }
     tiles.insert(std::make_pair(std::make_pair(x, y), tileName));

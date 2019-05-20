@@ -26,7 +26,6 @@ private:
     void set();
 
 public:
-    //Menu()
     explicit Menu(Window &window, std::string& current);
     ~Menu();
     void draw();

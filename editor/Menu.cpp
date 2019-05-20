@@ -107,7 +107,6 @@ void Menu::handle(MouseButtonDown *event) {
     for (; it != options.end(); it++) {
         if ((**it).has(event->getX(), event->getY())) {
             current = (**it).getName();
-            std::cerr << "New current is: " << current << std::endl;
             return;
         }
     }
@@ -118,7 +117,6 @@ void Menu::handle(MouseButtonUp *event) {
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (isIn) {
         current = NO_BUTTON;
-        std::cerr << "New current is: " << current << std::endl;
         return;
     }
 }
@@ -128,4 +126,3 @@ Menu::Menu(Window &window, std::string &current) :
         window(window), current(current) {
     this->set();
 }
-

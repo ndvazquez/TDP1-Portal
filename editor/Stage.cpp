@@ -73,7 +73,6 @@ void Stage::handle(MouseButtonDown *event) {
         return;
     }
     stageView.removeTile(x,y);
-    std::cerr << "New current AFTERD DOWN is: " << current<< std::endl;
 }
 
 void Stage::handle(MouseButtonUp *event) {
@@ -87,17 +86,11 @@ void Stage::handle(MouseButtonUp *event) {
     if (!isIn ) {
         return;
     }
-    std::cerr << "current to be add is: " << current<< std::endl;
     try {
         stageView.addTile(x, y, current);
     }
-    catch (EditorStageViewAddTileNameException) {
-        return;
-    }
-    catch (EditorStageViewAddTileGravityException) {
-        std::cerr << "y no me dejaron agregarlo" << std::endl;
+    catch (EditorStageException) {
         return;
     }
     current = "";
-    std::cerr << "New current is: " << current<< std::endl;
 }
