@@ -38,7 +38,7 @@ float Dynamic::getVerticalPosition() {
 }
 
 void Dynamic::jump() {
-    if (body->GetLinearVelocity().y != 0) return; //Shouldn't jump twice
+    //if (body->GetLinearVelocity().y != 0) return; //Shouldn't jump twice
     float impulse = body->GetMass() * 4;
     body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
 }

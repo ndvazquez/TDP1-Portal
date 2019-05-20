@@ -75,7 +75,7 @@ b2Body* Stage::addDynamicRectangle(size_t v_side, size_t h_side,
     b2FixtureDef fixture;
     fixture.shape = &shape;
     fixture.density = 1;
-    fixture.friction = 0.6;
+    fixture.friction = 0.2;
     rectangle_body->CreateFixture(&fixture);
 
     return rectangle_body;
