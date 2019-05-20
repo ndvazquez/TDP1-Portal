@@ -7,8 +7,6 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
-#include "RockBlockButton.h"
-#include "MetalBlockButton.h"
 #include "RockButton.h"
 #include "MouseButtonUp.h"
 
@@ -21,8 +19,10 @@
 #define GATE_POS 6
 
 #define TOTAL_OPTIONS 7
-#define BUTTON_PATH "resources/button/off.png"
-#define GATE_PATH "resources/gate.png"
+#define NAME_METAL_BLOCK "MetalBlock"
+#define PATH_METAL_BLOCK "resources/blocks/metal-block.png"
+#define NAME_ROCK_BLOCK "RockBlock"
+#define PATH_ROCK_BLOCK "resources/blocks/rock-block.png"
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""
 
@@ -53,8 +53,8 @@ void Menu::set() {
         struct SDL_Rect* rect = createSDL_Rect(spaceBetweenX/2, spaceBetweenY + i*totalY, w, w);
         rectangles.push_back(rect);
     }
-    MenuButton* mbb = new MetalBlockButton(rectangles[0]);
-    MenuButton* rbb = new RockBlockButton(rectangles[1]);
+    MenuButton* mbb = new MenuButton(rectangles[0], NAME_METAL_BLOCK, PATH_METAL_BLOCK);
+    MenuButton* rbb = new MenuButton(rectangles[1], NAME_ROCK_BLOCK, PATH_ROCK_BLOCK);
     this->options.push_back(mbb);
     this->options.push_back(rbb);
  }
@@ -91,13 +91,6 @@ Menu::~Menu() {
     }
 }
 
-/*
-bool Menu::has(Sint32 x, Sint32 y) {
-    SDL_Point sdlPoint = {x, y};
-    std::cerr << "sdlPoint.x = " << sdlPoint.x << std::endl;
-    std::cerr << "sdlPoint.y = " << sdlPoint.y << std::endl;
-    return (bool) SDL_PointInRect(&sdlPoint, this->me);
-}*/
 void Menu::handle(MouseButtonDown *event) {
     auto it = options.begin();
     for (; it != options.end(); it++) {

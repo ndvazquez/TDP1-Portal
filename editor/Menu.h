@@ -11,8 +11,6 @@
 #include "../common/Window.h"
 #include "../common/Sprite.h"
 #include "MenuButton.h"
-#include "MetalBlockButton.h"
-#include "RockBlockButton.h"
 #include "MouseButtonDown.h"
 #include "MouseButtonUp.h"
 
