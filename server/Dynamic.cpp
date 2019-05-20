@@ -116,7 +116,8 @@ void Dynamic::eliminateGravity() {
 
     float actual_velocity = body->GetLinearVelocity().y;
 
-    if (actual_velocity > delta || actual_velocity < -delta) return; //Already flying
+    //Already flying
+    if (actual_velocity > delta || actual_velocity < -delta) return;
 }
 
 void Dynamic::moveUp(float force) {
@@ -134,7 +135,6 @@ void Dynamic::downloadToEarth() {
     float impulse = -30;
     body->ApplyLinearImpulse(b2Vec2(0, impulse),
                              body->GetWorldCenter(), true);
-    //body->ApplyForce(b2Vec2(0, -15), body->GetWorldCenter(), true);
     if (isColliding()) stop(0);
 }
 
