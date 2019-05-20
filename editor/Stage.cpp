@@ -12,6 +12,10 @@
 #define X (TOTAL_X)/this->xPortion
 #define W (TOTAL_X) - (X)
 #define MATRIX_TO_PIXEL_FACTOR 100
+#define X_PIXEL(event) ((event).getX())
+#define Y_PIXEL(event) ((event).getY())
+#define X_PIXEL_TO_MATRIX_POSITION(xPixel) (((xPixel)  - X)/MATRIX_TO_PIXEL_FACTOR)
+#define Y_PIXEL_TO_MATRIX_POSITION(yPixel) ((yPixel)/MATRIX_TO_PIXEL_FACTOR)
 
 
 void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
@@ -78,10 +82,10 @@ void Stage::draw() {
 }
 
 void Stage::handle(MouseButtonDown *event) {
-    int xPixel = (*event).getX();
-    int yPixel = (*event).getY();
-    int x = (xPixel - X)/MATRIX_TO_PIXEL_FACTOR;
-    int y = yPixel/MATRIX_TO_PIXEL_FACTOR;
+    int xPixel = X_PIXEL(*event);
+    int yPixel = Y_PIXEL(*event);
+    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
+    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
     SDL_Point sdlPoint = {xPixel, yPixel};
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (!isIn) {
@@ -98,12 +102,10 @@ void Stage::handle(MouseButtonDown *event) {
 }
 
 void Stage::handle(MouseButtonUp *event) {
-    int xPixel = (*event).getX();
-    int yPixel = (*event).getY();
-    std::cerr << "Button up in pixels " << "(" << xPixel << ", " << yPixel << ")" << std::endl;
-    int x = (xPixel - X)/MATRIX_TO_PIXEL_FACTOR;
-    int y = yPixel/MATRIX_TO_PIXEL_FACTOR;
-    std::cerr << "Button up in matrix " << "(" << x << ", " << y << ")" << std::endl;
+    int xPixel = X_PIXEL(*event);
+    int yPixel = Y_PIXEL(*event);
+    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
+    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
     SDL_Point sdlPoint = {xPixel, yPixel};
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (!isIn ) {
