@@ -6,9 +6,6 @@
 
 #include "EnergyBall.h"
 
-#define energyBallType "EnergyBall"
-#define deathNumber 1200;
-
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(std::string(energyBallType)),
     dynamic(body) {
