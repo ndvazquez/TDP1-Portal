@@ -7,6 +7,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
+#include <yaml-cpp/yaml.h>
 #include "RockButton.h"
 #include "MouseButtonUp.h"
 
@@ -25,6 +26,8 @@
 #define PATH_ROCK_BLOCK "resources/blocks/rock-block.png"
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""
+#define MENU_TEXTURES "editor/menu-textures.yaml"
+#define MENU_TEXTURES_KEY "StaticObjects"
 
 struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
     struct SDL_Rect* rect = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
@@ -41,43 +44,52 @@ void Menu::set() {
 
     this->me = createSDL_Rect(0, 0, (window.getWindowWidth()/WIDTH_PROPORTION), window.getWindowHeight());
 
-    // Set de rectangles
-    int totalY = window.getWindowHeight() / TOTAL_OPTIONS;
+    int yPortions = 0;
+    YAML::Node texturesInfo = YAML::LoadFile(MENU_TEXTURES);
+    const YAML::Node& staticObjects = texturesInfo[MENU_TEXTURES_KEY];
+
+    YAML::const_iterator it = staticObjects.begin();
+    for (; it != staticObjects.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int x = node["x"].as<int>();
+        int y = node["y"].as<int>();
+        struct SDL_Rect* rect = createSDL_Rect(0,0, x, y);
+        MenuButton* mb = new MenuButton(rect, name, path);
+        this->options.push_back(mb);
+        yPortions += y;
+    }
+
+
+    // Set the rectangles
+    int totalY = window.getWindowHeight() / yPortions;
     int spaceBetweenY = totalY/6;
 
     int w = totalY - spaceBetweenY;
     int spaceBetweenX = (window.getWindowWidth()/WIDTH_PROPORTION) - w;
 
-    std::vector<struct SDL_Rect*> rectangles;
-    for (int i = 0; i < TOTAL_OPTIONS; i++) {
-        struct SDL_Rect* rect = createSDL_Rect(spaceBetweenX/2, spaceBetweenY + i*totalY, w, w);
-        rectangles.push_back(rect);
+
+
+    auto optionsIt = options.begin();
+    int acum = 0;
+    int i = 0;
+    for (; optionsIt != options.end(); optionsIt++) {
+        MenuButton* option = *optionsIt;
+        acum += option->setRectangle(spaceBetweenX/2, spaceBetweenY + acum, w, w);
+        acum += spaceBetweenY;
+        i++;
     }
-    MenuButton* mbb = new MenuButton(rectangles[0], NAME_METAL_BLOCK, PATH_METAL_BLOCK);
-    MenuButton* rbb = new MenuButton(rectangles[1], NAME_ROCK_BLOCK, PATH_ROCK_BLOCK);
-    this->options.push_back(mbb);
-    this->options.push_back(rbb);
- }
+
+}
 
 void Menu::draw() {
-    //std::cerr << "\nMenu draw: \n";
-
     Sprite bgSprite(BACKGROUND, window);
-    //std::cerr << "Sprite creado \n";
-
     bgSprite.draw(window, this->me);
-    //std::cerr << "Sprite draweado \n";
 
     auto it = options.begin();
-    //std::cerr << "Creo iterador \n";
-    int i = 0;
     for (; it != options.end(); it++) {
-
         (**it).draw(this->window);
-        //std::cerr << "dibujo OPTION " << i << std::endl;
-        //Sprite sprite(path[i], this->window);
-        //sprite.draw(this->window, this->options[i]);
-        i++;
     }
 }
 

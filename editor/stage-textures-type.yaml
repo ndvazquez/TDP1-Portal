@@ -1,0 +1,14 @@
+NoGravity:
+  - name: MetalBlock
+  - name: RockBlock
+  - name: LounchBlockDown
+  - name: LounchBlockUp
+  - name: LounchBlockLeft
+  - name: LounchBlockRight
+
+Gravity:
+  - name: Button
+  - name: Rock1
+  - name: Rock2
+  - name: Rock3
+  - name: EnterHold

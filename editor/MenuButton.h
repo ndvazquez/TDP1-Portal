@@ -26,6 +26,8 @@ public:
     void draw(Window& window);
 
     void set(SDL_Rect *rect);
+
+    int setRectangle(int x, int y, int w, int h);
 };
 
 

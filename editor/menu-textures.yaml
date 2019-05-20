@@ -1,0 +1,49 @@
+StaticObjects:
+  - name: MetalBlock
+    path: resources/blocks/metal-block.png
+    x: 1
+    y: 1
+  - name: RockBlock
+    path: resources/blocks/rock-block.png
+    x: 1
+    y: 1  
+  - name: Button
+    path: resources/button/off.png
+    x: 1
+    y: 1  
+  - name: LounchBlockDown
+    path: resources/lounch-block/down.png
+    x: 1
+    y: 1  
+  - name: LounchBlockUp
+    path: resources/lounch-block/up.png
+    x: 1
+    y: 1  
+  - name: LounchBlockLeft
+    path: resources/lounch-block/left.png
+    x: 1
+    y: 1  
+  - name: LounchBlockRight
+    path: resources/lounch-block/right.png
+    x: 1
+    y: 1  
+  - name: Rock1
+    path: resources/rocks/1.png
+    x: 1
+    y: 1  
+  - name: Rock2
+    path: resources/rocks/2.png
+    x: 1
+    y: 1
+  - name: Rock3
+    path: resources/rocks/3.png
+    x: 1
+    y: 1  
+  - name: EnterHold
+    path: resources/Chell/EnterHold.png
+    x: 1
+    y: 2
+  - name: Gate
+    path: resources/gate.png
+    x: 1
+    y: 2

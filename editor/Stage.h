@@ -34,7 +34,6 @@ public:
     ~Stage();
     void setSize();
     // (x,y) pixeles.
-    void insert(uint32_t x, uint32_t y);
     void draw();
 
     void handle(MouseButtonDown *event);

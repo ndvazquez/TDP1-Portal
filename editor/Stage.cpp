@@ -11,7 +11,7 @@
 #define TOTAL_X this->window.getWindowWidth()
 #define X (TOTAL_X)/this->xPortion
 #define W (TOTAL_X) - (X)
-#define MATRIX_TO_PIXEL_FACTOR 100
+#define MATRIX_TO_PIXEL_FACTOR 50
 #define X_PIXEL(event) ((event).getX())
 #define Y_PIXEL(event) ((event).getY())
 #define X_PIXEL_TO_MATRIX_POSITION(xPixel) (((xPixel)  - X)/MATRIX_TO_PIXEL_FACTOR)
@@ -29,33 +29,10 @@ Stage::Stage(Window& window, std::string& current, int xPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
     stageView(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current), xPortion(xPortion) {
 
-    /*
-    std::cerr << "\nCreande Stage: \n";
-    std::cerr << "Antes del clear \n";
-    window.clear();
-    std::cerr << "Despues del clear \n";
-
-    std::cerr << "Antes del render \n";
-    window.render();
-    std::cerr << "Despues del render\n";
-*/
-
     this->me = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
     this->setSize();
     this->camera = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
     *this->camera = {0 ,0, W, H};
-/*
-    std::cerr << "\n\nStage creado: \n";
-
-
-    std::cerr << "Antes del clear \n";
-    window.clear();
-    std::cerr << "Despues del clear \n";
-
-    std::cerr << "Antes del render \n";
-    window.render();
-    std::cerr << "Despues del render\n\n";
-    */
 }
 
 void Stage::setSize() {
@@ -67,13 +44,6 @@ Stage::~Stage() {
     delete(this->me);
 }
 
-
-void Stage::insert(uint32_t x, uint32_t y) {
-    if (current.empty()) {
-        //throw()
-    }
-    stageView.addTile(x,y, this->current);
-}
 
 void Stage::draw() {
     Sprite bgSprite("resources/editor-stage-bg.png", window);
@@ -115,7 +85,7 @@ void Stage::handle(MouseButtonUp *event) {
     try {
         stageView.addTile(x, y, current);
     }
-    catch (StageViewAddTileException){
+    catch (StageViewAddTileException) {
         return;
     }
     current = "";
