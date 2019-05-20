@@ -9,9 +9,6 @@
 #include "EnergyBall.h"
 
 class EnergyBallVertical: public EnergyBall {
-private:
-    size_t life_steps;
-
 public:
     explicit EnergyBallVertical(b2Body* body);
     virtual void fly() override;

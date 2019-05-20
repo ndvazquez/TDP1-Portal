@@ -5,12 +5,11 @@
 #include "EnergyBallVertical.h"
 
 EnergyBallVertical::EnergyBallVertical(b2Body* body):
-        EnergyBall(body) {
-    life_steps = 0;
+    EnergyBall(body) {
 }
 
 void EnergyBallVertical::fly() {
-    if (life_steps <= 1200) {
+    if (life_steps < 1200) {
         dynamic.flyVertical(); //TODO: change this harcoded variable
     } else {
         throw EnergyBallDeadException();

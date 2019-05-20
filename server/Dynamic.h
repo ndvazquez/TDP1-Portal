@@ -24,6 +24,7 @@ public:
     void flyHorizontal();
     void flyVertical();
     bool isColliding();
+    bool handleCollisions();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

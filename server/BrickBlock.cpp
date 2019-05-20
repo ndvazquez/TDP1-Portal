@@ -3,9 +3,14 @@
 //
 
 #include "BrickBlock.h"
+#include "EnergyBall.h"
+
+#define brickBlockType "BrickBlock"
 
 BrickBlock::BrickBlock(b2Body* body):
+    Entity(brickBlockType),
     body(body) {
+    body->SetUserData(this); //to handle collisions
 }
 
 float BrickBlock::getHorizontalPosition() {
@@ -14,4 +19,10 @@ float BrickBlock::getHorizontalPosition() {
 
 float BrickBlock::getVerticalPosition() {
     return this->body->GetPosition().y;
+}
+
+void BrickBlock::handleCollision(Entity* entity) {
+    if (entity->getType() == "EnergyBall") {
+        static_cast<EnergyBall*>(entity)->die();
+    }
 }

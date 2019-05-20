@@ -5,6 +5,7 @@
 #include <iostream>
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
+#include "Entity.h"
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
@@ -47,6 +48,29 @@ bool Dynamic::isColliding() {
     return false;
 }
 
+bool Dynamic::handleCollisions() {
+    b2ContactEdge* edge = body->GetContactList();
+    bool resul = false;
+    while (edge != NULL) {
+        b2Contact* contact = edge->contact;
+        if (contact->IsTouching()) {
+            std::cout << "Entra a is Touching" << std::endl;
+            void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+            void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+            if (bodyUserDataA != NULL && bodyUserDataB != NULL) {
+                std::cout << "Esta por entrar a handleCollision" << std::endl;
+                static_cast<Entity*>(bodyUserDataA)->handleCollision(static_cast<Entity*>(bodyUserDataB));
+                std::cout << "Sale del handleCollision" << std::endl;
+            }
+            resul = true;
+        }
+        std::cout << "Sale de is touching" << std::endl;
+        edge = edge->next;
+    }
+    std::cout << "devuelvo" << std::endl;
+    return resul;
+}
+
 void Dynamic::flyHorizontal() {
     //Eliminate gravity
     float mass = body->GetMass();
@@ -56,7 +80,7 @@ void Dynamic::flyHorizontal() {
 
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
-    if (isColliding()) {
+    if (handleCollisions()) {
         impulse = -impulse;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
                 body->GetWorldCenter(), true);
@@ -76,6 +100,7 @@ void Dynamic::flyVertical() {
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
     if (isColliding()) {
+        //handleCollisions();
         impulse = -impulse;
         body->ApplyLinearImpulse(b2Vec2(0, impulse),
                                  body->GetWorldCenter(), true);

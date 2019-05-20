@@ -8,9 +8,6 @@
 #include "EnergyBall.h"
 
 class EnergyBallHorizontal: public EnergyBall {
-private:
-    size_t life_steps;
-
 public:
     explicit EnergyBallHorizontal(b2Body* body);
     virtual void fly() override;

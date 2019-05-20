@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Dynamic.h"
+#include "Entity.h"
 
 class EnergyBallDeadException : public std::exception {
     virtual const char* what() const throw() {
@@ -16,17 +17,20 @@ class EnergyBallDeadException : public std::exception {
 };
 
 
-class EnergyBall {
+class EnergyBall: public Entity {
 protected:
     Dynamic dynamic;
+    size_t life_steps;
 
 public:
     explicit EnergyBall(b2Body* body);
     virtual void fly();
+    void die();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();
     float getVerticalVelocity();
+    virtual void handleCollision(Entity* entity) override;
 };
 
 

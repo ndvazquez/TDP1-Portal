@@ -5,11 +5,25 @@
 #include <iostream>
 #include "EnergyBall.h"
 
+#define energyBallType "EnergyBall"
+#define deathNumber 1200;
+
 EnergyBall::EnergyBall(b2Body* body):
+    Entity(std::string(energyBallType)),
     dynamic(body) {
+    life_steps = 0;
+    body->SetUserData(this); //to handle collisions
 }
 
 void EnergyBall::fly() {
+}
+
+void EnergyBall::die() {
+    life_steps = deathNumber;
+}
+
+void EnergyBall::handleCollision(Entity* entity) {
+    if (entity->getType() == "BrickBlock") die();
 }
 
 float EnergyBall::getHorizontalPosition() {

@@ -7,11 +7,10 @@
 
 EnergyBallHorizontal::EnergyBallHorizontal(b2Body* body):
     EnergyBall(body) {
-    life_steps = 0;
 }
 
 void EnergyBallHorizontal::fly() {
-    if (life_steps <= 1200) {
+    if (life_steps < 1200) {
         dynamic.flyHorizontal(); //TODO: change this harcoded variable
     } else {
         throw EnergyBallDeadException();

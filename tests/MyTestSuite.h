@@ -409,7 +409,7 @@ public:
         float velocity;
         float dt = 1.0f/60.f;
 
-        for (size_t i = 0; i < 1200; i++) { //2s
+        for (size_t i = 0; i < 120000; i++) { //2s
             stage.step();
             velocity = energy_ball->getVerticalVelocity();
             position += velocity * dt;
