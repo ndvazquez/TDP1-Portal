@@ -739,5 +739,22 @@ public:
         TS_ASSERT_DELTA(rock->getVerticalPosition(), 5, 0.1);
     }
 
+
+    void testRockBlockDownloadsRightInBlock() {
+        std::cout << "Testing that the rock downloads OK in blocks" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addRock(side, initial_position_x, initial_position_y);
+        stage.addMetalBlock(side, initial_position_x, initial_position_y - 20);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Rock* rock = stage.getRock(coordinate);
+
+        rock->downloadToEarth();
+
+        for (size_t i = 0; i < 120000; i++) {
+            stage.step();
+        }
+        TS_ASSERT_DELTA(rock->getVerticalPosition(), initial_position_y - 10, 0.1);
+    }
 };
 #endif
