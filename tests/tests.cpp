@@ -222,5 +222,16 @@ public:
  void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection;
 
+static MovingRockTest suite_MovingRockTest;
+
+static CxxTest::List Tests_MovingRockTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h", 607, "MovingRockTest", suite_MovingRockTest, Tests_MovingRockTest );
+
+static class TestDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 616, "testRockBlockMovesUpAndDown" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesUpAndDown(); }
+} testDescription_suite_MovingRockTest_testRockBlockMovesUpAndDown;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

@@ -5,13 +5,25 @@
 #include "Rock.h"
 
 Rock::Rock(b2Body* body):
-        body(body) {
+    dynamic(body) {
 }
 
 float Rock::getHorizontalPosition() {
-    return this->body->GetPosition().x;
+    return this->dynamic.getHorizontalPosition();
 }
 
 float Rock::getVerticalPosition() {
-    return this->body->GetPosition().y;
+    return this->dynamic.getVerticalPosition();
+}
+
+float Rock::getVerticalVelocity() {
+    return this->dynamic.getVerticalVelocity();
+}
+
+float Rock::getHorizontalVelocity() {
+    return this->dynamic.getHorizontalVelocity();
+}
+
+void Rock::move() {
+    this->dynamic.moveRock();
 }

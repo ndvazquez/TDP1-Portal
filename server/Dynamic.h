@@ -25,6 +25,7 @@ public:
     void flyVertical();
     bool isColliding();
     bool handleCollisions();
+    void moveRock();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

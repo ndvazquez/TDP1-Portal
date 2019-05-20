@@ -2,6 +2,8 @@
 // Created by cecix on 18/05/19.
 //
 
+#define delta 0.01
+
 #include <iostream>
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
@@ -104,6 +106,24 @@ void Dynamic::flyVertical() {
         body->ApplyLinearImpulse(b2Vec2(0, impulse),
                                  body->GetWorldCenter(), true);
     }
+}
+
+void Dynamic::moveRock() {
+    float mass = body->GetMass();
+    float gravity = -1;
+    float force_y = - (mass * gravity);
+    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+
+    float actual_velocity = body->GetLinearVelocity().y;
+
+    if (actual_velocity > delta || actual_velocity < -delta) return; //Already flying
+
+    if (actual_velocity < delta && actual_velocity > 0
+            || (actual_velocity > -delta && actual_velocity < 0)) {
+        impulse = -impulse; //fly in the other way
+    }
+    body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+
 }
 
 float Dynamic::getHorizontalPosition() {

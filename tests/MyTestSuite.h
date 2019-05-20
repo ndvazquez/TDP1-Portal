@@ -602,6 +602,41 @@ public:
         }
         TS_ASSERT_EQUALS(test, true);
     }
+};
+
+class MovingRockTest :  public CxxTest::TestSuite {
+    size_t width_stage = 1000;
+    size_t height_stage = 1000;
+    size_t initial_position_x = 500;
+    size_t initial_position_y = 500;
+    size_t side = 10;
+    size_t mass = side * side;
+
+public:
+    void testRockBlockMovesUpAndDown() {
+        std::cout << "Testing that the rock moves up and down" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addRock(side, initial_position_x, initial_position_y);
+        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        Rock* rock = stage.getRock(coordinate);
+
+        size_t bounces = 0;
+        bool up = true;
+
+        for (size_t i = 0; i < 12000; i++) { //2s
+            stage.step();
+            if (rock->getVerticalVelocity() < 0 && up) {
+                bounces++;
+                up = false;
+            }
+            if (rock->getVerticalVelocity() > 0 && !up) {
+                bounces++;
+                up = true;
+            }
+        }
+
+        std::cout << bounces << std::endl;
+    }
 
 };
 #endif
