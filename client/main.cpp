@@ -28,7 +28,6 @@ void drawChellWithBox2D(){
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     std::string bgPath = "resources/Backgrounds/Industrial.png";
-    Sprite background(bgPath, newWindow);
 
     StageView stageView(newWindow, textures, MTP_FACTOR);
     // We'll setup a very basic map, 15x15 blocks.
@@ -39,10 +38,14 @@ void drawChellWithBox2D(){
         stageView.addTile(i, 14, metalBlock);
     }
     for (int i = 0; i < 15; ++i){
-        stageView.addTile(0, i, rockBlock);
-        stageView.addTile(14, i, rockBlock);
+        stageView.addTile(0, i, metalBlock);
+        stageView.addTile(14, i, metalBlock);
     }
-
+    for (int i = 1; i < 14; ++i){
+        for (int j = 1; j < 14; ++j){
+            stageView.addTile(i, j, rockBlock);
+        }
+    }
     // Box2D Stuff.
     float xPos = 1;
     float yPos = 1;
@@ -74,17 +77,17 @@ void drawChellWithBox2D(){
             }
             chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
-
+            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
+                if (e.key.keysym.sym == SDLK_w) chell->jump();
+            }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
-            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (keys[SDL_SCANCODE_W]) chell->jump();
-            }
+            // This might become an issue when we actually implement a jump animation.
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
 
         }
         stage.step(chell);
-        std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
+        //std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
         // We move the animated sprite for Chell.
@@ -92,7 +95,6 @@ void drawChellWithBox2D(){
         // Gotta update the camera now to center it around Chell.
         chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
         newWindow.clear();
-        background.draw(newWindow, nullptr);
         stageView.draw(newWindow, &camera);
         chellView.playAnimation(camera);
         newWindow.render();
