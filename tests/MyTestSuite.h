@@ -408,7 +408,86 @@ public:
     void testEnergyBallHorizontalCollidesAndInvertsDirection() {
         std::cout << "Testing that the horizontal energy ball collides against a wall and inverts direction" << std::endl;
         Stage stage(width_stage, height_stage);
+        stage.addEnergyBallHorizontal(side, width_stage - 50, initial_position_y);
+        Coordinate* coordinates = new Coordinate(width_stage - 50, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        energy_ball->fly();
+
+        float position = energy_ball->getHorizontalPosition();
+        float velocity;
+        float dt = 1.0f/60.f;
+
+        bool test = false;
+
+        for (size_t i = 0; i < 120000; i++) { //2s
+            stage.step();
+            velocity = energy_ball->getHorizontalVelocity();
+            position += velocity * dt;
+            TS_ASSERT_DELTA(position, energy_ball->getHorizontalPosition(), 1.0f);
+            if (position < width_stage - 50) test = true;
+        }
+        TS_ASSERT_EQUALS(test, true);
+    }
+
+    void testEnergyBallVerticalCollidesAndInvertsDirection() {
+        std::cout << "Testing that the vertical energy ball collides against a wall and inverts direction" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBallVertical(side, initial_position_x, height_stage - 50);
+        Coordinate* coordinates = new Coordinate(initial_position_x, height_stage - 50);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        energy_ball->fly();
+
+        float position = energy_ball->getVerticalPosition();
+        float velocity;
+        float dt = 1.0f/60.f;
+
+        bool test = false;
+
+        for (size_t i = 0; i < 1100; i++) { //2s
+            stage.step();
+            velocity = energy_ball->getVerticalVelocity();
+            position += velocity * dt;
+            TS_ASSERT_DELTA(position, energy_ball->getVerticalPosition(), 1.0f);
+            if (position < height_stage - 50) test = true;
+        }
+        TS_ASSERT_EQUALS(test, true);
+    }
+
+    void testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection() {
+        std::cout << "Testing that the vertical energy ball collides against a metal block and inverts direction" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        stage.addMetalBlock(side, initial_position_x, initial_position_y + 10);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        energy_ball->fly();
+
+        float position = energy_ball->getVerticalPosition();
+        float velocity;
+        float dt = 1.0f/60.f;
+
+        bool test = false;
+
+        for (size_t i = 0; i < 120; i++) { //2s
+            stage.step();
+            velocity = energy_ball->getVerticalVelocity();
+            position += velocity * dt;
+            TS_ASSERT_DELTA(position, energy_ball->getVerticalPosition(), 1.0f);
+            if (position < (initial_position_y + 10)) {
+                test = true;
+            }
+        }
+        TS_ASSERT_EQUALS(test, true);
+    }
+
+    void testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection() {
+        std::cout << "Testing that the horizontal energy ball collides against a metal block and inverts direction" << std::endl;
+        Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
+        stage.addMetalBlock(side, initial_position_x + 10, initial_position_y);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
 
@@ -416,33 +495,17 @@ public:
         float position = energy_ball->getHorizontalPosition();
         float velocity;
         float dt = 1.0f/60.f;
-
-        for (size_t i = 0; i < 120000; i++) { //2s
+        bool test = false;
+        for (size_t i = 0; i < 120; i++) { //2s
             stage.step();
             velocity = energy_ball->getHorizontalVelocity();
             position += velocity * dt;
             TS_ASSERT_DELTA(position, energy_ball->getHorizontalPosition(), 1.0f);
+            if (position < initial_position_x + 10) {
+                test = true;
+            }
         }
-    }
-
-    void testEnergyBallVerticalCollidesAndInvertsDirection() {
-        std::cout << "Testing that the vertical energy ball collides against a wall and inverts direction" << std::endl;
-        Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
-
-        energy_ball->fly();
-        float position = energy_ball->getVerticalPosition();
-        float velocity;
-        float dt = 1.0f/60.f;
-
-        for (size_t i = 0; i < 120; i++) { //2s
-            stage.step();
-            velocity = energy_ball->getVerticalVelocity();
-            position += velocity * dt;
-            TS_ASSERT_DELTA(position, energy_ball->getVerticalPosition(), 1.0f);
-        }
+        TS_ASSERT_EQUALS(test, true);
     }
 
     void testEnergyBallVerticalCollidesAgainstBrickBlockAndDies() {
