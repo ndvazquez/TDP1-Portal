@@ -2,6 +2,7 @@
 // Created by cecix on 13/05/19.
 //
 
+#include <iostream>
 #include "BrickBlock.h"
 #include "EnergyBall.h"
 
@@ -22,6 +23,7 @@ float BrickBlock::getVerticalPosition() {
 }
 
 void BrickBlock::handleCollision(Entity* entity) {
+    std::cout << "Entro al handlecollison de brickblock" << std::endl;
     if (entity->getType() == "EnergyBall") {
         static_cast<EnergyBall*>(entity)->die();
     }

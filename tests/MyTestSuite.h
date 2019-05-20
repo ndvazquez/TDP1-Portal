@@ -378,7 +378,7 @@ public:
     }
 
     void testEnergyBallHorizontalCollidesAndChangeDirection(void) {
-        std::cout << "Testing that the horizontal energy ball collides and change direction" << std::endl;
+        std::cout << "Testing that the horizontal energy ball collides against a wall and change direction" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
@@ -398,7 +398,7 @@ public:
     }
 
     void testEnergyBallVerticalCollidesAndChangeDirection(void) {
-        std::cout << "Testing that the vertical energy ball collides and change direction" << std::endl;
+        std::cout << "Testing that the vertical energy ball collides against a wall and change direction" << std::endl;
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
         Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
@@ -409,7 +409,7 @@ public:
         float velocity;
         float dt = 1.0f/60.f;
 
-        for (size_t i = 0; i < 120000; i++) { //2s
+        for (size_t i = 0; i < 120; i++) { //2s
             stage.step();
             velocity = energy_ball->getVerticalVelocity();
             position += velocity * dt;
@@ -417,6 +417,34 @@ public:
         }
     }
 
+    void testEnergyBallVerticalCollidesAgainstBrickBlockAndDies(void) {
+        float initial_position_x_brick_block = initial_position_x;
+        float initial_position_y_brick_block = initial_position_y + 100; //colliding
 
+        std::cout << "Testing that the vertical energy ball collides against brick block and dies" << std::endl;
+        Stage stage(width_stage, height_stage);
+        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
+        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+
+        energy_ball->fly();
+
+        bool test = false;
+        float position = energy_ball->getVerticalPosition();
+        float velocity;
+        float dt = 1.0f/60.f;
+
+        for (size_t i = 0; i < 300; i++) { //2s
+            velocity = energy_ball->getVerticalVelocity();
+            position += velocity * dt;
+            if (energy_ball->isDead()) {
+                test = true;
+                break;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(test, true);
+    }
 };
 #endif

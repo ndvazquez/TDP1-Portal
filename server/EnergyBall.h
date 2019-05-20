@@ -26,6 +26,7 @@ public:
     explicit EnergyBall(b2Body* body);
     virtual void fly();
     void die();
+    bool isDead();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

@@ -175,5 +175,11 @@ public:
  void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAndChangeDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndChangeDirection;
 
+static class TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 420, "testEnergyBallVerticalCollidesAgainstBrickBlockAndDies" ) {}
+ void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAgainstBrickBlockAndDies(); }
+} testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

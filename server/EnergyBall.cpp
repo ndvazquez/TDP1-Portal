@@ -22,8 +22,14 @@ void EnergyBall::die() {
     life_steps = deathNumber;
 }
 
+bool EnergyBall::isDead() {
+    return life_steps >= deathNumber;
+}
+
 void EnergyBall::handleCollision(Entity* entity) {
-    if (entity->getType() == "BrickBlock") die();
+    if (entity->getType() == "BrickBlock") {
+        die();
+    }
 }
 
 float EnergyBall::getHorizontalPosition() {
