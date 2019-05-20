@@ -731,13 +731,12 @@ public:
         Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
         Rock* rock = stage.getRock(coordinate);
 
-        rock->eliminateGravity();
         rock->downloadToEarth();
 
-        for (size_t i = 0; i < 1200; i++) {
+        for (size_t i = 0; i < 120000; i++) {
             stage.step();
-            //std::cout << rock->getVerticalPosition() << std::endl;
         }
+        TS_ASSERT_DELTA(rock->getVerticalPosition(), 5, 0.1);
     }
 
 };

@@ -57,6 +57,7 @@ void Rock::eliminateGravity() {
 }
 
 void Rock::downloadToEarth() {
+    eliminateGravity();
     this->dynamic.downloadToEarth();
 }
 

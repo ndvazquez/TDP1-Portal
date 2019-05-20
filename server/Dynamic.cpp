@@ -131,7 +131,10 @@ void Dynamic::moveDown(float force) {
 }
 
 void Dynamic::downloadToEarth() {
-    body->ApplyForce(b2Vec2(0, -15), body->GetWorldCenter(), true);
+    float impulse = -30;
+    body->ApplyLinearImpulse(b2Vec2(0, impulse),
+                             body->GetWorldCenter(), true);
+    //body->ApplyForce(b2Vec2(0, -15), body->GetWorldCenter(), true);
     if (isColliding()) stop(0);
 }
 
