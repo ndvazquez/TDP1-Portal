@@ -27,6 +27,7 @@ public:
     void update();
     float getHorizontalVelocity();
     float getVerticalVelocity();
+    bool inGround(float y0);
 };
 
 #endif //PORTAL_CHELL_H

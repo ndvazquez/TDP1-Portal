@@ -38,23 +38,20 @@ float Dynamic::getVerticalPosition() {
 }
 
 void Dynamic::jump(float y0) {
-    float epsilon = pow(10, -9);
-    float delta = 0.1;
+    if(isColliding()) std::cout << "Is colliding" << std::endl;
+    else std::cout << "not colliding:(" << std::endl;
 
-    if (body->GetLinearVelocity().y > epsilon || body->GetLinearVelocity().y < -epsilon) return;
 
-    //Calculus of ymax
-    float v0 = initialVelocity; //initial velocity
-    float g = -1.0f;
-    float t = -v0 / g;
+    float epsilon = pow(10.5, -9);
+    float delta = 0.05;
 
-    float y_max = y0 + v0*t + 0.5*g*pow(t,2);
-    float pos = body->GetPosition().y;
-    if (pos >= y_max - delta) return; //dont float in earth
+    bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
+    bool chell_is_in_floor = body->GetPosition().y <= y0 + delta;
+
+    if (! chell_is_still && ! chell_is_in_floor) return; //can't jump because chell is in movement
 
     float impulse = body->GetMass() * initialVelocity;
     body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
-
 }
 
 float Dynamic::getHorizontalVelocity() {

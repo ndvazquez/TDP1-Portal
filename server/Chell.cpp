@@ -54,8 +54,19 @@ void Chell::update() {
 
 void Chell::jump(float y0) {
     this->dynamic.jump(y0);
-};
+}
+
+bool Chell::inGround(float y0) {
+    float epsilon = pow(10.5, -9);
+    float delta = 0.05;
+
+    bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
+    bool chell_is_in_floor = body->GetPosition().y <= y0 + delta;
+
+    if (! chell_is_still && ! chell_is_in_floor) return false; //can't jump because chell is in movement
+    return true;
+}
 
 Chell::~Chell() {
     destroyActualMovement();
-};
+}
