@@ -30,16 +30,15 @@ void Chell::stop() {
 
 void Chell::destroyActualMovement() {
     delete this->actual_movement;
-};
+}
 
 void Chell::update() {
-    this->actual_movement->move();
+    this->actual_movement->move(chellForce);
 }
 
 void Chell::jump() {
     this->dynamic.jump();
-};
-
+}
 
 float Chell::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();

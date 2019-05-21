@@ -263,6 +263,10 @@ void Stage::step() {
         }
     }
 
+    for (auto i = rocks.begin(); i != rocks.end(); i++) {
+        i->second->update(); //to move right, left and stuff
+    }
+
     float timeStep = 1.0f / 60.0f;
     int velocityIterations = 8;
     int positionIterations = 2;

@@ -9,33 +9,31 @@
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
-    impulse = body->GetMass() * 50;
+    impulse = body->GetMass() * impulseFactor;
 }
 
-void Dynamic::move() {
+void Dynamic::move(float force) {
 }
 
-void Dynamic::moveRight() {
-    float force = 15; //TODO: change this harcoded variable
+void Dynamic::moveRight(float force) {
     if (body->GetLinearVelocity().x > 0.5) force = 0;
-    body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
+    body->ApplyForce(b2Vec2(force, 0), body->GetWorldCenter(), true);
 }
 
-void Dynamic::moveLeft() {
-    float force = -15; //TODO: change this harcoded variable
+void Dynamic::moveLeft(float force) {
     if (body->GetLinearVelocity().x < -0.5) force = 0;
-    body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
+    body->ApplyForce(b2Vec2(-force, 0), body->GetWorldCenter(), true);
 }
 
-void Dynamic::stop() {
-    float force = 0;
+void Dynamic::stop(float force) {
+    force = 0;
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
 void Dynamic::jump() {
     if (body->GetLinearVelocity().y != 0) return; //Shouldn't jump twice
-    float impulse = body->GetMass() * 4;
-    body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+    float impulse = body->GetMass() * jumpFactor;
+    body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter() , true);
 }
 
 bool Dynamic::isColliding() {
@@ -80,10 +78,10 @@ void Dynamic::flyHorizontal() {
     if (handleCollisions()) {
         impulse = -impulse;
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
-                body->GetWorldCenter(), true);
+                                 body->GetWorldCenter(), true);
     } else {
         body->ApplyLinearImpulse(b2Vec2(impulse, 0),
-                body->GetWorldCenter(), true);
+                                 body->GetWorldCenter(), true);
     }
 }
 
@@ -104,6 +102,36 @@ void Dynamic::flyVertical() {
         body->ApplyLinearImpulse(b2Vec2(0, impulse),
                                  body->GetWorldCenter(), true);
     }
+}
+
+void Dynamic::eliminateGravity() {
+    float mass = body->GetMass();
+    float gravity = -1;
+    float force_y = - (mass * gravity);
+    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+
+    float actual_velocity = body->GetLinearVelocity().y;
+
+    //Already flying
+    if (actual_velocity > delta || actual_velocity < -delta) return;
+}
+
+void Dynamic::moveUp(float force) {
+    if (body->GetLinearVelocity().y > 0.5) force = 0;
+    body->ApplyForce(b2Vec2(0, force), body->GetWorldCenter(), true);
+}
+
+
+void Dynamic::moveDown(float force) {
+    if (body->GetLinearVelocity().y < -0.5) force = 0;
+    body->ApplyForce(b2Vec2(0, -force), body->GetWorldCenter(), true);
+}
+
+void Dynamic::downloadToEarth() {
+    float impulse = -30;
+    body->ApplyLinearImpulse(b2Vec2(0, impulse),
+                             body->GetWorldCenter(), true);
+    if (isColliding()) stop(0);
 }
 
 float Dynamic::getHorizontalPosition() {

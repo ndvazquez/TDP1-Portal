@@ -5,6 +5,8 @@
 #ifndef PORTAL_CHELL_H
 #define PORTAL_CHELL_H
 
+#define chellForce 15
+
 #include <Box2D/Dynamics/b2Body.h>
 #include "Dynamic.h"
 

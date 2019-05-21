@@ -5,6 +5,9 @@
 #ifndef PORTAL_ENERGYBALL_H
 #define PORTAL_ENERGYBALL_H
 
+#define energyBallType "EnergyBall"
+#define deathNumber 1200;
+
 #include <string>
 #include "Dynamic.h"
 #include "Entity.h"
