@@ -13,7 +13,6 @@ private:
     Dynamic dynamic;
 public:
     EnergyBall(b2Body* body);
-    void fly();
 };
 
 

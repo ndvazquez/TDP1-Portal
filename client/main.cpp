@@ -70,6 +70,8 @@ void drawChellWithBox2D(){
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
+    float max = 0;
+
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -78,7 +80,7 @@ void drawChellWithBox2D(){
             chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump();
+                if (e.key.keysym.sym == SDLK_w) chell->jump(yPos);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -87,7 +89,10 @@ void drawChellWithBox2D(){
 
         }
         stage.step(chell);
-        std::cout << "Chell X: " << chell->getVerticalVelocity() << std::endl;
+        //std::cout << "Chell Y: " << chell->getVerticalPosition() << std::endl;
+
+        if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
+
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
         // We move the animated sprite for Chell.
@@ -100,6 +105,8 @@ void drawChellWithBox2D(){
         newWindow.render();
     }
     delete coordinate;
+
+    std::cout << max << std::endl;
 }
 
 int main(int argc, char* argv[]){

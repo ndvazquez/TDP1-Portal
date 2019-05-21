@@ -52,8 +52,8 @@ void Chell::update() {
     this->actual_movement->move();
 }
 
-void Chell::jump() {
-    this->dynamic.jump();
+void Chell::jump(float y0) {
+    this->dynamic.jump(y0);
 };
 
 Chell::~Chell() {

@@ -5,6 +5,7 @@
 #ifndef PORTAL_DYNAMIC_H
 #define PORTAL_DYNAMIC_H
 
+#define initialVelocity 4
 
 #include <Box2D/Dynamics/b2Body.h>
 
@@ -18,7 +19,7 @@ public:
     float getHorizontalPosition();
     float getVerticalPosition();
     virtual void move();
-    void jump();
+    void jump(float y0);
     void moveRight();
     void moveLeft();
     void stop();
