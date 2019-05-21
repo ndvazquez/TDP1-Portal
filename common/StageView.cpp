@@ -27,15 +27,13 @@ StageView::~StageView() {
     }
 }
 
-void StageView::draw(Window& window, SDL_Rect* camera, int xStart) {
+void StageView::draw(Window& window, SDL_Rect* camera) {
     SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
-
     int camPosX = camera->x / matrixToPixelFactor;
     int camPosY = camera->y / matrixToPixelFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.
     int n = camera->w / matrixToPixelFactor + EXTRA_TILES;
     int m = camera->h / matrixToPixelFactor + EXTRA_TILES;
-
 
     Sprite* sprite = nullptr;
     for (int i = camPosX; i < camPosX + n; ++i){
@@ -45,15 +43,11 @@ void StageView::draw(Window& window, SDL_Rect* camera, int xStart) {
                 continue;
             }
             sprite = textures[point->second];
-            destRect.x = xStart + (point->first.first - camPosX) * matrixToPixelFactor;
+            destRect.x = (point->first.first - camPosX) * matrixToPixelFactor;
             destRect.y = (point->first.second - camPosY) * matrixToPixelFactor;
             sprite->draw(window, &destRect);
         }
     }
-}
-
-void StageView::draw(Window& window, SDL_Rect* camera) {
-    this->draw(window, camera, 0);
 }
 
 void StageView::addTile(int x, int y, std::string& tileName) {
@@ -62,17 +56,3 @@ void StageView::addTile(int x, int y, std::string& tileName) {
     }
     tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
 }
-
-void StageView::removeTile(int x, int y) {
-    tiles.erase(std::make_pair(x, y));
-}
-
-std::string &StageView::getName(int x, int y) {
-    auto point = tiles.find(std::make_pair(x, y));
-    if (point == tiles.end()) {
-        throw StageViewEmptyPositionException();
-    }
-    return point->second;
-}
-
-

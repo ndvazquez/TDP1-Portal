@@ -24,13 +24,6 @@ class StageViewAddTileException : public std::exception{
     }
 };
 
-class StageViewEmptyPositionException : public std::exception{
-    virtual const char* what() const throw () {
-        std::string message = "Couldn't get tile's name, that's position is empty!\n";
-        return message.c_str();
-    }
-};
-
 class StageView {
     int matrixToPixelFactor;
     std::unordered_map<std::string, Sprite*> textures;
@@ -41,11 +34,6 @@ public:
     ~StageView();
     void addTile(int x, int y, std::string& tileName);
     void draw(Window& window, SDL_Rect* camera);
-    void draw(Window &window, SDL_Rect *camera, int xStart);
-
-    std::string &getName(int x, int y);
-
-    void removeTile(int x, int y);
 };
 
 
