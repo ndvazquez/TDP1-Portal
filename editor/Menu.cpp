@@ -6,7 +6,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
-#include <iostream>
 #include <yaml-cpp/yaml.h>
 #include "RockButton.h"
 #include "MouseButtonUp.h"

@@ -7,7 +7,6 @@
 #include <utility>
 #include "yaml-cpp/yaml.h"
 #include <map>
-#include <iostream>
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
     matrixToPixelFactor(factor) {

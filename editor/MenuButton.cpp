@@ -2,7 +2,6 @@
 // Created by camix on 18/05/19.
 //
 
-#include <iostream>
 #include "MenuButton.h"
 #include "../common/Sprite.h"
 
