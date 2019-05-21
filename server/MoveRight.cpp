@@ -8,8 +8,8 @@ MoveRight::MoveRight(b2Body* body):
     Dynamic(body) {
 }
 
-void MoveRight::move() {
-    moveRight();
+void MoveRight::move(float force) {
+    moveRight(force);
 }
 
 MoveRight::~MoveRight() {
