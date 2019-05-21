@@ -40,7 +40,7 @@ Objects:
     gravity: 1
     animated: 0
   - name: Chell
-    path: resources/Chell/RestingIdle.png
+    path: resources/Chell/EnterHold.png
     gravity: 1
     animated: 1
     frames: 7
