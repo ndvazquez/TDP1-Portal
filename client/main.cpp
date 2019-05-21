@@ -78,8 +78,7 @@ void drawChellWithBox2D(){
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
-        stage.step(chell);
-        std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
+        stage.step();
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
         // We move the animated sprite for Chell.
