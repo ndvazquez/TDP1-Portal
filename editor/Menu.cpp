@@ -10,19 +10,6 @@
 #include "RockButton.h"
 #include "MouseButtonUp.h"
 
-#define BRICK_BLOCK_POS 0
-#define METAL_BLOCK_POS 1
-#define ROCK1_POS 2
-#define ROCK2_POS 3
-#define ROCK3_POS 4
-#define BUTTON_POS 5
-#define GATE_POS 6
-
-#define TOTAL_OPTIONS 7
-#define NAME_METAL_BLOCK "MetalBlock"
-#define PATH_METAL_BLOCK "resources/blocks/metal-block.png"
-#define NAME_ROCK_BLOCK "RockBlock"
-#define PATH_ROCK_BLOCK "resources/blocks/rock-block.png"
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""
 #define MENU_TEXTURES "editor/menu-textures.yaml"
