@@ -12,13 +12,13 @@
 #include "../common/Window.h"
 #include "MouseButtonDown.h"
 #include "MouseButtonUp.h"
-#include "EditorStageView.h"
+#include "StageController.h"
 
 class Stage {
 private:
     Window& window;
     YAML::Node textures;
-    EditorStageView stageView;
+    StageController controller;
     std::string& current;
     int xPortion;
     struct SDL_Rect* me;

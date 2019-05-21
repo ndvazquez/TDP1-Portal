@@ -2,8 +2,8 @@
 // Created by camix on 20/05/19.
 //
 
-#ifndef PORTAL_EDITORSTAGEVIEW_H
-#define PORTAL_EDITORSTAGEVIEW_H
+#ifndef PORTAL_STAGECONTROLLER_H
+#define PORTAL_STAGECONTROLLER_H
 
 
 #include <yaml-cpp/node/node.h>
@@ -11,6 +11,7 @@
 #include <map>
 #include "../common/Window.h"
 #include "../common/Sprite.h"
+#include "StageView.h"
 
 #define GRAVITY_EXC "Couldn't add the tile, that's not a valid place for an object with physics laws!\n"
 #define NAME_EXC "Couldn't add the tile, that's not a valid element!\n"
@@ -38,20 +39,20 @@ class EditorStageViewEmptyPositionException : public EditorStageException {
     }
 };
 
-class EditorStageView {
+class StageController {
 private:
-    Window& window;
-    int factor;
     std::unordered_map<std::string, Sprite*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
     std::map<std::string, bool> gravity;
+    StageView stageView;
+
 
 
 public:
-    EditorStageView(Window& window, YAML::Node& texturesInfo, int factor);
-    ~EditorStageView();
+    StageController(Window& window, YAML::Node& texturesInfo, int factor);
+    ~StageController();
 
-    void draw(Window &window, SDL_Rect *camera, int xStart);
+    void draw(SDL_Rect *camera, int xStart);
 
     void addTile(int x, int y, std::string &tileName);
 
@@ -61,4 +62,4 @@ public:
 };
 
 
-#endif //PORTAL_EDITORSTAGEVIEW_H
+#endif //PORTAL_STAGECONTROLLER_H

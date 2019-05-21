@@ -38,7 +38,8 @@ set(EDITOR_SOURCE_FILES
         editor/Event.cpp
         editor/MouseButtonDown.cpp
         editor/MouseButtonUp.cpp
-        editor/EditorStageView.cpp)
+        editor/StageController.cpp
+        editor/StageView.cpp)
 
 
 set(SERVER_SOURCE_FILES
