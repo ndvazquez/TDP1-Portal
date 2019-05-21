@@ -87,7 +87,7 @@ void drawChellWithBox2D(){
 
         }
         stage.step(chell);
-        //std::cout << "Chell X: " << chell->getHorizontalPosition() << std::endl;
+        std::cout << "Chell X: " << chell->getVerticalVelocity() << std::endl;
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
         // We move the animated sprite for Chell.
