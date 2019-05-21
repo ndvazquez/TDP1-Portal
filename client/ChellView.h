@@ -14,6 +14,7 @@
 #define TEXTURES_INFO_KEY "Chell"
 #define CHELL_RUN "Run"
 #define CHELL_RESTING_IDLE "RestingIdle"
+#define CHELL_JUMPING "Jumping"
 
 class ChellView {
     Window& gameWindow;
@@ -21,8 +22,7 @@ class ChellView {
     int chellHeight;
     int xPos;
     int yPos;
-    int xVelocity;
-    int yVelocity;
+    bool isJumping;
     SDL_RendererFlip flip;
     std::string currentAnimation;
     std::unordered_map<std::string, AnimatedSprite*> animations;
@@ -31,6 +31,7 @@ public:
     ChellView(Window &window, int xPos, int yPos, YAML::Node texturesData);
     ~ChellView();
     void playAnimation(SDL_Rect& camera);
+    void changeJumpingStatus(bool isChellJumping);
     void handleEvent(SDL_Event& e, const Uint8* keys);
     void move(int newPosX, int newPosY);
     // This method is only used by the playable Chell;

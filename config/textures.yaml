@@ -5,6 +5,9 @@ Chell:
   - name: Run
     path: resources/Chell/Run.png
     frames: 12
+  - name: Jumping
+    path: resources/Chell/Jumping.png
+    frames: 4
 
 StaticObjects:
   - name: MetalBlock

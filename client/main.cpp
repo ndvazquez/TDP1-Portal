@@ -89,10 +89,13 @@ void drawChellWithBox2D(){
 
         }
         stage.step(chell);
-        if (chell->inGround(yPos)) std::cout << "In ground!" << std::endl;
-        else std::cout << "Not in ground!! I'm jumping" << std::endl;
+        bool chellInGround = chell->inGround(yPos);
+//        if (chellInGround) std::cout << "In ground!" << std::endl;
+//        else std::cout << "Not in ground!! I'm jumping" << std::endl;
 
         if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
+
+        chellView.changeJumpingStatus(!chellInGround);
 
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;

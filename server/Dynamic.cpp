@@ -38,8 +38,8 @@ float Dynamic::getVerticalPosition() {
 }
 
 void Dynamic::jump(float y0) {
-    if(isColliding()) std::cout << "Is colliding" << std::endl;
-    else std::cout << "not colliding:(" << std::endl;
+    //if(isColliding()) std::cout << "Is colliding" << std::endl;
+    //else std::cout << "not colliding:(" << std::endl;
 
 
     float epsilon = pow(10.5, -9);

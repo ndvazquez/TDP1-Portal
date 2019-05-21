@@ -15,8 +15,7 @@ ChellView::ChellView(Window &window, int xPos, int yPos, YAML::Node texturesData
             chellHeight(0),
             xPos(xPos),
             yPos(yPos),
-            xVelocity(0),
-            yVelocity(0),
+            isJumping(false),
             flip(SDL_FLIP_NONE){
 
     YAML::Node animationsData = texturesData[TEXTURES_INFO_KEY];
@@ -85,4 +84,19 @@ void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) 
     if(camera.y > levelHeight - camera.h){
         camera.y = levelHeight - camera.h;
     }
+}
+
+void ChellView::changeJumpingStatus(bool isChellJumping) {
+    isJumping = isChellJumping;
+    if (isJumping) {
+        currentAnimation = CHELL_JUMPING;
+    } else {
+        // We'll fire a fake event just to get the handleEvent method going.
+        // Otherwise we'll be stuck on the Jumping animation.
+        SDL_Event fakeEvent;
+        fakeEvent.type = SDL_KEYDOWN;
+        fakeEvent.key.keysym.sym = SDLK_l;
+        SDL_PushEvent(&fakeEvent);
+    }
+
 }
