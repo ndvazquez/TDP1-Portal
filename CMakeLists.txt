@@ -20,7 +20,8 @@ set(CLIENT_SOURCE_FILES
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
         common/StageView.cpp
-        client/ChellView.cpp)
+        client/ChellView.cpp
+        client/EnergyBallView.cpp)
 
 set(SERVER_SOURCE_FILES
         server/Stage.cpp

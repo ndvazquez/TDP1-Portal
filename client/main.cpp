@@ -11,6 +11,7 @@
 #include <iostream>
 #include "../common/SDLSession.h"
 #include "ChellView.h"
+#include "EnergyBallView.h"
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
@@ -94,8 +95,44 @@ void drawChellWithBox2D(){
     delete coordinate;
 }
 
+void drawEnergyBall(){
+    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    std::string title = "Portal";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    int stageWidth = 9;
+    int stageHeight = 6;
+    Stage stage(stageWidth, stageHeight);
+    int x = 2;
+    int y = 2;
+    EnergyBallView energyBallView(newWindow, x, y, textures);
+
+    stage.addEnergyBallHorizontal(2, x, y);
+    Coordinate* coordinate = new Coordinate(x, y);
+    EnergyBall* energyBall = stage.getEnergyBall(coordinate);
+
+    bool quit = false;
+    SDL_Event e;
+
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        stage.step();
+        int newPosX = energyBall->getHorizontalPosition() * MTP_FACTOR;
+        int newPosY = energyBall->getVerticalPosition()  * MTP_FACTOR * -1 + SCREEN_HEIGHT;
+        std::cout << "EB X: " << newPosX << std::endl;
+        energyBallView.move(newPosX, newPosY);
+        newWindow.clear();
+        energyBallView.playAnimation();
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
+    drawEnergyBall();
 }
