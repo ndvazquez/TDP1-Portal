@@ -2,10 +2,16 @@
 // Created by cecix on 13/05/19.
 //
 
+#include <iostream>
 #include "BrickBlock.h"
+#include "EnergyBall.h"
 
-BrickBlock::BrickBlock(size_t side, b2Body *body):
-    side(side), body(body) {
+#define brickBlockType "BrickBlock"
+
+BrickBlock::BrickBlock(b2Body* body):
+    Entity(brickBlockType),
+    body(body) {
+    body->SetUserData(this); //to handle collisions
 }
 
 float BrickBlock::getHorizontalPosition() {
@@ -16,7 +22,8 @@ float BrickBlock::getVerticalPosition() {
     return this->body->GetPosition().y;
 }
 
-
-size_t BrickBlock::getSide() {
-    return this->side;
+void BrickBlock::handleCollision(Entity* entity) {
+    if (entity->getType() == "EnergyBall") {
+        static_cast<EnergyBall*>(entity)->die();
+    }
 }

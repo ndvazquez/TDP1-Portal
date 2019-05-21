@@ -16,22 +16,20 @@ include_directories(${PROJECT_SOURCE_DIR}/server)
 include_directories(${PROJECT_SOURCE_DIR}/tests)
 
 set(CLIENT_SOURCE_FILES
-        client/main.cpp
-        common/Window.cpp
-        common/Sprite.cpp
-        common/AnimatedSprite.cpp
-        common/SDLSession.cpp
-        common/StageView.cpp)
-
-#EDITOR CONFIG
-
-set(EDITOR_SOURCE_FILES
-        editor/main.cpp
         common/Window.cpp
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
         common/StageView.cpp
+        client/ChellView.cpp)
+
+#EDITOR CONFIG
+
+set(EDITOR_SOURCE_FILES
+        common/Window.cpp
+        common/Sprite.cpp
+        common/AnimatedSprite.cpp
+        common/SDLSession.cpp
         editor/Stage.cpp
         editor/Menu.cpp
         editor/Editor.cpp
@@ -40,47 +38,42 @@ set(EDITOR_SOURCE_FILES
         editor/Event.cpp
         editor/MouseButtonDown.cpp
         editor/MouseButtonUp.cpp
-        editor/EditorStageView.cpp
-        )
+        editor/EditorStageView.cpp)
 
 
 set(SERVER_SOURCE_FILES
-        server/main.cpp
         server/Stage.cpp
-        server/Stage.h
         server/Coordinate.cpp
-        server/Coordinate.h
         server/BrickBlock.cpp
         server/BrickBlock.cpp
         server/MetalBlock.cpp
-        server/MetalBlock.h
         server/DiagonalMetalBlock.cpp
-        server/DiagonalMetalBlock.h)
+        server/EnergyTransmitter.cpp
+        server/Rock.cpp
+        server/EnergyBar.cpp
+        server/Button.cpp
+        server/Acid.cpp
+        server/Chell.cpp
+        server/Dynamic.cpp
+        server/MoveRight.cpp
+        server/MoveLeft.cpp
+        server/Stop.cpp
+        server/EnergyBall.cpp
+        server/Entity.cpp
+        server/MoveUp.cpp
+        server/MoveDown.cpp)
 
 set(TEST_SOURCE_FILES
-        tests/tests.cpp
-        server/Stage.cpp
-        server/Stage.h
-        server/Coordinate.cpp
-        server/Coordinate.h
-        server/BrickBlock.cpp
-        server/BrickBlock.cpp
-        server/MetalBlock.cpp
-        server/MetalBlock.h
-        server/DiagonalMetalBlock.cpp
-        server/DiagonalMetalBlock.h)
+        tests/tests.cpp)
 
-add_executable(Client ${CLIENT_SOURCE_FILES})
-add_executable(Server ${SERVER_SOURCE_FILES})
-add_executable(Test ${TEST_SOURCE_FILES})
-add_executable(Editor ${EDITOR_SOURCE_FILES})
-
-target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
-target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
-
+add_executable(Client client/main.cpp ${CLIENT_SOURCE_FILES} ${SERVER_SOURCE_FILES})
+add_executable(Server server/main.cpp ${SERVER_SOURCE_FILES})
+add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
+add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
+target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} TG::Box2D)
+target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
 target_link_libraries(Server TG::Box2D)
 target_link_libraries(Test TG::Box2D)
-

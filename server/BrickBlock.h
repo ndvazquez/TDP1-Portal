@@ -6,17 +6,17 @@
 #define PORTAL_BRICKBLOCK_H
 
 #include <Box2D/Dynamics/b2Body.h>
+#include "Entity.h"
 
-class BrickBlock {
+class BrickBlock: public Entity {
 private:
-    size_t side;
     b2Body* body;
 
 public:
-    BrickBlock(size_t side, b2Body* body);
+    explicit BrickBlock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
-    size_t getSide();
+    virtual void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_BRICKBLOCK_H

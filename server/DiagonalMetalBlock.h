@@ -6,14 +6,17 @@
 #define PORTAL_DIAGONALMETALBLOCK_H
 
 #include <Box2D/Dynamics/b2Body.h>
+#include "Entity.h"
 
-class DiagonalMetalBlock {
+class DiagonalMetalBlock: public Entity  {
 private:
-    size_t side;
     b2Body* body;
 
 public:
-    DiagonalMetalBlock(size_t side, b2Body* body);
+    explicit DiagonalMetalBlock(b2Body* body);
+    float getHorizontalPosition();
+    float getVerticalPosition();
+    virtual void handleCollision(Entity* entity) override;
 };
 
 
