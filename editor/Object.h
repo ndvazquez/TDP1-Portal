@@ -6,6 +6,8 @@
 #define PORTAL_OBJECT_H
 
 #include <vector>
+#include <unordered_map>
+#include <map>
 #include "../common/Sprite.h"
 
 class Object {
@@ -17,6 +19,9 @@ public:
     virtual void draw(SDL_Rect* rect) = 0;
     virtual bool canBeOn(const std::string& name);
     virtual bool canBeOn() = 0;
+
+    virtual bool canBeAdd(int x, int y, std::map<std::pair<int, int>,
+            std::string>& names) = 0;
 };
 
 

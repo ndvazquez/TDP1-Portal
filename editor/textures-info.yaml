@@ -26,12 +26,12 @@ Rocks: # gravity, no animation
 
 Chells: # gravity and animation
   - name: Chell
-    path: resources/Chell/EnterHold.png
+    path: resources/Chell/RestingIdle.png
     frames: 7
 
 Gate: # gravity, no animation
   - name: Gate
-    path: resources/gate-stage.png
+    path: resources/gate.png
 
 
 MenuData:

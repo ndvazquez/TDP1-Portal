@@ -13,3 +13,11 @@ bool Rock::canBeOn() {
 }
 
 Rock::~Rock() = default;
+
+bool Rock::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) {
+    auto it = names.find(std::make_pair(x, y + 1));
+    if (it == names.end()) {
+        return false;
+    }
+    return Object::canBeOn(it->second);
+}

@@ -10,7 +10,7 @@ void Object::hasToBeOn(const std::string &name) {
 }
 
 bool Object::canBeOn(const std::string &name) {
-    std::cerr << "Preguntandole a Object" << std::endl;
+    if (name == "Chell") return false;
     auto it = floors.begin();
     for (; it != floors.end(); it++) {
         if (*it == name) {
