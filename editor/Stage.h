@@ -38,11 +38,11 @@ public:
     // (x,y) pixeles.
     void draw();
 
-    void handle(MouseButtonDown *event);
+    void handle(MouseButtonDown event);
 
-    void handle(MouseButtonUp *event);
+    void handle(MouseButtonUp event);
 
-    void handle(MouseDoubleCick *event);
+    void handle(MouseDoubleCick event);
 };
 
 

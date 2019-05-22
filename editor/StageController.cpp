@@ -20,9 +20,6 @@
 #define GATE_KEY "Gate"
 
 
-#define TEXTURES_KEY "Objects"
-
-
 StageController::StageController(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
@@ -118,20 +115,6 @@ void StageController::addTile(int x, int y, std::string& tileName) {
         throw EditorStageViewAddTileGravityException();
     }
     tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
-/*
-    auto it = tiles.find(std::make_pair(x, y + 1));
-    bool canBeAdd;
-    if (it == tiles.end()) {
-        canBeAdd = obj->canBeOn();
-    } else {
-        canBeAdd = obj->canBeOn(it->second);
-    }
-
-    if (!canBeAdd) {
-        throw EditorStageViewAddTileGravityException();
-    }
-    tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
-*/
 }
 
 void StageController::removeTile(int x, int y) {

@@ -23,16 +23,19 @@ void Editor::draw() {
     window.render();
 }
 
-void Editor::handle(MouseButtonDown* event) {
-    this->menu.handle(event);
-    this->stage.handle(event);
+void Editor::handleMouseButtonDown(SDL_Event* event) {
+    MouseButtonDown e(event);
+    this->menu.handle(e);
+    this->stage.handle(e);
 }
 
-void Editor::handle(MouseButtonUp *event) {
-    this->menu.handle(event);
-    this->stage.handle(event);
+void Editor::handleMouseDoubleCick(SDL_Event *event) {
+    MouseDoubleCick e(event);
+    this->stage.handle(e);
 }
 
-void Editor::handle(MouseDoubleCick *event) {
-    this->stage.handle(event);
+void Editor::handleMouseButtonUp(SDL_Event *event) {
+    MouseButtonUp e(event);
+    this->menu.handle(e);
+    this->stage.handle(e);
 }

@@ -5,12 +5,12 @@
 #include <SDL_types.h>
 #include "MouseButtonUp.h"
 
-MouseButtonUp::MouseButtonUp(Sint32 x, Sint32 y) : x(x), y(y) {}
+MouseButtonUp::MouseButtonUp(SDL_Event* event) : event(event) {}
 
 Sint32 MouseButtonUp::getX() {
-    return x;
+    return event->button.x;
 }
 
 Sint32 MouseButtonUp::getY() {
-    return y;
+    return event->button.y;
 }

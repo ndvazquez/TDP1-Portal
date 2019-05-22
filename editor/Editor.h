@@ -37,10 +37,11 @@ public:
     explicit Editor(Window& window);
     ~Editor();
     void draw();
-    void handle(MouseButtonUp *event);
-    void handle(MouseButtonDown *event);
+    void handleMouseButtonUp(SDL_Event* event);
+    void handleMouseButtonDown(SDL_Event* event);
 
-    void handle(MouseDoubleCick *event);
+    void handleMouseDoubleCick(SDL_Event* event);
+
 };
 
 

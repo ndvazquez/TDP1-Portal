@@ -5,15 +5,15 @@
 #ifndef PORTAL_MOUSEBUTTONUP_H
 #define PORTAL_MOUSEBUTTONUP_H
 
+#include <SDL_events.h>
 #include "Event.h"
 
 class MouseButtonUp : public Event{
 private:
-    Sint32 x;
-    Sint32 y;
+    SDL_Event* event;
 
 public:
-    MouseButtonUp(Sint32 x, Sint32 y);
+    explicit MouseButtonUp(SDL_Event* event);
     Sint32 getX();
     Sint32 getY();
 };

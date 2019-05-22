@@ -32,9 +32,9 @@ public:
 
 
 
-    void handle(MouseButtonDown *event);
+    void handle(MouseButtonDown event);
 
-    void handle(MouseButtonUp *event);
+    void handle(MouseButtonUp event);
 };
 
 

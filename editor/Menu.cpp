@@ -88,18 +88,18 @@ Menu::~Menu() {
     }
 }
 
-void Menu::handle(MouseButtonDown *event) {
+void Menu::handle(MouseButtonDown event) {
     auto it = options.begin();
     for (; it != options.end(); it++) {
-        if ((**it).has(event->getX(), event->getY())) {
+        if ((**it).has(event.getX(), event.getY())) {
             current = (**it).getName();
             return;
         }
     }
 }
 
-void Menu::handle(MouseButtonUp *event) {
-    SDL_Point sdlPoint = {event->getX(), event->getY()};
+void Menu::handle(MouseButtonUp event) {
+    SDL_Point sdlPoint = {event.getX(), event.getY()};
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (isIn) {
         current = NO_BUTTON;
