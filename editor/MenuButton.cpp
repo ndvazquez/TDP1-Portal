@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by camix on 18/05/19.
 //
@@ -5,8 +7,8 @@
 #include "MenuButton.h"
 #include "../common/Sprite.h"
 
-MenuButton::MenuButton(struct SDL_Rect* rect, std::string name, std::string path) :
-        myPosition(rect), name(name), path(path) {}
+MenuButton::MenuButton(struct SDL_Rect* rect, std::string name, std::string& path) :
+        myPosition(rect), name(std::move(name)), path(path) {}
 
 MenuButton::~MenuButton() {
     delete(myPosition);

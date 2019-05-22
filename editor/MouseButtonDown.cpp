@@ -4,12 +4,12 @@
 
 #include "MouseButtonDown.h"
 
-MouseButtonDown::MouseButtonDown(Sint32 x, Sint32 y) : x(x), y(y) {}
+MouseButtonDown::MouseButtonDown(SDL_Event* event) : event(event) {}
 
 Sint32 MouseButtonDown::getX() {
-    return x;
+    return event->button.x;
 }
 
 Sint32 MouseButtonDown::getY() {
-    return y;
+    return event->button.y;
 }

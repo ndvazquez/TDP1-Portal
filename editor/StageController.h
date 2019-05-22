@@ -12,6 +12,7 @@
 #include "../common/Window.h"
 #include "../common/Sprite.h"
 #include "StageView.h"
+#include "Object.h"
 
 #define GRAVITY_EXC "Couldn't add the tile, that's not a valid place for an object with physics laws!\n"
 #define NAME_EXC "Couldn't add the tile, that's not a valid element!\n"
@@ -41,9 +42,9 @@ class EditorStageViewEmptyPositionException : public EditorStageException {
 
 class StageController {
 private:
-    std::unordered_map<std::string, Sprite*> textures;
+    std::unordered_map<std::string, Object*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
-    std::map<std::string, bool> gravity;
+    //std::map<std::string, bool> gravity;
     StageView stageView;
 
 

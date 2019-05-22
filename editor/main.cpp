@@ -12,6 +12,7 @@
 
 #include "MouseButtonDown.h"
 #include "MouseButtonUp.h"
+#include "MouseDoubleCick.h"
 
 int main(int argc, char* argv[]) {
     SDLSession sdlSession(SDL_INIT_VIDEO);
@@ -61,9 +62,17 @@ int main(int argc, char* argv[]) {
                      quit = true;
                      break;
                  case SDL_MOUSEBUTTONDOWN: // if the event is mouse click
-                    event = new MouseButtonDown(e.button.x, e.button.y);
-                     //std::cerr << "hola, mouse \n";
-                    editor.handle((MouseButtonDown*) event);
+                    if (e.button.button != SDL_BUTTON_LEFT) { // and its a left click
+                        break;
+                    }
+                    if (e.button.clicks == 1) {
+                        event = new MouseButtonDown(&e);
+                        editor.handle((MouseButtonDown *) event);
+                    }
+                     if (e.button.clicks == 2) {
+                         event = new MouseDoubleCick(&e);
+                         editor.handle((MouseDoubleCick *) event);
+                     }
                     break;
                  case SDL_MOUSEBUTTONUP:
                      event = new MouseButtonUp(e.button.x, e.button.y);

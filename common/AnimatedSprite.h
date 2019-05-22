@@ -27,6 +27,7 @@ public:
     AnimatedSprite(const std::string& path, Window& window, int totalFrames);
     ~AnimatedSprite();
     void draw(Window &destWindow, int x, int y, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    void draw(Window& destWindow, SDL_Rect* destRect, SDL_RendererFlip flip = SDL_FLIP_NONE);
     void updateFrameStep();
     int getWidth();
     int getHeight();

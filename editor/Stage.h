@@ -13,6 +13,8 @@
 #include "MouseButtonDown.h"
 #include "MouseButtonUp.h"
 #include "StageController.h"
+#include "MouseDoubleCick.h"
+#include "Gate.h"
 
 class Stage {
 private:
@@ -39,6 +41,8 @@ public:
     void handle(MouseButtonDown *event);
 
     void handle(MouseButtonUp *event);
+
+    void handle(MouseDoubleCick *event);
 };
 
 

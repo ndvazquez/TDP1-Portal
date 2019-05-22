@@ -18,6 +18,7 @@
 #include "Event.h"
 #include "MouseButtonDown.h"
 #include "MouseButtonUp.h"
+#include "MouseDoubleCick.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -38,6 +39,8 @@ public:
     void draw();
     void handle(MouseButtonUp *event);
     void handle(MouseButtonDown *event);
+
+    void handle(MouseDoubleCick *event);
 };
 
 

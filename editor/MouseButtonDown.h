@@ -6,15 +6,15 @@
 #define PORTAL_MOUSEBUTTONDOWN_H
 
 #include <SDL_types.h>
+#include <SDL_events.h>
 #include "Event.h"
 
 class MouseButtonDown : public Event {
 private:
-    Sint32 x;
-    Sint32 y;
+    SDL_Event* event;
 
 public:
-    MouseButtonDown(Sint32 x, Sint32 y);
+    explicit MouseButtonDown(SDL_Event *event);
     Sint32 getX();
     Sint32 getY();
 };

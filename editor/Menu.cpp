@@ -12,8 +12,8 @@
 
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""
-#define MENU_TEXTURES "editor/menu-textures.yaml"
-#define MENU_TEXTURES_KEY "StaticObjects"
+#define MENU_TEXTURES "editor/textures-info.yaml"
+#define MENU_TEXTURES_KEY "MenuData"
 
 struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
     struct SDL_Rect* rect = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));

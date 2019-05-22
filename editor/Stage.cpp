@@ -2,12 +2,13 @@
 // Created by camix on 13/05/19.
 //
 
-#include "Stage.h"
-#include "MouseButtonUp.h"
 #include <iostream>
 #include <yaml-cpp/yaml.h>
+#include "Stage.h"
 
-#define TEXTURE_CONFIG_FILE "editor/stage-textures-type.yaml"
+
+
+#define TEXTURE_CONFIG_FILE "editor/textures-info.yaml"
 #define Y 0
 #define H this->window.getWindowHeight()
 #define TOTAL_X this->window.getWindowWidth()
@@ -66,7 +67,7 @@ void Stage::handle(MouseButtonDown *event) {
     try {
         current = controller.getName(x, y);
     }
-    catch (EditorStageViewEmptyPositionException) {
+    catch (EditorStageViewEmptyPositionException& e) {
         return;
     }
     controller.removeTile(x,y);
@@ -85,8 +86,11 @@ void Stage::handle(MouseButtonUp *event) {
     try {
         controller.addTile(x, y, current);
     }
-    catch (EditorStageException) {
+    catch (EditorStageException& e) {
         return;
     }
     current = "";
+}
+void Stage::handle(MouseDoubleCick *event) {
+
 }

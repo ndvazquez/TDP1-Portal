@@ -10,16 +10,17 @@
 
 #include "../common/Window.h"
 #include "../common/Sprite.h"
+#include "Object.h"
 
 class StageView {
 private:
     Window& window;
     int factor;
-    std::unordered_map<std::string, Sprite*>& textures;
+    std::unordered_map<std::string, Object*>& textures;
     std::map<std::pair<int, int>, std::string>& tiles;
 
 public:
-    StageView(Window& window, int factor, std::unordered_map<std::string, Sprite*>& textures, std::map<std::pair<int, int>, std::string>& tiles);
+    StageView(Window& window, int factor, std::unordered_map<std::string, Object*>& textures, std::map<std::pair<int, int>, std::string>& tiles);
     ~StageView();
     void draw(SDL_Rect *camera, int xStart);
 };

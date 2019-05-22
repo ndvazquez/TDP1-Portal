@@ -5,30 +5,110 @@
 #include <iostream>
 #include "yaml-cpp/yaml.h"
 #include "StageController.h"
-#include "../common/AnimatedSprite.h"
+#include "MouseButtonUp.h"
+#include "MouseDoubleCick.h"
+#include "Block.h"
+#include "Button.h"
+#include "Rock.h"
+#include "Chell.h"
+#include "Gate.h"
+
+#define BLOCK_KEY "Blocks"
+#define BUTTON_KEY "Buttons"
+#define ROCK_KEY "Rocks"
+#define CHELL_KEY "Chells"
+#define GATE_KEY "Gate"
+
 
 #define TEXTURES_KEY "Objects"
 
+
 StageController::StageController(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
-    const YAML::Node& objects = texturesInfo[TEXTURES_KEY];
-    for (YAML::const_iterator it = objects.begin();
-         it != objects.end(); ++it) {
+    const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
+    for (YAML::const_iterator it = blocks.begin();
+         it != blocks.end(); ++it) {
         const YAML::Node& node = *it;
-
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
+        Block* newObject = new Block(path, window);
+        textures[name] = newObject;
+    }
 
-        Sprite* newSprite;
-        if (node["animated"].as<int>()) {
-            newSprite = new AnimatedSprite(path, window, node["frames"].as<int>());
-        } else {
-            newSprite = new Sprite(path, window);
+    const YAML::Node& buttons = texturesInfo[BUTTON_KEY];
+    for (YAML::const_iterator it = buttons.begin();
+         it != buttons.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        Button* newObject = new Button(path, window);
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
+
+            newObject->hasToBeOn(name);
         }
+    }
 
-        textures[name] = newSprite;
-        bool hasGravity = (bool) node["gravity"].as<int>();
-        gravity[name] = hasGravity;
+    const YAML::Node& rocks = texturesInfo[ROCK_KEY];
+    for (YAML::const_iterator it = rocks.begin();
+         it != rocks.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        Rock* newObject = new Rock(path, window);
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
+
+            newObject->hasToBeOn(name);
+        }
+    }
+
+    const YAML::Node& chells = texturesInfo[CHELL_KEY];
+    for (YAML::const_iterator it = chells.begin();
+         it != chells.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        Chell* newObject = new Chell(path, window, node["frames"].as<int>());
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
+
+            newObject->hasToBeOn(name);
+        }
+    }
+
+    const YAML::Node& gates = texturesInfo[GATE_KEY];
+    for (YAML::const_iterator it = gates.begin();
+         it != gates.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        Gate* newObject = new Gate(path, window);
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
+
+            newObject->hasToBeOn(name);
+        }
     }
 }
 
@@ -37,16 +117,17 @@ void StageController::draw(SDL_Rect* camera, int xStart) {
 }
 
 void StageController::addTile(int x, int y, std::string& tileName) {
-    std::cerr << std::endl;
-    std::cerr << tileName << std::endl;
-    if (gravity[tileName]) {
-        auto it = tiles.find(std::make_pair(x, y + 1));
-        if (it == tiles.end()) {
-            throw EditorStageViewAddTileGravityException();
-        }
+    auto it = tiles.find(std::make_pair(x, y + 1));
+    Object* obj = textures[tileName];
+    bool canBeAdd;
+    if (it == tiles.end()) {
+        canBeAdd = obj->canBeOn();
+    } else {
+        canBeAdd = obj->canBeOn(it->second);
     }
-    if (textures.count(tileName) == 0) {
-        throw EditorStageViewAddTileNameException();
+
+    if (!canBeAdd) {
+        throw EditorStageViewAddTileGravityException();
     }
     tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
 }

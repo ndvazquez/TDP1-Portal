@@ -6,6 +6,8 @@
 #include "MoveRight.h"
 #include "Stop.h"
 #include "MoveLeft.h"
+#include "../editor/Chell.h"
+
 
 Chell::Chell(b2Body* body):
         dynamic(body) {
@@ -58,4 +60,4 @@ float Chell::getVerticalVelocity() {
 
 Chell::~Chell() {
     destroyActualMovement();
-};
+}
