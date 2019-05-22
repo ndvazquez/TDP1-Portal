@@ -48,7 +48,6 @@ stageView(window, factor, textures, tiles) {
              it != blocks.end(); ++it) {
             const YAML::Node &node = *it;
             std::string name = node["name"].as<std::string>();
-            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
 
             newObject->hasToBeOn(name);
         }
@@ -67,7 +66,6 @@ stageView(window, factor, textures, tiles) {
              it != blocks.end(); ++it) {
             const YAML::Node &node = *it;
             std::string name = node["name"].as<std::string>();
-            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
 
             newObject->hasToBeOn(name);
         }
@@ -86,7 +84,6 @@ stageView(window, factor, textures, tiles) {
              it != blocks.end(); ++it) {
             const YAML::Node &node = *it;
             std::string name = node["name"].as<std::string>();
-            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
 
             newObject->hasToBeOn(name);
         }
@@ -105,7 +102,6 @@ stageView(window, factor, textures, tiles) {
              it != blocks.end(); ++it) {
             const YAML::Node &node = *it;
             std::string name = node["name"].as<std::string>();
-            std::cerr << "Soy un boton y puedo estar sobre: " << name << std::endl;
 
             newObject->hasToBeOn(name);
         }
