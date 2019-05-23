@@ -19,7 +19,6 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
     // If there's nothing in the space i need
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-
             auto it = tiles.find(std::make_pair(x - i, y- j));
             if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
                 throw StageObjectTakenPositionException(this->name);
@@ -62,4 +61,5 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::s
 
 void Object::setName() {
     // if is not overwritten it wont do much
+    // i.e. if you are not a button or a gate u must do nothing
 }
