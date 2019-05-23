@@ -12,6 +12,7 @@
 #include "../common/SDLSession.h"
 #include "ChellView.h"
 #include "EnergyBallView.h"
+#include "AcidView.h"
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
@@ -20,7 +21,7 @@
 #define LEVEL_WIDTH 1500
 #define LEVEL_HEIGHT 1500
 #define MTP_FACTOR 100
-#define CHELL_HEIGHT 210
+#define CHELL_HEIGHT 200
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
 void drawChellWithBox2D(){
@@ -136,6 +137,7 @@ void drawEnergyBall(){
                 quit = true;
             }
         }
+        SDL_Delay(16);
         stage.step();
         int newPosX = energyBall->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = energyBall->getVerticalPosition()  * MTP_FACTOR * -1 + SCREEN_HEIGHT;
@@ -147,9 +149,42 @@ void drawEnergyBall(){
     }
 }
 
+void drawAcidPool(){
+    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    std::string title = "Portal";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    std::string metalBlockPath = "resources/blocks/metal-block.png";
+
+    Sprite metalBlock(metalBlockPath, newWindow);
+    SDL_Rect metalBlockResize = {0, 100, 100, 100};
+    AcidView acidView(newWindow, 0, 50, textures);
+
+    bool quit = false;
+    SDL_Event e;
+
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        SDL_Delay(16);
+        newWindow.clear();
+        metalBlock.draw(&metalBlockResize);
+        metalBlockResize.x += 100;
+        metalBlock.draw(&metalBlockResize);
+        metalBlockResize.x += 100;
+        metalBlock.draw(&metalBlockResize);
+        metalBlockResize.x -= 200;
+        acidView.playAnimation();
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
     drawEnergyBall();
+    drawAcidPool();
 }
