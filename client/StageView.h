@@ -8,8 +8,8 @@
 #include <exception>
 #include <map>
 #include <yaml-cpp/yaml.h>
-#include "Window.h"
-#include "Sprite.h"
+#include "../common/Window.h"
+#include "../common/Sprite.h"
 #include <utility>
 #include <string>
 
@@ -25,6 +25,7 @@ class StageViewAddTileException : public std::exception{
 };
 
 class StageView {
+    Window& window;
     int matrixToPixelFactor;
     std::unordered_map<std::string, Sprite*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
@@ -33,7 +34,7 @@ public:
     StageView(Window& window, YAML::Node& texturesInfo, int factor);
     ~StageView();
     void addTile(int x, int y, std::string& tileName);
-    void draw(Window& window, SDL_Rect* camera);
+    void draw(SDL_Rect* camera);
 };
 
 

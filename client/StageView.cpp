@@ -3,12 +3,13 @@
 //
 
 #include "StageView.h"
-#include "Sprite.h"
+#include "../common/Sprite.h"
 #include <utility>
 #include "yaml-cpp/yaml.h"
 #include <map>
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
+    window(window),
     matrixToPixelFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
     for (YAML::const_iterator it = staticObjects.begin();
@@ -27,7 +28,7 @@ StageView::~StageView() {
     }
 }
 
-void StageView::draw(Window& window, SDL_Rect* camera) {
+void StageView::draw(SDL_Rect* camera) {
     SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
     int camPosX = camera->x / matrixToPixelFactor;
     int camPosY = camera->y / matrixToPixelFactor;
@@ -45,7 +46,7 @@ void StageView::draw(Window& window, SDL_Rect* camera) {
             sprite = textures[point->second];
             destRect.x = point->first.first  * matrixToPixelFactor - camera->x;
             destRect.y = point->first.second * matrixToPixelFactor - camera->y;
-            sprite->draw(window, &destRect);
+            sprite->draw(&destRect);
         }
     }
 }

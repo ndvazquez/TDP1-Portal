@@ -7,7 +7,8 @@
 #include <SDL_image.h>
 #include "Window.h"
 
-Sprite::Sprite(const std::string &path, Window& window) {
+Sprite::Sprite(const std::string &path, Window& window) :
+    window(window) {
     SDL_Surface* tempSurface = nullptr;
     tempSurface = IMG_Load(path.c_str());
     if (tempSurface == nullptr){
@@ -26,17 +27,17 @@ Sprite::~Sprite() {
     this->free();
 }
 
-void Sprite::draw(Window &destWindow, int x, int y) {
+void Sprite::draw(int x, int y) {
     SDL_Rect sourceRect = {0, 0 ,this->imageWidth ,this->imageHeight};
     SDL_Rect destRect = {x, y, this->imageWidth, this->imageHeight};
 
-    destWindow.draw(*this->texture, sourceRect, destRect);
+    window.draw(*this->texture, sourceRect, destRect);
 }
 
-void Sprite::draw(Window &destWindow, SDL_Rect *destRect) {
+void Sprite::draw(SDL_Rect *destRect) {
     SDL_Rect sourceRect = {0, 0 ,this->imageWidth ,this->imageHeight};
 
-    destWindow.draw(*this->texture, sourceRect, *destRect);
+    window.draw(*this->texture, sourceRect, *destRect);
 }
 
 void Sprite::free(){

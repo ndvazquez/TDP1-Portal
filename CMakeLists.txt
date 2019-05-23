@@ -20,7 +20,7 @@ set(CLIENT_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        common/StageView.cpp
+        client/StageView.cpp
         client/ChellView.cpp
         client/EnergyBallView.cpp)
 
