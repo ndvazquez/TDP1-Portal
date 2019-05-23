@@ -11,11 +11,10 @@
 
 class Rock : public StaticObject {
 public:
-    Rock(std::string& path, Window& window);
+    Rock(const std::string& path, Window& window, const std::string& name);
     ~Rock();
     bool canBeOn() override;
-
-    bool canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) override;
+    void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
 };
 
 

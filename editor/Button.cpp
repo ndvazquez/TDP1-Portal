@@ -5,18 +5,15 @@
 #include <iostream>
 #include "Button.h"
 
-Button::Button(std::string &path, Window &window) : StaticObject(path, window) {}
+Button::Button(const std::string &path, Window &window, const std::string& name) :
+    StaticObject(path, window, name) {}
 
 bool Button::canBeOn() {
     return false;
 }
 
-bool Button::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) {
-    auto it = names.find(std::make_pair(x, y + 1));
-    if (it == names.end()) {
-        return false;
-    }
-    return Object::canBeOn(it->second);
+void Button::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
+    Object::addWithGravityTo(x,y,tiles);
 }
 
 void Button::setName() {

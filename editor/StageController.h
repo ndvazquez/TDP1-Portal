@@ -14,26 +14,27 @@
 #include "StageView.h"
 #include "Object.h"
 
-#define GRAVITY_EXC "Couldn't add the tile, that's not a valid place for an object with physics laws!\n"
-#define NAME_EXC "Couldn't add the tile, that's not a valid element!\n"
-#define POSITION_EXC "Couldn't get tile's name, that's position is empty!\n"
+#define ADD_TILE "Couldn't add the tile. That's not a valid place\n"
+#define NAME_EXC "Couldn't add the tile. That's not a valid element!\n"
+#define POSITION_EXC "Couldn't get tile's name. That's position is empty!\n"
 
-class EditorStageException : public std::exception {};
+class EditorControllerException : public std::exception {};
 
-class EditorStageViewAddTileNameException : public EditorStageException {
+class StageControllerNameException : public EditorControllerException {
     virtual const char* what() const throw () {
         std::string message = NAME_EXC;
         return message.c_str();
     }
 };
-class EditorStageViewAddTileGravityException : public EditorStageException {
+
+class StageControllerAddTileException : public EditorControllerException {
     virtual const char* what() const throw () {
-        std::string message = GRAVITY_EXC;
+        std::string message = ADD_TILE;
         return message.c_str();
     }
 };
 
-class EditorStageViewEmptyPositionException : public EditorStageException {
+class StageControllerEmptyPositionException : public EditorControllerException {
     virtual const char* what() const throw () {
         std::string message = POSITION_EXC;
         return message.c_str();

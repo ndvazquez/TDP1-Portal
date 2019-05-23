@@ -5,8 +5,8 @@
 #include <iostream>
 #include "Gate.h"
 
-Gate::Gate(std::string &path, Window &window) :
-    StaticObject(path, window) {}
+Gate::Gate(const std::string &path, Window &window, const std::string& name) :
+    StaticObject(path, window, name) {}
 
 bool Gate::canBeOn() {
     return false;
@@ -19,10 +19,8 @@ void Gate::draw(SDL_Rect* rect) {
 
 Gate::~Gate() = default;
 
-bool Gate::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) {
-    auto below = names.find(std::make_pair(x, y + 1));
-    auto over = names.find(std::make_pair(x, y - 1));
-    return (below != names.end() && Object::canBeOn(below->second) && y != 0  && over == names.end());
+void Gate::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
+    Object::addWithGravityTo(x, y, tiles);
 }
 
 void Gate::setName() {

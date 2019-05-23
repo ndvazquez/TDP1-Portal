@@ -4,12 +4,15 @@
 
 #include "AnimatedObject.h"
 
-AnimatedObject::AnimatedObject(const std::string& path, Window& window, int totalFrames) :
-    sprite(path, window, totalFrames), window(window) {}
+AnimatedObject::AnimatedObject(const std::string &path, Window &window, int totalFrames, const std::string &name) :
+        Object(name),
+        sprite(path, window, totalFrames),
+        window(window) {}
 
 void AnimatedObject::draw(SDL_Rect* rect) {
     sprite.draw(window, rect, SDL_FLIP_NONE);
     sprite.updateFrameStep();
 }
+
 
 AnimatedObject::~AnimatedObject() = default;

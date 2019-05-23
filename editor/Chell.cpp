@@ -5,8 +5,8 @@
 #include <iostream>
 #include "Chell.h"
 
-Chell::Chell(const std::string &path, Window &window, int totalFrames) :
-        AnimatedObject(path, window, totalFrames) {}
+Chell::Chell(const std::string &path, Window &window, int totalFrames, const std::string& name) :
+        AnimatedObject(path, window, totalFrames, name) {}
 
 Chell::~Chell() = default;
 
@@ -19,8 +19,9 @@ void Chell::draw(SDL_Rect* rect) {
     AnimatedObject::draw(&newRect);
 }
 
-bool Chell::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) {
-    auto below = names.find(std::make_pair(x, y + 1));
-    auto over = names.find(std::make_pair(x, y - 1));
-    return (below != names.end() && Object::canBeOn(below->second) && y != 0  && over == names.end());
+void Chell::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
+    //auto below = names.find(std::make_pair(x, y + 1));
+    //auto over = names.find(std::make_pair(x, y - 1));
+    //return (below != names.end() && Object::canBeOn(below->second) && y != 0  && over == names.end());
+    Object::addWithGravityTo(x, y, tiles);
 }

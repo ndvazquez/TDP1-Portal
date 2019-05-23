@@ -6,7 +6,8 @@
 #include "Rock.h"
 #include "../common/Window.h"
 
-Rock::Rock(std::string &path, Window &window) : StaticObject(path, window) {}
+Rock::Rock(const std::string& path, Window& window, const std::string& name) :
+    StaticObject(path, window, name) {}
 
 bool Rock::canBeOn() {
     return false;
@@ -14,10 +15,6 @@ bool Rock::canBeOn() {
 
 Rock::~Rock() = default;
 
-bool Rock::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) {
-    auto it = names.find(std::make_pair(x, y + 1));
-    if (it == names.end()) {
-        return false;
-    }
-    return Object::canBeOn(it->second);
+void Rock::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
+    Object::addWithGravityTo(x, y, tiles);
 }

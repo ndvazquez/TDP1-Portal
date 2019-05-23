@@ -10,12 +10,12 @@
 
 class Gate : public StaticObject {
 public:
-    Gate(std::string& path, Window& window);
+    Gate(const std::string& path, Window& window, const std::string& name);
     ~Gate();
     void draw(SDL_Rect* rect) override;
     bool canBeOn() override;
 
-    bool canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) override;
+    void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
     void setName() override;
 };
 

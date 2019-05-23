@@ -36,7 +36,7 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Button* newObject = new Button(path, window);
+        Button* newObject = new Button(path, window, name);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -54,7 +54,7 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Rock* newObject = new Rock(path, window);
+        Rock* newObject = new Rock(path, window, name);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -72,7 +72,7 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Chell* newObject = new Chell(path, window, node["frames"].as<int>());
+        Chell* newObject = new Chell(path, window, node["frames"].as<int>(), name);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -90,7 +90,7 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Gate* newObject = new Gate(path, window);
+        Gate* newObject = new Gate(path, window, name);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -108,15 +108,16 @@ void StageController::draw(SDL_Rect* camera, int xStart) {
 }
 
 void StageController::addTile(int x, int y, std::string& tileName) {
-
     Object* obj = textures[tileName];
     if (!obj) {
-        throw EditorStageViewAddTileNameException();
+        throw StageControllerNameException();
     }
-    if (!obj->canBeAdd(x, y, tiles)) {
-        throw EditorStageViewAddTileGravityException();
+    try {
+        obj->addTo(x, y, tiles);
     }
-    tiles.insert(std::make_pair(std::make_pair(x, y), tileName));
+    catch(StageObjectException) {
+        throw StageControllerAddTileException();
+    }
 }
 
 void StageController::removeTile(int x, int y) {
@@ -133,7 +134,7 @@ StageController::~StageController() {
 std::string& StageController::getName(int x, int y) {
     auto point = tiles.find(std::make_pair(x, y));
     if (point == tiles.end()) {
-        throw EditorStageViewEmptyPositionException();
+        throw StageControllerEmptyPositionException();
     }
     return point->second;
 }

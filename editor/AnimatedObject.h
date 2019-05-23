@@ -15,7 +15,7 @@ protected:
     AnimatedSprite sprite;
 
 public:
-    AnimatedObject(const std::string& path, Window& window, int totalFrames);
+    AnimatedObject(const std::string& path, Window& window, int totalFrames, const std::string& name);
     void draw(SDL_Rect* rect) override;
     ~AnimatedObject();
 

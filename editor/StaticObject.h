@@ -15,7 +15,7 @@ protected:
     Sprite sprite;
 
 public:
-    StaticObject(const std::string& path, Window& window);
+    StaticObject(const std::string& path, Window& window, const std::string& name);
     ~StaticObject();
     void draw(SDL_Rect* rect) override;
 

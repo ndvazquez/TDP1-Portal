@@ -13,15 +13,11 @@
 #include "Rock.h"
 
 class Block : public StaticObject {
-private:
-    const std::string name;
-
 public:
-    Block(std::string& path, Window& window, const std::string& name);
+    Block(const std::string& path, Window& window, const std::string& name);
     ~Block();
     bool canBeOn(const std::string& name) override;
     bool canBeOn() override;
-    bool canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string>& names) override;
 };
 
 
