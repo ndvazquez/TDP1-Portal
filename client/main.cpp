@@ -88,15 +88,13 @@ void drawChellWithBox2D(){
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
 
         }
-        stage.step(chell);
+        SDL_Delay(16); // Sleep for 16ms, the real step.
+        stage.step();
         bool chellInGround = chell->inGround(yPos);
-//        if (chellInGround) std::cout << "In ground!" << std::endl;
-//        else std::cout << "Not in ground!! I'm jumping" << std::endl;
 
         if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
 
         chellView.changeJumpingStatus(!chellInGround);
-
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
         // We move the animated sprite for Chell.

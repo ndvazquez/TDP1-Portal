@@ -28,6 +28,10 @@ void Chell::stop() {
     this->actual_movement = new Stop(body);
 }
 
+void Chell::destroyActualMovement() {
+    delete this->actual_movement;
+}
+
 float Chell::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();
 }
@@ -35,10 +39,6 @@ float Chell::getHorizontalPosition() {
 float Chell::getVerticalPosition() {
     return this->dynamic.getVerticalPosition();
 }
-
-void Chell::destroyActualMovement() {
-    delete this->actual_movement;
-};
 
 float Chell::getHorizontalVelocity() {
     return this->dynamic.getHorizontalVelocity();
@@ -49,7 +49,7 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
-    this->actual_movement->move();
+    this->actual_movement->move(chellForce);
 }
 
 void Chell::jump(float y0) {
@@ -58,10 +58,11 @@ void Chell::jump(float y0) {
 
 bool Chell::inGround(float y0) {
     float epsilon = pow(10.5, -9);
-    float delta = 0.05;
+    // This is probably a constant or something else, but I had to rename it
+    float deltaGround = 0.05;
 
     bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
-    bool chell_is_in_floor = body->GetPosition().y <= y0 + delta;
+    bool chell_is_in_floor = body->GetPosition().y <= y0 + deltaGround;
 
     if (! chell_is_still && ! chell_is_in_floor) return false; //can't jump because chell is in movement
     return true;

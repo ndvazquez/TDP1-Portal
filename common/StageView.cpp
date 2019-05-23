@@ -12,7 +12,7 @@ StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
     matrixToPixelFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
     for (YAML::const_iterator it = staticObjects.begin();
-    it != staticObjects.end(); ++it){
+         it != staticObjects.end(); ++it) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
@@ -22,7 +22,7 @@ StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
 }
 
 StageView::~StageView() {
-    for (auto it = textures.begin(); it != textures.end(); ++it){
+    for (auto it = textures.begin(); it != textures.end(); ++it) {
         delete it->second;
     }
 }

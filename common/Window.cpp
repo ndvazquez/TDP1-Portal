@@ -30,7 +30,7 @@ void Window::render(){
     SDL_RenderPresent(this->renderer);
 }
 
-void Window::clear(){
+void Window::clear() {
     SDL_RenderClear(this->renderer);
 }
 

@@ -11,6 +11,22 @@ Chell:
 
 StaticObjects:
   - name: MetalBlock
-    path: resources/blocks/switchblock.png
+    path: resources/blocks/metal-block.png
   - name: RockBlock
-    path: resources/blocks/breakblock.png
+    path: resources/blocks/rock-block.png
+  - name: Button
+    path: resources/button/off.png
+  - name: LounchBlockDown
+    path: resources/lounch-block/down.png
+  - name: LounchBlockUp
+    path: resources/lounch-block/up.png
+  - name: LounchBlockLeft
+    path: resources/lounch-block/left.png
+  - name: LounchBlockRight
+    path: resources/lounch-block/right.png
+  - name: Rock1
+    path: resources/rocks/1.png
+  - name: Rock2
+    path: resources/rocks/2.png
+  - name: Rock3
+    path: resources/rocks/3.png
