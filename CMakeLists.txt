@@ -22,7 +22,8 @@ set(CLIENT_SOURCE_FILES
         common/SDLSession.cpp
         client/StageView.cpp
         client/ChellView.cpp
-        client/EnergyBallView.cpp)
+        client/EnergyBallView.cpp
+        client/AcidView.cpp)
 
 #EDITOR CONFIG
 
