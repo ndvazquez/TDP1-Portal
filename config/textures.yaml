@@ -9,6 +9,8 @@ Chell:
     path: resources/Chell/Jumping.png
     frames: 4
 
+EnergyBall: {path: resources/EnergyBall/energy-ball.png, frames: 4}
+
 StaticObjects:
   - name: MetalBlock
     path: resources/blocks/metal-block.png
