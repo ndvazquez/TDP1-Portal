@@ -4,7 +4,7 @@
 #include "../common/Window.h"
 #include "../common/Sprite.h"
 #include "../common/AnimatedSprite.h"
-#include "../common/StageView.h"
+#include "StageView.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>

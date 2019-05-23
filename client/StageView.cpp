@@ -3,7 +3,7 @@
 //
 
 #include "StageView.h"
-#include "Sprite.h"
+#include "../common/Sprite.h"
 #include <utility>
 #include "yaml-cpp/yaml.h"
 #include <map>

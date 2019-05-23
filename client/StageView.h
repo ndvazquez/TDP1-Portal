@@ -8,8 +8,8 @@
 #include <exception>
 #include <map>
 #include <yaml-cpp/yaml.h>
-#include "Window.h"
-#include "Sprite.h"
+#include "../common/Window.h"
+#include "../common/Sprite.h"
 #include <utility>
 #include <string>
 
