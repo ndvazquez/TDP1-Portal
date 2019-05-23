@@ -23,13 +23,14 @@ public:
     void moveRight();
     void moveLeft();
     void stop();
-    void jump();
+    void jump(float y0);
     void destroyActualMovement();
     void update();
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();
     float getVerticalVelocity();
+    bool inGround(float y0);
 };
 
 #endif //PORTAL_CHELL_H

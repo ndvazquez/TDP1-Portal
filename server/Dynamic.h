@@ -5,9 +5,9 @@
 #ifndef PORTAL_DYNAMIC_H
 #define PORTAL_DYNAMIC_H
 
+#define initialVelocity 4
 #define delta 0.01
 #define impulseFactor 50
-#define jumpFactor 4
 
 #include <Box2D/Dynamics/b2Body.h>
 
@@ -19,8 +19,8 @@ private:
 public:
     explicit Dynamic(b2Body* body);
     virtual ~Dynamic();
+    void jump(float y0);
     virtual void move(float force);
-    void jump();
     void moveRight(float force);
     void moveLeft(float force);
     void moveDown(float force);

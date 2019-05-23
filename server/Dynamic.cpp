@@ -30,12 +30,6 @@ void Dynamic::stop(float force) {
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
-void Dynamic::jump() {
-    if (body->GetLinearVelocity().y != 0) return; //Shouldn't jump twice
-    float impulse = body->GetMass() * jumpFactor;
-    body->ApplyLinearImpulse(b2Vec2(0, impulse), body->GetWorldCenter() , true);
-}
-
 bool Dynamic::isColliding() {
     b2ContactEdge* edge = body->GetContactList();
     while (edge != NULL) {
@@ -140,6 +134,20 @@ float Dynamic::getHorizontalPosition() {
 
 float Dynamic::getVerticalPosition() {
     return body->GetPosition().y;
+}
+
+void Dynamic::jump(float y0) {
+
+    float epsilon = pow(10.5, -9);
+    float deltaJump = 0.05;
+
+    bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
+    bool chell_is_in_floor = body->GetPosition().y <= y0 + deltaJump;
+
+    if (! chell_is_still && ! chell_is_in_floor) return; //can't jump because chell is in movement
+
+    float impulse = body->GetMass() * initialVelocity;
+    body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
 }
 
 float Dynamic::getHorizontalVelocity() {
