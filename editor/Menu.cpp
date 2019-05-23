@@ -8,25 +8,11 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 #include "RockButton.h"
-#include "MouseButtonUp.h"
 
-#define BRICK_BLOCK_POS 0
-#define METAL_BLOCK_POS 1
-#define ROCK1_POS 2
-#define ROCK2_POS 3
-#define ROCK3_POS 4
-#define BUTTON_POS 5
-#define GATE_POS 6
-
-#define TOTAL_OPTIONS 7
-#define NAME_METAL_BLOCK "MetalBlock"
-#define PATH_METAL_BLOCK "resources/blocks/metal-block.png"
-#define NAME_ROCK_BLOCK "RockBlock"
-#define PATH_ROCK_BLOCK "resources/blocks/rock-block.png"
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""
-#define MENU_TEXTURES "editor/menu-textures.yaml"
-#define MENU_TEXTURES_KEY "StaticObjects"
+#define MENU_TEXTURES "editor/textures-info.yaml"
+#define MENU_TEXTURES_KEY "MenuData"
 
 struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
     struct SDL_Rect* rect = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
@@ -52,8 +38,8 @@ void Menu::set() {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        int x = node["x"].as<int>();
-        int y = node["y"].as<int>();
+        int x = node["w"].as<int>();
+        int y = node["h"].as<int>();
         struct SDL_Rect* rect = createSDL_Rect(0,0, x, y);
         MenuButton* mb = new MenuButton(rect, name, path);
         this->options.push_back(mb);
@@ -67,8 +53,6 @@ void Menu::set() {
 
     int w = totalY - spaceBetweenY;
     int spaceBetweenX = (window.getWindowWidth()/WIDTH_PROPORTION) - w;
-
-
 
     auto optionsIt = options.begin();
     int acum = 0;
@@ -101,18 +85,18 @@ Menu::~Menu() {
     }
 }
 
-void Menu::handle(MouseButtonDown *event) {
+void Menu::handleMouseButtonDown(MouseButton& event) {
     auto it = options.begin();
     for (; it != options.end(); it++) {
-        if ((**it).has(event->getX(), event->getY())) {
+        if ((**it).has(event.getX(), event.getY())) {
             current = (**it).getName();
             return;
         }
     }
 }
 
-void Menu::handle(MouseButtonUp *event) {
-    SDL_Point sdlPoint = {event->getX(), event->getY()};
+void Menu::handleMouseButtonUp(MouseButton& event) {
+    SDL_Point sdlPoint = {event.getX(), event.getY()};
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (isIn) {
         current = NO_BUTTON;

@@ -3,7 +3,6 @@
 //
 
 #include "Editor.h"
-#include "MouseButtonDown.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -16,19 +15,25 @@ Editor::Editor(Window& window) : window(window), stage(window, current, WIDTH_PR
 Editor::~Editor() {}
 
 void Editor::draw() {
-
     window.clear();
     menu.draw();
     stage.draw();
     window.render();
 }
 
-void Editor::handle(MouseButtonDown* event) {
-    this->menu.handle(event);
-    this->stage.handle(event);
+void Editor::handleMouseButtonDown(SDL_Event* event) {
+    MouseButton e(event);
+    this->menu.handleMouseButtonDown(e);
+    this->stage.handleMouseButtonDown(e);
 }
 
-void Editor::handle(MouseButtonUp *event) {
-    this->menu.handle(event);
-    this->stage.handle(event);
+void Editor::handleMouseDoubleCick(SDL_Event *event) {
+    MouseButton e(event);
+    this->stage.handleMouseDoubleCick(e);
+}
+
+void Editor::handleMouseButtonUp(SDL_Event *event) {
+    MouseButton e(event);
+    this->menu.handleMouseButtonUp(e);
+    this->stage.handleMouseButtonUp(e);
 }

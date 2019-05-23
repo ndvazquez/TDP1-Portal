@@ -16,8 +16,6 @@
 #include "Stage.h"
 #include "Menu.h"
 #include "Event.h"
-#include "MouseButtonDown.h"
-#include "MouseButtonUp.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -36,8 +34,11 @@ public:
     explicit Editor(Window& window);
     ~Editor();
     void draw();
-    void handle(MouseButtonUp *event);
-    void handle(MouseButtonDown *event);
+    void handleMouseButtonUp(SDL_Event* event);
+    void handleMouseButtonDown(SDL_Event* event);
+
+    void handleMouseDoubleCick(SDL_Event* event);
+
 };
 
 

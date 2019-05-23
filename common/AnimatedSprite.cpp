@@ -50,3 +50,8 @@ int AnimatedSprite::getWidth() {
 int AnimatedSprite::getHeight() {
     return this->frameHeight;
 }
+
+void AnimatedSprite::draw(Window &destWindow, SDL_Rect *destRect, SDL_RendererFlip flip) {
+    SDL_Rect sourceRect = {currentFrameStep, 0, frameWidth, frameHeight};
+    destWindow.draw(*texture, sourceRect, *destRect, flip);
+}

@@ -2,12 +2,13 @@
 // Created by camix on 13/05/19.
 //
 
-#include "Stage.h"
-#include "MouseButtonUp.h"
 #include <iostream>
 #include <yaml-cpp/yaml.h>
+#include "Stage.h"
 
-#define TEXTURE_CONFIG_FILE "editor/stage-textures-type.yaml"
+
+
+#define TEXTURE_CONFIG_FILE "editor/textures-info.yaml"
 #define Y 0
 #define H this->window.getWindowHeight()
 #define TOTAL_X this->window.getWindowWidth()
@@ -29,7 +30,7 @@ void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
 
 Stage::Stage(Window& window, std::string& current, int xPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
-    stageView(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
+    controller(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
     xPortion(xPortion) {
     this->me = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
     this->setSize();
@@ -48,17 +49,14 @@ Stage::~Stage() {
 
 
 void Stage::draw() {
-//    std::cerr << "Entro a draaw" << std::endl;
     Sprite bgSprite("resources/editor-stage-bg.png", window);
     bgSprite.draw(window, this->me);
-    stageView.draw(window, this->camera , X);
-
-//    std::cerr << "Termino a draaw" << std::endl;
+    controller.draw(this->camera , X);
 }
 
-void Stage::handle(MouseButtonDown *event) {
-    int xPixel = X_PIXEL(*event);
-    int yPixel = Y_PIXEL(*event);
+void Stage::handleMouseButtonDown(MouseButton& event) {
+    int xPixel = X_PIXEL(event);
+    int yPixel = Y_PIXEL(event);
     int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
     int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
     SDL_Point sdlPoint = {xPixel, yPixel};
@@ -67,18 +65,17 @@ void Stage::handle(MouseButtonDown *event) {
         return;
     }
     try {
-        current = stageView.getName(x, y);
+        current = controller.getName(x, y);
+        controller.removeTile(x,y);
     }
-    catch (EditorStageViewEmptyPositionException) {
+    catch (StageControllerEmptyPositionException& e) {
         return;
     }
-    stageView.removeTile(x,y);
 }
 
-void Stage::handle(MouseButtonUp *event) {
-
-    int xPixel = X_PIXEL(*event);
-    int yPixel = Y_PIXEL(*event);
+void Stage::handleMouseButtonUp(MouseButton& event) {
+    int xPixel = X_PIXEL(event);
+    int yPixel = Y_PIXEL(event);
     int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
     int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
     SDL_Point sdlPoint = {xPixel, yPixel};
@@ -87,10 +84,23 @@ void Stage::handle(MouseButtonUp *event) {
         return;
     }
     try {
-        stageView.addTile(x, y, current);
+        controller.addTile(x, y, current);
+        current = "";
     }
-    catch (EditorStageException) {
+    catch (EditorControllerException& e) {
         return;
     }
-    current = "";
 }
+void Stage::handleMouseDoubleCick(MouseButton& event) {
+    int xPixel = X_PIXEL(event);
+    int yPixel = Y_PIXEL(event);
+    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
+    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
+    SDL_Point sdlPoint = {xPixel, yPixel};
+    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
+    if (!isIn) {
+        return;
+    }
+    controller.nameAnObject(x,y);
+}
+

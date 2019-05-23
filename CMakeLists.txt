@@ -37,9 +37,19 @@ set(EDITOR_SOURCE_FILES
         editor/MenuButton.cpp
         editor/RockButton.cpp
         editor/Event.cpp
-        editor/MouseButtonDown.cpp
-        editor/MouseButtonUp.cpp
-        editor/EditorStageView.cpp)
+        editor/StageController.cpp
+        editor/StageView.cpp
+        editor/StaticObject.cpp
+        editor/Block.cpp
+        editor/Button.cpp
+        editor/Rock.cpp
+        editor/Chell.cpp
+        editor/AnimatedObject.cpp
+        editor/Object.cpp
+        editor/Gate.cpp
+        editor/MouseButton.cpp
+        )
+
 
 
 set(SERVER_SOURCE_FILES

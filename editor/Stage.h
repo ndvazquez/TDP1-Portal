@@ -10,15 +10,14 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../common/Window.h"
-#include "MouseButtonDown.h"
-#include "MouseButtonUp.h"
-#include "EditorStageView.h"
+#include "MouseButton.h"
+#include "StageController.h"
 
 class Stage {
 private:
     Window& window;
     YAML::Node textures;
-    EditorStageView stageView;
+    StageController controller;
     std::string& current;
     int xPortion;
     struct SDL_Rect* me;
@@ -35,10 +34,11 @@ public:
     void setSize();
     // (x,y) pixeles.
     void draw();
+    void handleMouseButtonDown(MouseButton& event);
 
-    void handle(MouseButtonDown *event);
+    void handleMouseButtonUp(MouseButton& event);
 
-    void handle(MouseButtonUp *event);
+    void handleMouseDoubleCick(MouseButton& event);
 };
 
 

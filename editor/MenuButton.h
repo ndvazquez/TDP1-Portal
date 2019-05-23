@@ -17,7 +17,7 @@ protected:
     std::string path;
 
 public:
-    MenuButton(struct SDL_Rect* rect, std::string name, std::string path);
+    MenuButton(struct SDL_Rect* rect, std::string name, std::string& path);
     ~MenuButton();
     MenuButton& operator=(MenuButton origin);
     MenuButton(const MenuButton& origin);
