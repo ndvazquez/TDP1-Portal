@@ -5,12 +5,9 @@
 #include <iostream>
 #include "Button.h"
 
-Button::Button(const std::string &path, Window &window, const std::string& name) :
-    StaticObject(path, window, name) {}
+Button::Button(std::string& path, Window& window, const std::string& name, int w, int h) :
+    StaticObject(path, window, name, w, h) {}
 
-bool Button::canBeOn() {
-    return false;
-}
 
 void Button::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
     Object::addWithGravityTo(x,y,tiles);

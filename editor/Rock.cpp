@@ -6,12 +6,8 @@
 #include "Rock.h"
 #include "../common/Window.h"
 
-Rock::Rock(const std::string& path, Window& window, const std::string& name) :
-    StaticObject(path, window, name) {}
-
-bool Rock::canBeOn() {
-    return false;
-}
+Rock::Rock(std::string& path, Window& window, const std::string& name, int w, int h) :
+    StaticObject(path, window, name, w, h) {}
 
 Rock::~Rock() = default;
 

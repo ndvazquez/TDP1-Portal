@@ -38,8 +38,8 @@ void Menu::set() {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        int x = node["x"].as<int>();
-        int y = node["y"].as<int>();
+        int x = node["w"].as<int>();
+        int y = node["h"].as<int>();
         struct SDL_Rect* rect = createSDL_Rect(0,0, x, y);
         MenuButton* mb = new MenuButton(rect, name, path);
         this->options.push_back(mb);

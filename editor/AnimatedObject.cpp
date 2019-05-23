@@ -4,8 +4,8 @@
 
 #include "AnimatedObject.h"
 
-AnimatedObject::AnimatedObject(const std::string &path, Window &window, int totalFrames, const std::string &name) :
-        Object(name),
+AnimatedObject::AnimatedObject(std::string &path, Window &window, int totalFrames, const std::string &name, int w, int h) :
+        Object(name, w , h),
         sprite(path, window, totalFrames),
         window(window) {}
 

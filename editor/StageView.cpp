@@ -26,6 +26,7 @@ void StageView::draw(SDL_Rect *camera, int xStart) {
                 continue;
             }
             object = textures[point->second];
+            if (!object) continue;
             destRect.x = xStart + (point->first.first - camPosX) * factor;
             destRect.y = (point->first.second - camPosY) * factor;
             object->draw(&destRect);

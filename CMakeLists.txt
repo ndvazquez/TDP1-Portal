@@ -46,7 +46,9 @@ set(EDITOR_SOURCE_FILES
         editor/AnimatedObject.cpp
         editor/Object.cpp
         editor/Gate.cpp
-        editor/MouseButton.cpp)
+        editor/MouseButton.cpp
+        )
+
 
 
 set(SERVER_SOURCE_FILES

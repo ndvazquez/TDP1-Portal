@@ -5,15 +5,7 @@
 #include <iostream>
 #include "Block.h"
 
-Block::Block(const std::string &path, Window &window, const std::string& name) :
-    StaticObject(path, window, name) {}
-
-bool Block::canBeOn(const std::string &name) {
-    return !(name == "Chell");
-}
-
-bool Block::canBeOn() {
-    return true;
-}
+Block::Block(std::string &path, Window &window, const std::string& name, int w, int h) :
+    StaticObject(path, window, name, w, h) {}
 
 Block::~Block() = default;

@@ -14,10 +14,8 @@
 
 class Block : public StaticObject {
 public:
-    Block(const std::string& path, Window& window, const std::string& name);
+    Block(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Block();
-    bool canBeOn(const std::string& name) override;
-    bool canBeOn() override;
 };
 
 

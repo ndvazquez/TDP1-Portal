@@ -12,18 +12,17 @@
 #include "StageObjectException.h"
 
 
-
 class Object {
 protected:
     std::vector<std::string> floors;
     std::string name;
+    int w;
+    int h;
 
 public:
-    explicit Object(const std::string& name);
+    Object(std::string  name, int w, int h);
     virtual void hasToBeOn(const std::string& name);
     virtual void draw(SDL_Rect* rect) = 0;
-    virtual bool canBeOn(const std::string& name);
-    virtual bool canBeOn() = 0;
 
     virtual void addTo(int x, int y, std::map<std::pair<int, int>,
             std::string> &tiles);

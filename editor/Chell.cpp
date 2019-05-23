@@ -5,14 +5,10 @@
 #include <iostream>
 #include "Chell.h"
 
-Chell::Chell(const std::string &path, Window &window, int totalFrames, const std::string& name) :
-        AnimatedObject(path, window, totalFrames, name) {}
+Chell::Chell(std::string& path, Window& window, int totalFrames ,const std::string& name, int w, int h) :
+        AnimatedObject(path, window, totalFrames, name, w, h) {}
 
 Chell::~Chell() = default;
-
-bool Chell::canBeOn() {
-    return false;
-}
 
 void Chell::draw(SDL_Rect* rect) {
     SDL_Rect newRect = {rect->x, rect->y - rect->h, rect->w, rect->h*2};

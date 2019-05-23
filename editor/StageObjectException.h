@@ -5,6 +5,8 @@
 #ifndef PORTAL_STAGEOBJECTEX_H
 #define PORTAL_STAGEOBJECTEX_H
 
+#include <iostream>
+
 #define EXC_INTRO "Couldn't add the tile: "
 #define GRAVITY ". That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
@@ -45,6 +47,7 @@ public:
 class StageObjectToSmallSpaceException : public StageObjectException {
     virtual const char* what() const throw () {
         std::string message = EXC_INTRO + this->name + TO_SMALL_SPACE;
+        std::cerr << message;
         return message.c_str();
     }
 

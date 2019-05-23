@@ -11,10 +11,9 @@
 
 class Chell : public AnimatedObject {
 public:
-    Chell(const std::string &path, Window &window, int totalFrames, const std::string& name);
+    Chell(std::string &path, Window &window, int totalFrames, const std::string& name, int w, int h);
     ~Chell();
     void draw(SDL_Rect* rect) override;
-    bool canBeOn() override;
 
     void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
 };

@@ -12,10 +12,9 @@
 
 class Button : public StaticObject {
 public:
-    Button(const std::string& path, Window& window, const std::string& name);
+    Button(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Button();
 
-    bool canBeOn() override;
     void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
     void setName() override;
 };

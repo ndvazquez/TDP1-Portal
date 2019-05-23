@@ -20,13 +20,16 @@
 
 StageController::StageController(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
+
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
     for (YAML::const_iterator it = blocks.begin();
          it != blocks.end(); ++it) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Block* newObject = new Block(path, window, name);
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Block* newObject = new Block(path, window, name, w, h);
         textures[name] = newObject;
     }
 
@@ -36,7 +39,9 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Button* newObject = new Button(path, window, name);
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Button* newObject = new Button(path, window, name, w, h);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -54,7 +59,10 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Rock* newObject = new Rock(path, window, name);
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+
+        Rock* newObject = new Rock(path, window, name, w, h);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -72,7 +80,9 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Chell* newObject = new Chell(path, window, node["frames"].as<int>(), name);
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Chell* newObject = new Chell(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
@@ -90,7 +100,9 @@ stageView(window, factor, textures, tiles) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
-        Gate* newObject = new Gate(path, window, name);
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Gate* newObject = new Gate(path, window, name, w, h);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
