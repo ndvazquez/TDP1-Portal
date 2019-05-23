@@ -54,7 +54,7 @@ void Stage::draw() {
     controller.draw(this->camera , X);
 }
 
-void Stage::handle(MouseButtonDown event) {
+void Stage::handleMouseButtonDown(MouseButton& event) {
     int xPixel = X_PIXEL(event);
     int yPixel = Y_PIXEL(event);
     int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
@@ -73,7 +73,7 @@ void Stage::handle(MouseButtonDown event) {
     controller.removeTile(x,y);
 }
 
-void Stage::handle(MouseButtonUp event) {
+void Stage::handleMouseButtonUp(MouseButton& event) {
     int xPixel = X_PIXEL(event);
     int yPixel = Y_PIXEL(event);
     int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
@@ -91,6 +91,16 @@ void Stage::handle(MouseButtonUp event) {
     }
     current = "";
 }
-void Stage::handle(MouseDoubleCick event) {
-
+void Stage::handleMouseDoubleCick(MouseButton& event) {
+    int xPixel = X_PIXEL(event);
+    int yPixel = Y_PIXEL(event);
+    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
+    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
+    SDL_Point sdlPoint = {xPixel, yPixel};
+    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
+    if (!isIn) {
+        return;
+    }
+    controller.nameAnObject(x,y);
 }
+

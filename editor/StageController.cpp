@@ -5,8 +5,6 @@
 #include <iostream>
 #include "yaml-cpp/yaml.h"
 #include "StageController.h"
-#include "MouseButtonUp.h"
-#include "MouseDoubleCick.h"
 #include "Block.h"
 #include "Button.h"
 #include "Rock.h"
@@ -110,7 +108,11 @@ void StageController::draw(SDL_Rect* camera, int xStart) {
 }
 
 void StageController::addTile(int x, int y, std::string& tileName) {
+
     Object* obj = textures[tileName];
+    if (!obj) {
+        throw EditorStageViewAddTileNameException();
+    }
     if (!obj->canBeAdd(x, y, tiles)) {
         throw EditorStageViewAddTileGravityException();
     }
@@ -134,4 +136,8 @@ std::string& StageController::getName(int x, int y) {
         throw EditorStageViewEmptyPositionException();
     }
     return point->second;
+}
+
+void StageController::nameAnObject(int x, int y) {
+    textures[tiles[std::make_pair(x, y)]]->setName();
 }

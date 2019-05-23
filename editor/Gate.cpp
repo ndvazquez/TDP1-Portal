@@ -2,6 +2,7 @@
 // Created by camix on 22/05/19.
 //
 
+#include <iostream>
 #include "Gate.h"
 
 Gate::Gate(std::string &path, Window &window) :
@@ -22,4 +23,8 @@ bool Gate::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &na
     auto below = names.find(std::make_pair(x, y + 1));
     auto over = names.find(std::make_pair(x, y - 1));
     return (below != names.end() && Object::canBeOn(below->second) && y != 0  && over == names.end());
+}
+
+void Gate::setName() {
+    std::cerr << "Soy una compuerta" << std::endl;
 }

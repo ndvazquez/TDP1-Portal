@@ -8,7 +8,6 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 #include "RockButton.h"
-#include "MouseButtonUp.h"
 
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""
@@ -55,8 +54,6 @@ void Menu::set() {
     int w = totalY - spaceBetweenY;
     int spaceBetweenX = (window.getWindowWidth()/WIDTH_PROPORTION) - w;
 
-
-
     auto optionsIt = options.begin();
     int acum = 0;
     int i = 0;
@@ -88,7 +85,7 @@ Menu::~Menu() {
     }
 }
 
-void Menu::handle(MouseButtonDown event) {
+void Menu::handleMouseButtonDown(MouseButton& event) {
     auto it = options.begin();
     for (; it != options.end(); it++) {
         if ((**it).has(event.getX(), event.getY())) {
@@ -98,7 +95,7 @@ void Menu::handle(MouseButtonDown event) {
     }
 }
 
-void Menu::handle(MouseButtonUp event) {
+void Menu::handleMouseButtonUp(MouseButton& event) {
     SDL_Point sdlPoint = {event.getX(), event.getY()};
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (isIn) {

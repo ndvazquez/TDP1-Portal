@@ -19,4 +19,8 @@ bool Button::canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &
     return Object::canBeOn(it->second);
 }
 
+void Button::setName() {
+    std::cerr << "Soy un boton" << std::endl;
+}
+
 Button::~Button() = default;

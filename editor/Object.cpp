@@ -19,3 +19,5 @@ bool Object::canBeOn(const std::string &name) {
     }
     return false;
 }
+
+void Object::setName() {}

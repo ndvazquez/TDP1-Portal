@@ -16,9 +16,6 @@
 #include "Stage.h"
 #include "Menu.h"
 #include "Event.h"
-#include "MouseButtonDown.h"
-#include "MouseButtonUp.h"
-#include "MouseDoubleCick.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600

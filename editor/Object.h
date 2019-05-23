@@ -22,6 +22,7 @@ public:
 
     virtual bool canBeAdd(int x, int y, std::map<std::pair<int, int>,
             std::string>& names) = 0;
+    virtual void setName();
 };
 
 

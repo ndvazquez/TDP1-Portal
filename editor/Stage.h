@@ -10,11 +10,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "../common/Window.h"
-#include "MouseButtonDown.h"
-#include "MouseButtonUp.h"
+#include "MouseButton.h"
 #include "StageController.h"
-#include "MouseDoubleCick.h"
-#include "Gate.h"
 
 class Stage {
 private:
@@ -37,12 +34,11 @@ public:
     void setSize();
     // (x,y) pixeles.
     void draw();
+    void handleMouseButtonDown(MouseButton& event);
 
-    void handle(MouseButtonDown event);
+    void handleMouseButtonUp(MouseButton& event);
 
-    void handle(MouseButtonUp event);
-
-    void handle(MouseDoubleCick event);
+    void handleMouseDoubleCick(MouseButton& event);
 };
 
 

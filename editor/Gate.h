@@ -16,6 +16,7 @@ public:
     bool canBeOn() override;
 
     bool canBeAdd(int x, int y, std::map<std::pair<int, int>, std::string> &names) override;
+    void setName() override;
 };
 
 

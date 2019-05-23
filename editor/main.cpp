@@ -10,9 +10,6 @@
 #define TOTAL_HEIGHT 1000
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-#include "MouseButtonDown.h"
-#include "MouseButtonUp.h"
-#include "MouseDoubleCick.h"
 
 int main(int argc, char* argv[]) {
     SDLSession sdlSession(SDL_INIT_VIDEO);
@@ -31,18 +28,20 @@ int main(int argc, char* argv[]) {
                      quit = true;
                      break;
                  case SDL_MOUSEBUTTONDOWN: // if the event is mouse click
-                    if (e.button.button != SDL_BUTTON_LEFT) { // and its a left click
-                        break;
-                    }
-                    if (e.button.clicks == 1) {
+                    //if (e.button.button = SDL_BUTTON_RIGHT) { // and its a left click
+                    //    break;
+                    //}
+                    if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
                         editor.handleMouseButtonDown(&e);
                     }
-                     if (e.button.clicks == 2) {
+                     if (e.button.clicks == 2 && e.button.button == SDL_BUTTON_LEFT) {
                          editor.handleMouseDoubleCick(&e);
                      }
                     break;
                  case SDL_MOUSEBUTTONUP:
-                     editor.handleMouseButtonUp(&e);
+                     if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
+                         editor.handleMouseButtonUp(&e);
+                     }
              }
          }
         editor.draw();

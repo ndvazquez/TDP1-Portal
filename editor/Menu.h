@@ -11,8 +11,7 @@
 #include "../common/Window.h"
 #include "../common/Sprite.h"
 #include "MenuButton.h"
-#include "MouseButtonDown.h"
-#include "MouseButtonUp.h"
+#include "MouseButton.h"
 
 #define WIDTH_PROPORTION 10
 
@@ -29,12 +28,8 @@ public:
     explicit Menu(Window &window, std::string& current);
     ~Menu();
     void draw();
-
-
-
-    void handle(MouseButtonDown event);
-
-    void handle(MouseButtonUp event);
+    void handleMouseButtonDown(MouseButton& event);
+    void handleMouseButtonUp(MouseButton& event);
 };
 
 

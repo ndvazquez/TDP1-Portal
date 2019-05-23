@@ -36,11 +36,8 @@ set(EDITOR_SOURCE_FILES
         editor/MenuButton.cpp
         editor/RockButton.cpp
         editor/Event.cpp
-        editor/MouseButtonDown.cpp
-        editor/MouseButtonUp.cpp
         editor/StageController.cpp
         editor/StageView.cpp
-        editor/MouseDoubleCick.cpp
         editor/StaticObject.cpp
         editor/Block.cpp
         editor/Button.cpp
@@ -48,7 +45,8 @@ set(EDITOR_SOURCE_FILES
         editor/Chell.cpp
         editor/AnimatedObject.cpp
         editor/Object.cpp
-        editor/Gate.cpp)
+        editor/Gate.cpp
+        editor/MouseButton.cpp)
 
 
 set(SERVER_SOURCE_FILES
