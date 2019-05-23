@@ -18,8 +18,8 @@
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
-#define LEVEL_WIDTH 1500
-#define LEVEL_HEIGHT 1500
+#define LEVEL_WIDTH 1000
+#define LEVEL_HEIGHT 600
 #define MTP_FACTOR 100
 #define CHELL_HEIGHT 200
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
@@ -35,19 +35,20 @@ void drawChellWithBox2D(){
     // We'll setup a very basic map, 15x15 blocks.
     std::string metalBlock = "MetalBlock";
     std::string rockBlock = "RockBlock";
-    for (int i = 0; i < 15; ++i){
+    for (int i = 0; i < 10; ++i){
         stageView.addTile(i, 0, metalBlock);
-        stageView.addTile(i, 14, metalBlock);
+        stageView.addTile(i, 5, metalBlock);
     }
-    for (int i = 0; i < 15; ++i){
+    for (int i = 0; i < 6; ++i){
         stageView.addTile(0, i, metalBlock);
-        stageView.addTile(14, i, metalBlock);
+        stageView.addTile(9, i, metalBlock);
     }
-    for (int i = 1; i < 14; ++i){
-        for (int j = 1; j < 14; ++j){
-            stageView.addTile(i, j, rockBlock);
-        }
-    }
+    // Rock background.
+//    for (int i = 1; i < 14; ++i){
+//        for (int j = 1; j < 14; ++j){
+//            stageView.addTile(i, j, rockBlock);
+//        }
+//    }
     // Box2D Stuff.
     float xPos = 1;
     float yPos = 1;
@@ -55,8 +56,14 @@ void drawChellWithBox2D(){
     float chellWidth = 2;
     // We'll subtract 1 block from the world stage for now because it will make Chell collide
     // with the borders of what's being rendered on screen.
-    Stage stage(14, 14); // 1m == 1 block == 100px
+    Stage stage(9, 6); // 1m == 1 block == 100px
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    float metalBlockPosX = 4;
+    float metalBlockPosY = 1;
+    stage.addMetalBlock(1, metalBlockPosX, metalBlockPosY);
+    stage.addMetalBlock(1, metalBlockPosX + 1, metalBlockPosY);
+    stageView.addTile(int(metalBlockPosX), int(metalBlockPosY) * -1 + 5, metalBlock);
+    stageView.addTile(int(metalBlockPosX) + 1, int(metalBlockPosY) * -1 + 5, metalBlock);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
@@ -90,7 +97,7 @@ void drawChellWithBox2D(){
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
 
         }
-        SDL_Delay(16); // Sleep for 16ms, the real step.
+        SDL_Delay(2); // Sleep for 16ms, the real step.
         stage.step();
         bool chellInGround = chell->inGround(yPos);
 
@@ -185,6 +192,6 @@ int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
-    drawEnergyBall();
-    drawAcidPool();
+//    drawEnergyBall();
+//    drawAcidPool();
 }

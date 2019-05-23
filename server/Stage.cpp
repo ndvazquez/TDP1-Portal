@@ -17,7 +17,7 @@
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
-    b2Vec2 gravity(0.0f, -1.0f);
+    b2Vec2 gravity(0.0f, -4.0f);
     this->world = new b2World(gravity);
 
     // Setting initial configuration
