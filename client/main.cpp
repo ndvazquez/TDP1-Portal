@@ -103,7 +103,7 @@ void drawChellWithBox2D(){
         // Gotta update the camera now to center it around Chell.
         chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
         newWindow.clear();
-        stageView.draw(newWindow, &camera);
+        stageView.draw(&camera);
         chellView.playAnimation(camera);
         newWindow.render();
     }

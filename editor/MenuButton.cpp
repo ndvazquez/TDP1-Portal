@@ -29,7 +29,7 @@ std::string MenuButton::getName() {
 
 void MenuButton::draw(Window &window) {
     Sprite sprite(this->path, window);
-    sprite.draw(window, this->myPosition);
+    sprite.draw(this->myPosition);
 }
 
 MenuButton& MenuButton::operator=(MenuButton origin) {

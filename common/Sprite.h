@@ -20,6 +20,7 @@ class SpriteInitException: public std::exception {
 
 class Sprite {
 protected:
+    Window& window;
     SDL_Texture* texture;
     int imageWidth;
     int imageHeight;
@@ -28,9 +29,9 @@ public:
     virtual ~Sprite();
     void free();
     // Draw the whole texture to a given coordinate.
-    void draw(Window& destWindow, int x, int y);
+    void draw(int x, int y);
     // Draw the whole texture to a given rectangle on the window.
-    void draw(Window& destWindow, SDL_Rect* destRect);
+    void draw(SDL_Rect* destRect);
     virtual int getWidth();
     virtual int getHeight();
 };

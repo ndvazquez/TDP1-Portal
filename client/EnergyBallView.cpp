@@ -27,6 +27,6 @@ void EnergyBallView::move(int newPosX, int newPosY) {
 }
 
 void EnergyBallView::playAnimation() {
-    animation->draw(window, xPos, yPos);
+    animation->draw(xPos, yPos);
     animation->updateFrameStep();
 }

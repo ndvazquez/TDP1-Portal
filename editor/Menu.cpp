@@ -68,7 +68,7 @@ void Menu::set() {
 
 void Menu::draw() {
     Sprite bgSprite(BACKGROUND, window);
-    bgSprite.draw(window, this->me);
+    bgSprite.draw(this->me);
 
     auto it = options.begin();
     for (; it != options.end(); it++) {

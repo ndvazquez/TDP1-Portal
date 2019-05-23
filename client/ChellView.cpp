@@ -44,7 +44,7 @@ ChellView::~ChellView() {
 
 void ChellView::playAnimation(SDL_Rect& camera) {
     AnimatedSprite* animation = animations[currentAnimation];
-    animation->draw(gameWindow, xPos - camera.x, yPos - camera.y, flip);
+    animation->draw(xPos - camera.x, yPos - camera.y, flip);
     animation->updateFrameStep();
 }
 

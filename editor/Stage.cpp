@@ -50,7 +50,7 @@ Stage::~Stage() {
 
 void Stage::draw() {
     Sprite bgSprite("resources/editor-stage-bg.png", window);
-    bgSprite.draw(window, this->me);
+    bgSprite.draw(this->me);
     controller.draw(this->camera , X);
 }
 

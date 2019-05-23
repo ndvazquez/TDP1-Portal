@@ -12,7 +12,7 @@ StaticObject::StaticObject(std::string& path, Window& window, const std::string 
     sprite(path, window) {}
 
 void StaticObject::draw(SDL_Rect *rect) {
-    sprite.draw(window, rect);
+    sprite.draw(rect);
 }
 
 StaticObject::~StaticObject() = default;
