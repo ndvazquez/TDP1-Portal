@@ -23,7 +23,8 @@ set(CLIENT_SOURCE_FILES
         client/StageView.cpp
         client/ChellView.cpp
         client/EnergyBallView.cpp
-        client/AcidView.cpp)
+        client/AcidView.cpp
+        client/BulletView.cpp)
 
 #EDITOR CONFIG
 

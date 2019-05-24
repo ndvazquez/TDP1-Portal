@@ -13,6 +13,8 @@ EnergyBall: {path: resources/EnergyBall/energy-ball.png, frames: 4}
 
 Acid: {path: resources/Acid/acid.png, frames: 8}
 
+Bullet: {path: resources/Bullet/bullet.png, frames: 3}
+
 StaticObjects:
   - name: MetalBlock
     path: resources/blocks/metal-block.png
