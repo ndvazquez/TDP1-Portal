@@ -35,10 +35,16 @@ public:
     void draw(SDL_Texture& texture,
             SDL_Rect& sourceRect,
             SDL_Rect& destRect);
+    //We can flip an image horizontally or vertically with this method.
     void draw(SDL_Texture& texture,
               SDL_Rect& sourceRect,
               SDL_Rect& destRect,
               SDL_RendererFlip& flip);
+    //We can rotate an image over it's center with this method.
+    void draw(SDL_Texture &texture,
+              SDL_Rect &sourceRect,
+              SDL_Rect &destRect,
+              double angle);
     int getWindowWidth();
     int getWindowHeight();
 };

@@ -45,6 +45,12 @@ void Window::draw(SDL_Texture &texture, SDL_Rect &sourceRect,
             &destRect, 0, NULL, flip);
 }
 
+void Window::draw(SDL_Texture &texture, SDL_Rect &sourceRect,
+        SDL_Rect &destRect, double angle){
+    SDL_RenderCopyEx(this->renderer, &texture, &sourceRect,
+            &destRect, angle, nullptr, SDL_FLIP_NONE);
+}
+
 int Window::getWindowWidth() {
     return windowWidth;
 }
