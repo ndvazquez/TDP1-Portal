@@ -28,9 +28,11 @@ public:
     ~AnimatedSprite();
     void draw(int x, int y, SDL_RendererFlip flip = SDL_FLIP_NONE);
     void draw(SDL_Rect* destRect, SDL_RendererFlip flip = SDL_FLIP_NONE);
+    void draw(int x, int y, double angle);
     void updateFrameStep();
     int getWidth();
     int getHeight();
+    void setFrameRate(int newFrameRate);
 };
 
 

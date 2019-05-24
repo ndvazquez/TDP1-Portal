@@ -13,6 +13,7 @@
 #include "ChellView.h"
 #include "EnergyBallView.h"
 #include "AcidView.h"
+#include "BulletView.h"
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
@@ -97,7 +98,7 @@ void drawChellWithBox2D(){
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
 
         }
-        SDL_Delay(2); // Sleep for 16ms, the real step.
+        SDL_Delay(2); // Sleep for 2ms, because it kinda works.
         stage.step();
         bool chellInGround = chell->inGround(yPos);
 
@@ -188,10 +189,46 @@ void drawAcidPool(){
     }
 }
 
+void drawBullet(){
+    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    std::string title = "Portal";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    BulletView bulletView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, textures);
+    double bulletAngle = 0;
+    bool quit = false;
+    SDL_Event e;
+
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
+                switch(e.key.keysym.sym){
+                    case SDLK_d:
+                        bulletAngle += 30;
+                        break;
+                    case SDLK_a:
+                        bulletAngle -= 30;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        SDL_Delay(16);
+        newWindow.clear();
+        bulletView.playAnimation(bulletAngle);
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
-//    drawEnergyBall();
-//    drawAcidPool();
+    drawEnergyBall();
+    drawAcidPool();
+    drawBullet();
 }

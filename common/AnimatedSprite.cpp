@@ -43,6 +43,12 @@ void AnimatedSprite::draw(int x, int y, SDL_RendererFlip flip) {
     window.draw(*texture, sourceRect, destRect, flip);
 }
 
+void AnimatedSprite::draw(int x, int y, double angle) {
+    SDL_Rect sourceRect = {currentFrameStep, 0, frameWidth, frameHeight};
+    SDL_Rect destRect = {x, y, frameWidth, frameHeight};
+    window.draw(*texture, sourceRect, destRect, angle);
+}
+
 int AnimatedSprite::getWidth() {
     return this->frameWidth;
 }
@@ -54,4 +60,8 @@ int AnimatedSprite::getHeight() {
 void AnimatedSprite::draw(SDL_Rect *destRect, SDL_RendererFlip flip) {
     SDL_Rect sourceRect = {currentFrameStep, 0, frameWidth, frameHeight};
     window.draw(*texture, sourceRect, *destRect, flip);
+}
+
+void AnimatedSprite::setFrameRate(int newFrameRate) {
+    framerate = newFrameRate;
 }
