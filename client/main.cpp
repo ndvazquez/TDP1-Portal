@@ -80,8 +80,6 @@ void drawChellWithBox2D(){
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
-    float max = 0;
-
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -102,8 +100,6 @@ void drawChellWithBox2D(){
         stage.step();
         bool chellInGround = chell->inGround();
 
-        if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
-
         chellView.changeJumpingStatus(!chellInGround);
         int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
@@ -117,8 +113,6 @@ void drawChellWithBox2D(){
         newWindow.render();
     }
     delete coordinate;
-
-    std::cout << max << std::endl;
 }
 
 void drawEnergyBall(){
@@ -151,7 +145,7 @@ void drawEnergyBall(){
         stage.step();
         int newPosX = energyBall->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = energyBall->getVerticalPosition()  * MTP_FACTOR * -1 + SCREEN_HEIGHT;
-        std::cout << "EB X: " << newPosX << std::endl;
+        //std::cout << "EB X: " << newPosX << std::endl;
         energyBallView.move(newPosX, newPosY);
         newWindow.clear();
         energyBallView.playAnimation();

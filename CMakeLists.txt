@@ -52,8 +52,6 @@ set(EDITOR_SOURCE_FILES
         editor/MouseButton.cpp
         )
 
-
-
 set(SERVER_SOURCE_FILES
         server/Stage.cpp
         server/Coordinate.cpp

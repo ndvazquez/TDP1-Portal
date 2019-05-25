@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <cstddef>
 #include <string>
+#include <chrono>
 
 #include "Box2D/Box2D.h"
 #include "Coordinate.h"
@@ -36,6 +37,8 @@ private:
     size_t height;
     b2World* world;
     Floor* floor;
+
+    std::chrono::system_clock::time_point timeStamp;
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;

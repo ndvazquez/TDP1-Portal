@@ -5,6 +5,7 @@
 # define DEGTORAD 0.0174532925199432957f
 
 #include <iostream>
+
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -44,6 +45,8 @@ Stage::Stage(size_t width, size_t height):
     body.position.Set(width + 2, height/2);
     shape.SetAsBox(2, height/2);
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
+
+    this->timeStamp = std::chrono::system_clock::now();
 }
 
 b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
@@ -251,6 +254,13 @@ void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
 }
 
 void Stage::step() {
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double> diff = end - timeStamp;
+    auto difference = diff.count(); //ms
+    std::cout << difference << std::endl;
+    if (difference <= 1 / 60) return; // TODO: OJO QUE ESTO DEBERIA SER EN MS
+    timeStamp = end;
+
     for (auto i = chells.begin(); i != chells.end(); i++) {
         i->second->update();
     }
