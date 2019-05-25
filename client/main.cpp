@@ -136,6 +136,8 @@ void drawEnergyBall(){
     Coordinate* coordinate = new Coordinate(x, y);
     EnergyBall* energyBall = stage.getEnergyBall(coordinate);
 
+    energyBall->fly();
+
     bool quit = false;
     SDL_Event e;
 
@@ -228,7 +230,7 @@ int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
-    //drawEnergyBall();
+    drawEnergyBall();
     //drawAcidPool();
     //drawBullet();
 }

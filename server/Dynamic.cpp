@@ -62,11 +62,7 @@ bool Dynamic::handleCollisions() {
 }
 
 void Dynamic::flyHorizontal() {
-    //Eliminate gravity
-    float mass = body->GetMass();
-    float gravity = -1;
-    float force_y = - (mass * gravity);
-    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+    eliminateGravity();
 
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
@@ -82,10 +78,7 @@ void Dynamic::flyHorizontal() {
 
 void Dynamic::flyVertical() {
     //Eliminate gravity
-    float mass = body->GetMass();
-    float gravity = -1;
-    float force_y = - (mass * gravity);
-    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+    eliminateGravity();
 
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
@@ -101,7 +94,7 @@ void Dynamic::flyVertical() {
 
 void Dynamic::eliminateGravity() {
     float mass = body->GetMass();
-    float gravity = -1;
+    float gravity = gameConfiguration.gravity;
     float force_y = - (mass * gravity);
     body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
 
@@ -138,7 +131,15 @@ float Dynamic::getVerticalPosition() {
     return body->GetPosition().y;
 }
 
+void Dynamic::adjustJump() {
+    b2World* world = body->GetWorld();
+    float gravity_jump = gameConfiguration.gravityJump;
+    world->SetGravity(b2Vec2(0, gravity_jump));
+}
+
 bool Dynamic::jump(bool chellFloor) {
+    adjustJump();
+
     float epsilon = pow(10.5, -9);
     bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
 
