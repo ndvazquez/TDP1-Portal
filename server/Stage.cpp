@@ -255,11 +255,12 @@ void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
 
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
-    std::chrono::duration<double> diff = end - timeStamp;
-    auto difference = diff.count(); //ms
-    std::cout << difference << std::endl;
-    if (difference <= 1 / 60) return; // TODO: OJO QUE ESTO DEBERIA SER EN MS
-    timeStamp = end;
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>(end - timeStamp).count();
+    if (difference <= 1000 / 60.0f) {
+        std::cout << "Diff: " << difference << " Step: " << 1000/60.0f << std::endl;
+        return; // TODO: OJO QUE ESTO DEBERIA SER EN MS
+    }
+    timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
         i->second->update();

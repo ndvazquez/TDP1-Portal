@@ -96,7 +96,6 @@ void drawChellWithBox2D(){
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
 
         }
-        SDL_Delay(2); // Sleep for 2ms, because it kinda works.
         stage.step();
         bool chellInGround = chell->inGround();
 
@@ -141,7 +140,6 @@ void drawEnergyBall(){
                 quit = true;
             }
         }
-        SDL_Delay(16);
         stage.step();
         int newPosX = energyBall->getHorizontalPosition() * MTP_FACTOR;
         int newPosY = energyBall->getVerticalPosition()  * MTP_FACTOR * -1 + SCREEN_HEIGHT;
