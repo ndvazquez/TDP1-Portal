@@ -5,16 +5,13 @@
 #ifndef PORTAL_DYNAMIC_H
 #define PORTAL_DYNAMIC_H
 
-#define initialVelocity 4
-#define delta 0.01
-#define impulseFactor 50
-
 #include <Box2D/Dynamics/b2Body.h>
+#include "configuration.h"
 
 class Dynamic {
 private:
     b2Body* body;
-    float impulse;
+    float energy_ball_impulse;
 
 public:
     explicit Dynamic(b2Body* body);

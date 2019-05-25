@@ -74,7 +74,8 @@ set(SERVER_SOURCE_FILES
         server/EnergyBall.cpp
         server/Entity.cpp
         server/MoveUp.cpp
-        server/MoveDown.cpp)
+        server/MoveDown.cpp
+        server/configuration.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

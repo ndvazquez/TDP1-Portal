@@ -8,7 +8,6 @@
 #include "MoveLeft.h"
 #include "../editor/Chell.h"
 
-
 Chell::Chell(b2Body* body):
         dynamic(body) {
     this->body = body;
@@ -51,7 +50,7 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
-    this->actual_movement->move(chellForce);
+    this->actual_movement->move(gameConfiguration.chellForce);
 }
 
 void Chell::jump(float y0) {

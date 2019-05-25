@@ -9,7 +9,8 @@
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
-    impulse = body->GetMass() * impulseFactor;
+    float energy_ball_factor = gameConfiguration.energyBallImpulseFactor;
+    this->energy_ball_impulse = body->GetMass() * energy_ball_factor;
 }
 
 void Dynamic::move(float force) {
@@ -70,11 +71,11 @@ void Dynamic::flyHorizontal() {
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
     if (handleCollisions()) {
-        impulse = -impulse;
-        body->ApplyLinearImpulse(b2Vec2(impulse, 0),
+        energy_ball_impulse = -energy_ball_impulse;
+        body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
     } else {
-        body->ApplyLinearImpulse(b2Vec2(impulse, 0),
+        body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
     }
 }
@@ -89,11 +90,11 @@ void Dynamic::flyVertical() {
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
     if (handleCollisions()) {
-        impulse = -impulse;
-        body->ApplyLinearImpulse(b2Vec2(0, impulse),
+        energy_ball_impulse = -energy_ball_impulse;
+        body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     } else {
-        body->ApplyLinearImpulse(b2Vec2(0, impulse),
+        body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
 }
@@ -107,6 +108,7 @@ void Dynamic::eliminateGravity() {
     float actual_velocity = body->GetLinearVelocity().y;
 
     //Already flying
+    float delta = gameConfiguration.deltaError;
     if (actual_velocity > delta || actual_velocity < -delta) return;
 }
 
@@ -146,6 +148,7 @@ void Dynamic::jump(float y0) {
 
     if (! chell_is_still && ! chell_is_in_floor) return; //can't jump because chell is in movement
 
+    float initialVelocity = gameConfiguration.chellInitialVelocity;
     float impulse = body->GetMass() * initialVelocity;
     body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
 }
