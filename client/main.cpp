@@ -90,7 +90,7 @@ void drawChellWithBox2D(){
             chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump(yPos);
+                if (e.key.keysym.sym == SDLK_w) chell->jump();
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -100,7 +100,7 @@ void drawChellWithBox2D(){
         }
         SDL_Delay(2); // Sleep for 2ms, because it kinda works.
         stage.step();
-        bool chellInGround = chell->inGround(yPos);
+        bool chellInGround = chell->inGround();
 
         if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
 
@@ -228,7 +228,7 @@ int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
-    drawEnergyBall();
-    drawAcidPool();
-    drawBullet();
+    //drawEnergyBall();
+    //drawAcidPool();
+    //drawBullet();
 }

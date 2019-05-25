@@ -16,7 +16,7 @@ private:
 public:
     explicit Dynamic(b2Body* body);
     virtual ~Dynamic();
-    void jump(float y0);
+    bool jump(bool);
     virtual void move(float force);
     void moveRight(float force);
     void moveLeft(float force);

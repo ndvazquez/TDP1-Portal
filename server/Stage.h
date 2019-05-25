@@ -21,6 +21,7 @@
 #include "Acid.h"
 #include "Chell.h"
 #include "EnergyBall.h"
+#include "Floor.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -34,6 +35,7 @@ private:
     size_t width;
     size_t height;
     b2World* world;
+    Floor* floor;
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;

@@ -138,19 +138,16 @@ float Dynamic::getVerticalPosition() {
     return body->GetPosition().y;
 }
 
-void Dynamic::jump(float y0) {
-
+bool Dynamic::jump(bool chellFloor) {
     float epsilon = pow(10.5, -9);
-    float deltaJump = 0.05;
-
     bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
-    bool chell_is_in_floor = body->GetPosition().y <= y0 + deltaJump;
 
-    if (! chell_is_still && ! chell_is_in_floor) return; //can't jump because chell is in movement
+    if (! chell_is_still && ! chellFloor) return false;
 
     float initialVelocity = gameConfiguration.chellInitialVelocity;
     float impulse = body->GetMass() * initialVelocity;
     body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+    return true;
 }
 
 float Dynamic::getHorizontalVelocity() {

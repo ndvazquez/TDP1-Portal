@@ -14,7 +14,6 @@
 #include "Acid.h"
 #include "EnergyBall.h"
 
-
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
     b2Vec2 gravity(0.0f, -4.0f);
@@ -26,9 +25,9 @@ Stage::Stage(size_t width, size_t height):
     b2PolygonShape shape;
 
     // Setting floor
-    body.position.Set(width/2, -2); //avoid creating objets in the origin
-    shape.SetAsBox(width/2, 2);
-    this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
+    b2Body* body_floor = addStaticRectangle(4, width, width/2, -2);
+    Floor* floor = new Floor(body_floor);
+    this->floor = floor;
 
     // Setting ceiling
     body.position.Set(width/2, height + 2);
@@ -408,5 +407,6 @@ Stage::~Stage() {
         delete i->second;
     }
 
+    delete floor;
     delete world;
 }
