@@ -22,7 +22,6 @@
 #define LEVEL_WIDTH 1000
 #define LEVEL_HEIGHT 600
 #define MTP_FACTOR 100
-#define CHELL_HEIGHT 200
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
 void drawChellWithBox2D(){
@@ -68,13 +67,10 @@ void drawChellWithBox2D(){
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
-    int chellInitPosX = xPos * MTP_FACTOR;
-    // Inverted y axis.
-    int chellInitPosY = yPos * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
-
-    ChellView chellView(newWindow, chellInitPosX, chellInitPosY, textures);
+    // ChellView and camera.
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     // This will be our camera, for now it's just a SDL_Rect
-    SDL_Rect camera = {chellInitPosX, chellInitPosY, SCREEN_WIDTH, SCREEN_HEIGHT};
+    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
 
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -105,10 +101,10 @@ void drawChellWithBox2D(){
         if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
 
         chellView.changeJumpingStatus(!chellInGround);
-        int newPosX = chell->getHorizontalPosition() * MTP_FACTOR;
-        int newPosY = chell->getVerticalPosition() * MTP_FACTOR * -1 + LEVEL_HEIGHT - CHELL_HEIGHT;
+        float newPosX = chell->getHorizontalPosition();
+        float newPosY = chell->getVerticalPosition();
         // We move the animated sprite for Chell.
-        chellView.move(newPosX, newPosY);
+        chellView.move(newPosX, newPosY, LEVEL_HEIGHT);
         // Gotta update the camera now to center it around Chell.
         chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
         newWindow.clear();
@@ -130,7 +126,7 @@ void drawEnergyBall(){
     Stage stage(stageWidth, stageHeight);
     int x = 2;
     int y = 2;
-    EnergyBallView energyBallView(newWindow, x, y, textures);
+    EnergyBallView energyBallView(newWindow, x, y, MTP_FACTOR, textures);
 
     stage.addEnergyBallHorizontal(2, x, y);
     Coordinate* coordinate = new Coordinate(x, y);
@@ -147,10 +143,10 @@ void drawEnergyBall(){
         }
         SDL_Delay(16);
         stage.step();
-        int newPosX = energyBall->getHorizontalPosition() * MTP_FACTOR;
-        int newPosY = energyBall->getVerticalPosition()  * MTP_FACTOR * -1 + SCREEN_HEIGHT;
+        float newPosX = energyBall->getHorizontalPosition();
+        float newPosY = energyBall->getVerticalPosition();
         std::cout << "EB X: " << newPosX << std::endl;
-        energyBallView.move(newPosX, newPosY);
+        energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
         newWindow.clear();
         energyBallView.playAnimation();
         newWindow.render();
@@ -165,7 +161,7 @@ void drawAcidPool(){
 
     Sprite metalBlock(metalBlockPath, newWindow);
     SDL_Rect metalBlockResize = {0, 100, 100, 100};
-    AcidView acidView(newWindow, 0, 50, textures);
+    AcidView acidView(newWindow, 0, 50, MTP_FACTOR, textures);
 
     bool quit = false;
     SDL_Event e;

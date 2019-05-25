@@ -3,7 +3,7 @@
 //
 
 #include "BulletView.h"
-
+//TODO: Hacer que herede de View.
 BulletView::BulletView(Window &window, int xPos, int yPos,
                    YAML::Node texturesData) :
         window(window),
