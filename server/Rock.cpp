@@ -7,8 +7,6 @@
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
-#include "MoveUp.h"
-#include "MoveDown.h"
 
 Rock::Rock(b2Body* body):
     dynamic(body) {
@@ -24,16 +22,6 @@ void Rock::moveRight() {
 void Rock::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
-}
-
-void Rock::moveUp() {
-    destroyActualMovement();
-    this->actual_movement = new MoveUp(body);
-}
-
-void Rock::moveDown() {
-    destroyActualMovement();
-    this->actual_movement = new MoveDown(body);
 }
 
 void Rock::stop() {

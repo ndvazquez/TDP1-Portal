@@ -42,6 +42,7 @@ void Chell::onFloor(bool onFloor) {
 void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
+    if (this->rock) rock->moveRight();
 }
 
 void Chell::moveLeft() {

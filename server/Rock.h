@@ -24,8 +24,6 @@ public:
     void downloadToEarth();
     void moveRight();
     void moveLeft();
-    void moveDown();
-    void moveUp();
     void stop();
     void destroyActualMovement();
     void update();
