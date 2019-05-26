@@ -13,5 +13,5 @@ struct box2DConfiguration gameConfiguration = {
         .chellInitialVelocity = 4,
         .gravityJump = -6,
         .gravity = -10,
-        .rockForce = 5
+        .rockForce = 50
 };

@@ -2,6 +2,8 @@
 // Created by cecix on 17/05/19.
 //
 
+#define rockType "Rock"
+
 #include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
@@ -9,9 +11,16 @@
 #include "Stop.h"
 
 Rock::Rock(b2Body* body):
+    Entity(rockType),
     dynamic(body) {
     this->body = body;
     this->actual_movement = new Stop(body);
+    body->SetUserData(this);
+}
+
+void Rock::handleCollision(Entity *entity) {
+    if (entity->getType() == "MetalBlock") {
+    }
 }
 
 void Rock::moveRight() {
@@ -34,7 +43,7 @@ void Rock::destroyActualMovement() {
 }
 
 void Rock::update() {
-    eliminateGravity();
+    dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.rockForce);
 }
 

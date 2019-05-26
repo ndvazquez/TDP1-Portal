@@ -63,7 +63,7 @@ b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
     return rectangle_body;
 }
 
-b2Body* Stage::addDynamicRectangle(size_t v_side, size_t h_side,
+b2Body* Stage::addDynamicRectangle(float v_side, float h_side,
                                    float x_pos, float y_pos) {
     b2BodyDef body;
     body.type = b2_dynamicBody;
@@ -157,7 +157,7 @@ void Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
     energy_transmitters.insert({coordinates, energy});
 }
 
-void Stage::addRock(size_t side, float x_pos, float y_pos) {
+void Stage::addRock(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -210,7 +210,7 @@ void Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     acids.insert({coordinates, button});
 }
 
-void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+void Stage::addChell(float v_side, float h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -223,7 +223,7 @@ void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     chells.insert({coordinates, chell});
 }
 
-void Stage::addEnergyBallHorizontal(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyBallHorizontal(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -236,7 +236,7 @@ void Stage::addEnergyBallHorizontal(size_t side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
-void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -252,7 +252,7 @@ void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>(end - timeStamp).count();
-    //if (difference <= 1000 / 60) return;
+    if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {

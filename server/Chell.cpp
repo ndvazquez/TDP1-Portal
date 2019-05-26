@@ -4,6 +4,7 @@
 
 #define chellType "Chell"
 
+#include <iostream>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -31,8 +32,9 @@ void Chell::grabRock(Rock* rock) {
 }
 
 void Chell::downloadRock() {
+    if (! rock) return;
     rock->downloadToEarth();
-    delete rock;
+    rock = nullptr;
 }
 
 void Chell::onFloor(bool onFloor) {
