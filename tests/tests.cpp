@@ -26,134 +26,134 @@ bool suite_BrickBlockTest_init = false;
 static BrickBlockTest suite_BrickBlockTest;
 
 static CxxTest::List Tests_BrickBlockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_BrickBlockTest( "MyTestSuite.h", 11, "BrickBlockTest", suite_BrickBlockTest, Tests_BrickBlockTest );
+CxxTest::StaticSuiteDescription suiteDescription_BrickBlockTest( "MyTestSuite.h", 12, "BrickBlockTest", suite_BrickBlockTest, Tests_BrickBlockTest );
 
 static class TestDescription_suite_BrickBlockTest_testBrickBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_BrickBlockTest_testBrickBlock() : CxxTest::RealTestDescription( Tests_BrickBlockTest, suiteDescription_BrickBlockTest, 20, "testBrickBlock" ) {}
+ TestDescription_suite_BrickBlockTest_testBrickBlock() : CxxTest::RealTestDescription( Tests_BrickBlockTest, suiteDescription_BrickBlockTest, 21, "testBrickBlock" ) {}
  void runTest() { suite_BrickBlockTest.testBrickBlock(); }
 } testDescription_suite_BrickBlockTest_testBrickBlock;
 
 static MetalBlockTest suite_MetalBlockTest;
 
 static CxxTest::List Tests_MetalBlockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_MetalBlockTest( "MyTestSuite.h", 33, "MetalBlockTest", suite_MetalBlockTest, Tests_MetalBlockTest );
+CxxTest::StaticSuiteDescription suiteDescription_MetalBlockTest( "MyTestSuite.h", 34, "MetalBlockTest", suite_MetalBlockTest, Tests_MetalBlockTest );
 
 static class TestDescription_suite_MetalBlockTest_testMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MetalBlockTest_testMetalBlock() : CxxTest::RealTestDescription( Tests_MetalBlockTest, suiteDescription_MetalBlockTest, 42, "testMetalBlock" ) {}
+ TestDescription_suite_MetalBlockTest_testMetalBlock() : CxxTest::RealTestDescription( Tests_MetalBlockTest, suiteDescription_MetalBlockTest, 43, "testMetalBlock" ) {}
  void runTest() { suite_MetalBlockTest.testMetalBlock(); }
 } testDescription_suite_MetalBlockTest_testMetalBlock;
 
 static DiagonalMetalBlockTest suite_DiagonalMetalBlockTest;
 
 static CxxTest::List Tests_DiagonalMetalBlockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_DiagonalMetalBlockTest( "MyTestSuite.h", 56, "DiagonalMetalBlockTest", suite_DiagonalMetalBlockTest, Tests_DiagonalMetalBlockTest );
+CxxTest::StaticSuiteDescription suiteDescription_DiagonalMetalBlockTest( "MyTestSuite.h", 57, "DiagonalMetalBlockTest", suite_DiagonalMetalBlockTest, Tests_DiagonalMetalBlockTest );
 
 static class TestDescription_suite_DiagonalMetalBlockTest_testDiagonalMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_DiagonalMetalBlockTest_testDiagonalMetalBlock() : CxxTest::RealTestDescription( Tests_DiagonalMetalBlockTest, suiteDescription_DiagonalMetalBlockTest, 65, "testDiagonalMetalBlock" ) {}
+ TestDescription_suite_DiagonalMetalBlockTest_testDiagonalMetalBlock() : CxxTest::RealTestDescription( Tests_DiagonalMetalBlockTest, suiteDescription_DiagonalMetalBlockTest, 66, "testDiagonalMetalBlock" ) {}
  void runTest() { suite_DiagonalMetalBlockTest.testDiagonalMetalBlock(); }
 } testDescription_suite_DiagonalMetalBlockTest_testDiagonalMetalBlock;
 
 static EnergyTransmitterTest suite_EnergyTransmitterTest;
 
 static CxxTest::List Tests_EnergyTransmitterTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_EnergyTransmitterTest( "MyTestSuite.h", 80, "EnergyTransmitterTest", suite_EnergyTransmitterTest, Tests_EnergyTransmitterTest );
+CxxTest::StaticSuiteDescription suiteDescription_EnergyTransmitterTest( "MyTestSuite.h", 81, "EnergyTransmitterTest", suite_EnergyTransmitterTest, Tests_EnergyTransmitterTest );
 
 static class TestDescription_suite_EnergyTransmitterTest_testEnergyTransmitter : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyTransmitterTest_testEnergyTransmitter() : CxxTest::RealTestDescription( Tests_EnergyTransmitterTest, suiteDescription_EnergyTransmitterTest, 89, "testEnergyTransmitter" ) {}
+ TestDescription_suite_EnergyTransmitterTest_testEnergyTransmitter() : CxxTest::RealTestDescription( Tests_EnergyTransmitterTest, suiteDescription_EnergyTransmitterTest, 90, "testEnergyTransmitter" ) {}
  void runTest() { suite_EnergyTransmitterTest.testEnergyTransmitter(); }
 } testDescription_suite_EnergyTransmitterTest_testEnergyTransmitter;
 
 static RockTest suite_RockTest;
 
 static CxxTest::List Tests_RockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_RockTest( "MyTestSuite.h", 105, "RockTest", suite_RockTest, Tests_RockTest );
+CxxTest::StaticSuiteDescription suiteDescription_RockTest( "MyTestSuite.h", 106, "RockTest", suite_RockTest, Tests_RockTest );
 
 static class TestDescription_suite_RockTest_testRock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_RockTest_testRock() : CxxTest::RealTestDescription( Tests_RockTest, suiteDescription_RockTest, 114, "testRock" ) {}
+ TestDescription_suite_RockTest_testRock() : CxxTest::RealTestDescription( Tests_RockTest, suiteDescription_RockTest, 115, "testRock" ) {}
  void runTest() { suite_RockTest.testRock(); }
 } testDescription_suite_RockTest_testRock;
 
 static EnergyBarTest suite_EnergyBarTest;
 
 static CxxTest::List Tests_EnergyBarTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_EnergyBarTest( "MyTestSuite.h", 127, "EnergyBarTest", suite_EnergyBarTest, Tests_EnergyBarTest );
+CxxTest::StaticSuiteDescription suiteDescription_EnergyBarTest( "MyTestSuite.h", 128, "EnergyBarTest", suite_EnergyBarTest, Tests_EnergyBarTest );
 
 static class TestDescription_suite_EnergyBarTest_testEnergyBar : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBarTest_testEnergyBar() : CxxTest::RealTestDescription( Tests_EnergyBarTest, suiteDescription_EnergyBarTest, 137, "testEnergyBar" ) {}
+ TestDescription_suite_EnergyBarTest_testEnergyBar() : CxxTest::RealTestDescription( Tests_EnergyBarTest, suiteDescription_EnergyBarTest, 138, "testEnergyBar" ) {}
  void runTest() { suite_EnergyBarTest.testEnergyBar(); }
 } testDescription_suite_EnergyBarTest_testEnergyBar;
 
 static ButtonTest suite_ButtonTest;
 
 static CxxTest::List Tests_ButtonTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ButtonTest( "MyTestSuite.h", 151, "ButtonTest", suite_ButtonTest, Tests_ButtonTest );
+CxxTest::StaticSuiteDescription suiteDescription_ButtonTest( "MyTestSuite.h", 152, "ButtonTest", suite_ButtonTest, Tests_ButtonTest );
 
 static class TestDescription_suite_ButtonTest_testButton : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ButtonTest_testButton() : CxxTest::RealTestDescription( Tests_ButtonTest, suiteDescription_ButtonTest, 161, "testButton" ) {}
+ TestDescription_suite_ButtonTest_testButton() : CxxTest::RealTestDescription( Tests_ButtonTest, suiteDescription_ButtonTest, 162, "testButton" ) {}
  void runTest() { suite_ButtonTest.testButton(); }
 } testDescription_suite_ButtonTest_testButton;
 
 static AcidTest suite_AcidTest;
 
 static CxxTest::List Tests_AcidTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_AcidTest( "MyTestSuite.h", 174, "AcidTest", suite_AcidTest, Tests_AcidTest );
+CxxTest::StaticSuiteDescription suiteDescription_AcidTest( "MyTestSuite.h", 175, "AcidTest", suite_AcidTest, Tests_AcidTest );
 
 static class TestDescription_suite_AcidTest_testAcid : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_AcidTest_testAcid() : CxxTest::RealTestDescription( Tests_AcidTest, suiteDescription_AcidTest, 184, "testAcid" ) {}
+ TestDescription_suite_AcidTest_testAcid() : CxxTest::RealTestDescription( Tests_AcidTest, suiteDescription_AcidTest, 185, "testAcid" ) {}
  void runTest() { suite_AcidTest.testAcid(); }
 } testDescription_suite_AcidTest_testAcid;
 
 static OutOfRangeTest suite_OutOfRangeTest;
 
 static CxxTest::List Tests_OutOfRangeTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_OutOfRangeTest( "MyTestSuite.h", 197, "OutOfRangeTest", suite_OutOfRangeTest, Tests_OutOfRangeTest );
+CxxTest::StaticSuiteDescription suiteDescription_OutOfRangeTest( "MyTestSuite.h", 198, "OutOfRangeTest", suite_OutOfRangeTest, Tests_OutOfRangeTest );
 
 static class TestDescription_suite_OutOfRangeTest_testOutOfRange : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_OutOfRangeTest_testOutOfRange() : CxxTest::RealTestDescription( Tests_OutOfRangeTest, suiteDescription_OutOfRangeTest, 207, "testOutOfRange" ) {}
+ TestDescription_suite_OutOfRangeTest_testOutOfRange() : CxxTest::RealTestDescription( Tests_OutOfRangeTest, suiteDescription_OutOfRangeTest, 208, "testOutOfRange" ) {}
  void runTest() { suite_OutOfRangeTest.testOutOfRange(); }
 } testDescription_suite_OutOfRangeTest_testOutOfRange;
 
 static ChellTest suite_ChellTest;
 
 static CxxTest::List Tests_ChellTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ChellTest( "MyTestSuite.h", 234, "ChellTest", suite_ChellTest, Tests_ChellTest );
+CxxTest::StaticSuiteDescription suiteDescription_ChellTest( "MyTestSuite.h", 235, "ChellTest", suite_ChellTest, Tests_ChellTest );
 
 static class TestDescription_suite_ChellTest_testChellInit : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellInit() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 245, "testChellInit" ) {}
+ TestDescription_suite_ChellTest_testChellInit() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 246, "testChellInit" ) {}
  void runTest() { suite_ChellTest.testChellInit(); }
 } testDescription_suite_ChellTest_testChellInit;
 
 static class TestDescription_suite_ChellTest_testChellFalls : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellFalls() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 259, "testChellFalls" ) {}
+ TestDescription_suite_ChellTest_testChellFalls() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 260, "testChellFalls" ) {}
  void runTest() { suite_ChellTest.testChellFalls(); }
 } testDescription_suite_ChellTest_testChellFalls;
 
 static class TestDescription_suite_ChellTest_testChellMovesRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellMovesRight() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 281, "testChellMovesRight" ) {}
+ TestDescription_suite_ChellTest_testChellMovesRight() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 282, "testChellMovesRight" ) {}
  void runTest() { suite_ChellTest.testChellMovesRight(); }
 } testDescription_suite_ChellTest_testChellMovesRight;
 
 static class TestDescription_suite_ChellTest_testChellMovesLeft : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellMovesLeft() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 306, "testChellMovesLeft" ) {}
+ TestDescription_suite_ChellTest_testChellMovesLeft() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 307, "testChellMovesLeft" ) {}
  void runTest() { suite_ChellTest.testChellMovesLeft(); }
 } testDescription_suite_ChellTest_testChellMovesLeft;
 
 static class TestDescription_suite_ChellTest_testChellJumps : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellTest_testChellJumps() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 331, "testChellJumps" ) {}
+ TestDescription_suite_ChellTest_testChellJumps() : CxxTest::RealTestDescription( Tests_ChellTest, suiteDescription_ChellTest, 332, "testChellJumps" ) {}
  void runTest() { suite_ChellTest.testChellJumps(); }
 } testDescription_suite_ChellTest_testChellJumps;
 
@@ -227,45 +227,39 @@ static MovingRockTest suite_MovingRockTest;
 static CxxTest::List Tests_MovingRockTest = { 0, 0 };
 CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h", 601, "MovingRockTest", suite_MovingRockTest, Tests_MovingRockTest );
 
-static class TestDescription_suite_MovingRockTest_testRockBlockNoGravity : public CxxTest::RealTestDescription {
+static class TestDescription_suite_MovingRockTest_testRockBlockHasGravity : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockNoGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 610, "testRockBlockNoGravity" ) {}
- void runTest() { suite_MovingRockTest.testRockBlockNoGravity(); }
-} testDescription_suite_MovingRockTest_testRockBlockNoGravity;
+ TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 610, "testRockBlockHasGravity" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockHasGravity(); }
+} testDescription_suite_MovingRockTest_testRockBlockHasGravity;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 625, "testRockBlockMovesRight" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 632, "testRockBlockMovesRight" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesRight;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesLeft : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 650, "testRockBlockMovesLeft" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 661, "testRockBlockMovesLeft" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesLeft;
 
-static class TestDescription_suite_MovingRockTest_testRockBlockMovesUp : public CxxTest::RealTestDescription {
+static class TestDescription_suite_MovingRockTest_testWhenChellGrabsRockItDoesntFall : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesUp() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 675, "testRockBlockMovesUp" ) {}
- void runTest() { suite_MovingRockTest.testRockBlockMovesUp(); }
-} testDescription_suite_MovingRockTest_testRockBlockMovesUp;
-
-static class TestDescription_suite_MovingRockTest_testRockBlockMovesDown : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesDown() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 701, "testRockBlockMovesDown" ) {}
- void runTest() { suite_MovingRockTest.testRockBlockMovesDown(); }
-} testDescription_suite_MovingRockTest_testRockBlockMovesDown;
+ TestDescription_suite_MovingRockTest_testWhenChellGrabsRockItDoesntFall() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 690, "testWhenChellGrabsRockItDoesntFall" ) {}
+ void runTest() { suite_MovingRockTest.testWhenChellGrabsRockItDoesntFall(); }
+} testDescription_suite_MovingRockTest_testWhenChellGrabsRockItDoesntFall;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 726, "testRockBlockDownloadsRight" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 715, "testRockBlockDownloadsRight" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockDownloadsRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockDownloadsRight;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 743, "testRockBlockDownloadsRightInBlock" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 742, "testRockBlockDownloadsRightInBlock" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockDownloadsRightInBlock(); }
 } testDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock;
 

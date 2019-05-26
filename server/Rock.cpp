@@ -10,8 +10,6 @@
 #include "MoveUp.h"
 #include "MoveDown.h"
 
-#define rockForce 5
-
 Rock::Rock(b2Body* body):
     dynamic(body) {
     this->body = body;
@@ -45,11 +43,11 @@ void Rock::stop() {
 
 void Rock::destroyActualMovement() {
     delete this->actual_movement;
-};
+}
 
 void Rock::update() {
     eliminateGravity();
-    this->actual_movement->move(rockForce);
+    this->actual_movement->move(gameConfiguration.rockForce);
 }
 
 void Rock::eliminateGravity() {

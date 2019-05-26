@@ -601,24 +601,34 @@ public:
 class MovingRockTest :  public CxxTest::TestSuite {
     size_t width_stage = 1000;
     size_t height_stage = 1000;
-    size_t initial_position_x = 500;
-    size_t initial_position_y = 500;
-    size_t side = 10;
-    size_t mass = side * side;
+    size_t initial_pos_x_chell = 500;
+    size_t initial_pos_y = 500;
+    size_t initial_pos_x_rock = 520;
+    size_t side_rock = 10;
+    size_t mass_rock = side_rock * side_rock;
+    size_t side_chell = 2;
+    size_t mass_chell = side_chell * side_chell;
 
 public:
-    void testRockBlockNoGravity() {
-        std::cout << "Testing that the rock doesn't have gravity" << std::endl;
+    void testRockBlockHasGravity() {
+        std::cout << "Testing that the rock has gravity" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate = new Coordinate(initial_pos_x_rock, initial_pos_y);
         Rock* rock = stage.getRock(coordinate);
 
-        for (size_t i = 0; i < 12000; i++) {
+        float dt = 1.0f/60.0f;
+        float gravity = gameConfiguration.gravity;
+        float velocity_y = 0;
+        float position = initial_pos_y;
+
+        for (size_t i = 0; i < 120; i++) {
             stage.step();
-            TS_ASSERT_EQUALS(rock->getVerticalVelocity(), 0);
-            TS_ASSERT_EQUALS(rock->getVerticalPosition(), initial_position_y);
+            velocity_y += gravity * dt;
+            position += velocity_y * dt;
+            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 0.1f);
         }
     }
 
@@ -626,24 +636,29 @@ public:
         std::cout << "Testing that the rock block moves right" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Rock* rock = stage.getRock(coordinate);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate_chell);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_rock);
 
-        rock->moveRight();
+        chell->grabRock(rock);
+        chell->moveRight();
 
         float dt = 1.0f/60.0f;
-        float velocity_x = 0;
-        float position = initial_position_x;
-        float force = 5;
-        float acceleration = force / mass;
+
+        float velocity_x_rock = 0;
+        float position_rock = initial_pos_x_rock;
+        float force_rock = gameConfiguration.rockForce;
+        float acceleration_rock = force_rock / mass_rock;
 
         for (size_t i = 0; i < 120; i++) {
             stage.step();
-            velocity_x += acceleration * dt;
-            position += velocity_x * dt;
-            TS_ASSERT_DELTA(position, rock->getHorizontalPosition(), 0.1f);
-            TS_ASSERT_DELTA(velocity_x, rock->getHorizontalVelocity(), 0.1f);
+            velocity_x_rock += acceleration_rock * dt;
+            position_rock += velocity_x_rock * dt;
+            TS_ASSERT_DELTA(position_rock, rock->getHorizontalPosition(), 0.2f);
+            TS_ASSERT_DELTA(velocity_x_rock, rock->getHorizontalVelocity(), 0.1f);
         }
     }
 
@@ -651,110 +666,115 @@ public:
         std::cout << "Testing that the rock block moves left" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Rock* rock = stage.getRock(coordinate);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate_chell);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_rock);
 
-        rock->moveLeft();
+        chell->grabRock(rock);
+        chell->moveLeft();
 
         float dt = 1.0f/60.0f;
-        float velocity_x = 0;
-        float position = initial_position_x;
-        float force = -5;
-        float acceleration = force / mass;
+
+        float velocity_x_rock = 0;
+        float position_rock = initial_pos_x_rock;
+        float force_rock = -gameConfiguration.rockForce;
+        float acceleration_rock = force_rock / mass_rock;
 
         for (size_t i = 0; i < 120; i++) {
             stage.step();
-            velocity_x += acceleration * dt;
-            position += velocity_x * dt;
-            TS_ASSERT_DELTA(position, rock->getHorizontalPosition(), 0.1f);
-            TS_ASSERT_DELTA(velocity_x, rock->getHorizontalVelocity(), 0.1f);
+            velocity_x_rock += acceleration_rock * dt;
+            position_rock += velocity_x_rock * dt;
+            TS_ASSERT_DELTA(position_rock, rock->getHorizontalPosition(), 0.2f);
+            TS_ASSERT_DELTA(velocity_x_rock, rock->getHorizontalVelocity(), 0.1f);
         }
     }
 
-    void testRockBlockMovesUp() {
-        std::cout << "Testing that the rock block moves up" << std::endl;
+    void testWhenChellGrabsRockItDoesntFall() {
+        std::cout << "Testing that when chell grabs a rock it doesn't fall" << std::endl;
+
+        initial_pos_y = 50;
 
         Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Rock* rock = stage.getRock(coordinate);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_2 = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_2);
 
-        rock->moveUp();
+        chell->grabRock(rock);
 
-        float dt = 1.0f/60.0f;
-        float force = 5;
-        float velocity_y = 0;
-        float position = initial_position_y;
-        float acceleration = force / mass;
-
-        for (size_t i = 0; i < 1200; i++) {
+        for (size_t i = 0; i < 30000; i++) {
+            TS_ASSERT_EQUALS(rock->getVerticalPosition(), initial_pos_y);
+            TS_ASSERT_EQUALS(rock->getHorizontalPosition(), initial_pos_x_rock);
             stage.step();
-            velocity_y += acceleration * dt;
-            position += velocity_y * dt;
-            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 3.5f);
-            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 3.5f);
         }
     }
 
-
-    void testRockBlockMovesDown() {
-        std::cout << "Testing that the rock block moves down" << std::endl;
-
-        Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Rock* rock = stage.getRock(coordinate);
-
-        rock->moveDown();
-
-        float dt = 1.0f/60.0f;
-        float force = -5;
-        float velocity_y = rock->getVerticalVelocity();
-        float position = rock->getVerticalPosition();
-        float acceleration = force / mass;
-
-        for (size_t i = 0; i < 1200; i++) {
-            stage.step();
-            velocity_y += acceleration * dt;
-            position += velocity_y * dt;
-            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 3.5f);
-            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 3.5f);
-        }
-    }
 
     void testRockBlockDownloadsRight() {
         std::cout << "Testing that the rock downloads OK" << std::endl;
 
-        /*Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Rock* rock = stage.getRock(coordinate);
+        initial_pos_y = 50;
 
-        rock->downloadToEarth();
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate_chell);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_rock);
 
-        for (size_t i = 0; i < 120000; i++) {
+        chell->grabRock(rock);
+        chell->downloadRock();
+
+        float initial_pos_x = initial_pos_x_rock;
+        float pos_old = rock->getVerticalPosition();
+
+        for (size_t i = 0; i < 30000; i++) {
             stage.step();
+            float pos_actual = rock->getVerticalPosition();
+
+            TS_ASSERT_EQUALS(pos_actual <= pos_old, true);
+            TS_ASSERT_EQUALS(rock->getHorizontalPosition(), initial_pos_x);
+            pos_old = rock->getVerticalPosition();
         }
-        TS_ASSERT_DELTA(rock->getVerticalPosition(), 5, 0.1);*/
+        TS_ASSERT_DELTA(rock->getVerticalPosition(), 5, 0.1);
     }
 
 
     void testRockBlockDownloadsRightInBlock() {
         std::cout << "Testing that the rock downloads OK in blocks" << std::endl;
 
-       /* Stage stage(width_stage, height_stage);
-        stage.addRock(side, initial_position_x, initial_position_y);
-        stage.addMetalBlock(side, initial_position_x, initial_position_y - 20);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Rock* rock = stage.getRock(coordinate);
+        initial_pos_y = 50;
 
-        rock->downloadToEarth();
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate_chell);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_rock);
+        stage.addMetalBlock(side_rock, initial_pos_x_rock, initial_pos_y - 20);
 
-        for (size_t i = 0; i < 120000; i++) {
+        chell->grabRock(rock);
+        chell->downloadRock();
+
+        float initial_pos_x = initial_pos_x_rock;
+        float pos_old = rock->getVerticalPosition();
+
+        for (size_t i = 0; i < 30000; i++) {
             stage.step();
+            float pos_actual = rock->getVerticalPosition();
+
+            TS_ASSERT_EQUALS(pos_actual <= pos_old, true);
+            TS_ASSERT_EQUALS(rock->getHorizontalPosition(), initial_pos_x);
+            pos_old = rock->getVerticalPosition();
         }
-        TS_ASSERT_DELTA(rock->getVerticalPosition(), initial_position_y - 10, 0.1);*/
+        TS_ASSERT_DELTA(rock->getVerticalPosition(), initial_pos_y - 10, 0.1);
     }
 };
 #endif

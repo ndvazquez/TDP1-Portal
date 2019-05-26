@@ -252,7 +252,7 @@ void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>(end - timeStamp).count();
-    if (difference <= 1000 / 60) return;
+    //if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
@@ -268,13 +268,9 @@ void Stage::step() {
         }
     }
 
-    for (auto i = rocks.begin(); i != rocks.end(); i++) {
-        i->second->update(); //to move right, left and stuff
-    }
-
     float timeStep = 1.0f / 60;
     int velocityIterations = 8;
-    int positionIterations = 3;
+    int positionIterations = 2;
     world->Step(timeStep, velocityIterations, positionIterations);
 }
 
