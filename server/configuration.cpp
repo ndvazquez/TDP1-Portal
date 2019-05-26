@@ -6,11 +6,11 @@
 
 
 struct box2DConfiguration gameConfiguration = {
-        .chellForce = 250,
+        .chellForce = 275,
         .death = 1200,
         .deltaError = 0.01,
         .energyBallImpulseFactor = 10,
         .chellInitialVelocity = 4,
-        .gravityJump = -6,
+        .gravityJump = -5,
         .gravity = -10
 };

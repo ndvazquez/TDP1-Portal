@@ -125,8 +125,6 @@ void drawEnergyBall(){
     Coordinate* coordinate = new Coordinate(x, y);
     EnergyBall* energyBall = stage.getEnergyBall(coordinate);
 
-    energyBall->fly();
-
     bool quit = false;
     SDL_Event e;
 
@@ -137,6 +135,9 @@ void drawEnergyBall(){
             }
         }
         stage.step();
+
+        if (energyBall->isDead()) std::cout << "Nico! Haceme morir" << std::endl;
+
         float newPosX = energyBall->getHorizontalPosition();
         float newPosY = energyBall->getVerticalPosition();
         energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
@@ -219,6 +220,7 @@ int main(int argc, char* argv[]){
 
     drawChellWithBox2D();
     drawEnergyBall();
+
     //drawAcidPool();
     //drawBullet();
 }

@@ -264,9 +264,13 @@ void Stage::step() {
             i->second->fly();
         }
         catch(...) {
-            energy_balls.erase(i->first);
+            {
+                energy_balls.erase(i->first);
+                break;
+            }
         }
     }
+
 
     for (auto i = rocks.begin(); i != rocks.end(); i++) {
         i->second->update(); //to move right, left and stuff
