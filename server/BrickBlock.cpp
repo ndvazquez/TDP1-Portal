@@ -2,9 +2,9 @@
 // Created by cecix on 13/05/19.
 //
 
-#include <iostream>
 #include "BrickBlock.h"
 #include "EnergyBall.h"
+#include "Chell.h"
 
 #define brickBlockType "BrickBlock"
 
@@ -23,7 +23,11 @@ float BrickBlock::getVerticalPosition() {
 }
 
 void BrickBlock::handleCollision(Entity* entity) {
-    if (entity->getType() == "EnergyBall") {
+    std::string type = entity->getType();
+    if (type == "EnergyBall") {
         static_cast<EnergyBall*>(entity)->die();
+    }
+    if (type == "Chell") {
+        static_cast<Chell*>(entity)->onFloor(true);
     }
 }

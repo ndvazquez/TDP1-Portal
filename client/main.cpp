@@ -76,8 +76,6 @@ void drawChellWithBox2D(){
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
-    float max = 0;
-
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -86,7 +84,7 @@ void drawChellWithBox2D(){
             chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump(yPos);
+                if (e.key.keysym.sym == SDLK_w) chell->jump();
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -94,11 +92,8 @@ void drawChellWithBox2D(){
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
 
         }
-        SDL_Delay(2); // Sleep for 2ms, because it kinda works.
         stage.step();
-        bool chellInGround = chell->inGround(yPos);
-
-        if(chell->getVerticalPosition() > max) max = chell->getVerticalPosition();
+        bool chellInGround = chell->inGround();
 
         chellView.changeJumpingStatus(!chellInGround);
         float newPosX = chell->getHorizontalPosition();
@@ -113,8 +108,6 @@ void drawChellWithBox2D(){
         newWindow.render();
     }
     delete coordinate;
-
-    std::cout << max << std::endl;
 }
 
 void drawEnergyBall(){
@@ -132,6 +125,8 @@ void drawEnergyBall(){
     Coordinate* coordinate = new Coordinate(x, y);
     EnergyBall* energyBall = stage.getEnergyBall(coordinate);
 
+    energyBall->fly();
+
     bool quit = false;
     SDL_Event e;
 
@@ -141,12 +136,11 @@ void drawEnergyBall(){
                 quit = true;
             }
         }
-        SDL_Delay(16);
         stage.step();
         float newPosX = energyBall->getHorizontalPosition();
         float newPosY = energyBall->getVerticalPosition();
-        std::cout << "EB X: " << newPosX << std::endl;
         energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
+      
         newWindow.clear();
         energyBallView.playAnimation();
         newWindow.render();
@@ -225,6 +219,6 @@ int main(int argc, char* argv[]){
 
     drawChellWithBox2D();
     drawEnergyBall();
-    drawAcidPool();
-    drawBullet();
+    //drawAcidPool();
+    //drawBullet();
 }

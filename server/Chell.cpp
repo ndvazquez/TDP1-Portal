@@ -2,17 +2,31 @@
 // Created by cecix on 18/05/19.
 //
 
+#define chellType "Chell"
+
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
 #include "MoveLeft.h"
 #include "../editor/Chell.h"
 
-
 Chell::Chell(b2Body* body):
+    Entity(chellType),
         dynamic(body) {
     this->body = body;
     this->actual_movement = new Stop(body);
+    body->SetUserData(this);
+    chell_is_on_floor = true;
+}
+
+void Chell::handleCollision(Entity* entity) {
+    std::string type = entity->getType();
+    chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
+            || type == "DiagonalMetalBlock" || type == "Floor";
+}
+
+void Chell::onFloor(bool onFloor) {
+    chell_is_on_floor = onFloor;
 }
 
 void Chell::moveRight() {
@@ -51,23 +65,20 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
-    this->actual_movement->move(chellForce);
+    this->actual_movement->move(gameConfiguration.chellForce);
 }
 
-void Chell::jump(float y0) {
-    this->dynamic.jump(y0);
+void Chell::jump() {
+    bool resul = this->dynamic.jump(chell_is_on_floor);
+    if (resul) chell_is_on_floor = false;
+
 }
 
-bool Chell::inGround(float y0) {
-    float epsilon = pow(10.5, -9);
-    // This is probably a constant or something else, but I had to rename it
-    float deltaGround = 0.05;
-
+bool Chell::inGround() {
+    float epsilon = pow(10, -7);
     bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
-    bool chell_is_in_floor = body->GetPosition().y <= y0 + deltaGround;
-
-    if (! chell_is_still && ! chell_is_in_floor) return false; //can't jump because chell is in movement
-    return true;
+    if (chell_is_still) dynamic.handleCollisions();
+    return chell_is_on_floor;
 }
 
 Chell::~Chell() {

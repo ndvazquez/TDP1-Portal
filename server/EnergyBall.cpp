@@ -29,11 +29,11 @@ void EnergyBall::changeDirection() {
 }
 
 void EnergyBall::die() {
-    life_steps = deathNumber;
+    life_steps = gameConfiguration.death;
 }
 
 bool EnergyBall::isDead() {
-    return life_steps >= deathNumber;
+    return life_steps >= gameConfiguration.death;
 }
 
 bool EnergyBall::isVertical() {

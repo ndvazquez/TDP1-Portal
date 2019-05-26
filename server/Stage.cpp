@@ -2,9 +2,6 @@
 // Created by cecix on 12/05/19.
 //
 
-# define DEGTORAD 0.0174532925199432957f
-
-#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -14,10 +11,10 @@
 #include "Acid.h"
 #include "EnergyBall.h"
 
-
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
-    b2Vec2 gravity(0.0f, -4.0f);
+    float module_gravity = gameConfiguration.gravity;
+    b2Vec2 gravity(0.0f, module_gravity);
     this->world = new b2World(gravity);
 
     // Setting initial configuration
@@ -26,9 +23,9 @@ Stage::Stage(size_t width, size_t height):
     b2PolygonShape shape;
 
     // Setting floor
-    body.position.Set(width/2, -2); //avoid creating objets in the origin
-    shape.SetAsBox(width/2, 2);
-    this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
+    b2Body* body_floor = addStaticRectangle(4, width, width/2, -2);
+    Floor* floor = new Floor(body_floor);
+    this->floor = floor;
 
     // Setting ceiling
     body.position.Set(width/2, height + 2);
@@ -44,6 +41,8 @@ Stage::Stage(size_t width, size_t height):
     body.position.Set(width + 2, height/2);
     shape.SetAsBox(2, height/2);
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
+
+    this->timeStamp = std::chrono::system_clock::now();
 }
 
 b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
@@ -251,6 +250,11 @@ void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
 }
 
 void Stage::step() {
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>(end - timeStamp).count();
+    if (difference <= 1000 / 60) return;
+    timeStamp = std::chrono::system_clock::now();
+
     for (auto i = chells.begin(); i != chells.end(); i++) {
         i->second->update();
     }
@@ -268,9 +272,9 @@ void Stage::step() {
         i->second->update(); //to move right, left and stuff
     }
 
-    float timeStep = 1.0f / 60.0f;
+    float timeStep = 1.0f / 60;
     int velocityIterations = 8;
-    int positionIterations = 2;
+    int positionIterations = 3;
     world->Step(timeStep, velocityIterations, positionIterations);
 }
 
@@ -408,5 +412,6 @@ Stage::~Stage() {
         delete i->second;
     }
 
+    delete floor;
     delete world;
 }
