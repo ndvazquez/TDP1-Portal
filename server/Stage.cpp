@@ -2,6 +2,7 @@
 // Created by cecix on 12/05/19.
 //
 
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -264,12 +265,11 @@ void Stage::step() {
             i->second->fly();
         }
         catch(...) {
-            energy_balls.erase(i->first);
+            {
+                energy_balls.erase(i->first);
+                break;
+            }
         }
-    }
-
-    for (auto i = rocks.begin(); i != rocks.end(); i++) {
-        i->second->update(); //to move right, left and stuff
     }
 
     float timeStep = 1.0f / 60;

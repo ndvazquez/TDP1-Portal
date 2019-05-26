@@ -652,11 +652,33 @@ public:
             stage.step();
         }
         TS_ASSERT_EQUALS(test_left, true);
-
     }
 
     void testChellDiesAgainstEnergyBall() {
         std::cout << "Testing that Chell dies against an energy ball" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addEnergyBallHorizontal(side_acid + 1, x_pos_acid, y_pos);
+
+        Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
+        Chell* chell = stage.getChell(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(new Coordinate(x_pos_acid, y_pos));
+
+        bool test_right = false;
+        chell->moveRight();
+
+        TS_ASSERT_EQUALS(chell->isDead(), false);
+
+        for (size_t i = 0; i < 120000; i++) {
+            if (chell->isDead()) {
+                test_right = true;
+                TS_ASSERT_EQUALS(test_right, true);
+                return;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(1, 0);
     }
 
 

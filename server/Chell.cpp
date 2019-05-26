@@ -4,6 +4,7 @@
 
 #define chellType "Chell"
 
+#include <iostream>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -26,7 +27,7 @@ void Chell::handleCollision(Entity* entity) {
             || type == "DiagonalMetalBlock" || type == "Floor") {
         chell_is_on_floor = true;
     }
-    if (type == "Acid") {
+    if (type == "Acid" || type == "EnergyBall") {
         die();
     }
 }
