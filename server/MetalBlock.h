@@ -6,8 +6,9 @@
 #define PORTAL_METALBLOCK_H
 
 #include <Box2D/Dynamics/b2Body.h>
+#include "Entity.h"
 
-class MetalBlock {
+class MetalBlock: public Entity {
 private:
     b2Body* body;
 
@@ -15,6 +16,7 @@ public:
     explicit MetalBlock(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
+    virtual void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_METALBLOCK_H

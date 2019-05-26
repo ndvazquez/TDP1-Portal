@@ -6,7 +6,6 @@
 #define PORTAL_ENERGYBALL_H
 
 #define energyBallType "EnergyBall"
-#define deathNumber 1200;
 
 #include <string>
 #include "Dynamic.h"
@@ -28,7 +27,6 @@ protected:
 
 public:
     explicit EnergyBall(b2Body* body, bool is_vertical);
-    //se que es horrendo pero sino como hago que cambie de direccion?
     void fly();
     void die();
     bool isDead();

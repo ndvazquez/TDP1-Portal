@@ -3,9 +3,9 @@
 //
 #define diagonalMetalBlockType "DiagonalMetalBlock"
 
-#include <iostream>
 #include "DiagonalMetalBlock.h"
 #include "EnergyBall.h"
+#include "Chell.h"
 
 DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
     Entity(diagonalMetalBlockType),
@@ -16,6 +16,9 @@ DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
 void DiagonalMetalBlock::handleCollision(Entity* entity) {
     if (entity->getType() == "EnergyBall") {
         static_cast<EnergyBall*>(entity)->changeDirection();
+    }
+    if (type == "Chell") {
+        static_cast<Chell*>(entity)->onFloor(true);
     }
 }
 

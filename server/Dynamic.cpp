@@ -9,7 +9,8 @@
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
-    impulse = body->GetMass() * impulseFactor;
+    float energy_ball_factor = gameConfiguration.energyBallImpulseFactor;
+    this->energy_ball_impulse = body->GetMass() * energy_ball_factor;
 }
 
 void Dynamic::move(float force) {
@@ -61,52 +62,46 @@ bool Dynamic::handleCollisions() {
 }
 
 void Dynamic::flyHorizontal() {
-    //Eliminate gravity
-    float mass = body->GetMass();
-    float gravity = -1;
-    float force_y = - (mass * gravity);
-    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+    eliminateGravity();
 
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
     if (handleCollisions()) {
-        impulse = -impulse;
-        body->ApplyLinearImpulse(b2Vec2(impulse, 0),
+        energy_ball_impulse = -energy_ball_impulse;
+        body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
     } else {
-        body->ApplyLinearImpulse(b2Vec2(impulse, 0),
+        body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
     }
 }
 
 void Dynamic::flyVertical() {
     //Eliminate gravity
-    float mass = body->GetMass();
-    float gravity = -1;
-    float force_y = - (mass * gravity);
-    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
+    eliminateGravity();
 
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
     if (handleCollisions()) {
-        impulse = -impulse;
-        body->ApplyLinearImpulse(b2Vec2(0, impulse),
+        energy_ball_impulse = -energy_ball_impulse;
+        body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     } else {
-        body->ApplyLinearImpulse(b2Vec2(0, impulse),
+        body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
 }
 
 void Dynamic::eliminateGravity() {
     float mass = body->GetMass();
-    float gravity = -1;
+    float gravity = gameConfiguration.gravity;
     float force_y = - (mass * gravity);
     body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
 
     float actual_velocity = body->GetLinearVelocity().y;
 
     //Already flying
+    float delta = gameConfiguration.deltaError;
     if (actual_velocity > delta || actual_velocity < -delta) return;
 }
 
@@ -136,18 +131,24 @@ float Dynamic::getVerticalPosition() {
     return body->GetPosition().y;
 }
 
-void Dynamic::jump(float y0) {
+void Dynamic::adjustJump() {
+    b2World* world = body->GetWorld();
+    float gravity_jump = gameConfiguration.gravityJump;
+    world->SetGravity(b2Vec2(0, gravity_jump));
+}
+
+bool Dynamic::jump(bool chellFloor) {
+    adjustJump();
 
     float epsilon = pow(10.5, -9);
-    float deltaJump = 0.05;
-
     bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
-    bool chell_is_in_floor = body->GetPosition().y <= y0 + deltaJump;
 
-    if (! chell_is_still && ! chell_is_in_floor) return; //can't jump because chell is in movement
+    if (! chell_is_still && ! chellFloor) return false;
 
+    float initialVelocity = gameConfiguration.chellInitialVelocity;
     float impulse = body->GetMass() * initialVelocity;
     body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+    return true;
 }
 
 float Dynamic::getHorizontalVelocity() {
