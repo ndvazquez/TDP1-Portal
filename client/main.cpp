@@ -136,14 +136,13 @@ void drawEnergyBall(){
         }
         stage.step();
 
-        if (energyBall->isDead()) std::cout << "Nico! Haceme morir" << std::endl;
-
         float newPosX = energyBall->getHorizontalPosition();
         float newPosY = energyBall->getVerticalPosition();
         energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
       
         newWindow.clear();
-        energyBallView.playAnimation();
+
+        if (!energyBall->isDead()) energyBallView.playAnimation();
         newWindow.render();
     }
 }
