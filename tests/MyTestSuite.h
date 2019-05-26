@@ -617,35 +617,42 @@ public:
         stage.addAcid(side_acid, side_acid, x_pos_acid, y_pos);
 
         Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
-        Chell* chell = stage.getChell(coordinates);
+        Chell* chell_right = stage.getChell(coordinates);
 
-        bool test = false;
-        chell->moveRight();
+        bool test_right = false;
+        chell_right->moveRight();
 
-        TS_ASSERT_EQUALS(chell->isDead(), false);
+        TS_ASSERT_EQUALS(chell_right->isDead(), false);
 
         for (size_t i = 0; i < 120000; i++) {
-            if (chell->isDead())  {
-                test = true;
+            if (chell_right->isDead()) {
+                test_right = true;
                 break;
             }
             stage.step();
         }
-        TS_ASSERT_EQUALS(test, true);
+        TS_ASSERT_EQUALS(test_right, true);
 
-        // Stage stage(width_stage, height_stage);
-       // stage.addBrickBlock(side_acid, x_pos_acid, y_pos);
-       // stage.addEnergyBallHorizontal(side_chell, x_pos_chell, y_pos);
-        //Coordinate* coordinate = new Coordinate(x_pos_chell, y_pos);
-        //EnergyBall* energyBall = stage.getEnergyBall(coordinate);
-        //Acid* acid = stage.getAcid(coordinate2);
+        stage.addChell(side_chell, side_chell, x_pos_acid, y_pos);
+        stage.addAcid(side_acid, side_acid, x_pos_chell, y_pos);
 
+        Coordinate* coordinate_left = new Coordinate(x_pos_acid, y_pos);
+        Chell* chell_left = stage.getChell(coordinate_left);
 
-       // for (size_t i = 0; i < 1200; i++) {
-         //   stage.step();
-            //std::cout << energyBall->getHorizontalPosition() << std::endl;
-            //std::cout << acid->getHorizontalPosition() << std::endl;
-     //   }
+        bool test_left = false;
+        chell_left->moveLeft();
+
+        TS_ASSERT_EQUALS(chell_left->isDead(), false);
+
+        for (size_t i = 0; i < 120000; i++) {
+            if (chell_left->isDead()) {
+                test_left = true;
+                break;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(test_left, true);
+
     }
 
     void testChellDiesAgainstEnergyBall() {
