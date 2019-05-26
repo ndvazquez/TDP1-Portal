@@ -3,7 +3,6 @@
 //
 #define diagonalMetalBlockType "DiagonalMetalBlock"
 
-#include <iostream>
 #include "DiagonalMetalBlock.h"
 #include "EnergyBall.h"
 #include "Chell.h"

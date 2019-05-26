@@ -4,7 +4,6 @@
 
 #define metalBlockType "MetalBlock"
 
-#include <iostream>
 #include "MetalBlock.h"
 #include "Chell.h"
 

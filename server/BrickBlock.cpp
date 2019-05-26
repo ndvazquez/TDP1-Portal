@@ -2,7 +2,6 @@
 // Created by cecix on 13/05/19.
 //
 
-#include <iostream>
 #include "BrickBlock.h"
 #include "EnergyBall.h"
 #include "Chell.h"

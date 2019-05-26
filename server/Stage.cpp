@@ -2,10 +2,6 @@
 // Created by cecix on 12/05/19.
 //
 
-# define DEGTORAD 0.0174532925199432957f
-
-#include <iostream>
-
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
