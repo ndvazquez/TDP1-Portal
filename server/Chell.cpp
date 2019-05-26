@@ -85,7 +85,6 @@ void Chell::update() {
 void Chell::jump() {
     bool resul = this->dynamic.jump(chell_is_on_floor);
     if (resul) chell_is_on_floor = false;
-    //TODO: la piedra tambien salta?
 }
 
 bool Chell::inGround() {

@@ -653,12 +653,23 @@ public:
         float force_rock = gameConfiguration.rockForce;
         float acceleration_rock = force_rock / mass_rock;
 
+        float velocity_x_chell = 0;
+        float position_chell = initial_pos_x_chell;
+        float force_chell = gameConfiguration.chellForce;
+        float acceleration_chell = force_chell / mass_chell;
+
         for (size_t i = 0; i < 120; i++) {
             stage.step();
+
             velocity_x_rock += acceleration_rock * dt;
             position_rock += velocity_x_rock * dt;
             TS_ASSERT_DELTA(position_rock, rock->getHorizontalPosition(), 0.2f);
             TS_ASSERT_DELTA(velocity_x_rock, rock->getHorizontalVelocity(), 0.1f);
+
+            if (velocity_x_chell <= 0.5) velocity_x_chell += acceleration_chell * dt;
+            position_chell += velocity_x_chell * dt;
+            TS_ASSERT_DELTA(position_chell, chell->getHorizontalPosition(), 0.2f);
+            TS_ASSERT_DELTA(velocity_x_chell, chell->getHorizontalVelocity(), 0.1f);
         }
     }
 
@@ -683,12 +694,22 @@ public:
         float force_rock = -gameConfiguration.rockForce;
         float acceleration_rock = force_rock / mass_rock;
 
+        float velocity_x_chell = 0;
+        float position_chell = initial_pos_x_chell;
+        float force_chell = -gameConfiguration.chellForce;
+        float acceleration_chell = force_chell / mass_chell;
+
         for (size_t i = 0; i < 120; i++) {
             stage.step();
             velocity_x_rock += acceleration_rock * dt;
             position_rock += velocity_x_rock * dt;
             TS_ASSERT_DELTA(position_rock, rock->getHorizontalPosition(), 0.2f);
             TS_ASSERT_DELTA(velocity_x_rock, rock->getHorizontalVelocity(), 0.1f);
+
+            if (velocity_x_chell >= -0.5) velocity_x_chell += acceleration_chell * dt;
+            position_chell += velocity_x_chell * dt;
+            TS_ASSERT_DELTA(position_chell, chell->getHorizontalPosition(), 0.2f);
+            TS_ASSERT_DELTA(velocity_x_chell, chell->getHorizontalVelocity(), 0.1f);
         }
     }
 
