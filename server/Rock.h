@@ -7,12 +7,14 @@
 
 #include <Box2D/Dynamics/b2Body.h>
 #include "Dynamic.h"
+#include "Entity.h"
 
-class Rock {
+class Rock: public Entity {
 private:
     Dynamic dynamic;
     b2Body* body;
     Dynamic* actual_movement;
+    bool collyding;
 
 public:
     explicit Rock(b2Body* body);
@@ -24,11 +26,10 @@ public:
     void downloadToEarth();
     void moveRight();
     void moveLeft();
-    void moveDown();
-    void moveUp();
     void stop();
     void destroyActualMovement();
     void update();
+    virtual void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_ROCK_H

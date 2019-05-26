@@ -38,4 +38,5 @@ MyTestSuite.h:
 
 3. Rebuild proyect in Clion and run the executable "Test" generated in TDP1-Portal
 
+4. Comment the line in Stage that makes time realistic
 

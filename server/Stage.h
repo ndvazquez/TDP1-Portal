@@ -55,7 +55,7 @@ public:
     ~Stage();
     b2Body* addStaticRectangle(size_t v_side, size_t h_side,
             float x_pos, float y_pos);
-    b2Body* addDynamicRectangle(size_t v_side, size_t h_side,
+    b2Body* addDynamicRectangle(float v_side, float h_side,
             float x_pos, float y_pos);
 
     void addBrickBlock(size_t side, float x_pos, float y_pos);
@@ -63,13 +63,13 @@ public:
     void addDiagonalMetalBlock(size_t side, float x_pos,
             float y_pos);
     void addEnergyTransmitter(size_t side, float x_pos, float y_pos);
-    void addRock(size_t side, float x_pos, float y_pos);
+    void addRock(float side, float x_pos, float y_pos);
     void addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    void addChell(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    void addEnergyBallHorizontal(size_t side, float x_pos, float y_pos);
-    void addEnergyBallVertical(size_t side, float x_pos, float y_pos);
+    void addChell(float v_side, float h_side, float x_pos, float y_pos);
+    void addEnergyBallHorizontal(float side, float x_pos, float y_pos);
+    void addEnergyBallVertical(float side, float x_pos, float y_pos);
     void step();
 
     BrickBlock* getBrickBlock(Coordinate* coordinate);

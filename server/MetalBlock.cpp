@@ -4,6 +4,7 @@
 
 #define metalBlockType "MetalBlock"
 
+#include <iostream>
 #include "MetalBlock.h"
 #include "Chell.h"
 
@@ -22,7 +23,11 @@ float MetalBlock::getVerticalPosition() {
 }
 
 void MetalBlock::handleCollision(Entity* entity) {
+    std::string type = entity->getType();
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
+    }
+    if (type == "Rock") {
+        std::cout << "choco con roca!" << std::endl;
     }
 }

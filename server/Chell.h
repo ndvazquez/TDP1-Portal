@@ -8,6 +8,7 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include "Dynamic.h"
 #include "Entity.h"
+#include "Rock.h"
 
 class Chell: public Entity {
 private:
@@ -15,6 +16,7 @@ private:
     b2Body* body;
     Dynamic* actual_movement;
     bool chell_is_on_floor;
+    Rock* rock;
 
 public:
     explicit Chell(b2Body* body);
@@ -33,6 +35,8 @@ public:
     bool inGround();
     virtual void handleCollision(Entity* entity) override;
     void onFloor(bool onFloor);
+    void grabRock(Rock* rock);
+    void downloadRock();
 };
 
 #endif //PORTAL_CHELL_H
