@@ -601,18 +601,39 @@ public:
 class ChellDiesTest :  public CxxTest::TestSuite {
     size_t width_stage = 500;
     size_t height_stage = 500;
-    size_t x_pos_chell = 500;
-    size_t y_pos = 500;
-    size_t x_pos_acid = x_pos_chell + 5;
+    size_t x_pos_chell = 1;
+    size_t y_pos = 1;
+    size_t x_pos_acid = 4;
     size_t side_chell = 2;
-    size_t side_acid = 10;
+    size_t side_acid = 1;
 
 
 public:
     void testChellDiesAgainstAcid() {
         std::cout << "Testing that Chell dies against acid" << std::endl;
 
-       // Stage stage(width_stage, height_stage);
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addAcid(side_acid, side_acid, x_pos_acid, y_pos);
+
+        Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
+        Chell* chell = stage.getChell(coordinates);
+
+        bool test = false;
+        chell->moveRight();
+
+        TS_ASSERT_EQUALS(chell->isDead(), false);
+
+        for (size_t i = 0; i < 120000; i++) {
+            if (chell->isDead())  {
+                test = true;
+                break;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(test, true);
+
+        // Stage stage(width_stage, height_stage);
        // stage.addBrickBlock(side_acid, x_pos_acid, y_pos);
        // stage.addEnergyBallHorizontal(side_chell, x_pos_chell, y_pos);
         //Coordinate* coordinate = new Coordinate(x_pos_chell, y_pos);

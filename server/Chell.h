@@ -15,6 +15,7 @@ private:
     b2Body* body;
     Dynamic* actual_movement;
     bool chell_is_on_floor;
+    bool dead;
 
 public:
     explicit Chell(b2Body* body);
@@ -31,6 +32,8 @@ public:
     float getHorizontalVelocity();
     float getVerticalVelocity();
     bool inGround();
+    void die();
+    bool isDead();
     virtual void handleCollision(Entity* entity) override;
     void onFloor(bool onFloor);
 };

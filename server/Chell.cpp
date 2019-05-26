@@ -17,12 +17,26 @@ Chell::Chell(b2Body* body):
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     chell_is_on_floor = true;
+    dead = false;
 }
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-            || type == "DiagonalMetalBlock" || type == "Floor";
+    if (type == "MetalBlock" || type == "BrickBlock"
+            || type == "DiagonalMetalBlock" || type == "Floor") {
+        chell_is_on_floor = true;
+    }
+    if (type == "Acid") {
+        die();
+    }
+}
+
+void Chell::die() {
+    dead = true;
+}
+
+bool Chell::isDead() {
+    return dead;
 }
 
 void Chell::onFloor(bool onFloor) {
@@ -65,6 +79,7 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
+    this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
 }
 
