@@ -9,19 +9,15 @@
 #include "../common/Window.h"
 #include <string>
 #include <yaml-cpp/yaml.h>
+#include "View.h"
+
 #define TEXTURES_EB_KEY "EnergyBall"
-class EnergyBallView {
-    Window& window;
+class EnergyBallView : public View {
     AnimatedSprite* animation;
-    int energyBallWidth;
-    int energyBallHeight;
-    int xPos;
-    int yPos;
 public:
-    EnergyBallView(Window &window, int xPos, int yPos, YAML::Node texturesData);
+    EnergyBallView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~EnergyBallView();
     void playAnimation();
-    void move(int newPosX, int newPosY);
 };
 
 

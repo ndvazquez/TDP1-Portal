@@ -9,21 +9,15 @@
 #include <yaml-cpp/node/node.h>
 #include "../common/Window.h"
 #include "../common/AnimatedSprite.h"
-
+#include "View.h"
 #define TEXTURES_ACID_KEY "Acid"
 
-class AcidView {
-    Window& window;
+class AcidView : public View{
     AnimatedSprite* animation;
-    int acidWidth;
-    int acidHeight;
-    int xPos;
-    int yPos;
 public:
-    AcidView(Window &window, int xPos, int yPos, YAML::Node texturesData);
+    AcidView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~AcidView();
     void playAnimation();
-    void move(int newPosX, int newPosY);
 };
 
 

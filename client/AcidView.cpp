@@ -4,29 +4,22 @@
 
 #include "AcidView.h"
 
-AcidView::AcidView(Window &window, int xPos, int yPos,
+AcidView::AcidView(Window &window, int xPos, int yPos, int factor,
                                YAML::Node texturesData) :
-        window(window),
-        xPos(xPos),
-        yPos(yPos) {
+                               View(window, xPos, yPos, factor) {
     YAML::Node animationData = texturesData[TEXTURES_ACID_KEY];
     std::string path = animationData["path"].as<std::string>();
     int totalFrames = animationData["frames"].as<int>();
     animation = new AnimatedSprite(path, window, totalFrames);
-    acidHeight = animation->getHeight();
-    acidWidth = animation->getWidth();
+    viewHeight = animation->getHeight();
+    viewWidth = animation->getWidth();
 }
 
 AcidView::~AcidView(){
     delete animation;
 }
 
-void AcidView::move(int newPosX, int newPosY) {
-    xPos = newPosX;
-    yPos = newPosY;
-}
-
 void AcidView::playAnimation() {
-    animation->draw(xPos, yPos);
+    animation->draw(viewPosX, viewPosY);
     animation->updateFrameStep();
 }

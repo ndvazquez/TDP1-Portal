@@ -3,30 +3,28 @@
 //
 
 #include "EnergyBallView.h"
+#include "../common/AnimatedSprite.h"
+#include "../common/Window.h"
+#include <string>
+#include <yaml-cpp/yaml.h>
+#include "View.h"
 
-EnergyBallView::EnergyBallView(Window &window, int xPos, int yPos,
+EnergyBallView::EnergyBallView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :
-        window(window),
-        xPos(xPos),
-        yPos(yPos) {
+        View(window, xPos, yPos, factor) {
     YAML::Node animationData = texturesData[TEXTURES_EB_KEY];
     std::string path = animationData["path"].as<std::string>();
     int totalFrames = animationData["frames"].as<int>();
     animation = new AnimatedSprite(path, window, totalFrames);
-    energyBallHeight = animation->getHeight();
-    energyBallWidth = animation->getWidth();
+    viewHeight = animation->getHeight();
+    viewWidth = animation->getWidth();
 }
 
 EnergyBallView::~EnergyBallView() {
     delete animation;
 }
 
-void EnergyBallView::move(int newPosX, int newPosY) {
-    xPos = newPosX;
-    yPos = newPosY;
-}
-
 void EnergyBallView::playAnimation() {
-    animation->draw(xPos, yPos);
+    animation->draw(viewPosX, viewPosY);
     animation->updateFrameStep();
 }
