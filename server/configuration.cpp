@@ -1,3 +1,4 @@
+
 //
 // Created by cecix on 25/05/19.
 //
@@ -12,5 +13,6 @@ struct box2DConfiguration gameConfiguration = {
         .energyBallImpulseFactor = 10,
         .chellInitialVelocity = 4,
         .gravityJump = -6,
-        .gravity = -10
+        .gravity = -10,
+        .rockForce = 50
 };

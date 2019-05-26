@@ -684,6 +684,22 @@ public:
 
     void testChellDiesWhenARockFallsOnHer() {
         std::cout << "Testing that Chell dies when a rock falls on her" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, 1);
+        stage.addRock(side_acid + 1, x_pos_chell, 20);
+
+        Coordinate* coordinates = new Coordinate(x_pos_chell, 1);
+        Chell* chell = stage.getChell(coordinates);
+
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+            if (chell->isDead()) {
+                TS_ASSERT_EQUALS(chell->isDead(), true);
+                return;
+            }
+        }
+        TS_ASSERT_EQUALS(1, 0);
     }
 
 };

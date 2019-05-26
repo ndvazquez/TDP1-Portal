@@ -72,8 +72,6 @@ set(SERVER_SOURCE_FILES
         server/Stop.cpp
         server/EnergyBall.cpp
         server/Entity.cpp
-        server/MoveUp.cpp
-        server/MoveDown.cpp
         server/configuration.cpp
         server/Floor.cpp)
 

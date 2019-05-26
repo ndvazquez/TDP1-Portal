@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 
 #include "EnergyBall.h"
 #include "Chell.h"

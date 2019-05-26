@@ -10,6 +10,7 @@
 #include "Stop.h"
 #include "MoveLeft.h"
 #include "../editor/Chell.h"
+#include "Rock.h"
 
 Chell::Chell(b2Body* body):
     Entity(chellType),
@@ -27,6 +28,11 @@ void Chell::handleCollision(Entity* entity) {
             || type == "DiagonalMetalBlock" || type == "Floor") {
         chell_is_on_floor = true;
     }
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        if (rock->getVerticalVelocity() < 0) die();
+    }
+
     if (type == "Acid" || type == "EnergyBall") {
         die();
     }

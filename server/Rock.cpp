@@ -2,20 +2,28 @@
 // Created by cecix on 17/05/19.
 //
 
+#define rockType "Rock"
+
 #include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
-#include "MoveUp.h"
-#include "MoveDown.h"
-
-#define rockForce 5
+#include "Chell.h"
 
 Rock::Rock(b2Body* body):
-    dynamic(body) {
+        Entity(rockType),
+        dynamic(body) {
     this->body = body;
     this->actual_movement = new Stop(body);
+    body->SetUserData(this);
+}
+
+void Rock::handleCollision(Entity *entity) {
+    if (entity->getType() == "Chell") {
+        Chell* chell = static_cast<Chell*>(entity);
+        if (body->GetLinearVelocity().y < 0) chell->die();
+    }
 }
 
 void Rock::moveRight() {
@@ -28,16 +36,6 @@ void Rock::moveLeft() {
     this->actual_movement = new MoveLeft(body);
 }
 
-void Rock::moveUp() {
-    destroyActualMovement();
-    this->actual_movement = new MoveUp(body);
-}
-
-void Rock::moveDown() {
-    destroyActualMovement();
-    this->actual_movement = new MoveDown(body);
-}
-
 void Rock::stop() {
     destroyActualMovement();
     this->actual_movement = new Stop(body);
@@ -45,11 +43,11 @@ void Rock::stop() {
 
 void Rock::destroyActualMovement() {
     delete this->actual_movement;
-};
+}
 
 void Rock::update() {
-    eliminateGravity();
-    this->actual_movement->move(rockForce);
+    dynamic.handleCollisions();
+    this->actual_movement->move(gameConfiguration.rockForce);
 }
 
 void Rock::eliminateGravity() {
@@ -60,7 +58,6 @@ void Rock::downloadToEarth() {
     eliminateGravity();
     this->dynamic.downloadToEarth();
 }
-
 
 float Rock::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();
