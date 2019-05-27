@@ -23,8 +23,11 @@ float MetalBlock::getVerticalPosition() {
 }
 
 void MetalBlock::handleCollision(Entity* entity) {
+    std::string type = entity->getType();
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
         std::cout << "me choque con chell" << std::endl;
+    }
+    if (type == "Rock") {
     }
 }

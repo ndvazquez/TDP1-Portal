@@ -14,6 +14,7 @@
 #include "EnergyBallView.h"
 #include "AcidView.h"
 #include "BulletView.h"
+#include "RockView.h"
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
@@ -62,20 +63,32 @@ void drawChellWithBox2D(){
     float metalBlockPosY = 1;
     stage.addMetalBlock(1, metalBlockPosX, metalBlockPosY);
     stage.addMetalBlock(1, metalBlockPosX + 1, metalBlockPosY);
+
+    // Add a rock next to the metal block.
+    stage.addRock(2, metalBlockPosX + 3, metalBlockPosY);
+
     stageView.addTile(int(metalBlockPosX), int(metalBlockPosY) * -1 + 5, metalBlock);
     stageView.addTile(int(metalBlockPosX) + 1, int(metalBlockPosY) * -1 + 5, metalBlock);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
+    // Get the rock object.
+    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY);
+    Rock* rock = stage.getRock(coordinateRock);
+
+    //Chell grabs the Rock
+    chell->grabRock(rock);
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     // This will be our camera, for now it's just a SDL_Rect
     SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
+    // RockView.
+    RockView rockView(newWindow, metalBlockPosX + 2, metalBlockPosY, MTP_FACTOR, textures);
 
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
-
+    
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -84,14 +97,14 @@ void drawChellWithBox2D(){
             chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump();
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
             // This might become an issue when we actually implement a jump animation.
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
-
         }
+
         stage.step();
         bool chellInGround = chell->inGround();
 
@@ -102,12 +115,20 @@ void drawChellWithBox2D(){
         chellView.move(newPosX, newPosY, LEVEL_HEIGHT);
         // Gotta update the camera now to center it around Chell.
         chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
+        // Get current Rock position and move it.
+        float newRockPosX = rock->getHorizontalPosition();
+        float newRockPosY = rock->getVerticalPosition();
+
+        rockView.move(newRockPosX, newRockPosY, LEVEL_HEIGHT);
+
         newWindow.clear();
         stageView.draw(&camera);
+        rockView.playAnimation();
         chellView.playAnimation(camera);
         newWindow.render();
     }
     delete coordinate;
+    delete coordinateRock;
 }
 
 void drawEnergyBall(){

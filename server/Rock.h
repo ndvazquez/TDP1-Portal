@@ -14,6 +14,7 @@ private:
     Dynamic dynamic;
     b2Body* body;
     Dynamic* actual_movement;
+    bool collyding;
 
 public:
     explicit Rock(b2Body* body);
@@ -28,6 +29,7 @@ public:
     void stop();
     void destroyActualMovement();
     void update();
+    void makeDynamic();
     virtual void handleCollision(Entity* entity) override;
 };
 

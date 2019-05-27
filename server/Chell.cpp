@@ -13,13 +13,14 @@
 #include "Rock.h"
 
 Chell::Chell(b2Body* body):
-    Entity(chellType),
+        Entity(chellType),
         dynamic(body) {
     this->body = body;
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     chell_is_on_floor = true;
     dead = false;
+    rock = nullptr;
 }
 
 void Chell::handleCollision(Entity* entity) {
@@ -36,6 +37,9 @@ void Chell::handleCollision(Entity* entity) {
     if (type == "Acid" || type == "EnergyBall") {
         die();
     }
+
+    chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
+                        || type == "DiagonalMetalBlock" || type == "Floor";
 }
 
 void Chell::die() {
@@ -46,6 +50,17 @@ bool Chell::isDead() {
     return dead;
 }
 
+void Chell::grabRock(Rock* rock) {
+    this->rock = rock;
+    rock->makeDynamic();
+}
+
+void Chell::downloadRock() {
+    if (! rock) return;
+    rock->downloadToEarth();
+    rock = nullptr;
+}
+
 void Chell::onFloor(bool onFloor) {
     chell_is_on_floor = onFloor;
 }
@@ -53,16 +68,19 @@ void Chell::onFloor(bool onFloor) {
 void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
+    if (this->rock) rock->moveRight();
 }
 
 void Chell::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
+    if (this->rock) rock->moveLeft();
 }
 
 void Chell::stop() {
     destroyActualMovement();
     this->actual_movement = new Stop(body);
+    if (this->rock) rock->stop();
 }
 
 void Chell::destroyActualMovement() {
@@ -88,12 +106,12 @@ float Chell::getVerticalVelocity() {
 void Chell::update() {
     this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
+    if (this->rock) rock->update();
 }
 
 void Chell::jump() {
     bool resul = this->dynamic.jump(chell_is_on_floor);
     if (resul) chell_is_on_floor = false;
-
 }
 
 bool Chell::inGround() {

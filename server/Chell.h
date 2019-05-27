@@ -38,6 +38,8 @@ public:
     bool isDead();
     virtual void handleCollision(Entity* entity) override;
     void onFloor(bool onFloor);
+    void grabRock(Rock* rock);
+    void downloadRock();
 };
 
 #endif //PORTAL_CHELL_H

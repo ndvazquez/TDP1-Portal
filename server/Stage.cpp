@@ -64,7 +64,7 @@ b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
     return rectangle_body;
 }
 
-b2Body* Stage::addDynamicRectangle(size_t v_side, size_t h_side,
+b2Body* Stage::addDynamicRectangle(float v_side, float h_side,
                                    float x_pos, float y_pos) {
     b2BodyDef body;
     body.type = b2_dynamicBody;
@@ -158,14 +158,14 @@ void Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
     energy_transmitters.insert({coordinates, energy});
 }
 
-void Stage::addRock(size_t side, float x_pos, float y_pos) {
+void Stage::addRock(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* rock_body = addDynamicRectangle(side, side, x_pos, y_pos);
+    b2Body* rock_body = addStaticRectangle(side, side, x_pos, y_pos);
 
     Rock* rock = new Rock(rock_body);
     rocks.insert({coordinates, rock});
@@ -211,7 +211,7 @@ void Stage::addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     acids.insert({coordinates, button});
 }
 
-void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
+void Stage::addChell(float v_side, float h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -224,7 +224,7 @@ void Stage::addChell(size_t v_side, size_t h_side, float x_pos, float y_pos) {
     chells.insert({coordinates, chell});
 }
 
-void Stage::addEnergyBallHorizontal(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyBallHorizontal(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -237,7 +237,7 @@ void Stage::addEnergyBallHorizontal(size_t side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
-void Stage::addEnergyBallVertical(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -280,7 +280,7 @@ void Stage::step() {
 
     float timeStep = 1.0f / 60;
     int velocityIterations = 8;
-    int positionIterations = 3;
+    int positionIterations = 2;
     world->Step(timeStep, velocityIterations, positionIterations);
 }
 

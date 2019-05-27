@@ -598,6 +598,116 @@ public:
     }
 };
 
+class MovingRockTest :  public CxxTest::TestSuite {
+    size_t width_stage = 1000;
+    size_t height_stage = 1000;
+    size_t initial_pos_x_chell = 500;
+    size_t initial_pos_y = 500;
+    size_t initial_pos_x_rock = 520;
+    size_t side_rock = 10;
+    size_t mass_rock = side_rock * side_rock;
+    size_t side_chell = 2;
+    size_t mass_chell = side_chell * side_chell;
+
+public:
+    void testRockBlockHasGravity() {
+        std::cout << "Testing that the rock has gravity" << std::endl;
+
+        /* Stage stage(width_stage, height_stage);
+         stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+         Coordinate* coordinate = new Coordinate(initial_pos_x_rock, initial_pos_y);
+         Rock* rock = stage.getRock(coordinate);
+         float dt = 1.0f/60.0f;
+         float gravity = gameConfiguration.gravity;
+         float velocity_y = 0;
+         float position = initial_pos_y;
+         for (size_t i = 0; i < 120; i++) {
+             stage.step();
+             velocity_y += gravity * dt;
+             position += velocity_y * dt;
+             TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 0.1f);
+             TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 0.1f);
+         }*/
+    }
+
+    void testRockBlockMovesRight() {
+        std::cout << "Testing that the rock block moves right" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate_chell);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_rock);
+
+        chell->grabRock(rock);
+        chell->moveRight();
+
+        float dt = 1.0f/60.0f;
+
+        float old_pos = rock->getHorizontalPosition();
+
+        float velocity_x_chell = 0;
+        float position_chell = initial_pos_x_chell;
+        float force_chell = gameConfiguration.chellForce;
+        float acceleration_chell = force_chell / mass_chell;
+
+        for (size_t i = 0; i < 120; i++) {
+            stage.step();
+
+            float pos_actual = rock->getHorizontalPosition();
+            TS_ASSERT_EQUALS(old_pos <= pos_actual, true)
+            TS_ASSERT_EQUALS(rock->getHorizontalVelocity() > 0, true);
+            old_pos = rock->getHorizontalPosition();
+
+            if (velocity_x_chell <= 0.5) velocity_x_chell += acceleration_chell * dt;
+            position_chell += velocity_x_chell * dt;
+            TS_ASSERT_DELTA(position_chell, chell->getHorizontalPosition(), 0.2f);
+            TS_ASSERT_DELTA(velocity_x_chell, chell->getHorizontalVelocity(), 0.1f);
+        }
+    }
+
+    void testRockBlockMovesLeft() {
+        std::cout << "Testing that the rock block moves left" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(coordinate_chell);
+        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(coordinate_rock);
+
+        chell->grabRock(rock);
+        chell->moveLeft();
+
+        float dt = 1.0f/60.0f;
+
+        float old_pos = rock->getHorizontalPosition();
+
+        float velocity_x_chell = 0;
+        float position_chell = initial_pos_x_chell;
+        float force_chell = -gameConfiguration.chellForce;
+        float acceleration_chell = force_chell / mass_chell;
+
+        for (size_t i = 0; i < 120; i++) {
+            stage.step();
+
+            float pos_actual = rock->getHorizontalPosition();
+            TS_ASSERT_EQUALS(old_pos >= pos_actual, true)
+            TS_ASSERT_EQUALS(rock->getHorizontalVelocity() < 0, true);
+            old_pos = rock->getHorizontalPosition();
+
+            if (velocity_x_chell >= -0.5) velocity_x_chell += acceleration_chell * dt;
+            position_chell += velocity_x_chell * dt;
+            TS_ASSERT_DELTA(position_chell, chell->getHorizontalPosition(), 0.2f);
+            TS_ASSERT_DELTA(velocity_x_chell, chell->getHorizontalVelocity(), 0.1f);
+        }
+    }
+
+};
+
 class ChellDiesTest :  public CxxTest::TestSuite {
     size_t width_stage = 500;
     size_t height_stage = 500;
