@@ -102,7 +102,7 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
-    this->dynamic.handleCollisions();
+    if (chell_is_on_floor) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
     if (this->rock) rock->update();
 }

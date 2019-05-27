@@ -98,7 +98,7 @@ void drawChellWithBox2D(){
             chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->downloadRock(); //jump
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
