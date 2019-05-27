@@ -9,17 +9,22 @@
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
+#include "Chell.h"
 
 Rock::Rock(b2Body* body):
-    Entity(rockType),
-    dynamic(body) {
+        Entity(rockType),
+        dynamic(body) {
     this->body = body;
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
 }
 
 void Rock::handleCollision(Entity *entity) {
-    if (entity->getType() == "MetalBlock") {
+    if (entity->getType() == "Chell") {
+        std::cout << "omg a chell" << std::endl;
+        Chell* chell = static_cast<Chell*>(entity);
+        if (body->GetLinearVelocity().y < 0) chell->die();
+        else stop();
     }
 }
 

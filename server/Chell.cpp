@@ -10,6 +10,7 @@
 #include "Stop.h"
 #include "MoveLeft.h"
 #include "../editor/Chell.h"
+#include "Rock.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType),
@@ -18,13 +19,35 @@ Chell::Chell(b2Body* body):
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     chell_is_on_floor = true;
+    dead = false;
     rock = nullptr;
 }
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
+    if (type == "MetalBlock" || type == "BrickBlock"
+            || type == "DiagonalMetalBlock" || type == "Floor") {
+        chell_is_on_floor = true;
+    }
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        if (rock->getVerticalVelocity() < 0) die();
+    }
+
+    if (type == "Acid" || type == "EnergyBall") {
+        die();
+    }
+
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor";
+}
+
+void Chell::die() {
+    dead = true;
+}
+
+bool Chell::isDead() {
+    return dead;
 }
 
 void Chell::grabRock(Rock* rock) {
@@ -81,6 +104,7 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
+    this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
     if (this->rock) rock->update();
 }

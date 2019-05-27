@@ -613,23 +613,21 @@ public:
     void testRockBlockHasGravity() {
         std::cout << "Testing that the rock has gravity" << std::endl;
 
-       /* Stage stage(width_stage, height_stage);
-        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
-        Coordinate* coordinate = new Coordinate(initial_pos_x_rock, initial_pos_y);
-        Rock* rock = stage.getRock(coordinate);
-
-        float dt = 1.0f/60.0f;
-        float gravity = gameConfiguration.gravity;
-        float velocity_y = 0;
-        float position = initial_pos_y;
-
-        for (size_t i = 0; i < 120; i++) {
-            stage.step();
-            velocity_y += gravity * dt;
-            position += velocity_y * dt;
-            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 0.1f);
-            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 0.1f);
-        }*/
+        /* Stage stage(width_stage, height_stage);
+         stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
+         Coordinate* coordinate = new Coordinate(initial_pos_x_rock, initial_pos_y);
+         Rock* rock = stage.getRock(coordinate);
+         float dt = 1.0f/60.0f;
+         float gravity = gameConfiguration.gravity;
+         float velocity_y = 0;
+         float position = initial_pos_y;
+         for (size_t i = 0; i < 120; i++) {
+             stage.step();
+             velocity_y += gravity * dt;
+             position += velocity_y * dt;
+             TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 0.1f);
+             TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 0.1f);
+         }*/
     }
 
     void testRockBlockMovesRight() {
@@ -706,6 +704,128 @@ public:
             TS_ASSERT_DELTA(position_chell, chell->getHorizontalPosition(), 0.2f);
             TS_ASSERT_DELTA(velocity_x_chell, chell->getHorizontalVelocity(), 0.1f);
         }
+    }
+
+};
+
+class ChellDiesTest :  public CxxTest::TestSuite {
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t x_pos_chell = 1;
+    size_t y_pos = 1;
+    size_t x_pos_acid = 4;
+    size_t side_chell = 2;
+    size_t side_acid = 1;
+
+
+public:
+    void testChellDiesAgainstAcid() {
+        std::cout << "Testing that Chell dies against acid" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addAcid(side_acid, side_acid, x_pos_acid, y_pos);
+
+        Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
+        Chell* chell_right = stage.getChell(coordinates);
+
+        bool test_right = false;
+        chell_right->moveRight();
+
+        TS_ASSERT_EQUALS(chell_right->isDead(), false);
+
+        for (size_t i = 0; i < 120000; i++) {
+            if (chell_right->isDead()) {
+                test_right = true;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(test_right, true);
+
+        stage.addChell(side_chell, side_chell, x_pos_acid, y_pos);
+        stage.addAcid(side_acid, side_acid, x_pos_chell, y_pos);
+
+        Coordinate* coordinate_left = new Coordinate(x_pos_acid, y_pos);
+        Chell* chell_left = stage.getChell(coordinate_left);
+
+        bool test_left = false;
+        chell_left->moveLeft();
+
+        TS_ASSERT_EQUALS(chell_left->isDead(), false);
+
+        std::cout << "Now the other direction" << std::endl;
+
+        for (size_t i = 0; i < 120000; i++) {
+            if (chell_left->isDead()) {
+                test_left = true;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(test_left, true);
+    }
+
+    void testChellDiesAgainstEnergyBall() {
+        std::cout << "Testing that Chell dies against an energy ball" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addEnergyBallHorizontal(side_acid + 1, x_pos_acid, y_pos);
+
+        Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
+        Chell* chell = stage.getChell(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(new Coordinate(x_pos_acid, y_pos));
+
+        bool test_right = false;
+        chell->moveRight();
+
+        TS_ASSERT_EQUALS(chell->isDead(), false);
+
+        for (size_t i = 0; i < 120000; i++) {
+            if (chell->isDead()) {
+                test_right = true;
+                TS_ASSERT_EQUALS(test_right, true);
+                return;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(1, 0);
+    }
+
+
+    void testChellDiesWhenARockFallsOnHer() {
+        std::cout << "Testing that Chell dies when a rock falls on her" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, 1);
+        stage.addRock(side_acid + 1, x_pos_chell, 20);
+
+        Coordinate* coordinates = new Coordinate(x_pos_chell, 1);
+        Chell* chell = stage.getChell(coordinates);
+
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+            if (chell->isDead()) {
+                TS_ASSERT_EQUALS(chell->isDead(), true);
+                return;
+            }
+        }
+        TS_ASSERT_EQUALS(1, 0);
+    }
+
+    void testChellDoesntDieWhenSheHitsARock() {
+        std::cout << "Testing that Chell doesn't die when a she hits a rock" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, 1);
+        stage.addRock(side_acid + 1, x_pos_chell + 5, 1);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, 1));
+        Rock* rock = stage.getRock(new Coordinate(x_pos_chell + 5, 1));
+        chell->moveRight();
+        /*
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+        }*/
     }
 
 };

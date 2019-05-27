@@ -5,6 +5,7 @@
 #include <string>
 
 #include "EnergyBall.h"
+#include "Chell.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(std::string(energyBallType)),
@@ -41,8 +42,16 @@ bool EnergyBall::isVertical() {
 }
 
 void EnergyBall::handleCollision(Entity* entity) {
-    if (entity->getType() == "BrickBlock") die();
-    else if (entity->getType() == "DiagonalMetalBlock") changeDirection();
+    std::string type = entity->getType();
+    if (type == "BrickBlock") {
+        die();
+    }
+    else if (type == "DiagonalMetalBlock") {
+        changeDirection();
+    }
+    else if (type == "Chell") {
+        static_cast<Chell*>(entity)->die();
+    }
 }
 
 float EnergyBall::getHorizontalPosition() {

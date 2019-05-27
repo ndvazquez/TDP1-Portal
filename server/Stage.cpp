@@ -2,6 +2,7 @@
 // Created by cecix on 12/05/19.
 //
 
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -252,10 +253,16 @@ void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>(end - timeStamp).count();
-    if (difference <= 1000 / 60) return;
+    //if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
+        if (i->second->isDead()) {
+            {
+                chells.erase(i->first);
+                break;
+            }
+        }
         i->second->update();
     }
 
@@ -264,7 +271,10 @@ void Stage::step() {
             i->second->fly();
         }
         catch(...) {
-            energy_balls.erase(i->first);
+            {
+                energy_balls.erase(i->first);
+                break;
+            }
         }
     }
 
