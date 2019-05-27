@@ -229,21 +229,27 @@ CxxTest::StaticSuiteDescription suiteDescription_ChellDiesTest( "MyTestSuite.h",
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 611, "testChellDiesAgainstAcid" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 612, "testChellDiesAgainstAcid" ) {}
  void runTest() { suite_ChellDiesTest.testChellDiesAgainstAcid(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstAcid;
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 628, "testChellDiesAgainstEnergyBall" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 657, "testChellDiesAgainstEnergyBall" ) {}
  void runTest() { suite_ChellDiesTest.testChellDiesAgainstEnergyBall(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall;
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 633, "testChellDiesWhenARockFallsOnHer" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 685, "testChellDiesWhenARockFallsOnHer" ) {}
  void runTest() { suite_ChellDiesTest.testChellDiesWhenARockFallsOnHer(); }
 } testDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer;
+
+static class TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 705, "testChellDoesntDieWhenSheHitsARock" ) {}
+ void runTest() { suite_ChellDiesTest.testChellDoesntDieWhenSheHitsARock(); }
+} testDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

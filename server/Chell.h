@@ -8,6 +8,7 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include "Dynamic.h"
 #include "Entity.h"
+#include "Rock.h"
 
 class Chell: public Entity {
 private:
@@ -16,6 +17,7 @@ private:
     Dynamic* actual_movement;
     bool chell_is_on_floor;
     bool dead;
+    Rock* rock;
 
 public:
     explicit Chell(b2Body* body);

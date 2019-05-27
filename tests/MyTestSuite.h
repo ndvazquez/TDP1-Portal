@@ -702,5 +702,22 @@ public:
         TS_ASSERT_EQUALS(1, 0);
     }
 
+    void testChellDoesntDieWhenSheHitsARock() {
+        std::cout << "Testing that Chell doesn't die when a she hits a rock" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, 1);
+        stage.addRock(side_acid + 1, x_pos_chell + 5, 1);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, 1));
+        Rock* rock = stage.getRock(new Coordinate(x_pos_chell + 5, 1));
+        chell->moveRight();
+
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+            std::cout << rock->getHorizontalPosition() << std::endl;
+        }
+    }
+
 };
 #endif

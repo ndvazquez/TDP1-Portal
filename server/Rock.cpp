@@ -21,8 +21,10 @@ Rock::Rock(b2Body* body):
 
 void Rock::handleCollision(Entity *entity) {
     if (entity->getType() == "Chell") {
+        std::cout << "omg a chell" << std::endl;
         Chell* chell = static_cast<Chell*>(entity);
         if (body->GetLinearVelocity().y < 0) chell->die();
+        else stop();
     }
 }
 
