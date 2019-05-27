@@ -4,7 +4,7 @@
 
 #define metalBlockType "MetalBlock"
 
-#include <iostream>
+#include <string>
 #include "MetalBlock.h"
 #include "Chell.h"
 
@@ -26,8 +26,8 @@ void MetalBlock::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
-        std::cout << "me choque con chell" << std::endl;
     }
     if (type == "Rock") {
+        static_cast<Rock*>(entity)->onFloor(true);
     }
 }
