@@ -9,23 +9,18 @@
 #include <yaml-cpp/yaml.h>
 #include "../common/Window.h"
 #include "../common/AnimatedSprite.h"
+#include "View.h"
 
 #define TEXTURES_BULLET_KEY "Bullet"
 #define FRAMERATE_ADJUSTMENT 2
 
-class BulletView {
-    Window& window;
+class BulletView : public View {
     AnimatedSprite* animation;
-    int bulletWidth;
-    int bulletHeight;
-    int xPos;
-    int yPos;
 public:
-    BulletView(Window &window, int xPos, int yPos, YAML::Node texturesData);
+    BulletView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~BulletView();
+    void playAnimation();
     void playAnimation(double angle);
-    void move(int newPosX, int newPosY);
 };
-
 
 #endif //PORTAL_BULLETVIEW_H

@@ -205,7 +205,7 @@ void drawBullet(){
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    BulletView bulletView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, textures);
+    BulletView bulletView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, MTP_FACTOR, textures);
     double bulletAngle = 0;
     bool quit = false;
     SDL_Event e;
@@ -241,5 +241,5 @@ int main(int argc, char* argv[]){
     drawChellWithBox2D();
     drawEnergyBall();
     //drawAcidPool();
-    //drawBullet();
+    drawBullet();
 }
