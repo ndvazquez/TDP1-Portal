@@ -26,7 +26,8 @@ set(CLIENT_SOURCE_FILES
         client/AcidView.cpp
         client/BulletView.cpp
         client/View.cpp
-        client/RockView.cpp)
+        client/RockView.cpp
+        client/ButtonView.cpp)
 
 #EDITOR CONFIG
 
