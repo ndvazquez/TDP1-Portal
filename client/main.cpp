@@ -15,6 +15,7 @@
 #include "AcidView.h"
 #include "BulletView.h"
 #include "RockView.h"
+#include "ButtonView.h"
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
@@ -235,6 +236,33 @@ void drawBullet(){
     }
 }
 
+void drawButton(){
+    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    std::string title = "Portal";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    ButtonView buttonView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, MTP_FACTOR, textures);
+    bool quit = false;
+    SDL_Event e;
+
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
+                if (e.key.keysym.sym == SDLK_SPACE) {
+                    buttonView.changeButtonState();
+                }
+            }
+        }
+        SDL_Delay(16);
+        newWindow.clear();
+        buttonView.playAnimation();
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
@@ -242,4 +270,5 @@ int main(int argc, char* argv[]){
     drawEnergyBall();
     //drawAcidPool();
     drawBullet();
+    drawButton();
 }
