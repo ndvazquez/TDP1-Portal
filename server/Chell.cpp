@@ -4,7 +4,7 @@
 
 #define chellType "Chell"
 
-#include <iostream>
+#include <string>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -25,13 +25,12 @@ Chell::Chell(b2Body* body):
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "MetalBlock" || type == "BrickBlock"
-            || type == "DiagonalMetalBlock" || type == "Floor") {
-        chell_is_on_floor = true;
-    }
     if (type == "Rock") {
         Rock* rock = static_cast<Rock*>(entity);
-        if (rock->getVerticalVelocity() < 0) die();
+        if (rock->getVerticalVelocity() < -0 && ! rock->isOnFloor()) {
+            die();
+        }
+        rock->makeStatic();
     }
 
     if (type == "Acid" || type == "EnergyBall") {
@@ -52,7 +51,6 @@ bool Chell::isDead() {
 
 void Chell::grabRock(Rock* rock) {
     this->rock = rock;
-    rock->makeDynamic();
 }
 
 void Chell::downloadRock() {
@@ -116,7 +114,8 @@ void Chell::jump() {
 
 bool Chell::inGround() {
     float epsilon = pow(10, -7);
-    bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
+    bool chell_is_still = body->GetLinearVelocity().y < epsilon
+                        && body->GetLinearVelocity().y > -epsilon;
     if (chell_is_still) dynamic.handleCollisions();
     return chell_is_on_floor;
 }

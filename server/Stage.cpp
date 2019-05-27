@@ -165,7 +165,7 @@ void Stage::addRock(float side, float x_pos, float y_pos) {
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* rock_body = addStaticRectangle(side, side, x_pos, y_pos);
+    b2Body* rock_body = addDynamicRectangle(side, side, x_pos, y_pos);
 
     Rock* rock = new Rock(rock_body);
     rocks.insert({coordinates, rock});
@@ -252,8 +252,9 @@ void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
 
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
-    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>(end - timeStamp).count();
-    //if (difference <= 1000 / 60) return;
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+                     (end - timeStamp).count();
+    if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {

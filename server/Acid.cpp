@@ -2,6 +2,8 @@
 // Created by cecix on 18/05/19.
 //
 
+#include <string>
+
 #include "Acid.h"
 #include "Chell.h"
 

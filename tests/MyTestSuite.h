@@ -799,8 +799,8 @@ public:
         stage.addChell(side_chell, side_chell, x_pos_chell, 1);
         stage.addRock(side_acid + 1, x_pos_chell, 20);
 
-        Coordinate* coordinates = new Coordinate(x_pos_chell, 1);
-        Chell* chell = stage.getChell(coordinates);
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, 1));
+        Rock* rock = stage.getRock(new Coordinate(x_pos_chell, 20));
 
         for (size_t i = 0; i < 1200; i++) {
             stage.step();

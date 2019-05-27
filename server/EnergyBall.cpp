@@ -46,10 +46,10 @@ void EnergyBall::handleCollision(Entity* entity) {
     if (type == "BrickBlock") {
         die();
     }
-    else if (type == "DiagonalMetalBlock") {
+    if (type == "DiagonalMetalBlock") {
         changeDirection();
     }
-    else if (type == "Chell") {
+    if (type == "Chell") {
         static_cast<Chell*>(entity)->die();
     }
 }
