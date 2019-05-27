@@ -28,6 +28,5 @@ void MetalBlock::handleCollision(Entity* entity) {
         static_cast<Chell*>(entity)->onFloor(true);
     }
     if (type == "Rock") {
-        std::cout << "choco con roca!" << std::endl;
     }
 }

@@ -29,6 +29,7 @@ public:
     void stop();
     void destroyActualMovement();
     void update();
+    void makeDynamic();
     virtual void handleCollision(Entity* entity) override;
 };
 
