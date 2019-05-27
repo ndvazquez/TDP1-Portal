@@ -23,6 +23,11 @@ void Rock::handleCollision(Entity *entity) {
     }
 }
 
+void Rock::makeDynamic() {
+    body->SetType(b2_dynamicBody);
+    body->SetAwake(true);
+}
+
 void Rock::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
@@ -52,10 +57,10 @@ void Rock::eliminateGravity() {
 }
 
 void Rock::downloadToEarth() {
+    body->SetType(b2_staticBody);
     eliminateGravity();
     this->dynamic.downloadToEarth();
 }
-
 
 float Rock::getHorizontalPosition() {
     return this->dynamic.getHorizontalPosition();

@@ -29,6 +29,7 @@ void Chell::handleCollision(Entity* entity) {
 
 void Chell::grabRock(Rock* rock) {
     this->rock = rock;
+    rock->makeDynamic();
 }
 
 void Chell::downloadRock() {

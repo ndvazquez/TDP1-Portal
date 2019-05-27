@@ -229,39 +229,21 @@ CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h"
 
 static class TestDescription_suite_MovingRockTest_testRockBlockHasGravity : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 610, "testRockBlockHasGravity" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 613, "testRockBlockHasGravity" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockHasGravity(); }
 } testDescription_suite_MovingRockTest_testRockBlockHasGravity;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 632, "testRockBlockMovesRight" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 635, "testRockBlockMovesRight" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesRight;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesLeft : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 661, "testRockBlockMovesLeft" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 676, "testRockBlockMovesLeft" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesLeft;
-
-static class TestDescription_suite_MovingRockTest_testWhenChellGrabsRockItDoesntFall : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_MovingRockTest_testWhenChellGrabsRockItDoesntFall() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 690, "testWhenChellGrabsRockItDoesntFall" ) {}
- void runTest() { suite_MovingRockTest.testWhenChellGrabsRockItDoesntFall(); }
-} testDescription_suite_MovingRockTest_testWhenChellGrabsRockItDoesntFall;
-
-static class TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_MovingRockTest_testRockBlockDownloadsRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 715, "testRockBlockDownloadsRight" ) {}
- void runTest() { suite_MovingRockTest.testRockBlockDownloadsRight(); }
-} testDescription_suite_MovingRockTest_testRockBlockDownloadsRight;
-
-static class TestDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 742, "testRockBlockDownloadsRightInBlock" ) {}
- void runTest() { suite_MovingRockTest.testRockBlockDownloadsRightInBlock(); }
-} testDescription_suite_MovingRockTest_testRockBlockDownloadsRightInBlock;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
