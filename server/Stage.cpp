@@ -257,6 +257,12 @@ void Stage::step() {
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
+        if (i->second->isDead()) {
+            {
+                chells.erase(i->first);
+                break;
+            }
+        }
         i->second->update();
     }
 

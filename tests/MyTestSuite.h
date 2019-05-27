@@ -627,7 +627,6 @@ public:
         for (size_t i = 0; i < 120000; i++) {
             if (chell_right->isDead()) {
                 test_right = true;
-                break;
             }
             stage.step();
         }
@@ -644,10 +643,11 @@ public:
 
         TS_ASSERT_EQUALS(chell_left->isDead(), false);
 
+        std::cout << "Now the other direction" << std::endl;
+
         for (size_t i = 0; i < 120000; i++) {
             if (chell_left->isDead()) {
                 test_left = true;
-                break;
             }
             stage.step();
         }
@@ -712,11 +712,10 @@ public:
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, 1));
         Rock* rock = stage.getRock(new Coordinate(x_pos_chell + 5, 1));
         chell->moveRight();
-
+        /*
         for (size_t i = 0; i < 1200; i++) {
             stage.step();
-            std::cout << rock->getHorizontalPosition() << std::endl;
-        }
+        }*/
     }
 
 };
