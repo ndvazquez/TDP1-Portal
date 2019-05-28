@@ -36,6 +36,15 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
 
 }
 
+void Object::removeFrom(int x, int y, std::map<std::pair<int, int>,
+        std::string> &tiles) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            tiles.erase(std::make_pair(x - i , y - j));
+        }
+    }
+}
+
 void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
     // if we dont have something under us there is no way to be add.
     auto positionBelow = tiles.find(std::make_pair(x, y + 1));

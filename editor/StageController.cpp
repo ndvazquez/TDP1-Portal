@@ -133,7 +133,13 @@ void StageController::addTile(int x, int y, std::string& tileName) {
 }
 
 void StageController::removeTile(int x, int y) {
-    tiles.erase(std::make_pair(x, y));
+    std::string tileName = tiles[std::make_pair(x, y)];
+    Object* obj = textures[tileName];
+    if (!obj) {
+        throw StageControllerNameException();
+    }
+    obj->removeFrom(x, y, tiles);
+    //tiles.erase(std::make_pair(x, y));
 }
 
 

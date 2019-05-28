@@ -29,6 +29,8 @@ public:
     virtual void setName();
 
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
+
+    void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
 };
 
 #endif //PORTAL_OBJECT_H
