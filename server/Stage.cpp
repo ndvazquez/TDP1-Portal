@@ -69,7 +69,8 @@ b2Body* Stage::addDynamicRectangle(float v_side, float h_side,
     b2BodyDef body;
     body.type = b2_dynamicBody;
     body.position.Set(x_pos, y_pos);
-
+    body.fixedRotation = true;
+    
     b2Body* rectangle_body = this->world->CreateBody(&body);
 
     b2PolygonShape shape;
