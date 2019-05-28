@@ -15,6 +15,14 @@ Acid: {path: resources/Acid/acid.png, frames: 8}
 
 Bullet: {path: resources/Bullet/bullet.png, frames: 3}
 
+Rock: {path: resources/rocks/1.png}
+
+Button:
+  - name: On
+    path: resources/button/on.png
+  - name: Off
+    path: resources/button/off.png
+
 StaticObjects:
   - name: MetalBlock
     path: resources/blocks/metal-block.png

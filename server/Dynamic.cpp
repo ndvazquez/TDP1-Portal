@@ -105,17 +105,6 @@ void Dynamic::eliminateGravity() {
     if (actual_velocity > delta || actual_velocity < -delta) return;
 }
 
-void Dynamic::moveUp(float force) {
-    if (body->GetLinearVelocity().y > 0.5) force = 0;
-    body->ApplyForce(b2Vec2(0, force), body->GetWorldCenter(), true);
-}
-
-
-void Dynamic::moveDown(float force) {
-    if (body->GetLinearVelocity().y < -0.5) force = 0;
-    body->ApplyForce(b2Vec2(0, -force), body->GetWorldCenter(), true);
-}
-
 void Dynamic::downloadToEarth() {
     float impulse = -30;
     body->ApplyLinearImpulse(b2Vec2(0, impulse),
@@ -141,7 +130,8 @@ bool Dynamic::jump(bool chellFloor) {
     adjustJump();
 
     float epsilon = pow(10.5, -9);
-    bool chell_is_still = body->GetLinearVelocity().y < epsilon && body->GetLinearVelocity().y > -epsilon;
+    bool chell_is_still = body->GetLinearVelocity().y < epsilon
+                        && body->GetLinearVelocity().y > -epsilon;
 
     if (! chell_is_still && ! chellFloor) return false;
 

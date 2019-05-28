@@ -17,12 +17,10 @@ public:
     explicit Dynamic(b2Body* body);
     virtual ~Dynamic();
     void adjustJump();
-    bool jump(bool);
+    bool jump(bool chellFloor);
     virtual void move(float force);
     void moveRight(float force);
     void moveLeft(float force);
-    void moveDown(float force);
-    void moveUp(float force);
     void stop(float force);
     void flyHorizontal();
     void flyVertical();

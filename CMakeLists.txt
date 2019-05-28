@@ -25,7 +25,9 @@ set(CLIENT_SOURCE_FILES
         client/EnergyBallView.cpp
         client/AcidView.cpp
         client/BulletView.cpp
-        client/View.cpp)
+        client/View.cpp
+        client/RockView.cpp
+        client/ButtonView.cpp)
 
 #EDITOR CONFIG
 
@@ -72,8 +74,6 @@ set(SERVER_SOURCE_FILES
         server/Stop.cpp
         server/EnergyBall.cpp
         server/Entity.cpp
-        server/MoveUp.cpp
-        server/MoveDown.cpp
         server/configuration.cpp
         server/Floor.cpp)
 
