@@ -9,6 +9,7 @@
 #include "Dynamic.h"
 #include "Entity.h"
 #include "Rock.h"
+#include "../common/constants.h"
 
 class Chell: public Entity {
 private:
@@ -18,6 +19,7 @@ private:
     bool chell_is_on_floor;
     bool dead;
     Rock* rock;
+    State actual_state;
 
 public:
     explicit Chell(b2Body* body);
@@ -40,6 +42,7 @@ public:
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
     void downloadRock();
+    State getState();
 };
 
 #endif //PORTAL_CHELL_H
