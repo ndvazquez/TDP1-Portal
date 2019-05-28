@@ -82,13 +82,12 @@ void drawChellAndRock(){
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
-    
+
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
@@ -103,7 +102,7 @@ void drawChellAndRock(){
         stage.step();
         bool chellInGround = chell->inGround();
 
-        chellView.changeJumpingStatus(!chellInGround);
+        chellView.setState(chell->getState());
         float newPosX = chell->getHorizontalPosition();
         float newPosY = chell->getVerticalPosition();
         // We move the animated sprite for Chell.
@@ -178,7 +177,6 @@ void drawChellAndEnergyBall(){
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
@@ -193,7 +191,7 @@ void drawChellAndEnergyBall(){
         float newEBPosY = energyBall->getVerticalPosition();
         energyBallView.move(newEBPosX, newEBPosY, LEVEL_HEIGHT);
         // Update Chell position.
-        chellView.changeJumpingStatus(!chell->inGround());
+        chellView.setState(chell->getState());
         float newChellPosX = chell->getHorizontalPosition();
         float newChellPosY = chell->getVerticalPosition();
         // We move the animated sprite for Chell.
@@ -265,7 +263,6 @@ void drawChellAndAcidPool(){
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
@@ -277,7 +274,7 @@ void drawChellAndAcidPool(){
         stage.step();
 
         // Update Chell position.
-        chellView.changeJumpingStatus(!chell->inGround());
+        chellView.setState(chell->getState());
         float newChellPosX = chell->getHorizontalPosition();
         float newChellPosY = chell->getVerticalPosition();
         // We move the animated sprite for Chell.

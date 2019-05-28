@@ -17,6 +17,7 @@ Chell::Chell(b2Body* body):
         dynamic(body) {
     this->body = body;
     this->actual_movement = new Stop(body);
+    this->actual_state = IDLE;
     body->SetUserData(this);
     chell_is_on_floor = true;
     dead = false;
@@ -42,6 +43,7 @@ void Chell::handleCollision(Entity* entity) {
 }
 
 void Chell::die() {
+    //this->actual_state = DEAD;
     dead = true;
 }
 
@@ -66,18 +68,22 @@ void Chell::onFloor(bool onFloor) {
 void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
+    if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
     if (this->rock) rock->moveRight();
 }
 
 void Chell::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
+    if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
     if (this->rock) rock->moveLeft();
 }
 
 void Chell::stop() {
     destroyActualMovement();
     this->actual_movement = new Stop(body);
+    if (! chell_is_on_floor) this->actual_state = JUMPING;
+    else this->actual_state = IDLE;
     if (this->rock) rock->stop();
 }
 
@@ -102,6 +108,10 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
+    chell_is_on_floor = inGround();
+    if (chell_is_on_floor && actual_state == JUMPING){
+        this->stop();
+    }
     if (chell_is_on_floor) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
     if (this->rock) rock->update();
@@ -109,7 +119,10 @@ void Chell::update() {
 
 void Chell::jump() {
     bool resul = this->dynamic.jump(chell_is_on_floor);
-    if (resul) chell_is_on_floor = false;
+    if (resul) {
+        actual_state = JUMPING;
+        chell_is_on_floor = false;
+    }
 }
 
 bool Chell::inGround() {
@@ -118,6 +131,10 @@ bool Chell::inGround() {
                         && body->GetLinearVelocity().y > -epsilon;
     if (chell_is_still) dynamic.handleCollisions();
     return chell_is_on_floor;
+}
+
+State Chell::getState() {
+    return actual_state;
 }
 
 Chell::~Chell() {

@@ -2,12 +2,13 @@ Chell:
   - name: RestingIdle
     path: resources/Chell/RestingIdle.png
     frames: 7
-  - name: Run
-    path: resources/Chell/Run.png
-    frames: 12
   - name: Jumping
     path: resources/Chell/Jumping.png
     frames: 4
+  - name: Run
+    path: resources/Chell/Run.png
+    frames: 12
+
 
 EnergyBall: {path: resources/EnergyBall/energy-ball.png, frames: 4}
 

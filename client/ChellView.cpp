@@ -4,7 +4,7 @@
 
 #include "ChellView.h"
 #include <SDL.h>
-#include <unordered_map>
+#include <vector>
 #include "../common/AnimatedSprite.h"
 #include <string>
 #include <yaml-cpp/yaml.h>
@@ -12,7 +12,6 @@
 ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :
             View(window, xPos, yPos, factor),
-            isJumping(false),
             flip(SDL_FLIP_NONE){
     viewWidth = 0;
     viewHeight = 0;
@@ -31,40 +30,33 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
             viewWidth = spriteWidth;
             viewHeight = spriteHeight;
         }
-        animations[name] = newSprite;
+        animations.push_back(newSprite);
     }
-    currentAnimation = CHELL_RESTING_IDLE;
+    currentState = IDLE;
 }
 
 ChellView::~ChellView() {
     for (auto it = animations.begin(); it != animations.end(); ++it){
-        delete it->second;
+        delete *it;
     }
 }
 
 void ChellView::playAnimation() {}
 
 void ChellView::playAnimation(SDL_Rect& camera) {
-    AnimatedSprite* animation = animations[currentAnimation];
+    int animationIndex = currentState;
+    if (currentState == MOVING_RIGHT) {
+        --animationIndex;
+        flip = SDL_FLIP_NONE;
+    }
+    if (currentState == MOVING_LEFT) {
+        flip = SDL_FLIP_HORIZONTAL;
+    }
+
+    AnimatedSprite* animation = animations[animationIndex];
     animation->draw(viewPosX - camera.x, viewPosY - camera.y, flip);
     animation->updateFrameStep();
 }
-
-
-void ChellView::handleEvent(SDL_Event& e, const Uint8 *keys){
-    if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
-        currentAnimation = CHELL_RUN;
-        flip = flip == SDL_FLIP_NONE ? flip : SDL_FLIP_NONE;
-    }
-    if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
-        currentAnimation = CHELL_RUN;
-        flip = flip == SDL_FLIP_NONE ? SDL_FLIP_HORIZONTAL : flip;
-    }
-    if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]){
-        currentAnimation = CHELL_RESTING_IDLE;
-    }
-}
-
 
 void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) {
     camera.x = (viewPosX + viewWidth / 2) - camera.w / 2;
@@ -84,16 +76,6 @@ void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) 
     }
 }
 
-void ChellView::changeJumpingStatus(bool isChellJumping) {
-    isJumping = isChellJumping;
-    if (isJumping) {
-        currentAnimation = CHELL_JUMPING;
-    } else {
-        // We'll fire a fake event just to get the handleEvent method going.
-        // Otherwise we'll be stuck on the Jumping animation.
-        SDL_Event fakeEvent;
-        fakeEvent.type = SDL_KEYDOWN;
-        fakeEvent.key.keysym.sym = SDLK_l;
-        SDL_PushEvent(&fakeEvent);
-    }
+void ChellView::setState(State state) {
+    currentState = state;
 }
