@@ -38,7 +38,7 @@ public:
 
     void handleMouseButtonUp(MouseButton& event);
 
-    void handleMouseDoubleCick(MouseButton& event);
+    void handleMouseDoubleClick(MouseButton &event);
 };
 
 

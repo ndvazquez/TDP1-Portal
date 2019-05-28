@@ -29,7 +29,7 @@ void Editor::handleMouseButtonDown(SDL_Event* event) {
 
 void Editor::handleMouseDoubleCick(SDL_Event *event) {
     MouseButton e(event);
-    this->stage.handleMouseDoubleCick(e);
+    this->stage.handleMouseDoubleClick(e);
 }
 
 void Editor::handleMouseButtonUp(SDL_Event *event) {

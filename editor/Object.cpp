@@ -21,7 +21,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
         for (int j = 0; j < h; j++) {
             auto it = tiles.find(std::make_pair(x - i, y- j));
             if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
-                throw StageObjectTakenPositionException(this->name);
+                throw AddTileTakenPositionException(this->name);
             }
         }
     }
@@ -49,7 +49,7 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::s
     // if we dont have something under us there is no way to be add.
     auto positionBelow = tiles.find(std::make_pair(x, y + 1));
     if (positionBelow == tiles.end()) {
-        throw StageObjectAddTileGravityException(this->name);
+        throw AddTileGravityException(this->name);
     }
 
     // now, we have something but it can not be just anything
@@ -61,7 +61,7 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::s
         }
     }
     if (possibleFloor == floors.end()) {
-        throw StageObjectAddTileGravityException(this->name);
+        throw AddTileGravityException(this->name);
     }
 
     // is something we can be on!!!

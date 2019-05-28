@@ -138,14 +138,18 @@ void StageController::removeTile(int x, int y) {
     if (!obj) {
         throw StageControllerNameException();
     }
-    obj->removeFrom(x, y, tiles);
-    //tiles.erase(std::make_pair(x, y));
+    try {
+        obj->removeFrom(x, y, tiles);
+    }
+    catch(StageObjectException) {
+        throw StageControllerRemoveTileException();
+    }
 }
 
 
 StageController::~StageController() {
-    for (auto it = textures.begin(); it != textures.end(); ++it) {
-        delete it->second;
+    for (auto & texture : textures) {
+        delete texture.second;
     }
 }
 

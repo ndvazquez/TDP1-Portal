@@ -18,23 +18,30 @@
 #define NAME_EXC "Couldn't add the tile. That's not a valid element!\n"
 #define POSITION_EXC "Couldn't get tile's name. That's position is empty!\n"
 
-class EditorControllerException : public std::exception {};
+class StageControllerException : public std::exception {};
 
-class StageControllerNameException : public EditorControllerException {
+class StageControllerNameException : public StageControllerException {
     virtual const char* what() const throw () {
         std::string message = NAME_EXC;
         return message.c_str();
     }
 };
 
-class StageControllerAddTileException : public EditorControllerException {
+class StageControllerAddTileException : public StageControllerException {
     virtual const char* what() const throw () {
         std::string message = ADD_TILE;
         return message.c_str();
     }
 };
 
-class StageControllerEmptyPositionException : public EditorControllerException {
+class StageControllerRemoveTileException : public StageControllerException {
+    virtual const char* what() const throw () {
+        std::string message = ADD_TILE;
+        return message.c_str();
+    }
+};
+
+class StageControllerEmptyPositionException : public StageControllerException {
     virtual const char* what() const throw () {
         std::string message = POSITION_EXC;
         return message.c_str();
