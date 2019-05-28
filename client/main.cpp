@@ -15,6 +15,7 @@
 #include "AcidView.h"
 #include "BulletView.h"
 #include "RockView.h"
+#include "ButtonView.h"
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 
@@ -146,8 +147,6 @@ void drawEnergyBall(){
     Coordinate* coordinate = new Coordinate(x, y);
     EnergyBall* energyBall = stage.getEnergyBall(coordinate);
 
-    energyBall->fly();
-
     bool quit = false;
     SDL_Event e;
 
@@ -158,12 +157,14 @@ void drawEnergyBall(){
             }
         }
         stage.step();
+
         float newPosX = energyBall->getHorizontalPosition();
         float newPosY = energyBall->getVerticalPosition();
         energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
       
         newWindow.clear();
-        energyBallView.playAnimation();
+
+        if (!energyBall->isDead()) energyBallView.playAnimation();
         newWindow.render();
     }
 }
@@ -205,7 +206,7 @@ void drawBullet(){
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    BulletView bulletView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, textures);
+    BulletView bulletView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, MTP_FACTOR, textures);
     double bulletAngle = 0;
     bool quit = false;
     SDL_Event e;
@@ -235,11 +236,39 @@ void drawBullet(){
     }
 }
 
+void drawButton(){
+    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    std::string title = "Portal";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+
+    ButtonView buttonView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, MTP_FACTOR, textures);
+    bool quit = false;
+    SDL_Event e;
+
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
+                if (e.key.keysym.sym == SDLK_SPACE) {
+                    buttonView.changeButtonState();
+                }
+            }
+        }
+        SDL_Delay(16);
+        newWindow.clear();
+        buttonView.playAnimation();
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
-//    drawEnergyBall();
-    //drawAcidPool();
-    //drawBullet();
+//  drawEnergyBall();
+//  drawAcidPool();
+    drawBullet();
+    drawButton();
 }
