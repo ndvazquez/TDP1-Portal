@@ -13,12 +13,12 @@ bool Block::hasGravity() {
 }
 
 void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                       std::unordered_map<std::string, Object *> textures) {
+                       std::unordered_map<std::string, Object *>& textures) {
     auto positionAbove = tiles.find(std::make_pair(x, y - 1));
 
     // if i have something above me
     if (positionAbove != tiles.end()){
-        std::string tileName = positionAbove->second;
+        std::string& tileName = positionAbove->second;
         Object* objAbove = textures[tileName];
         /*
         if (!obj) {
@@ -31,7 +31,7 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
             throw RemoveTileFloorNeeded(this->name);
         }
     }
-    Object::removeFrom(x, y, tiles, std::unordered_map<std::string, Object *>());
+    Object::removeFrom(x, y, tiles, textures);
 }
 
 Block::~Block() = default;

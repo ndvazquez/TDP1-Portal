@@ -17,7 +17,7 @@ public:
     Block(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Block();
     void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                    std::unordered_map<std::string, Object *> map) override;
+                    std::unordered_map<std::string, Object *>& map) override;
 
     bool hasGravity() override;
 };

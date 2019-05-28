@@ -40,7 +40,6 @@ set(EDITOR_SOURCE_FILES
         editor/Menu.cpp
         editor/Editor.cpp
         editor/MenuButton.cpp
-        editor/RockButton.cpp
         editor/Event.cpp
         editor/StageController.cpp
         editor/StageView.cpp

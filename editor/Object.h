@@ -31,7 +31,7 @@ public:
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
 
     virtual void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                            std::unordered_map<std::string, Object *> map);
+                            std::unordered_map<std::string, Object *>& textures);
 
     virtual bool hasGravity();
 };

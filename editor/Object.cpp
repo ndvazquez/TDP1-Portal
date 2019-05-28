@@ -41,10 +41,6 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
         std::string> &tiles) {
     if(this->hasGravity()) {
         this->addWithGravityTo(x, y, tiles);
-        std::cerr << "Tengo gravedad y soy: " << name << std::endl;
-    } else {
-
-        std::cerr << "No tengo gravedad y soy: " << name << std::endl;
     }
 
     // If there's nothing in the space i need
@@ -69,7 +65,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
 
 
 void Object::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                        std::unordered_map<std::string, Object *> textures) {
+                        std::unordered_map<std::string, Object *>& textures) {
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
             tiles.erase(std::make_pair(x - i , y - j));
