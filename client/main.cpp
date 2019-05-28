@@ -94,7 +94,6 @@ void drawChellWithBox2D(){
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            chellView.handleEvent(e, keys);
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
@@ -106,9 +105,8 @@ void drawChellWithBox2D(){
         }
 
         stage.step();
-        bool chellInGround = chell->inGround();
-
-        chellView.changeJumpingStatus(!chellInGround);
+        std::cout << chell->getState() << std::endl;
+        chellView.setState(chell->getState());
         float newPosX = chell->getHorizontalPosition();
         float newPosY = chell->getVerticalPosition();
         // We move the animated sprite for Chell.
@@ -127,7 +125,7 @@ void drawChellWithBox2D(){
         chellView.playAnimation(camera);
         newWindow.render();
 
-        std::cout << chell->getState() << std::endl;
+
     }
     delete coordinate;
     delete coordinateRock;
@@ -241,7 +239,7 @@ int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
     drawChellWithBox2D();
-    drawEnergyBall();
+//    drawEnergyBall();
     //drawAcidPool();
     //drawBullet();
 }

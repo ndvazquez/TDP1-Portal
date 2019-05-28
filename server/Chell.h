@@ -9,15 +9,7 @@
 #include "Dynamic.h"
 #include "Entity.h"
 #include "Rock.h"
-
-enum State {
-    IDLE,
-    MOVING_LEFT,
-    MOVING_RIGHT,
-    JUMPING,
-    DEAD
-};
-
+#include "../common/constants.h"
 
 class Chell: public Entity {
 private:

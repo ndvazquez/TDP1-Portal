@@ -43,7 +43,7 @@ void Chell::handleCollision(Entity* entity) {
 }
 
 void Chell::die() {
-    this->actual_state = DEAD;
+    //this->actual_state = DEAD;
     dead = true;
 }
 
@@ -68,14 +68,14 @@ void Chell::onFloor(bool onFloor) {
 void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
-    this->actual_state = MOVING_RIGHT;
+    if (!this->actual_state == JUMPING) this->actual_state = MOVING_RIGHT;
     if (this->rock) rock->moveRight();
 }
 
 void Chell::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
-    this->actual_state = MOVING_LEFT;
+    if (!this->actual_state == JUMPING) this->actual_state = MOVING_LEFT;
     if (this->rock) rock->moveLeft();
 }
 
@@ -108,6 +108,7 @@ float Chell::getVerticalVelocity() {
 }
 
 void Chell::update() {
+    chell_is_on_floor = inGround();
     if (chell_is_on_floor) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
     if (this->rock) rock->update();
