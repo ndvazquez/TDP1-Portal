@@ -26,17 +26,15 @@
 #define MTP_FACTOR 100
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-void drawChellWithBox2D(){
+void drawChellAndRock(){
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    std::string bgPath = "resources/Backgrounds/Industrial.png";
-
     StageView stageView(newWindow, textures, MTP_FACTOR);
-    // We'll setup a very basic map, 15x15 blocks.
+    // We'll setup a very basic map, 10x6 blocks.
     std::string metalBlock = "MetalBlock";
-    std::string rockBlock = "RockBlock";
+
     for (int i = 0; i < 10; ++i){
         stageView.addTile(i, 0, metalBlock);
         stageView.addTile(i, 5, metalBlock);
@@ -45,28 +43,23 @@ void drawChellWithBox2D(){
         stageView.addTile(0, i, metalBlock);
         stageView.addTile(9, i, metalBlock);
     }
-    // Rock background.
-//    for (int i = 1; i < 14; ++i){
-//        for (int j = 1; j < 14; ++j){
-//            stageView.addTile(i, j, rockBlock);
-//        }
-//    }
+
     // Box2D Stuff.
     float xPos = 1;
     float yPos = 1;
     float chellHeight = 2;
-    float chellWidth = 2;
-    // We'll subtract 1 block from the world stage for now because it will make Chell collide
-    // with the borders of what's being rendered on screen.
-    Stage stage(9, 6); // 1m == 1 block == 100px
+    float chellWidth = 1;
+    Stage stage(10, 6); // 1m == 1 block == 100px
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
     float metalBlockPosX = 4;
     float metalBlockPosY = 1;
-    stage.addMetalBlock(1, metalBlockPosX, metalBlockPosY);
-    stage.addMetalBlock(1, metalBlockPosX + 1, metalBlockPosY);
+    size_t metalSide = 1;
+    stage.addMetalBlock(metalSide, metalBlockPosX, metalBlockPosY);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY);
 
     // Add a rock next to the metal block.
-    stage.addRock(2, metalBlockPosX + 3, metalBlockPosY);
+    size_t rockSide = 2;
+    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY);
 
     stageView.addTile(int(metalBlockPosX), int(metalBlockPosY) * -1 + 5, metalBlock);
     stageView.addTile(int(metalBlockPosX) + 1, int(metalBlockPosY) * -1 + 5, metalBlock);
@@ -89,7 +82,7 @@ void drawChellWithBox2D(){
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
-    
+
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
@@ -98,6 +91,7 @@ void drawChellWithBox2D(){
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+                if (e.key.keysym.sym == SDLK_s) chell->downloadRock();
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -106,7 +100,8 @@ void drawChellWithBox2D(){
         }
 
         stage.step();
-        std::cout << chell->getState() << std::endl;
+        bool chellInGround = chell->inGround();
+
         chellView.setState(chell->getState());
         float newPosX = chell->getHorizontalPosition();
         float newPosY = chell->getVerticalPosition();
@@ -125,150 +120,182 @@ void drawChellWithBox2D(){
         rockView.playAnimation();
         chellView.playAnimation(camera);
         newWindow.render();
-
-
     }
     delete coordinate;
     delete coordinateRock;
 }
 
-void drawEnergyBall(){
+void drawChellAndEnergyBall(){
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    int stageWidth = 9;
+
+    StageView stageView(newWindow, textures, MTP_FACTOR);
+    // We'll setup a very basic map, 10x6 blocks.
+    std::string metalBlock = "MetalBlock";
+    for (int i = 0; i < 10; ++i){
+        stageView.addTile(i, 0, metalBlock);
+        stageView.addTile(i, 5, metalBlock);
+    }
+    for (int i = 0; i < 6; ++i){
+        stageView.addTile(0, i, metalBlock);
+        stageView.addTile(9, i, metalBlock);
+    }
+
+    // Box2D Stuff.
+
+    int stageWidth = 10;
     int stageHeight = 6;
     Stage stage(stageWidth, stageHeight);
-    int x = 2;
-    int y = 2;
-    EnergyBallView energyBallView(newWindow, x, y, MTP_FACTOR, textures);
+    // Stage Chell
+    float xPos = 1;
+    float yPos = 1;
+    float chellHeight = 2;
+    float chellWidth = 1;
+    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    Coordinate* coordinate = new Coordinate(xPos, yPos);
+    Chell* chell = stage.getChell(coordinate);
+    // Stage EnergyBall
+    int xBall = 8;
+    int yBall = 1;
+    EnergyBallView energyBallView(newWindow, xBall, yBall, MTP_FACTOR, textures);
+    stage.addEnergyBallHorizontal(2, xBall, yBall);
+    Coordinate* coordinateEB = new Coordinate(xBall, yBall);
+    EnergyBall* energyBall = stage.getEnergyBall(coordinateEB);
 
-    stage.addEnergyBallHorizontal(2, x, y);
-    Coordinate* coordinate = new Coordinate(x, y);
-    EnergyBall* energyBall = stage.getEnergyBall(coordinate);
+    // ChellView and camera.
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    // This will be our camera, for now it's just a SDL_Rect
+    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
 
     bool quit = false;
     SDL_Event e;
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
 
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
+            // This should be done server side, but we'll do the event handling here for now.
+            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+            }
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
         stage.step();
-
-        float newPosX = energyBall->getHorizontalPosition();
-        float newPosY = energyBall->getVerticalPosition();
-        energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
-      
+        // Update EnergyBall position.
+        float newEBPosX = energyBall->getHorizontalPosition();
+        float newEBPosY = energyBall->getVerticalPosition();
+        energyBallView.move(newEBPosX, newEBPosY, LEVEL_HEIGHT);
+        // Update Chell position.
+        chellView.setState(chell->getState());
+        float newChellPosX = chell->getHorizontalPosition();
+        float newChellPosY = chell->getVerticalPosition();
+        // We move the animated sprite for Chell.
+        chellView.move(newChellPosX, newChellPosY, LEVEL_HEIGHT);
+        // Gotta update the camera now to center it around Chell.
+        chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
+        // Time to render!
         newWindow.clear();
-
+        stageView.draw(&camera);
         if (!energyBall->isDead()) energyBallView.playAnimation();
+        if (!chell->isDead()) chellView.playAnimation(camera);
         newWindow.render();
     }
+    delete coordinateEB;
+    delete coordinate;
 }
 
-void drawAcidPool(){
+void drawChellAndAcidPool(){
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     std::string metalBlockPath = "resources/blocks/metal-block.png";
 
-    Sprite metalBlock(metalBlockPath, newWindow);
-    SDL_Rect metalBlockResize = {0, 100, 100, 100};
-    AcidView acidView(newWindow, 0, 50, MTP_FACTOR, textures);
+    StageView stageView(newWindow, textures, MTP_FACTOR);
+    // We'll setup a very basic map, 10x6 blocks.
+    std::string metalBlock = "MetalBlock";
+    for (int i = 0; i < 10; ++i){
+        stageView.addTile(i, 0, metalBlock);
+        stageView.addTile(i, 5, metalBlock);
+    }
+    for (int i = 0; i < 6; ++i){
+        stageView.addTile(0, i, metalBlock);
+        stageView.addTile(9, i, metalBlock);
+    }
+
+    // Box2D Stuff.
+    int stageWidth = 10;
+    int stageHeight = 6;
+    Stage stage(stageWidth, stageHeight);
+    // Stage Chell
+    float xPos = 1;
+    float yPos = 1;
+    float chellHeight = 2;
+    float chellWidth = 1;
+
+    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    Coordinate* coordinate = new Coordinate(xPos, yPos);
+    Chell* chell = stage.getChell(coordinate);
+    // Stage AcidPool
+    float acidPosX = 5;
+    float acidPosY = 1;
+    float acidHeight = 1;
+    float acidWidth = 3;
+    stage.addAcid(acidHeight, acidWidth, acidPosX, acidPosY);
+    // Acid View.
+    AcidView acidView(newWindow, acidPosX, acidPosY, MTP_FACTOR, textures);
+
+    // ChellView and camera.
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    // This will be our camera, for now it's just a SDL_Rect
+    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
 
     bool quit = false;
     SDL_Event e;
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
 
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
+            // This should be done server side, but we'll do the event handling here for now.
+            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+            }
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
-        SDL_Delay(16);
+        stage.step();
+
+        // Update Chell position.
+        chellView.setState(chell->getState());
+        float newChellPosX = chell->getHorizontalPosition();
+        float newChellPosY = chell->getVerticalPosition();
+        // We move the animated sprite for Chell.
+        chellView.move(newChellPosX, newChellPosY, LEVEL_HEIGHT);
+        // Gotta update the camera now to center it around Chell.
+        chellView.updateCamera(camera, LEVEL_WIDTH, LEVEL_HEIGHT);
+
         newWindow.clear();
-        metalBlock.draw(&metalBlockResize);
-        metalBlockResize.x += 100;
-        metalBlock.draw(&metalBlockResize);
-        metalBlockResize.x += 100;
-        metalBlock.draw(&metalBlockResize);
-        metalBlockResize.x -= 200;
+        stageView.draw(&camera);
+        acidView.move(acidPosX, acidPosY, LEVEL_HEIGHT);
         acidView.playAnimation();
+        if (!chell->isDead()) chellView.playAnimation(camera);
         newWindow.render();
     }
-}
-
-void drawBullet(){
-    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
-    std::string title = "Portal";
-    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-
-    BulletView bulletView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, MTP_FACTOR, textures);
-    double bulletAngle = 0;
-    bool quit = false;
-    SDL_Event e;
-
-    while(!quit) {
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            }
-            if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
-                switch(e.key.keysym.sym){
-                    case SDLK_d:
-                        bulletAngle += 30;
-                        break;
-                    case SDLK_a:
-                        bulletAngle -= 30;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-        SDL_Delay(16);
-        newWindow.clear();
-        bulletView.playAnimation(bulletAngle);
-        newWindow.render();
-    }
-}
-
-void drawButton(){
-    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
-    std::string title = "Portal";
-    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-
-    ButtonView buttonView(newWindow, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, MTP_FACTOR, textures);
-    bool quit = false;
-    SDL_Event e;
-
-    while(!quit) {
-        while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
-                quit = true;
-            }
-            if (e.type == SDL_KEYDOWN && e.key.repeat == 0){
-                if (e.key.keysym.sym == SDLK_SPACE) {
-                    buttonView.changeButtonState();
-                }
-            }
-        }
-        SDL_Delay(16);
-        newWindow.clear();
-        buttonView.playAnimation();
-        newWindow.render();
-    }
+    delete coordinate;
 }
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
 
-    drawChellWithBox2D();
-//  drawEnergyBall();
-//  drawAcidPool();
-    drawBullet();
-    drawButton();
+    drawChellAndRock();
+    drawChellAndEnergyBall();
+    drawChellAndAcidPool();
 }
