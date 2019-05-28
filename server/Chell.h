@@ -10,6 +10,15 @@
 #include "Entity.h"
 #include "Rock.h"
 
+enum State {
+    IDLE,
+    MOVING_LEFT,
+    MOVING_RIGHT,
+    JUMPING,
+    DEAD
+};
+
+
 class Chell: public Entity {
 private:
     Dynamic dynamic;
@@ -18,6 +27,7 @@ private:
     bool chell_is_on_floor;
     bool dead;
     Rock* rock;
+    State actual_state;
 
 public:
     explicit Chell(b2Body* body);
@@ -40,6 +50,7 @@ public:
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
     void downloadRock();
+    State getState();
 };
 
 #endif //PORTAL_CHELL_H

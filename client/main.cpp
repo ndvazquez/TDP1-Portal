@@ -126,6 +126,8 @@ void drawChellWithBox2D(){
         rockView.playAnimation();
         chellView.playAnimation(camera);
         newWindow.render();
+
+        std::cout << chell->getState() << std::endl;
     }
     delete coordinate;
     delete coordinateRock;
