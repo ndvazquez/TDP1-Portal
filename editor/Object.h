@@ -30,7 +30,10 @@ public:
 
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
 
-    virtual void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
+    virtual void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                            std::unordered_map<std::string, Object *> map);
+
+    virtual bool hasGravity();
 };
 
 #endif //PORTAL_OBJECT_H

@@ -14,37 +14,6 @@ void Object::hasToBeOn(const std::string &name) {
     floors.push_back(name);
 }
 
-void Object::addTo(int x, int y, std::map<std::pair<int, int>,
-        std::string> &tiles) {
-    // If there's nothing in the space i need
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            auto it = tiles.find(std::make_pair(x - i, y- j));
-            if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
-                throw AddTileTakenPositionException(this->name);
-            }
-        }
-    }
-
-    tiles.insert(std::make_pair(std::make_pair(x, y), this->name));
-    // I add my self in all that space
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            tiles.insert(std::make_pair(std::make_pair(x - i, y - j), SENTINEL));
-        }
-    }
-
-}
-
-void Object::removeFrom(int x, int y, std::map<std::pair<int, int>,
-        std::string> &tiles) {
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            tiles.erase(std::make_pair(x - i , y - j));
-        }
-    }
-}
-
 void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
     // if we dont have something under us there is no way to be add.
     auto positionBelow = tiles.find(std::make_pair(x, y + 1));
@@ -65,10 +34,54 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::s
     }
 
     // is something we can be on!!!
-    Object::addTo(x,y,tiles);
+    //Object::addTo(x,y,tiles);
+}
+
+void Object::addTo(int x, int y, std::map<std::pair<int, int>,
+        std::string> &tiles) {
+    if(this->hasGravity()) {
+        this->addWithGravityTo(x, y, tiles);
+        std::cerr << "Tengo gravedad y soy: " << name << std::endl;
+    } else {
+
+        std::cerr << "No tengo gravedad y soy: " << name << std::endl;
+    }
+
+    // If there's nothing in the space i need
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            auto it = tiles.find(std::make_pair(x - i, y- j));
+            if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
+                throw AddTileTakenPositionException(this->name);
+            }
+        }
+    }
+
+    tiles.insert(std::make_pair(std::make_pair(x, y), this->name));
+    // I add my self in all that space
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            tiles.insert(std::make_pair(std::make_pair(x - i, y - j), SENTINEL));
+        }
+    }
+
+}
+
+
+void Object::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                        std::unordered_map<std::string, Object *> textures) {
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            tiles.erase(std::make_pair(x - i , y - j));
+        }
+    }
 }
 
 void Object::setName() {
     // if is not overwritten it wont do much
     // i.e. if you are not a button or a gate u must do nothing
+}
+
+bool Object::hasGravity() {
+    return true;
 }

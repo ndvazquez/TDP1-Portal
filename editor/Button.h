@@ -15,7 +15,6 @@ public:
     Button(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Button();
 
-    void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
     void setName() override;
 };
 

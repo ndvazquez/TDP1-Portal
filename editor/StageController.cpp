@@ -139,7 +139,7 @@ void StageController::removeTile(int x, int y) {
         throw StageControllerNameException();
     }
     try {
-        obj->removeFrom(x, y, tiles);
+        obj->removeFrom(x, y, tiles, textures);
     }
     catch(StageObjectException) {
         throw StageControllerRemoveTileException();

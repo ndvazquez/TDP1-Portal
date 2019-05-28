@@ -8,14 +8,30 @@
 Block::Block(std::string &path, Window &window, const std::string& name, int w, int h) :
     StaticObject(path, window, name, w, h) {}
 
-void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles) {
+bool Block::hasGravity() {
+    return false;
+}
+
+void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                       std::unordered_map<std::string, Object *> textures) {
     auto positionAbove = tiles.find(std::make_pair(x, y - 1));
-    // if i have something above me and is not another block
-    if (positionAbove != tiles.end() && positionAbove->second != name) {
+
+    // if i have something above me
+    if (positionAbove != tiles.end()){
+        std::string tileName = positionAbove->second;
+        Object* objAbove = textures[tileName];
+        /*
+        if (!obj) {
+            throw StageControllerNameException();
+        }
+         */
+        // and is has gravity
+        if (objAbove->hasGravity()) {
             // I can't be removed
             throw RemoveTileFloorNeeded(this->name);
+        }
     }
-    Object::removeFrom(x, y, tiles);
+    Object::removeFrom(x, y, tiles, std::unordered_map<std::string, Object *>());
 }
 
 Block::~Block() = default;

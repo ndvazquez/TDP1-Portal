@@ -15,9 +15,6 @@ void Gate::draw(SDL_Rect* rect) {
 
 Gate::~Gate() = default;
 
-void Gate::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
-    Object::addWithGravityTo(x, y, tiles);
-}
 
 void Gate::setName() {
     std::cerr << "Soy una compuerta" << std::endl;

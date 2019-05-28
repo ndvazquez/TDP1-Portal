@@ -10,7 +10,3 @@ Rock::Rock(std::string& path, Window& window, const std::string& name, int w, in
     StaticObject(path, window, name, w, h) {}
 
 Rock::~Rock() = default;
-
-void Rock::addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
-    Object::addWithGravityTo(x, y, tiles);
-}

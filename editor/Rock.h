@@ -13,7 +13,6 @@ class Rock : public StaticObject {
 public:
     Rock(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Rock();
-    void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
 };
 
 
