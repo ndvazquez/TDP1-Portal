@@ -52,6 +52,7 @@ set(EDITOR_SOURCE_FILES
         editor/Object.cpp
         editor/Gate.cpp
         editor/MouseButton.cpp
+        editor/Cake.cpp
         )
 
 set(SERVER_SOURCE_FILES

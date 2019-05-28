@@ -10,12 +10,14 @@
 #include "Rock.h"
 #include "Chell.h"
 #include "Gate.h"
+#include "Cake.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
 #define ROCK_KEY "Rocks"
 #define CHELL_KEY "Chells"
 #define GATE_KEY "Gate"
+#define CAKE_KEY "Cake"
 
 
 StageController::StageController(Window& window, YAML::Node& texturesInfo, int factor) :
@@ -103,6 +105,26 @@ stageView(window, factor, textures, tiles) {
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
         Gate* newObject = new Gate(path, window, name, w, h);
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+
+            newObject->hasToBeOn(name);
+        }
+    }
+
+    const YAML::Node& cakes = texturesInfo[CAKE_KEY];
+    for (YAML::const_iterator it = cakes.begin();
+         it != cakes.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Cake* newObject = new Cake(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
 
         for (YAML::const_iterator it = blocks.begin();
