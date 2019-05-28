@@ -147,8 +147,6 @@ void drawEnergyBall(){
     Coordinate* coordinate = new Coordinate(x, y);
     EnergyBall* energyBall = stage.getEnergyBall(coordinate);
 
-    energyBall->fly();
-
     bool quit = false;
     SDL_Event e;
 
@@ -159,12 +157,14 @@ void drawEnergyBall(){
             }
         }
         stage.step();
+
         float newPosX = energyBall->getHorizontalPosition();
         float newPosY = energyBall->getVerticalPosition();
         energyBallView.move(newPosX, newPosY, SCREEN_HEIGHT);
       
         newWindow.clear();
-        energyBallView.playAnimation();
+
+        if (!energyBall->isDead()) energyBallView.playAnimation();
         newWindow.render();
     }
 }
@@ -268,6 +268,7 @@ int main(int argc, char* argv[]){
 
     drawChellWithBox2D();
     drawEnergyBall();
+
     //drawAcidPool();
     drawBullet();
     drawButton();
