@@ -45,6 +45,7 @@ public:
               SDL_Rect &sourceRect,
               SDL_Rect &destRect,
               double angle);
+    void drawRectangle(SDL_Rect& outlineRect);
     int getWindowWidth();
     int getWindowHeight();
 };
