@@ -45,7 +45,7 @@ void StageView::draw(SDL_Rect* camera) {
             }
             sprite = textures[point->second];
             destRect.x = point->first.first  * matrixToPixelFactor - camera->x - destRect.w / 2;
-            destRect.y = point->first.second * matrixToPixelFactor - camera->y;
+            destRect.y = point->first.second * matrixToPixelFactor - camera->y - destRect.h / 2;
             sprite->draw(&destRect);
         }
     }

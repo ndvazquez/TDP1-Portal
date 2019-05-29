@@ -14,7 +14,7 @@
 #include <string>
 
 #define TEXTURES_STATICOBJETS_KEY "StaticObjects"
-#define EXTRA_TILES 1
+#define EXTRA_TILES 2
 
 
 class StageViewAddTileException : public std::exception{
