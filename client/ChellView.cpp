@@ -26,12 +26,10 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         int spriteWidth = newSprite->getWidth();
         int spriteHeight = newSprite->getHeight();
         // This is wrong, we should use a set Width and Height.
-        if (name == CHELL_RESTING_IDLE) {
-            viewWidth = spriteWidth;
-            viewHeight = spriteHeight;
-        }
         animations.push_back(newSprite);
     }
+    viewWidth = CHELL_VIEW_WIDTH;
+    viewHeight = CHELL_VIEW_HEIGHT;
     currentState = IDLE;
 }
 
@@ -59,8 +57,8 @@ void ChellView::playAnimation(SDL_Rect& camera) {
 }
 
 void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) {
-    camera.x = (viewPosX + viewWidth / 2) - camera.w / 2;
-    camera.y = (viewPosY + viewHeight / 2) - camera.h / 2;
+    camera.x = (viewPosX + viewWidth * mtpFactor / 2) - camera.w / 2;
+    camera.y = (viewPosY + viewHeight * mtpFactor / 2) - camera.h / 2;
 
     if(camera.x < 0){
         camera.x = 0;

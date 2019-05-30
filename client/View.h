@@ -11,16 +11,21 @@
 class View {
 protected:
     Window& window;
-    int viewWidth;
-    int viewHeight;
+    // Actual width and height of the view, in meters.
+    float viewWidth;
+    float viewHeight;
+    // X and Y position in pixels.
     int viewPosX;
     int viewPosY;
+    // Conversion factor to transform meters to pixels.
     int mtpFactor;
 public:
     View(Window& newWindow, int xPos, int yPos, int factor);
     virtual ~View() = default;
     virtual void playAnimation() = 0;
     void move(float newPosX, float newPosY, int levelHeight);
+    int getViewPositionX();
+    int getViewPositionY();
 };
 
 
