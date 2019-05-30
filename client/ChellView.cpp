@@ -11,10 +11,8 @@
 
 ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :
-            View(window, xPos, yPos, factor),
+            View(window, xPos, yPos, factor, CHELL_WIDTH, CHELL_HEIGHT),
             flip(SDL_FLIP_NONE){
-    viewWidthInMeters = 0;
-    viewHeightInMeters = 0;
     YAML::Node animationsData = texturesData[TEXTURES_INFO_KEY];
     for (YAML::const_iterator it = animationsData.begin();
         it != animationsData.end(); ++it){
@@ -26,8 +24,6 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         // This is wrong, we should use a set Width and Height.
         animations.push_back(newSprite);
     }
-    viewWidthInMeters = CHELL_WIDTH;
-    viewHeightInMeters = CHELL_HEIGHT;
     currentState = IDLE;
 }
 
@@ -37,9 +33,9 @@ ChellView::~ChellView() {
     }
 }
 
-void ChellView::playAnimation() {}
-
 void ChellView::playAnimation(SDL_Rect& camera) {
+    if (!checkCollisionWithCamera(camera)) return;
+
     int animationIndex = currentState;
     if (currentState == MOVING_RIGHT) {
         --animationIndex;

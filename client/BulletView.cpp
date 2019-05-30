@@ -5,26 +5,27 @@
 #include "BulletView.h"
 #include "View.h"
 
-//TODO: Hacer que herede de View.
 BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
                    YAML::Node texturesData) :
-        View(window, xPos, yPos, factor) {
+        View(window, xPos, yPos, factor, BULLET_WIDTH, BULLET_HEIGHT) {
     YAML::Node animationData = texturesData[TEXTURES_BULLET_KEY];
     std::string path = animationData["path"].as<std::string>();
     int totalFrames = animationData["frames"].as<int>();
     animation = new AnimatedSprite(path, window, totalFrames);
-    viewHeightInMeters = animation->getHeight();
-    viewWidthInMeters = animation->getWidth();
+
     animation->setFrameRate(1000 / totalFrames / FRAMERATE_ADJUSTMENT);
 }
 
-void BulletView::playAnimation(){}
+void BulletView::playAnimation(SDL_Rect &camera){
+    if (!checkCollisionWithCamera(camera)) return;
+    animation->draw(viewPosX, viewPosY, bulletAngle);
+    animation->updateFrameStep();
+}
 
 BulletView::~BulletView(){
     delete animation;
 }
 
-void BulletView::playAnimation(double angle) {
-    animation->draw(viewPosX, viewPosY, angle);
-    animation->updateFrameStep();
+void BulletView::setAngle(double angle) {
+    bulletAngle = angle;
 }
