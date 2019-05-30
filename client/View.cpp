@@ -4,16 +4,25 @@
 
 #include "View.h"
 
-View::View(Window &newWindow, int xPos, int yPos, int factor) :
+View::View(Window &newWindow, int xPos, int yPos,
+        int factor, float width, float height) :
     window(newWindow),
+    viewWidthInMeters(width),
+    viewHeightInMeters(height),
     viewPosX(xPos),
     viewPosY(yPos),
-    mtpFactor(factor){
+    mtpFactor(factor) {
+    collisionBox.x = viewPosX;
+    collisionBox.y = viewPosY;
+    collisionBox.w = int(viewWidthInMeters * mtpFactor);
+    collisionBox.h = int(viewHeightInMeters * mtpFactor);
 }
 
 void View::move(float newPosX, float newPosY, int levelHeight) {
-    viewPosX = (newPosX - viewWidth / 2) * mtpFactor;
-    viewPosY = (newPosY + viewHeight / 2) * mtpFactor * -1 + levelHeight;
+    viewPosX = (newPosX - viewWidthInMeters / 2) * mtpFactor;
+    viewPosY = (newPosY + viewHeightInMeters / 2) * mtpFactor * -1 + levelHeight;
+    collisionBox.x = viewPosX;
+    collisionBox.y = viewPosY;
 }
 
 int View::getViewPositionX() {
@@ -22,4 +31,9 @@ int View::getViewPositionX() {
 
 int View::getViewPositionY() {
     return viewPosY;
+}
+
+bool View::checkCollisionWithCamera(SDL_Rect &camera) {
+    bool result = SDL_HasIntersection(&collisionBox, &camera);
+    return result;
 }

@@ -21,7 +21,6 @@ class ChellView : public View {
 public:
     ChellView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~ChellView();
-    void playAnimation();
     void playAnimation(SDL_Rect& camera);
     // This method is only used by the playable Chell;
     void updateCamera(SDL_Rect& camera, int levelWidth, int levelHeight);

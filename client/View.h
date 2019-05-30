@@ -12,20 +12,23 @@ class View {
 protected:
     Window& window;
     // Actual width and height of the view, in meters.
-    float viewWidth;
-    float viewHeight;
+    float viewWidthInMeters;
+    float viewHeightInMeters;
+    SDL_Rect collisionBox;
     // X and Y position in pixels.
     int viewPosX;
     int viewPosY;
     // Conversion factor to transform meters to pixels.
     int mtpFactor;
 public:
-    View(Window& newWindow, int xPos, int yPos, int factor);
+    View(Window& newWindow, int xPos, int yPos, int factor,
+            float width, float height);
     virtual ~View() = default;
-    virtual void playAnimation() = 0;
+    virtual void playAnimation(SDL_Rect& camera) = 0;
     void move(float newPosX, float newPosY, int levelHeight);
     int getViewPositionX();
     int getViewPositionY();
+    bool checkCollisionWithCamera(SDL_Rect& camera);
 };
 
 

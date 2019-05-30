@@ -10,14 +10,16 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 #include "View.h"
+#include "../common/constants.h"
 
 #define TEXTURES_EB_KEY "EnergyBall"
+
 class EnergyBallView : public View {
     AnimatedSprite* animation;
 public:
     EnergyBallView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~EnergyBallView();
-    void playAnimation();
+    void playAnimation(SDL_Rect& camera);
 };
 
 

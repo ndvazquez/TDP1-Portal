@@ -10,6 +10,8 @@
 #include "../common/Window.h"
 #include "../common/AnimatedSprite.h"
 #include "View.h"
+#include "../common/constants.h"
+
 #define TEXTURES_ACID_KEY "Acid"
 
 class AcidView : public View{
@@ -17,7 +19,7 @@ class AcidView : public View{
 public:
     AcidView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~AcidView();
-    void playAnimation();
+    void playAnimation(SDL_Rect& camera);
 };
 
 
