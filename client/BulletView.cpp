@@ -13,8 +13,8 @@ BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
     std::string path = animationData["path"].as<std::string>();
     int totalFrames = animationData["frames"].as<int>();
     animation = new AnimatedSprite(path, window, totalFrames);
-    viewHeight = animation->getHeight();
-    viewWidth = animation->getWidth();
+    viewHeightInMeters = animation->getHeight();
+    viewWidthInMeters = animation->getWidth();
     animation->setFrameRate(1000 / totalFrames / FRAMERATE_ADJUSTMENT);
 }
 

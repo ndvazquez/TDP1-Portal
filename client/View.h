@@ -12,8 +12,8 @@ class View {
 protected:
     Window& window;
     // Actual width and height of the view, in meters.
-    float viewWidth;
-    float viewHeight;
+    float viewWidthInMeters;
+    float viewHeightInMeters;
     // X and Y position in pixels.
     int viewPosX;
     int viewPosY;

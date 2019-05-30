@@ -10,8 +10,8 @@ RockView::RockView(Window &window, int xPos, int yPos,
     const YAML::Node& spriteData = texturesData[TEXTURES_ROCK_KEY];
     std::string path = spriteData["path"].as<std::string>();
     sprite = new Sprite(path, window);
-    viewHeight = sprite->getHeight();
-    viewWidth = sprite->getWidth();
+    viewHeightInMeters = sprite->getHeight();
+    viewWidthInMeters = sprite->getWidth();
 }
 
 RockView::~RockView() {

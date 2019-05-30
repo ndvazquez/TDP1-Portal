@@ -18,8 +18,8 @@ ButtonView::ButtonView(Window &window, int xPos, int yPos, int factor,
         int spriteHeight = newSprite->getHeight();
         // This is wrong, we should use a set Width and Height.
         if (name == BUTTON_STATE_OFF) {
-            viewWidth = spriteWidth;
-            viewHeight = spriteHeight;
+            viewWidthInMeters = spriteWidth;
+            viewHeightInMeters = spriteHeight;
         }
         sprites[name] = newSprite;
     }
