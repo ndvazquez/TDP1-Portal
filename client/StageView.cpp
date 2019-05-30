@@ -10,7 +10,7 @@
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
     window(window),
-    matrixToPixelFactor(factor) {
+    mtpFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
     for (YAML::const_iterator it = staticObjects.begin();
          it != staticObjects.end(); ++it) {
@@ -28,24 +28,26 @@ StageView::~StageView() {
     }
 }
 
-void StageView::draw(SDL_Rect* camera) {
-    SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
-    int camPosX = camera->x / matrixToPixelFactor;
-    int camPosY = camera->y / matrixToPixelFactor;
+void StageView::draw(SDL_Rect& camera) {
+    SDL_Rect destRect = {0 , 0, mtpFactor, mtpFactor};
+    int camPosX = camera.x / mtpFactor;
+    int camPosY = camera.y / mtpFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.
-    int n = camera->w / matrixToPixelFactor + EXTRA_TILES;
-    int m = camera->h / matrixToPixelFactor + EXTRA_TILES;
+    int n = camera.w / mtpFactor + EXTRA_TILES;
+    int m = camera.h / mtpFactor + EXTRA_TILES;
 
     Sprite* sprite = nullptr;
     for (int i = camPosX; i < camPosX + n; ++i){
         for (int j = camPosY; j < camPosY + m; ++j){
-            auto point = tiles.find(std::make_pair(i, j));
-            if (point == tiles.end()){
+            auto tile = tiles.find(std::make_pair(i, j));
+            if (tile == tiles.end()){
                 continue;
             }
-            sprite = textures[point->second];
-            destRect.x = point->first.first  * matrixToPixelFactor - camera->x;
-            destRect.y = point->first.second * matrixToPixelFactor - camera->y;
+            auto tileCoordinate = tile->first;
+            auto tileName = tile->second;
+            sprite = textures[tileName];
+            destRect.x = tileCoordinate.first  * mtpFactor - camera.x - destRect.w / 2;
+            destRect.y = tileCoordinate.second * mtpFactor - camera.y - destRect.h / 2;
             sprite->draw(&destRect);
         }
     }

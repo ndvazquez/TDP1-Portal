@@ -53,13 +53,13 @@ private:
 public:
     Stage(size_t width, size_t height);
     ~Stage();
-    b2Body* addStaticRectangle(size_t v_side, size_t h_side,
+    b2Body* addStaticRectangle(float v_side, float h_side,
             float x_pos, float y_pos);
     b2Body* addDynamicRectangle(float v_side, float h_side,
             float x_pos, float y_pos);
 
     void addBrickBlock(size_t side, float x_pos, float y_pos);
-    void addMetalBlock(size_t side, float x_pos, float y_pos);
+    void addMetalBlock(float side, float x_pos, float y_pos);
     void addDiagonalMetalBlock(size_t side, float x_pos,
             float y_pos);
     void addEnergyTransmitter(size_t side, float x_pos, float y_pos);

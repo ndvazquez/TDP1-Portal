@@ -12,6 +12,14 @@ View::View(Window &newWindow, int xPos, int yPos, int factor) :
 }
 
 void View::move(float newPosX, float newPosY, int levelHeight) {
-    viewPosX = newPosX * mtpFactor;
-    viewPosY = newPosY * mtpFactor * -1 + levelHeight - viewHeight;
+    viewPosX = (newPosX - viewWidth / 2) * mtpFactor;
+    viewPosY = (newPosY + viewHeight / 2) * mtpFactor * -1 + levelHeight;
+}
+
+int View::getViewPositionX() {
+    return viewPosX;
+}
+
+int View::getViewPositionY() {
+    return viewPosY;
 }

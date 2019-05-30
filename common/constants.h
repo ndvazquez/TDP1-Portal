@@ -12,4 +12,7 @@ enum State {
     MOVING_RIGHT
 };
 
+#define CHELL_WIDTH 1
+#define CHELL_HEIGHT 1.95
+
 #endif //PORTAL_CONSTANTS_H

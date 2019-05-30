@@ -31,6 +31,7 @@ void Window::render(){
 }
 
 void Window::clear() {
+    SDL_SetRenderDrawColor(this->renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(this->renderer);
 }
 
@@ -51,6 +52,10 @@ void Window::draw(SDL_Texture &texture, SDL_Rect &sourceRect,
             &destRect, angle, nullptr, SDL_FLIP_NONE);
 }
 
+void Window::drawRectangle(SDL_Rect &outlineRect) {
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+    SDL_RenderDrawRect(renderer, &outlineRect);
+}
 int Window::getWindowWidth() {
     return windowWidth;
 }
