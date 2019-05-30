@@ -39,13 +39,15 @@ void StageView::draw(SDL_Rect& camera) {
     Sprite* sprite = nullptr;
     for (int i = camPosX; i < camPosX + n; ++i){
         for (int j = camPosY; j < camPosY + m; ++j){
-            auto point = tiles.find(std::make_pair(i, j));
-            if (point == tiles.end()){
+            auto tile = tiles.find(std::make_pair(i, j));
+            if (tile == tiles.end()){
                 continue;
             }
-            sprite = textures[point->second];
-            destRect.x = point->first.first  * mtpFactor - camera.x - destRect.w / 2;
-            destRect.y = point->first.second * mtpFactor - camera.y - destRect.h / 2;
+            auto tileCoordinate = tile->first;
+            auto tileName = tile->second;
+            sprite = textures[tileName];
+            destRect.x = tileCoordinate.first  * mtpFactor - camera.x - destRect.w / 2;
+            destRect.y = tileCoordinate.second * mtpFactor - camera.y - destRect.h / 2;
             sprite->draw(&destRect);
         }
     }
