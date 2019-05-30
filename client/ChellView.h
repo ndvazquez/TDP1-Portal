@@ -13,9 +13,6 @@
 #include <vector>
 #include "../common/constants.h"
 #define TEXTURES_INFO_KEY "Chell"
-#define CHELL_VIEW_WIDTH 1
-#define CHELL_VIEW_HEIGHT 1.95
-
 
 class ChellView : public View {
     SDL_RendererFlip flip;

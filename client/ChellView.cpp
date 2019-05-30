@@ -28,8 +28,8 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         // This is wrong, we should use a set Width and Height.
         animations.push_back(newSprite);
     }
-    viewWidth = CHELL_VIEW_WIDTH;
-    viewHeight = CHELL_VIEW_HEIGHT;
+    viewWidth = CHELL_WIDTH;
+    viewHeight = CHELL_HEIGHT;
     currentState = IDLE;
 }
 
