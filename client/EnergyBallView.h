@@ -19,7 +19,7 @@ class EnergyBallView : public View {
 public:
     EnergyBallView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~EnergyBallView();
-    void playAnimation(SDL_Rect& camera);
+    void playAnimation(const SDL_Rect& camera);
 };
 
 

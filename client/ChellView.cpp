@@ -33,7 +33,7 @@ ChellView::~ChellView() {
     }
 }
 
-void ChellView::playAnimation(SDL_Rect& camera) {
+void ChellView::playAnimation(const SDL_Rect& camera) {
     if (!checkCollisionWithCamera(camera)) return;
 
     int animationIndex = currentState;
@@ -50,24 +50,16 @@ void ChellView::playAnimation(SDL_Rect& camera) {
     animation->updateFrameStep();
 }
 
-void ChellView::updateCamera(SDL_Rect &camera, int levelWidth, int levelHeight) {
-    camera.x = (viewPosX + viewWidthInMeters * mtpFactor / 2) - camera.w / 2;
-    camera.y = (viewPosY + viewHeightInMeters * mtpFactor / 2) - camera.h / 2;
-
-    if(camera.x < 0){
-        camera.x = 0;
-    }
-    if(camera.y < 0){
-        camera.y = 0;
-    }
-    if(camera.x > levelWidth - camera.w){
-        camera.x = levelWidth - camera.w;
-    }
-    if(camera.y > levelHeight - camera.h){
-        camera.y = levelHeight - camera.h;
-    }
-}
-
 void ChellView::setState(State state) {
     currentState = state;
+}
+
+int ChellView::getCenterPosX() {
+    int centerPosX = viewPosX + viewWidthInMeters * mtpFactor / 2;
+    return centerPosX;
+}
+
+int ChellView::getCenterPosY() {
+    int centerPosY = viewPosY + viewHeightInMeters * mtpFactor / 2;
+    return centerPosY;
 }

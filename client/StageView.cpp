@@ -28,7 +28,7 @@ StageView::~StageView() {
     }
 }
 
-void StageView::draw(SDL_Rect& camera) {
+void StageView::draw(const SDL_Rect& camera) {
     SDL_Rect destRect = {0 , 0, mtpFactor, mtpFactor};
     int camPosX = camera.x / mtpFactor;
     int camPosY = camera.y / mtpFactor;

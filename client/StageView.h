@@ -34,7 +34,7 @@ public:
     StageView(Window& window, YAML::Node& texturesInfo, int factor);
     ~StageView();
     void addTile(int x, int y, std::string& tileName);
-    void draw(SDL_Rect& camera);
+    void draw(const SDL_Rect& camera);
 };
 
 

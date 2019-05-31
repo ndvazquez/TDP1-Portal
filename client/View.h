@@ -24,11 +24,11 @@ public:
     View(Window& newWindow, int xPos, int yPos, int factor,
             float width, float height);
     virtual ~View() = default;
-    virtual void playAnimation(SDL_Rect& camera) = 0;
+    virtual void playAnimation(const SDL_Rect& camera) = 0;
     void move(float newPosX, float newPosY, int levelHeight);
     int getViewPositionX();
     int getViewPositionY();
-    bool checkCollisionWithCamera(SDL_Rect& camera);
+    bool checkCollisionWithCamera(const SDL_Rect& camera);
 };
 
 

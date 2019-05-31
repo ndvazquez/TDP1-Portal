@@ -21,7 +21,7 @@ class BulletView : public View {
 public:
     BulletView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~BulletView();
-    void playAnimation(SDL_Rect& camera);
+    void playAnimation(const SDL_Rect& camera);
     void setAngle(double angle);
 };
 

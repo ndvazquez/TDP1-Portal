@@ -31,7 +31,7 @@ void ButtonView::changeButtonState() {
     currentSprite = currentSprite == BUTTON_STATE_OFF ? BUTTON_STATE_ON : BUTTON_STATE_OFF;
 }
 
-void ButtonView::playAnimation(SDL_Rect &camera) {
+void ButtonView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     Sprite* sprite = sprites[currentSprite];
     // We'll resize the button sprite to make it fit over two blocks.

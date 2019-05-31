@@ -24,7 +24,7 @@ public:
     ~ButtonView();
     // This will probably receive a state when the button logic is implemented server side.
     void changeButtonState();
-    void playAnimation(SDL_Rect& camera);
+    void playAnimation(const SDL_Rect& camera);
 };
 
 
