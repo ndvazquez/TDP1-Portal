@@ -35,6 +35,6 @@ void ButtonView::playAnimation(SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     Sprite* sprite = sprites[currentSprite];
     // We'll resize the button sprite to make it fit over two blocks.
-    SDL_Rect destRect = {viewPosX, viewPosY, mtpFactor * 2, mtpFactor / 2};
+    SDL_Rect destRect = {viewPosX - camera.x, viewPosY - camera.y, mtpFactor * 2, mtpFactor / 2};
     sprite->draw(&destRect);
 }

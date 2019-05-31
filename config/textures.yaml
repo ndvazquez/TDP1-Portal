@@ -9,6 +9,13 @@ Chell:
     path: resources/Chell/Run.png
     frames: 12
 
+Portal:
+  - name: Blue
+    path: resources/portal/BluePortal.png
+    frames: 1
+  - name: Orange
+    path: resources/portal/OrangePortal.png
+    frames: 1
 
 EnergyBall: {path: resources/EnergyBall/energy-ball.png, frames: 4}
 

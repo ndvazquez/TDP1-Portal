@@ -24,5 +24,6 @@ enum State {
 #define BULLET_HEIGHT 0.5
 #define ENERGY_BALL_WIDTH 1
 #define ENERGY_BALL_HEIGHT 1
-
+#define PORTAL_WIDTH 1
+#define PORTAL_HEIGHT 2
 #endif //PORTAL_CONSTANTS_H

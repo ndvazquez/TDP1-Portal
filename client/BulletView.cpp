@@ -18,7 +18,7 @@ BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
 
 void BulletView::playAnimation(SDL_Rect &camera){
     if (!checkCollisionWithCamera(camera)) return;
-    animation->draw(viewPosX, viewPosY, bulletAngle);
+    animation->draw(viewPosX - camera.x, viewPosY - camera.y, bulletAngle);
     animation->updateFrameStep();
 }
 
