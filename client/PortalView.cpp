@@ -28,7 +28,7 @@ PortalView::~PortalView() {
 }
 
 //TODO: Determinar de alguna forma qué FLIP usar.
-void PortalView::playAnimation(SDL_Rect &camera) {
+void PortalView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     AnimatedSprite* sprite = sprites[currentSprite];
     sprite->draw(viewPosX - camera.x, viewPosY - camera.y, flip);

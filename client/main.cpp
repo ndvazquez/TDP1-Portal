@@ -20,6 +20,7 @@
 #include <Stage.h>
 #include "../common/constants.h"
 #include "PortalView.h"
+#include "Camera.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -100,8 +101,7 @@ void drawChell(){
     PortalView portalView(newWindow, 1150, 950, MTP_FACTOR, textures);
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
-    // This will be our camera, for now it's just a SDL_Rect
-    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -132,17 +132,21 @@ void drawChell(){
         // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
-        chellView.updateCamera(camera, levelWidth, levelHeight);
-        SDL_Rect outlineRect = {chellView.getViewPositionX() - camera.x,
-                                chellView.getViewPositionY() - camera.y,
+        int chellCenterPositionX = chellView.getCenterPosX();
+        int chellCenterPositionY = chellView.getCenterPosY();
+        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        const SDL_Rect& cameraRect = camera.getCameraRectangle();
+
+        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
+                                chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
                                 int(chellHeight * MTP_FACTOR)};
         SDL_Rect* bgRect = NULL;
         newWindow.clear();
         background.draw(bgRect);
-        stageView.draw(camera);
-        portalView.playAnimation(camera);
-        chellView.playAnimation(camera);
+        stageView.draw(cameraRect);
+        portalView.playAnimation(cameraRect);
+        chellView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
@@ -185,8 +189,7 @@ void drawChellAndRock(){
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
-    // This will be our camera, for now it's just a SDL_Rect
-    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     // RockView.
     RockView rockView(newWindow, metalBlockPosX + 2, metalBlockPosY, MTP_FACTOR, textures);
 
@@ -219,7 +222,11 @@ void drawChellAndRock(){
         // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
-        chellView.updateCamera(camera, levelWidth, levelHeight);
+        int chellCenterPositionX = chellView.getCenterPosX();
+        int chellCenterPositionY = chellView.getCenterPosY();
+        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        const SDL_Rect& cameraRect = camera.getCameraRectangle();
+
         // Get current Rock position and move it.
         float newRockPosX = rock->getHorizontalPosition();
         float newRockPosY = rock->getVerticalPosition();
@@ -228,15 +235,15 @@ void drawChellAndRock(){
 
         SDL_Rect rockRect = {rockView.getViewPositionX(), rockView.getViewPositionY(),
                              int(rockSide * MTP_FACTOR), int(rockSide * MTP_FACTOR)};
-        SDL_Rect outlineRect = {chellView.getViewPositionX() - camera.x,
-                                chellView.getViewPositionY() - camera.y,
+        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
+                                chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
                                 int(chellHeight * MTP_FACTOR)};
         newWindow.clear();
         newWindow.drawRectangle(rockRect);
         newWindow.drawRectangle(outlineRect);
-        rockView.playAnimation(camera);
-        chellView.playAnimation(camera);
+        rockView.playAnimation(cameraRect);
+        chellView.playAnimation(cameraRect);
         newWindow.render();
     }
     delete coordinate;
@@ -249,7 +256,6 @@ void drawChellAndEnergyBall(){
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     // Box2D Stuff.
-
     int stageWidth = 10;
     int stageHeight = 6;
     int levelWidth = stageWidth * MTP_FACTOR;
@@ -274,8 +280,7 @@ void drawChellAndEnergyBall(){
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
-    // This will be our camera, for now it's just a SDL_Rect
-    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
     bool quit = false;
     SDL_Event e;
@@ -306,19 +311,23 @@ void drawChellAndEnergyBall(){
         // We move the animated sprite for Chell.
         chellView.move(newChellPosX, newChellPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
-        chellView.updateCamera(camera, levelWidth, levelHeight);
+        int chellCenterPositionX = chellView.getCenterPosX();
+        int chellCenterPositionY = chellView.getCenterPosY();
+        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        const SDL_Rect& cameraRect = camera.getCameraRectangle();
+
         SDL_Rect ebRect = {energyBallView.getViewPositionX(), energyBallView.getViewPositionY(),
                            int(energyBallSide * MTP_FACTOR), int(energyBallSide * MTP_FACTOR)};
-        SDL_Rect outlineRect = {chellView.getViewPositionX() - camera.x,
-                                chellView.getViewPositionY() - camera.y,
+        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
+                                chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
                                 int(chellHeight * MTP_FACTOR)};
         // Time to render!
         newWindow.clear();
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(ebRect);
-        if (!energyBall->isDead()) energyBallView.playAnimation(camera);
-        if (!chell->isDead()) chellView.playAnimation(camera);
+        if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
+        if (!chell->isDead()) chellView.playAnimation(cameraRect);
         newWindow.render();
     }
     delete coordinateEB;
@@ -362,8 +371,7 @@ void drawChellAndAcidPool(){
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
-    // This will be our camera, for now it's just a SDL_Rect
-    SDL_Rect camera = {int(xPos), int(yPos), SCREEN_WIDTH, SCREEN_HEIGHT};
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
     bool quit = false;
     SDL_Event e;
@@ -391,18 +399,21 @@ void drawChellAndAcidPool(){
         // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
-        chellView.updateCamera(camera, levelWidth, levelHeight);
+        int chellCenterPositionX = chellView.getCenterPosX();
+        int chellCenterPositionY = chellView.getCenterPosY();
+        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         newWindow.clear();
         SDL_Rect acidRect = {acidViewPosX, acidViewPosY, int(acidWidth * MTP_FACTOR), int(acidHeight * MTP_FACTOR)};
-        SDL_Rect outlineRect = {chellView.getViewPositionX() - camera.x,
-                                chellView.getViewPositionY() - camera.y,
+        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
+                                chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
                                 int(chellHeight * MTP_FACTOR)};
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(acidRect);
-        acidView.playAnimation(camera);
-        if (!chell->isDead()) chellView.playAnimation(camera);
+        acidView.playAnimation(cameraRect);
+        if (!chell->isDead()) chellView.playAnimation(cameraRect);
         newWindow.render();
     }
     delete coordinate;
@@ -411,7 +422,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-//    drawChellAndRock();
-//    drawChellAndEnergyBall();
-//    drawChellAndAcidPool();
+    drawChellAndRock();
+    drawChellAndEnergyBall();
+    drawChellAndAcidPool();
 }

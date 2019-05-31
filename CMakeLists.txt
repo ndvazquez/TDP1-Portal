@@ -28,7 +28,8 @@ set(CLIENT_SOURCE_FILES
         client/View.cpp
         client/RockView.cpp
         client/ButtonView.cpp
-        client/PortalView.cpp)
+        client/PortalView.cpp
+        client/Camera.cpp)
 
 #EDITOR CONFIG
 

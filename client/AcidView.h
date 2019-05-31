@@ -19,7 +19,7 @@ class AcidView : public View{
 public:
     AcidView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~AcidView();
-    void playAnimation(SDL_Rect& camera);
+    void playAnimation(const SDL_Rect& camera);
 };
 
 

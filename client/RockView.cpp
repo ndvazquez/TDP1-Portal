@@ -16,7 +16,7 @@ RockView::~RockView() {
     delete sprite;
 }
 
-void RockView::playAnimation(SDL_Rect& camera) {
+void RockView::playAnimation(const SDL_Rect& camera) {
     // Force rock to be the same size as a block.
     if (!checkCollisionWithCamera(camera)) return;
     SDL_Rect destRect = {viewPosX - camera.x, viewPosY - camera.y, mtpFactor, mtpFactor};

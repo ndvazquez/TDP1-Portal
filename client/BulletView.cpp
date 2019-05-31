@@ -16,7 +16,7 @@ BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
     animation->setFrameRate(1000 / totalFrames / FRAMERATE_ADJUSTMENT);
 }
 
-void BulletView::playAnimation(SDL_Rect &camera){
+void BulletView::playAnimation(const SDL_Rect &camera){
     if (!checkCollisionWithCamera(camera)) return;
     animation->draw(viewPosX - camera.x, viewPosY - camera.y, bulletAngle);
     animation->updateFrameStep();

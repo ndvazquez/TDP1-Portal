@@ -17,7 +17,7 @@ AcidView::~AcidView(){
     delete animation;
 }
 
-void AcidView::playAnimation(SDL_Rect &camera) {
+void AcidView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     animation->draw(viewPosX - camera.x, viewPosY - camera.y);
     animation->updateFrameStep();
