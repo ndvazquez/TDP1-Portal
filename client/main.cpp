@@ -19,6 +19,8 @@
 #include <yaml-cpp/yaml.h>
 #include <Stage.h>
 #include "../common/constants.h"
+#include "PortalView.h"
+
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
 #define MTP_FACTOR 100
@@ -95,7 +97,7 @@ void drawChell(){
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
-
+    PortalView portalView(newWindow, 1150, 950, MTP_FACTOR, textures);
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     // This will be our camera, for now it's just a SDL_Rect
@@ -113,7 +115,7 @@ void drawChell(){
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
-                if (e.key.keysym.sym == SDLK_s) chell->downloadRock();
+                if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -135,13 +137,14 @@ void drawChell(){
                                 chellView.getViewPositionY() - camera.y,
                                 int(chellWidth * MTP_FACTOR),
                                 int(chellHeight * MTP_FACTOR)};
-        newWindow.clear();
         SDL_Rect* bgRect = NULL;
+        newWindow.clear();
         background.draw(bgRect);
         stageView.draw(camera);
+        portalView.playAnimation(camera);
         chellView.playAnimation(camera);
         //Debug rectangle to see Chell's collision box.
-        //newWindow.drawRectangle(outlineRect);
+        newWindow.drawRectangle(outlineRect);
         newWindow.render();
     }
     delete coordinate;
@@ -408,7 +411,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
 }
