@@ -12,7 +12,6 @@ class OrangePortal: public Portal {
 
 public:
     explicit OrangePortal(b2Body* body);
-    b2Body* getBody();
 };
 
 

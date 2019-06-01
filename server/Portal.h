@@ -10,7 +10,7 @@
 #include "Entity.h"
 
 class Portal: public Entity {
-private:
+protected:
     b2Body* body;
 
 public:

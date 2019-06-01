@@ -7,7 +7,3 @@
 OrangePortal::OrangePortal(b2Body* body):
     Portal(body) {
 }
-
-b2Body* OrangePortal::getBody() {
-    return body;
-}

@@ -12,8 +12,6 @@ class BluePortal: public Portal {
 
 public:
     explicit BluePortal(b2Body* body);
-    b2Body* getBody();
 };
-
 
 #endif //PORTAL_BLUEPORTAL_H

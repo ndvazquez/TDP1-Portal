@@ -7,7 +7,3 @@
 BluePortal::BluePortal(b2Body* body):
     Portal(body) {
 }
-
-b2Body* BluePortal::getBody() {
-    return body;
-}

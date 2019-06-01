@@ -245,7 +245,6 @@ void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
     OrangePortal* orange_portal = new OrangePortal(portal_body);
 
     if (this->orange_portal != nullptr) {
-        world->DestroyBody(orange_portal->getBody());
         delete orange_portal;
     } else {
         this->orange_portal = orange_portal;
@@ -262,7 +261,6 @@ void Stage::addBluePortal(float side, float x_pos, float y_pos) {
     BluePortal* blue_portal = new BluePortal(portal_body);
 
     if (this->blue_portal != nullptr) {
-        world->DestroyBody(blue_portal->getBody());
         delete blue_portal;
     } else {
         this->blue_portal = blue_portal;
@@ -279,7 +277,6 @@ void Stage::step() {
     for (auto i = chells.begin(); i != chells.end(); i++) {
         if (i->second->isDead()) {
             {
-                world->DestroyBody(i->second->getBody());
                 chells.erase(i->first);
                 break;
             }
@@ -293,7 +290,6 @@ void Stage::step() {
         }
         catch(...) {
             {
-                world->DestroyBody(i->second->getBody());
                 energy_balls.erase(i->first);
                 break;
             }
