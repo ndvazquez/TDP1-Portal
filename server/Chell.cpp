@@ -68,6 +68,7 @@ void Chell::onFloor(bool onFloor) {
 }
 
 void Chell::moveRight() {
+    if (dead) return;
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
     if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
@@ -75,6 +76,7 @@ void Chell::moveRight() {
 }
 
 void Chell::moveLeft() {
+    if (dead) return;
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
     if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
@@ -82,6 +84,7 @@ void Chell::moveLeft() {
 }
 
 void Chell::stop() {
+    if (dead) return;
     destroyActualMovement();
     this->actual_movement = new Stop(body);
     if (! chell_is_on_floor) this->actual_state = JUMPING;
@@ -124,6 +127,7 @@ void Chell::update() {
 }
 
 void Chell::jump() {
+    if (dead) return;
     bool resul = this->dynamic.jump(chell_is_on_floor);
     if (resul) {
         actual_state = JUMPING;
