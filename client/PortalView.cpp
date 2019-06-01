@@ -7,7 +7,7 @@
 PortalView::PortalView(Window &window, int xPos, int yPos,
         int factor, YAML::Node texturesData) :
         View(window, xPos, yPos, factor, PORTAL_WIDTH, PORTAL_HEIGHT),
-        flip(SDL_FLIP_NONE){
+        angle(0) {
     YAML::Node spritesData = texturesData[TEXTURES_PORTAL_KEY];
     for (YAML::const_iterator it = spritesData.begin();
          it != spritesData.end(); ++it) {
@@ -27,13 +27,20 @@ PortalView::~PortalView() {
     }
 }
 
-//TODO: Determinar de alguna forma qué FLIP usar.
 void PortalView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     AnimatedSprite* sprite = sprites[currentSprite];
-    sprite->draw(viewPosX - camera.x, viewPosY - camera.y, flip);
+    int rotationOffset = angle == PORTAL_ROTATION_ANGLE
+            ? viewWidthInMeters * mtpFactor / 2 : 0;
+    sprite->draw(viewPosX - camera.x + rotationOffset,
+            viewPosY - camera.y -rotationOffset, angle);
 }
 
 void PortalView::changePortalColor() {
     currentSprite = currentSprite == PORTAL_BLUE ? PORTAL_ORANGE : PORTAL_BLUE;
+}
+
+void PortalView::setPortalOrientation(int orientationCode) {
+    if (orientationCode == PORTAL_VERTICAL) angle = 0;
+    if (orientationCode == PORTAL_HORIZONTAL) angle = PORTAL_ROTATION_ANGLE;
 }

@@ -15,17 +15,20 @@
 #define TEXTURES_PORTAL_KEY "Portal"
 #define PORTAL_BLUE "Blue"
 #define PORTAL_ORANGE "Orange"
-
+#define PORTAL_VERTICAL 0
+#define PORTAL_HORIZONTAL 1
+#define PORTAL_ROTATION_ANGLE 90
 
 class PortalView : public View {
     std::unordered_map<std::string, AnimatedSprite*> sprites;
     std::string currentSprite;
-    SDL_RendererFlip flip;
+    int angle;
 public:
     PortalView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~PortalView();
     void playAnimation(const SDL_Rect& camera);
     void changePortalColor();
+    void setPortalOrientation(int orientationCode);
 };
 
 

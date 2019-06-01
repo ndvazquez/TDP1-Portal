@@ -116,6 +116,8 @@ void drawChell(){
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
                 if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
+                if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
+                if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -405,7 +407,8 @@ void drawChellAndAcidPool(){
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         newWindow.clear();
-        SDL_Rect acidRect = {acidViewPosX, acidViewPosY, int(acidWidth * MTP_FACTOR), int(acidHeight * MTP_FACTOR)};
+        SDL_Rect acidRect = {acidViewPosX - cameraRect.x, acidViewPosY - cameraRect.y,
+                             int(acidWidth * MTP_FACTOR), int(acidHeight * MTP_FACTOR)};
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
