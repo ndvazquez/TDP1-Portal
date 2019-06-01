@@ -44,6 +44,9 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 
     this->timeStamp = std::chrono::system_clock::now();
+
+    this->orange_portal = nullptr;
+    this->blue_portal = nullptr;
 }
 
 b2Body* Stage::addStaticRectangle(float v_side, float h_side,
@@ -119,27 +122,6 @@ void Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos) {
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body* block_body = addStaticRectangle(side, side, x_pos, y_pos);
-
-    /*b2BodyDef body;
-    body.type = b2_staticBody;
-    body.position.Set(x_pos, y_pos);
-
-    b2Body* block_body = this->world->CreateBody(&body);
-
-    b2Vec2 vertices[3]; // TODO: other variants as well
-    vertices[1].Set(x_pos, y_pos + side);
-    vertices[2].Set(x_pos + side, y_pos);
-    vertices[0].Set(x_pos,  y_pos);
-
-    b2PolygonShape shape;
-    shape.Set(vertices, 3);
-
-    b2FixtureDef fixture;
-
-    fixture.shape = &shape;
-    block_body->CreateFixture(&fixture);*/
-
-    //block_body->SetTransform(block_body->GetPosition(), angle * DEGTORAD);*/
 
     DiagonalMetalBlock* block = new DiagonalMetalBlock(block_body);
 
@@ -251,6 +233,42 @@ void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
+void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* portal_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    OrangePortal* orange_portal = new OrangePortal(portal_body);
+
+    if (this->orange_portal != nullptr) {
+        world->DestroyBody(orange_portal->getBody());
+        delete orange_portal;
+    } else {
+        this->orange_portal = orange_portal;
+    }
+}
+
+void Stage::addBluePortal(float side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    b2Body* portal_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    BluePortal* blue_portal = new BluePortal(portal_body);
+
+    if (this->blue_portal != nullptr) {
+        world->DestroyBody(blue_portal->getBody());
+        delete blue_portal;
+    } else {
+        this->blue_portal = blue_portal;
+    }
+}
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -261,6 +279,7 @@ void Stage::step() {
     for (auto i = chells.begin(); i != chells.end(); i++) {
         if (i->second->isDead()) {
             {
+                world->DestroyBody(i->second->getBody());
                 chells.erase(i->first);
                 break;
             }
@@ -274,6 +293,7 @@ void Stage::step() {
         }
         catch(...) {
             {
+                world->DestroyBody(i->second->getBody());
                 energy_balls.erase(i->first);
                 break;
             }

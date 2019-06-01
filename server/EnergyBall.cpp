@@ -10,6 +10,7 @@
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(std::string(energyBallType)),
     dynamic(body) {
+    this->body = body;
     this->is_vertical = is_vertical;
     life_steps = 0;
     body->SetUserData(this); //to handle collisions
@@ -68,4 +69,8 @@ float EnergyBall::getHorizontalVelocity() {
 
 float EnergyBall::getVerticalVelocity() {
     return this->dynamic.getVerticalVelocity();
+}
+
+b2Body* EnergyBall::getBody() {
+    return body;
 }

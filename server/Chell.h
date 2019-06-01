@@ -43,6 +43,7 @@ public:
     void grabRock(Rock* rock);
     void downloadRock();
     State getState();
+    b2Body* getBody();
 };
 
 #endif //PORTAL_CHELL_H

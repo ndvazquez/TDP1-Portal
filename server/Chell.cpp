@@ -137,6 +137,10 @@ State Chell::getState() {
     return actual_state;
 }
 
+b2Body* Chell::getBody() {
+    return body;
+}
+
 Chell::~Chell() {
     destroyActualMovement();
 }

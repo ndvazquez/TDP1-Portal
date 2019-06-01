@@ -21,6 +21,7 @@ class EnergyBallDeadException : public std::exception {
 
 class EnergyBall: public Entity {
 protected:
+    b2Body* body;
     bool is_vertical;
     Dynamic dynamic;
     size_t life_steps;
@@ -37,6 +38,7 @@ public:
     float getHorizontalVelocity();
     float getVerticalVelocity();
     virtual void handleCollision(Entity* entity) override;
+    b2Body* getBody();
 };
 
 
