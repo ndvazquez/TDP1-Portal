@@ -248,10 +248,18 @@ void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
         delete orange_portal;
     }
     this->orange_portal = orange_portal;
+
+    if (this->blue_portal == nullptr) return;
+
     float x = this->blue_portal->getHorizontalPosition();
     float y = this->blue_portal->getVerticalPosition();
     Coordinate* coordinate = new Coordinate(x, y);
     this->orange_portal->addOtherPortal(coordinate);
+
+    if (this->blue_portal->getOtherPortal() == nullptr) {
+        Coordinate* other_coordinate = new Coordinate(x_pos, y_pos);
+        this->blue_portal->addOtherPortal(other_coordinate);
+    }
 }
 
 void Stage::addBluePortal(float side, float x_pos, float y_pos) {
@@ -267,10 +275,19 @@ void Stage::addBluePortal(float side, float x_pos, float y_pos) {
         delete blue_portal;
     }
     this->blue_portal = blue_portal;
+
+    if (this->orange_portal == nullptr) return;
+
+    //Adding relation of orange -> blue
     float x = this->orange_portal->getHorizontalPosition();
     float y = this->orange_portal->getVerticalPosition();
     Coordinate* coordinate = new Coordinate(x, y);
     this->blue_portal->addOtherPortal(coordinate);
+
+    if (this->orange_portal->getOtherPortal() == nullptr) {
+        Coordinate* other_coordinate = new Coordinate(x_pos, y_pos);
+        this->orange_portal->addOtherPortal(other_coordinate);
+    }
 }
 
 void Stage::step() {

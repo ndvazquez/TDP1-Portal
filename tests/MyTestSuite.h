@@ -835,6 +835,7 @@ class PortalTest :  public CxxTest::TestSuite {
     size_t x_pos_chell = 1;
     size_t y_pos = 1;
     size_t side_chell = 2;
+    size_t side_portal = 2;
 
 public:
     void testChellTeleportsCorrectly() {
@@ -851,6 +852,24 @@ public:
 
         TS_ASSERT_EQUALS(chell->getHorizontalPosition() == 5, true);
         TS_ASSERT_EQUALS(chell->getVerticalPosition() == 9, true);
+    }
+
+    void testChellTeleportsWhenHittingAPortal() {
+        std::cout << "Testing that Chell teleports while hitting a portal" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addOrangePortal(side_portal, x_pos_chell + 5, y_pos);
+        stage.addBluePortal(side_portal, x_pos_chell + 20, y_pos + 20);
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        chell->moveRight();
+
+        for (size_t i = 0; i < 1200; i++) {
+            stage.step();
+            if (chell->getHorizontalPosition() > 20 && chell->getVerticalPosition() > 20) return;
+        }
+        TS_ASSERT_EQUALS(1, 0);
     }
 };
 

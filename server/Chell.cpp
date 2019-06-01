@@ -5,6 +5,7 @@
 #define chellType "Chell"
 
 #include <string>
+#include <iostream>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"

@@ -281,9 +281,15 @@ CxxTest::StaticSuiteDescription suiteDescription_PortalTest( "MyTestSuite.h", 83
 
 static class TestDescription_suite_PortalTest_testChellTeleportsCorrectly : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_PortalTest_testChellTeleportsCorrectly() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 842, "testChellTeleportsCorrectly" ) {}
+ TestDescription_suite_PortalTest_testChellTeleportsCorrectly() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 841, "testChellTeleportsCorrectly" ) {}
  void runTest() { suite_PortalTest.testChellTeleportsCorrectly(); }
 } testDescription_suite_PortalTest_testChellTeleportsCorrectly;
+
+static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 857, "testChellTeleportsWhenHittingAPortal" ) {}
+ void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAPortal(); }
+} testDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
