@@ -43,7 +43,7 @@ void Chell::handleCollision(Entity* entity) {
 }
 
 void Chell::die() {
-    //this->actual_state = DEAD;
+    this->actual_state = DEAD;
     dead = true;
 }
 

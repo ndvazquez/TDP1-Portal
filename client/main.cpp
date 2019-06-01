@@ -327,7 +327,7 @@ void drawChellAndEnergyBall(){
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(ebRect);
         if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
-        if (!chell->isDead()) chellView.playAnimation(cameraRect);
+        chellView.playAnimation(cameraRect);
         newWindow.render();
     }
     delete coordinateEB;
@@ -413,7 +413,7 @@ void drawChellAndAcidPool(){
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(acidRect);
         acidView.playAnimation(cameraRect);
-        if (!chell->isDead()) chellView.playAnimation(cameraRect);
+        chellView.playAnimation(cameraRect);
         newWindow.render();
     }
     delete coordinate;
