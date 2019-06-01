@@ -11,6 +11,7 @@
 #include "MoveLeft.h"
 #include "../editor/Chell.h"
 #include "Rock.h"
+#include "Portal.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType),
@@ -38,8 +39,17 @@ void Chell::handleCollision(Entity* entity) {
         die();
     }
 
+    if (type == "Portal") {
+        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
+        teleport(coordinate);
+    }
+
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor";
+}
+
+void Chell::teleport(Coordinate* coordinate) {
+    this->dynamic.teleport(coordinate);
 }
 
 void Chell::die() {

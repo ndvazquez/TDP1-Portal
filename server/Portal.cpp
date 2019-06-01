@@ -3,6 +3,7 @@
 //
 
 #include "Portal.h"
+#include "Chell.h"
 
 #define portalType "Portal"
 
@@ -32,4 +33,11 @@ void Portal::handleCollision(Entity* entity) {
     if (type == "BrickBlock") {
         //no se puede hacer un portal
     }
+    if (type == "Chell") {
+        static_cast<Chell*>(entity)->teleport(other_portal);
+    }
+}
+
+Coordinate* Portal::getOtherPortal() {
+    return other_portal;
 }

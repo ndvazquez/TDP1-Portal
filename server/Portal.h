@@ -21,7 +21,7 @@ public:
     float getVerticalPosition();
     virtual void handleCollision(Entity* entity) override;
     void addOtherPortal(Coordinate* coordinate);
+    Coordinate* getOtherPortal();
 };
-
 
 #endif //PORTAL_PORTAL_H

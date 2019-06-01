@@ -229,50 +229,61 @@ CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h"
 
 static class TestDescription_suite_MovingRockTest_testRockBlockHasGravity : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 613, "testRockBlockHasGravity" ) {}
-    void runTest() { suite_MovingRockTest.testRockBlockHasGravity(); }
+ TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 613, "testRockBlockHasGravity" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockHasGravity(); }
 } testDescription_suite_MovingRockTest_testRockBlockHasGravity;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesRight : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 635, "testRockBlockMovesRight" ) {}
-    void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
+ TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 633, "testRockBlockMovesRight" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesRight;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesLeft : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 676, "testRockBlockMovesLeft" ) {}
-    void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
+ TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 671, "testRockBlockMovesLeft" ) {}
+ void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesLeft;
 
 static ChellDiesTest suite_ChellDiesTest;
 
 static CxxTest::List Tests_ChellDiesTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ChellDiesTest( "MyTestSuite.h", 601, "ChellDiesTest", suite_ChellDiesTest, Tests_ChellDiesTest );
+CxxTest::StaticSuiteDescription suiteDescription_ChellDiesTest( "MyTestSuite.h", 711, "ChellDiesTest", suite_ChellDiesTest, Tests_ChellDiesTest );
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 612, "testChellDiesAgainstAcid" ) {}
-    void runTest() { suite_ChellDiesTest.testChellDiesAgainstAcid(); }
+ TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 722, "testChellDiesAgainstAcid" ) {}
+ void runTest() { suite_ChellDiesTest.testChellDiesAgainstAcid(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstAcid;
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 657, "testChellDiesAgainstEnergyBall" ) {}
-    void runTest() { suite_ChellDiesTest.testChellDiesAgainstEnergyBall(); }
+ TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 767, "testChellDiesAgainstEnergyBall" ) {}
+ void runTest() { suite_ChellDiesTest.testChellDiesAgainstEnergyBall(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall;
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 685, "testChellDiesWhenARockFallsOnHer" ) {}
-    void runTest() { suite_ChellDiesTest.testChellDiesWhenARockFallsOnHer(); }
+ TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 795, "testChellDiesWhenARockFallsOnHer" ) {}
+ void runTest() { suite_ChellDiesTest.testChellDiesWhenARockFallsOnHer(); }
 } testDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer;
 
 static class TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock : public CxxTest::RealTestDescription {
 public:
-    TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 705, "testChellDoesntDieWhenSheHitsARock" ) {}
-    void runTest() { suite_ChellDiesTest.testChellDoesntDieWhenSheHitsARock(); }
+ TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 815, "testChellDoesntDieWhenSheHitsARock" ) {}
+ void runTest() { suite_ChellDiesTest.testChellDoesntDieWhenSheHitsARock(); }
 } testDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock;
+
+static PortalTest suite_PortalTest;
+
+static CxxTest::List Tests_PortalTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_PortalTest( "MyTestSuite.h", 832, "PortalTest", suite_PortalTest, Tests_PortalTest );
+
+static class TestDescription_suite_PortalTest_testChellTeleportsCorrectly : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellTeleportsCorrectly() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 842, "testChellTeleportsCorrectly" ) {}
+ void runTest() { suite_PortalTest.testChellTeleportsCorrectly(); }
+} testDescription_suite_PortalTest_testChellTeleportsCorrectly;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

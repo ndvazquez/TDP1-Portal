@@ -7,6 +7,7 @@
 
 #include <Box2D/Dynamics/b2Body.h>
 #include "configuration.h"
+#include "Coordinate.h"
 
 class Dynamic {
 private:
@@ -28,6 +29,7 @@ public:
     void downloadToEarth();
     bool handleCollisions();
     void eliminateGravity();
+    void teleport(Coordinate* coordinate);
     float getHorizontalPosition();
     float getVerticalPosition();
     float getHorizontalVelocity();

@@ -6,6 +6,7 @@
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
 #include "Entity.h"
+#include "Coordinate.h"
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
@@ -14,6 +15,12 @@ Dynamic::Dynamic(b2Body* body):
 }
 
 void Dynamic::move(float force) {
+}
+
+void Dynamic::teleport(Coordinate* coordinate) {
+    float x = coordinate->getX();
+    float y = coordinate->getY();
+    body->SetTransform(b2Vec2(x, y), 0);
 }
 
 void Dynamic::moveRight(float force) {

@@ -827,6 +827,32 @@ public:
             stage.step();
         }*/
     }
-
 };
+
+class PortalTest :  public CxxTest::TestSuite {
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t x_pos_chell = 1;
+    size_t y_pos = 1;
+    size_t side_chell = 2;
+
+public:
+    void testChellTeleportsCorrectly() {
+        std::cout << "Testing that Chell teleports correctly" << std::endl;
+
+        Coordinate* original_coordinate = new Coordinate(x_pos_chell, y_pos);
+        Coordinate* coordinate_to_teleport = new Coordinate(5, 9);
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        chell->teleport(coordinate_to_teleport);
+
+        TS_ASSERT_EQUALS(chell->getHorizontalPosition() == 5, true);
+        TS_ASSERT_EQUALS(chell->getVerticalPosition() == 9, true);
+    }
+};
+
+
 #endif

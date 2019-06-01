@@ -10,6 +10,7 @@
 #include "Entity.h"
 #include "Rock.h"
 #include "../common/constants.h"
+#include "Coordinate.h"
 
 class Chell: public Entity {
 private:
@@ -42,6 +43,7 @@ public:
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
     void downloadRock();
+    void teleport(Coordinate* coordinate);
     State getState();
 };
 
