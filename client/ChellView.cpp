@@ -13,6 +13,7 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :
             View(window, xPos, yPos, factor, CHELL_WIDTH, CHELL_HEIGHT),
             flip(SDL_FLIP_NONE){
+    deathCounterToStopDrawing = 1;
     YAML::Node animationsData = texturesData[TEXTURES_INFO_KEY];
     for (YAML::const_iterator it = animationsData.begin();
         it != animationsData.end(); ++it){
@@ -23,8 +24,12 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         AnimatedSprite* newSprite = new AnimatedSprite(path, window, frames);
         // This is wrong, we should use a set Width and Height.
         animations.push_back(newSprite);
+        if (name == "Death") {
+            deathCounterToStopDrawing = frames * DEATH_COUNTER_MULTIPLIER;
+        }
     }
     currentState = IDLE;
+
 }
 
 ChellView::~ChellView() {
@@ -34,7 +39,8 @@ ChellView::~ChellView() {
 }
 
 void ChellView::playAnimation(const SDL_Rect& camera) {
-    if (!checkCollisionWithCamera(camera)) return;
+    if (!checkCollisionWithCamera(camera)
+        || deathCounterToStopDrawing == 0) return;
 
     int animationIndex = currentState;
     if (currentState == MOVING_RIGHT) {
@@ -46,6 +52,9 @@ void ChellView::playAnimation(const SDL_Rect& camera) {
     }
 
     AnimatedSprite* animation = animations[animationIndex];
+    if (currentState == DEAD){
+        deathCounterToStopDrawing -= 1;
+    }
     animation->draw(viewPosX - camera.x, viewPosY - camera.y, flip);
     animation->updateFrameStep();
 }

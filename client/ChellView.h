@@ -13,11 +13,12 @@
 #include <vector>
 #include "../common/constants.h"
 #define TEXTURES_INFO_KEY "Chell"
-
+#define DEATH_COUNTER_MULTIPLIER 120
 class ChellView : public View {
     SDL_RendererFlip flip;
     State currentState;
     std::vector<AnimatedSprite*> animations;
+    int deathCounterToStopDrawing;
 public:
     ChellView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~ChellView();

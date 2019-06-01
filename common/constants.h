@@ -8,6 +8,7 @@
 enum State {
     IDLE,
     JUMPING,
+    DEAD,
     MOVING_LEFT,
     MOVING_RIGHT
 };
