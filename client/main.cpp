@@ -418,14 +418,17 @@ void drawChellAndAcidPool(){
         acidView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
+
+        State state = chell->getState();
+        //if (state == 2) return;
     }
     delete coordinate;
 }
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
-    drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
+    //drawChell();
+    //drawChellAndRock();
+    //drawChellAndEnergyBall();
     drawChellAndAcidPool();
 }
