@@ -5,11 +5,10 @@
 #ifndef PORTAL_BLUEPORTAL_H
 #define PORTAL_BLUEPORTAL_H
 
-
 #include "Portal.h"
+#include "Coordinate.h"
 
 class BluePortal: public Portal {
-
 public:
     explicit BluePortal(b2Body* body);
 };

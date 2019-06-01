@@ -79,8 +79,8 @@ set(SERVER_SOURCE_FILES
         server/configuration.cpp
         server/Floor.cpp
         server/Portal.cpp
-        server/OrangePortal.cpp
-        server/BluePortal.cpp)
+        server/BluePortal.cpp
+        server/OrangePortal.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

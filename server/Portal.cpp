@@ -20,6 +20,10 @@ float Portal::getVerticalPosition() {
     return this->body->GetPosition().y;
 }
 
+void Portal::addOtherPortal(Coordinate* coordinate) {
+    this->other_portal = coordinate;
+}
+
 void Portal::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "MetalBlock" || type == "DiagonalMetalBlock") {
