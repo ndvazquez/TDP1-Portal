@@ -98,7 +98,16 @@ void drawChell(){
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
-    PortalView portalView(newWindow, 1150, 950, MTP_FACTOR, textures);
+    // PortalView
+    PortalView portalViewBlue(newWindow, 1150, 950, MTP_FACTOR, textures);
+    stage.addBluePortal(chellHeight, 15, 1);
+    portalViewBlue.move(15, 1, levelHeight);
+
+    // Portal View
+    PortalView portalViewOrange(newWindow, 1350, 950, MTP_FACTOR, textures);
+    stage.addOrangePortal(chellHeight, 10, 1);
+    portalViewOrange.move(10, 1, levelHeight);
+
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -115,9 +124,9 @@ void drawChell(){
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
-                if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
-                if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
-                if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
+                //if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
+                //if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
+                //if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -147,11 +156,14 @@ void drawChell(){
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
-        portalView.playAnimation(cameraRect);
+        portalViewBlue.playAnimation(cameraRect);
+        portalViewOrange.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
+
+        //std::cout << chell->getHorizontalPosition() << std::endl;
     }
     delete coordinate;
 }
@@ -425,7 +437,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-    drawChellAndRock();
+    /*drawChellAndRock();
     drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+    drawChellAndAcidPool();*/
 }

@@ -12,6 +12,7 @@ Portal::Portal(b2Body* body):
         Entity(portalType),
         body(body) {
     body->SetUserData(this);
+    other_portal = nullptr;
 }
 
 float Portal::getHorizontalPosition() {

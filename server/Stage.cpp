@@ -247,7 +247,9 @@ void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
     }
     this->orange_portal = orange_portal;
 
-    if (this->blue_portal == nullptr) return;
+    if (this->blue_portal == nullptr)  {
+        return;
+    }
 
     float x = this->blue_portal->getHorizontalPosition();
     float y = this->blue_portal->getVerticalPosition();
@@ -274,7 +276,9 @@ void Stage::addBluePortal(float side, float x_pos, float y_pos) {
     }
     this->blue_portal = blue_portal;
 
-    if (this->orange_portal == nullptr) return;
+    if (this->orange_portal == nullptr) {
+        return;
+    }
 
     float x = this->orange_portal->getHorizontalPosition();
     float y = this->orange_portal->getVerticalPosition();
@@ -291,7 +295,7 @@ void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
                      (end - timeStamp).count();
-    //if (difference <= 1000 / 60) return;
+    if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
@@ -464,8 +468,8 @@ Stage::~Stage() {
         delete i->second;
     }
 
-    if (blue_portal != NULL) delete blue_portal;
-    if (orange_portal != NULL) delete orange_portal;
+    //if (blue_portal != NULL) delete blue_portal;
+    //if (orange_portal != NULL) delete orange_portal;
     delete floor;
     delete world;
 }
