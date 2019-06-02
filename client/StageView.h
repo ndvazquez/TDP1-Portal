@@ -38,4 +38,4 @@ public:
 };
 
 
-#endif //PORTAL_VIEW_H
+#endif //PORTAL_STAGEVIEW_H
