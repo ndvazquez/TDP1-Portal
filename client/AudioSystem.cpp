@@ -4,7 +4,7 @@
 
 #include "AudioSystem.h"
 
-AudioSystem::AudioSystem() {
+AudioSystem::AudioSystem(SoundCodeQueue& queue) : soundsQueue(queue) {
     //TODO: Cargar musica y efectos de sonido desde un yaml.
     this->backgroundMusic = Mix_LoadMUS("resources/sounds/outrun_the_reaper.mp3");
     Mix_VolumeMusic(MUSIC_VOLUME);

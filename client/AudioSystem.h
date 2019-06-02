@@ -7,18 +7,17 @@
 
 #include <SDL_mixer.h>
 #include <unordered_map>
-#include <queue>
+#include "SoundCodeQueue.h"
+#include "../common/constants.h"
 
 #define MUSIC_VOLUME 50
-#define JUMP_SOUND 3
-#define RUN_SOUND 0
 
 class AudioSystem {
     Mix_Music* backgroundMusic;
     std::unordered_map<int, Mix_Chunk*> soundEffects;
-    std::queue<int> soundsQueue;
+    SoundCodeQueue& soundsQueue;
 public:
-    AudioSystem();
+    AudioSystem(SoundCodeQueue& queue);
     ~AudioSystem();
     void playMusic();
     void stopMusic();
