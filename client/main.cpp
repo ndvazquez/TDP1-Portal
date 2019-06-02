@@ -109,6 +109,9 @@ void drawChell(){
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
+    // Gotta test the running sound somehow.
+    int runTimeStep = 350; // 350ms
+    int runTimer = 0;
 
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -117,15 +120,34 @@ void drawChell(){
             }
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+                if (e.key.keysym.sym == SDLK_w) {
+                    if (chell->getState() != JUMPING) audioSystem.queueSound(3);
+                    chell->jump(); //jump}
+                }
                 if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
                 if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
                 if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
                 if (e.key.keysym.sym == SDLK_m) audioSystem.stopMusic();
                 if (e.key.keysym.sym == SDLK_n) audioSystem.playMusic();
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                if (chell->getState() != JUMPING) {
+                    if (runTimer + runTimeStep < SDL_GetTicks()) {
+                        audioSystem.queueSound(0);
+                        runTimer = SDL_GetTicks();
+                    }
+                }
+                chell->moveRight();
+            }
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+                if (chell->getState() != JUMPING) {
+                    if (runTimer + runTimeStep < SDL_GetTicks()) {
+                        audioSystem.queueSound(0);
+                        runTimer = SDL_GetTicks();
+                    }
+                }
+                chell->moveLeft();
+            }
             // This might become an issue when we actually implement a jump animation.
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
@@ -157,6 +179,7 @@ void drawChell(){
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
+        audioSystem.playSoundEffects();
     }
     delete coordinate;
 }
@@ -430,7 +453,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
 }
