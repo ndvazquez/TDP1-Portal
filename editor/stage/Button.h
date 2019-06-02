@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include "../common/Window.h"
+#include "../../common/Window.h"
 #include "StaticObject.h"
 
 class Button : public StaticObject {

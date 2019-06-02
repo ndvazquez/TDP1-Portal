@@ -36,23 +36,23 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        editor/Stage.cpp
+        editor/stage/Stage.cpp
         editor/Menu.cpp
         editor/Editor.cpp
         editor/MenuButton.cpp
         editor/Event.cpp
-        editor/StageController.cpp
-        editor/StageView.cpp
-        editor/StaticObject.cpp
-        editor/Block.cpp
-        editor/Button.cpp
-        editor/Rock.cpp
-        editor/Chell.cpp
-        editor/AnimatedObject.cpp
-        editor/Object.cpp
-        editor/Gate.cpp
+        editor/stage/StageController.cpp
+        editor/stage/StageView.cpp
+        editor/stage/StaticObject.cpp
+        editor/stage/Block.cpp
+        editor/stage/Button.cpp
+        editor/stage/Rock.cpp
+        editor/stage/Chell.cpp
+        editor/stage/AnimatedObject.cpp
+        editor/stage/Object.cpp
+        editor/stage/Gate.cpp
         editor/MouseButton.cpp
-        editor/Cake.cpp
+        editor/stage/Cake.cpp
         )
 
 set(SERVER_SOURCE_FILES

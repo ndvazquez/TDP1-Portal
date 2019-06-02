@@ -8,7 +8,7 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
-#include "../common/Sprite.h"
+#include "../../common/Sprite.h"
 #include "StageObjectException.h"
 
 

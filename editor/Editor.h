@@ -13,7 +13,7 @@
 #include <vector>
 #include "../common/SDLSession.h"
 #include "../common/Window.h"
-#include "Stage.h"
+#include "stage/Stage.h"
 #include "Menu.h"
 #include "Event.h"
 

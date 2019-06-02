@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "StageView.h"
-#include "../common/Sprite.h"
+#include "../../common/Sprite.h"
 
 StageView::StageView(Window &window, int factor, std::unordered_map<std::string, Object*>& textures, std::map<std::pair<int, int>, std::string>& tiles) :
 window(window), factor(factor), textures(textures), tiles(tiles) {}

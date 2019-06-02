@@ -6,7 +6,7 @@
 #define PORTAL_ROCK_H
 
 
-#include "../common/Window.h"
+#include "../../common/Window.h"
 #include "StaticObject.h"
 
 class Rock : public StaticObject {

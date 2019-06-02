@@ -9,8 +9,8 @@
 #include <map>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "../common/Window.h"
-#include "MouseButton.h"
+#include "../../common/Window.h"
+#include "../MouseButton.h"
 #include "StageController.h"
 
 class Stage {

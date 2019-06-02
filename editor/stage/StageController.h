@@ -9,8 +9,8 @@
 #include <yaml-cpp/node/node.h>
 #include <unordered_map>
 #include <map>
-#include "../common/Window.h"
-#include "../common/Sprite.h"
+#include "../../common/Window.h"
+#include "../../common/Sprite.h"
 #include "StageView.h"
 #include "Object.h"
 

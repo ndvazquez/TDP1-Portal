@@ -8,8 +8,8 @@
 #include <unordered_map>
 #include <map>
 
-#include "../common/Window.h"
-#include "../common/Sprite.h"
+#include "../../common/Window.h"
+#include "../../common/Sprite.h"
 #include "Object.h"
 
 class StageView {
