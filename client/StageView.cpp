@@ -8,7 +8,7 @@
 #include "yaml-cpp/yaml.h"
 #include <map>
 
-StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
+View::View(Window& window, YAML::Node& texturesInfo, int factor) :
     window(window),
     matrixToPixelFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
@@ -22,13 +22,13 @@ StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
     }
 }
 
-StageView::~StageView() {
+View::~View() {
     for (auto it = textures.begin(); it != textures.end(); ++it) {
         delete it->second;
     }
 }
 
-void StageView::draw(SDL_Rect* camera) {
+void View::draw(SDL_Rect* camera) {
     SDL_Rect destRect = {0 , 0, matrixToPixelFactor, matrixToPixelFactor};
     int camPosX = camera->x / matrixToPixelFactor;
     int camPosY = camera->y / matrixToPixelFactor;
@@ -51,7 +51,7 @@ void StageView::draw(SDL_Rect* camera) {
     }
 }
 
-void StageView::addTile(int x, int y, std::string& tileName) {
+void View::addTile(int x, int y, std::string& tileName) {
     if (textures.count(tileName) == 0) {
         throw StageViewAddTileException();
     }

@@ -2,7 +2,7 @@
 // Created by ndv on 5/13/19.
 //
 
-#ifndef PORTAL_STAGEVIEW_H
+#ifndef PORTAL_VIEW_H
 #define PORTAL_STAGEVIEW_H
 #include <unordered_map>
 #include <exception>
@@ -24,18 +24,18 @@ class StageViewAddTileException : public std::exception{
     }
 };
 
-class StageView {
+class View {
     Window& window;
     int matrixToPixelFactor;
     std::unordered_map<std::string, Sprite*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
 
 public:
-    StageView(Window& window, YAML::Node& texturesInfo, int factor);
-    ~StageView();
+    View(Window& window, YAML::Node& texturesInfo, int factor);
+    ~View();
     void addTile(int x, int y, std::string& tileName);
     void draw(SDL_Rect* camera);
 };
 
 
-#endif //PORTAL_STAGEVIEW_H
+#endif //PORTAL_VIEW_H

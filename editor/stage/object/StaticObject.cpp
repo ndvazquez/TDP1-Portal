@@ -4,7 +4,7 @@
 
 #include <string>
 #include "StaticObject.h"
-#include "../../common/Window.h"
+#include "../../../common/Window.h"
 
 StaticObject::StaticObject(std::string& path, Window& window, const std::string &name, int w, int h) :
     Object(name, w, h),

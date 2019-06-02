@@ -4,7 +4,7 @@
 
 #include <string>
 #include "Rock.h"
-#include "../../common/Window.h"
+#include "../../../common/Window.h"
 
 Rock::Rock(std::string& path, Window& window, const std::string& name, int w, int h) :
     StaticObject(path, window, name, w, h) {}

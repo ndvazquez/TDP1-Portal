@@ -11,13 +11,13 @@
 #include <SDL_image.h>
 #include "../../common/Window.h"
 #include "../MouseButton.h"
-#include "StageController.h"
+#include "Controller.h"
 
 class Stage {
 private:
     Window& window;
     YAML::Node textures;
-    StageController controller;
+    Controller controller;
     std::string& current;
     int xPortion;
     struct SDL_Rect* me;

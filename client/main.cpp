@@ -31,7 +31,7 @@ void drawChellAndRock(){
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    StageView stageView(newWindow, textures, MTP_FACTOR);
+    View stageView(newWindow, textures, MTP_FACTOR);
     // We'll setup a very basic map, 10x6 blocks.
     std::string metalBlock = "MetalBlock";
 
@@ -130,7 +130,7 @@ void drawChellAndEnergyBall(){
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    StageView stageView(newWindow, textures, MTP_FACTOR);
+    View stageView(newWindow, textures, MTP_FACTOR);
     // We'll setup a very basic map, 10x6 blocks.
     std::string metalBlock = "MetalBlock";
     for (int i = 0; i < 10; ++i){
@@ -215,7 +215,7 @@ void drawChellAndAcidPool(){
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     std::string metalBlockPath = "resources/blocks/metal-block.png";
 
-    StageView stageView(newWindow, textures, MTP_FACTOR);
+    View stageView(newWindow, textures, MTP_FACTOR);
     // We'll setup a very basic map, 10x6 blocks.
     std::string metalBlock = "MetalBlock";
     for (int i = 0; i < 10; ++i){

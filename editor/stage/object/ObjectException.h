@@ -14,14 +14,14 @@
 
 
 
-class StageObjectException : public std::exception {
+class ObjectException : public std::exception {
 protected:
     std::string& name;
 public:
-    explicit StageObjectException(std::string& name) : name(name) {}
+    explicit ObjectException(std::string& name) : name(name) {}
 };
 
-class AddTileGravityException : public StageObjectException {
+class AddTileGravityException : public ObjectException {
     virtual const char* what() const throw () {
         std::string message = EXC_INTRO + this->name + GRAVITY;
         return message.c_str();
@@ -29,10 +29,10 @@ class AddTileGravityException : public StageObjectException {
 
 public:
     explicit AddTileGravityException(std::string& name) :
-            StageObjectException(name) {}
+            ObjectException(name) {}
 };
 
-class AddTileTakenPositionException : public StageObjectException {
+class AddTileTakenPositionException : public ObjectException {
     virtual const char* what() const throw () {
         std::string message = EXC_INTRO + this->name + TAKEN_POSITION;
         return message.c_str();
@@ -40,11 +40,11 @@ class AddTileTakenPositionException : public StageObjectException {
 
 public:
     explicit AddTileTakenPositionException(std::string& name) :
-            StageObjectException(name) {}
+            ObjectException(name) {}
 
 };
 
-class RemoveTileFloorNeeded : public StageObjectException {
+class RemoveTileFloorNeeded : public ObjectException {
     virtual const char* what() const throw () {
         std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
         std::cerr << message;
@@ -53,7 +53,7 @@ class RemoveTileFloorNeeded : public StageObjectException {
 
 public:
     explicit RemoveTileFloorNeeded(std::string& name) :
-            StageObjectException(name) {}
+            ObjectException(name) {}
 };
 
 #endif //PORTAL_STAGEOBJECTEX_H

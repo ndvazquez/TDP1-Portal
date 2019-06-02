@@ -41,18 +41,18 @@ set(EDITOR_SOURCE_FILES
         editor/Editor.cpp
         editor/MenuButton.cpp
         editor/Event.cpp
-        editor/stage/StageController.cpp
-        editor/stage/StageView.cpp
-        editor/stage/StaticObject.cpp
-        editor/stage/Block.cpp
-        editor/stage/Button.cpp
-        editor/stage/Rock.cpp
-        editor/stage/Chell.cpp
-        editor/stage/AnimatedObject.cpp
-        editor/stage/Object.cpp
-        editor/stage/Gate.cpp
+        editor/stage/Controller.cpp
+        editor/stage/View.cpp
+        editor/stage/object/StaticObject.cpp
+        editor/stage/object/Block.cpp
+        editor/stage/object/Button.cpp
+        editor/stage/object/Rock.cpp
+        editor/stage/object/Chell.cpp
+        editor/stage/object/AnimatedObject.cpp
+        editor/stage/object/Object.cpp
+        editor/stage/object/Gate.cpp
         editor/MouseButton.cpp
-        editor/stage/Cake.cpp
+        editor/stage/object/Cake.cpp
         )
 
 set(SERVER_SOURCE_FILES
