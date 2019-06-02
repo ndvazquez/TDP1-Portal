@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <string>
 #include <yaml-cpp/yaml.h>
+#include "../common/constants.h"
 
 #define TEXTURES_BUTTON_KEY "Button"
 #define BUTTON_STATE_ON "On"
@@ -23,7 +24,7 @@ public:
     ~ButtonView();
     // This will probably receive a state when the button logic is implemented server side.
     void changeButtonState();
-    void playAnimation();
+    void playAnimation(const SDL_Rect& camera);
 };
 
 

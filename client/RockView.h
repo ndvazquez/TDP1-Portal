@@ -8,6 +8,7 @@
 #include <yaml-cpp/yaml.h>
 #include "View.h"
 #include "../common/Sprite.h"
+#include "../common/constants.h"
 //TODO: Hacer que esto sea un random choice entre los tres sprites de Rock.
 #define TEXTURES_ROCK_KEY "Rock"
 
@@ -16,7 +17,7 @@ class RockView : public View {
 public:
     RockView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~RockView();
-    void playAnimation();
+    void playAnimation(const SDL_Rect& camera);
 };
 
 

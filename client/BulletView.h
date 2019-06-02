@@ -10,17 +10,19 @@
 #include "../common/Window.h"
 #include "../common/AnimatedSprite.h"
 #include "View.h"
+#include "../common/constants.h"
 
 #define TEXTURES_BULLET_KEY "Bullet"
 #define FRAMERATE_ADJUSTMENT 2
 
 class BulletView : public View {
     AnimatedSprite* animation;
+    double bulletAngle;
 public:
     BulletView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~BulletView();
-    void playAnimation();
-    void playAnimation(double angle);
+    void playAnimation(const SDL_Rect& camera);
+    void setAngle(double angle);
 };
 
 #endif //PORTAL_BULLETVIEW_H

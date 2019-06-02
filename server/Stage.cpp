@@ -46,7 +46,7 @@ Stage::Stage(size_t width, size_t height):
     this->timeStamp = std::chrono::system_clock::now();
 }
 
-b2Body* Stage::addStaticRectangle(size_t v_side, size_t h_side,
+b2Body* Stage::addStaticRectangle(float v_side, float h_side,
                                   float x_pos, float y_pos) {
     b2BodyDef body;
     body.type = b2_staticBody;
@@ -69,7 +69,8 @@ b2Body* Stage::addDynamicRectangle(float v_side, float h_side,
     b2BodyDef body;
     body.type = b2_dynamicBody;
     body.position.Set(x_pos, y_pos);
-
+    body.fixedRotation = true;
+    
     b2Body* rectangle_body = this->world->CreateBody(&body);
 
     b2PolygonShape shape;
@@ -97,7 +98,7 @@ void Stage::addBrickBlock(size_t side, float x_pos, float y_pos) {
     brick_blocks.insert({coordinates, block});
 }
 
-void Stage::addMetalBlock(size_t side, float x_pos, float y_pos) {
+void Stage::addMetalBlock(float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }

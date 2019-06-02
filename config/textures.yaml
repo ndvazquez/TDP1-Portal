@@ -5,10 +5,21 @@ Chell:
   - name: Jumping
     path: resources/Chell/Jumping.png
     frames: 4
+  - name: Death
+    path: resources/Chell/Death.png
+    frames: 14
   - name: Run
     path: resources/Chell/Run.png
     frames: 12
 
+
+Portal:
+  - name: Blue
+    path: resources/portal/BluePortal.png
+    frames: 1
+  - name: Orange
+    path: resources/portal/OrangePortal.png
+    frames: 1
 
 EnergyBall: {path: resources/EnergyBall/energy-ball.png, frames: 4}
 

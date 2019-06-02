@@ -14,7 +14,7 @@
 #include <string>
 
 #define TEXTURES_STATICOBJETS_KEY "StaticObjects"
-#define EXTRA_TILES 1
+#define EXTRA_TILES 2
 
 
 class StageViewAddTileException : public std::exception{
@@ -24,17 +24,17 @@ class StageViewAddTileException : public std::exception{
     }
 };
 
-class View {
+class StageView {
     Window& window;
-    int matrixToPixelFactor;
+    int mtpFactor;
     std::unordered_map<std::string, Sprite*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
 
 public:
-    View(Window& window, YAML::Node& texturesInfo, int factor);
-    ~View();
+    StageView(Window& window, YAML::Node& texturesInfo, int factor);
+    ~StageView();
     void addTile(int x, int y, std::string& tileName);
-    void draw(SDL_Rect* camera);
+    void draw(const SDL_Rect& camera);
 };
 
 
