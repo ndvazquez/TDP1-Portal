@@ -21,6 +21,7 @@
 #include "../common/constants.h"
 #include "PortalView.h"
 #include "Camera.h"
+#include "AudioSystem.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -103,6 +104,8 @@ void drawChell(){
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
+    AudioSystem audioSystem;
+    audioSystem.playMusic();
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -118,6 +121,8 @@ void drawChell(){
                 if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
                 if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
                 if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
+                if (e.key.keysym.sym == SDLK_m) audioSystem.stopMusic();
+                if (e.key.keysym.sym == SDLK_n) audioSystem.playMusic();
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -423,7 +428,7 @@ void drawChellAndAcidPool(){
 }
 
 int main(int argc, char* argv[]){
-    SDLSession sdlSession(SDL_INIT_VIDEO);
+    SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     drawChell();
     drawChellAndRock();
     drawChellAndEnergyBall();
