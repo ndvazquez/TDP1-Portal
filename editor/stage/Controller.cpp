@@ -4,21 +4,23 @@
 
 #include <iostream>
 #include "yaml-cpp/yaml.h"
-#include "StageController.h"
-#include "Block.h"
-#include "Button.h"
-#include "Rock.h"
-#include "Chell.h"
-#include "Gate.h"
+#include "Controller.h"
+#include "object/Block.h"
+#include "object/Button.h"
+#include "object/Rock.h"
+#include "object/Chell.h"
+#include "object/Gate.h"
+#include "object/Cake.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
 #define ROCK_KEY "Rocks"
 #define CHELL_KEY "Chells"
 #define GATE_KEY "Gate"
+#define CAKE_KEY "Cake"
 
 
-StageController::StageController(Window& window, YAML::Node& texturesInfo, int factor) :
+Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
 
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
@@ -113,13 +115,33 @@ stageView(window, factor, textures, tiles) {
             newObject->hasToBeOn(name);
         }
     }
+
+    const YAML::Node& cakes = texturesInfo[CAKE_KEY];
+    for (YAML::const_iterator it = cakes.begin();
+         it != cakes.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Cake* newObject = new Cake(path, window, node["frames"].as<int>(), name, w, h);
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+
+            newObject->hasToBeOn(name);
+        }
+    }
 }
 
-void StageController::draw(SDL_Rect* camera, int xStart) {
+void Controller::draw(SDL_Rect* camera, int xStart) {
     stageView.draw(camera, xStart);
 }
 
-void StageController::addTile(int x, int y, std::string& tileName) {
+void Controller::addTile(int x, int y, std::string& tileName) {
     Object* obj = textures[tileName];
     if (!obj) {
         throw StageControllerNameException();
@@ -127,23 +149,33 @@ void StageController::addTile(int x, int y, std::string& tileName) {
     try {
         obj->addTo(x, y, tiles);
     }
-    catch(StageObjectException) {
+    catch(ObjectException) {
         throw StageControllerAddTileException();
     }
 }
 
-void StageController::removeTile(int x, int y) {
-    tiles.erase(std::make_pair(x, y));
-}
-
-
-StageController::~StageController() {
-    for (auto it = textures.begin(); it != textures.end(); ++it) {
-        delete it->second;
+void Controller::removeTile(int x, int y) {
+    std::string& tileName = tiles[std::make_pair(x, y)];
+    Object* obj = textures[tileName];
+    if (!obj) {
+        throw StageControllerNameException();
+    }
+    try {
+        obj->removeFrom(x, y, tiles, textures);
+    }
+    catch(ObjectException) {
+        throw StageControllerRemoveTileException();
     }
 }
 
-std::string& StageController::getName(int x, int y) {
+
+Controller::~Controller() {
+    for (auto & texture : textures) {
+        delete texture.second;
+    }
+}
+
+std::string& Controller::getName(int x, int y) {
     auto point = tiles.find(std::make_pair(x, y));
     if (point == tiles.end()) {
         throw StageControllerEmptyPositionException();
@@ -151,6 +183,6 @@ std::string& StageController::getName(int x, int y) {
     return point->second;
 }
 
-void StageController::nameAnObject(int x, int y) {
+void Controller::nameAnObject(int x, int y) {
     textures[tiles[std::make_pair(x, y)]]->setName();
 }

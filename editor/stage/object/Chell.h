@@ -15,7 +15,7 @@ public:
     ~Chell();
     void draw(SDL_Rect* rect) override;
 
-    void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
+    //void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
 };
 
 

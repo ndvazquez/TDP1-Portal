@@ -2,7 +2,7 @@
 // Created by ndv on 5/13/19.
 //
 
-#ifndef PORTAL_STAGEVIEW_H
+#ifndef PORTAL_VIEW_H
 #define PORTAL_STAGEVIEW_H
 #include <unordered_map>
 #include <exception>

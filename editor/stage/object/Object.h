@@ -8,8 +8,8 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
-#include "../common/Sprite.h"
-#include "StageObjectException.h"
+#include "../../../common/Sprite.h"
+#include "ObjectException.h"
 
 
 class Object {
@@ -29,6 +29,11 @@ public:
     virtual void setName();
 
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
+
+    virtual void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                            std::unordered_map<std::string, Object *>& textures);
+
+    virtual bool hasGravity();
 };
 
 #endif //PORTAL_OBJECT_H

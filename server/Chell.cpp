@@ -9,7 +9,7 @@
 #include "MoveRight.h"
 #include "Stop.h"
 #include "MoveLeft.h"
-#include "../editor/Chell.h"
+#include "../editor/stage/object/Chell.h"
 #include "Rock.h"
 
 Chell::Chell(b2Body* body):

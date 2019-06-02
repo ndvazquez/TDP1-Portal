@@ -9,8 +9,8 @@
 #include <map>
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
-    window(window),
-    mtpFactor(factor) {
+        window(window),
+        mtpFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
     for (YAML::const_iterator it = staticObjects.begin();
          it != staticObjects.end(); ++it) {

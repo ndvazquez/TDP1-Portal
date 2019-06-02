@@ -44,12 +44,20 @@ Rocks: # gravity, no animation
     w: 1
     h: 1
 
+
 Chells: # gravity and animation
   - name: Chell
     path: resources/Chell/RestingIdle.png
     frames: 7
     w: 1
     h: 2
+
+Cake:
+  - name: Cake
+    path: resources/cake/initial.png
+    frames: 8
+    w: 1
+    h: 1
 
 Gate: # gravity, no animation
   - name: Gate
@@ -107,3 +115,7 @@ MenuData:
     path: resources/gate.png
     w: 1
     h: 2
+  - name: Cake
+    path: resources/cake/menu.png
+    w: 1
+    h: 1

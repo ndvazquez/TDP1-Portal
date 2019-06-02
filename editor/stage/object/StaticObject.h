@@ -6,7 +6,7 @@
 #define PORTAL_STATICOBJECT_H
 
 
-#include "../common/Sprite.h"
+#include "../../../common/Sprite.h"
 #include "Object.h"
 
 class StaticObject : public Object {
