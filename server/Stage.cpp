@@ -238,8 +238,6 @@ void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
         throw StageOutOfRangeException();
     }
 
-    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-
     b2Body* portal_body = addStaticRectangle(side, side, x_pos, y_pos);
 
     OrangePortal* orange_portal = new OrangePortal(portal_body);
@@ -278,7 +276,6 @@ void Stage::addBluePortal(float side, float x_pos, float y_pos) {
 
     if (this->orange_portal == nullptr) return;
 
-    //Adding relation of orange -> blue
     float x = this->orange_portal->getHorizontalPosition();
     float y = this->orange_portal->getVerticalPosition();
     Coordinate* coordinate = new Coordinate(x, y);
@@ -398,6 +395,14 @@ EnergyBall* Stage::getEnergyBall(Coordinate* coordinate) {
     return nullptr;
 }
 
+OrangePortal* Stage::getOrangePortal(Coordinate *coordinate) {
+    return orange_portal;
+}
+
+BluePortal* Stage::getBluePortal(Coordinate *coordinate) {
+    return blue_portal;
+}
+
 Stage::~Stage() {
     b2Body* body = world->GetBodyList();
     while (body != nullptr) {
@@ -459,6 +464,8 @@ Stage::~Stage() {
         delete i->second;
     }
 
+    if (blue_portal != NULL) delete blue_portal;
+    if (orange_portal != NULL) delete orange_portal;
     delete floor;
     delete world;
 }

@@ -5,5 +5,5 @@
 #include "BluePortal.h"
 
 BluePortal::BluePortal(b2Body* body):
-    Portal(body) {
+        Portal(body) {
 }

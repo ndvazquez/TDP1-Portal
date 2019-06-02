@@ -6,6 +6,7 @@
 #define PORTAL_DYNAMIC_H
 
 #include <Box2D/Dynamics/b2Body.h>
+#include <chrono>
 #include "configuration.h"
 #include "Coordinate.h"
 
@@ -13,6 +14,7 @@ class Dynamic {
 private:
     b2Body* body;
     float energy_ball_impulse;
+    std::chrono::system_clock::time_point timeStamp;
 
 public:
     explicit Dynamic(b2Body* body);

@@ -35,7 +35,6 @@ void Portal::handleCollision(Entity* entity) {
         //no se puede hacer un portal
     }
     if (type == "Chell") {
-        std::cout << "me toco chell" << std::endl;
         static_cast<Chell*>(entity)->teleport(other_portal);
     }
 }

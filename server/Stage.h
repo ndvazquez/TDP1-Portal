@@ -89,6 +89,8 @@ public:
     Acid* getAcid(Coordinate* coordinate);
     Chell* getChell(Coordinate* coordinate);
     EnergyBall* getEnergyBall(Coordinate* coordinate);
+    BluePortal* getBluePortal(Coordinate* coordinate);
+    OrangePortal* getOrangePortal(Coordinate* coordinate);
 };
 
 #endif //PORTAL_STAGE_H

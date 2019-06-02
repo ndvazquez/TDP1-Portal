@@ -291,5 +291,11 @@ public:
  void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAPortal(); }
 } testDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal;
 
+static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 883, "testChellTeleportsWhenHittingAnotherPortal" ) {}
+ void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAnotherPortal(); }
+} testDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

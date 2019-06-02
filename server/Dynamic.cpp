@@ -18,6 +18,12 @@ void Dynamic::move(float force) {
 }
 
 void Dynamic::teleport(Coordinate* coordinate) {
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end - timeStamp).count();
+    if (difference <= 100) return; //0.1 second to teletransport
+    timeStamp = std::chrono::system_clock::now();
+
     float x = coordinate->getX();
     float y = coordinate->getY();
     body->SetTransform(b2Vec2(x, y), 0);
