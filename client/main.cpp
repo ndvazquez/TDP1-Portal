@@ -100,12 +100,12 @@ void drawChell(){
 
     // PortalView
     PortalView portalViewBlue(newWindow, 1150, 950, MTP_FACTOR, textures);
-    stage.addBluePortal(chellHeight, 15, 1);
+    stage.addBluePortal(chellHeight, chellWidth, 15, 1);
     portalViewBlue.move(15, 1, levelHeight);
 
     // Portal View
     PortalView portalViewOrange(newWindow, 1350, 950, MTP_FACTOR, textures);
-    stage.addOrangePortal(chellHeight, 10, 1);
+    stage.addOrangePortal(chellHeight, chellWidth, 10, 1);
     portalViewOrange.move(10, 1, levelHeight);
 
     // ChellView and camera.

@@ -906,7 +906,7 @@ public:
         chell->moveLeft();
         x_initial = chell->getHorizontalPosition();
 
-        for (size_t i = 0; i < 15000; i++) {
+        for (size_t i = 0; i < 1500000; i++) {
             float x_final = chell->getHorizontalPosition();
             stage.step();
             if (x_final && x_initial < 6) {

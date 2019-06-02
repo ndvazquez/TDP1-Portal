@@ -74,8 +74,8 @@ public:
     void addChell(float v_side, float h_side, float x_pos, float y_pos);
     void addEnergyBallHorizontal(float side, float x_pos, float y_pos);
     void addEnergyBallVertical(float side, float x_pos, float y_pos);
-    void addBluePortal(float side, float x_pos, float y_pos);
-    void addOrangePortal(float side, float x_pos, float y_pos);
+    void addBluePortal(float v_side, float h_side, float x_pos, float y_pos);
+    void addOrangePortal(float v_side, float h_side, float x_pos, float y_pos);
 
     void step();
 

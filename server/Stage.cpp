@@ -233,12 +233,12 @@ void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
-void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
+void Stage::addOrangePortal(float v_side, float h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
-    b2Body* portal_body = addStaticRectangle(side, side, x_pos, y_pos);
+    b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     OrangePortal* orange_portal = new OrangePortal(portal_body);
 
@@ -262,12 +262,12 @@ void Stage::addOrangePortal(float side, float x_pos, float y_pos) {
     }
 }
 
-void Stage::addBluePortal(float side, float x_pos, float y_pos) {
+void Stage::addBluePortal(float v_side, float h_side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
-    b2Body* portal_body = addStaticRectangle(side, side, x_pos, y_pos);
+    b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     BluePortal* blue_portal = new BluePortal(portal_body);
 
