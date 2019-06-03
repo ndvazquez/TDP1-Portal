@@ -2,25 +2,16 @@
 // Created by cecix on 1/06/19.
 //
 
-#include <iostream>
+#include <string>
 #include "Portal.h"
 #include "Chell.h"
 
 #define portalType "Portal"
 
 Portal::Portal(b2Body* body):
-        Entity(portalType),
-        body(body) {
+    Entity(portalType, body) {
     body->SetUserData(this);
     other_portal = nullptr;
-}
-
-float Portal::getHorizontalPosition() {
-    return this->body->GetPosition().x;
-}
-
-float Portal::getVerticalPosition() {
-    return this->body->GetPosition().y;
 }
 
 void Portal::addOtherPortal(Coordinate* coordinate) {

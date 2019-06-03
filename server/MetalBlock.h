@@ -9,13 +9,8 @@
 #include "Entity.h"
 
 class MetalBlock: public Entity {
-private:
-    b2Body* body;
-
 public:
     explicit MetalBlock(b2Body* body);
-    float getHorizontalPosition();
-    float getVerticalPosition();
     virtual void handleCollision(Entity* entity) override;
 };
 

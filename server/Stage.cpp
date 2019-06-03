@@ -233,7 +233,8 @@ void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
-void Stage::addOrangePortal(float v_side, float h_side, float x_pos, float y_pos) {
+void Stage::addOrangePortal(float v_side, float h_side,
+        float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -262,7 +263,8 @@ void Stage::addOrangePortal(float v_side, float h_side, float x_pos, float y_pos
     }
 }
 
-void Stage::addBluePortal(float v_side, float h_side, float x_pos, float y_pos) {
+void Stage::addBluePortal(float v_side, float h_side,
+        float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }

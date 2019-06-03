@@ -15,7 +15,6 @@
 class Chell: public Entity {
 private:
     Dynamic dynamic;
-    b2Body* body;
     Dynamic* actual_movement;
     bool chell_is_on_floor;
     bool dead;
@@ -32,10 +31,6 @@ public:
     void jump();
     void destroyActualMovement();
     void update();
-    float getHorizontalPosition();
-    float getVerticalPosition();
-    float getHorizontalVelocity();
-    float getVerticalVelocity();
     bool inGround();
     void die();
     bool isDead();

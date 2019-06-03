@@ -2,15 +2,16 @@
 // Created by cecix on 19/05/19.
 //
 
+#define energyBallType "EnergyBall"
+
 #include <string>
 
 #include "EnergyBall.h"
 #include "Chell.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
-    Entity(std::string(energyBallType)),
+    Entity(energyBallType, body),
     dynamic(body) {
-    this->body = body;
     this->is_vertical = is_vertical;
     life_steps = 0;
     body->SetUserData(this); //to handle collisions
@@ -53,24 +54,4 @@ void EnergyBall::handleCollision(Entity* entity) {
     if (type == "Chell") {
         static_cast<Chell*>(entity)->die();
     }
-}
-
-float EnergyBall::getHorizontalPosition() {
-    return this->dynamic.getHorizontalPosition();
-}
-
-float EnergyBall::getVerticalPosition() {
-    return this->dynamic.getVerticalPosition();
-}
-
-float EnergyBall::getHorizontalVelocity() {
-    return this->dynamic.getHorizontalVelocity();
-}
-
-float EnergyBall::getVerticalVelocity() {
-    return this->dynamic.getVerticalVelocity();
-}
-
-b2Body* EnergyBall::getBody() {
-    return body;
 }

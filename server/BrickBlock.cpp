@@ -11,17 +11,8 @@
 #define brickBlockType "BrickBlock"
 
 BrickBlock::BrickBlock(b2Body* body):
-    Entity(brickBlockType),
-    body(body) {
+    Entity(brickBlockType, body) {
     body->SetUserData(this); //to handle collisions
-}
-
-float BrickBlock::getHorizontalPosition() {
-    return this->body->GetPosition().x;
-}
-
-float BrickBlock::getVerticalPosition() {
-    return this->body->GetPosition().y;
 }
 
 void BrickBlock::handleCollision(Entity* entity) {

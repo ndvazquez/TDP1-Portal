@@ -12,13 +12,10 @@
 
 class Portal: public Entity {
 protected:
-    b2Body* body;
     Coordinate* other_portal;
 
 public:
     explicit Portal(b2Body* body);
-    float getHorizontalPosition();
-    float getVerticalPosition();
     virtual void handleCollision(Entity* entity) override;
     void addOtherPortal(Coordinate* coordinate);
     Coordinate* getOtherPortal();

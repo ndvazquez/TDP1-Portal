@@ -9,8 +9,7 @@
 #define floorType "Floor"
 
 Floor::Floor(b2Body* body):
-        Entity(floorType),
-        body(body) {
+        Entity(floorType, body) {
     body->SetUserData(this);
 }
 

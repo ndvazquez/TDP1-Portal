@@ -8,8 +8,7 @@
 #include "Chell.h"
 
 DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
-    Entity(diagonalMetalBlockType),
-    body(body) {
+    Entity(diagonalMetalBlockType, body) {
     body->SetUserData(this); //to handle collisions
 }
 
@@ -21,12 +20,3 @@ void DiagonalMetalBlock::handleCollision(Entity* entity) {
         static_cast<Chell*>(entity)->onFloor(true);
     }
 }
-
-float DiagonalMetalBlock::getHorizontalPosition() {
-    return this->body->GetPosition().x;
-}
-
-float DiagonalMetalBlock::getVerticalPosition() {
-    return this->body->GetPosition().y;
-}
-

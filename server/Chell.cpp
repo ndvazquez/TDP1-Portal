@@ -15,9 +15,8 @@
 #include "Portal.h"
 
 Chell::Chell(b2Body* body):
-        Entity(chellType),
+        Entity(chellType, body),
         dynamic(body) {
-    this->body = body;
     this->actual_movement = new Stop(body);
     this->actual_state = IDLE;
     body->SetUserData(this);
@@ -93,29 +92,16 @@ void Chell::moveLeft() {
 void Chell::stop() {
     destroyActualMovement();
     this->actual_movement = new Stop(body);
-    if (! chell_is_on_floor) this->actual_state = JUMPING;
-    else this->actual_state = IDLE;
+    if (! chell_is_on_floor) {
+        this->actual_state = JUMPING;
+    } else {
+        this->actual_state = IDLE;
+    }
     if (this->rock) rock->stop();
 }
 
 void Chell::destroyActualMovement() {
     delete this->actual_movement;
-}
-
-float Chell::getHorizontalPosition() {
-    return this->dynamic.getHorizontalPosition();
-}
-
-float Chell::getVerticalPosition() {
-    return this->dynamic.getVerticalPosition();
-}
-
-float Chell::getHorizontalVelocity() {
-    return this->dynamic.getHorizontalVelocity();
-}
-
-float Chell::getVerticalVelocity() {
-    return this->dynamic.getVerticalVelocity();
 }
 
 void Chell::update() {

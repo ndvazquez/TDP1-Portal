@@ -9,17 +9,8 @@
 #include "Chell.h"
 
 MetalBlock::MetalBlock(b2Body* body):
-    Entity(metalBlockType),
-    body(body) {
+    Entity(metalBlockType, body) {
     body->SetUserData(this);
-}
-
-float MetalBlock::getHorizontalPosition() {
-    return this->body->GetPosition().x;
-}
-
-float MetalBlock::getVerticalPosition() {
-    return this->body->GetPosition().y;
 }
 
 void MetalBlock::handleCollision(Entity* entity) {

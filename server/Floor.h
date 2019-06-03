@@ -10,9 +10,6 @@
 #include "Entity.h"
 
 class Floor: public Entity {
-private:
-    b2Body* body;
-
 public:
     explicit Floor(b2Body* body);
     virtual void handleCollision(Entity* entity) override;

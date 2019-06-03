@@ -6,10 +6,26 @@
 
 #include "Entity.h"
 
-Entity::Entity(std::string type):
-    type(type) {
+Entity::Entity(std::string type, b2Body* body):
+    type(type), body(body) {
 }
 
 std::string Entity::getType() {
     return type;
+}
+
+float Entity::getHorizontalPosition() {
+    return body->GetPosition().x;
+}
+
+float Entity::getVerticalPosition() {
+    return body->GetPosition().y;
+}
+
+float Entity::getHorizontalVelocity() {
+    return body->GetLinearVelocity().x;
+}
+
+float Entity::getVerticalVelocity() {
+    return body->GetLinearVelocity().y;
 }

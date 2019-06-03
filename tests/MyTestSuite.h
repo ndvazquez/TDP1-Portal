@@ -859,8 +859,8 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
-        stage.addOrangePortal(side_portal, x_pos_chell + 5, y_pos);
-        stage.addBluePortal(side_portal, x_pos_chell + 20, y_pos + 20);
+        stage.addOrangePortal(side_portal, side_portal, x_pos_chell + 5, y_pos);
+        stage.addBluePortal(side_portal, side_portal, x_pos_chell + 20, y_pos + 20);
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
@@ -884,8 +884,8 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
-        stage.addOrangePortal(side_portal, x_pos_chell + 5, y_pos);
-        stage.addBluePortal(side_portal, x_pos_chell + 20, y_pos);
+        stage.addOrangePortal(side_portal, side_portal, x_pos_chell + 5, y_pos);
+        stage.addBluePortal(side_portal, side_portal, x_pos_chell + 20, y_pos);
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 

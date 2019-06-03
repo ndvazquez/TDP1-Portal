@@ -437,7 +437,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-    /*drawChellAndRock();
+    drawChellAndRock();
     drawChellAndEnergyBall();
-    drawChellAndAcidPool();*/
+    drawChellAndAcidPool();
 }

@@ -12,9 +12,8 @@
 #include "Chell.h"
 
 Rock::Rock(b2Body* body):
-        Entity(rockType),
+        Entity(rockType, body),
         dynamic(body) {
-    this->body = body;
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     this->on_floor = false;
@@ -85,20 +84,4 @@ void Rock::eliminateGravity() {
 void Rock::downloadToEarth() {
     eliminateGravity();
     this->dynamic.downloadToEarth();
-}
-
-float Rock::getHorizontalPosition() {
-    return this->dynamic.getHorizontalPosition();
-}
-
-float Rock::getVerticalPosition() {
-    return this->dynamic.getVerticalPosition();
-}
-
-float Rock::getVerticalVelocity() {
-    return this->dynamic.getVerticalVelocity();
-}
-
-float Rock::getHorizontalVelocity() {
-    return this->dynamic.getHorizontalVelocity();
 }
