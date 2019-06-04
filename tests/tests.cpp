@@ -302,45 +302,45 @@ static ShootingTest suite_ShootingTest;
 static CxxTest::List Tests_ShootingTest = { 0, 0 };
 CxxTest::StaticSuiteDescription suiteDescription_ShootingTest( "MyTestSuite.h", 924, "ShootingTest", suite_ShootingTest, Tests_ShootingTest );
 
-static class TestDescription_suite_ShootingTest_testBluerayectoryShooting : public CxxTest::RealTestDescription {
+static class TestDescription_suite_ShootingTest_testBlueTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBluerayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 934, "testBluerayectoryShooting" ) {}
- void runTest() { suite_ShootingTest.testBluerayectoryShooting(); }
-} testDescription_suite_ShootingTest_testBluerayectoryShooting;
+ TestDescription_suite_ShootingTest_testBlueTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 934, "testBlueTrayectoryShooting" ) {}
+ void runTest() { suite_ShootingTest.testBlueTrayectoryShooting(); }
+} testDescription_suite_ShootingTest_testBlueTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 961, "testOrangeTrayectoryShooting" ) {}
+ TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 960, "testOrangeTrayectoryShooting" ) {}
  void runTest() { suite_ShootingTest.testOrangeTrayectoryShooting(); }
 } testDescription_suite_ShootingTest_testOrangeTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 988, "testTrayectoryBlueShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 987, "testTrayectoryBlueShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryBlueShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1016, "testTrayectoryOrangeShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1015, "testTrayectoryOrangeShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryOrangeShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1049, "testOrangeShotCollidesWithMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1048, "testOrangeShotCollidesWithMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testOrangeShotCollidesWithMetalBlock(); }
 } testDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock;
 
 static class TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1081, "testBlueShotCollidesAgainstMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1080, "testBlueShotCollidesAgainstMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testBlueShotCollidesAgainstMetalBlock(); }
 } testDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock;
 
 static class TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1113, "testBlueShotCollidesAndDies" ) {}
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1112, "testBlueShotCollidesAndDies" ) {}
  void runTest() { suite_ShootingTest.testBlueShotCollidesAndDies(); }
 } testDescription_suite_ShootingTest_testBlueShotCollidesAndDies;
 

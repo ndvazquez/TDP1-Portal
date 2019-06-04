@@ -931,58 +931,50 @@ class ShootingTest :  public CxxTest::TestSuite {
     float v_side_shot = 2;
 
 public:
-    void testBluerayectoryShooting() {
-      /*  std::cout << "Testing the blue trayectory of the shooting" << std::endl;
+    void testBlueTrayectoryShooting() {
+        std::cout << "Testing the blue trayectory of the shooting" << std::endl;
 
         Stage stage(width_stage, height_stage);
         stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 1/2 + h_side_shot/2, y_pos);
-        Coordinate* target = new Coordinate(3, 3);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* target = new Coordinate(8, 1);
         stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
 
         BlueShot* blueShot = stage.getBlueShot(origin);
 
         for (size_t i = 0; i < 120; i++) {
-            float x = blueShot->getHorizontalPosition();
-            float y = blueShot->getVerticalPosition();
+            if (blueShot->isDead()) break;
             stage.step();
-
-            if (blueShot->isDead()) {
-                TS_ASSERT_DELTA(x, 3, 0.1);
-                TS_ASSERT_DELTA(y, 3, 0.1);
-            }
         }
-        TS_ASSERT_EQUALS(blueShot->isDead(), true);*/
+        TS_ASSERT_DELTA(blueShot->getHorizontalPosition(), 8, 0.5);
+        TS_ASSERT_DELTA(blueShot->getVerticalPosition(), 1, 0.5);
+        TS_ASSERT_EQUALS(blueShot->isDead(), true);
     }
 
     void testOrangeTrayectoryShooting() {
         std::cout << "Testing the orange trayectory of the shooting" << std::endl;
 
-        /*Stage stage(width_stage, height_stage);
+        Stage stage(width_stage, height_stage);
         stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 1/2 + h_side_shot/2, y_pos);
-        Coordinate* target = new Coordinate(3, 3);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* target = new Coordinate(8, 1);
         stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
 
         OrangeShot* orangeShot = stage.getOrangeShot(origin);
 
         for (size_t i = 0; i < 120; i++) {
-            float x = orangeShot->getHorizontalPosition();
-            float y = orangeShot->getVerticalPosition();
+            if (orangeShot->isDead()) break;
             stage.step();
-
-            if (orangeShot->isDead()) {
-                TS_ASSERT_DELTA(x, 3, 0.1);
-                TS_ASSERT_DELTA(y, 3, 0.1);
-            }
         }
-        TS_ASSERT_EQUALS(orangeShot->isDead(), true);*/
+        TS_ASSERT_DELTA(orangeShot->getHorizontalPosition(), 8, 0.5);
+        TS_ASSERT_DELTA(orangeShot->getVerticalPosition(), 1, 0.5);
+        TS_ASSERT_EQUALS(orangeShot->isDead(), true);
     }
 
     void testTrayectoryBlueShootingBackwards() {
