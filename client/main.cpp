@@ -98,15 +98,24 @@ void drawChell(){
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
 
+    //Shot in Chell
+    float shotWidth = 1;
+    float shotHeight = 2;
+    Coordinate* target = new Coordinate(10, 1); //Setting the target to shoot. Test that it dies when it hits objects in the stage
+    stage.addBlueShot(shotHeight, shotWidth, chell, target); //Arbitrary width and height in Shot
+    float x_origin = xPos + chellWidth*2 + shotWidth/2;
+    float y_origin = yPos;
+    BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin, y_origin));
+
     // PortalView
-    PortalView portalViewBlue(newWindow, 1150, 950, MTP_FACTOR, textures);
+    /*PortalView portalViewBlue(newWindow, 1150, 950, MTP_FACTOR, textures);
     stage.addBluePortal(chellHeight, chellWidth, 15, 1);
-    portalViewBlue.move(15, 1, levelHeight);
+    portalViewBlue.move(15, 1, levelHeight);*/
 
     // Portal View
-    PortalView portalViewOrange(newWindow, 1350, 950, MTP_FACTOR, textures);
+   /* PortalView portalViewOrange(newWindow, 1350, 950, MTP_FACTOR, textures);
     stage.addOrangePortal(chellHeight, chellWidth, 10, 1);
-    portalViewOrange.move(10, 1, levelHeight);
+    portalViewOrange.move(10, 1, levelHeight);*/
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
@@ -156,14 +165,16 @@ void drawChell(){
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
-        portalViewBlue.playAnimation(cameraRect);
-        portalViewOrange.playAnimation(cameraRect);
+        //portalViewBlue.playAnimation(cameraRect);
+        //portalViewOrange.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
 
-        //std::cout << chell->getHorizontalPosition() << std::endl;
+        //Shot position
+        float shotX = blueShot->getHorizontalPosition();
+        float shotY = blueShot->getVerticalPosition();
     }
     delete coordinate;
 }
