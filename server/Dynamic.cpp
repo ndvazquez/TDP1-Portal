@@ -154,13 +154,6 @@ bool Dynamic::jump(bool chellFloor) {
     return true;
 }
 
-float Dynamic::getHorizontalVelocity() {
-    return body->GetLinearVelocity().x;
-}
-
-float Dynamic::getVerticalVelocity() {
-    return body->GetLinearVelocity().y;
-}
 
 Dynamic::~Dynamic() {
 }

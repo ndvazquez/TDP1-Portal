@@ -6,6 +6,8 @@
 #include "DiagonalMetalBlock.h"
 #include "EnergyBall.h"
 #include "Chell.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
     Entity(diagonalMetalBlockType, body) {
@@ -17,6 +19,39 @@ void DiagonalMetalBlock::handleCollision(Entity* entity) {
         static_cast<EnergyBall*>(entity)->changeDirection();
     }
     if (type == "Chell") {
-        static_cast<Chell*>(entity)->onFloor(true);
+
+       /* Chell* chell = static_cast<Chell*>(entity);
+        chell->onFloor(true);
+        if (portal) {
+            Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
+                                                           body->GetPosition().y);
+            chell->teleport(portalCoordinates);
+        }*/
     }
+    if (type == "BlueShot") {
+
+        /*BlueShot* blueShot = static_cast<BlueShot*>(entity);
+        Chell* chell = blueShot->getChell();
+        createPortal(); //TODO: Maybe this isn't valid
+        Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
+                                                       body->GetPosition().y);
+        chell->addBluePortal(portalCoordinates);*/
+    }
+    if (type == "OrangeShot") {
+
+       /* OrangeShot* orangeShot = static_cast<OrangeShot*>(entity);
+        Chell* chell = orangeShot->getChell();
+        createPortal(); //TODO: Maybe this isn't valid
+        Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
+                                                       body->GetPosition().y);
+        chell->addOrangePortal(portalCoordinates);*/
+    }
+}
+
+void DiagonalMetalBlock::createPortal() {
+    this->portal = true;
+}
+
+bool DiagonalMetalBlock::hasPortal() {
+    return portal;
 }

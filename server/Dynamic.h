@@ -34,8 +34,6 @@ public:
     void teleport(Coordinate* coordinate);
     float getHorizontalPosition();
     float getVerticalPosition();
-    float getHorizontalVelocity();
-    float getVerticalVelocity();
 };
 
 #endif //PORTAL_DYNAMIC_H

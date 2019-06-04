@@ -293,11 +293,22 @@ void Stage::addBluePortal(float v_side, float h_side,
     }
 }
 
+void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
+        Coordinate* target) {
+    float x_pos = chell->getHorizontalPosition() + 1/2 + h_side/2;
+    float y_pos = chell->getVerticalPosition();
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* blue_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+    BlueShot* blueShot = new BlueShot(blue_shot_body, chell, target);
+    blue_shots.insert({coordinates, blueShot});
+}
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
                      (end - timeStamp).count();
-    if (difference <= 1000 / 60) return;
+    //if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
@@ -322,12 +333,28 @@ void Stage::step() {
         }
     }
 
+    for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
+        if (i->second->isDead()) {
+            {
+                blue_shots.erase(i->first);
+                break;
+            }
+        }
+        else i->second->shoot();
+    }
+
     float timeStep = 1.0f / 60;
     int velocityIterations = 8;
     int positionIterations = 2;
     world->Step(timeStep, velocityIterations, positionIterations);
 }
 
+BlueShot* Stage::getBlueShot(Coordinate* coordinate) {
+    for (auto i = blue_shots.begin() ; i != blue_shots.end() ; i++) {
+        if (*i->first == *coordinate) return i->second;
+    }
+    return nullptr;
+}
 
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {
@@ -399,14 +426,6 @@ EnergyBall* Stage::getEnergyBall(Coordinate* coordinate) {
         if (*i->first == *coordinate) return i->second;
     }
     return nullptr;
-}
-
-OrangePortal* Stage::getOrangePortal(Coordinate *coordinate) {
-    return orange_portal;
-}
-
-BluePortal* Stage::getBluePortal(Coordinate *coordinate) {
-    return blue_portal;
 }
 
 Stage::~Stage() {

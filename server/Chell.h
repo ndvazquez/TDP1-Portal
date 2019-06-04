@@ -20,6 +20,9 @@ private:
     bool dead;
     Rock* rock;
     State actual_state;
+    Chell* myself;
+    Coordinate* orangePortal;
+    Coordinate* bluePortal;
 
 public:
     explicit Chell(b2Body* body);

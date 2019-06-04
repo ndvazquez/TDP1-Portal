@@ -293,9 +293,26 @@ public:
 
 static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 883, "testChellTeleportsWhenHittingAnotherPortal" ) {}
+ TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 882, "testChellTeleportsWhenHittingAnotherPortal" ) {}
  void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAnotherPortal(); }
 } testDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal;
+
+static ShootingTest suite_ShootingTest;
+
+static CxxTest::List Tests_ShootingTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_ShootingTest( "MyTestSuite.h", 923, "ShootingTest", suite_ShootingTest, Tests_ShootingTest );
+
+static class TestDescription_suite_ShootingTest_testTrayectoryShooting : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ShootingTest_testTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 933, "testTrayectoryShooting" ) {}
+ void runTest() { suite_ShootingTest.testTrayectoryShooting(); }
+} testDescription_suite_ShootingTest_testTrayectoryShooting;
+
+static class TestDescription_suite_ShootingTest_testTrayectoryShootingBackwards : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ShootingTest_testTrayectoryShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 957, "testTrayectoryShootingBackwards" ) {}
+ void runTest() { suite_ShootingTest.testTrayectoryShootingBackwards(); }
+} testDescription_suite_ShootingTest_testTrayectoryShootingBackwards;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

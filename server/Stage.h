@@ -25,6 +25,7 @@
 #include "Floor.h"
 #include "OrangePortal.h"
 #include "BluePortal.h"
+#include "BlueShot.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -53,6 +54,7 @@ private:
     std::unordered_map<Coordinate*, Acid*> acids;
     std::unordered_map<Coordinate*, Chell*> chells;
     std::unordered_map<Coordinate*, EnergyBall*> energy_balls;
+    std::unordered_map<Coordinate*, BlueShot*> blue_shots;
 
 public:
     Stage(size_t width, size_t height);
@@ -76,9 +78,12 @@ public:
     void addEnergyBallVertical(float side, float x_pos, float y_pos);
     void addBluePortal(float v_side, float h_side, float x_pos, float y_pos);
     void addOrangePortal(float v_side, float h_side, float x_pos, float y_pos);
+    void addBlueShot(float v_side, float h_side, Chell* chell,
+            Coordinate* target);
 
     void step();
 
+    BlueShot* getBlueShot(Coordinate* coordinate);
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
     EnergyTransmitter* getEnergyTransmitter(Coordinate* coordinate);
@@ -89,8 +94,6 @@ public:
     Acid* getAcid(Coordinate* coordinate);
     Chell* getChell(Coordinate* coordinate);
     EnergyBall* getEnergyBall(Coordinate* coordinate);
-    BluePortal* getBluePortal(Coordinate* coordinate);
-    OrangePortal* getOrangePortal(Coordinate* coordinate);
 };
 
 #endif //PORTAL_STAGE_H

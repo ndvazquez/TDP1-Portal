@@ -81,7 +81,8 @@ set(SERVER_SOURCE_FILES
         server/Portal.cpp
         server/BluePortal.cpp
         server/OrangePortal.cpp
-        server/Shot.cpp)
+        server/BlueShot.cpp
+        server/OrangeShot.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

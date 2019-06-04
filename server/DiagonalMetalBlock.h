@@ -9,9 +9,13 @@
 #include "Entity.h"
 
 class DiagonalMetalBlock: public Entity  {
+private:
+    bool portal;
 public:
     explicit DiagonalMetalBlock(b2Body* body);
     virtual void handleCollision(Entity* entity) override;
+    void createPortal();
+    bool hasPortal();
 };
 
 

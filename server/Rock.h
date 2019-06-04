@@ -5,7 +5,6 @@
 #ifndef PORTAL_ROCK_H
 #define PORTAL_ROCK_H
 
-#include <Box2D/Dynamics/b2Body.h>
 #include "Dynamic.h"
 #include "Entity.h"
 

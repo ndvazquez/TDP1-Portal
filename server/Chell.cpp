@@ -6,6 +6,9 @@
 
 #include <string>
 #include <iostream>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
+#include <Box2D/Dynamics/b2Fixture.h>
+#include <Box2D/Dynamics/b2World.h>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -13,6 +16,9 @@
 #include "../editor/Chell.h"
 #include "Rock.h"
 #include "Portal.h"
+#include "MetalBlock.h"
+#include "DiagonalMetalBlock.h"
+#include "BlueShot.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType, body),
@@ -23,6 +29,8 @@ Chell::Chell(b2Body* body):
     chell_is_on_floor = true;
     dead = false;
     rock = nullptr;
+    orangePortal = nullptr;
+    bluePortal = nullptr;
 }
 
 void Chell::handleCollision(Entity* entity) {
@@ -39,16 +47,28 @@ void Chell::handleCollision(Entity* entity) {
         die();
     }
 
-    if (type == "Portal") {
-        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);
+    if (type == "MetalBlock") {
+        MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
+        if (metalBlock->hasPortal()) {
+            //teletransportar
+        }
+        /*Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
+        teleport(coordinate);*/
+    }
+    if (type == "DiagonalMetalBlock") {
+        DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
+        if (diagonalBlock->hasPortal()) {
+            //teletransportar
+        }
+        /*Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
+        teleport(coordinate);*/
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor";
 }
 
-void Chell::teleport(Coordinate* coordinate) {
+void Chell::teleport(Coordinate* coordinate) { //Ojo que esas son las coordenas del portal chocante
     this->dynamic.teleport(coordinate);
 }
 
@@ -133,6 +153,7 @@ bool Chell::inGround() {
 State Chell::getState() {
     return actual_state;
 }
+
 
 Chell::~Chell() {
     destroyActualMovement();
