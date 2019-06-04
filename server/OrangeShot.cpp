@@ -18,10 +18,9 @@ OrangeShot::OrangeShot(b2Body *body, Chell* chell, Coordinate* target) :
 }
 
 void OrangeShot::handleCollision(Entity* entity) {
+    die(); //If the shot collides against something it dies
     std::string type = entity->getType();
     if (type == "MetalBlock") {
-        std::cout << "MetalBlock!" << std::endl;
-
         /*MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         metalBlock->createOrangePortal();
         Coordinate* portalCoordinates = new Coordinate(metalBlock->getHorizontalPosition(),

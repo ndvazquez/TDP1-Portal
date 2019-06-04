@@ -57,6 +57,7 @@ bool Dynamic::isColliding() {
 bool Dynamic::handleCollisions() {
     b2ContactEdge* edge = body->GetContactList();
     bool resul = false;
+    size_t counter = 0;
     while (edge != NULL) {
         b2Contact* contact = edge->contact;
         if (contact->IsTouching()) {
@@ -70,6 +71,7 @@ bool Dynamic::handleCollisions() {
             resul = true;
         }
         edge = edge->next;
+        counter++;
     }
     return resul;
 }

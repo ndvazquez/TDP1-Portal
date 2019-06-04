@@ -17,7 +17,6 @@ MetalBlock::MetalBlock(b2Body* body):
 }
 
 void MetalBlock::handleCollision(Entity* entity) {
-    std::cout << "soy yop!" << std::endl;
     std::string type = entity->getType();
     if (type == "Chell") {
         Chell* chell = static_cast<Chell*>(entity);

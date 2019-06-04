@@ -295,7 +295,7 @@ void Stage::addBluePortal(float v_side, float h_side,
 
 void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
         Coordinate* target) {
-    float x_pos = chell->getHorizontalPosition() + 1/2 + h_side/2;
+    float x_pos = chell->getHorizontalPosition() + 2 + h_side/2;
     float y_pos = chell->getVerticalPosition();
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -306,7 +306,7 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
 
 void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
                         Coordinate* target) {
-    float x_pos = chell->getHorizontalPosition() + 1/2 + h_side/2;
+    float x_pos = chell->getHorizontalPosition() + 2 + h_side/2;
     float y_pos = chell->getVerticalPosition();
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -350,8 +350,6 @@ void Stage::step() {
                 blue_shots.erase(i->first);
                 break;
             }
-
-
         }
         i->second->shoot();
     }

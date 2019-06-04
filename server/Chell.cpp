@@ -50,15 +50,17 @@ void Chell::handleCollision(Entity* entity) {
         Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
         teleport(coordinate);
     }
-/*
+
     if (type == "MetalBlock") {
+        std::cout << "holisssss" << std::endl;}
+        /*
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         if (metalBlock->hasPortal()) {
             //teletransportar
         }
         Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);
-    }
+        teleport(coordinate);*/
+    /*}
     if (type == "DiagonalMetalBlock") {
         DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
         if (diagonalBlock->hasPortal()) {

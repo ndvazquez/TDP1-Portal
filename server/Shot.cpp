@@ -9,10 +9,9 @@
 #include <iostream>
 
 Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
-        Entity(type, body) {
+        Entity(type, body), dynamic(body) {
     this->chell = chell;
     this->target = target;
-    //body->SetUserData(this); //TODO: cambiar
     this->is_dead = false;
     this->origin = new Coordinate(body->GetPosition().x, body->GetPosition().y);
 }
@@ -24,16 +23,22 @@ Chell* Shot::getChell() {
 void Shot::handleCollision(Entity* entity) {
 }
 
-
-void Shot::setExactPosition() {
-    float target_x = target->getX();
-    float target_y = target->getY();
-    body->SetTransform(b2Vec2(target_x, target_y), 0);
+void Shot::die() {
+    this->is_dead = true;
 }
 
 void Shot::shoot() {
     b2World* world = body->GetWorld();
     world->SetGravity(b2Vec2(0, 0));
+
+    this->dynamic.handleCollisions();
+
+    if (body->GetLinearVelocity(). y != 0 && body->GetLinearVelocity().x != 0) {
+        //body->SetLinearVelocity(b2Vec2(0,0));
+        //this->to_be_dead = true;
+        return;
+    }
+    if (to_be_dead) return;
 
     float origin_x = origin->getX();
     float origin_y =  origin->getY();
@@ -46,10 +51,18 @@ void Shot::shoot() {
     float x_act = body->GetPosition().x;
     float y_act = body->GetPosition().y;
 
+    float frequency = 60;
+    float velocity_x = to_advance_x * frequency * body->GetMass();
+    float velocity_y = to_advance_y * frequency * body->GetMass();
+
+    body->SetLinearVelocity(b2Vec2(velocity_x, velocity_y));
+
+    /*
     float velocity_x = body->GetMass() * to_advance_x;
     float velocity_y = body->GetMass() * to_advance_y;
 
-    if (to_be_dead) {
+    if (to_be_dead && counter > 2) {
+        std::cout << "muri" << std::endl;
         this->is_dead = true;
         return;
     }
@@ -59,6 +72,7 @@ void Shot::shoot() {
         body->SetLinearVelocity(b2Vec2(0, 0));
         setExactPosition();
         this->to_be_dead = true;
+        counter++;
         return;
     }
 
@@ -66,6 +80,7 @@ void Shot::shoot() {
 
     b2Vec2 velocity(velocity_x, velocity_y);
     body->ApplyLinearImpulse(velocity, body->GetWorldCenter(), true);
+     */
 }
 
 bool Shot::isDead() {

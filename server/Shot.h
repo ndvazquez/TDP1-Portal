@@ -15,6 +15,7 @@ protected:
     Coordinate* origin;
     bool is_dead;
     bool to_be_dead;
+    Dynamic dynamic;
 
 public:
     Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target);
@@ -22,6 +23,7 @@ public:
     Chell* getChell();
     void shoot();
     bool isDead();
+    void die();
     void setExactPosition();
 };
 

@@ -310,27 +310,39 @@ public:
 
 static class TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 958, "testOrangeTrayectoryShooting" ) {}
+ TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 961, "testOrangeTrayectoryShooting" ) {}
  void runTest() { suite_ShootingTest.testOrangeTrayectoryShooting(); }
 } testDescription_suite_ShootingTest_testOrangeTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 982, "testTrayectoryBlueShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 988, "testTrayectoryBlueShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryBlueShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1010, "testTrayectoryOrangeShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1016, "testTrayectoryOrangeShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryOrangeShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1038, "testOrangeShotCollidesWithMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1049, "testOrangeShotCollidesWithMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testOrangeShotCollidesWithMetalBlock(); }
 } testDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock;
+
+static class TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1081, "testBlueShotCollidesAgainstMetalBlock" ) {}
+ void runTest() { suite_ShootingTest.testBlueShotCollidesAgainstMetalBlock(); }
+} testDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock;
+
+static class TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1113, "testBlueShotCollidesAndDies" ) {}
+ void runTest() { suite_ShootingTest.testBlueShotCollidesAndDies(); }
+} testDescription_suite_ShootingTest_testBlueShotCollidesAndDies;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
