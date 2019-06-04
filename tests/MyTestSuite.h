@@ -3,6 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 #include <Acid.h>
+#include <OrangeShot.h>
 #include "../server/Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -930,8 +931,8 @@ class ShootingTest :  public CxxTest::TestSuite {
     float v_side_shot = 2;
 
 public:
-    void testTrayectoryShooting() {
-        std::cout << "Testing the trayectory of the shooting" << std::endl;
+    void testBluerayectoryShooting() {
+        std::cout << "Testing the blue trayectory of the shooting" << std::endl;
 
         Stage stage(width_stage, height_stage);
         stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
@@ -954,8 +955,32 @@ public:
         TS_ASSERT_EQUALS(1, 0);
     }
 
-    void testTrayectoryShootingBackwards() {
-        std::cout << "Testing the trayectory of the shooting backwards" << std::endl;
+    void testOrangeTrayectoryShooting() {
+        std::cout << "Testing the orange trayectory of the shooting" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 1/2 + h_side_shot/2, y_pos);
+        Coordinate* target = new Coordinate(3, 3);
+        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+
+        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            float x = orangeShot->getHorizontalPosition();
+            float y = orangeShot->getVerticalPosition();
+            stage.step();
+
+            if (x == 3 && y == 3) return;
+        }
+        TS_ASSERT_EQUALS(1, 0);
+    }
+
+    void testTrayectoryBlueShootingBackwards() {
+        std::cout << "Testing the trayectory of the blue shooting backwards" << std::endl;
 
         Stage stage(width_stage, height_stage);
         x_pos_chell = 4;
@@ -981,6 +1006,35 @@ public:
             stage.step();
         }
     }
+
+    void testTrayectoryOrangeShootingBackwards() {
+        std::cout << "Testing the trayectory of the orange shooting backwards" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        x_pos_chell = 4;
+        y_pos = 5;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 1/2 + h_side_shot/2, y_pos);
+        Coordinate* target = new Coordinate(3, 3);
+        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+
+        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            float x = orangeShot->getHorizontalPosition();
+            float y = orangeShot->getVerticalPosition();
+            if (orangeShot->isDead()) {
+                TS_ASSERT_DELTA(x, 3, 0.1);
+                TS_ASSERT_DELTA(y, 3, 0.1);
+                return;
+            }
+            stage.step();
+        }
+    }
+
 };
 
 #endif

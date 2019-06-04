@@ -304,6 +304,17 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
     blue_shots.insert({coordinates, blueShot});
 }
 
+void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
+                        Coordinate* target) {
+    float x_pos = chell->getHorizontalPosition() + 1/2 + h_side/2;
+    float y_pos = chell->getVerticalPosition();
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* orange_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+    OrangeShot* orangeShot = new OrangeShot(orange_shot_body, chell, target);
+    orange_shots.insert({coordinates, orangeShot});
+}
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -343,6 +354,16 @@ void Stage::step() {
         else i->second->shoot();
     }
 
+    for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
+        if (i->second->isDead()) {
+            {
+                orange_shots.erase(i->first);
+                break;
+            }
+        }
+        else i->second->shoot();
+    }
+
     float timeStep = 1.0f / 60;
     int velocityIterations = 8;
     int positionIterations = 2;
@@ -351,6 +372,13 @@ void Stage::step() {
 
 BlueShot* Stage::getBlueShot(Coordinate* coordinate) {
     for (auto i = blue_shots.begin() ; i != blue_shots.end() ; i++) {
+        if (*i->first == *coordinate) return i->second;
+    }
+    return nullptr;
+}
+
+OrangeShot* Stage::getOrangeShot(Coordinate* coordinate) {
+    for (auto i = orange_shots.begin() ; i != orange_shots.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
     }
     return nullptr;

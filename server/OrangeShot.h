@@ -8,14 +8,13 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include "Entity.h"
 #include "Chell.h"
+#include "Shot.h"
 
-class OrangeShot: public Entity {
-private:
-    Chell* chell;
+class OrangeShot: public Shot {
+
 public:
-    OrangeShot(b2Body* body, Chell* chell);
+    OrangeShot(b2Body *body, Chell* chell, Coordinate* target);
     virtual void handleCollision(Entity* entity) override;
-    Chell* getChell();
 };
 
 #endif //PORTAL_ORANGESHOT_H

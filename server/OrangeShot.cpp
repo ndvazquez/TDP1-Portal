@@ -4,24 +4,21 @@
 
 #include "OrangeShot.h"
 
-#define orangeShotType "BlueShot"
+#define orangeShotType "OrangeShot"
 
 #include <string>
 #include "OrangeShot.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 
-OrangeShot::OrangeShot(b2Body* body, Chell* chell):
-        Entity(orangeShotType, body) {
-    this->chell = chell;
+OrangeShot::OrangeShot(b2Body *body, Chell* chell, Coordinate* target) :
+        Shot(orangeShotType, body, chell, target) {
     body->SetUserData(this);
 }
 
 void OrangeShot::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "MetalBlock") {
-
-
         /*MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         metalBlock->createOrangePortal();
         Coordinate* portalCoordinates = new Coordinate(metalBlock->getHorizontalPosition(),
@@ -29,7 +26,6 @@ void OrangeShot::handleCollision(Entity* entity) {
         chell->addOrangePortal(portalCoordinates);*/
     }
     if (type == "DiagonalMetalBlock") {
-
        /* DiagonalMetalBlock* diagonalBlock =static_cast<DiagonalMetalBlock*>(entity);
         diagonalBlock->createOrangePortal();
         float x_portal_coordinates = diagonalBlock->getHorizontalPosition();
@@ -40,6 +36,3 @@ void OrangeShot::handleCollision(Entity* entity) {
     }
 }
 
-Chell* OrangeShot::getChell() {
-    return chell;
-}
