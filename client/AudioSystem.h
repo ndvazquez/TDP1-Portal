@@ -11,6 +11,7 @@
 #include "../common/constants.h"
 
 #define MUSIC_VOLUME 50
+#define JUMP_VOLUME 30
 
 class AudioSystem {
     Mix_Music* backgroundMusic;
@@ -21,7 +22,6 @@ public:
     ~AudioSystem();
     void playMusic();
     void stopMusic();
-    void queueSound(int soundCode);
     void playSoundEffects();
 };
 

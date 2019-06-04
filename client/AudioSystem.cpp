@@ -9,7 +9,7 @@ AudioSystem::AudioSystem(SoundCodeQueue& queue) : soundsQueue(queue) {
     this->backgroundMusic = Mix_LoadMUS("resources/sounds/outrun_the_reaper.mp3");
     Mix_VolumeMusic(MUSIC_VOLUME);
     Mix_Chunk* jumpEffect = Mix_LoadWAV("resources/sounds/jump.wav");
-    Mix_VolumeChunk(jumpEffect, 50);
+    Mix_VolumeChunk(jumpEffect, JUMP_VOLUME);
     Mix_Chunk* runEffect = Mix_LoadWAV("resources/sounds/step1.wav");
     soundEffects.insert({JUMP_SOUND, jumpEffect});
     soundEffects.insert({RUN_SOUND, runEffect});
@@ -33,10 +33,6 @@ void AudioSystem::stopMusic() {
     if (Mix_PlayingMusic()){
         Mix_HaltMusic();
     }
-}
-
-void AudioSystem::queueSound(int soundCode) {
-    this->soundsQueue.push(soundCode);
 }
 
 void AudioSystem::playSoundEffects() {
