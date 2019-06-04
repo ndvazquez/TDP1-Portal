@@ -5,6 +5,7 @@
 #define metalBlockType "MetalBlock"
 
 #include <string>
+#include <iostream>
 #include "MetalBlock.h"
 #include "Chell.h"
 #include "OrangeShot.h"
@@ -16,6 +17,7 @@ MetalBlock::MetalBlock(b2Body* body):
 }
 
 void MetalBlock::handleCollision(Entity* entity) {
+    std::cout << "soy yop!" << std::endl;
     std::string type = entity->getType();
     if (type == "Chell") {
         Chell* chell = static_cast<Chell*>(entity);
@@ -30,7 +32,6 @@ void MetalBlock::handleCollision(Entity* entity) {
         static_cast<Rock*>(entity)->onFloor(true);
     }
     if (type == "BlueShot") {
-
         /*
         BlueShot* blueShot = static_cast<BlueShot*>(entity);
         Chell* chell = blueShot->getChell();
@@ -40,7 +41,7 @@ void MetalBlock::handleCollision(Entity* entity) {
         chell->addBluePortal(portalCoordinates);*/
     }
     if (type == "OrangeShot") {
-
+        std::cout << "Orange Shot" << std::endl;
         /*OrangeShot* orangeShot = static_cast<OrangeShot*>(entity);
         Chell* chell = orangeShot->getChell();
         createPortal(); //TODO: Maybe this isn't valid'

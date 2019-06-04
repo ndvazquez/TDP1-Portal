@@ -326,5 +326,11 @@ public:
  void runTest() { suite_ShootingTest.testTrayectoryOrangeShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards;
 
+static class TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1038, "testOrangeShotCollidesWithMetalBlock" ) {}
+ void runTest() { suite_ShootingTest.testOrangeShotCollidesWithMetalBlock(); }
+} testDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock;
+
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";

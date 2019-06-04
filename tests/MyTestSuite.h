@@ -950,9 +950,12 @@ public:
             float y = blueShot->getVerticalPosition();
             stage.step();
 
-            if (x == 3 && y == 3) return;
+            if (blueShot->isDead()) {
+                TS_ASSERT_DELTA(x, 3, 0.1);
+                TS_ASSERT_DELTA(y, 3, 0.1);
+            }
         }
-        TS_ASSERT_EQUALS(1, 0);
+        TS_ASSERT_EQUALS(blueShot->isDead(), true);
     }
 
     void testOrangeTrayectoryShooting() {
@@ -974,9 +977,12 @@ public:
             float y = orangeShot->getVerticalPosition();
             stage.step();
 
-            if (x == 3 && y == 3) return;
+            if (orangeShot->isDead()) {
+                TS_ASSERT_DELTA(x, 3, 0.1);
+                TS_ASSERT_DELTA(y, 3, 0.1);
+            }
         }
-        TS_ASSERT_EQUALS(1, 0);
+        TS_ASSERT_EQUALS(orangeShot->isDead(), true);
     }
 
     void testTrayectoryBlueShootingBackwards() {
@@ -1001,10 +1007,10 @@ public:
             if (blueShot->isDead()) {
                 TS_ASSERT_DELTA(x, 3, 0.1);
                 TS_ASSERT_DELTA(y, 3, 0.1);
-                return;
             }
             stage.step();
         }
+        TS_ASSERT_EQUALS(blueShot->isDead(), true);
     }
 
     void testTrayectoryOrangeShootingBackwards() {
@@ -1029,7 +1035,35 @@ public:
             if (orangeShot->isDead()) {
                 TS_ASSERT_DELTA(x, 3, 0.1);
                 TS_ASSERT_DELTA(y, 3, 0.1);
-                return;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(orangeShot->isDead(), true);
+    }
+
+    void testOrangeShotCollidesWithMetalBlock() {
+        std::cout << "Testing that the orange shot collides with the metal block" << std::endl;
+
+        Stage stage(20, 20);
+        x_pos_chell = 10;
+        y_pos = 10;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 1/2 + h_side_shot/2, y_pos);
+        Coordinate* target = new Coordinate(3, 3);
+        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+        stage.addMetalBlock(2, 3, 3);
+
+        for (size_t i = 0; i < 120; i++) {
+            OrangeShot* orangeShot = stage.getOrangeShot(origin);
+
+            if (orangeShot != nullptr) {
+                float x = orangeShot->getHorizontalPosition();
+                float y = orangeShot->getVerticalPosition();
+                //std::cout << "x: " << x << std::endl;
+                //std::cout << "y: " << y << std::endl;
             }
             stage.step();
         }

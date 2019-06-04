@@ -12,7 +12,9 @@ class Shot: public Entity {
 protected:
     Chell* chell;
     Coordinate* target;
+    Coordinate* origin;
     bool is_dead;
+    bool to_be_dead;
 
 public:
     Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target);
