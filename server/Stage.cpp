@@ -295,8 +295,17 @@ void Stage::addBluePortal(float v_side, float h_side,
 
 void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
         Coordinate* target) {
-    float x_pos = chell->getHorizontalPosition() + 2 + h_side/2;
+
+    float x_target = target->getX();
+    float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
+    float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
+
+    float x_pos;
     float y_pos = chell->getVerticalPosition();
+
+    if (x_target >= x_origin_right) x_pos = x_origin_right;
+    if (x_target <= x_origin_left) x_pos = x_origin_left;
+
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body* blue_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
@@ -306,8 +315,17 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
 
 void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
                         Coordinate* target) {
-    float x_pos = chell->getHorizontalPosition() + 2 + h_side/2;
+
+    float x_target = target->getX();
+    float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
+    float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
+
+    float x_pos;
     float y_pos = chell->getVerticalPosition();
+
+    if (x_target >= x_origin_right) x_pos = x_origin_right;
+    if (x_target <= x_origin_left) x_pos = x_origin_left;
+
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body* orange_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);

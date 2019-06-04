@@ -43,17 +43,23 @@ void Shot::shoot() {
     float to_advance_x = target_x - origin_x;
     float to_advance_y = target_y - origin_y;
 
-    float frequency = 60;
-    float velocity_x = to_advance_x * frequency;
-    float velocity_y = to_advance_y * frequency;
+    //float frequency = 60;
+    float velocity_x = to_advance_x * 3;
+    float velocity_y = to_advance_y * 3;
 
     float x_act = body->GetPosition().x;
     float y_act = body->GetPosition().y;
-    
-    //Always right. Hyper harcoded
-    if (x_act >= target_x - delta && x_act <= target_x + delta &&
-        y_act >= target_y - delta && y_act <= target_y + delta) {
-        body->SetLinearVelocity(b2Vec2(0, 0));
+
+    bool x_done = (x_act >= target_x - delta && x_act <= target_x + delta);
+    bool y_done = (y_act >= target_y - delta && y_act <= target_y + delta);
+
+    if (x_done) velocity_x = 0;
+
+    if (y_done) velocity_y = 0;
+
+    body->SetLinearVelocity(b2Vec2(velocity_x, velocity_y));
+
+    if (x_done && y_done) {
         die();
         return;
     }
@@ -61,8 +67,6 @@ void Shot::shoot() {
     if (body->GetLinearVelocity(). y != 0 || body->GetLinearVelocity().x != 0) {
         return;
     }
-
-    body->SetLinearVelocity(b2Vec2(velocity_x, velocity_y));
 }
 
 bool Shot::isDead() {
