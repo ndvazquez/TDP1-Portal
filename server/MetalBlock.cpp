@@ -20,11 +20,11 @@ void MetalBlock::handleCollision(Entity* entity) {
     if (type == "Chell") {
         Chell* chell = static_cast<Chell*>(entity);
         chell->onFloor(true);
-        if (portal) {
+        /*if (portal) {
             Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                     body->GetPosition().y);
             chell->teleport(portalCoordinates);
-        }
+        }*/
     }
     if (type == "Rock") {
         static_cast<Rock*>(entity)->onFloor(true);

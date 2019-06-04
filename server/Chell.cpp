@@ -46,23 +46,27 @@ void Chell::handleCollision(Entity* entity) {
     if (type == "Acid" || type == "EnergyBall") {
         die();
     }
-
+    if (type == "Portal") {
+        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
+        teleport(coordinate);
+    }
+/*
     if (type == "MetalBlock") {
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         if (metalBlock->hasPortal()) {
             //teletransportar
         }
-        /*Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);*/
+        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
+        teleport(coordinate);
     }
     if (type == "DiagonalMetalBlock") {
         DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
         if (diagonalBlock->hasPortal()) {
             //teletransportar
         }
-        /*Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);*/
-    }
+        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
+        teleport(coordinate);
+    }*/
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor";
