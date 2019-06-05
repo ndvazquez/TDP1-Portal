@@ -78,9 +78,6 @@ set(SERVER_SOURCE_FILES
         server/Entity.cpp
         server/configuration.cpp
         server/Floor.cpp
-        server/Portal.cpp
-        server/BluePortal.cpp
-        server/OrangePortal.cpp
         server/BlueShot.cpp
         server/OrangeShot.cpp
         server/Shot.cpp)

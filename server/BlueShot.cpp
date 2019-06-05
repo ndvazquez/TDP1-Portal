@@ -17,25 +17,23 @@ BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
 }
 
 void BlueShot::handleCollision(Entity* entity) {
-    die(); //If the shot collides against something it dies
     std::string type = entity->getType();
     if (type == "MetalBlock") {
-        /*MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
-        metalBlock->createBluePortal();
+        std::cout << "Soy blue shot y me choque al metal block" << std::endl;
+        MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
+        metalBlock->createPortal();
         Coordinate* portalCoordinates = new Coordinate(metalBlock->getHorizontalPosition(),
-                                        metalBlock->getVerticalPosition());
-        chell->addBluePortal(portalCoordinates);*/
+                                                       metalBlock->getVerticalPosition());
+        chell->addBluePortal(portalCoordinates);
     }
     if (type == "DiagonalMetalBlock") {
-
-       /* DiagonalMetalBlock* diagonalBlock =static_cast<DiagonalMetalBlock*>(entity);
-        diagonalBlock->createBluePortal();
-        float x_portal_coordinates = diagonalBlock->getHorizontalPosition();
-        float y_portal_coordinates = diagonalBlock->getVerticalPosition();
-        Coordinate* portalCoordinates = new Coordinate(x_portal_coordinates,
-                                                       y_portal_coordinates);
-        chell->addBluePortal(portalCoordinates);*/
+        DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
+        diagonalBlock->createPortal();
+        Coordinate* portalCoordinates = new Coordinate(diagonalBlock->getHorizontalPosition(),
+                                                       diagonalBlock->getVerticalPosition());
+        chell->addBluePortal(portalCoordinates);
     }
+    die(); //If the shot collides against something it dies
 }
 
 

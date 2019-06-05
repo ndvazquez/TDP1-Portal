@@ -18,6 +18,7 @@ public:
     virtual void handleCollision(Entity* entity) override;
     void createPortal();
     bool hasPortal();
+    void deletePortal();
 };
 
 #endif //PORTAL_METALBLOCK_H

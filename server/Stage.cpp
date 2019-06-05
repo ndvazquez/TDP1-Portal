@@ -44,9 +44,6 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 
     this->timeStamp = std::chrono::system_clock::now();
-
-    this->orange_portal = nullptr;
-    this->blue_portal = nullptr;
 }
 
 b2Body* Stage::addStaticRectangle(float v_side, float h_side,
@@ -233,68 +230,17 @@ void Stage::addEnergyBallVertical(float side, float x_pos, float y_pos) {
     energy_balls.insert({coordinates, energy_ball});
 }
 
-void Stage::addOrangePortal(float v_side, float h_side,
-        float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
-    b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
-
-    OrangePortal* orange_portal = new OrangePortal(portal_body);
-
-    if (this->orange_portal != nullptr) {
-        delete orange_portal;
-    }
-    this->orange_portal = orange_portal;
-
-    if (this->blue_portal == nullptr)  {
-        return;
-    }
-
-    float x = this->blue_portal->getHorizontalPosition();
-    float y = this->blue_portal->getVerticalPosition();
-    Coordinate* coordinate = new Coordinate(x, y);
-    this->orange_portal->addOtherPortal(coordinate);
-
-    if (this->blue_portal->getOtherPortal() == nullptr) {
-        Coordinate* other_coordinate = new Coordinate(x_pos, y_pos);
-        this->blue_portal->addOtherPortal(other_coordinate);
-    }
-}
-
-void Stage::addBluePortal(float v_side, float h_side,
-        float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
-    b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
-
-    BluePortal* blue_portal = new BluePortal(portal_body);
-
-    if (this->blue_portal != nullptr) {
-        delete blue_portal;
-    }
-    this->blue_portal = blue_portal;
-
-    if (this->orange_portal == nullptr) {
-        return;
-    }
-
-    float x = this->orange_portal->getHorizontalPosition();
-    float y = this->orange_portal->getVerticalPosition();
-    Coordinate* coordinate = new Coordinate(x, y);
-    this->blue_portal->addOtherPortal(coordinate);
-
-    if (this->orange_portal->getOtherPortal() == nullptr) {
-        Coordinate* other_coordinate = new Coordinate(x_pos, y_pos);
-        this->orange_portal->addOtherPortal(other_coordinate);
-    }
-}
-
 void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
         Coordinate* target) {
+    Coordinate* bluePortal = chell->getBluePortal();
+    if (bluePortal != nullptr) {
+        MetalBlock* metalBlock = getMetalBlock(bluePortal); //TODO: also with diagonal blocks
+        metalBlock->deletePortal();
+    }
+    MetalBlock* metalBlock = getMetalBlock(target);
+    if (metalBlock!= nullptr && metalBlock->hasPortal()) {
+        metalBlock->deletePortal();
+    }
 
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
@@ -315,6 +261,15 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
 
 void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
                         Coordinate* target) {
+    Coordinate* orangePortal = chell->getOrangePortal();
+    if (orangePortal != nullptr) {
+        MetalBlock* metalBlock = getMetalBlock(orangePortal); //TODO: also with diagonal blocks
+        metalBlock->deletePortal();
+    }
+    MetalBlock* metalBlock = getMetalBlock(target);
+    if (metalBlock != nullptr && metalBlock->hasPortal()) {
+        metalBlock->deletePortal();
+    }
 
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
@@ -342,6 +297,7 @@ void Stage::step() {
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
         if (i->second->isDead()) {
+            world->DestroyBody(i->second->getBody());
             {
                 chells.erase(i->first);
                 break;
@@ -355,6 +311,7 @@ void Stage::step() {
             i->second->fly();
         }
         catch(...) {
+            world->DestroyBody(i->second->getBody());
             {
                 energy_balls.erase(i->first);
                 break;
@@ -364,6 +321,7 @@ void Stage::step() {
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
+            world->DestroyBody(i->second->getBody());
             {
                 blue_shots.erase(i->first);
                 break;
@@ -374,6 +332,7 @@ void Stage::step() {
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
         if (i->second->isDead()) {
+            world->DestroyBody(i->second->getBody());
             {
                 orange_shots.erase(i->first);
                 break;

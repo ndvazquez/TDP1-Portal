@@ -21,6 +21,7 @@ public:
     float getHorizontalVelocity();
     float getHorizontalPosition();
     float getVerticalPosition();
+    b2Body* getBody();
 };
 
 

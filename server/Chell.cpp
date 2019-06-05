@@ -15,7 +15,6 @@
 #include "MoveLeft.h"
 #include "../editor/Chell.h"
 #include "Rock.h"
-#include "Portal.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 #include "BlueShot.h"
@@ -29,8 +28,8 @@ Chell::Chell(b2Body* body):
     chell_is_on_floor = true;
     dead = false;
     rock = nullptr;
-    orangePortal = nullptr;
-    bluePortal = nullptr;
+    orange_portal = nullptr;
+    blue_portal = nullptr;
 }
 
 void Chell::handleCollision(Entity* entity) {
@@ -46,36 +45,46 @@ void Chell::handleCollision(Entity* entity) {
     if (type == "Acid" || type == "EnergyBall") {
         die();
     }
-    if (type == "Portal") {
-        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);
-    }
 
     if (type == "MetalBlock") {
-        std::cout << "holisssss" << std::endl;}
-        /*
-        MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
+        MetalBlock *metalBlock = static_cast<MetalBlock *>(entity);
         if (metalBlock->hasPortal()) {
-            //teletransportar
+            Coordinate *coordinate = new Coordinate(metalBlock->getHorizontalPosition(),
+                                                    metalBlock->getVerticalPosition());
+            teleport(coordinate);
         }
-        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);*/
-    /*}
+    }
+
     if (type == "DiagonalMetalBlock") {
         DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
         if (diagonalBlock->hasPortal()) {
-            //teletransportar
+            Coordinate *coordinate = new Coordinate(diagonalBlock->getHorizontalPosition(),
+                                                    diagonalBlock->getVerticalPosition());
+            teleport(coordinate);
         }
-        Coordinate* coordinate = static_cast<Portal*>(entity)->getOtherPortal();
-        teleport(coordinate);
-    }*/
+    }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor";
 }
 
-void Chell::teleport(Coordinate* coordinate) { //Ojo que esas son las coordenas del portal chocante
-    this->dynamic.teleport(coordinate);
+void Chell::teleport(Coordinate* coordinate) {
+    if (orange_portal == nullptr || blue_portal == nullptr) return;
+
+    float x_orange = orange_portal->getX();
+    float y_orange = orange_portal->getY();
+    float x_blue = blue_portal->getX();
+    float y_blue = blue_portal->getY();
+    float x_coordinate = coordinate->getX();
+    float y_coordinate = coordinate->getY();
+
+    if (x_coordinate == x_orange && y_coordinate == y_orange) {
+        this->dynamic.teleport(blue_portal);
+    }
+
+    else if (x_coordinate == x_blue && y_coordinate == y_blue) {
+        this->dynamic.teleport(orange_portal);
+    }
 }
 
 void Chell::die() {
@@ -160,7 +169,26 @@ State Chell::getState() {
     return actual_state;
 }
 
+void Chell::addOrangePortal(Coordinate* portal) {
+    if (orange_portal != nullptr) delete orange_portal;
+    this->orange_portal = portal;
+}
+
+void Chell::addBluePortal(Coordinate* portal) {
+    if (blue_portal != nullptr) delete blue_portal;
+    this->blue_portal = portal;
+}
+
+Coordinate* Chell::getBluePortal() {
+    return blue_portal;
+}
+
+Coordinate* Chell::getOrangePortal() {
+    return orange_portal;
+}
 
 Chell::~Chell() {
     destroyActualMovement();
+    if (orange_portal != nullptr) delete orange_portal;
+    if (blue_portal != nullptr) delete blue_portal;
 }

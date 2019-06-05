@@ -24,7 +24,6 @@ public:
     void shoot();
     bool isDead();
     void die();
-    void setExactPosition();
 };
 
 

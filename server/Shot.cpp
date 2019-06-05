@@ -43,7 +43,6 @@ void Shot::shoot() {
     float to_advance_x = target_x - origin_x;
     float to_advance_y = target_y - origin_y;
 
-    //float frequency = 60;
     float velocity_x = to_advance_x * 3;
     float velocity_y = to_advance_y * 3;
 

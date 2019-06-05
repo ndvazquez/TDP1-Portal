@@ -14,6 +14,7 @@
 MetalBlock::MetalBlock(b2Body* body):
     Entity(metalBlockType, body) {
     body->SetUserData(this);
+    this->portal = false;
 }
 
 void MetalBlock::handleCollision(Entity* entity) {
@@ -21,37 +22,41 @@ void MetalBlock::handleCollision(Entity* entity) {
     if (type == "Chell") {
         Chell* chell = static_cast<Chell*>(entity);
         chell->onFloor(true);
-        /*if (portal) {
+        if (portal) {
             Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                     body->GetPosition().y);
             chell->teleport(portalCoordinates);
-        }*/
+        }
     }
     if (type == "Rock") {
         static_cast<Rock*>(entity)->onFloor(true);
     }
     if (type == "BlueShot") {
-        /*
         BlueShot* blueShot = static_cast<BlueShot*>(entity);
         Chell* chell = blueShot->getChell();
-        createPortal(); //TODO: Maybe this isn't valid
+        createPortal();
         Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                                                        body->GetPosition().y);
-        chell->addBluePortal(portalCoordinates);*/
+        chell->addBluePortal(portalCoordinates);
+        blueShot->die();
     }
     if (type == "OrangeShot") {
-        std::cout << "Orange Shot" << std::endl;
-        /*OrangeShot* orangeShot = static_cast<OrangeShot*>(entity);
+        OrangeShot* orangeShot = static_cast<OrangeShot*>(entity);
         Chell* chell = orangeShot->getChell();
-        createPortal(); //TODO: Maybe this isn't valid'
+        createPortal();
         Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                                         body->GetPosition().y);
-        chell->addOrangePortal(portalCoordinates);*/
+        chell->addOrangePortal(portalCoordinates);
+        orangeShot->die();
     }
 }
 
 void MetalBlock::createPortal() {
     this->portal = true;
+}
+
+void MetalBlock::deletePortal() {
+    this->portal = false;
 }
 
 bool MetalBlock::hasPortal() {

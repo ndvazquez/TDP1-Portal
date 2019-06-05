@@ -23,8 +23,6 @@
 #include "Chell.h"
 #include "EnergyBall.h"
 #include "Floor.h"
-#include "OrangePortal.h"
-#include "BluePortal.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
@@ -41,8 +39,6 @@ private:
     size_t height;
     b2World* world;
     Floor* floor;
-    OrangePortal* orange_portal;
-    BluePortal* blue_portal;
 
     std::chrono::system_clock::time_point timeStamp;
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
@@ -78,8 +74,6 @@ public:
     void addChell(float v_side, float h_side, float x_pos, float y_pos);
     void addEnergyBallHorizontal(float side, float x_pos, float y_pos);
     void addEnergyBallVertical(float side, float x_pos, float y_pos);
-    void addBluePortal(float v_side, float h_side, float x_pos, float y_pos);
-    void addOrangePortal(float v_side, float h_side, float x_pos, float y_pos);
     void addBlueShot(float v_side, float h_side, Chell* chell,
             Coordinate* target);
     void addOrangeShot(float v_side, float h_side, Chell* chell,

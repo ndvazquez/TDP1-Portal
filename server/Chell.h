@@ -21,8 +21,8 @@ private:
     Rock* rock;
     State actual_state;
     Chell* myself;
-    Coordinate* orangePortal;
-    Coordinate* bluePortal;
+    Coordinate* orange_portal;
+    Coordinate* blue_portal;
 
 public:
     explicit Chell(b2Body* body);
@@ -41,8 +41,12 @@ public:
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
     void downloadRock();
+    void addOrangePortal(Coordinate* coordinate);
+    void addBluePortal(Coordinate* coordinate);
     void teleport(Coordinate* coordinate);
     State getState();
+    Coordinate* getBluePortal();
+    Coordinate* getOrangePortal();
 };
 
 #endif //PORTAL_CHELL_H

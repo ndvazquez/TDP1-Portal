@@ -29,3 +29,7 @@ float Entity::getHorizontalVelocity() {
 float Entity::getVerticalVelocity() {
     return body->GetLinearVelocity().y;
 }
+
+b2Body* Entity::getBody() {
+    return body;
+}

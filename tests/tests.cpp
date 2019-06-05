@@ -182,167 +182,185 @@ public:
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndInvertsDirection : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndInvertsDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 422, "testEnergyBallVerticalCollidesAndInvertsDirection" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndInvertsDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 423, "testEnergyBallVerticalCollidesAndInvertsDirection" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAndInvertsDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAndInvertsDirection;
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 448, "testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 449, "testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstMetalBlockAndInvertsDirection;
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 477, "testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 478, "testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstMetalBlockAndInvertsDirection;
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 506, "testEnergyBallVerticalCollidesAgainstBrickBlockAndDies" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 507, "testEnergyBallVerticalCollidesAgainstBrickBlockAndDies" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAgainstBrickBlockAndDies(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstBrickBlockAndDies;
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 530, "testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 531, "testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstBrickBlockAndDies;
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 553, "testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 554, "testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection;
 
 static class TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 577, "testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection" ) {}
+ TestDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection() : CxxTest::RealTestDescription( Tests_EnergyBallTest, suiteDescription_EnergyBallTest, 578, "testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection" ) {}
  void runTest() { suite_EnergyBallTest.testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection(); }
 } testDescription_suite_EnergyBallTest_testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection;
 
 static MovingRockTest suite_MovingRockTest;
 
 static CxxTest::List Tests_MovingRockTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h", 602, "MovingRockTest", suite_MovingRockTest, Tests_MovingRockTest );
+CxxTest::StaticSuiteDescription suiteDescription_MovingRockTest( "MyTestSuite.h", 603, "MovingRockTest", suite_MovingRockTest, Tests_MovingRockTest );
 
 static class TestDescription_suite_MovingRockTest_testRockBlockHasGravity : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 614, "testRockBlockHasGravity" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockHasGravity() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 615, "testRockBlockHasGravity" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockHasGravity(); }
 } testDescription_suite_MovingRockTest_testRockBlockHasGravity;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesRight : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 634, "testRockBlockMovesRight" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesRight() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 635, "testRockBlockMovesRight" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesRight(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesRight;
 
 static class TestDescription_suite_MovingRockTest_testRockBlockMovesLeft : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 672, "testRockBlockMovesLeft" ) {}
+ TestDescription_suite_MovingRockTest_testRockBlockMovesLeft() : CxxTest::RealTestDescription( Tests_MovingRockTest, suiteDescription_MovingRockTest, 673, "testRockBlockMovesLeft" ) {}
  void runTest() { suite_MovingRockTest.testRockBlockMovesLeft(); }
 } testDescription_suite_MovingRockTest_testRockBlockMovesLeft;
 
 static ChellDiesTest suite_ChellDiesTest;
 
 static CxxTest::List Tests_ChellDiesTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ChellDiesTest( "MyTestSuite.h", 712, "ChellDiesTest", suite_ChellDiesTest, Tests_ChellDiesTest );
+CxxTest::StaticSuiteDescription suiteDescription_ChellDiesTest( "MyTestSuite.h", 713, "ChellDiesTest", suite_ChellDiesTest, Tests_ChellDiesTest );
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 723, "testChellDiesAgainstAcid" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDiesAgainstAcid() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 724, "testChellDiesAgainstAcid" ) {}
  void runTest() { suite_ChellDiesTest.testChellDiesAgainstAcid(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstAcid;
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 768, "testChellDiesAgainstEnergyBall" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 769, "testChellDiesAgainstEnergyBall" ) {}
  void runTest() { suite_ChellDiesTest.testChellDiesAgainstEnergyBall(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall;
 
 static class TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 796, "testChellDiesWhenARockFallsOnHer" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 798, "testChellDiesWhenARockFallsOnHer" ) {}
  void runTest() { suite_ChellDiesTest.testChellDiesWhenARockFallsOnHer(); }
 } testDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer;
 
 static class TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 816, "testChellDoesntDieWhenSheHitsARock" ) {}
+ TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 818, "testChellDoesntDieWhenSheHitsARock" ) {}
  void runTest() { suite_ChellDiesTest.testChellDoesntDieWhenSheHitsARock(); }
 } testDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock;
-
-static PortalTest suite_PortalTest;
-
-static CxxTest::List Tests_PortalTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_PortalTest( "MyTestSuite.h", 833, "PortalTest", suite_PortalTest, Tests_PortalTest );
-
-static class TestDescription_suite_PortalTest_testChellTeleportsCorrectly : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_PortalTest_testChellTeleportsCorrectly() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 842, "testChellTeleportsCorrectly" ) {}
- void runTest() { suite_PortalTest.testChellTeleportsCorrectly(); }
-} testDescription_suite_PortalTest_testChellTeleportsCorrectly;
-
-static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 858, "testChellTeleportsWhenHittingAPortal" ) {}
- void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAPortal(); }
-} testDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal;
-
-static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 883, "testChellTeleportsWhenHittingAnotherPortal" ) {}
- void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAnotherPortal(); }
-} testDescription_suite_PortalTest_testChellTeleportsWhenHittingAnotherPortal;
 
 static ShootingTest suite_ShootingTest;
 
 static CxxTest::List Tests_ShootingTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ShootingTest( "MyTestSuite.h", 924, "ShootingTest", suite_ShootingTest, Tests_ShootingTest );
+CxxTest::StaticSuiteDescription suiteDescription_ShootingTest( "MyTestSuite.h", 835, "ShootingTest", suite_ShootingTest, Tests_ShootingTest );
 
 static class TestDescription_suite_ShootingTest_testBlueTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 934, "testBlueTrayectoryShooting" ) {}
+ TestDescription_suite_ShootingTest_testBlueTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 845, "testBlueTrayectoryShooting" ) {}
  void runTest() { suite_ShootingTest.testBlueTrayectoryShooting(); }
 } testDescription_suite_ShootingTest_testBlueTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 960, "testOrangeTrayectoryShooting" ) {}
+ TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 868, "testOrangeTrayectoryShooting" ) {}
  void runTest() { suite_ShootingTest.testOrangeTrayectoryShooting(); }
 } testDescription_suite_ShootingTest_testOrangeTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 987, "testTrayectoryBlueShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 891, "testTrayectoryBlueShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryBlueShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1015, "testTrayectoryOrangeShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 916, "testTrayectoryOrangeShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryOrangeShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1048, "testOrangeShotCollidesWithMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 941, "testOrangeShotCollidesWithMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testOrangeShotCollidesWithMetalBlock(); }
 } testDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock;
 
 static class TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1080, "testBlueShotCollidesAgainstMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 974, "testBlueShotCollidesAgainstMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testBlueShotCollidesAgainstMetalBlock(); }
 } testDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock;
 
 static class TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1112, "testBlueShotCollidesAndDies" ) {}
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1006, "testBlueShotCollidesAndDies" ) {}
  void runTest() { suite_ShootingTest.testBlueShotCollidesAndDies(); }
 } testDescription_suite_ShootingTest_testBlueShotCollidesAndDies;
+
+static PortalTest suite_PortalTest;
+
+static CxxTest::List Tests_PortalTest = { 0, 0 };
+CxxTest::StaticSuiteDescription suiteDescription_PortalTest( "MyTestSuite.h", 1037, "PortalTest", suite_PortalTest, Tests_PortalTest );
+
+static class TestDescription_suite_PortalTest_testChellTeleportsCorrectly : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellTeleportsCorrectly() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1046, "testChellTeleportsCorrectly" ) {}
+ void runTest() { suite_PortalTest.testChellTeleportsCorrectly(); }
+} testDescription_suite_PortalTest_testChellTeleportsCorrectly;
+
+static class TestDescription_suite_PortalTest_testChellDoesntTeleport : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellDoesntTeleport() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1061, "testChellDoesntTeleport" ) {}
+ void runTest() { suite_PortalTest.testChellDoesntTeleport(); }
+} testDescription_suite_PortalTest_testChellDoesntTeleport;
+
+static class TestDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1075, "testMetalBlocksInInitDoesntHavePortal" ) {}
+ void runTest() { suite_PortalTest.testMetalBlocksInInitDoesntHavePortal(); }
+} testDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal;
+
+static class TestDescription_suite_PortalTest_testChellCreatesTwoPortals : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellCreatesTwoPortals() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1096, "testChellCreatesTwoPortals" ) {}
+ void runTest() { suite_PortalTest.testChellCreatesTwoPortals(); }
+} testDescription_suite_PortalTest_testChellCreatesTwoPortals;
+
+static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1134, "testChellTeleportsWhenHittingAPortal" ) {}
+ void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAPortal(); }
+} testDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal;
+
+static class TestDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting : public CxxTest::RealTestDescription {
+public:
+ TestDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1179, "testChellCreatesOtherPortalWhenHitting" ) {}
+ void runTest() { suite_PortalTest.testChellCreatesOtherPortalWhenHitting(); }
+} testDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting;
 
 #include <cxxtest/Root.cpp>
 const char* CxxTest::RealWorldDescription::_worldName = "cxxtest";
