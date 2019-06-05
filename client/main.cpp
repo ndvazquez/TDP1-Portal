@@ -50,7 +50,7 @@ void drawChell(){
         stageView.addTile(metalBlockPosX+i, metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     // Time to add some platforms!
-   stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 8);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 8);
@@ -86,7 +86,7 @@ void drawChell(){
     stage.addMetalBlock(metalSide, metalBlockPosX + 15, metalBlockPosY + 5);
     stageView.addTile(metalBlockPosX + 15, (metalBlockPosY + 5) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
-    stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
     float xPos = 4;
@@ -115,7 +115,9 @@ void drawChell(){
     OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_origin_orange, y_origin_orange));
 
 
-    BulletView bulletView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
+    BulletView blueShotView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
+    BulletView orangeShotView(newWindow, x_origin_orange, y_origin_orange, MTP_FACTOR, textures);
+
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -157,16 +159,16 @@ void drawChell(){
 
         //Shot position
         if (! blueShot->isDead()) {
-            float shotX = blueShot->getHorizontalPosition();
-            float shotY = blueShot->getVerticalPosition();
-            bulletView.move(shotX, shotY, levelHeight);
+            float blueShotX = blueShot->getHorizontalPosition();
+            float blueShotY = blueShot->getVerticalPosition();
+            blueShotView.move(blueShotX, blueShotY, levelHeight);
         }
 
 
         if (! orangeShot->isDead()) {
-            float shotX = orangeShot->getHorizontalPosition();
-            float shotY = orangeShot->getVerticalPosition();
-            //TODO: shot view
+            float orangeShotX = orangeShot->getHorizontalPosition();
+            float orangeShotY = orangeShot->getVerticalPosition();
+            orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
         }
 
 
@@ -179,7 +181,8 @@ void drawChell(){
         background.draw(bgRect);
         stageView.draw(cameraRect);
         chellView.playAnimation(cameraRect);
-        bulletView.playAnimation(cameraRect);
+        if (!blueShot->isDead())blueShotView.playAnimation(cameraRect);
+        if (!orangeShot->isDead()) orangeShotView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
@@ -456,7 +459,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
 }
