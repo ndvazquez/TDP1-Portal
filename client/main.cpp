@@ -85,11 +85,11 @@ void drawChell(){
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 15, metalBlockPosY + 5);
     stageView.addTile(metalBlockPosX + 15, (metalBlockPosY + 5) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 15, metalBlockPosY + 6);
-    stageView.addTile(metalBlockPosX + 15, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
+    stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
-    float xPos = 1;
+    float xPos = 4;
     float yPos = 1;
     float chellHeight = CHELL_HEIGHT;
     float chellWidth = CHELL_WIDTH;
@@ -101,13 +101,21 @@ void drawChell(){
     //Shot in Chell
     float shotWidth = 1;
     float shotHeight = 1;
-    Coordinate* target = new Coordinate(10, 6); //Setting the target to shoot. Test that it dies when it hits objects in the stage
-    stage.addBlueShot(shotHeight, shotWidth, chell, target); //Arbitrary width and height in Shot
-    float x_origin = xPos + chellWidth*2 + shotWidth/2;
-    float y_origin = yPos + 1;
-    BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin, y_origin));
 
-    BulletView bulletView(newWindow, x_origin, y_origin, MTP_FACTOR, textures);
+    Coordinate* target_blue = new Coordinate(metalBlockPosX + 7, metalBlockPosY + 3); //Setting one block to shoot
+    stage.addBlueShot(shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
+    float x_origin_blue = xPos + chellWidth*2 + shotWidth/2;
+    float y_origin_blue = yPos + 1;
+    BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin_blue, y_origin_blue));
+
+    Coordinate* target_orange = new Coordinate(metalBlockPosX + 1, metalBlockPosY + 6);
+    stage.addOrangeShot(shotHeight, shotWidth, chell, target_orange);
+    float x_origin_orange = xPos - chellWidth*2 - shotWidth/2;
+    float y_origin_orange = yPos + 1;
+    OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_origin_orange, y_origin_orange));
+
+
+    BulletView bulletView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -152,6 +160,13 @@ void drawChell(){
             float shotX = blueShot->getHorizontalPosition();
             float shotY = blueShot->getVerticalPosition();
             bulletView.move(shotX, shotY, levelHeight);
+        }
+
+
+        if (! orangeShot->isDead()) {
+            float shotX = orangeShot->getHorizontalPosition();
+            float shotY = orangeShot->getVerticalPosition();
+            //TODO: shot view
         }
 
 
