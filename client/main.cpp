@@ -161,6 +161,9 @@ void drawChell(){
         if (! blueShot->isDead()) {
             float blueShotX = blueShot->getHorizontalPosition();
             float blueShotY = blueShot->getVerticalPosition();
+            std::cout << "Blue shot x: " << blueShotX << std::endl;
+            std::cout << "Blue shot y. " << blueShotY << std::endl;
+
             blueShotView.move(blueShotX, blueShotY, levelHeight);
         }
 
@@ -168,6 +171,10 @@ void drawChell(){
         if (! orangeShot->isDead()) {
             float orangeShotX = orangeShot->getHorizontalPosition();
             float orangeShotY = orangeShot->getVerticalPosition();
+            std::cout << "Orange shot x: " << orangeShotX << std::endl;
+            std::cout << "orange shot y: " << orangeShotY << std::endl;
+
+
             orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
         }
 

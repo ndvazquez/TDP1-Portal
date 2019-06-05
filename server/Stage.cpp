@@ -290,11 +290,12 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
 
+    float x = chell->getVerticalPosition();
     float x_pos;
     float y_pos = chell->getVerticalPosition();
 
-    if (x_target >= x_origin_right) x_pos = x_origin_right;
-    if (x_target <= x_origin_left) x_pos = x_origin_left;
+    if (x_target >= x) x_pos = x_origin_right;
+    if (x_target <= x) x_pos = x_origin_left;
 
     y_pos += 1;
 
@@ -338,6 +339,9 @@ void Stage::step() {
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
+            std::cout << "Murio el azul!" << std::endl;
+            std::cout << "X final blue: " << i->second->getHorizontalPosition() << std::endl;
+            std::cout << "Y final blue: " << i->second->getVerticalPosition() << std::endl;
             world->DestroyBody(i->second->getBody());
             {
                 blue_shots.erase(i->first);
@@ -350,6 +354,7 @@ void Stage::step() {
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
         if (i->second->isDead()) {
+            std::cout << "Murio el naranja!" << std::endl;
             world->DestroyBody(i->second->getBody());
             {
                 orange_shots.erase(i->first);
