@@ -90,7 +90,7 @@ void drawChell(){
 
     // Box2D Chell and stuff.
     float xPos = 1;
-    float yPos = 4;
+    float yPos = 6;
     float chellHeight = CHELL_HEIGHT;
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
@@ -100,23 +100,14 @@ void drawChell(){
 
     //Shot in Chell
     float shotWidth = 1;
-    float shotHeight = 2;
-    Coordinate* target = new Coordinate(10, 1); //Setting the target to shoot. Test that it dies when it hits objects in the stage
+    float shotHeight = 1;
+    Coordinate* target = new Coordinate(10, 6); //Setting the target to shoot. Test that it dies when it hits objects in the stage
     stage.addBlueShot(shotHeight, shotWidth, chell, target); //Arbitrary width and height in Shot
     float x_origin = xPos + chellWidth*2 + shotWidth/2;
     float y_origin = yPos;
     BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin, y_origin));
 
-    // PortalView
-    /*PortalView portalViewBlue(newWindow, 1150, 950, MTP_FACTOR, textures);
-    stage.addBluePortal(chellHeight, chellWidth, 15, 1);
-    portalViewBlue.move(15, 1, levelHeight);*/
-
-    // Portal View
-   /* PortalView portalViewOrange(newWindow, 1350, 950, MTP_FACTOR, textures);
-    stage.addOrangePortal(chellHeight, chellWidth, 10, 1);
-    portalViewOrange.move(10, 1, levelHeight);*/
-
+    BulletView bulletView(newWindow, x_origin, y_origin, MTP_FACTOR, textures);
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -148,7 +139,7 @@ void drawChell(){
         chellView.setState(chell->getState());
         float newPosX = chell->getHorizontalPosition();
         float newPosY = chell->getVerticalPosition();
-
+        std::cout << "Chell X: " << newPosX << ", Y: " << newPosY << std::endl;
         // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
@@ -156,6 +147,14 @@ void drawChell(){
         int chellCenterPositionY = chellView.getCenterPosY();
         camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
+
+        //Shot position
+        if (blueShot != nullptr) {
+            float shotX = blueShot->getHorizontalPosition();
+            float shotY = blueShot->getVerticalPosition();
+            bulletView.move(shotX, shotY, levelHeight);
+        }
+
 
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
@@ -165,16 +164,13 @@ void drawChell(){
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
-        //portalViewBlue.playAnimation(cameraRect);
-        //portalViewOrange.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
+        bulletView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
 
-        //Shot position
-        float shotX = blueShot->getHorizontalPosition();
-        float shotY = blueShot->getVerticalPosition();
+
     }
     delete coordinate;
 }
