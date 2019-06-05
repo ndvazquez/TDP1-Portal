@@ -850,7 +850,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(8, 1);
         stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
 
@@ -873,7 +873,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(8, 1);
         stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
 
@@ -898,7 +898,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(3, 1);
         stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
 
@@ -923,7 +923,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(4, 4);
         stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
 
@@ -948,7 +948,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(14, 14);
         stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
         stage.addMetalBlock(2, 14, 14);
@@ -981,7 +981,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(14, 1);
         stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
         stage.addMetalBlock(2, 18, 1);
@@ -1013,7 +1013,7 @@ public:
 
         Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
 
-        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos);
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(18, 1);
         stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
         stage.addChell(side_chell, side_chell, 14, 1);
@@ -1118,8 +1118,8 @@ public:
         stage.addBlueShot(height_shot, width_shot, chell, right_target);
         stage.addOrangeShot(height_shot, width_shot, chell, left_target);
 
-        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos));
-        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos));
+        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
+        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
 
         for (size_t i = 0; i < 2500; i++) {
             stage.step();
@@ -1157,8 +1157,8 @@ public:
         //blue = 30
         //orange = 10
 
-        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos));
-        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos));
+        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
+        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
 
         chell->moveRight();
 
@@ -1200,8 +1200,8 @@ public:
         stage.addBlueShot(height_shot, width_shot, chell, right_target); //blue = right
         stage.addOrangeShot(height_shot, width_shot, chell, left_target); //orange = left
 
-        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos));
-        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos));
+        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
+        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
 
         chell->moveRight();
 

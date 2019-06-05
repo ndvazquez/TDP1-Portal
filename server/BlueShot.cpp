@@ -17,7 +17,6 @@ BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
 }
 
 void BlueShot::handleCollision(Entity* entity) {
-    std::cout << "Me han llamado!" << std::endl;
     std::string type = entity->getType();
     if (type == "MetalBlock") {
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
