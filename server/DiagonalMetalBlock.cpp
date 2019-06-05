@@ -19,32 +19,31 @@ void DiagonalMetalBlock::handleCollision(Entity* entity) {
         static_cast<EnergyBall*>(entity)->changeDirection();
     }
     if (type == "Chell") {
-
-       /* Chell* chell = static_cast<Chell*>(entity);
+        Chell* chell = static_cast<Chell*>(entity);
         chell->onFloor(true);
         if (portal) {
             Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                                                            body->GetPosition().y);
             chell->teleport(portalCoordinates);
-        }*/
+        }
     }
     if (type == "BlueShot") {
-
-        /*BlueShot* blueShot = static_cast<BlueShot*>(entity);
+        BlueShot* blueShot = static_cast<BlueShot*>(entity);
         Chell* chell = blueShot->getChell();
-        createPortal(); //TODO: Maybe this isn't valid
+        createPortal();
         Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                                                        body->GetPosition().y);
-        chell->addBluePortal(portalCoordinates);*/
+        chell->addBluePortal(portalCoordinates);
+        blueShot->die();
     }
     if (type == "OrangeShot") {
-
-       /* OrangeShot* orangeShot = static_cast<OrangeShot*>(entity);
+        OrangeShot* orangeShot = static_cast<OrangeShot*>(entity);
         Chell* chell = orangeShot->getChell();
-        createPortal(); //TODO: Maybe this isn't valid
+        createPortal();
         Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
                                                        body->GetPosition().y);
-        chell->addOrangePortal(portalCoordinates);*/
+        chell->addOrangePortal(portalCoordinates);
+        orangeShot->die();
     }
 }
 
