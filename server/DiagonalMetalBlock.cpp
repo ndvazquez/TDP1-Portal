@@ -51,6 +51,10 @@ void DiagonalMetalBlock::createPortal() {
     this->portal = true;
 }
 
+void DiagonalMetalBlock::deletePortal() {
+    this->portal = false;
+}
+
 bool DiagonalMetalBlock::hasPortal() {
     return portal;
 }

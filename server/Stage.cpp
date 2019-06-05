@@ -234,13 +234,20 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
         Coordinate* target) {
     Coordinate* bluePortal = chell->getBluePortal();
     if (bluePortal != nullptr) {
-        MetalBlock* metalBlock = getMetalBlock(bluePortal); //TODO: also with diagonal blocks
+        MetalBlock* metalBlock = getMetalBlock(bluePortal);
         metalBlock->deletePortal();
+        DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(bluePortal);
+        if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
     if (metalBlock!= nullptr && metalBlock->hasPortal()) {
         metalBlock->deletePortal();
     }
+    DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(target);
+    if (diagonalMetalBlock != nullptr && diagonalMetalBlock->hasPortal()) {
+        diagonalMetalBlock->deletePortal();
+    }
+
 
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
@@ -265,12 +272,18 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
                         Coordinate* target) {
     Coordinate* orangePortal = chell->getOrangePortal();
     if (orangePortal != nullptr) {
-        MetalBlock* metalBlock = getMetalBlock(orangePortal); //TODO: also with diagonal blocks
-        metalBlock->deletePortal();
+        MetalBlock* metalBlock = getMetalBlock(orangePortal);
+        if (metalBlock != nullptr) metalBlock->deletePortal();
+        DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(orangePortal);
+        if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
     if (metalBlock != nullptr && metalBlock->hasPortal()) {
         metalBlock->deletePortal();
+    }
+    DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(target);
+    if (diagonalMetalBlock != nullptr && diagonalMetalBlock->hasPortal()) {
+        diagonalMetalBlock->deletePortal();
     }
 
     float x_target = target->getX();
@@ -296,7 +309,7 @@ void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
                      (end - timeStamp).count();
-    //if (difference <= 1000 / 60) return;
+    if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
