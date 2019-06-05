@@ -17,9 +17,9 @@ BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
 }
 
 void BlueShot::handleCollision(Entity* entity) {
+    std::cout << "Me han llamado!" << std::endl;
     std::string type = entity->getType();
     if (type == "MetalBlock") {
-        std::cout << "Soy blue shot y me choque al metal block" << std::endl;
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         metalBlock->createPortal();
         Coordinate* portalCoordinates = new Coordinate(metalBlock->getHorizontalPosition(),

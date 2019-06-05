@@ -252,6 +252,8 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
     if (x_target >= x_origin_right) x_pos = x_origin_right;
     if (x_target <= x_origin_left) x_pos = x_origin_left;
 
+    y_pos += 1;
+
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body* blue_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
@@ -280,6 +282,8 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
 
     if (x_target >= x_origin_right) x_pos = x_origin_right;
     if (x_target <= x_origin_left) x_pos = x_origin_left;
+
+    y_pos += 1;
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
@@ -327,7 +331,11 @@ void Stage::step() {
                 break;
             }
         }
+        std::cout << "X: " << i->second->getHorizontalPosition() << std::endl;
+        std::cout << "Y: " << i->second->getVerticalPosition() << std::endl;
+
         i->second->shoot();
+
     }
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {

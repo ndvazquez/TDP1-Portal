@@ -66,6 +66,7 @@ bool Dynamic::handleCollisions() {
             if (user_A != NULL && user_B != NULL) {
                 Entity* entity_A = static_cast<Entity*>(user_A);
                 Entity* entity_B = static_cast<Entity*> (user_B);
+
                 entity_A->handleCollision(entity_B);
             }
             resul = true;

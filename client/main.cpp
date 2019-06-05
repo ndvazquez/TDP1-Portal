@@ -50,18 +50,18 @@ void drawChell(){
         stageView.addTile(metalBlockPosX+i, metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     // Time to add some platforms!
-    stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 8);
+   stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 4, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 2);
+ /*   stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 2);
     stageView.addTile(metalBlockPosX + 4, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 5, metalBlockPosY + 2);
     stageView.addTile(metalBlockPosX + 5, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);*/
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 3);
     stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
@@ -90,7 +90,7 @@ void drawChell(){
 
     // Box2D Chell and stuff.
     float xPos = 1;
-    float yPos = 6;
+    float yPos = 1;
     float chellHeight = CHELL_HEIGHT;
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
@@ -104,7 +104,7 @@ void drawChell(){
     Coordinate* target = new Coordinate(10, 6); //Setting the target to shoot. Test that it dies when it hits objects in the stage
     stage.addBlueShot(shotHeight, shotWidth, chell, target); //Arbitrary width and height in Shot
     float x_origin = xPos + chellWidth*2 + shotWidth/2;
-    float y_origin = yPos;
+    float y_origin = yPos + 1;
     BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin, y_origin));
 
     BulletView bulletView(newWindow, x_origin, y_origin, MTP_FACTOR, textures);
@@ -139,7 +139,6 @@ void drawChell(){
         chellView.setState(chell->getState());
         float newPosX = chell->getHorizontalPosition();
         float newPosY = chell->getVerticalPosition();
-        std::cout << "Chell X: " << newPosX << ", Y: " << newPosY << std::endl;
         // We move the animated sprite for Chell.
         chellView.move(newPosX, newPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
@@ -149,7 +148,7 @@ void drawChell(){
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         //Shot position
-        if (blueShot != nullptr) {
+        if (! blueShot->isDead()) {
             float shotX = blueShot->getHorizontalPosition();
             float shotY = blueShot->getVerticalPosition();
             bulletView.move(shotX, shotY, levelHeight);
@@ -169,8 +168,6 @@ void drawChell(){
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.render();
-
-
     }
     delete coordinate;
 }
