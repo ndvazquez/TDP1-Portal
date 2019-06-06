@@ -211,13 +211,13 @@ void drawChellAndRock(){
 
     // Add a rock next to the metal block.
     size_t rockSide = 1;
-    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY);
+    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY+5);
 
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
     // Get the rock object.
-    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY);
+    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY + 5);
     Rock* rock = stage.getRock(coordinateRock);
 
     // ChellView and camera.

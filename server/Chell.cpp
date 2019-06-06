@@ -63,7 +63,7 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-                        || type == "DiagonalMetalBlock" || type == "Floor";
+                        || type == "DiagonalMetalBlock" || type == "Floor" || type == "Rock";
 }
 
 void Chell::teleport(Coordinate* coordinate) {

@@ -15,5 +15,6 @@ struct box2DConfiguration gameConfiguration = {
         .gravityJump = -6,
         .gravity = -10,
         .rockForce = 50,
-        .elevationForce = 100
+        .elevationForce = 100,
+        .rockFriction = 4000
 };

@@ -146,6 +146,8 @@ void Stage::addRock(float side, float x_pos, float y_pos) {
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body* rock_body = addDynamicRectangle(side, side, x_pos, y_pos);
+    b2Fixture* fixture = rock_body->GetFixtureList();
+    fixture->SetFriction(gameConfiguration.rockFriction);
 
     Rock* rock = new Rock(rock_body);
     rocks.insert({coordinates, rock});
