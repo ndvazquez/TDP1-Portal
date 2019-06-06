@@ -108,7 +108,7 @@ void drawChell(){
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
-    audioSystem.playMusic();
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -125,7 +125,7 @@ void drawChell(){
                 if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
                 if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
                 if (e.key.keysym.sym == SDLK_m) audioSystem.stopMusic();
-                if (e.key.keysym.sym == SDLK_n) audioSystem.playMusic();
+                if (e.key.keysym.sym == SDLK_n) audioSystem.playMusic(BG_SONG_GAME);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -209,7 +209,7 @@ void drawChellAndRock(){
     // RockView.
     RockView rockView(newWindow, metalBlockPosX + 2, metalBlockPosY, MTP_FACTOR, textures);
 
-    audioSystem.playMusic();
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -303,7 +303,7 @@ void drawChellAndEnergyBall(){
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
-    audioSystem.playMusic();
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -400,7 +400,7 @@ void drawChellAndAcidPool(){
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
-    audioSystem.playMusic();
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);

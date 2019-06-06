@@ -1,0 +1,11 @@
+SoundEffects:
+  - soundCode: 0
+    path: resources/sounds/step1.wav
+    volume: 50
+  - soundCode: 1
+    path: resources/sounds/jump.wav
+    volume: 20
+
+Music:
+  - songCode: 0
+    path: resources/sounds/outrun_the_reaper.mp3
