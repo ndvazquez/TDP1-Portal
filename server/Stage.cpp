@@ -236,7 +236,8 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
     if (bluePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(bluePortal);
         metalBlock->deletePortal();
-        DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(bluePortal);
+        DiagonalMetalBlock* diagonalMetalBlock;
+        diagonalMetalBlock = getDiagonalMetalBlock(bluePortal);
         if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
@@ -274,7 +275,8 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     if (orangePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(orangePortal);
         if (metalBlock != nullptr) metalBlock->deletePortal();
-        DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(orangePortal);
+        DiagonalMetalBlock* diagonalMetalBlock;
+        diagonalMetalBlock = getDiagonalMetalBlock(orangePortal);
         if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
@@ -301,8 +303,8 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* orange_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
-    OrangeShot* orangeShot = new OrangeShot(orange_shot_body, chell, target);
+    b2Body* orange_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+    OrangeShot* orangeShot = new OrangeShot(orange_body, chell, target);
     orange_shots.insert({coordinates, orangeShot});
 }
 
@@ -346,7 +348,6 @@ void Stage::step() {
             }
         }
         i->second->shoot();
-
     }
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {

@@ -22,8 +22,9 @@ void DiagonalMetalBlock::handleCollision(Entity* entity) {
         Chell* chell = static_cast<Chell*>(entity);
         chell->onFloor(true);
         if (portal) {
-            Coordinate* portalCoordinates = new Coordinate(body->GetPosition().x,
-                                                           body->GetPosition().y);
+            float x = body->GetPosition().x;
+            float y = body->GetPosition().y;
+            Coordinate* portalCoordinates = new Coordinate(x, y);
             chell->teleport(portalCoordinates);
         }
     }

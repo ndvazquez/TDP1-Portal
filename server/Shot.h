@@ -5,6 +5,7 @@
 #ifndef PORTAL_SHOT_H
 #define PORTAL_SHOT_H
 
+#include <string>
 #include "Entity.h"
 #include "Chell.h"
 

@@ -23,7 +23,4 @@ void BrickBlock::handleCollision(Entity* entity) {
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
     }
-    if (type == "Rock") {
-        static_cast<Rock*>(entity)->onFloor(true);
-    }
 }

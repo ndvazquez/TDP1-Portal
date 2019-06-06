@@ -220,9 +220,6 @@ void drawChellAndRock(){
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY);
     Rock* rock = stage.getRock(coordinateRock);
 
-    //Chell grabs the Rock
-    chell->grabRock(rock);
-
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -281,6 +278,7 @@ void drawChellAndRock(){
         rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
+
     }
     delete coordinate;
     delete coordinateRock;
@@ -458,7 +456,7 @@ void drawChellAndAcidPool(){
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
-    //drawChell();
+    drawChell();
     drawChellAndRock();
     drawChellAndEnergyBall();
     drawChellAndAcidPool();

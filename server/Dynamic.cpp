@@ -44,16 +44,6 @@ void Dynamic::stop(float force) {
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
-bool Dynamic::isColliding() {
-    b2ContactEdge* edge = body->GetContactList();
-    while (edge != NULL) {
-        b2Contact* contact = edge->contact;
-        if (contact->IsTouching()) return true;
-        edge = edge->next;
-    }
-    return false;
-}
-
 bool Dynamic::handleCollisions() {
     b2ContactEdge* edge = body->GetContactList();
     bool resul = false;
@@ -104,21 +94,6 @@ void Dynamic::flyVertical() {
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
-}
-
-void Dynamic::downloadToEarth() {
-    float impulse = -30;
-    body->ApplyLinearImpulse(b2Vec2(0, impulse),
-                             body->GetWorldCenter(), true);
-    if (isColliding()) stop(0);
-}
-
-float Dynamic::getHorizontalPosition() {
-    return body->GetPosition().x;
-}
-
-float Dynamic::getVerticalPosition() {
-    return body->GetPosition().y;
 }
 
 void Dynamic::adjustJump() {
