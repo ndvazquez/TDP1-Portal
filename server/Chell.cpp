@@ -47,8 +47,8 @@ void Chell::handleCollision(Entity* entity) {
         if (metalBlock->hasPortal()) {
             float x = metalBlock->getHorizontalPosition();
             float y = metalBlock->getVerticalPosition();
-            Coordinate* target = new Coordinate(x, y);
-            teleport(target);
+            Coordinate* origin = new Coordinate(x, y);
+            teleport(origin);
         }
     }
 
@@ -58,8 +58,8 @@ void Chell::handleCollision(Entity* entity) {
         if (diagonalBlock->hasPortal()) {
             float x = diagonalBlock->getHorizontalPosition();
             float y = diagonalBlock->getVerticalPosition();
-            Coordinate* target = new Coordinate(x, y);
-            teleport(target);
+            Coordinate* origin = new Coordinate(x, y);
+            teleport(origin);
         }
     }
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"

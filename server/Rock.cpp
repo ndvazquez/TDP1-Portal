@@ -10,7 +10,6 @@
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
-#include "Chell.h"
 #include <Box2D/Dynamics/b2World.h>
 
 
