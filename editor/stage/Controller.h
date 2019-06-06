@@ -2,57 +2,64 @@
 // Created by camix on 20/05/19.
 //
 
-#ifndef PORTAL_STAGECONTROLLER_H
-#define PORTAL_STAGECONTROLLER_H
+#ifndef PORTAL_CONTROLLER_H
+#define PORTAL_CONTROLLER_H
 
 
 #include <yaml-cpp/node/node.h>
 #include <unordered_map>
 #include <map>
-#include "../common/Window.h"
-#include "../common/Sprite.h"
-#include "StageView.h"
-#include "Object.h"
+#include "../../common/Window.h"
+#include "../../common/Sprite.h"
+#include "View.h"
+#include "object/Object.h"
 
 #define ADD_TILE "Couldn't add the tile. That's not a valid place\n"
 #define NAME_EXC "Couldn't add the tile. That's not a valid element!\n"
 #define POSITION_EXC "Couldn't get tile's name. That's position is empty!\n"
 
-class EditorControllerException : public std::exception {};
+class StageControllerException : public std::exception {};
 
-class StageControllerNameException : public EditorControllerException {
+class StageControllerNameException : public StageControllerException {
     virtual const char* what() const throw () {
         std::string message = NAME_EXC;
         return message.c_str();
     }
 };
 
-class StageControllerAddTileException : public EditorControllerException {
+class StageControllerAddTileException : public StageControllerException {
     virtual const char* what() const throw () {
         std::string message = ADD_TILE;
         return message.c_str();
     }
 };
 
-class StageControllerEmptyPositionException : public EditorControllerException {
+class StageControllerRemoveTileException : public StageControllerException {
+    virtual const char* what() const throw () {
+        std::string message = ADD_TILE;
+        return message.c_str();
+    }
+};
+
+class StageControllerEmptyPositionException : public StageControllerException {
     virtual const char* what() const throw () {
         std::string message = POSITION_EXC;
         return message.c_str();
     }
 };
 
-class StageController {
+class Controller {
 private:
     std::unordered_map<std::string, Object*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
     //std::map<std::string, bool> gravity;
-    StageView stageView;
+    View stageView;
 
 
 
 public:
-    StageController(Window& window, YAML::Node& texturesInfo, int factor);
-    ~StageController();
+    Controller(Window& window, YAML::Node& texturesInfo, int factor);
+    ~Controller();
 
     void draw(SDL_Rect *camera, int xStart);
 
@@ -66,4 +73,4 @@ public:
 };
 
 
-#endif //PORTAL_STAGECONTROLLER_H
+#endif //PORTAL_CONTROLLER_H

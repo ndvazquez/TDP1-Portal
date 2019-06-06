@@ -40,7 +40,7 @@ void Sprite::draw(SDL_Rect *destRect) {
     window.draw(*this->texture, sourceRect, *destRect);
 }
 
-void Sprite::free(){
+void Sprite::free() {
     SDL_DestroyTexture(this->texture);
 }
 

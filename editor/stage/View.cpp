@@ -3,13 +3,13 @@
 //
 
 #include <iostream>
-#include "StageView.h"
-#include "../common/Sprite.h"
+#include "View.h"
+#include "../../common/Sprite.h"
 
-StageView::StageView(Window &window, int factor, std::unordered_map<std::string, Object*>& textures, std::map<std::pair<int, int>, std::string>& tiles) :
+View::View(Window &window, int factor, std::unordered_map<std::string, Object*>& textures, std::map<std::pair<int, int>, std::string>& tiles) :
 window(window), factor(factor), textures(textures), tiles(tiles) {}
 
-void StageView::draw(SDL_Rect *camera, int xStart) {
+void View::draw(SDL_Rect *camera, int xStart) {
     SDL_Rect destRect = {0 , 0, factor, factor};
 
     int camPosX = camera->x / factor;
@@ -34,4 +34,4 @@ void StageView::draw(SDL_Rect *camera, int xStart) {
     }
 }
 
-StageView::~StageView() {}
+View::~View() {}

@@ -10,50 +10,50 @@
 #define EXC_INTRO "Couldn't add the tile: "
 #define GRAVITY ". That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
-#define TO_SMALL_SPACE "The object does not fit in that space\n"
+#define FLOOR_NEEDED "The object above needs to be over a statick object\n"
 
 
 
-class StageObjectException : public std::exception {
+class ObjectException : public std::exception {
 protected:
     std::string& name;
 public:
-    explicit StageObjectException(std::string& name) : name(name) {}
+    explicit ObjectException(std::string& name) : name(name) {}
 };
 
-class StageObjectAddTileGravityException : public StageObjectException {
+class AddTileGravityException : public ObjectException {
     virtual const char* what() const throw () {
         std::string message = EXC_INTRO + this->name + GRAVITY;
         return message.c_str();
     }
 
 public:
-    explicit StageObjectAddTileGravityException(std::string& name) :
-            StageObjectException(name) {}
+    explicit AddTileGravityException(std::string& name) :
+            ObjectException(name) {}
 };
 
-class StageObjectTakenPositionException : public StageObjectException {
+class AddTileTakenPositionException : public ObjectException {
     virtual const char* what() const throw () {
         std::string message = EXC_INTRO + this->name + TAKEN_POSITION;
         return message.c_str();
     }
 
 public:
-    explicit StageObjectTakenPositionException(std::string& name) :
-            StageObjectException(name) {}
+    explicit AddTileTakenPositionException(std::string& name) :
+            ObjectException(name) {}
 
 };
 
-class StageObjectToSmallSpaceException : public StageObjectException {
+class RemoveTileFloorNeeded : public ObjectException {
     virtual const char* what() const throw () {
-        std::string message = EXC_INTRO + this->name + TO_SMALL_SPACE;
+        std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
         std::cerr << message;
         return message.c_str();
     }
 
 public:
-    explicit StageObjectToSmallSpaceException(std::string& name) :
-            StageObjectException(name) {}
+    explicit RemoveTileFloorNeeded(std::string& name) :
+            ObjectException(name) {}
 };
 
 #endif //PORTAL_STAGEOBJECTEX_H

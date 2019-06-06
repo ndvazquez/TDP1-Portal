@@ -6,7 +6,7 @@
 #define PORTAL_ANIMATEDOBJECT_H
 
 
-#include "../common/AnimatedSprite.h"
+#include "../../../common/AnimatedSprite.h"
 #include "Object.h"
 
 class AnimatedObject : public Object {

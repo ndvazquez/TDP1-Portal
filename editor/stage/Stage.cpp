@@ -68,7 +68,8 @@ void Stage::handleMouseButtonDown(MouseButton& event) {
         current = controller.getName(x, y);
         controller.removeTile(x,y);
     }
-    catch (StageControllerEmptyPositionException& e) {
+    catch (StageControllerException& e) {
+        current = "";
         return;
     }
 }
@@ -87,11 +88,11 @@ void Stage::handleMouseButtonUp(MouseButton& event) {
         controller.addTile(x, y, current);
         current = "";
     }
-    catch (EditorControllerException& e) {
+    catch (StageControllerException& e) {
         return;
     }
 }
-void Stage::handleMouseDoubleCick(MouseButton& event) {
+void Stage::handleMouseDoubleClick(MouseButton &event) {
     int xPixel = X_PIXEL(event);
     int yPixel = Y_PIXEL(event);
     int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
