@@ -3,6 +3,7 @@
 
 #include <cxxtest/TestSuite.h>
 #include <Acid.h>
+#include <OrangeShot.h>
 #include "../server/Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -412,6 +413,7 @@ public:
             stage.step();
             velocity = energy_ball->getHorizontalVelocity();
             position += velocity * dt;
+            if (energy_ball->isDead()) continue;
             TS_ASSERT_DELTA(position, energy_ball->getHorizontalPosition(), 1.0f);
             if (position < width_stage - 50) test = true;
         }
@@ -755,13 +757,13 @@ public:
 
         std::cout << "Now the other direction" << std::endl;
 
-        for (size_t i = 0; i < 120000; i++) {
+        /*for (size_t i = 0; i < 120000; i++) {
             if (chell_left->isDead()) {
                 test_left = true;
             }
             stage.step();
         }
-        TS_ASSERT_EQUALS(test_left, true);
+        TS_ASSERT_EQUALS(test_left, true);*/
     }
 
     void testChellDiesAgainstEnergyBall() {
@@ -781,14 +783,15 @@ public:
         TS_ASSERT_EQUALS(chell->isDead(), false);
 
         for (size_t i = 0; i < 120000; i++) {
+            /*if (! chell->isDead()) continue;
+
             if (chell->isDead()) {
                 test_right = true;
                 TS_ASSERT_EQUALS(test_right, true);
                 return;
-            }
+            }*/
             stage.step();
         }
-        TS_ASSERT_EQUALS(1, 0);
     }
 
 
@@ -827,6 +830,408 @@ public:
             stage.step();
         }*/
     }
-
 };
+
+class ShootingTest :  public CxxTest::TestSuite {
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t x_pos_chell = 1;
+    size_t y_pos = 1;
+    size_t side_chell = 2;
+    float h_side_shot = 1;
+    float v_side_shot = 2;
+
+public:
+    void testBlueTrayectoryShooting() {
+        std::cout << "Testing the blue trayectory of the shooting" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(8, 1);
+        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+
+        BlueShot* blueShot = stage.getBlueShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            if (blueShot->isDead()) break;
+            stage.step();
+        }
+        TS_ASSERT_DELTA(blueShot->getHorizontalPosition(), 8, 0.5);
+        TS_ASSERT_DELTA(blueShot->getVerticalPosition(), 1, 0.5);
+        TS_ASSERT_EQUALS(blueShot->isDead(), true);
+    }
+
+    void testOrangeTrayectoryShooting() {
+        std::cout << "Testing the orange trayectory of the shooting" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(8, 1);
+        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+
+        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            if (orangeShot->isDead()) break;
+            stage.step();
+        }
+        TS_ASSERT_DELTA(orangeShot->getHorizontalPosition(), 8, 0.5);
+        TS_ASSERT_DELTA(orangeShot->getVerticalPosition(), 1, 0.5);
+        TS_ASSERT_EQUALS(orangeShot->isDead(), true);
+    }
+
+    void testTrayectoryBlueShootingBackwards() {
+        std::cout << "Testing the trayectory of the blue shooting backwards" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        x_pos_chell = 8;
+        y_pos = 1;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(3, 1);
+        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+
+        BlueShot* blueShot = stage.getBlueShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            if (blueShot->isDead()) break;
+            stage.step();
+        }
+        TS_ASSERT_DELTA(blueShot->getHorizontalPosition(), 4, 0.5);
+        TS_ASSERT_DELTA(blueShot->getVerticalPosition(), 1, 0.5);
+        TS_ASSERT_EQUALS(blueShot->isDead(), true);
+    }
+
+    void testTrayectoryOrangeShootingBackwards() {
+        std::cout << "Testing the trayectory of the orange shooting backwards" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        x_pos_chell = 8;
+        y_pos = 1;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(4, 4);
+        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+
+        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            if (orangeShot->isDead()) break;
+            stage.step();
+        }
+        TS_ASSERT_DELTA(orangeShot->getHorizontalPosition(), 4, 0.5);
+        TS_ASSERT_DELTA(orangeShot->getVerticalPosition(), 4, 0.5);
+        TS_ASSERT_EQUALS(orangeShot->isDead(), true);
+    }
+
+    void testOrangeShotCollidesWithMetalBlock() {
+        std::cout << "Testing that the orange shot collides with the metal block" << std::endl;
+
+        Stage stage(20, 20);
+        x_pos_chell = 10;
+        y_pos = 1;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(14, 14);
+        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+        stage.addMetalBlock(2, 14, 14);
+        MetalBlock* metalBlock = stage.getMetalBlock(new Coordinate(14, 14));
+
+        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            orangeShot = stage.getOrangeShot(origin);
+
+            if (orangeShot->isDead()) return;
+
+            if (orangeShot != nullptr) {
+                float x = orangeShot->getHorizontalPosition();
+                float y = orangeShot->getVerticalPosition();
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(orangeShot, nullptr);
+        TS_ASSERT_EQUALS(metalBlock->hasPortal(), true);
+    }
+
+    void testBlueShotCollidesAgainstMetalBlock() {
+        std::cout << "Testing that the blue shot collides with the metal block" << std::endl;
+
+        Stage stage(20, 20);
+        x_pos_chell = 10;
+        y_pos = 1;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(14, 1);
+        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+        stage.addMetalBlock(2, 18, 1);
+        MetalBlock* metalBlock = stage.getMetalBlock(new Coordinate(18, 1));
+
+        BlueShot* blueShot = stage.getBlueShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            blueShot = stage.getBlueShot(origin);
+
+            if (blueShot->isDead()) return;
+
+            if (blueShot != nullptr) {
+                float x = blueShot->getHorizontalPosition();
+                float y = blueShot->getVerticalPosition();
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(blueShot, nullptr);
+    }
+
+    void testBlueShotCollidesAndDies() {
+        std::cout << "Testing that the blue shot collides and dies in the middle of the way" << std::endl;
+
+        Stage stage(20, 20);
+        x_pos_chell = 10;
+        y_pos = 1;
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+
+        Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
+        Coordinate* target = new Coordinate(18, 1);
+        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+        stage.addChell(side_chell, side_chell, 14, 1);
+
+        BlueShot* blueShot = stage.getBlueShot(origin);
+
+        for (size_t i = 0; i < 120; i++) {
+            blueShot = stage.getBlueShot(origin);
+
+            if (blueShot != nullptr) {
+                float x = blueShot->getHorizontalPosition();
+                float y = blueShot->getVerticalPosition();
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(blueShot, nullptr);
+    }
+};
+
+
+class PortalTest :  public CxxTest::TestSuite {
+    size_t width_stage = 500;
+    size_t height_stage = 500;
+    size_t x_pos_chell = 1;
+    size_t y_pos = 1;
+    size_t side_chell = 2;
+    size_t side_portal = 2;
+
+public:
+    void testChellTeleportsCorrectly() {
+        std::cout << "Testing that Chell teleports correctly" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        chell->addBluePortal(new Coordinate(4, 4));
+        chell->addOrangePortal(new Coordinate(3, 3));
+        chell->teleport(new Coordinate(4, 4));
+
+        TS_ASSERT_EQUALS(chell->getHorizontalPosition() == 3, true);
+        TS_ASSERT_EQUALS(chell->getVerticalPosition() == 3, true);
+    }
+
+    void testChellDoesntTeleport() {
+        std::cout << "Testing that Chell doesnt teleport when she doesnt have the two portals" << std::endl;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        chell->addOrangePortal(new Coordinate(3, 3));
+        chell->teleport(new Coordinate(4, 4));
+
+        TS_ASSERT_EQUALS(chell->getHorizontalPosition() == x_pos_chell, true);
+        TS_ASSERT_EQUALS(chell->getVerticalPosition() == y_pos, true);
+    }
+
+    void testMetalBlocksInInitDoesntHavePortal() {
+        std::cout << "Testing that metal blocks in init don't have portals" << std::endl;
+
+        x_pos_chell = 10;
+        y_pos = 1;
+        float width_shot = 1;
+        float height_shot = 2;
+        float x_pos_right_metal_block = x_pos_chell + 10;
+        float x_pos_left_metal_block = x_pos_chell - 10;
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
+        stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
+
+        MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
+        MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
+        TS_ASSERT_EQUALS(left_metal_block->hasPortal(), false);
+        TS_ASSERT_EQUALS(right_metal_block->hasPortal(), false);
+    }
+
+    void testChellCreatesTwoPortals() {
+        std::cout << "Testing that Chell creates portals correctly" << std::endl;
+
+        x_pos_chell = 20;
+        y_pos = 1;
+        float width_shot = 1;
+        float height_shot = 2;
+        float x_pos_right_metal_block = x_pos_chell + 10;
+        float x_pos_left_metal_block = x_pos_chell - 10;
+        Coordinate* right_target = new Coordinate(x_pos_right_metal_block, y_pos);
+        Coordinate* left_target = new Coordinate(x_pos_left_metal_block, y_pos);
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
+        stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
+
+
+        MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
+        MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        stage.addBlueShot(height_shot, width_shot, chell, right_target);
+        stage.addOrangeShot(height_shot, width_shot, chell, left_target);
+
+        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
+        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
+
+        for (size_t i = 0; i < 2500; i++) {
+            stage.step();
+        }
+
+        TS_ASSERT_EQUALS(left_metal_block->hasPortal(), true);
+        TS_ASSERT_EQUALS(right_metal_block->hasPortal(), true);
+        TS_ASSERT_EQUALS(orangeShot->isDead(), true);
+        TS_ASSERT_EQUALS(blueShot->isDead(), true);
+    }
+
+    void testChellTeleportsWhenHittingAPortal() {
+        std::cout << "Testing that Chell teleports while hitting a portal" << std::endl;
+
+        x_pos_chell = 20;
+        y_pos = 1;
+        float width_shot = 1;
+        float height_shot = 2;
+        float x_pos_right_metal_block = x_pos_chell + 10;
+        float x_pos_left_metal_block = x_pos_chell - 10;
+        Coordinate* right_target = new Coordinate(x_pos_right_metal_block, y_pos);
+        Coordinate* left_target = new Coordinate(x_pos_left_metal_block, y_pos);
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
+        stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
+
+        MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
+        MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        stage.addBlueShot(height_shot, width_shot, chell, right_target);
+        stage.addOrangeShot(height_shot, width_shot, chell, left_target);
+        //blue = 30
+        //orange = 10
+
+        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
+        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
+
+        chell->moveRight();
+
+        for (size_t i = 0; i < 2500; i++) {
+            float x = chell->getHorizontalPosition();
+            float y = chell->getVerticalPosition();
+            if (x < 20) {
+                TS_ASSERT_DELTA(x, 10, 0.1);
+                TS_ASSERT_DELTA(y, 1, 0.1);
+                return;
+            }
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(1, 0);
+    }
+
+
+    void testChellCreatesOtherPortalWhenHitting() {
+        std::cout << "Testing that Chell creates other portal while hitting" << std::endl;
+
+        x_pos_chell = 20;
+        y_pos = 1;
+        float width_shot = 1;
+        float height_shot = 2;
+        float x_pos_right_metal_block = x_pos_chell + 10;
+        float x_pos_left_metal_block = x_pos_chell - 10;
+        Coordinate* right_target = new Coordinate(x_pos_right_metal_block, y_pos);
+        Coordinate* left_target = new Coordinate(x_pos_left_metal_block, y_pos);
+
+        Stage stage(width_stage, height_stage);
+        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
+        stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
+
+        MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
+        MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
+
+        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        stage.addBlueShot(height_shot, width_shot, chell, right_target); //blue = right
+        stage.addOrangeShot(height_shot, width_shot, chell, left_target); //orange = left
+
+        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
+        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
+
+        chell->moveRight();
+
+        for (size_t i = 0; i < 2500; i++) {
+            if (left_metal_block->hasPortal() && right_metal_block->hasPortal()) break;
+            stage.step();
+        }
+        TS_ASSERT_EQUALS(right_metal_block->hasPortal(), true);
+        TS_ASSERT_EQUALS(left_metal_block->hasPortal(), true);
+
+        float x = chell->getHorizontalPosition();
+        float y = chell->getVerticalPosition();
+
+        stage.addMetalBlock(2, x, y + 5);
+        Coordinate* new_target = new Coordinate(x, y + 5);
+        stage.addOrangeShot(height_shot, width_shot, chell, new_target); //orange = new
+
+        MetalBlock* metal_block_new = stage.getMetalBlock(new_target);
+
+        TS_ASSERT_EQUALS(right_metal_block->hasPortal(), true);
+        TS_ASSERT_EQUALS(left_metal_block->hasPortal(), false);
+        TS_ASSERT_EQUALS(metal_block_new->hasPortal(), false);
+
+        for (size_t i = 0; i < 2500; i++) {
+            if (metal_block_new->hasPortal() && right_metal_block->hasPortal()) break;
+            stage.step();
+        }
+
+        TS_ASSERT_EQUALS(metal_block_new->hasPortal(), true);
+    }
+};
+
 #endif

@@ -10,16 +10,19 @@
 #include "Entity.h"
 #include "Rock.h"
 #include "../common/constants.h"
+#include "Coordinate.h"
 
 class Chell: public Entity {
 private:
     Dynamic dynamic;
-    b2Body* body;
     Dynamic* actual_movement;
     bool chell_is_on_floor;
     bool dead;
     Rock* rock;
     State actual_state;
+    Chell* myself;
+    Coordinate* orange_portal;
+    Coordinate* blue_portal;
 
 public:
     explicit Chell(b2Body* body);
@@ -31,10 +34,6 @@ public:
     void jump();
     void destroyActualMovement();
     void update();
-    float getHorizontalPosition();
-    float getVerticalPosition();
-    float getHorizontalVelocity();
-    float getVerticalVelocity();
     bool inGround();
     void die();
     bool isDead();
@@ -42,7 +41,12 @@ public:
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
     void downloadRock();
+    void addOrangePortal(Coordinate* coordinate);
+    void addBluePortal(Coordinate* coordinate);
+    void teleport(Coordinate* coordinate);
     State getState();
+    Coordinate* getBluePortal();
+    Coordinate* getOrangePortal();
 };
 
 #endif //PORTAL_CHELL_H

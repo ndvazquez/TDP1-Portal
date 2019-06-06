@@ -77,7 +77,10 @@ set(SERVER_SOURCE_FILES
         server/EnergyBall.cpp
         server/Entity.cpp
         server/configuration.cpp
-        server/Floor.cpp)
+        server/Floor.cpp
+        server/BlueShot.cpp
+        server/OrangeShot.cpp
+        server/Shot.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

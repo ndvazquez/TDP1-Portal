@@ -6,6 +6,7 @@
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
 #include "Entity.h"
+#include "Coordinate.h"
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
@@ -14,6 +15,18 @@ Dynamic::Dynamic(b2Body* body):
 }
 
 void Dynamic::move(float force) {
+}
+
+void Dynamic::teleport(Coordinate* coordinate) {
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end - timeStamp).count();
+    if (difference <= 3000) return; //3 seconds to teletransport
+    timeStamp = std::chrono::system_clock::now();
+
+    float x = coordinate->getX();
+    float y = coordinate->getY();
+    body->SetTransform(b2Vec2(x, y), 0);
 }
 
 void Dynamic::moveRight(float force) {
@@ -44,6 +57,7 @@ bool Dynamic::isColliding() {
 bool Dynamic::handleCollisions() {
     b2ContactEdge* edge = body->GetContactList();
     bool resul = false;
+    size_t counter = 0;
     while (edge != NULL) {
         b2Contact* contact = edge->contact;
         if (contact->IsTouching()) {
@@ -52,11 +66,13 @@ bool Dynamic::handleCollisions() {
             if (user_A != NULL && user_B != NULL) {
                 Entity* entity_A = static_cast<Entity*>(user_A);
                 Entity* entity_B = static_cast<Entity*> (user_B);
+
                 entity_A->handleCollision(entity_B);
             }
             resul = true;
         }
         edge = edge->next;
+        counter++;
     }
     return resul;
 }
@@ -141,13 +157,6 @@ bool Dynamic::jump(bool chellFloor) {
     return true;
 }
 
-float Dynamic::getHorizontalVelocity() {
-    return body->GetLinearVelocity().x;
-}
-
-float Dynamic::getVerticalVelocity() {
-    return body->GetLinearVelocity().y;
-}
 
 Dynamic::~Dynamic() {
 }

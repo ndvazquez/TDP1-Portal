@@ -9,13 +9,8 @@
 #include "Entity.h"
 
 class BrickBlock: public Entity {
-private:
-    b2Body* body;
-
 public:
     explicit BrickBlock(b2Body* body);
-    float getHorizontalPosition();
-    float getVerticalPosition();
     virtual void handleCollision(Entity* entity) override;
 };
 

@@ -5,8 +5,6 @@
 #ifndef PORTAL_ENERGYBALL_H
 #define PORTAL_ENERGYBALL_H
 
-#define energyBallType "EnergyBall"
-
 #include <string>
 #include "Dynamic.h"
 #include "Entity.h"
@@ -20,7 +18,7 @@ class EnergyBallDeadException : public std::exception {
 
 
 class EnergyBall: public Entity {
-protected:
+private:
     bool is_vertical;
     Dynamic dynamic;
     size_t life_steps;
@@ -32,10 +30,6 @@ public:
     bool isDead();
     bool isVertical();
     void changeDirection();
-    float getHorizontalPosition();
-    float getVerticalPosition();
-    float getHorizontalVelocity();
-    float getVerticalVelocity();
     virtual void handleCollision(Entity* entity) override;
 };
 
