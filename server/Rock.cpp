@@ -5,6 +5,7 @@
 #define rockType "Rock"
 
 #include <string>
+#include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
 #include "MoveLeft.h"
@@ -36,9 +37,10 @@ void Rock::handleCollision(Entity *entity) {
 }
 
 void Rock::elevate() {
+    body->SetGravityScale(0);
     float x_floor = body->GetPosition().x;
     float y_floor = body->GetPosition().y;
-    body->SetTransform(b2Vec2(x_floor, y_floor + 1), 0);
+    body->SetTransform(b2Vec2(x_floor, y_floor + 1/2), 0);
 }
 
 void Rock::makeStatic() {
@@ -61,6 +63,7 @@ void Rock::moveLeft() {
 }
 
 void Rock::stop() {
+    body->SetLinearVelocity(b2Vec2(0, 0));
     destroyActualMovement();
     this->actual_movement = new Stop(body);
 }
@@ -84,6 +87,6 @@ bool Rock::onFloor(bool onFloor) {
 }
 
 void Rock::downloadToEarth() {
-    body->SetGravityScale(0);
+    //body->SetGravityScale(0);
     this->dynamic.downloadToEarth();
 }

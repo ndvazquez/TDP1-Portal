@@ -281,8 +281,6 @@ void drawChellAndRock(){
         rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
-        std::cout << "Chell y: " << chell->getVerticalPosition() << std::endl;
-        std::cout << "Chell x: " << chell->getHorizontalPosition() << std::endl;
     }
     delete coordinate;
     delete coordinateRock;
@@ -367,13 +365,6 @@ void drawChellAndEnergyBall(){
         if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
-
-        b2World* world = chell->getBody()->GetWorld();
-        b2Vec2 gravity = world->GetGravity();
-        std::cout << "Gravity x: " << gravity.x << std::endl;
-        std::cout << "Gravity y: " << gravity.y << std::endl;
-
-
     }
     delete coordinateEB;
     delete coordinate;
