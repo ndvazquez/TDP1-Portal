@@ -66,7 +66,6 @@ bool Dynamic::handleCollisions() {
             if (user_A != NULL && user_B != NULL) {
                 Entity* entity_A = static_cast<Entity*>(user_A);
                 Entity* entity_B = static_cast<Entity*> (user_B);
-
                 entity_A->handleCollision(entity_B);
             }
             resul = true;
@@ -78,7 +77,7 @@ bool Dynamic::handleCollisions() {
 }
 
 void Dynamic::flyHorizontal() {
-    eliminateGravity();
+    body->SetGravityScale(0);
 
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
@@ -93,8 +92,7 @@ void Dynamic::flyHorizontal() {
 }
 
 void Dynamic::flyVertical() {
-    //Eliminate gravity
-    eliminateGravity();
+    body->SetGravityScale(0);
 
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
@@ -106,19 +104,6 @@ void Dynamic::flyVertical() {
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
-}
-
-void Dynamic::eliminateGravity() {
-    float mass = body->GetMass();
-    float gravity = gameConfiguration.gravity;
-    float force_y = - (mass * gravity);
-    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
-
-    float actual_velocity = body->GetLinearVelocity().y;
-
-    //Already flying
-    float delta = gameConfiguration.deltaError;
-    if (actual_velocity > delta || actual_velocity < -delta) return;
 }
 
 void Dynamic::downloadToEarth() {

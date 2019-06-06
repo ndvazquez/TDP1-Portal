@@ -30,7 +30,6 @@ public:
     bool isColliding();
     void downloadToEarth();
     bool handleCollisions();
-    void eliminateGravity();
     void teleport(Coordinate* coordinate);
     float getHorizontalPosition();
     float getVerticalPosition();

@@ -339,9 +339,6 @@ void Stage::step() {
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
-            std::cout << "Murio el azul!" << std::endl;
-            std::cout << "X final blue: " << i->second->getHorizontalPosition() << std::endl;
-            std::cout << "Y final blue: " << i->second->getVerticalPosition() << std::endl;
             world->DestroyBody(i->second->getBody());
             {
                 blue_shots.erase(i->first);
@@ -354,7 +351,6 @@ void Stage::step() {
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
         if (i->second->isDead()) {
-            std::cout << "Murio el naranja!" << std::endl;
             world->DestroyBody(i->second->getBody());
             {
                 orange_shots.erase(i->first);

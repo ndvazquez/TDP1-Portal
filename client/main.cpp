@@ -161,9 +161,6 @@ void drawChell(){
         if (! blueShot->isDead()) {
             float blueShotX = blueShot->getHorizontalPosition();
             float blueShotY = blueShot->getVerticalPosition();
-            std::cout << "Blue shot x: " << blueShotX << std::endl;
-            std::cout << "Blue shot y. " << blueShotY << std::endl;
-
             blueShotView.move(blueShotX, blueShotY, levelHeight);
         }
 
@@ -171,10 +168,6 @@ void drawChell(){
         if (! orangeShot->isDead()) {
             float orangeShotX = orangeShot->getHorizontalPosition();
             float orangeShotY = orangeShot->getVerticalPosition();
-            std::cout << "Orange shot x: " << orangeShotX << std::endl;
-            std::cout << "orange shot y: " << orangeShotY << std::endl;
-
-
             orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
         }
 
@@ -288,6 +281,8 @@ void drawChellAndRock(){
         rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
+        std::cout << "Chell y: " << chell->getVerticalPosition() << std::endl;
+        std::cout << "Chell x: " << chell->getHorizontalPosition() << std::endl;
     }
     delete coordinate;
     delete coordinateRock;
@@ -372,6 +367,13 @@ void drawChellAndEnergyBall(){
         if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
+
+        b2World* world = chell->getBody()->GetWorld();
+        b2Vec2 gravity = world->GetGravity();
+        std::cout << "Gravity x: " << gravity.x << std::endl;
+        std::cout << "Gravity y: " << gravity.y << std::endl;
+
+
     }
     delete coordinateEB;
     delete coordinate;
@@ -465,8 +467,8 @@ void drawChellAndAcidPool(){
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
-    drawChell();
-//    drawChellAndRock();
-//    drawChellAndEnergyBall();
-//    drawChellAndAcidPool();
+    //drawChell();
+    drawChellAndRock();
+    drawChellAndEnergyBall();
+    drawChellAndAcidPool();
 }

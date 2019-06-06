@@ -16,7 +16,7 @@ private:
 
 public:
     explicit Rock(b2Body* body);
-    void eliminateGravity();
+    void elevate();
     void downloadToEarth();
     void moveRight();
     void moveLeft();

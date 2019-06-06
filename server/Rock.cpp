@@ -35,6 +35,12 @@ void Rock::handleCollision(Entity *entity) {
     }
 }
 
+void Rock::elevate() {
+    float x_floor = body->GetPosition().x;
+    float y_floor = body->GetPosition().y;
+    body->SetTransform(b2Vec2(x_floor, y_floor + 1), 0);
+}
+
 void Rock::makeStatic() {
     body->SetType(b2_staticBody);
 }
@@ -77,11 +83,7 @@ bool Rock::onFloor(bool onFloor) {
     this->on_floor = onFloor;
 }
 
-void Rock::eliminateGravity() {
-    this->dynamic.eliminateGravity();
-}
-
 void Rock::downloadToEarth() {
-    eliminateGravity();
+    body->SetGravityScale(0);
     this->dynamic.downloadToEarth();
 }

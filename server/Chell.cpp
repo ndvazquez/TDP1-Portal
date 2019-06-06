@@ -18,6 +18,7 @@
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 #include "BlueShot.h"
+#include "EnergyBall.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType, body),
@@ -44,6 +45,9 @@ void Chell::handleCollision(Entity* entity) {
 
     if (type == "Acid" || type == "EnergyBall") {
         die();
+        if (type == "EnergyBall") {
+            static_cast<EnergyBall*>(entity)->die();
+        }
     }
 
     if (type == "MetalBlock") {
@@ -63,7 +67,6 @@ void Chell::handleCollision(Entity* entity) {
             teleport(coordinate);
         }
     }
-
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor";
 }
@@ -97,6 +100,7 @@ bool Chell::isDead() {
 }
 
 void Chell::grabRock(Rock* rock) {
+    rock->elevate();
     this->rock = rock;
 }
 
