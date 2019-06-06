@@ -29,7 +29,7 @@ StageView::~StageView() {
 }
 
 void StageView::draw(const SDL_Rect& camera) {
-    SDL_Rect destRect = {0 , 0, mtpFactor, mtpFactor};
+    SDL_Rect destRect = {0 , 0, mtpFactor * BLOCK_SIZE, mtpFactor * BLOCK_SIZE};
     int camPosX = camera.x / mtpFactor;
     int camPosY = camera.y / mtpFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.
