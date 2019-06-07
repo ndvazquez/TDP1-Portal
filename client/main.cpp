@@ -63,10 +63,8 @@ void drawChell(){
     stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 2);
     stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);*/
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
@@ -102,7 +100,7 @@ void drawChell(){
     float shotWidth = 1;
     float shotHeight = 1;
 
-    Coordinate* target_blue = new Coordinate(metalBlockPosX + 7, metalBlockPosY + 3); //Setting one block to shoot
+    Coordinate* target_blue = new Coordinate(metalBlockPosX + 7, metalBlockPosY + 2); //Setting one block to shoot
     stage.addBlueShot(shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
     float x_origin_blue = xPos + chellWidth*2 + shotWidth/2;
     float y_origin_blue = yPos + 1;

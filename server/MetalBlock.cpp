@@ -25,7 +25,11 @@ void MetalBlock::handleCollision(Entity* entity) {
         Coordinate* target = getOtherPortal();
         if (target != nullptr) chell->teleport(target);
         chell->onFloor(true);
-
+    }
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        Coordinate* target = getOtherPortal();
+        if (target != nullptr) rock->teleport(target);
     }
     if (type == "BlueShot") {
         BlueShot* blueShot = static_cast<BlueShot*>(entity);
