@@ -14,9 +14,6 @@ private:
 public:
     explicit DiagonalMetalBlock(b2Body* body);
     virtual void handleCollision(Entity* entity) override;
-    void createPortal();
-    bool hasPortal();
-    void deletePortal();
 };
 
 
