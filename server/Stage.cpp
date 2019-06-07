@@ -279,7 +279,7 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
 
-    float x = chell->getVerticalPosition();
+    float x = chell->getHorizontalPosition();
     float x_pos;
     float y_pos = chell->getVerticalPosition();
 
