@@ -18,6 +18,7 @@
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 #include "BlueShot.h"
+#include "EnergyBall.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType, body),
@@ -34,38 +35,35 @@ Chell::Chell(b2Body* body):
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Rock") {
-        Rock* rock = static_cast<Rock*>(entity);
-        if (rock->getVerticalVelocity() < -0 && ! rock->isOnFloor()) {
-            die();
-        }
-        rock->makeStatic();
-    }
-
     if (type == "Acid" || type == "EnergyBall") {
         die();
+        if (type == "EnergyBall") {
+            static_cast<EnergyBall*>(entity)->die();
+        }
     }
 
     if (type == "MetalBlock") {
         MetalBlock *metalBlock = static_cast<MetalBlock *>(entity);
         if (metalBlock->hasPortal()) {
-            Coordinate *coordinate = new Coordinate(metalBlock->getHorizontalPosition(),
-                                                    metalBlock->getVerticalPosition());
-            teleport(coordinate);
+            float x = metalBlock->getHorizontalPosition();
+            float y = metalBlock->getVerticalPosition();
+            Coordinate* origin = new Coordinate(x, y);
+            teleport(origin);
         }
     }
 
     if (type == "DiagonalMetalBlock") {
-        DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
+        DiagonalMetalBlock* diagonalBlock;
+        diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
         if (diagonalBlock->hasPortal()) {
-            Coordinate *coordinate = new Coordinate(diagonalBlock->getHorizontalPosition(),
-                                                    diagonalBlock->getVerticalPosition());
-            teleport(coordinate);
+            float x = diagonalBlock->getHorizontalPosition();
+            float y = diagonalBlock->getVerticalPosition();
+            Coordinate* origin = new Coordinate(x, y);
+            teleport(origin);
         }
     }
-
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-                        || type == "DiagonalMetalBlock" || type == "Floor";
+                        || type == "DiagonalMetalBlock" || type == "Floor" || type == "Rock";
 }
 
 void Chell::teleport(Coordinate* coordinate) {
@@ -80,9 +78,7 @@ void Chell::teleport(Coordinate* coordinate) {
 
     if (x_coordinate == x_orange && y_coordinate == y_orange) {
         this->dynamic.teleport(blue_portal);
-    }
-
-    else if (x_coordinate == x_blue && y_coordinate == y_blue) {
+    } else if (x_coordinate == x_blue && y_coordinate == y_blue) {
         this->dynamic.teleport(orange_portal);
     }
 }
@@ -97,6 +93,8 @@ bool Chell::isDead() {
 }
 
 void Chell::grabRock(Rock* rock) {
+    if (this->rock) return;
+    rock->elevate();
     this->rock = rock;
 }
 

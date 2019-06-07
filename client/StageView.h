@@ -15,7 +15,7 @@
 
 #define TEXTURES_STATICOBJETS_KEY "StaticObjects"
 #define EXTRA_TILES 2
-
+#define BLOCK_SIZE 2
 
 class StageViewAddTileException : public std::exception{
     virtual const char* what() const throw () {

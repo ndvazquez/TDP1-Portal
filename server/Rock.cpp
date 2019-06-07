@@ -5,43 +5,29 @@
 #define rockType "Rock"
 
 #include <string>
+#include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
-#include "Chell.h"
+#include <Box2D/Dynamics/b2World.h>
+
 
 Rock::Rock(b2Body* body):
         Entity(rockType, body),
         dynamic(body) {
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
-    this->on_floor = false;
 }
 
 void Rock::handleCollision(Entity *entity) {
     std::string type = entity->getType();
-    if (type == "Chell") {
-        Chell* chell = static_cast<Chell*>(entity);
-        if (body->GetLinearVelocity().y < 0 && ! on_floor) {
-            chell->die();
-        } else {
-            stop();
-        }
-        makeStatic();
-    }
-    if (type == "MetalBlock" || type == "BrickBlock" || type == "Floor") {
-        on_floor = true;
-    }
 }
 
-void Rock::makeStatic() {
-    body->SetType(b2_staticBody);
-}
-
-void Rock::makeDynamic() {
-    body->SetType(b2_dynamicBody);
-    body->SetAwake(true);
+void Rock::elevate() {
+    body->SetGravityScale(0);
+    body->ApplyForce(b2Vec2(0, gameConfiguration.elevationForce),
+            body->GetWorldCenter(), true);
 }
 
 void Rock::moveRight() {
@@ -55,6 +41,7 @@ void Rock::moveLeft() {
 }
 
 void Rock::stop() {
+    body->SetLinearVelocity(b2Vec2(0, 0));
     destroyActualMovement();
     this->actual_movement = new Stop(body);
 }
@@ -66,22 +53,8 @@ void Rock::destroyActualMovement() {
 void Rock::update() {
     dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.rockForce);
-    makeDynamic();
-}
-
-bool Rock::isOnFloor() {
-    return on_floor;
-}
-
-bool Rock::onFloor(bool onFloor) {
-    this->on_floor = onFloor;
-}
-
-void Rock::eliminateGravity() {
-    this->dynamic.eliminateGravity();
 }
 
 void Rock::downloadToEarth() {
-    eliminateGravity();
-    this->dynamic.downloadToEarth();
+    body->SetGravityScale(1);
 }

@@ -15,10 +15,8 @@ Floor::Floor(b2Body* body):
 }
 
 void Floor::handleCollision(Entity* entity) {
+    std::string type = entity->getType();
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
-    }
-    if (type == "Rock") {
-        static_cast<Rock*>(entity)->onFloor(true);
     }
 }

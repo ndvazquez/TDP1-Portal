@@ -11,7 +11,6 @@
 #include "Shot.h"
 
 class OrangeShot: public Shot {
-
 public:
     OrangeShot(b2Body *body, Chell* chell, Coordinate* target);
     virtual void handleCollision(Entity* entity) override;

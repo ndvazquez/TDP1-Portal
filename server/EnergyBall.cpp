@@ -53,5 +53,6 @@ void EnergyBall::handleCollision(Entity* entity) {
     }
     if (type == "Chell") {
         static_cast<Chell*>(entity)->die();
+        die();
     }
 }

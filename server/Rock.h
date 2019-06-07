@@ -12,21 +12,16 @@ class Rock: public Entity {
 private:
     Dynamic dynamic;
     Dynamic* actual_movement;
-    bool on_floor;
 
 public:
     explicit Rock(b2Body* body);
-    void eliminateGravity();
+    void elevate();
     void downloadToEarth();
     void moveRight();
     void moveLeft();
     void stop();
     void destroyActualMovement();
     void update();
-    void makeStatic();
-    void makeDynamic();
-    bool isOnFloor();
-    bool onFloor(bool onFloor);
     virtual void handleCollision(Entity* entity) override;
 };
 

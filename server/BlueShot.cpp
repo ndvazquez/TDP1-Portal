@@ -21,15 +21,18 @@ void BlueShot::handleCollision(Entity* entity) {
     if (type == "MetalBlock") {
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         metalBlock->createPortal();
-        Coordinate* portalCoordinates = new Coordinate(metalBlock->getHorizontalPosition(),
-                                                       metalBlock->getVerticalPosition());
+        float x = metalBlock->getHorizontalPosition();
+        float y = metalBlock->getVerticalPosition();
+        Coordinate* portalCoordinates = new Coordinate(x, y);
         chell->addBluePortal(portalCoordinates);
     }
     if (type == "DiagonalMetalBlock") {
-        DiagonalMetalBlock* diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
+        DiagonalMetalBlock* diagonalBlock;
+        diagonalBlock = static_cast<DiagonalMetalBlock*>(entity);
         diagonalBlock->createPortal();
-        Coordinate* portalCoordinates = new Coordinate(diagonalBlock->getHorizontalPosition(),
-                                                       diagonalBlock->getVerticalPosition());
+        float x = diagonalBlock->getHorizontalPosition();
+        float y = diagonalBlock->getVerticalPosition();
+        Coordinate* portalCoordinates = new Coordinate(x, y);
         chell->addBluePortal(portalCoordinates);
     }
     die(); //If the shot collides against something it dies

@@ -27,13 +27,8 @@ public:
     void stop(float force);
     void flyHorizontal();
     void flyVertical();
-    bool isColliding();
-    void downloadToEarth();
     bool handleCollisions();
-    void eliminateGravity();
     void teleport(Coordinate* coordinate);
-    float getHorizontalPosition();
-    float getVerticalPosition();
 };
 
 #endif //PORTAL_DYNAMIC_H

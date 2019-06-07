@@ -146,6 +146,8 @@ void Stage::addRock(float side, float x_pos, float y_pos) {
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body* rock_body = addDynamicRectangle(side, side, x_pos, y_pos);
+    b2Fixture* fixture = rock_body->GetFixtureList();
+    fixture->SetFriction(gameConfiguration.rockFriction);
 
     Rock* rock = new Rock(rock_body);
     rocks.insert({coordinates, rock});
@@ -236,7 +238,8 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
     if (bluePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(bluePortal);
         metalBlock->deletePortal();
-        DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(bluePortal);
+        DiagonalMetalBlock* diagonalMetalBlock;
+        diagonalMetalBlock = getDiagonalMetalBlock(bluePortal);
         if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
@@ -247,7 +250,6 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
     if (diagonalMetalBlock != nullptr && diagonalMetalBlock->hasPortal()) {
         diagonalMetalBlock->deletePortal();
     }
-
 
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
@@ -274,7 +276,8 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     if (orangePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(orangePortal);
         if (metalBlock != nullptr) metalBlock->deletePortal();
-        DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(orangePortal);
+        DiagonalMetalBlock* diagonalMetalBlock;
+        diagonalMetalBlock = getDiagonalMetalBlock(orangePortal);
         if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
@@ -290,7 +293,7 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
 
-    float x = chell->getVerticalPosition();
+    float x = chell->getHorizontalPosition();
     float x_pos;
     float y_pos = chell->getVerticalPosition();
 
@@ -301,8 +304,8 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body* orange_shot_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
-    OrangeShot* orangeShot = new OrangeShot(orange_shot_body, chell, target);
+    b2Body* orange_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+    OrangeShot* orangeShot = new OrangeShot(orange_body, chell, target);
     orange_shots.insert({coordinates, orangeShot});
 }
 
@@ -339,9 +342,6 @@ void Stage::step() {
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
-            std::cout << "Murio el azul!" << std::endl;
-            std::cout << "X final blue: " << i->second->getHorizontalPosition() << std::endl;
-            std::cout << "Y final blue: " << i->second->getVerticalPosition() << std::endl;
             world->DestroyBody(i->second->getBody());
             {
                 blue_shots.erase(i->first);
@@ -349,12 +349,10 @@ void Stage::step() {
             }
         }
         i->second->shoot();
-
     }
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
         if (i->second->isDead()) {
-            std::cout << "Murio el naranja!" << std::endl;
             world->DestroyBody(i->second->getBody());
             {
                 orange_shots.erase(i->first);

@@ -36,55 +36,48 @@ void drawChell(){
     Sprite background(bgPath, newWindow);
     std::string metalBlock = "MetalBlock";
     // We'll setup a very basic map, 10x6 blocks.
-    int stageWidth = 20;
-    int stageHeight = 14;
+    int stageWidth = 40;
+    int stageHeight = 20;
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight); // 1m == 1 block == 100px
     StageView stageView(newWindow, textures, MTP_FACTOR);
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
-    float metalSide = 1;
-    for (int i = 0; i < 20; ++i){
+    float metalSide = 2;
+    for (int i = 0; i < 40; i += 2){
         stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
         stageView.addTile(metalBlockPosX+i, metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     // Time to add some platforms!
-    stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
+    stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 4, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
+    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
- /*   stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 4, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 5, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 5, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);*/
+    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 4);
+    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 10, metalBlockPosY + 4);
+    stageView.addTile(metalBlockPosX + 10, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
+    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
+    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
+    stageView.addTile(metalBlockPosX + 14, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
+    stageView.addTile(metalBlockPosX + 16, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 11, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 11, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
+    stageView.addTile(metalBlockPosX + 14, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
+    stageView.addTile(metalBlockPosX + 16, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 15, metalBlockPosY + 5);
-    stageView.addTile(metalBlockPosX + 15, (metalBlockPosY + 5) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
+    stageView.addTile(metalBlockPosX + 20, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
     stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
@@ -102,13 +95,13 @@ void drawChell(){
     float shotWidth = 1;
     float shotHeight = 1;
 
-    Coordinate* target_blue = new Coordinate(metalBlockPosX + 7, metalBlockPosY + 3); //Setting one block to shoot
+    Coordinate* target_blue = new Coordinate(metalBlockPosX + 8, metalBlockPosY + 4); //Setting one block to shoot
     stage.addBlueShot(shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
     float x_origin_blue = xPos + chellWidth*2 + shotWidth/2;
     float y_origin_blue = yPos + 1;
     BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin_blue, y_origin_blue));
 
-    Coordinate* target_orange = new Coordinate(metalBlockPosX + 1, metalBlockPosY + 6);
+    Coordinate* target_orange = new Coordinate(metalBlockPosX + 2, metalBlockPosY + 6);
     stage.addOrangeShot(shotHeight, shotWidth, chell, target_orange);
     float x_origin_orange = xPos - chellWidth*2 - shotWidth/2;
     float y_origin_orange = yPos + 1;
@@ -161,9 +154,6 @@ void drawChell(){
         if (! blueShot->isDead()) {
             float blueShotX = blueShot->getHorizontalPosition();
             float blueShotY = blueShot->getVerticalPosition();
-            std::cout << "Blue shot x: " << blueShotX << std::endl;
-            std::cout << "Blue shot y. " << blueShotY << std::endl;
-
             blueShotView.move(blueShotX, blueShotY, levelHeight);
         }
 
@@ -171,10 +161,6 @@ void drawChell(){
         if (! orangeShot->isDead()) {
             float orangeShotX = orangeShot->getHorizontalPosition();
             float orangeShotY = orangeShot->getVerticalPosition();
-            std::cout << "Orange shot x: " << orangeShotX << std::endl;
-            std::cout << "orange shot y: " << orangeShotY << std::endl;
-
-
             orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
         }
 
@@ -195,6 +181,8 @@ void drawChell(){
         newWindow.render();
     }
     delete coordinate;
+    delete target_blue;
+    delete target_orange;
 }
 
 void drawChellAndRock(){
@@ -218,17 +206,14 @@ void drawChellAndRock(){
 
     // Add a rock next to the metal block.
     size_t rockSide = 1;
-    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY);
+    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY+5);
 
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
     // Get the rock object.
-    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY);
+    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY + 5);
     Rock* rock = stage.getRock(coordinateRock);
-
-    //Chell grabs the Rock
-    chell->grabRock(rock);
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
@@ -288,6 +273,7 @@ void drawChellAndRock(){
         rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
+
     }
     delete coordinate;
     delete coordinateRock;
@@ -466,7 +452,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-//    drawChellAndRock();
-//    drawChellAndEnergyBall();
-//    drawChellAndAcidPool();
+    drawChellAndRock();
+    drawChellAndEnergyBall();
+    drawChellAndAcidPool();
 }
