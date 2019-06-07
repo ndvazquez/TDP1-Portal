@@ -12,6 +12,7 @@
 class MetalBlock: public Entity {
 private:
     bool portal;
+    MetalBlock* other;
 
 public:
     explicit MetalBlock(b2Body* body);
@@ -19,6 +20,8 @@ public:
     void createPortal();
     bool hasPortal();
     void deletePortal();
+    void addOtherPortal(MetalBlock* other);
+    Coordinate* getOtherPortal();
 };
 
 #endif //PORTAL_METALBLOCK_H

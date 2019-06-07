@@ -10,6 +10,8 @@
 #include "MoveRight.h"
 #include "MoveLeft.h"
 #include "Stop.h"
+#include "MetalBlock.h"
+#include "Chell.h"
 #include <Box2D/Dynamics/b2World.h>
 
 
@@ -22,12 +24,27 @@ Rock::Rock(b2Body* body):
 
 void Rock::handleCollision(Entity *entity) {
     std::string type = entity->getType();
+    if (type == "MetalBlock") {
+        MetalBlock *metalBlock = static_cast<MetalBlock *>(entity);
+        Coordinate *target = metalBlock->getOtherPortal();
+        if (target != nullptr) {
+            activateGravity();
+            this->dynamic.teleport(target);
+        }
+    }
+    if (type == "Chell") {
+        static_cast<Chell*>(entity)->onFloor(true);
+    }
 }
 
 void Rock::elevate() {
     body->SetGravityScale(0);
     body->ApplyForce(b2Vec2(0, gameConfiguration.elevationForce),
             body->GetWorldCenter(), true);
+}
+
+void Rock::activateGravity() {
+    body->SetGravityScale(1);
 }
 
 void Rock::moveRight() {
@@ -57,4 +74,8 @@ void Rock::update() {
 
 void Rock::downloadToEarth() {
     body->SetGravityScale(1);
+}
+
+void Rock::teleport(Coordinate* target) {
+    this->dynamic.teleport(target);
 }

@@ -238,17 +238,10 @@ void Stage::addBlueShot(float v_side, float h_side, Chell* chell,
     if (bluePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(bluePortal);
         metalBlock->deletePortal();
-        DiagonalMetalBlock* diagonalMetalBlock;
-        diagonalMetalBlock = getDiagonalMetalBlock(bluePortal);
-        if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
     if (metalBlock!= nullptr && metalBlock->hasPortal()) {
         metalBlock->deletePortal();
-    }
-    DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(target);
-    if (diagonalMetalBlock != nullptr && diagonalMetalBlock->hasPortal()) {
-        diagonalMetalBlock->deletePortal();
     }
 
     float x_target = target->getX();
@@ -276,17 +269,10 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     if (orangePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(orangePortal);
         if (metalBlock != nullptr) metalBlock->deletePortal();
-        DiagonalMetalBlock* diagonalMetalBlock;
-        diagonalMetalBlock = getDiagonalMetalBlock(orangePortal);
-        if (diagonalMetalBlock != nullptr) diagonalMetalBlock->deletePortal();
     }
     MetalBlock* metalBlock = getMetalBlock(target);
     if (metalBlock != nullptr && metalBlock->hasPortal()) {
         metalBlock->deletePortal();
-    }
-    DiagonalMetalBlock* diagonalMetalBlock = getDiagonalMetalBlock(target);
-    if (diagonalMetalBlock != nullptr && diagonalMetalBlock->hasPortal()) {
-        diagonalMetalBlock->deletePortal();
     }
 
     float x_target = target->getX();
@@ -317,6 +303,15 @@ void Stage::step() {
     timeStamp = std::chrono::system_clock::now();
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
+        Coordinate* blue_portal = i->second->getBluePortal();
+        Coordinate* orange_portal = i->second->getOrangePortal();
+        if (blue_portal != nullptr && orange_portal != nullptr) {
+            MetalBlock* blue_block = getMetalBlock(blue_portal);
+            MetalBlock* orange_block = getMetalBlock(orange_portal);
+            blue_block->addOtherPortal(orange_block);
+            orange_block->addOtherPortal(blue_block);
+        }
+
         if (i->second->isDead()) {
             world->DestroyBody(i->second->getBody());
             {

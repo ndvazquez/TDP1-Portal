@@ -11,6 +11,8 @@
 #include "Rock.h"
 #include "../common/constants.h"
 #include "Coordinate.h"
+#include "Portal.h"
+#include <list>
 
 class Chell: public Entity {
 private:
@@ -20,9 +22,7 @@ private:
     bool dead;
     Rock* rock;
     State actual_state;
-    Chell* myself;
-    Coordinate* orange_portal;
-    Coordinate* blue_portal;
+    Portal* portal;
 
 public:
     explicit Chell(b2Body* body);

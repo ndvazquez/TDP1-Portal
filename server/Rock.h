@@ -23,6 +23,8 @@ public:
     void destroyActualMovement();
     void update();
     virtual void handleCollision(Entity* entity) override;
+    void teleport(Coordinate* target);
+    void activateGravity();
 };
 
 #endif //PORTAL_ROCK_H

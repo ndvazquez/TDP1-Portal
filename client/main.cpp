@@ -90,6 +90,13 @@ void drawChell(){
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
+    //Rock
+    size_t rockSide = 1;
+    stage.addRock(rockSide, metalBlockPosX + 12, metalBlockPosY+2);
+
+    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 12, metalBlockPosY + 2);
+    Rock* rock = stage.getRock(coordinateRock);
+    RockView rockView(newWindow, metalBlockPosX + 12, metalBlockPosY + 2, MTP_FACTOR, textures);
 
     //Shot in Chell
     float shotWidth = 1;
@@ -127,9 +134,8 @@ void drawChell(){
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
-                //if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
-                //if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
-                //if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
+                if (e.key.keysym.sym == SDLK_f) chell->downloadRock();
+                if (e.key.keysym.sym == SDLK_g) chell->grabRock(rock);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
@@ -164,6 +170,14 @@ void drawChell(){
             orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
         }
 
+        // Get current Rock position and move it.
+        float newRockPosX = rock->getHorizontalPosition();
+        float newRockPosY = rock->getVerticalPosition();
+
+        rockView.move(newRockPosX, newRockPosY, levelHeight);
+
+        SDL_Rect rockRect = {rockView.getViewPositionX() - cameraRect.x, rockView.getViewPositionY() - cameraRect.y,
+                             int(rockSide * MTP_FACTOR), int(rockSide * MTP_FACTOR)};
 
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
@@ -173,11 +187,13 @@ void drawChell(){
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
+        rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         if (!blueShot->isDead())blueShotView.playAnimation(cameraRect);
         if (!orangeShot->isDead()) orangeShotView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
+        newWindow.drawRectangle(rockRect);
         newWindow.render();
     }
     delete coordinate;
@@ -452,7 +468,7 @@ void drawChellAndAcidPool(){
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
     drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
 }

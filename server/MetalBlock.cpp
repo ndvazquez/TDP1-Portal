@@ -15,18 +15,23 @@ MetalBlock::MetalBlock(b2Body* body):
     Entity(metalBlockType, body) {
     body->SetUserData(this);
     this->portal = false;
+    this->other = nullptr;
 }
 
 void MetalBlock::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "Chell") {
         Chell* chell = static_cast<Chell*>(entity);
+        Coordinate* target = getOtherPortal();
+        if (target != nullptr) chell->teleport(target);
         chell->onFloor(true);
-        if (portal) {
-            float x = body->GetPosition().x;
-            float y = body->GetPosition().y;
-            Coordinate* portalCoordinates = new Coordinate(x, y);
-            chell->teleport(portalCoordinates);
+    }
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        Coordinate* target = getOtherPortal();
+        if (target != nullptr) {
+            rock->activateGravity();
+            rock->teleport(target);
         }
     }
     if (type == "BlueShot") {
@@ -59,4 +64,16 @@ void MetalBlock::deletePortal() {
 
 bool MetalBlock::hasPortal() {
     return portal;
+}
+
+void MetalBlock::addOtherPortal(MetalBlock* other) {
+    this->other = other;
+}
+
+Coordinate* MetalBlock::getOtherPortal() {
+    if (other == nullptr) return nullptr;
+    float x = other->getHorizontalPosition();
+    float y = other->getVerticalPosition();
+    Coordinate* other = new Coordinate(x, y);
+    return other;
 }
