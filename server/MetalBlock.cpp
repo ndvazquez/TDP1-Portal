@@ -29,7 +29,10 @@ void MetalBlock::handleCollision(Entity* entity) {
     if (type == "Rock") {
         Rock* rock = static_cast<Rock*>(entity);
         Coordinate* target = getOtherPortal();
-        if (target != nullptr) rock->teleport(target);
+        if (target != nullptr) {
+            rock->activateGravity();
+            rock->teleport(target);
+        }
     }
     if (type == "BlueShot") {
         BlueShot* blueShot = static_cast<BlueShot*>(entity);

@@ -50,41 +50,17 @@ void drawChell(){
         stageView.addTile(metalBlockPosX+i, metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     // Time to add some platforms!
-    stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 1, metalBlockPosY + 6);
+    stageView.addTile(metalBlockPosX + 1, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 1);
+    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 1) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 4, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    // Rock
+    stage.addRock(1, metalBlockPosX + 2, metalBlockPosY + 1);
+    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 2, metalBlockPosY + 1);
+    Rock* rock = stage.getRock(coordinateRock);
+    RockView rockView(newWindow, metalBlockPosX + 2, metalBlockPosY, MTP_FACTOR, textures);
 
- /*   stage.addMetalBlock(metalSide, metalBlockPosX + 4, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 4, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 5, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 5, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 2);
-    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);*/
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 2) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 7, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 7, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 11, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 11, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 3);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 3) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 15, metalBlockPosY + 5);
-    stageView.addTile(metalBlockPosX + 15, (metalBlockPosY + 5) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
-    stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
     float xPos = 4;
@@ -100,7 +76,7 @@ void drawChell(){
     float shotWidth = 1;
     float shotHeight = 1;
 
-    Coordinate* target_blue = new Coordinate(metalBlockPosX + 7, metalBlockPosY + 2); //Setting one block to shoot
+    Coordinate* target_blue = new Coordinate(metalBlockPosX + 7, metalBlockPosY + 1); //Setting one block to shoot
     stage.addBlueShot(shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
     float x_origin_blue = xPos + chellWidth*2 + shotWidth/2;
     float y_origin_blue = yPos + 1;
@@ -111,7 +87,6 @@ void drawChell(){
     float x_origin_orange = xPos - chellWidth*2 - shotWidth/2;
     float y_origin_orange = yPos + 1;
     OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_origin_orange, y_origin_orange));
-
 
     BulletView blueShotView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
     BulletView orangeShotView(newWindow, x_origin_orange, y_origin_orange, MTP_FACTOR, textures);
@@ -132,28 +107,14 @@ void drawChell(){
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
-                //if (e.key.keysym.sym == SDLK_s) portalView.changePortalColor();
-                //if (e.key.keysym.sym == SDLK_q) portalView.setPortalOrientation(0);
-                //if (e.key.keysym.sym == SDLK_e) portalView.setPortalOrientation(1);
+                if (e.key.keysym.sym == SDLK_f) chell->downloadRock();
+                if (e.key.keysym.sym == SDLK_g) chell->grabRock(rock);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
             // This might become an issue when we actually implement a jump animation.
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
-
-        stage.step();
-
-        chellView.setState(chell->getState());
-        float newPosX = chell->getHorizontalPosition();
-        float newPosY = chell->getVerticalPosition();
-        // We move the animated sprite for Chell.
-        chellView.move(newPosX, newPosY, levelHeight);
-        // Gotta update the camera now to center it around Chell.
-        int chellCenterPositionX = chellView.getCenterPosX();
-        int chellCenterPositionY = chellView.getCenterPosY();
-        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
-        const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         //Shot position
         if (! blueShot->isDead()) {
@@ -169,6 +130,27 @@ void drawChell(){
             orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
         }
 
+        stage.step();
+
+        chellView.setState(chell->getState());
+        float newPosX = chell->getHorizontalPosition();
+        float newPosY = chell->getVerticalPosition();
+        // We move the animated sprite for Chell.
+        chellView.move(newPosX, newPosY, levelHeight);
+        // Gotta update the camera now to center it around Chell.
+        int chellCenterPositionX = chellView.getCenterPosX();
+        int chellCenterPositionY = chellView.getCenterPosY();
+        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        const SDL_Rect& cameraRect = camera.getCameraRectangle();
+
+        // Get current Rock position and move it.
+        float newRockPosX = rock->getHorizontalPosition();
+        float newRockPosY = rock->getVerticalPosition();
+
+        rockView.move(newRockPosX, newRockPosY, levelHeight);
+
+        SDL_Rect rockRect = {rockView.getViewPositionX(), rockView.getViewPositionY(),
+                             int(1 * MTP_FACTOR), int(1 * MTP_FACTOR)};
 
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
@@ -178,11 +160,13 @@ void drawChell(){
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
+        rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         if (!blueShot->isDead())blueShotView.playAnimation(cameraRect);
         if (!orangeShot->isDead()) orangeShotView.playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
+        newWindow.drawRectangle(rockRect);
         newWindow.render();
     }
     delete coordinate;
