@@ -4,6 +4,7 @@
 
 #define buttonType "Button"
 
+#include <string>
 #include "Button.h"
 #include "Chell.h"
 

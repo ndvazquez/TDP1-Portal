@@ -295,6 +295,20 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     orange_shots.insert({coordinates, orangeShot});
 }
 
+void Stage::addGate(float v_side, float h_side, float x_pos, float y_pos,
+             std::unordered_map<std::string, Button*> buttons, std::string logic) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* gate_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Gate* gate = new Gate(gate_body, logic, buttons);
+    gates.insert({coordinates, gate});
+}
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -510,8 +524,11 @@ Stage::~Stage() {
         delete i->second;
     }
 
-    //if (blue_portal != NULL) delete blue_portal;
-    //if (orange_portal != NULL) delete orange_portal;
+    for (auto i = gates.begin(); i != gates.end(); i++) {
+        delete i->first;
+        delete i->second;
+    }
+
     delete floor;
     delete world;
 }
