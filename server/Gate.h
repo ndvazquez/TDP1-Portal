@@ -16,10 +16,13 @@ private:
     b2Body* body;
     std::string logic;
     std::unordered_map<std::string, Button*> buttons;
+    bool open;
 
 public:
     Gate(b2Body* body, std::string logic,
             std::unordered_map<std::string, Button*> buttons);
+    void update();
+    bool isOpen();
 };
 
 
