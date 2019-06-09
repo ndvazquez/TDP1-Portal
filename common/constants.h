@@ -27,4 +27,12 @@ enum State {
 #define ENERGY_BALL_HEIGHT 1
 #define PORTAL_WIDTH 1
 #define PORTAL_HEIGHT 2
+
+// AudioSystem sound codes.
+#define RUN_SOUND 0
+#define JUMP_SOUND 1
+
+// AudioSystem song codes.
+#define BG_SONG_GAME 0
+
 #endif //PORTAL_CONSTANTS_H
