@@ -117,6 +117,7 @@ void Chell::stop() {
         this->actual_state = JUMPING;
     } else {
         this->actual_state = IDLE;
+        body->SetLinearVelocity(b2Vec2(0, 0));
     }
     if (this->rock) rock->stop();
 }
