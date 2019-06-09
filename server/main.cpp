@@ -25,9 +25,8 @@ int main(int argc, char* argv[]) {
     Button* button4 = new Button(body4);
     Button* button5 = new Button(body5);
 
-    button3->activate();
+    //button3->activate();
     button2->activate();
-    button4->activate();
     button5->activate();
 
     std::string id_button_1 = "Button1";
@@ -42,7 +41,7 @@ int main(int argc, char* argv[]) {
     buttons.insert({id_button_4, button4});
     buttons.insert({id_button_5, button5});
 
-    std::string logic = "Button1 & (Button2 | Button3)) & (Button4 & Button5)";
+    std::string logic = "! Button1 | (! Button2 & ! Button3) & (Button4 & Button5)";
 
     Gate* gate = new Gate(body_gate, logic, buttons);
     gate->update();

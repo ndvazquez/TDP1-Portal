@@ -23,6 +23,7 @@ public:
             std::unordered_map<std::string, Button*> buttons);
     void update();
     bool isOpen();
+    bool parseBool();
 };
 
 
