@@ -141,6 +141,16 @@ bool Gate::parseBool() {
     return variable;
 }
 
+void Gate::handleGate() {
+    body->SetActive(false); //So Chell could traspass the object
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end - timeStamp).count();
+    if (difference <= 3000) return; //3 seconds to open the gate
+    timeStamp = std::chrono::system_clock::now();
+
+    body->SetActive(true);
+}
 
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
@@ -155,12 +165,9 @@ void Gate::update() {
         logic.replace(i_id, length_id, to_replace);
     }
 
-    std::cout << logic << std::endl;
-
     // Obtain boolean from string
-    bool variable = parseBool();
-
-    std::cout << variable << std::endl;
+    open = parseBool();
+    if (open) handleGate();
 }
 
 bool Gate::isOpen() {
