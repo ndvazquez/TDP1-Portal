@@ -6,6 +6,7 @@
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
 #include "Entity.h"
+#include "Coordinate.h"
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
@@ -14,6 +15,18 @@ Dynamic::Dynamic(b2Body* body):
 }
 
 void Dynamic::move(float force) {
+}
+
+void Dynamic::teleport(Coordinate* coordinate) {
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end - timeStamp).count();
+    if (difference <= 3000) return; //3 seconds to teletransport
+    timeStamp = std::chrono::system_clock::now();
+
+    float x = coordinate->getX();
+    float y = coordinate->getY();
+    body->SetTransform(b2Vec2(x, y), 0);
 }
 
 void Dynamic::moveRight(float force) {
@@ -31,19 +44,10 @@ void Dynamic::stop(float force) {
     body->ApplyForce(b2Vec2(force,0), body->GetWorldCenter(), true);
 }
 
-bool Dynamic::isColliding() {
-    b2ContactEdge* edge = body->GetContactList();
-    while (edge != NULL) {
-        b2Contact* contact = edge->contact;
-        if (contact->IsTouching()) return true;
-        edge = edge->next;
-    }
-    return false;
-}
-
 bool Dynamic::handleCollisions() {
     b2ContactEdge* edge = body->GetContactList();
     bool resul = false;
+    size_t counter = 0;
     while (edge != NULL) {
         b2Contact* contact = edge->contact;
         if (contact->IsTouching()) {
@@ -57,12 +61,13 @@ bool Dynamic::handleCollisions() {
             resul = true;
         }
         edge = edge->next;
+        counter++;
     }
     return resul;
 }
 
 void Dynamic::flyHorizontal() {
-    eliminateGravity();
+    body->SetGravityScale(0);
 
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
@@ -77,8 +82,7 @@ void Dynamic::flyHorizontal() {
 }
 
 void Dynamic::flyVertical() {
-    //Eliminate gravity
-    eliminateGravity();
+    body->SetGravityScale(0);
 
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
@@ -90,34 +94,6 @@ void Dynamic::flyVertical() {
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
-}
-
-void Dynamic::eliminateGravity() {
-    float mass = body->GetMass();
-    float gravity = gameConfiguration.gravity;
-    float force_y = - (mass * gravity);
-    body->ApplyForce(b2Vec2(0, force_y), body->GetWorldCenter(), true);
-
-    float actual_velocity = body->GetLinearVelocity().y;
-
-    //Already flying
-    float delta = gameConfiguration.deltaError;
-    if (actual_velocity > delta || actual_velocity < -delta) return;
-}
-
-void Dynamic::downloadToEarth() {
-    float impulse = -30;
-    body->ApplyLinearImpulse(b2Vec2(0, impulse),
-                             body->GetWorldCenter(), true);
-    if (isColliding()) stop(0);
-}
-
-float Dynamic::getHorizontalPosition() {
-    return body->GetPosition().x;
-}
-
-float Dynamic::getVerticalPosition() {
-    return body->GetPosition().y;
 }
 
 void Dynamic::adjustJump() {
@@ -141,13 +117,6 @@ bool Dynamic::jump(bool chellFloor) {
     return true;
 }
 
-float Dynamic::getHorizontalVelocity() {
-    return body->GetLinearVelocity().x;
-}
-
-float Dynamic::getVerticalVelocity() {
-    return body->GetLinearVelocity().y;
-}
 
 Dynamic::~Dynamic() {
 }

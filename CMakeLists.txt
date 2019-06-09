@@ -42,23 +42,23 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        editor/Stage.cpp
+        editor/stage/Stage.cpp
         editor/Menu.cpp
         editor/Editor.cpp
         editor/MenuButton.cpp
-        editor/RockButton.cpp
         editor/Event.cpp
-        editor/StageController.cpp
-        editor/StageView.cpp
-        editor/StaticObject.cpp
-        editor/Block.cpp
-        editor/Button.cpp
-        editor/Rock.cpp
-        editor/Chell.cpp
-        editor/AnimatedObject.cpp
-        editor/Object.cpp
-        editor/Gate.cpp
+        editor/stage/Controller.cpp
+        editor/stage/View.cpp
+        editor/stage/object/StaticObject.cpp
+        editor/stage/object/Block.cpp
+        editor/stage/object/Button.cpp
+        editor/stage/object/Rock.cpp
+        editor/stage/object/Chell.cpp
+        editor/stage/object/AnimatedObject.cpp
+        editor/stage/object/Object.cpp
+        editor/stage/object/Gate.cpp
         editor/MouseButton.cpp
+        editor/stage/object/Cake.cpp
         )
 
 set(SERVER_SOURCE_FILES
@@ -81,7 +81,11 @@ set(SERVER_SOURCE_FILES
         server/EnergyBall.cpp
         server/Entity.cpp
         server/configuration.cpp
-        server/Floor.cpp)
+        server/Floor.cpp
+        server/BlueShot.cpp
+        server/OrangeShot.cpp
+        server/Shot.cpp
+        server/Portal.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

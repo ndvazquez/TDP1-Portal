@@ -14,6 +14,8 @@ struct box2DConfiguration {
     float gravityJump;
     float gravity;
     float rockForce;
+    float elevationForce;
+    float rockFriction;
 };
 
 extern struct box2DConfiguration gameConfiguration;

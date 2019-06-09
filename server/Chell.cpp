@@ -5,41 +5,55 @@
 #define chellType "Chell"
 
 #include <string>
+#include <iostream>
+#include <Box2D/Collision/Shapes/b2PolygonShape.h>
+#include <Box2D/Dynamics/b2Fixture.h>
+#include <Box2D/Dynamics/b2World.h>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
 #include "MoveLeft.h"
-#include "../editor/Chell.h"
+#include "../editor/stage/object/Chell.h"
 #include "Rock.h"
+#include "MetalBlock.h"
+#include "DiagonalMetalBlock.h"
+#include "BlueShot.h"
+#include "EnergyBall.h"
 
 Chell::Chell(b2Body* body):
-        Entity(chellType),
+        Entity(chellType, body),
         dynamic(body) {
-    this->body = body;
     this->actual_movement = new Stop(body);
     this->actual_state = IDLE;
     body->SetUserData(this);
     chell_is_on_floor = true;
     dead = false;
     rock = nullptr;
+    portal = new Portal();
 }
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Rock") {
-        Rock* rock = static_cast<Rock*>(entity);
-        if (rock->getVerticalVelocity() < -0 && ! rock->isOnFloor()) {
-            die();
-        }
-        rock->makeStatic();
-    }
-
     if (type == "Acid" || type == "EnergyBall") {
         die();
+        if (type == "EnergyBall") {
+            static_cast<EnergyBall*>(entity)->die();
+        }
+    }
+
+    if (type == "MetalBlock") {
+        MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
+        Coordinate* target = metalBlock->getOtherPortal();
+        if (target != nullptr) this->dynamic.teleport(target);
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-                        || type == "DiagonalMetalBlock" || type == "Floor";
+                        || type == "DiagonalMetalBlock" || type == "Floor" || type == "Rock";
+}
+
+void Chell::teleport(Coordinate* coordinate) {
+    this->dynamic.teleport(coordinate);
+
 }
 
 void Chell::die() {
@@ -52,6 +66,8 @@ bool Chell::isDead() {
 }
 
 void Chell::grabRock(Rock* rock) {
+    if (this->rock) return;
+    rock->elevate();
     this->rock = rock;
 }
 
@@ -85,8 +101,11 @@ void Chell::stop() {
     if (dead) return;
     destroyActualMovement();
     this->actual_movement = new Stop(body);
-    if (! chell_is_on_floor) this->actual_state = JUMPING;
-    else this->actual_state = IDLE;
+    if (! chell_is_on_floor) {
+        this->actual_state = JUMPING;
+    } else {
+        this->actual_state = IDLE;
+    }
     if (this->rock) rock->stop();
 }
 
@@ -94,21 +113,6 @@ void Chell::destroyActualMovement() {
     delete this->actual_movement;
 }
 
-float Chell::getHorizontalPosition() {
-    return this->dynamic.getHorizontalPosition();
-}
-
-float Chell::getVerticalPosition() {
-    return this->dynamic.getVerticalPosition();
-}
-
-float Chell::getHorizontalVelocity() {
-    return this->dynamic.getHorizontalVelocity();
-}
-
-float Chell::getVerticalVelocity() {
-    return this->dynamic.getVerticalVelocity();
-}
 void Chell::update() {
     chell_is_on_floor = inGround();
     if (chell_is_on_floor && actual_state == JUMPING){
@@ -140,6 +144,23 @@ State Chell::getState() {
     return actual_state;
 }
 
+void Chell::addOrangePortal(Coordinate* portal) {
+    this->portal->addOrangePortal(portal);
+}
+
+void Chell::addBluePortal(Coordinate* portal) {
+    this->portal->addBluePortal(portal);
+}
+
+Coordinate* Chell::getBluePortal() {
+    return portal->getBluePortal();
+}
+
+Coordinate* Chell::getOrangePortal() {
+    return portal->getOrangePortal();
+}
+
 Chell::~Chell() {
     destroyActualMovement();
+    delete portal;
 }

@@ -7,7 +7,6 @@
 #include <SDL_image.h>
 #include <string>
 #include <yaml-cpp/yaml.h>
-#include "RockButton.h"
 
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON ""

@@ -2,7 +2,7 @@
 // Created by ndv on 5/13/19.
 //
 
-#ifndef PORTAL_STAGEVIEW_H
+#ifndef PORTAL_VIEW_H
 #define PORTAL_STAGEVIEW_H
 #include <unordered_map>
 #include <exception>
@@ -15,7 +15,7 @@
 
 #define TEXTURES_STATICOBJETS_KEY "StaticObjects"
 #define EXTRA_TILES 2
-
+#define BLOCK_SIZE 2
 
 class StageViewAddTileException : public std::exception{
     virtual const char* what() const throw () {

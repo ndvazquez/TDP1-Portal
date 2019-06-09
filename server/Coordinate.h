@@ -14,6 +14,8 @@ private:
 public:
     Coordinate(float x_pos, float y_pos);
     bool operator==(const Coordinate&);
+    float getX();
+    float getY();
 };
 
 

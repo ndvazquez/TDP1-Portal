@@ -9,8 +9,8 @@
 #include <map>
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
-    window(window),
-    mtpFactor(factor) {
+        window(window),
+        mtpFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
     for (YAML::const_iterator it = staticObjects.begin();
          it != staticObjects.end(); ++it) {
@@ -29,7 +29,7 @@ StageView::~StageView() {
 }
 
 void StageView::draw(const SDL_Rect& camera) {
-    SDL_Rect destRect = {0 , 0, mtpFactor, mtpFactor};
+    SDL_Rect destRect = {0 , 0, mtpFactor * BLOCK_SIZE, mtpFactor * BLOCK_SIZE};
     int camPosX = camera.x / mtpFactor;
     int camPosY = camera.y / mtpFactor;
     // We'll draw NxM tiles on the screen, to cover the camera.

@@ -10,12 +10,9 @@
 
 class DiagonalMetalBlock: public Entity  {
 private:
-    b2Body* body;
-
+    bool portal;
 public:
     explicit DiagonalMetalBlock(b2Body* body);
-    float getHorizontalPosition();
-    float getVerticalPosition();
     virtual void handleCollision(Entity* entity) override;
 };
 
