@@ -11,6 +11,10 @@
 #include "Button.h"
 #include "Acid.h"
 #include "EnergyBall.h"
+#include "EnergyTransmitterRight.h"
+#include "EnergyTransmitterLeft.h"
+#include "EnergyTransmitterUp.h"
+#include "EnergyTransmitterDown.h"
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
@@ -44,6 +48,7 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 
     this->timeStamp = std::chrono::system_clock::now();
+    this->cake = nullptr;
 }
 
 b2Body* Stage::addStaticRectangle(float v_side, float h_side,
@@ -125,7 +130,7 @@ void Stage::addDiagonalMetalBlock(size_t side, float x_pos, float y_pos) {
     diagonal_metal_blocks.insert(std::make_pair(coordinates, block));
 }
 
-void Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
+void Stage::addEnergyTransmitterRight(size_t side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -134,8 +139,48 @@ void Stage::addEnergyTransmitter(size_t side, float x_pos, float y_pos) {
 
     b2Body* transmitter_body = addStaticRectangle(side, side, x_pos, y_pos);
 
-    EnergyTransmitter* energy = new EnergyTransmitter(transmitter_body);
-    energy_transmitters.insert({coordinates, energy});
+    EnergyTransmitterRight* energy = new EnergyTransmitterRight(transmitter_body);
+    energy_transmitters_horizontals.insert({coordinates, energy});
+}
+
+void Stage::addEnergyTransmitterLeft(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* transmitter_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    EnergyTransmitterLeft* energy = new EnergyTransmitterLeft(transmitter_body);
+    energy_transmitters_horizontals.insert({coordinates, energy});
+}
+
+void Stage::addEnergyTransmitterUp(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* transmitter_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    EnergyTransmitterUp* energy = new EnergyTransmitterUp(transmitter_body);
+    energy_transmitters_verticals.insert({coordinates, energy});
+}
+
+
+void Stage::addEnergyTransmitterDown(size_t side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* transmitter_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    EnergyTransmitterDown* energy = new EnergyTransmitterDown(transmitter_body);
+    energy_transmitters_verticals.insert({coordinates, energy});
 }
 
 void Stage::addRock(float side, float x_pos, float y_pos) {
@@ -295,6 +340,33 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     orange_shots.insert({coordinates, orangeShot});
 }
 
+void Stage::addGate(float v_side, float h_side, float x_pos, float y_pos,
+             std::unordered_map<std::string, Button*> buttons, std::string logic) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* gate_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Gate* gate = new Gate(gate_body, logic, buttons);
+    gates.insert({coordinates, gate});
+}
+
+void Stage::addCake(float side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* cake_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    this->cake = new Cake(cake_body);
+}
+
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -319,20 +391,10 @@ void Stage::step() {
                 break;
             }
         }
+        if (i->second->hasWon()) {
+        //TODO: Tell client to end game
+        }
         i->second->update();
-    }
-
-    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
-        try {
-            i->second->fly();
-        }
-        catch(...) {
-            world->DestroyBody(i->second->getBody());
-            {
-                energy_balls.erase(i->first);
-                break;
-            }
-        }
     }
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
@@ -355,6 +417,41 @@ void Stage::step() {
             }
         }
         i->second->shoot();
+    }
+
+    for (auto i = energy_transmitters_horizontals.begin(); i != energy_transmitters_horizontals.end(); i++) {
+        Coordinate* energyBallCoordinates = i->second->throwEnergyBall();
+            if (energyBallCoordinates != nullptr) {
+                float x_pos = energyBallCoordinates->getX();
+                float y_pos = energyBallCoordinates->getY();
+                addEnergyBallHorizontal(1, x_pos, y_pos);
+                delete energyBallCoordinates;
+            }
+    }
+
+    for (auto i = energy_transmitters_verticals.begin(); i != energy_transmitters_verticals.end(); i++) {
+        Coordinate* energyBallCoordinates = i->second->throwEnergyBall();
+        if (energyBallCoordinates != nullptr) {
+            float x_pos = energyBallCoordinates->getX();
+            float y_pos = energyBallCoordinates->getY();
+            addEnergyBallVertical(1, x_pos, y_pos);
+            delete energyBallCoordinates;
+        }
+    }
+
+    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
+        if (i->second->isDead()) {
+            world->DestroyBody(i->second->getBody());
+            {
+                energy_balls.erase(i->first);
+                break;
+            }
+        }
+        i->second->fly();
+    }
+
+    for (auto i = gates.begin(); i != gates.end(); i++) {
+        i->second->update();
     }
 
     float timeStep = 1.0f / 60;
@@ -400,8 +497,12 @@ DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
 }
 
 EnergyTransmitter* Stage::getEnergyTransmitter(Coordinate *coordinate) {
-    for (auto i = energy_transmitters.begin() ;
-         i != energy_transmitters.end() ; i++) {
+    for (auto i = energy_transmitters_horizontals.begin() ;
+         i != energy_transmitters_horizontals.end() ; i++) {
+        if (*i->first == *coordinate) return i->second;
+    }
+    for (auto i = energy_transmitters_verticals.begin() ;
+         i != energy_transmitters_verticals.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
     }
     return nullptr;
@@ -449,6 +550,10 @@ EnergyBall* Stage::getEnergyBall(Coordinate* coordinate) {
     return nullptr;
 }
 
+Cake* Stage::getCake() {
+    return cake;
+}
+
 Stage::~Stage() {
     b2Body* body = world->GetBodyList();
     while (body != nullptr) {
@@ -473,8 +578,14 @@ Stage::~Stage() {
         delete i->second;
     }
 
-    for (auto i = energy_transmitters.begin() ;
-         i != energy_transmitters.end() ; i++) {
+    for (auto i = energy_transmitters_horizontals.begin() ;
+         i != energy_transmitters_horizontals.end() ; i++) {
+        delete i->first;
+        delete i->second;
+    }
+
+    for (auto i = energy_transmitters_verticals.begin() ;
+         i != energy_transmitters_verticals.end() ; i++) {
         delete i->first;
         delete i->second;
     }
@@ -510,8 +621,12 @@ Stage::~Stage() {
         delete i->second;
     }
 
-    //if (blue_portal != NULL) delete blue_portal;
-    //if (orange_portal != NULL) delete orange_portal;
+    for (auto i = gates.begin(); i != gates.end(); i++) {
+        delete i->first;
+        delete i->second;
+    }
+
     delete floor;
     delete world;
+    delete cake;
 }

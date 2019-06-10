@@ -25,6 +25,8 @@
 #include "Floor.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
+#include "Gate.h"
+#include "Cake.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -39,12 +41,14 @@ private:
     size_t height;
     b2World* world;
     Floor* floor;
+    Cake* cake;
 
     std::chrono::system_clock::time_point timeStamp;
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
-    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters;
+    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters_horizontals;
+    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters_verticals;
     std::unordered_map<Coordinate*, Rock*> rocks;
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
     std::unordered_map<Coordinate*, Button*> buttons;
@@ -53,6 +57,7 @@ private:
     std::unordered_map<Coordinate*, EnergyBall*> energy_balls;
     std::unordered_map<Coordinate*, BlueShot*> blue_shots;
     std::unordered_map<Coordinate*, OrangeShot*> orange_shots;
+    std::unordered_map<Coordinate*, Gate*> gates;
 
 public:
     Stage(size_t width, size_t height);
@@ -66,7 +71,10 @@ public:
     void addMetalBlock(float side, float x_pos, float y_pos);
     void addDiagonalMetalBlock(size_t side, float x_pos,
             float y_pos);
-    void addEnergyTransmitter(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterRight(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterLeft(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterUp(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterDown(size_t side, float x_pos, float y_pos);
     void addRock(float side, float x_pos, float y_pos);
     void addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
@@ -78,6 +86,9 @@ public:
             Coordinate* target);
     void addOrangeShot(float v_side, float h_side, Chell* chell,
                      Coordinate* target);
+    void addGate(float v_side, float h_side, float x_pos, float y_pos,
+                 std::unordered_map<std::string, Button*> buttons, std::string logic);
+    void addCake(float side, float x_pos, float y_pos);
 
     void step();
 
@@ -93,6 +104,7 @@ public:
     Acid* getAcid(Coordinate* coordinate);
     Chell* getChell(Coordinate* coordinate);
     EnergyBall* getEnergyBall(Coordinate* coordinate);
+    Cake* getCake();
 };
 
 #endif //PORTAL_STAGE_H

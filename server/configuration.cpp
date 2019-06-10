@@ -7,14 +7,16 @@
 
 
 struct box2DConfiguration gameConfiguration = {
-        .chellForce = 275,
-        .death = 1200,
+        .chellForce = 500,
         .deltaError = 0.01,
-        .energyBallImpulseFactor = 10,
+        .energyBallImpulseFactor = 7,
         .chellInitialVelocity = 5.5,
         .gravityJump = -6,
         .gravity = -10,
         .rockForce = 50,
         .elevationForce = 100,
-        .rockFriction = 4000
+        .rockFriction = 4000,
+        .deathTimeEnergyBall = 10000,
+        .delayEnergyTransmitter = 3000,
+        .offsetEnergyTransmitter = 2,
 };
