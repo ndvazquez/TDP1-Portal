@@ -262,103 +262,79 @@ public:
  void runTest() { suite_ChellDiesTest.testChellDiesAgainstEnergyBall(); }
 } testDescription_suite_ChellDiesTest_testChellDiesAgainstEnergyBall;
 
-static class TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 798, "testChellDiesWhenARockFallsOnHer" ) {}
- void runTest() { suite_ChellDiesTest.testChellDiesWhenARockFallsOnHer(); }
-} testDescription_suite_ChellDiesTest_testChellDiesWhenARockFallsOnHer;
-
-static class TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock() : CxxTest::RealTestDescription( Tests_ChellDiesTest, suiteDescription_ChellDiesTest, 818, "testChellDoesntDieWhenSheHitsARock" ) {}
- void runTest() { suite_ChellDiesTest.testChellDoesntDieWhenSheHitsARock(); }
-} testDescription_suite_ChellDiesTest_testChellDoesntDieWhenSheHitsARock;
-
 static ShootingTest suite_ShootingTest;
 
 static CxxTest::List Tests_ShootingTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_ShootingTest( "MyTestSuite.h", 835, "ShootingTest", suite_ShootingTest, Tests_ShootingTest );
+CxxTest::StaticSuiteDescription suiteDescription_ShootingTest( "MyTestSuite.h", 799, "ShootingTest", suite_ShootingTest, Tests_ShootingTest );
 
 static class TestDescription_suite_ShootingTest_testBlueTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 845, "testBlueTrayectoryShooting" ) {}
+ TestDescription_suite_ShootingTest_testBlueTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 809, "testBlueTrayectoryShooting" ) {}
  void runTest() { suite_ShootingTest.testBlueTrayectoryShooting(); }
 } testDescription_suite_ShootingTest_testBlueTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 868, "testOrangeTrayectoryShooting" ) {}
+ TestDescription_suite_ShootingTest_testOrangeTrayectoryShooting() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 832, "testOrangeTrayectoryShooting" ) {}
  void runTest() { suite_ShootingTest.testOrangeTrayectoryShooting(); }
 } testDescription_suite_ShootingTest_testOrangeTrayectoryShooting;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 891, "testTrayectoryBlueShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 855, "testTrayectoryBlueShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryBlueShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryBlueShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 916, "testTrayectoryOrangeShootingBackwards" ) {}
+ TestDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 880, "testTrayectoryOrangeShootingBackwards" ) {}
  void runTest() { suite_ShootingTest.testTrayectoryOrangeShootingBackwards(); }
 } testDescription_suite_ShootingTest_testTrayectoryOrangeShootingBackwards;
 
 static class TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 941, "testOrangeShotCollidesWithMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 905, "testOrangeShotCollidesWithMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testOrangeShotCollidesWithMetalBlock(); }
 } testDescription_suite_ShootingTest_testOrangeShotCollidesWithMetalBlock;
 
 static class TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 974, "testBlueShotCollidesAgainstMetalBlock" ) {}
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 938, "testBlueShotCollidesAgainstMetalBlock" ) {}
  void runTest() { suite_ShootingTest.testBlueShotCollidesAgainstMetalBlock(); }
 } testDescription_suite_ShootingTest_testBlueShotCollidesAgainstMetalBlock;
 
 static class TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 1006, "testBlueShotCollidesAndDies" ) {}
+ TestDescription_suite_ShootingTest_testBlueShotCollidesAndDies() : CxxTest::RealTestDescription( Tests_ShootingTest, suiteDescription_ShootingTest, 970, "testBlueShotCollidesAndDies" ) {}
  void runTest() { suite_ShootingTest.testBlueShotCollidesAndDies(); }
 } testDescription_suite_ShootingTest_testBlueShotCollidesAndDies;
 
 static PortalTest suite_PortalTest;
 
 static CxxTest::List Tests_PortalTest = { 0, 0 };
-CxxTest::StaticSuiteDescription suiteDescription_PortalTest( "MyTestSuite.h", 1037, "PortalTest", suite_PortalTest, Tests_PortalTest );
-
-static class TestDescription_suite_PortalTest_testChellTeleportsCorrectly : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_PortalTest_testChellTeleportsCorrectly() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1046, "testChellTeleportsCorrectly" ) {}
- void runTest() { suite_PortalTest.testChellTeleportsCorrectly(); }
-} testDescription_suite_PortalTest_testChellTeleportsCorrectly;
-
-static class TestDescription_suite_PortalTest_testChellDoesntTeleport : public CxxTest::RealTestDescription {
-public:
- TestDescription_suite_PortalTest_testChellDoesntTeleport() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1061, "testChellDoesntTeleport" ) {}
- void runTest() { suite_PortalTest.testChellDoesntTeleport(); }
-} testDescription_suite_PortalTest_testChellDoesntTeleport;
+CxxTest::StaticSuiteDescription suiteDescription_PortalTest( "MyTestSuite.h", 1001, "PortalTest", suite_PortalTest, Tests_PortalTest );
 
 static class TestDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1075, "testMetalBlocksInInitDoesntHavePortal" ) {}
+ TestDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1011, "testMetalBlocksInInitDoesntHavePortal" ) {}
  void runTest() { suite_PortalTest.testMetalBlocksInInitDoesntHavePortal(); }
 } testDescription_suite_PortalTest_testMetalBlocksInInitDoesntHavePortal;
 
 static class TestDescription_suite_PortalTest_testChellCreatesTwoPortals : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_PortalTest_testChellCreatesTwoPortals() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1096, "testChellCreatesTwoPortals" ) {}
+ TestDescription_suite_PortalTest_testChellCreatesTwoPortals() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1032, "testChellCreatesTwoPortals" ) {}
  void runTest() { suite_PortalTest.testChellCreatesTwoPortals(); }
 } testDescription_suite_PortalTest_testChellCreatesTwoPortals;
 
 static class TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1134, "testChellTeleportsWhenHittingAPortal" ) {}
+ TestDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1070, "testChellTeleportsWhenHittingAPortal" ) {}
  void runTest() { suite_PortalTest.testChellTeleportsWhenHittingAPortal(); }
 } testDescription_suite_PortalTest_testChellTeleportsWhenHittingAPortal;
 
 static class TestDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting : public CxxTest::RealTestDescription {
 public:
- TestDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1179, "testChellCreatesOtherPortalWhenHitting" ) {}
+ TestDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting() : CxxTest::RealTestDescription( Tests_PortalTest, suiteDescription_PortalTest, 1115, "testChellCreatesOtherPortalWhenHitting" ) {}
  void runTest() { suite_PortalTest.testChellCreatesOtherPortalWhenHitting(); }
 } testDescription_suite_PortalTest_testChellCreatesOtherPortalWhenHitting;
 
