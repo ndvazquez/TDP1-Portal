@@ -81,7 +81,11 @@ set(SERVER_SOURCE_FILES
         server/BlueShot.cpp
         server/OrangeShot.cpp
         server/Shot.cpp
-        server/Portal.cpp)
+        server/Portal.cpp
+        server/EnergyTransmitterUp.cpp
+        server/EnergyTransmitterDown.cpp
+        server/EnergyTransmitterLeft.cpp
+        server/EnergyTransmitterRight.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

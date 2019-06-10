@@ -331,13 +331,14 @@ void drawChellAndEnergyBall(){
     Chell* chell = stage.getChell(coordinate);
 
     // Stage EnergyBall
-    int xBall = 10;
+    int xBall = 4;
     int yBall = 2;
-    EnergyBallView energyBallView(newWindow, xBall - 4, yBall, MTP_FACTOR, textures);
+    float offset = gameConfiguration.offsetEnergyTransmitter;
+    EnergyBallView energyBallView(newWindow, xBall, yBall + offset, MTP_FACTOR, textures);
     float energyBallSide = 1;
-    stage.addEnergyTransmitter(energyBallSide, xBall, yBall);
+    stage.addEnergyTransmitterUp(energyBallSide, xBall, yBall);
 
-    Coordinate* coordinateEB = new Coordinate(xBall - 4, yBall);
+    Coordinate* coordinateEB = new Coordinate(xBall, yBall + offset);
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);

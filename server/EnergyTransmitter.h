@@ -9,7 +9,7 @@
 #include "EnergyBall.h"
 
 class EnergyTransmitter {
-private:
+protected:
     b2Body* body;
     std::chrono::system_clock::time_point timeStamp;
 
@@ -17,7 +17,8 @@ public:
     explicit EnergyTransmitter(b2Body* body);
     float getHorizontalPosition();
     float getVerticalPosition();
-    bool throwEnergyBall();
+    bool isTimeToThrow();
+    virtual Coordinate* throwEnergyBall() = 0;
 };
 
 #endif //PORTAL_ENERGYTRANSMITTER_H
