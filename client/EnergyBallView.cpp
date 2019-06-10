@@ -11,7 +11,7 @@
 
 EnergyBallView::EnergyBallView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :
-        View(window, xPos, yPos, factor, ENERGY_BALL_WIDTH, ENERGY_BALL_HEIGHT) {
+        View(window, xPos, yPos, factor, ENERGY_BALL_WIDTH, ENERGY_BALL_HEIGHT){
     YAML::Node animationData = texturesData[TEXTURES_EB_KEY];
     std::string path = animationData["path"].as<std::string>();
     int totalFrames = animationData["frames"].as<int>();
@@ -27,3 +27,5 @@ void EnergyBallView::playAnimation(const SDL_Rect& camera) {
     animation->draw(viewPosX - camera.x, viewPosY - camera.y);
     animation->updateFrameStep();
 }
+
+void EnergyBallView::setState(int state) {}

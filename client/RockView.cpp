@@ -23,3 +23,6 @@ void RockView::playAnimation(const SDL_Rect& camera) {
     sprite->draw(&destRect);
 
 }
+
+void RockView::setState(int state) {
+}

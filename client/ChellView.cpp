@@ -72,19 +72,9 @@ void ChellView::playAnimation(const SDL_Rect& camera) {
     animation->updateFrameStep();
 }
 
-void ChellView::setState(State state) {
+void ChellView::setState(int state) {
     previousState = currentState;
     currentState = state;
-}
-
-int ChellView::getCenterPosX() {
-    int centerPosX = viewPosX + viewWidthInMeters * mtpFactor / 2;
-    return centerPosX;
-}
-
-int ChellView::getCenterPosY() {
-    int centerPosY = viewPosY + viewHeightInMeters * mtpFactor / 2;
-    return centerPosY;
 }
 
 bool ChellView::updateRunTimer() {

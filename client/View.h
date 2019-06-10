@@ -28,7 +28,10 @@ public:
     void move(float newPosX, float newPosY, int levelHeight);
     int getViewPositionX();
     int getViewPositionY();
+    int getCenterPosX();
+    int getCenterPosY();
     bool checkCollisionWithCamera(const SDL_Rect& camera);
+    virtual void setState(int state) = 0;
 };
 
 

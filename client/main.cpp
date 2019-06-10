@@ -22,6 +22,9 @@
 #include "PortalView.h"
 #include "Camera.h"
 #include "AudioSystem.h"
+#include "ViewFactory.h"
+#include "../json/json.hpp"
+#include "ViewManager.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -30,6 +33,7 @@
 
 void drawChell(){
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    ViewFactory viewFactory(MTP_FACTOR);
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     // Cool space background.
@@ -104,7 +108,6 @@ void drawChell(){
 
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 12, metalBlockPosY + 2);
     Rock* rock = stage.getRock(coordinateRock);
-    RockView rockView(newWindow, metalBlockPosX + 12, metalBlockPosY + 2, MTP_FACTOR, textures);
 
     //Shot in Chell
     float shotWidth = 1;
@@ -122,16 +125,17 @@ void drawChell(){
     float y_origin_orange = yPos + 1;
     OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_origin_orange, y_origin_orange));
 
-
-    BulletView blueShotView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
-    BulletView orangeShotView(newWindow, x_origin_orange, y_origin_orange, MTP_FACTOR, textures);
-
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
 
+    View* blueShotView = viewFactory.createView(BULLET_VIEW_CODE, newWindow, soundQueue);
+    View* orangeShotView = viewFactory.createView(BULLET_VIEW_CODE, newWindow, soundQueue);
+    View* rockView = viewFactory.createView(ROCK_VIEW_CODE, newWindow, soundQueue);
+
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
+    //ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
+    View* chellView = viewFactory.createView(CHELL_VIEW_CODE, newWindow, soundQueue);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
     audioSystem.playMusic(BG_SONG_GAME);
@@ -161,14 +165,14 @@ void drawChell(){
 
         stage.step();
 
-        chellView.setState(chell->getState());
+        chellView->setState(chell->getState());
         float newPosX = chell->getHorizontalPosition();
         float newPosY = chell->getVerticalPosition();
         // We move the animated sprite for Chell.
-        chellView.move(newPosX, newPosY, levelHeight);
+        chellView->move(newPosX, newPosY, levelHeight);
         // Gotta update the camera now to center it around Chell.
-        int chellCenterPositionX = chellView.getCenterPosX();
-        int chellCenterPositionY = chellView.getCenterPosY();
+        int chellCenterPositionX = chellView->getCenterPosX();
+        int chellCenterPositionY = chellView->getCenterPosY();
         camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
@@ -176,37 +180,37 @@ void drawChell(){
         if (! blueShot->isDead()) {
             float blueShotX = blueShot->getHorizontalPosition();
             float blueShotY = blueShot->getVerticalPosition();
-            blueShotView.move(blueShotX, blueShotY, levelHeight);
+            blueShotView->move(blueShotX, blueShotY, levelHeight);
         }
 
 
         if (! orangeShot->isDead()) {
             float orangeShotX = orangeShot->getHorizontalPosition();
             float orangeShotY = orangeShot->getVerticalPosition();
-            orangeShotView.move(orangeShotX, orangeShotY, levelHeight);
+            orangeShotView->move(orangeShotX, orangeShotY, levelHeight);
         }
 
         // Get current Rock position and move it.
         float newRockPosX = rock->getHorizontalPosition();
         float newRockPosY = rock->getVerticalPosition();
 
-        rockView.move(newRockPosX, newRockPosY, levelHeight);
+        rockView->move(newRockPosX, newRockPosY, levelHeight);
 
-        SDL_Rect rockRect = {rockView.getViewPositionX() - cameraRect.x, rockView.getViewPositionY() - cameraRect.y,
+        SDL_Rect rockRect = {rockView->getViewPositionX() - cameraRect.x, rockView->getViewPositionY() - cameraRect.y,
                              int(rockSide * MTP_FACTOR), int(rockSide * MTP_FACTOR)};
 
-        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
-                                chellView.getViewPositionY() - cameraRect.y,
+        SDL_Rect outlineRect = {chellView->getViewPositionX() - cameraRect.x,
+                                chellView->getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
                                 int(chellHeight * MTP_FACTOR)};
         SDL_Rect* bgRect = NULL;
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
-        rockView.playAnimation(cameraRect);
-        chellView.playAnimation(cameraRect);
-        if (!blueShot->isDead())blueShotView.playAnimation(cameraRect);
-        if (!orangeShot->isDead()) orangeShotView.playAnimation(cameraRect);
+        rockView->playAnimation(cameraRect);
+        chellView->playAnimation(cameraRect);
+        if (!blueShot->isDead()) blueShotView->playAnimation(cameraRect);
+        if (!orangeShot->isDead()) orangeShotView->playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(rockRect);
@@ -220,6 +224,9 @@ void drawChell(){
     delete coordinate;
     delete target_blue;
     delete target_orange;
+    delete chellView;
+    delete blueShotView;
+    delete orangeShotView;
 }
 
 void drawChellAndRock(){
@@ -504,10 +511,71 @@ void drawChellAndAcidPool(){
     delete coordinate;
 }
 
+void jsonTest() {
+    // Initial json sent by the server with information about the entities.
+    // We'll need an additional one to populate StageView too.
+    nlohmann::json mapData = {
+            {
+                "Chell1",
+                {
+                    {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", 4} ,{"y", 1}
+                }
+            },
+            {
+                "Rock1",
+                {
+                    {"type", ROCK_VIEW_CODE}, {"x", 8}, {"y", 1}
+                }
+            }
+    };
+    // This is what an update JSON looks like, sent from the server to the clients.
+    nlohmann::json stageUpdateRequest = {
+            {
+                    "Chell1",
+                    {
+                        {"state", 0}, {"x", 4} ,{"y", 1}
+                    }
+            },
+            {
+                    "Rock1",
+                    {
+                            {"state", 0}, {"x", 8}, {"y", 1}
+                    }
+            }
+    };
+
+    SoundCodeQueue soundQueue;
+    AudioSystem audioSystem(soundQueue);
+    std::string title = "Portal";
+    std::string playerID = "Chell1";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    int levelWidth = 1000;
+    int levelHeight = 1000;
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
+    ViewManager viewManager(newWindow, levelHeight, MTP_FACTOR, playerID, mapData, soundQueue);
+
+
+    bool quit = false;
+    SDL_Event e;
+    
+    audioSystem.playMusic(BG_SONG_GAME);
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        newWindow.clear();
+        viewManager.showAndUpdateViews(stageUpdateRequest, camera);
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChell();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
+    jsonTest();
 }

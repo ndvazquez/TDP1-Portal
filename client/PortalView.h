@@ -27,8 +27,7 @@ public:
     PortalView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~PortalView();
     void playAnimation(const SDL_Rect& camera);
-    void changePortalColor();
-    void setPortalOrientation(int orientationCode);
+    void setState(int state);
 };
 
 

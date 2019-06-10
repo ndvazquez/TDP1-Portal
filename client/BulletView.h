@@ -17,12 +17,11 @@
 
 class BulletView : public View {
     AnimatedSprite* animation;
-    double bulletAngle;
 public:
     BulletView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~BulletView();
     void playAnimation(const SDL_Rect& camera);
-    void setAngle(double angle);
+    void setState(int state);
 };
 
 #endif //PORTAL_BULLETVIEW_H
