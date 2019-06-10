@@ -23,6 +23,8 @@
 #include "Camera.h"
 #include "AudioSystem.h"
 #include "ViewFactory.h"
+#include "../json/json.hpp"
+#include "ViewManager.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -496,10 +498,71 @@ void drawChellAndAcidPool(){
     delete coordinate;
 }
 
+void jsonTest() {
+    // Initial json sent by the server with information about the entities.
+    // We'll need an additional one to populate StageView too.
+    nlohmann::json mapData = {
+            {
+                "Chell1",
+                {
+                    {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", 4} ,{"y", 1}
+                }
+            },
+            {
+                "Rock1",
+                {
+                    {"type", ROCK_VIEW_CODE}, {"x", 8}, {"y", 1}
+                }
+            }
+    };
+    // This is what an update JSON looks like, sent from the server to the clients.
+    nlohmann::json stageUpdateRequest = {
+            {
+                    "Chell1",
+                    {
+                        {"state", 0}, {"x", 4} ,{"y", 1}
+                    }
+            },
+            {
+                    "Rock1",
+                    {
+                            {"state", 0}, {"x", 8}, {"y", 1}
+                    }
+            }
+    };
+
+    SoundCodeQueue soundQueue;
+    AudioSystem audioSystem(soundQueue);
+    std::string title = "Portal";
+    std::string playerID = "Chell1";
+    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    int levelWidth = 1000;
+    int levelHeight = 1000;
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
+    ViewManager viewManager(newWindow, levelHeight, MTP_FACTOR, playerID, mapData, soundQueue);
+
+
+    bool quit = false;
+    SDL_Event e;
+    
+    audioSystem.playMusic(BG_SONG_GAME);
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+        }
+        newWindow.clear();
+        viewManager.showAndUpdateViews(stageUpdateRequest, camera);
+        newWindow.render();
+    }
+}
+
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChell();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
+    jsonTest();
 }
