@@ -7,8 +7,6 @@
 #include <SDL2/SDL_messagebox.h>
 #include "SwsContext.h"
 
-#define BUFFER_WIDTH window.getWindowWidth()
-#define BUFFER_HEIGHT window.getWindowHeight()
 
 /// first you need to Initialize libavformat and register all the muxers, demuxers and
 /// protocols with av_register_all();

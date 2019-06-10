@@ -13,7 +13,7 @@
 #include "MenuButton.h"
 #include "MouseButton.h"
 
-#define WIDTH_PROPORTION 10
+#define HEIGHT_PROPORTION 10
 
 
 class Menu {

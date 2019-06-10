@@ -9,16 +9,19 @@
 
 
 #define TEXTURE_CONFIG_FILE "editor/textures-info.yaml"
-#define Y 0
-#define H this->window.getWindowHeight()
-#define TOTAL_X this->window.getWindowWidth()
-#define X (TOTAL_X)/this->xPortion
-#define W (TOTAL_X) - (X)
+
+#define Y_END this->window.getWindowHeight() - this->window.getWindowHeight()/this->yPortion
+#define Y_START 0
+#define X_START 0
+#define X_END this->window.getWindowWidth()
+#define H (Y_END) - (Y_START)
+#define W (X_END) - (X_START)
+
 #define MATRIX_TO_PIXEL_FACTOR 50
 #define X_PIXEL(event) ((event).getX())
 #define Y_PIXEL(event) ((event).getY())
-#define X_PIXEL_TO_MATRIX_POSITION(xPixel) (((xPixel)  - X)/MATRIX_TO_PIXEL_FACTOR)
-#define Y_PIXEL_TO_MATRIX_POSITION(yPixel) ((yPixel)/MATRIX_TO_PIXEL_FACTOR)
+#define X_PIXEL_TO_MATRIX_POSITION(xPixel) (((xPixel)  - X_START)/MATRIX_TO_PIXEL_FACTOR)
+#define Y_PIXEL_TO_MATRIX_POSITION(yPixel) (((yPixel) - Y_START)/MATRIX_TO_PIXEL_FACTOR)
 
 
 void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
@@ -28,10 +31,10 @@ void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
     rect->h = h;
 }
 
-Stage::Stage(Window& window, std::string& current, int xPortion):
+Stage::Stage(Window& window, std::string& current, int yPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
     controller(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
-    xPortion(xPortion) {
+    yPortion(yPortion) {
     this->me = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
     this->setSize();
     this->camera = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
@@ -39,7 +42,7 @@ Stage::Stage(Window& window, std::string& current, int xPortion):
 }
 
 void Stage::setSize() {
-    setSDL_Rect(this->me, X, Y, W, H);
+    setSDL_Rect(this->me, X_START, Y_START, W, H);
 }
 
 Stage::~Stage() {
@@ -51,7 +54,7 @@ Stage::~Stage() {
 void Stage::draw() {
     Sprite bgSprite("resources/editor-stage-bg.png", window);
     bgSprite.draw(this->me);
-    controller.draw(this->camera , X);
+    controller.draw(this->camera , Y_START);
 }
 
 void Stage::handleMouseButtonDown(MouseButton& event) {

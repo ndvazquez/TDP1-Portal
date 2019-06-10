@@ -19,7 +19,7 @@ private:
     YAML::Node textures;
     Controller controller;
     std::string& current;
-    int xPortion;
+    int yPortion;
     struct SDL_Rect* me;
     struct SDL_Rect* camera;
     std::map<std::string, bool> gravity;
@@ -27,7 +27,7 @@ private:
     //for now is hard
 
 public:
-    explicit Stage(Window& window, std::string& current, int xPortion);
+    explicit Stage(Window& window, std::string& current, int yPortion);
 
     //Stage(uint8_t& current)//, uint32_t xStart);
     ~Stage();

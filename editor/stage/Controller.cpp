@@ -137,8 +137,8 @@ stageView(window, factor, textures, tiles) {
     }
 }
 
-void Controller::draw(SDL_Rect* camera, int xStart) {
-    stageView.draw(camera, xStart);
+void Controller::draw(SDL_Rect* camera, int yStart) {
+    stageView.draw(camera, yStart);
 }
 
 void Controller::addTile(int x, int y, std::string& tileName) {

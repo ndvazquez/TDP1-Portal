@@ -25,10 +25,11 @@ struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
 
 void Menu::set() {
     //this->current = current;
+    int window_h = window.getWindowHeight();
+    int yStart = (window_h - window_h/HEIGHT_PROPORTION);
+    this->me = createSDL_Rect(0, yStart, window.getWindowWidth(), window_h);
 
-    this->me = createSDL_Rect(0, 0, (window.getWindowWidth()/WIDTH_PROPORTION), window.getWindowHeight());
-
-    int yPortions = 0;
+    int options_space = 0;
     YAML::Node texturesInfo = YAML::LoadFile(MENU_TEXTURES);
     const YAML::Node& staticObjects = texturesInfo[MENU_TEXTURES_KEY];
 
@@ -42,24 +43,24 @@ void Menu::set() {
         struct SDL_Rect* rect = createSDL_Rect(0,0, x, y);
         MenuButton* mb = new MenuButton(rect, name, path);
         this->options.push_back(mb);
-        yPortions += y;
+        options_space += x;
     }
 
 
     // Set the rectangles
-    int totalY = window.getWindowHeight() / yPortions;
-    int spaceBetweenY = totalY/6;
+    int totalX = window.getWindowWidth() / options_space;
+    int spaceBetweenX = totalX/6;
 
-    int w = totalY - spaceBetweenY;
-    int spaceBetweenX = (window.getWindowWidth()/WIDTH_PROPORTION) - w;
+    int h = totalX - spaceBetweenX;
+    int spaceBetweenY = (window.getWindowHeight()/HEIGHT_PROPORTION) - h;
 
     auto optionsIt = options.begin();
     int acum = 0;
     int i = 0;
     for (; optionsIt != options.end(); optionsIt++) {
         MenuButton* option = *optionsIt;
-        acum += option->setRectangle(spaceBetweenX/2, spaceBetweenY + acum, w, w);
-        acum += spaceBetweenY;
+        acum += option->setRectangle(spaceBetweenX + acum, yStart + spaceBetweenY/2, h, h);
+        acum += spaceBetweenX;
         i++;
     }
 

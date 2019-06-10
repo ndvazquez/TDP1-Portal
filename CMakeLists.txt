@@ -61,6 +61,7 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Gate.cpp
         editor/MouseButton.cpp
         editor/stage/object/Cake.cpp
+
         ffmpeg/CodecContext.cpp
         ffmpeg/FormatOutput.cpp
         ffmpeg/FormatContext.cpp
@@ -111,7 +112,7 @@ add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
 target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TG::Box2D)
-target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
+target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}  avformat avcodec avutil swscale)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
 target_link_libraries(Server TG::Box2D)
