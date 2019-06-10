@@ -36,11 +36,8 @@ void PortalView::playAnimation(const SDL_Rect &camera) {
             viewPosY - camera.y -rotationOffset, angle);
 }
 
-void PortalView::changePortalColor() {
-    currentSprite = currentSprite == PORTAL_BLUE ? PORTAL_ORANGE : PORTAL_BLUE;
-}
 
-void PortalView::setPortalOrientation(int orientationCode) {
-    if (orientationCode == PORTAL_VERTICAL) angle = 0;
-    if (orientationCode == PORTAL_HORIZONTAL) angle = PORTAL_ROTATION_ANGLE;
+void PortalView::setState(int state) {
+    if (state == PORTAL_VERTICAL) angle = 0;
+    if (state == PORTAL_HORIZONTAL) angle = PORTAL_ROTATION_ANGLE;
 }

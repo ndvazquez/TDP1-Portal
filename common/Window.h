@@ -48,6 +48,7 @@ public:
     void drawRectangle(SDL_Rect& outlineRect);
     int getWindowWidth();
     int getWindowHeight();
+    SDL_Renderer* getRenderer();
 };
 
 #endif //PORTAL_WINDOW_H

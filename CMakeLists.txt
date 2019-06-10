@@ -33,7 +33,9 @@ set(CLIENT_SOURCE_FILES
         client/PortalView.cpp
         client/Camera.cpp
         client/AudioSystem.cpp
-        client/SoundCodeQueue.cpp)
+        client/SoundCodeQueue.cpp
+        client/ViewFactory.cpp
+        client/ViewManager.cpp)
 
 #EDITOR CONFIG
 
@@ -59,6 +61,13 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Gate.cpp
         editor/MouseButton.cpp
         editor/stage/object/Cake.cpp
+        ffmpeg/CodecContext.cpp
+        ffmpeg/FormatOutput.cpp
+        ffmpeg/FormatContext.cpp
+        ffmpeg/Frame.cpp
+        ffmpeg/Output.cpp
+        ffmpeg/Packet.cpp
+        ffmpeg/SwsContext.cpp
         )
 
 set(SERVER_SOURCE_FILES
