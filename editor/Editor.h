@@ -2,8 +2,8 @@
 // Created by camix on 15/05/19.
 //
 
-#ifndef TDP1_PORTAL_EDITO_H
-#define TDP1_PORTAL_EDITO_H
+#ifndef TDP1_PORTAL_EDITOR_H
+#define TDP1_PORTAL_EDITOR_H
 
 #include <SDL.h>
 #include <SDL_image.h>
