@@ -63,3 +63,7 @@ int Window::getWindowWidth() {
 int Window::getWindowHeight() {
     return windowHeight;
 }
+
+SDL_Renderer *Window::getRenderer() {
+    return renderer;
+}

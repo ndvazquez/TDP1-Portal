@@ -12,7 +12,7 @@
 #include <vector>
 #include "FormatContext.h"
 #include "Output.h"
-#include "SdlWindow.h"
+#include "../common/Window.h"
 
 extern "C" {
 #include <libavformat/avformat.h>
@@ -42,14 +42,18 @@ class SwsContext {
 private:
     FormatContext context;
     Output videoOutput;
+    int width;
+    int height;
     // You need it to perform scaling/conversion operations using.
     SwsContext* ctx;
     std::vector<char> dataBuffer;
+    Window& window;
+
 
 public:
-    explicit SwsContext(std::string filename);
+    explicit SwsContext(std::string filename, Window& window);
     ~SwsContext();
-    void write(SdlWindow& window);
+    void write();
 };
 
 
