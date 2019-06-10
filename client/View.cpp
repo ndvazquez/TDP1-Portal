@@ -37,3 +37,13 @@ bool View::checkCollisionWithCamera(const SDL_Rect &camera) {
     bool result = SDL_HasIntersection(&collisionBox, &camera);
     return result;
 }
+
+int View::getCenterPosX() {
+    int centerPosX = viewPosX + viewWidthInMeters * mtpFactor / 2;
+    return centerPosX;
+}
+
+int View::getCenterPosY() {
+    int centerPosY = viewPosY + viewHeightInMeters * mtpFactor / 2;
+    return centerPosY;
+}

@@ -30,9 +30,9 @@ Bullet: {path: resources/Bullet/bullet.png, frames: 3}
 Rock: {path: resources/rocks/1.png}
 
 Button:
-  - name: On
+  - name: 1
     path: resources/button/on.png
-  - name: Off
+  - name: 0
     path: resources/button/off.png
 
 StaticObjects:

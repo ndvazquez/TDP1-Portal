@@ -22,3 +22,5 @@ void AcidView::playAnimation(const SDL_Rect &camera) {
     animation->draw(viewPosX - camera.x, viewPosY - camera.y);
     animation->updateFrameStep();
 }
+
+void AcidView::setState(int state) {}

@@ -11,13 +11,12 @@ ButtonView::ButtonView(Window &window, int xPos, int yPos, int factor,
     for (YAML::const_iterator it = spritesData.begin();
          it != spritesData.end(); ++it) {
         YAML::Node node = *it;
-        std::string name = node["name"].as<std::string>();
+        int buttonState = node["name"].as<int>();
         std::string path = node["path"].as<std::string>();
         Sprite *newSprite = new Sprite(path, window);
-        // This is wrong, we should use a set Width and Height.
-        sprites[name] = newSprite;
+        sprites[buttonState] = newSprite;
     }
-    currentSprite = BUTTON_STATE_OFF;
+    buttonState = BUTTON_STATE_OFF;
 
 }
 
@@ -27,13 +26,13 @@ ButtonView::~ButtonView() {
     }
 }
 
-void ButtonView::changeButtonState() {
-    currentSprite = currentSprite == BUTTON_STATE_OFF ? BUTTON_STATE_ON : BUTTON_STATE_OFF;
+void ButtonView::setState(int state) {
+    buttonState = state;
 }
 
 void ButtonView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
-    Sprite* sprite = sprites[currentSprite];
+    Sprite* sprite = sprites[buttonState];
     // We'll resize the button sprite to make it fit over two blocks.
     SDL_Rect destRect = {viewPosX - camera.x, viewPosY - camera.y, mtpFactor * 2, mtpFactor / 2};
     sprite->draw(&destRect);

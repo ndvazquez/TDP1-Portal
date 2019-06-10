@@ -13,17 +13,17 @@
 #include "../common/constants.h"
 
 #define TEXTURES_BUTTON_KEY "Button"
-#define BUTTON_STATE_ON "On"
-#define BUTTON_STATE_OFF "Off"
+#define BUTTON_STATE_ON 1
+#define BUTTON_STATE_OFF 0
 
 class ButtonView : public View{
-    std::string currentSprite;
-    std::unordered_map<std::string, Sprite*> sprites;
+    int buttonState;
+    std::unordered_map<int, Sprite*> sprites;
 public:
     ButtonView(Window& window, int xPos, int yPos, int factor, YAML::Node texturesData);
     ~ButtonView();
     // This will probably receive a state when the button logic is implemented server side.
-    void changeButtonState();
+    void setState(int state);
     void playAnimation(const SDL_Rect& camera);
 };
 
