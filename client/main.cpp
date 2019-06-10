@@ -300,29 +300,115 @@ void drawChellAndEnergyBall(){
     std::string title = "Portal";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    // Box2D Stuff.
-    int stageWidth = 10;
-    int stageHeight = 6;
+    // Cool space background.
+    std::string bgPath = "resources/Backgrounds/NebulaRed.png";
+    Sprite background(bgPath, newWindow);
+    std::string metalBlock = "MetalBlock";
+
+    // We'll setup a very basic map, 10x6 blocks.
+    int stageWidth = 40;
+    int stageHeight = 20;
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
-    Stage stage(stageWidth, stageHeight);
-    // Stage Chell
+    Stage stage(stageWidth, stageHeight); // 1m == 1 block == 100px
+    StageView stageView(newWindow, textures, MTP_FACTOR);
+    float metalBlockPosX = 0;
+    float metalBlockPosY = 0;
+    float metalSide = 2;
+    for (int i = 0; i < 40; i += 2){
+        stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
+        stageView.addTile(metalBlockPosX+i, metalBlockPosY * -1 + stageHeight, metalBlock);
+    }
+
+    // Box2D Chell and stuff.
     float xPos = 1;
-    float yPos = 1;
-    float chellHeight = 2;
-    float chellWidth = 1;
+    float yPos = 2;
+    float chellHeight = CHELL_HEIGHT;
+    float chellWidth = CHELL_WIDTH;
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
+
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
-    // Stage EnergyBall
-    int xBall = 8;
-    int yBall = 1;
-    EnergyBallView energyBallView(newWindow, xBall, yBall, MTP_FACTOR, textures);
-    float energyBallSide = 1;
-    stage.addEnergyBallHorizontal(energyBallSide, xBall, yBall);
-    Coordinate* coordinateEB = new Coordinate(xBall, yBall);
-    EnergyBall* energyBall = stage.getEnergyBall(coordinateEB);
 
+    // Stage EnergyBall
+    int xBall = 10;
+    int yBall = 2;
+    EnergyBallView energyBallView(newWindow, xBall - 4, yBall, MTP_FACTOR, textures);
+    float energyBallSide = 1;
+    stage.addEnergyTransmitter(energyBallSide, xBall, yBall);
+
+    Coordinate* coordinateEB = new Coordinate(xBall - 4, yBall);
+
+    // ChellView and camera.
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
+
+    bool quit = false;
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
+    SDL_Event e;
+
+    while(!quit) {
+        while (SDL_PollEvent(&e) != 0) {
+            if (e.type == SDL_QUIT) {
+                quit = true;
+            }
+            // This should be done server side, but we'll do the event handling here for now.
+            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+            }
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            // This might become an issue when we actually implement a jump animation.
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
+        }
+
+        stage.step();
+
+        EnergyBall* energyBall = stage.getEnergyBall(coordinateEB);
+        if (energyBall != nullptr) {
+            // Update EnergyBall position.
+            float newEBPosX = energyBall->getHorizontalPosition();
+            float newEBPosY = energyBall->getVerticalPosition();
+            energyBallView.move(newEBPosX, newEBPosY, levelHeight);
+        }
+
+
+        chellView.setState(chell->getState());
+        float newPosX = chell->getHorizontalPosition();
+        float newPosY = chell->getVerticalPosition();
+
+        // We move the animated sprite for Chell.
+        chellView.move(newPosX, newPosY, levelHeight);
+        // Gotta update the camera now to center it around Chell.
+        int chellCenterPositionX = chellView.getCenterPosX();
+        int chellCenterPositionY = chellView.getCenterPosY();
+        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        const SDL_Rect& cameraRect = camera.getCameraRectangle();
+
+        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
+                                chellView.getViewPositionY() - cameraRect.y,
+                                int(chellWidth * MTP_FACTOR),
+                                int(chellHeight * MTP_FACTOR)};
+        SDL_Rect* bgRect = NULL;
+        newWindow.clear();
+        background.draw(bgRect);
+        stageView.draw(cameraRect);
+        if (! chell->isDead()) {
+            chellView.playAnimation(cameraRect);
+        }
+        if (energyBall != nullptr) {
+            if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
+        }
+        //Debug rectangle to see Chell's collision box.
+        newWindow.drawRectangle(outlineRect);
+        newWindow.render();
+    }
+    delete coordinate;
+
+
+
+
+/*
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -345,10 +431,7 @@ void drawChellAndEnergyBall(){
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
         stage.step();
-        // Update EnergyBall position.
-        float newEBPosX = energyBall->getHorizontalPosition();
-        float newEBPosY = energyBall->getVerticalPosition();
-        energyBallView.move(newEBPosX, newEBPosY, levelHeight);
+
         // Update Chell position.
         chellView.setState(chell->getState());
         float newChellPosX = chell->getHorizontalPosition();
@@ -371,12 +454,14 @@ void drawChellAndEnergyBall(){
         newWindow.clear();
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(ebRect);
-        if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
+        if (energyBall != nullptr) {
+            if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
+        }
         chellView.playAnimation(cameraRect);
         newWindow.render();
     }
     delete coordinateEB;
-    delete coordinate;
+    delete coordinate;*/
 }
 
 void drawChellAndAcidPool(){
@@ -467,8 +552,8 @@ void drawChellAndAcidPool(){
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO);
-    drawChell();
+//    drawChell();
 //    drawChellAndRock();
-//    drawChellAndEnergyBall();
+   drawChellAndEnergyBall();
 //    drawChellAndAcidPool();
 }

@@ -7,7 +7,6 @@
 
 struct box2DConfiguration {
     float chellForce;
-    float death;
     float deltaError;
     int energyBallImpulseFactor;
     float chellInitialVelocity;
@@ -16,6 +15,8 @@ struct box2DConfiguration {
     float rockForce;
     float elevationForce;
     float rockFriction;
+    float deathTimeEnergyBall;
+    float delayEnergyTransmitter;
 };
 
 extern struct box2DConfiguration gameConfiguration;

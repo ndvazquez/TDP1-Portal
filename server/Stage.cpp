@@ -322,19 +322,6 @@ void Stage::step() {
         i->second->update();
     }
 
-    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
-        try {
-            i->second->fly();
-        }
-        catch(...) {
-            world->DestroyBody(i->second->getBody());
-            {
-                energy_balls.erase(i->first);
-                break;
-            }
-        }
-    }
-
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
             world->DestroyBody(i->second->getBody());
@@ -355,6 +342,25 @@ void Stage::step() {
             }
         }
         i->second->shoot();
+    }
+
+    for (auto i = energy_transmitters.begin(); i != energy_transmitters.end(); i++) {
+            if (i->second->throwEnergyBall()) {
+                float x_pos = i->second->getHorizontalPosition();
+                float y_pos = i->second->getVerticalPosition();
+                addEnergyBallHorizontal(1, x_pos - 4, y_pos);
+            }
+    }
+
+    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
+        if (i->second->isDead()) {
+            world->DestroyBody(i->second->getBody());
+            {
+                energy_balls.erase(i->first);
+                break;
+            }
+        }
+        i->second->fly();
     }
 
     float timeStep = 1.0f / 60;

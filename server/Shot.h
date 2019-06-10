@@ -15,7 +15,6 @@ protected:
     Coordinate* target;
     Coordinate* origin;
     bool is_dead;
-    bool to_be_dead;
     Dynamic dynamic;
 
 public:
