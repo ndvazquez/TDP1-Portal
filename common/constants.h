@@ -28,6 +28,15 @@ enum State {
 #define PORTAL_WIDTH 1
 #define PORTAL_HEIGHT 2
 
+// ViewFactory view type codes.
+#define CHELL_VIEW_CODE 0
+#define ACID_VIEW_CODE 1
+#define ENERGY_BALL__VIEW_CODE 2
+#define ROCK_VIEW_CODE 3
+#define PORTAL_VIEW_CODE 4
+#define BUTTON_VIEW_CODE 5
+#define BULLET_VIEW_CODE 6
+
 // AudioSystem sound codes.
 #define RUN_SOUND 0
 #define JUMP_SOUND 1
