@@ -92,7 +92,7 @@ public:
         std::cout << "Testing the energy transmitter dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyTransmitter(side, x_pos, y_pos);
+        stage.addEnergyTransmitterRight(side, x_pos, y_pos);
         Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         EnergyTransmitter* energy = stage.getEnergyTransmitter(coordinates);
 
@@ -793,43 +793,7 @@ public:
             stage.step();
         }
     }
-
-
-    void testChellDiesWhenARockFallsOnHer() {
-        std::cout << "Testing that Chell dies when a rock falls on her" << std::endl;
-
-        Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, 1);
-        stage.addRock(side_acid + 1, x_pos_chell, 20);
-
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, 1));
-        Rock* rock = stage.getRock(new Coordinate(x_pos_chell, 20));
-
-        for (size_t i = 0; i < 1200; i++) {
-            stage.step();
-            if (chell->isDead()) {
-                TS_ASSERT_EQUALS(chell->isDead(), true);
-                return;
-            }
-        }
-        TS_ASSERT_EQUALS(1, 0);
-    }
-
-    void testChellDoesntDieWhenSheHitsARock() {
-        std::cout << "Testing that Chell doesn't die when a she hits a rock" << std::endl;
-
-        Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, 1);
-        stage.addRock(side_acid + 1, x_pos_chell + 5, 1);
-
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, 1));
-        Rock* rock = stage.getRock(new Coordinate(x_pos_chell + 5, 1));
-        chell->moveRight();
-        /*
-        for (size_t i = 0; i < 1200; i++) {
-            stage.step();
-        }*/
-    }
+    
 };
 
 class ShootingTest :  public CxxTest::TestSuite {
@@ -1043,34 +1007,6 @@ class PortalTest :  public CxxTest::TestSuite {
     size_t side_portal = 2;
 
 public:
-    void testChellTeleportsCorrectly() {
-        std::cout << "Testing that Chell teleports correctly" << std::endl;
-
-        Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
-
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
-        chell->addBluePortal(new Coordinate(4, 4));
-        chell->addOrangePortal(new Coordinate(3, 3));
-        chell->teleport(new Coordinate(4, 4));
-
-        TS_ASSERT_EQUALS(chell->getHorizontalPosition() == 3, true);
-        TS_ASSERT_EQUALS(chell->getVerticalPosition() == 3, true);
-    }
-
-    void testChellDoesntTeleport() {
-        std::cout << "Testing that Chell doesnt teleport when she doesnt have the two portals" << std::endl;
-
-        Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
-
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
-        chell->addOrangePortal(new Coordinate(3, 3));
-        chell->teleport(new Coordinate(4, 4));
-
-        TS_ASSERT_EQUALS(chell->getHorizontalPosition() == x_pos_chell, true);
-        TS_ASSERT_EQUALS(chell->getVerticalPosition() == y_pos, true);
-    }
 
     void testMetalBlocksInInitDoesntHavePortal() {
         std::cout << "Testing that metal blocks in init don't have portals" << std::endl;

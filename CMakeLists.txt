@@ -90,7 +90,8 @@ set(SERVER_SOURCE_FILES
         server/EnergyTransmitterDown.cpp
         server/EnergyTransmitterLeft.cpp
         server/EnergyTransmitterRight.cpp
-        server/Gate.cpp)
+        server/Gate.cpp
+        server/Cake.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

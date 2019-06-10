@@ -10,7 +10,8 @@ enum State {
     JUMPING,
     DEAD,
     MOVING_LEFT,
-    MOVING_RIGHT
+    MOVING_RIGHT,
+    WINNER
 };
 
 #define CHELL_WIDTH 1

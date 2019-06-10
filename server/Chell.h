@@ -23,6 +23,7 @@ private:
     Rock* rock;
     State actual_state;
     Portal* portal;
+    bool winner;
 
 public:
     explicit Chell(b2Body* body);
@@ -36,7 +37,9 @@ public:
     void update();
     bool inGround();
     void die();
+    void win();
     bool isDead();
+    bool hasWon();
     virtual void handleCollision(Entity* entity) override;
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
