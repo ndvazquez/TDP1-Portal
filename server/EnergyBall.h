@@ -9,19 +9,12 @@
 #include "Dynamic.h"
 #include "Entity.h"
 
-class EnergyBallDeadException : public std::exception {
-    virtual const char* what() const throw() {
-        std::string message = "This object isn't alive anymore!\n";
-        return message.c_str();
-    }
-};
-
-
 class EnergyBall: public Entity {
 private:
     bool is_vertical;
     Dynamic dynamic;
-    size_t life_steps;
+    std::chrono::system_clock::time_point timeStamp;
+    bool is_dead;
 
 public:
     explicit EnergyBall(b2Body* body, bool is_vertical);

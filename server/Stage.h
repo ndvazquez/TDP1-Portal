@@ -45,7 +45,8 @@ private:
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
-    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters;
+    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters_horizontals;
+    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters_verticals;
     std::unordered_map<Coordinate*, Rock*> rocks;
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
     std::unordered_map<Coordinate*, Button*> buttons;
@@ -68,7 +69,10 @@ public:
     void addMetalBlock(float side, float x_pos, float y_pos);
     void addDiagonalMetalBlock(size_t side, float x_pos,
             float y_pos);
-    void addEnergyTransmitter(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterRight(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterLeft(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterUp(size_t side, float x_pos, float y_pos);
+    void addEnergyTransmitterDown(size_t side, float x_pos, float y_pos);
     void addRock(float side, float x_pos, float y_pos);
     void addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
     void addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);

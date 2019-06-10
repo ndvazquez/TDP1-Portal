@@ -13,18 +13,24 @@ EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(energyBallType, body),
     dynamic(body) {
     this->is_vertical = is_vertical;
-    life_steps = 0;
     body->SetUserData(this); //to handle collisions
+    this->is_dead = false;
+    this->timeStamp = std::chrono::system_clock::now();
 }
 
 void EnergyBall::fly() {
-    if (life_steps >= 1200) throw EnergyBallDeadException();
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end - timeStamp).count();
+    if (difference >= gameConfiguration.deathTimeEnergyBall) {
+        die();
+        return; //Dies after 10 seconds
+    }
     if (is_vertical) {
         dynamic.flyVertical();
     } else {
         dynamic.flyHorizontal();
     }
-    life_steps++;
 }
 
 void EnergyBall::changeDirection() {
@@ -32,11 +38,11 @@ void EnergyBall::changeDirection() {
 }
 
 void EnergyBall::die() {
-    life_steps = gameConfiguration.death;
+    this->is_dead = true;
 }
 
 bool EnergyBall::isDead() {
-    return life_steps >= gameConfiguration.death;
+    return is_dead;
 }
 
 bool EnergyBall::isVertical() {
