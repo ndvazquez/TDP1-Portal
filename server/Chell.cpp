@@ -31,6 +31,7 @@ Chell::Chell(b2Body* body):
     dead = false;
     rock = nullptr;
     portal = new Portal();
+    winner = false;
 }
 
 void Chell::handleCollision(Entity* entity) {
@@ -58,6 +59,10 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
 
+    if (type == "Cake") {
+        win();
+    }
+
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
                         || type == "DiagonalMetalBlock" || type == "Floor"
                         || type == "Rock" || type == "Button";
@@ -72,8 +77,17 @@ void Chell::die() {
     dead = true;
 }
 
+void Chell::win() {
+    //this->actual_state = WINNER;
+    winner = true;
+}
+
 bool Chell::isDead() {
     return dead;
+}
+
+bool Chell::hasWon() {
+    return winner;
 }
 
 void Chell::grabRock(Rock* rock) {

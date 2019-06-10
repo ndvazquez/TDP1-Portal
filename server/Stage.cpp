@@ -48,6 +48,7 @@ Stage::Stage(size_t width, size_t height):
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 
     this->timeStamp = std::chrono::system_clock::now();
+    this->cake = nullptr;
 }
 
 b2Body* Stage::addStaticRectangle(float v_side, float h_side,
@@ -353,6 +354,19 @@ void Stage::addGate(float v_side, float h_side, float x_pos, float y_pos,
     gates.insert({coordinates, gate});
 }
 
+void Stage::addCake(float side, float x_pos, float y_pos) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* cake_body = addStaticRectangle(side, side, x_pos, y_pos);
+
+    this->cake = new Cake(cake_body);
+}
+
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -376,6 +390,9 @@ void Stage::step() {
                 chells.erase(i->first);
                 break;
             }
+        }
+        if (i->second->hasWon()) {
+        //TODO: Tell client to end game
         }
         i->second->update();
     }
@@ -533,6 +550,10 @@ EnergyBall* Stage::getEnergyBall(Coordinate* coordinate) {
     return nullptr;
 }
 
+Cake* Stage::getCake() {
+    return cake;
+}
+
 Stage::~Stage() {
     b2Body* body = world->GetBodyList();
     while (body != nullptr) {
@@ -607,4 +628,5 @@ Stage::~Stage() {
 
     delete floor;
     delete world;
+    delete cake;
 }

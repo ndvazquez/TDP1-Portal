@@ -89,6 +89,13 @@ void drawChell(){
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chellHeight, chellWidth, xPos, yPos);
 
+    float xCake = xPos + 3;
+    float yCake = yPos;
+    stage.addCake(1, xCake, yCake);
+    Cake* cake = stage.getCake();
+    if (cake != nullptr) std::cout << "La torta no es un null" << std::endl;
+    else std::cout << "La torta es null" << std::endl;
+
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(coordinate);
     //Rock
@@ -205,6 +212,10 @@ void drawChell(){
         newWindow.drawRectangle(rockRect);
         newWindow.render();
         audioSystem.playSoundEffects();
+        std::cout << "X chell: " << chell->getHorizontalPosition() << std::endl;
+        std::cout << "Y chell: " << chell->getVerticalPosition() << std::endl;
+        std::cout << "X cake: " << cake->getHorizontalPosition() << std::endl;
+        std::cout << "Y cake: " << cake->getVerticalPosition() << std::endl;
     }
     delete coordinate;
     delete target_blue;
@@ -305,6 +316,7 @@ void drawChellAndRock(){
         chellView.playAnimation(cameraRect);
         newWindow.render();
         audioSystem.playSoundEffects();
+
     }
     delete coordinate;
     delete coordinateRock;
@@ -394,6 +406,7 @@ void drawChellAndEnergyBall(){
         chellView.playAnimation(cameraRect);
         newWindow.render();
         audioSystem.playSoundEffects();
+
     }
     delete coordinateEB;
     delete coordinate;
@@ -416,7 +429,7 @@ void drawChellAndAcidPool(){
     Stage stage(stageWidth, stageHeight);
     // Stage Chell
     float xPos = 1;
-    float yPos = 5;
+    float yPos = 2;
     float chellHeight = 2;
     float chellWidth = 1;
 

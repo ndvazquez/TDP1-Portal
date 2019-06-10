@@ -26,6 +26,7 @@
 #include "BlueShot.h"
 #include "OrangeShot.h"
 #include "Gate.h"
+#include "Cake.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -40,6 +41,7 @@ private:
     size_t height;
     b2World* world;
     Floor* floor;
+    Cake* cake;
 
     std::chrono::system_clock::time_point timeStamp;
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
@@ -86,6 +88,7 @@ public:
                      Coordinate* target);
     void addGate(float v_side, float h_side, float x_pos, float y_pos,
                  std::unordered_map<std::string, Button*> buttons, std::string logic);
+    void addCake(float side, float x_pos, float y_pos);
 
     void step();
 
@@ -101,6 +104,7 @@ public:
     Acid* getAcid(Coordinate* coordinate);
     Chell* getChell(Coordinate* coordinate);
     EnergyBall* getEnergyBall(Coordinate* coordinate);
+    Cake* getCake();
 };
 
 #endif //PORTAL_STAGE_H
