@@ -19,6 +19,7 @@
 #include "DiagonalMetalBlock.h"
 #include "BlueShot.h"
 #include "EnergyBall.h"
+#include "Button.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType, body),
@@ -47,13 +48,23 @@ void Chell::handleCollision(Entity* entity) {
         if (target != nullptr) this->dynamic.teleport(target);
     }
 
+    if (type == "Button") {
+        Button* button = static_cast<Button*>(entity);
+        float x_button = button->getHorizontalPosition();
+        float x_chell = body->GetPosition().x;
+        float delta = 0.1;
+        if (x_chell > x_button - delta && x_chell < x_button + delta) {
+            button->activate();
+        }
+    }
+
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-                        || type == "DiagonalMetalBlock" || type == "Floor" || type == "Rock";
+                        || type == "DiagonalMetalBlock" || type == "Floor"
+                        || type == "Rock" || type == "Button";
 }
 
 void Chell::teleport(Coordinate* coordinate) {
     this->dynamic.teleport(coordinate);
-
 }
 
 void Chell::die() {
@@ -105,6 +116,7 @@ void Chell::stop() {
         this->actual_state = JUMPING;
     } else {
         this->actual_state = IDLE;
+        body->SetLinearVelocity(b2Vec2(0, 0));
     }
     if (this->rock) rock->stop();
 }

@@ -21,6 +21,7 @@
 #include "../common/constants.h"
 #include "PortalView.h"
 #include "Camera.h"
+#include "AudioSystem.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -118,10 +119,15 @@ void drawChell(){
     BulletView blueShotView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
     BulletView orangeShotView(newWindow, x_origin_orange, y_origin_orange, MTP_FACTOR, textures);
 
+    // SoundCodeQueue and AudioSystem init.
+    SoundCodeQueue soundQueue;
+    AudioSystem audioSystem(soundQueue);
+
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -133,12 +139,15 @@ void drawChell(){
             }
             // This should be done server side, but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump}
+                if (e.key.keysym.sym == SDLK_m) audioSystem.stopMusic();
+                if (e.key.keysym.sym == SDLK_n) audioSystem.playMusic(BG_SONG_GAME);
                 if (e.key.keysym.sym == SDLK_f) chell->downloadRock();
                 if (e.key.keysym.sym == SDLK_g) chell->grabRock(rock);
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
             if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+
             // This might become an issue when we actually implement a jump animation.
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
@@ -195,6 +204,7 @@ void drawChell(){
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(rockRect);
         newWindow.render();
+        audioSystem.playSoundEffects();
     }
     delete coordinate;
     delete target_blue;
@@ -231,12 +241,17 @@ void drawChellAndRock(){
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY + 5);
     Rock* rock = stage.getRock(coordinateRock);
 
+    // SoundCodeQueue and AudioSystem init.
+    SoundCodeQueue soundQueue;
+    AudioSystem audioSystem(soundQueue);
+
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     // RockView.
     RockView rockView(newWindow, metalBlockPosX + 2, metalBlockPosY, MTP_FACTOR, textures);
 
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -289,7 +304,7 @@ void drawChellAndRock(){
         rockView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
-
+        audioSystem.playSoundEffects();
     }
     delete coordinate;
     delete coordinateRock;
@@ -373,47 +388,11 @@ void drawChellAndEnergyBall(){
             energyBallView.move(newEBPosX, newEBPosY, levelHeight);
         }
 
-
-        chellView.setState(chell->getState());
-        float newPosX = chell->getHorizontalPosition();
-        float newPosY = chell->getVerticalPosition();
-
-        // We move the animated sprite for Chell.
-        chellView.move(newPosX, newPosY, levelHeight);
-        // Gotta update the camera now to center it around Chell.
-        int chellCenterPositionX = chellView.getCenterPosX();
-        int chellCenterPositionY = chellView.getCenterPosY();
-        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
-        const SDL_Rect& cameraRect = camera.getCameraRectangle();
-
-        SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
-                                chellView.getViewPositionY() - cameraRect.y,
-                                int(chellWidth * MTP_FACTOR),
-                                int(chellHeight * MTP_FACTOR)};
-        SDL_Rect* bgRect = NULL;
-        newWindow.clear();
-        background.draw(bgRect);
-        stageView.draw(cameraRect);
-        if (! chell->isDead()) {
-            chellView.playAnimation(cameraRect);
-        }
-        if (energyBall != nullptr) {
-            if (!energyBall->isDead()) energyBallView.playAnimation(cameraRect);
-        }
-        //Debug rectangle to see Chell's collision box.
-        newWindow.drawRectangle(outlineRect);
-        newWindow.render();
-    }
-    delete coordinate;
-
-
-
-
-/*
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -460,6 +439,7 @@ void drawChellAndEnergyBall(){
         }
         chellView.playAnimation(cameraRect);
         newWindow.render();
+        audioSystem.playSoundEffects();
     }
     delete coordinateEB;
     delete coordinate;*/
@@ -500,10 +480,15 @@ void drawChellAndAcidPool(){
     // Acid View.
     AcidView acidView(newWindow, acidViewPosX, acidViewPosY, MTP_FACTOR, textures);
 
+    // SoundCodeQueue and AudioSystem init.
+    SoundCodeQueue soundQueue;
+    AudioSystem audioSystem(soundQueue);
+
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, textures);
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -547,14 +532,15 @@ void drawChellAndAcidPool(){
         acidView.playAnimation(cameraRect);
         chellView.playAnimation(cameraRect);
         newWindow.render();
+        audioSystem.playSoundEffects();
     }
     delete coordinate;
 }
 
 int main(int argc, char* argv[]){
-    SDLSession sdlSession(SDL_INIT_VIDEO);
-//    drawChell();
-//    drawChellAndRock();
-   drawChellAndEnergyBall();
-//    drawChellAndAcidPool();
+    SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    drawChell();
+    drawChellAndRock();
+    drawChellAndEnergyBall();
+    drawChellAndAcidPool();
 }

@@ -339,6 +339,20 @@ void Stage::addOrangeShot(float v_side, float h_side, Chell* chell,
     orange_shots.insert({coordinates, orangeShot});
 }
 
+void Stage::addGate(float v_side, float h_side, float x_pos, float y_pos,
+             std::unordered_map<std::string, Button*> buttons, std::string logic) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body* gate_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Gate* gate = new Gate(gate_body, logic, buttons);
+    gates.insert({coordinates, gate});
+}
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -417,6 +431,10 @@ void Stage::step() {
             }
         }
         i->second->fly();
+    }
+
+    for (auto i = gates.begin(); i != gates.end(); i++) {
+        i->second->update();
     }
 
     float timeStep = 1.0f / 60;
@@ -578,6 +596,11 @@ Stage::~Stage() {
 
     //just in case an energy balls isn't deleted before the end of the game
     for (auto i = energy_balls.begin() ; i != energy_balls.end() ; i++) {
+        delete i->first;
+        delete i->second;
+    }
+
+    for (auto i = gates.begin(); i != gates.end(); i++) {
         delete i->first;
         delete i->second;
     }

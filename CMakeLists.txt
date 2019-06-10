@@ -8,9 +8,11 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
-
+include_directories(${SDL2_MIXER_INCLUDE_DIRS})
 include_directories(${PROJECT_SOURCE_DIR}/client)
 include_directories(${PROJECT_SOURCE_DIR}/server)
 include_directories(${PROJECT_SOURCE_DIR}/tests)
@@ -29,7 +31,9 @@ set(CLIENT_SOURCE_FILES
         client/RockView.cpp
         client/ButtonView.cpp
         client/PortalView.cpp
-        client/Camera.cpp)
+        client/Camera.cpp
+        client/AudioSystem.cpp
+        client/SoundCodeQueue.cpp)
 
 #EDITOR CONFIG
 
@@ -86,6 +90,7 @@ set(SERVER_SOURCE_FILES
         server/EnergyTransmitterDown.cpp
         server/EnergyTransmitterLeft.cpp
         server/EnergyTransmitterRight.cpp)
+        server/Gate.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
@@ -95,7 +100,7 @@ add_executable(Server server/main.cpp ${SERVER_SOURCE_FILES})
 add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
-target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} TG::Box2D)
+target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TG::Box2D)
 target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES})
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)

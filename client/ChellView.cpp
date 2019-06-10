@@ -6,14 +6,18 @@
 #include <SDL.h>
 #include <vector>
 #include "../common/AnimatedSprite.h"
+#include "SoundCodeQueue.h"
 #include <string>
 #include <yaml-cpp/yaml.h>
 
 ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
+        SoundCodeQueue& queue,
         YAML::Node texturesData) :
             View(window, xPos, yPos, factor, CHELL_WIDTH, CHELL_HEIGHT),
-            flip(SDL_FLIP_NONE){
+            soundsQueue(queue),
+            flip(SDL_FLIP_NONE) {
     deathCounterToStopDrawing = 1;
+    runTimer = 0;
     YAML::Node animationsData = texturesData[TEXTURES_INFO_KEY];
     for (YAML::const_iterator it = animationsData.begin();
         it != animationsData.end(); ++it){
@@ -28,6 +32,7 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
             deathCounterToStopDrawing = frames * DEATH_COUNTER_MULTIPLIER;
         }
     }
+    previousState = IDLE;
     currentState = IDLE;
 
 }
@@ -46,11 +51,19 @@ void ChellView::playAnimation(const SDL_Rect& camera) {
     if (currentState == MOVING_RIGHT) {
         --animationIndex;
         flip = SDL_FLIP_NONE;
+        if (updateRunTimer()) {
+            soundsQueue.push(RUN_SOUND);
+        }
     }
     if (currentState == MOVING_LEFT) {
         flip = SDL_FLIP_HORIZONTAL;
+        if (updateRunTimer()) {
+            soundsQueue.push(RUN_SOUND);
+        }
     }
-
+    if (currentState == JUMPING && previousState != currentState) {
+        soundsQueue.push(JUMP_SOUND);
+    }
     AnimatedSprite* animation = animations[animationIndex];
     if (currentState == DEAD){
         deathCounterToStopDrawing -= 1;
@@ -60,6 +73,7 @@ void ChellView::playAnimation(const SDL_Rect& camera) {
 }
 
 void ChellView::setState(State state) {
+    previousState = currentState;
     currentState = state;
 }
 
@@ -71,4 +85,13 @@ int ChellView::getCenterPosX() {
 int ChellView::getCenterPosY() {
     int centerPosY = viewPosY + viewHeightInMeters * mtpFactor / 2;
     return centerPosY;
+}
+
+bool ChellView::updateRunTimer() {
+    bool retValue = false;
+    if (runTimer + RUN_TIMESTEP < SDL_GetTicks()){
+        runTimer = SDL_GetTicks();
+        retValue = true;
+    }
+    return retValue;
 }
