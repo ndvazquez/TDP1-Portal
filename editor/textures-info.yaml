@@ -59,6 +59,14 @@ Cake:
     w: 1
     h: 1
 
+Acid:
+  - name: Acid
+    path: resources/Acid/acid.png
+    frames: 8
+    w: 3
+    h: 1
+
+
 Gate: # gravity, no animation
   - name: Gate
     path: resources/gate.png
@@ -118,4 +126,8 @@ MenuData:
   - name: Cake
     path: resources/cake/menu.png
     w: 1
+    h: 1
+  - name: Acid
+    path: resources/Acid/menu.png
+    w: 2
     h: 1

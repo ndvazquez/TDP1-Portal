@@ -59,8 +59,10 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/AnimatedObject.cpp
         editor/stage/object/Object.cpp
         editor/stage/object/Gate.cpp
-        editor/MouseButton.cpp
         editor/stage/object/Cake.cpp
+        editor/stage/object/Acid.cpp
+        editor/MouseButton.cpp
+
 
         ffmpeg/CodecContext.cpp
         ffmpeg/FormatOutput.cpp
