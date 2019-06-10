@@ -42,22 +42,25 @@ private:
     b2World* world;
     Floor* floor;
     Cake* cake;
-
     std::chrono::system_clock::time_point timeStamp;
+
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
-    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters_horizontals;
-    std::unordered_map<Coordinate*, EnergyTransmitter*> energy_transmitters_verticals;
-    std::unordered_map<Coordinate*, Rock*> rocks;
+    std::unordered_map<Coordinate*, Gate*> gates;
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
     std::unordered_map<Coordinate*, Button*> buttons;
-    std::unordered_map<Coordinate*, Acid*> acids;
-    std::unordered_map<Coordinate*, Chell*> chells;
-    std::unordered_map<Coordinate*, EnergyBall*> energy_balls;
-    std::unordered_map<Coordinate*, BlueShot*> blue_shots;
-    std::unordered_map<Coordinate*, OrangeShot*> orange_shots;
-    std::unordered_map<Coordinate*, Gate*> gates;
+
+    std::unordered_map<std::string, Acid*> acids; //TODO: doubt
+    std::unordered_map<std::string, Chell*> chells;
+    std::unordered_map<std::string, EnergyBall*> energy_balls;
+    std::unordered_map<std::string, BlueShot*> blue_shots;
+    std::unordered_map<std::string, OrangeShot*> orange_shots;
+    std::unordered_map<std::string, EnergyTransmitter*>
+    energy_transmitters_horizontals;
+    std::unordered_map<std::string, EnergyTransmitter*>
+    energy_transmitters_verticals;
+    std::unordered_map<std::string, Rock*> rocks;
 
 public:
     Stage(size_t width, size_t height);
@@ -67,44 +70,56 @@ public:
     b2Body* addDynamicRectangle(float v_side, float h_side,
             float x_pos, float y_pos);
 
-    void addBrickBlock(size_t side, float x_pos, float y_pos);
-    void addMetalBlock(float side, float x_pos, float y_pos);
-    void addDiagonalMetalBlock(size_t side, float x_pos,
-            float y_pos);
-    void addEnergyTransmitterRight(size_t side, float x_pos, float y_pos);
-    void addEnergyTransmitterLeft(size_t side, float x_pos, float y_pos);
-    void addEnergyTransmitterUp(size_t side, float x_pos, float y_pos);
-    void addEnergyTransmitterDown(size_t side, float x_pos, float y_pos);
-    void addRock(float side, float x_pos, float y_pos);
-    void addButton(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    void addEnergyBar(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    void addAcid(size_t v_side, size_t h_side, float x_pos, float y_pos);
-    void addChell(float v_side, float h_side, float x_pos, float y_pos);
-    void addEnergyBallHorizontal(float side, float x_pos, float y_pos);
-    void addEnergyBallVertical(float side, float x_pos, float y_pos);
-    void addBlueShot(float v_side, float h_side, Chell* chell,
-            Coordinate* target);
-    void addOrangeShot(float v_side, float h_side, Chell* chell,
-                     Coordinate* target);
-    void addGate(float v_side, float h_side, float x_pos, float y_pos,
-                 std::unordered_map<std::string, Button*> buttons, std::string logic);
     void addCake(float side, float x_pos, float y_pos);
+    void addBrickBlock(float side, float x_pos, float y_pos);
+    void addMetalBlock(float side, float x_pos, float y_pos);
+    void addDiagonalMetalBlock(float side, float x_pos,
+            float y_pos);
+    void addGate(float v_side, float h_side, float x_pos, float y_pos,
+                 std::unordered_map<std::string, Button*> buttons,
+                 std::string logic);
+    void addEnergyBar(float v_side, float h_side, float x_pos, float y_pos);
+    void addButton(float v_side, float h_side, float x_pos, float y_pos);
+
+    void addAcid(std::string id, float v_side, float h_side,
+            float x_pos, float y_pos); //TODO: doubt
+    void addChell(std::string id, float v_side, float h_side,
+            float x_pos, float y_pos);
+    void addEnergyBallHorizontal(std::string id, float side,
+            float x_pos, float y_pos);
+    void addEnergyBallVertical(std::string id, float side,
+            float x_pos, float y_pos);
+    void addBlueShot(std::string id, float v_side,
+            float h_side, Chell* chell, Coordinate* target);
+    void addOrangeShot(std::string id, float v_side, float h_side,
+            Chell* chell, Coordinate* target);
+    void addEnergyTransmitterRight(std::string id, float side,
+            float x_pos, float y_pos);
+    void addEnergyTransmitterLeft(std::string id, float side,
+            float x_pos, float y_pos);
+    void addEnergyTransmitterUp(std::string id, float side,
+            float x_pos, float y_pos);
+    void addEnergyTransmitterDown(std::string id, float side,
+            float x_pos, float y_pos);
+    void addRock(std::string id, float side,
+            float x_pos, float y_pos);
 
     void step();
 
-    OrangeShot* getOrangeShot(Coordinate* coordinate);
-    BlueShot* getBlueShot(Coordinate* coordinate);
+    Cake* getCake();
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
-    EnergyTransmitter* getEnergyTransmitter(Coordinate* coordinate);
     DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
-    Rock* getRock(Coordinate* coordinate);
     EnergyBar* getEnergyBar(Coordinate* coordinate);
     Button* getButton(Coordinate* coordinate);
-    Acid* getAcid(Coordinate* coordinate);
-    Chell* getChell(Coordinate* coordinate);
-    EnergyBall* getEnergyBall(Coordinate* coordinate);
-    Cake* getCake();
+
+    Acid* getAcid(std::string id);
+    Chell* getChell(std::string id);
+    EnergyBall* getEnergyBall(std::string id);
+    BlueShot* getBlueShot(std::string id);
+    OrangeShot* getOrangeShot(std::string id);
+    EnergyTransmitter* getEnergyTransmitter(std::string id);
+    Rock* getRock(std::string id);
 };
 
 #endif //PORTAL_STAGE_H

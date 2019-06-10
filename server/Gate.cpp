@@ -45,8 +45,9 @@ bool evaluateSubString(std::string str) {
             if (negation) {
                 variable = ! to_evaluate;
                 negation = false;
+            } else {
+                variable = to_evaluate;
             }
-            else variable = to_evaluate;
         }
         if (multiply) {
             if (negation) {
@@ -118,8 +119,9 @@ bool Gate::parseBool() {
             if (negation) {
                 variable = ! to_evaluate;
                 negation = false;
+            } else {
+                variable = to_evaluate;
             }
-            else variable = to_evaluate;
         }
         if (multiply) {
             if (negation) {
@@ -160,8 +162,11 @@ void Gate::update() {
         size_t length_id = id.length();
         size_t i_id = logic.find(id);
         std::string to_replace;
-        if (isActive) to_replace = "1";
-        else to_replace = "0";
+        if (isActive) {
+            to_replace = "1";
+        } else {
+            to_replace = "0";
+        }
         logic.replace(i_id, length_id, to_replace);
     }
 

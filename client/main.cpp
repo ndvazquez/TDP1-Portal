@@ -1,3 +1,4 @@
+
 ///
 // Created by ndv on 5/5/19.
 //
@@ -87,43 +88,40 @@ void drawChell(){
     stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
+    std::string chell_id = "Chell1";
     float xPos = 4;
     float yPos = 1;
     float chellHeight = CHELL_HEIGHT;
     float chellWidth = CHELL_WIDTH;
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
 
     float xCake = xPos + 3;
     float yCake = yPos;
     stage.addCake(1, xCake, yCake);
     Cake* cake = stage.getCake();
-    if (cake != nullptr) std::cout << "La torta no es un null" << std::endl;
-    else std::cout << "La torta es null" << std::endl;
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(chell_id);
     //Rock
+    std::string rock_id = "Rock1";
     size_t rockSide = 1;
-    stage.addRock(rockSide, metalBlockPosX + 12, metalBlockPosY+2);
+    stage.addRock(rock_id, rockSide, metalBlockPosX + 12, metalBlockPosY+2);
 
-    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 12, metalBlockPosY + 2);
-    Rock* rock = stage.getRock(coordinateRock);
+    Rock* rock = stage.getRock(rock_id);
 
     //Shot in Chell
+    std::string blue_shot_id = "BlueShot1";
+    std::string orange_shot_id = "OrangeShot1";
     float shotWidth = 1;
     float shotHeight = 1;
 
     Coordinate* target_blue = new Coordinate(metalBlockPosX + 8, metalBlockPosY + 4); //Setting one block to shoot
-    stage.addBlueShot(shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
-    float x_origin_blue = xPos + chellWidth*2 + shotWidth/2;
-    float y_origin_blue = yPos + 1;
-    BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin_blue, y_origin_blue));
+    stage.addBlueShot(blue_shot_id, shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
+    BlueShot* blueShot = stage.getBlueShot(blue_shot_id);
 
     Coordinate* target_orange = new Coordinate(metalBlockPosX + 2, metalBlockPosY + 6);
-    stage.addOrangeShot(shotHeight, shotWidth, chell, target_orange);
-    float x_origin_orange = xPos - chellWidth*2 - shotWidth/2;
-    float y_origin_orange = yPos + 1;
-    OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_origin_orange, y_origin_orange));
+    stage.addOrangeShot(orange_shot_id, shotHeight, shotWidth, chell, target_orange);
+    OrangeShot* orangeShot = stage.getOrangeShot(orange_shot_id);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
@@ -216,10 +214,6 @@ void drawChell(){
         newWindow.drawRectangle(rockRect);
         newWindow.render();
         audioSystem.playSoundEffects();
-        std::cout << "X chell: " << chell->getHorizontalPosition() << std::endl;
-        std::cout << "Y chell: " << chell->getVerticalPosition() << std::endl;
-        std::cout << "X cake: " << cake->getHorizontalPosition() << std::endl;
-        std::cout << "Y cake: " << cake->getVerticalPosition() << std::endl;
     }
     delete coordinate;
     delete target_blue;
@@ -235,6 +229,7 @@ void drawChellAndRock(){
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     // Box2D Stuff.
+    std::string chell_id = "Chell1";
     float xPos = 1;
     float yPos = 1;
     float chellHeight = 2;
@@ -244,20 +239,20 @@ void drawChellAndRock(){
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight); // 1m == 1 block == 100px
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
     float metalBlockPosX = 4;
     float metalBlockPosY = 1;
 
     // Add a rock next to the metal block.
+    std::string rock_id = "Rock1";
     size_t rockSide = 1;
-    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY+5);
-
+    stage.addRock(rock_id, rockSide, metalBlockPosX + 3, metalBlockPosY+5);
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(chell_id);
     // Get the rock object.
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY + 5);
-    Rock* rock = stage.getRock(coordinateRock);
+    Rock* rock = stage.getRock(rock_id);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
@@ -341,21 +336,23 @@ void drawChellAndEnergyBall(){
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight);
     // Stage Chell
+    std::string chell_id = "Chell1";
     float xPos = 1;
     float yPos = 1;
     float chellHeight = 2;
     float chellWidth = 1;
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(chell_id);
     // Stage EnergyBall
+    std::string eb_id = "EnergyBall1";
     int xBall = 8;
     int yBall = 1;
     EnergyBallView energyBallView(newWindow, xBall, yBall, MTP_FACTOR, textures);
     float energyBallSide = 1;
-    stage.addEnergyBallHorizontal(energyBallSide, xBall, yBall);
+    stage.addEnergyBallHorizontal(eb_id, energyBallSide, xBall, yBall);
     Coordinate* coordinateEB = new Coordinate(xBall, yBall);
-    EnergyBall* energyBall = stage.getEnergyBall(coordinateEB);
+    EnergyBall* energyBall = stage.getEnergyBall(eb_id);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
@@ -435,22 +432,24 @@ void drawChellAndAcidPool(){
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight);
     // Stage Chell
+    std::string chell_id = "Chell1";
     float xPos = 1;
     float yPos = 2;
     float chellHeight = 2;
     float chellWidth = 1;
 
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(chell_id);
     // Stage AcidPool
+    std::string acid_id = "Acid1";
     float acidPosX = 5;
     float acidPosY = 0.5;
     float acidHeight = 0.5;
     float acidWidth = 3;
     int acidViewPosX = (acidPosX - acidWidth / 2 ) * MTP_FACTOR;
     int acidViewPosY = (acidPosY + acidHeight / 2) * MTP_FACTOR * -1 + levelHeight;
-    stage.addAcid(acidHeight, acidWidth, acidPosX, acidPosY);
+    stage.addAcid(acid_id, acidHeight, acidWidth, acidPosX, acidPosY);
     // Acid View.
     AcidView acidView(newWindow, acidViewPosX, acidViewPosY, MTP_FACTOR, textures);
 
@@ -516,16 +515,16 @@ void jsonTest() {
     // We'll need an additional one to populate StageView too.
     nlohmann::json mapData = {
             {
-                "Chell1",
-                {
-                    {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", 4} ,{"y", 1}
-                }
+                    "Chell1",
+                    {
+                            {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", 4} ,{"y", 1}
+                    }
             },
             {
-                "Rock1",
-                {
-                    {"type", ROCK_VIEW_CODE}, {"x", 8}, {"y", 1}
-                }
+                    "Rock1",
+                    {
+                            {"type", ROCK_VIEW_CODE}, {"x", 8}, {"y", 1}
+                    }
             }
     };
     // This is what an update JSON looks like, sent from the server to the clients.
@@ -533,7 +532,7 @@ void jsonTest() {
             {
                     "Chell1",
                     {
-                        {"state", 0}, {"x", 4} ,{"y", 1}
+                            {"state", 0}, {"x", 4} ,{"y", 1}
                     }
             },
             {
@@ -554,10 +553,9 @@ void jsonTest() {
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     ViewManager viewManager(newWindow, levelHeight, MTP_FACTOR, playerID, mapData, soundQueue);
 
-
     bool quit = false;
     SDL_Event e;
-    
+
     audioSystem.playMusic(BG_SONG_GAME);
     while(!quit) {
         while (SDL_PollEvent(&e) != 0) {
@@ -573,9 +571,9 @@ void jsonTest() {
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-//    drawChell();
-//    drawChellAndRock();
-//    drawChellAndEnergyBall();
-//    drawChellAndAcidPool();
+    //drawChell();
+    //drawChellAndRock();
+    //drawChellAndEnergyBall();
+    //drawChellAndAcidPool();
     jsonTest();
 }

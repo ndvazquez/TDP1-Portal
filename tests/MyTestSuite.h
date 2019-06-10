@@ -86,20 +86,18 @@ class EnergyTransmitterTest : public CxxTest::TestSuite
     size_t x_pos = 10;
     size_t y_pos = 10;
     size_t side = 2;
+    std::string id_et = "EnergyTransmitter1";
 
 public:
     void testEnergyTransmitter() {
         std::cout << "Testing the energy transmitter dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyTransmitterRight(side, x_pos, y_pos);
-        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-        EnergyTransmitter* energy = stage.getEnergyTransmitter(coordinates);
+        stage.addEnergyTransmitterRight(id_et, side, x_pos, y_pos);
+        EnergyTransmitter* energy = stage.getEnergyTransmitter(id_et);
 
         TS_ASSERT_EQUALS(x_pos, energy->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, energy->getVerticalPosition());
-
-        delete coordinates;
     }
 };
 
@@ -111,15 +109,15 @@ class RockTest : public CxxTest::TestSuite
     size_t x_pos = 10;
     size_t y_pos = 10;
     size_t side = 2;
+    std::string id_rock = "Rock1";
 
 public:
     void testRock() {
         std::cout << "Testing the rock dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addRock(side, x_pos, y_pos);
-        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-        Rock* rock = stage.getRock(coordinates);
+        stage.addRock(id_rock, side, x_pos, y_pos);
+        Rock* rock = stage.getRock(id_rock);
 
         TS_ASSERT_EQUALS(x_pos, rock->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, rock->getVerticalPosition());
@@ -181,15 +179,15 @@ class AcidTest : public CxxTest::TestSuite
     size_t y_pos = 10;
     size_t v_side = 2;
     size_t h_side = 4;
+    std::string id_acid = "Acid1";
 
 public:
     void testAcid() {
         std::cout << "Testing the acid dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addAcid(v_side, h_side, x_pos, y_pos);
-        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-        Acid* button = stage.getAcid(coordinates);
+        stage.addAcid(id_acid, v_side, h_side, x_pos, y_pos);
+        Acid* button = stage.getAcid(id_acid);
 
         TS_ASSERT_EQUALS(x_pos, button->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, button->getVerticalPosition());
@@ -242,15 +240,15 @@ class ChellTest : public CxxTest::TestSuite {
     size_t v_side = 10;
     size_t h_side = 10;
     size_t mass = v_side * h_side;
+    std::string id_chell = "Chell1";
 
 public:
     void testChellInit() {
         std::cout << "Testing the creation of Chell" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(v_side, h_side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        Chell* chell = stage.getChell(coordinates);
+        stage.addChell(id_chell, v_side, h_side, initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(id_chell);
 
         TS_ASSERT_EQUALS(initial_position_x, chell->getHorizontalPosition());
         TS_ASSERT_EQUALS(initial_position_y, chell->getVerticalPosition());
@@ -262,9 +260,8 @@ public:
         std::cout << "Testing chell falling" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Chell* chell = stage.getChell(coordinate);
+        stage.addChell(id_chell, h_side, v_side, initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(id_chell);
 
         float dt = 1.0f/60.0f;
         float gravity = gameConfiguration.gravity;
@@ -284,9 +281,8 @@ public:
         std::cout << "Testing chell moving right" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Chell* chell = stage.getChell(coordinate);
+        stage.addChell(id_chell, h_side, v_side, initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(id_chell);
 
         chell->moveRight();
 
@@ -309,9 +305,8 @@ public:
         std::cout << "Testing chell moving left" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(h_side, v_side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
-        Chell* chell = stage.getChell(coordinate);
+        stage.addChell(id_chell, h_side, v_side, initial_position_x, initial_position_y);
+        Chell* chell = stage.getChell(id_chell);
 
         chell->moveLeft();
 
@@ -335,9 +330,8 @@ public:
 
         Stage stage(width_stage, height_stage);
         float position = 5;
-        stage.addChell(h_side, v_side, initial_position_x, position);
-        Coordinate* coordinate = new Coordinate(initial_position_x, position);
-        Chell* chell = stage.getChell(coordinate);
+        stage.addChell(id_chell, h_side, v_side, initial_position_x, position);
+        Chell* chell = stage.getChell(id_chell);
 
         chell->jump();
 
@@ -362,15 +356,15 @@ class EnergyBallTest : public CxxTest::TestSuite {
     size_t initial_position_y = 500;
     size_t side = 10;
     size_t mass = side * side;
+    std::string id_eb = "EnergyBall1";
 
 public:
     void testEnergyBallInit() {
         std::cout << "Testing the creation of EnergyBall" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         TS_ASSERT_EQUALS(initial_position_x, energy_ball->getHorizontalPosition());
         TS_ASSERT_EQUALS(initial_position_y, energy_ball->getVerticalPosition());
@@ -382,9 +376,8 @@ public:
         std::cout << "Testing that the energy ball doesn't fall" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         for (size_t i = 0; i < 120; i++) {
             stage.step();
@@ -397,9 +390,8 @@ public:
         std::cout << "Testing that the horizontal energy ball collides against a wall and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(side, width_stage - 50, initial_position_y);
-        Coordinate* coordinates = new Coordinate(width_stage - 50, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        stage.addEnergyBallHorizontal(id_eb, side, width_stage - 50, initial_position_y);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -424,9 +416,8 @@ public:
         std::cout << "Testing that the vertical energy ball collides against a wall and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(side, initial_position_x, height_stage - 50);
-        Coordinate* coordinates = new Coordinate(initial_position_x, height_stage - 50);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        stage.addEnergyBallVertical(id_eb, side, initial_position_x, height_stage - 50);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -450,10 +441,9 @@ public:
         std::cout << "Testing that the vertical energy ball collides against a metal block and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
         stage.addMetalBlock(side, initial_position_x, initial_position_y + 10);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -479,10 +469,9 @@ public:
         std::cout << "Testing that the horizontal energy ball collides against a metal block and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
         stage.addMetalBlock(side, initial_position_x + 10, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -510,10 +499,9 @@ public:
         float initial_position_x_brick_block = initial_position_x;
         float initial_position_y_brick_block = initial_position_y + 10; //colliding
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
         stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -534,10 +522,9 @@ public:
         float initial_position_x_brick_block = initial_position_x + 10;
         float initial_position_y_brick_block = initial_position_y; //colliding
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
         stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
         bool test = false;
@@ -557,10 +544,9 @@ public:
         float initial_position_x_diagonal_block = initial_position_x + 100;
         float initial_position_y_diagonal_block = initial_position_y; //colliding
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
         stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -581,10 +567,9 @@ public:
         float initial_position_x_diagonal_block = initial_position_x;
         float initial_position_y_diagonal_block = initial_position_y + 100; //colliding
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(side, initial_position_x, initial_position_y);
+        stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
         stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
-        EnergyBall* energy_ball = stage.getEnergyBall(coordinates);
+        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
 
@@ -610,38 +595,37 @@ class MovingRockTest :  public CxxTest::TestSuite {
     size_t mass_rock = side_rock * side_rock;
     size_t side_chell = 2;
     size_t mass_chell = side_chell * side_chell;
+    std::string id_rock = "Rock1";
+    std::string id_chell = "Chell1";
 
 public:
     void testRockBlockHasGravity() {
         std::cout << "Testing that the rock has gravity" << std::endl;
 
-        /* Stage stage(width_stage, height_stage);
-         stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
-         Coordinate* coordinate = new Coordinate(initial_pos_x_rock, initial_pos_y);
-         Rock* rock = stage.getRock(coordinate);
-         float dt = 1.0f/60.0f;
-         float gravity = gameConfiguration.gravity;
-         float velocity_y = 0;
-         float position = initial_pos_y;
-         for (size_t i = 0; i < 120; i++) {
-             stage.step();
-             velocity_y += gravity * dt;
-             position += velocity_y * dt;
-             TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 0.1f);
-             TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 0.1f);
-         }*/
+        Stage stage(width_stage, height_stage);
+        stage.addRock(id_rock, side_rock, initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(id_rock);
+        float dt = 1.0f/60.0f;
+        float gravity = gameConfiguration.gravity;
+        float velocity_y = 0;
+        float position = initial_pos_y;
+        for (size_t i = 0; i < 120; i++) {
+            stage.step();
+            velocity_y += gravity * dt;
+            position += velocity_y * dt;
+            TS_ASSERT_DELTA(position, rock->getVerticalPosition(), 0.1f);
+            TS_ASSERT_DELTA(velocity_y, rock->getVerticalVelocity(), 0.1f);
+        }
     }
 
     void testRockBlockMovesRight() {
         std::cout << "Testing that the rock block moves right" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
-        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
-        Chell* chell = stage.getChell(coordinate_chell);
-        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
-        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
-        Rock* rock = stage.getRock(coordinate_rock);
+        stage.addChell(id_chell, side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(id_chell);
+        stage.addRock(id_rock, side_rock, initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(id_rock);
 
         chell->grabRock(rock);
         chell->moveRight();
@@ -674,12 +658,10 @@ public:
         std::cout << "Testing that the rock block moves left" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
-        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
-        Chell* chell = stage.getChell(coordinate_chell);
-        stage.addRock(side_rock, initial_pos_x_rock, initial_pos_y);
-        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
-        Rock* rock = stage.getRock(coordinate_rock);
+        stage.addChell(id_chell, side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
+        Chell* chell = stage.getChell(id_chell);
+        stage.addRock(id_rock, side_rock, initial_pos_x_rock, initial_pos_y);
+        Rock* rock = stage.getRock(id_rock);
 
         chell->grabRock(rock);
         chell->moveLeft();
@@ -718,18 +700,19 @@ class ChellDiesTest :  public CxxTest::TestSuite {
     size_t x_pos_acid = 4;
     size_t side_chell = 2;
     size_t side_acid = 1;
-
+    std::string id_chell = "Chell1";
+    std::string id_acid = "Acid1";
+    std::string id_eb = "EnergyBall1";
 
 public:
     void testChellDiesAgainstAcid() {
         std::cout << "Testing that Chell dies against acid" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
-        stage.addAcid(side_acid, side_acid, x_pos_acid, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addAcid(id_acid, side_acid, side_acid, x_pos_acid, y_pos);
 
-        Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
-        Chell* chell_right = stage.getChell(coordinates);
+        Chell* chell_right = stage.getChell(id_chell);
 
         bool test_right = false;
         chell_right->moveRight();
@@ -743,57 +726,7 @@ public:
             stage.step();
         }
         TS_ASSERT_EQUALS(test_right, true);
-
-        stage.addChell(side_chell, side_chell, x_pos_acid, y_pos);
-        stage.addAcid(side_acid, side_acid, x_pos_chell, y_pos);
-
-        Coordinate* coordinate_left = new Coordinate(x_pos_acid, y_pos);
-        Chell* chell_left = stage.getChell(coordinate_left);
-
-        bool test_left = false;
-        chell_left->moveLeft();
-
-        TS_ASSERT_EQUALS(chell_left->isDead(), false);
-
-        std::cout << "Now the other direction" << std::endl;
-
-        /*for (size_t i = 0; i < 120000; i++) {
-            if (chell_left->isDead()) {
-                test_left = true;
-            }
-            stage.step();
-        }
-        TS_ASSERT_EQUALS(test_left, true);*/
     }
-
-    void testChellDiesAgainstEnergyBall() {
-        std::cout << "Testing that Chell dies against an energy ball" << std::endl;
-
-        Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
-        stage.addEnergyBallHorizontal(side_acid + 1, x_pos_acid, y_pos);
-
-        Coordinate* coordinates = new Coordinate(x_pos_chell, y_pos);
-        Chell* chell = stage.getChell(coordinates);
-        EnergyBall* energy_ball = stage.getEnergyBall(new Coordinate(x_pos_acid, y_pos));
-
-        bool test_right = false;
-        chell->moveRight();
-
-        TS_ASSERT_EQUALS(chell->isDead(), false);
-
-        for (size_t i = 0; i < 120000; i++) {
-            /*if (! chell->isDead()) continue;
-
-            if (chell->isDead()) {
-                test_right = true;
-                TS_ASSERT_EQUALS(test_right, true);
-                return;
-            }*/
-            stage.step();
-        }
-    }
-    
 };
 
 class ShootingTest :  public CxxTest::TestSuite {
@@ -804,21 +737,24 @@ class ShootingTest :  public CxxTest::TestSuite {
     size_t side_chell = 2;
     float h_side_shot = 1;
     float v_side_shot = 2;
+    std::string id_blue_shot = "BlueShot1";
+    std::string id_orange_shot = "OrangeShot1";
+    std::string id_chell = "Chell1";
 
 public:
     void testBlueTrayectoryShooting() {
         std::cout << "Testing the blue trayectory of the shooting" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(8, 1);
-        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
 
-        BlueShot* blueShot = stage.getBlueShot(origin);
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
         for (size_t i = 0; i < 120; i++) {
             if (blueShot->isDead()) break;
@@ -833,15 +769,15 @@ public:
         std::cout << "Testing the orange trayectory of the shooting" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(8, 1);
-        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+        stage.addOrangeShot(id_orange_shot, v_side_shot, h_side_shot, chell, target);
 
-        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         for (size_t i = 0; i < 120; i++) {
             if (orangeShot->isDead()) break;
@@ -858,15 +794,15 @@ public:
         Stage stage(width_stage, height_stage);
         x_pos_chell = 8;
         y_pos = 1;
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(3, 1);
-        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
 
-        BlueShot* blueShot = stage.getBlueShot(origin);
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
         for (size_t i = 0; i < 120; i++) {
             if (blueShot->isDead()) break;
@@ -883,15 +819,15 @@ public:
         Stage stage(width_stage, height_stage);
         x_pos_chell = 8;
         y_pos = 1;
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(4, 4);
-        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+        stage.addOrangeShot(id_orange_shot, v_side_shot, h_side_shot, chell, target);
 
-        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         for (size_t i = 0; i < 120; i++) {
             if (orangeShot->isDead()) break;
@@ -908,20 +844,20 @@ public:
         Stage stage(20, 20);
         x_pos_chell = 10;
         y_pos = 1;
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(14, 14);
-        stage.addOrangeShot(v_side_shot, h_side_shot, chell, target);
+        stage.addOrangeShot(id_orange_shot, v_side_shot, h_side_shot, chell, target);
         stage.addMetalBlock(2, 14, 14);
         MetalBlock* metalBlock = stage.getMetalBlock(new Coordinate(14, 14));
 
-        OrangeShot* orangeShot = stage.getOrangeShot(origin);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         for (size_t i = 0; i < 120; i++) {
-            orangeShot = stage.getOrangeShot(origin);
+            orangeShot = stage.getOrangeShot(id_orange_shot);
 
             if (orangeShot->isDead()) return;
 
@@ -941,20 +877,20 @@ public:
         Stage stage(20, 20);
         x_pos_chell = 10;
         y_pos = 1;
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(14, 1);
-        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
+        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
         stage.addMetalBlock(2, 18, 1);
         MetalBlock* metalBlock = stage.getMetalBlock(new Coordinate(18, 1));
 
-        BlueShot* blueShot = stage.getBlueShot(origin);
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
         for (size_t i = 0; i < 120; i++) {
-            blueShot = stage.getBlueShot(origin);
+            blueShot = stage.getBlueShot(id_blue_shot);
 
             if (blueShot->isDead()) return;
 
@@ -973,19 +909,19 @@ public:
         Stage stage(20, 20);
         x_pos_chell = 10;
         y_pos = 1;
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
+        Chell* chell = stage.getChell(id_chell);
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(18, 1);
-        stage.addBlueShot(v_side_shot, h_side_shot, chell, target);
-        stage.addChell(side_chell, side_chell, 14, 1);
+        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
+        stage.addChell(id_chell, side_chell, side_chell, 14, 1);
 
-        BlueShot* blueShot = stage.getBlueShot(origin);
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
         for (size_t i = 0; i < 120; i++) {
-            blueShot = stage.getBlueShot(origin);
+            blueShot = stage.getBlueShot(id_blue_shot);
 
             if (blueShot != nullptr) {
                 float x = blueShot->getHorizontalPosition();
@@ -1005,6 +941,9 @@ class PortalTest :  public CxxTest::TestSuite {
     size_t y_pos = 1;
     size_t side_chell = 2;
     size_t side_portal = 2;
+    std::string id_chell = "Chell1";
+    std::string id_blue_shot = "BlueShot1";
+    std::string id_orange_shot = "OrangeShot1";
 
 public:
 
@@ -1019,7 +958,7 @@ public:
         float x_pos_left_metal_block = x_pos_chell - 10;
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
         stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
         stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
 
@@ -1042,20 +981,19 @@ public:
         Coordinate* left_target = new Coordinate(x_pos_left_metal_block, y_pos);
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
         stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
         stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
-
 
         MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
         MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
-        stage.addBlueShot(height_shot, width_shot, chell, right_target);
-        stage.addOrangeShot(height_shot, width_shot, chell, left_target);
+        Chell* chell = stage.getChell(id_chell);
+        stage.addBlueShot(id_blue_shot, height_shot, width_shot, chell, right_target);
+        stage.addOrangeShot(id_orange_shot, height_shot, width_shot, chell, left_target);
 
-        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
-        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         for (size_t i = 0; i < 2500; i++) {
             stage.step();
@@ -1080,21 +1018,21 @@ public:
         Coordinate* left_target = new Coordinate(x_pos_left_metal_block, y_pos);
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
         stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
         stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
 
         MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
         MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
-        stage.addBlueShot(height_shot, width_shot, chell, right_target);
-        stage.addOrangeShot(height_shot, width_shot, chell, left_target);
+        Chell* chell = stage.getChell(id_chell);
+        stage.addBlueShot(id_blue_shot, height_shot, width_shot, chell, right_target);
+        stage.addOrangeShot(id_orange_shot, height_shot, width_shot, chell, left_target);
         //blue = 30
         //orange = 10
 
-        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
-        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         chell->moveRight();
 
@@ -1125,19 +1063,19 @@ public:
         Coordinate* left_target = new Coordinate(x_pos_left_metal_block, y_pos);
 
         Stage stage(width_stage, height_stage);
-        stage.addChell(side_chell, side_chell, x_pos_chell, y_pos);
+        stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
         stage.addMetalBlock(2, x_pos_right_metal_block, y_pos);
         stage.addMetalBlock(2, x_pos_left_metal_block, y_pos);
 
         MetalBlock* left_metal_block = stage.getMetalBlock(new Coordinate(x_pos_left_metal_block, y_pos));
         MetalBlock* right_metal_block = stage.getMetalBlock(new Coordinate(x_pos_right_metal_block, y_pos));
 
-        Chell* chell = stage.getChell(new Coordinate(x_pos_chell, y_pos));
-        stage.addBlueShot(height_shot, width_shot, chell, right_target); //blue = right
-        stage.addOrangeShot(height_shot, width_shot, chell, left_target); //orange = left
+        Chell* chell = stage.getChell(id_chell);
+        stage.addBlueShot(id_blue_shot, height_shot, width_shot, chell, right_target); //blue = right
+        stage.addOrangeShot(id_orange_shot, height_shot, width_shot, chell, left_target); //orange = left
 
-        BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_pos_chell + 2 + width_shot/2, y_pos + 1));
-        OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_pos_chell - 2 - width_shot/2, y_pos + 1));
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         chell->moveRight();
 
@@ -1153,7 +1091,8 @@ public:
 
         stage.addMetalBlock(2, x, y + 5);
         Coordinate* new_target = new Coordinate(x, y + 5);
-        stage.addOrangeShot(height_shot, width_shot, chell, new_target); //orange = new
+        std::string id_orange_shot_2 = "OrangeShot2";
+        stage.addOrangeShot(id_orange_shot_2, height_shot, width_shot, chell, new_target); //orange = new
 
         MetalBlock* metal_block_new = stage.getMetalBlock(new_target);
 
