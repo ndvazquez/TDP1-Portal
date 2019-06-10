@@ -25,6 +25,7 @@
 #include "Floor.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
+#include "Gate.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -53,6 +54,7 @@ private:
     std::unordered_map<Coordinate*, EnergyBall*> energy_balls;
     std::unordered_map<Coordinate*, BlueShot*> blue_shots;
     std::unordered_map<Coordinate*, OrangeShot*> orange_shots;
+    std::unordered_map<Coordinate*, Gate*> gates;
 
 public:
     Stage(size_t width, size_t height);
@@ -78,6 +80,8 @@ public:
             Coordinate* target);
     void addOrangeShot(float v_side, float h_side, Chell* chell,
                      Coordinate* target);
+    void addGate(float v_side, float h_side, float x_pos, float y_pos,
+                 std::unordered_map<std::string, Button*> buttons, std::string logic);
 
     void step();
 

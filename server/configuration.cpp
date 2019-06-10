@@ -7,7 +7,7 @@
 
 
 struct box2DConfiguration gameConfiguration = {
-        .chellForce = 275,
+        .chellForce = 500,
         .death = 1200,
         .deltaError = 0.01,
         .energyBallImpulseFactor = 10,

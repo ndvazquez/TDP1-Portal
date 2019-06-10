@@ -12,6 +12,7 @@
 #include "Stop.h"
 #include "MetalBlock.h"
 #include "Chell.h"
+#include "Button.h"
 #include <Box2D/Dynamics/b2World.h>
 
 
@@ -34,6 +35,15 @@ void Rock::handleCollision(Entity *entity) {
     }
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
+    }
+    if (type == "Button") {
+        Button* button = static_cast<Button*>(entity);
+        float x_button = button->getHorizontalPosition();
+        float x_rock = body->GetPosition().x;
+        float delta = 0.1;
+        if (x_rock > x_button - delta && x_rock < x_button + delta) {
+            button->activate();
+        }
     }
 }
 
