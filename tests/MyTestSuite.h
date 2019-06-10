@@ -94,13 +94,10 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addEnergyTransmitterRight(id_et, side, x_pos, y_pos);
-        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         EnergyTransmitter* energy = stage.getEnergyTransmitter(id_et);
 
         TS_ASSERT_EQUALS(x_pos, energy->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, energy->getVerticalPosition());
-
-        delete coordinates;
     }
 };
 
@@ -120,7 +117,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addRock(id_rock, side, x_pos, y_pos);
-        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         Rock* rock = stage.getRock(id_rock);
 
         TS_ASSERT_EQUALS(x_pos, rock->getHorizontalPosition());
@@ -191,7 +187,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addAcid(id_acid, v_side, h_side, x_pos, y_pos);
-        Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         Acid* button = stage.getAcid(id_acid);
 
         TS_ASSERT_EQUALS(x_pos, button->getHorizontalPosition());
@@ -253,7 +248,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, v_side, h_side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         Chell* chell = stage.getChell(id_chell);
 
         TS_ASSERT_EQUALS(initial_position_x, chell->getHorizontalPosition());
@@ -267,7 +261,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, h_side, v_side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
         Chell* chell = stage.getChell(id_chell);
 
         float dt = 1.0f/60.0f;
@@ -289,7 +282,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, h_side, v_side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
         Chell* chell = stage.getChell(id_chell);
 
         chell->moveRight();
@@ -314,7 +306,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, h_side, v_side, initial_position_x, initial_position_y);
-        Coordinate* coordinate = new Coordinate(initial_position_x, initial_position_y);
         Chell* chell = stage.getChell(id_chell);
 
         chell->moveLeft();
@@ -340,7 +331,6 @@ public:
         Stage stage(width_stage, height_stage);
         float position = 5;
         stage.addChell(id_chell, h_side, v_side, initial_position_x, position);
-        Coordinate* coordinate = new Coordinate(initial_position_x, position);
         Chell* chell = stage.getChell(id_chell);
 
         chell->jump();
@@ -374,7 +364,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         TS_ASSERT_EQUALS(initial_position_x, energy_ball->getHorizontalPosition());
@@ -388,7 +377,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         for (size_t i = 0; i < 120; i++) {
@@ -403,7 +391,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(id_eb, side, width_stage - 50, initial_position_y);
-        Coordinate* coordinates = new Coordinate(width_stage - 50, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -430,7 +417,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallVertical(id_eb, side, initial_position_x, height_stage - 50);
-        Coordinate* coordinates = new Coordinate(initial_position_x, height_stage - 50);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -457,7 +443,6 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
         stage.addMetalBlock(side, initial_position_x, initial_position_y + 10);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -486,7 +471,6 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
         stage.addMetalBlock(side, initial_position_x + 10, initial_position_y);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -517,7 +501,6 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
         stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -541,7 +524,6 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
         stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -564,7 +546,6 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
         stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -588,7 +569,6 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
         stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
-        Coordinate* coordinates = new Coordinate(initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -624,7 +604,6 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addRock(id_rock, side_rock, initial_pos_x_rock, initial_pos_y);
-        Coordinate* coordinate = new Coordinate(initial_pos_x_rock, initial_pos_y);
         Rock* rock = stage.getRock(id_rock);
         float dt = 1.0f/60.0f;
         float gravity = gameConfiguration.gravity;
@@ -644,10 +623,8 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
-        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
         Chell* chell = stage.getChell(id_chell);
         stage.addRock(id_rock, side_rock, initial_pos_x_rock, initial_pos_y);
-        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
         Rock* rock = stage.getRock(id_rock);
 
         chell->grabRock(rock);
@@ -682,10 +659,8 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, side_chell, side_chell, initial_pos_x_chell, initial_pos_y);
-        Coordinate* coordinate_chell = new Coordinate(initial_pos_x_chell, initial_pos_y);
         Chell* chell = stage.getChell(id_chell);
         stage.addRock(id_rock, side_rock, initial_pos_x_rock, initial_pos_y);
-        Coordinate* coordinate_rock = new Coordinate(initial_pos_x_rock, initial_pos_y);
         Rock* rock = stage.getRock(id_rock);
 
         chell->grabRock(rock);
@@ -1099,8 +1074,8 @@ public:
         stage.addBlueShot(id_blue_shot, height_shot, width_shot, chell, right_target); //blue = right
         stage.addOrangeShot(id_orange_shot, height_shot, width_shot, chell, left_target); //orange = left
 
-        BlueShot* blueShot = stage.getBlueShot(id_orange_shot);
-        OrangeShot* orangeShot = stage.getOrangeShot(id_blue_shot);
+        BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
+        OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
         chell->moveRight();
 
@@ -1116,7 +1091,8 @@ public:
 
         stage.addMetalBlock(2, x, y + 5);
         Coordinate* new_target = new Coordinate(x, y + 5);
-        stage.addOrangeShot(id_orange_shot, height_shot, width_shot, chell, new_target); //orange = new
+        std::string id_orange_shot_2 = "OrangeShot2";
+        stage.addOrangeShot(id_orange_shot_2, height_shot, width_shot, chell, new_target); //orange = new
 
         MetalBlock* metal_block_new = stage.getMetalBlock(new_target);
 
@@ -1124,7 +1100,7 @@ public:
         TS_ASSERT_EQUALS(left_metal_block->hasPortal(), false);
         TS_ASSERT_EQUALS(metal_block_new->hasPortal(), false);
 
-        for (size_t i = 0; i < 25000; i++) {
+        for (size_t i = 0; i < 2500; i++) {
             if (metal_block_new->hasPortal() && right_metal_block->hasPortal()) break;
             stage.step();
         }
