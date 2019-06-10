@@ -51,16 +51,16 @@ private:
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
     std::unordered_map<Coordinate*, Button*> buttons;
 
-    std::unordered_map<std::string&, Acid*> acids; //TODO: doubt
-    std::unordered_map<std::string&, Chell*> chells;
-    std::unordered_map<std::string&, EnergyBall*> energy_balls;
-    std::unordered_map<std::string&, BlueShot*> blue_shots;
-    std::unordered_map<std::string&, OrangeShot*> orange_shots;
-    std::unordered_map<std::string&, EnergyTransmitter*>
+    std::unordered_map<std::string, Acid*> acids; //TODO: doubt
+    std::unordered_map<std::string, Chell*> chells;
+    std::unordered_map<std::string, EnergyBall*> energy_balls;
+    std::unordered_map<std::string, BlueShot*> blue_shots;
+    std::unordered_map<std::string, OrangeShot*> orange_shots;
+    std::unordered_map<std::string, EnergyTransmitter*>
     energy_transmitters_horizontals;
-    std::unordered_map<std::string&, EnergyTransmitter*>
+    std::unordered_map<std::string, EnergyTransmitter*>
     energy_transmitters_verticals;
-    std::unordered_map<std::string&, Rock*> rocks;
+    std::unordered_map<std::string, Rock*> rocks;
 
 public:
     Stage(size_t width, size_t height);
@@ -81,27 +81,27 @@ public:
     void addEnergyBar(float v_side, float h_side, float x_pos, float y_pos);
     void addButton(float v_side, float h_side, float x_pos, float y_pos);
 
-    void addAcid(std::string& id, float v_side, float h_side,
+    void addAcid(std::string id, float v_side, float h_side,
             float x_pos, float y_pos); //TODO: doubt
-    void addChell(std::string& id, float v_side, float h_side,
+    void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
-    void addEnergyBallHorizontal(std::string& id, float side,
+    void addEnergyBallHorizontal(std::string id, float side,
             float x_pos, float y_pos);
-    void addEnergyBallVertical(std::string& id, float side,
+    void addEnergyBallVertical(std::string id, float side,
             float x_pos, float y_pos);
-    void addBlueShot(std::string& id, float v_side,
+    void addBlueShot(std::string id, float v_side,
             float h_side, Chell* chell, Coordinate* target);
-    void addOrangeShot(std::string& id, float v_side, float h_side,
+    void addOrangeShot(std::string id, float v_side, float h_side,
             Chell* chell, Coordinate* target);
-    void addEnergyTransmitterRight(std::string& id, float side,
+    void addEnergyTransmitterRight(std::string id, float side,
             float x_pos, float y_pos);
-    void addEnergyTransmitterLeft(std::string& id, float side,
+    void addEnergyTransmitterLeft(std::string id, float side,
             float x_pos, float y_pos);
-    void addEnergyTransmitterUp(std::string& id, float side,
+    void addEnergyTransmitterUp(std::string id, float side,
             float x_pos, float y_pos);
-    void addEnergyTransmitterDown(std::string& id, float side,
+    void addEnergyTransmitterDown(std::string id, float side,
             float x_pos, float y_pos);
-    void addRock(std::string& id, float side,
+    void addRock(std::string id, float side,
             float x_pos, float y_pos);
 
     void step();

@@ -83,45 +83,46 @@ void drawChell(){
     stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
+    std::string id_chell = "Chell1";
     float xPos = 4;
     float yPos = 1;
     float chellHeight = CHELL_HEIGHT;
     float chellWidth = CHELL_WIDTH;
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(id_chell, chellHeight, chellWidth, xPos, yPos);
 
     float xCake = xPos + 3;
     float yCake = yPos;
     stage.addCake(1, xCake, yCake);
     Cake* cake = stage.getCake();
-    if (cake != nullptr) std::cout << "La torta no es un null" << std::endl;
-    else std::cout << "La torta es null" << std::endl;
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(id_chell);
     //Rock
+    std::string id_rock = "Rock1";
     size_t rockSide = 1;
-    stage.addRock(rockSide, metalBlockPosX + 12, metalBlockPosY+2);
+    stage.addRock(id_rock, rockSide, metalBlockPosX + 12, metalBlockPosY+2);
 
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 12, metalBlockPosY + 2);
-    Rock* rock = stage.getRock(coordinateRock);
+    Rock* rock = stage.getRock(id_rock);
     RockView rockView(newWindow, metalBlockPosX + 12, metalBlockPosY + 2, MTP_FACTOR, textures);
 
     //Shot in Chell
     float shotWidth = 1;
     float shotHeight = 1;
+    std::string id_blue_shot = "BlueShot1";
+    std::string id_orange_shot = "OrangeShot1";
 
     Coordinate* target_blue = new Coordinate(metalBlockPosX + 8, metalBlockPosY + 4); //Setting one block to shoot
-    stage.addBlueShot(shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
+    stage.addBlueShot(id_blue_shot, shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
     float x_origin_blue = xPos + chellWidth*2 + shotWidth/2;
     float y_origin_blue = yPos + 1;
-    BlueShot* blueShot = stage.getBlueShot(new Coordinate(x_origin_blue, y_origin_blue));
+    BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
     Coordinate* target_orange = new Coordinate(metalBlockPosX + 2, metalBlockPosY + 6);
-    stage.addOrangeShot(shotHeight, shotWidth, chell, target_orange);
+    stage.addOrangeShot(id_orange_shot, shotHeight, shotWidth, chell, target_orange);
     float x_origin_orange = xPos - chellWidth*2 - shotWidth/2;
     float y_origin_orange = yPos + 1;
-    OrangeShot* orangeShot = stage.getOrangeShot(new Coordinate(x_origin_orange, y_origin_orange));
-
+    OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
     BulletView blueShotView(newWindow, x_origin_blue, y_origin_blue, MTP_FACTOR, textures);
     BulletView orangeShotView(newWindow, x_origin_orange, y_origin_orange, MTP_FACTOR, textures);
@@ -228,6 +229,7 @@ void drawChellAndRock(){
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
     // Box2D Stuff.
+    std::string id_chell = "Chell1";
     float xPos = 1;
     float yPos = 1;
     float chellHeight = 2;
@@ -237,20 +239,21 @@ void drawChellAndRock(){
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight); // 1m == 1 block == 100px
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(id_chell, chellHeight, chellWidth, xPos, yPos);
     float metalBlockPosX = 4;
     float metalBlockPosY = 1;
 
     // Add a rock next to the metal block.
+    std::string id_rock = "Rock1";
     size_t rockSide = 1;
-    stage.addRock(rockSide, metalBlockPosX + 3, metalBlockPosY+5);
+    stage.addRock(id_rock, rockSide, metalBlockPosX + 3, metalBlockPosY+5);
 
 
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(id_chell);
     // Get the rock object.
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY + 5);
-    Rock* rock = stage.getRock(coordinateRock);
+    Rock* rock = stage.getRock(id_rock);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
@@ -334,21 +337,23 @@ void drawChellAndEnergyBall(){
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight);
     // Stage Chell
+    std::string id_chell = "Chell1";
     float xPos = 1;
     float yPos = 1;
     float chellHeight = 2;
     float chellWidth = 1;
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(id_chell, chellHeight, chellWidth, xPos, yPos);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(id_chell);
     // Stage EnergyBall
+    std::string id_eb = "EnergyBall1";
     int xBall = 8;
     int yBall = 1;
     EnergyBallView energyBallView(newWindow, xBall, yBall, MTP_FACTOR, textures);
     float energyBallSide = 1;
-    stage.addEnergyBallHorizontal(energyBallSide, xBall, yBall);
+    stage.addEnergyBallHorizontal(id_eb, energyBallSide, xBall, yBall);
     Coordinate* coordinateEB = new Coordinate(xBall, yBall);
-    EnergyBall* energyBall = stage.getEnergyBall(coordinateEB);
+    EnergyBall* energyBall = stage.getEnergyBall(id_eb);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
@@ -428,22 +433,24 @@ void drawChellAndAcidPool(){
     int levelHeight = stageHeight * MTP_FACTOR;
     Stage stage(stageWidth, stageHeight);
     // Stage Chell
+    std::string id_chell = "Chell1";
     float xPos = 1;
     float yPos = 2;
     float chellHeight = 2;
     float chellWidth = 1;
 
-    stage.addChell(chellHeight, chellWidth, xPos, yPos);
+    stage.addChell(id_chell, chellHeight, chellWidth, xPos, yPos);
     Coordinate* coordinate = new Coordinate(xPos, yPos);
-    Chell* chell = stage.getChell(coordinate);
+    Chell* chell = stage.getChell(id_chell);
     // Stage AcidPool
+    std::string id_acid = "Acid1";
     float acidPosX = 5;
     float acidPosY = 0.5;
     float acidHeight = 0.5;
     float acidWidth = 3;
     int acidViewPosX = (acidPosX - acidWidth / 2 ) * MTP_FACTOR;
     int acidViewPosY = (acidPosY + acidHeight / 2) * MTP_FACTOR * -1 + levelHeight;
-    stage.addAcid(acidHeight, acidWidth, acidPosX, acidPosY);
+    stage.addAcid(id_acid, acidHeight, acidWidth, acidPosX, acidPosY);
     // Acid View.
     AcidView acidView(newWindow, acidViewPosX, acidViewPosY, MTP_FACTOR, textures);
 

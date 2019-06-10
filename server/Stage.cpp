@@ -184,7 +184,7 @@ void Stage::addButton(float v_side, float h_side, float x_pos, float y_pos) {
     buttons.insert({coordinates, button});
 }
 
-void Stage::addAcid(std::string& id, float v_side, float h_side,
+void Stage::addAcid(std::string id, float v_side, float h_side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -196,7 +196,7 @@ void Stage::addAcid(std::string& id, float v_side, float h_side,
     acids.insert({id, acid});
 }
 
-void Stage::addChell(std::string& id, float v_side, float h_side,
+void Stage::addChell(std::string id, float v_side, float h_side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -208,7 +208,7 @@ void Stage::addChell(std::string& id, float v_side, float h_side,
     chells.insert({id, chell});
 }
 
-void Stage::addEnergyBallHorizontal(std::string& id, float side,
+void Stage::addEnergyBallHorizontal(std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -220,7 +220,7 @@ void Stage::addEnergyBallHorizontal(std::string& id, float side,
     energy_balls.insert({id, energy_ball});
 }
 
-void Stage::addEnergyBallVertical(std::string& id, float side,
+void Stage::addEnergyBallVertical(std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -232,7 +232,7 @@ void Stage::addEnergyBallVertical(std::string& id, float side,
     energy_balls.insert({id, energy_ball});
 }
 
-void Stage::addEnergyTransmitterRight(std::string& id, float side,
+void Stage::addEnergyTransmitterRight(std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -244,7 +244,7 @@ void Stage::addEnergyTransmitterRight(std::string& id, float side,
     energy_transmitters_horizontals.insert({id, energy});
 }
 
-void Stage::addEnergyTransmitterLeft(std::string& id, float side,
+void Stage::addEnergyTransmitterLeft(std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -256,7 +256,7 @@ void Stage::addEnergyTransmitterLeft(std::string& id, float side,
     energy_transmitters_horizontals.insert({id, energy});
 }
 
-void Stage::addEnergyTransmitterUp(std::string& id, float side,
+void Stage::addEnergyTransmitterUp(std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -268,7 +268,7 @@ void Stage::addEnergyTransmitterUp(std::string& id, float side,
     energy_transmitters_verticals.insert({id, energy});
 }
 
-void Stage::addEnergyTransmitterDown(std::string& id, float side,
+void Stage::addEnergyTransmitterDown(std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -280,7 +280,7 @@ void Stage::addEnergyTransmitterDown(std::string& id, float side,
     energy_transmitters_verticals.insert({id, energy});
 }
 
-void Stage::addRock(std::string& id, float side, float x_pos, float y_pos) {
+void Stage::addRock(std::string id, float side, float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
@@ -293,7 +293,7 @@ void Stage::addRock(std::string& id, float side, float x_pos, float y_pos) {
     rocks.insert({id, rock});
 }
 
-void Stage::addBlueShot(std::string& id, float v_side, float h_side,
+void Stage::addBlueShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
     Coordinate* bluePortal = chell->getBluePortal();
     if (bluePortal != nullptr) {
@@ -322,7 +322,7 @@ void Stage::addBlueShot(std::string& id, float v_side, float h_side,
     blue_shots.insert({id, blueShot});
 }
 
-void Stage::addOrangeShot(std::string& id, float v_side, float h_side,
+void Stage::addOrangeShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
     Coordinate* orangePortal = chell->getOrangePortal();
     if (orangePortal != nullptr) {
@@ -411,7 +411,11 @@ void Stage::step() {
             if (energyBallCoordinates != nullptr) {
                 float x_pos = energyBallCoordinates->getX();
                 float y_pos = energyBallCoordinates->getY();
-                addEnergyBallHorizontal(1, x_pos, y_pos);
+                std::string id = i->first;
+                std::string to_replace = "EnergyBall";
+                std::string replaced = "EnergyTransmitter";
+                id.replace(0, replaced.length(), to_replace);
+                addEnergyBallHorizontal(id, 1, x_pos, y_pos);
                 delete energyBallCoordinates;
             }
     }
@@ -422,7 +426,11 @@ void Stage::step() {
         if (energyBallCoordinates != nullptr) {
             float x_pos = energyBallCoordinates->getX();
             float y_pos = energyBallCoordinates->getY();
-            addEnergyBallVertical(1, x_pos, y_pos);
+            std::string id = i->first;
+            std::string to_replace = "EnergyBall";
+            std::string replaced = "EnergyTransmitter";
+            id.replace(0, replaced.length(), to_replace);
+            addEnergyBallVertical(id, 1, x_pos, y_pos);
             delete energyBallCoordinates;
         }
     }
