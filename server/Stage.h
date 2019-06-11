@@ -9,6 +9,7 @@
 #include <cstddef>
 #include <string>
 #include <chrono>
+#include "../json/json.hpp"
 
 #include "Box2D/Box2D.h"
 #include "Coordinate.h"
@@ -124,6 +125,8 @@ public:
     OrangeShot* getOrangeShot(std::string id);
     EnergyTransmitter* getEnergyTransmitter(std::string id);
     Rock* getRock(std::string id);
+
+    nlohmann::json getCurrentState();
 };
 
 #endif //PORTAL_STAGE_H

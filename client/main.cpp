@@ -506,22 +506,26 @@ void drawChellAndAcidPool(){
 void jsonTest() {
     // Initial json sent by the server with information about the entities.
     // We'll need an additional one to populate StageView too.
+
+
+    float xPosChell = 4;
+    float yPosChell = 1;
+    std::string idChell = "Chell1";
+    float xPosRock = 8;
+    float yPosRock = 1;
+    std::string idRock = "Rock1";
+
     nlohmann::json mapData = {
             {
                     "Chell1",
                     {
-                            {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", 4} ,{"y", 1}
+                            {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", xPosChell} ,{"y", yPosChell}
                     }
             },
-            {
-                    "Rock1",
-                    {
-                            {"type", ROCK_VIEW_CODE}, {"x", 8}, {"y", 1}
-                    }
-            }
     };
     // This is what an update JSON looks like, sent from the server to the clients.
-    nlohmann::json stageUpdateRequest = {
+    nlohmann::json stageUpdateRequest;
+    /*= {
             {
                     "Chell1",
                     {
@@ -534,20 +538,32 @@ void jsonTest() {
                             {"state", 0}, {"x", 8}, {"y", 1}
                     }
             }
-    };
+    };*/
+
+
+
 
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
     std::string playerID = "Chell1";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    int levelWidth = 1000;
-    int levelHeight = 1000;
+
+    int stageWidth = 60;
+    int stageHeight = 6;
+    int levelWidth = stageWidth * MTP_FACTOR;
+    int levelHeight = stageHeight * MTP_FACTOR;
+
+    Stage stage(stageWidth, stageHeight);
+    stage.addChell(idChell, 2, 1, xPosChell, yPosChell);
+    Chell* chell = stage.getChell(idChell);
+
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     ViewManager viewManager(newWindow, levelHeight, MTP_FACTOR, playerID, mapData, soundQueue);
 
     bool quit = false;
     SDL_Event e;
+    const Uint8* keys = SDL_GetKeyboardState(NULL);
 
     audioSystem.playMusic(BG_SONG_GAME);
     while(!quit) {
@@ -555,7 +571,16 @@ void jsonTest() {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
+            // This should be done server side, but we'll do the event handling here for now.
+            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
+                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+            }
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
+        stage.step();
+        stageUpdateRequest = stage.getCurrentState();
         newWindow.clear();
         viewManager.showAndUpdateViews(stageUpdateRequest, camera);
         newWindow.render();

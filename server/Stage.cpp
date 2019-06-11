@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -323,8 +322,11 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
     float x_pos;
     float y_pos = chell->getVerticalPosition();
 
-    if (x_target >= x) x_pos = x_origin_right;
-    if (x_target <= x) x_pos = x_origin_left;
+    if (x_target >= x) {
+        x_pos = x_origin_right;
+    } else {
+        x_pos = x_origin_left;
+    }
 
     y_pos += 1;
 
@@ -592,6 +594,80 @@ Rock* Stage::getRock(std::string id) {
     }
     return nullptr;
 }
+
+nlohmann::json Stage::getCurrentState() {
+    nlohmann::json request;
+    for (auto i = chells.begin(); i != chells.end(); i++)  {
+        std::string id_chell = i->first;
+        State state_chell = i->second->getState();
+        float x_pos_chell = i->second->getHorizontalPosition();
+        float y_pos_chell = i->second->getVerticalPosition();
+        request[id_chell] = {
+                {"state", state_chell}, {"x", x_pos_chell}, {"y", y_pos_chell}
+        };
+    }
+    for (auto i = rocks.begin(); i != rocks.end(); i++)  {
+        std::string id_rock = i->first;
+        float x_pos_rock = i->second->getHorizontalPosition();
+        float y_pos_rock = i->second->getVerticalPosition();
+        request[id_rock] = {
+                {"state", 0}, {"x", x_pos_rock}, {"y", y_pos_rock}
+        };
+
+    }
+    for (auto i = blue_shots.begin(); i != blue_shots.end(); i++)  {
+        std::string id_blue_shot = i->first;
+        float x_pos_blue_shot = i->second->getHorizontalPosition();
+        float y_pos_blue_shot = i->second->getVerticalPosition();
+        request[id_blue_shot] = {
+                {"state", 0}, {"x", x_pos_blue_shot}, {"y", y_pos_blue_shot}
+        };
+    }
+    for (auto i = orange_shots.begin(); i != orange_shots.end(); i++)  {
+        std::string id_orange_shot = i->first;
+        float x_pos_orange_shot = i->second->getHorizontalPosition();
+        float y_pos_orange_shot = i->second->getVerticalPosition();
+        request[id_orange_shot] = {
+                {"state", 0}, {"x", x_pos_orange_shot}, {"y", y_pos_orange_shot}
+        };
+    }
+    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++)  {
+        std::string id_eb = i->first;
+        float x_pos_eb = i->second->getHorizontalPosition();
+        float y_pos_eb = i->second->getVerticalPosition();
+        request[id_eb] = {
+                {"state", 0}, {"x", x_pos_eb}, {"y", y_pos_eb}
+        };
+    }
+    for (auto i = acids.begin(); i != acids.end(); i++) {
+        std::string id_acid = i->first;
+        float x_pos_acid = i->second->getHorizontalPosition();
+        float y_pos_acid = i->second->getVerticalPosition();
+        request[id_acid] = {
+                {"state", 0}, {"x", x_pos_acid}, {"y", y_pos_acid}
+        };
+    }
+    for (auto i = energy_transmitters_horizontals.begin();
+    i != energy_transmitters_horizontals.end(); i++) {
+        std::string id_et = i->first;
+        float x_pos_et = i->second->getHorizontalPosition();
+        float y_pos_et = i->second->getVerticalPosition();
+        request[id_et] = {
+                {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
+        };
+    }
+    for (auto i = energy_transmitters_verticals.begin();
+         i != energy_transmitters_verticals.end(); i++) {
+        std::string id_et = i->first;
+        float x_pos_et = i->second->getHorizontalPosition();
+        float y_pos_et = i->second->getVerticalPosition();
+        request[id_et] = {
+                {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
+        };
+    }
+    return request;
+}
+
 
 Stage::~Stage() {
     b2Body* body = world->GetBodyList();
