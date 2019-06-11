@@ -5,7 +5,7 @@
 #include <utility>
 #include <iostream>
 #include "Object.h"
-#define SENTINEL ""
+
 
 Object::Object(std::string name, int w, int h) :
         name(std::move(name)), w(w), h(h) {}
@@ -39,7 +39,7 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::s
 }
 
 void Object::addTo(int x, int y, std::map<std::pair<int, int>,
-        std::string> &tiles) {
+        std::string> &tiles, std::string sentinel) {
     if(this->hasGravity()) {
         this->addWithGravityTo(x, y, tiles);
     }
@@ -47,7 +47,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
     // If there's nothing in the space i need
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            auto it = tiles.find(std::make_pair(x - i, y- j));
+            auto it = tiles.find(std::make_pair(x + i, y- j));
             if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
                 throw AddTileTakenPositionException(this->name);
             }
@@ -58,7 +58,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
     // I add my self in all that space
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            tiles.insert(std::make_pair(std::make_pair(x - i, y - j), SENTINEL));
+            tiles.insert(std::make_pair(std::make_pair(x + i, y - j), sentinel));
         }
     }
 

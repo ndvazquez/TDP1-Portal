@@ -12,6 +12,8 @@
 #include "ObjectException.h"
 
 #define POSITIONS_ABOVE (h - 1)
+#define SENTINEL ""
+#define ROCK_SENTINEL "KindOfARock"
 
 class Object {
 protected:
@@ -26,7 +28,7 @@ public:
     virtual void draw(SDL_Rect* rect) = 0;
 
     virtual void addTo(int x, int y, std::map<std::pair<int, int>,
-            std::string> &tiles);
+            std::string> &tiles, std::string sentinel = SENTINEL);
     virtual void setName();
 
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
