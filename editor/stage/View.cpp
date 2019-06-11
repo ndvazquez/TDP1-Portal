@@ -9,7 +9,7 @@
 View::View(Window &window, int factor, std::unordered_map<std::string, Object*>& textures, std::map<std::pair<int, int>, std::string>& tiles) :
 window(window), factor(factor), textures(textures), tiles(tiles) {}
 
-void View::draw(SDL_Rect *camera, int xStart) {
+void View::draw(SDL_Rect *camera, int yStart) {
     SDL_Rect destRect = {0 , 0, factor, factor};
 
     int camPosX = camera->x / factor;
@@ -27,8 +27,8 @@ void View::draw(SDL_Rect *camera, int xStart) {
             }
             object = textures[point->second];
             if (!object) continue;
-            destRect.x = xStart + (point->first.first - camPosX) * factor;
-            destRect.y = (point->first.second - camPosY) * factor;
+            destRect.x = (point->first.first - camPosX) * factor;
+            destRect.y = yStart + (point->first.second - camPosY) * factor;
             object->draw(&destRect);
         }
     }

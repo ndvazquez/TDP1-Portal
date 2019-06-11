@@ -11,6 +11,6 @@ Cake::Cake(std::string& path, Window& window, int totalFrames ,const std::string
 Cake::~Cake() = default;
 
 void Cake::draw(SDL_Rect* rect) {
-    SDL_Rect newRect = {rect->x, rect->y, rect->w, rect->h * h};
+    SDL_Rect newRect = {rect->x, rect->y, rect->w * w, rect->h * h};
     AnimatedObject::draw(&newRect);
 }

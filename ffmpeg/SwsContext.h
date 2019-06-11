@@ -6,19 +6,16 @@
 #define PORTAL_SWSCONTEXT_H
 
 
-#define RRP_SWS_CONTEXT_EXC "There was an error while writing the frame\n"
-
 #include <string>
 #include <vector>
 #include "FormatContext.h"
 #include "Output.h"
 #include "../common/Window.h"
-
 extern "C" {
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 }
-
+#define RRP_SWS_CONTEXT_EXC "There was an error while writing the frame\n"
 
 class SwsContextException : public std::exception {
 protected:
