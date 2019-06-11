@@ -20,7 +20,8 @@ View::View(Window &newWindow, int xPos, int yPos,
 
 void View::move(float newPosX, float newPosY, int levelHeight) {
     viewPosX = (newPosX - viewWidthInMeters / 2) * mtpFactor;
-    viewPosY = (newPosY + viewHeightInMeters / 2) * mtpFactor * -1 + levelHeight;
+    viewPosY = (newPosY + viewHeightInMeters / 2) * mtpFactor * -1 +
+            levelHeight;
     collisionBox.x = viewPosX;
     collisionBox.y = viewPosY;
 }

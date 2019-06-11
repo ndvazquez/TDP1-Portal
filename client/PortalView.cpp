@@ -3,6 +3,7 @@
 //
 
 #include "PortalView.h"
+#include <string>
 
 PortalView::PortalView(Window &window, int xPos, int yPos,
         int factor, YAML::Node texturesData) :
@@ -15,7 +16,9 @@ PortalView::PortalView(Window &window, int xPos, int yPos,
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
         int totalFrames = node["frames"].as<int>();
-        AnimatedSprite *newSprite = new AnimatedSprite(path, window, totalFrames);
+        AnimatedSprite *newSprite = new AnimatedSprite(path,
+                window,
+                totalFrames);
         sprites[name] = newSprite;
     }
     currentSprite = PORTAL_BLUE;
@@ -35,7 +38,6 @@ void PortalView::playAnimation(const SDL_Rect &camera) {
     sprite->draw(viewPosX - camera.x + rotationOffset,
             viewPosY - camera.y -rotationOffset, angle);
 }
-
 
 void PortalView::setState(int state) {
     if (state == PORTAL_VERTICAL) angle = 0;

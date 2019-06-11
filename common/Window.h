@@ -11,8 +11,9 @@
 #include <exception>
 
 class WindowInitException: public std::exception {
-    virtual const char* what() const throw () {
-        std::string message = "There was an error while trying to initialize a window: ";
+    virtual const char* what() const throw() {
+        std::string message = "There was an error while trying"
+                              " to initialize a window: ";
         message += SDL_GetError();
         return message.c_str();
     }
@@ -22,6 +23,7 @@ class Window {
     friend class Sprite;
     int windowWidth;
     int windowHeight;
+
 public:
     SDL_Window* window;
     SDL_Renderer* renderer;

@@ -18,8 +18,9 @@
 #define BLOCK_SIZE 2
 
 class StageViewAddTileException : public std::exception{
-    virtual const char* what() const throw () {
-        std::string message = "Couldn't add the tile, that's not a valid element!\n";
+    virtual const char* what() const throw() {
+        std::string message = "Couldn't add the tile, "
+                              "that's not a valid element!\n";
         return message.c_str();
     }
 };

@@ -3,6 +3,7 @@
 //
 
 #include "ButtonView.h"
+#include <string>
 
 ButtonView::ButtonView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :
@@ -17,7 +18,6 @@ ButtonView::ButtonView(Window &window, int xPos, int yPos, int factor,
         sprites[buttonState] = newSprite;
     }
     buttonState = BUTTON_STATE_OFF;
-
 }
 
 ButtonView::~ButtonView() {
@@ -34,6 +34,9 @@ void ButtonView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     Sprite* sprite = sprites[buttonState];
     // We'll resize the button sprite to make it fit over two blocks.
-    SDL_Rect destRect = {viewPosX - camera.x, viewPosY - camera.y, mtpFactor * 2, mtpFactor / 2};
+    SDL_Rect destRect = {viewPosX - camera.x,
+                         viewPosY - camera.y,
+                         mtpFactor * 2,
+                         mtpFactor / 2};
     sprite->draw(&destRect);
 }

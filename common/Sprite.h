@@ -9,9 +9,10 @@
 #include <SDL_image.h>
 #include <exception>
 #include "Window.h"
+#include <string>
 
 class SpriteInitException: public std::exception {
-    virtual const char* what() const throw () {
+    virtual const char* what() const throw() {
         std::string message = "There was an error initializing the sprite: ";
         message += SDL_GetError();
         return message.c_str();

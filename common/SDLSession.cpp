@@ -12,7 +12,7 @@ SDLSession::SDLSession(uint32_t initFlags) {
         throw SDLInitException();
     }
     int imgFlags = IMG_INIT_PNG;
-    if(!(IMG_Init(imgFlags) & imgFlags)){
+    if (!(IMG_Init(imgFlags) & imgFlags)){
         throw IMGInitException();
     }
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){

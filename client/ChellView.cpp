@@ -34,7 +34,6 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
     }
     previousState = IDLE;
     currentState = IDLE;
-
 }
 
 ChellView::~ChellView() {

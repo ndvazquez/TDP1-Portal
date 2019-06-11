@@ -3,6 +3,7 @@
 //
 
 #include "RockView.h"
+#include <string>
 
 RockView::RockView(Window &window, int xPos, int yPos,
         int factor, YAML::Node texturesData) :
@@ -19,9 +20,11 @@ RockView::~RockView() {
 void RockView::playAnimation(const SDL_Rect& camera) {
     // Force rock to be the same size as a block.
     if (!checkCollisionWithCamera(camera)) return;
-    SDL_Rect destRect = {viewPosX - camera.x, viewPosY - camera.y, mtpFactor, mtpFactor};
+    SDL_Rect destRect = {viewPosX - camera.x,
+                         viewPosY - camera.y,
+                         mtpFactor,
+                         mtpFactor};
     sprite->draw(&destRect);
-
 }
 
 void RockView::setState(int state) {

@@ -18,7 +18,11 @@
 class BulletView : public View {
     AnimatedSprite* animation;
 public:
-    BulletView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
+    BulletView(Window &window,
+            int xPos,
+            int yPos,
+            int factor,
+            YAML::Node texturesData);
     ~BulletView();
     void playAnimation(const SDL_Rect& camera);
     void setState(int state);
