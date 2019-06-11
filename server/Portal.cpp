@@ -20,6 +20,13 @@ void Portal::handleCollision(Entity* entity) {
         Chell* chell = static_cast<Chell*>(entity);
         if (target != nullptr) chell->teleport(target);
     }
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        if (target != nullptr)  {
+            rock->teleport(target);
+            rock->activateGravity();
+        }
+    }
 }
 
 Coordinate* Portal::getTarget() {

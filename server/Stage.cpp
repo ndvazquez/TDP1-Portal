@@ -370,12 +370,15 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
 void Stage::managePortals(Chell* chell, std::string id) {
     BluePortal *blue_portal = chell->getBluePortal();
     OrangePortal *orange_portal = chell->getOrangePortal();
-    std::string id_orange = "Orange"; // TODO: change this harcoded variable
-    std::string id_blue = "Blue"; // TODO: change this harcoded variable
+    std::string id_orange = id;
+    id_orange.replace(0, id.length(), "Orange");
+    std::string id_blue = id;
+    id_blue.replace(0, id.length(), "Blue");
+
     std::unordered_map<std::string, Portal *>::iterator it;
     it = portals.find(id_orange);
     if (it != portals.end()) {
-        Portal *portal = it->second;
+        Portal* portal = it->second;
         float x_portal = portal->getHorizontalPosition();
         float y_portal = portal->getVerticalPosition();
         Coordinate coord_portal(x_portal, y_portal);

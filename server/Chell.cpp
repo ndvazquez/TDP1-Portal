@@ -207,4 +207,6 @@ Chell::~Chell() {
     destroyActualMovement();
     if (orange_portal != nullptr) delete orange_portal;
     if (blue_portal != nullptr) delete blue_portal;
+    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
+    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
 }

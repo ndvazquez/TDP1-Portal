@@ -64,8 +64,6 @@ void drawChell(){
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
     stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 10, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 10, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
