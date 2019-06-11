@@ -17,7 +17,11 @@
 class AcidView : public View{
     AnimatedSprite* animation;
 public:
-    AcidView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
+    AcidView(Window &window,
+            int xPos,
+            int yPos,
+            int factor,
+            YAML::Node texturesData);
     ~AcidView();
     void playAnimation(const SDL_Rect& camera);
     void setState(int state);

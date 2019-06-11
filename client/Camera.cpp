@@ -25,16 +25,16 @@ void Camera::centerCameraOnPlayer(int playerPosX, int playerPosY) {
     cameraRect.x = playerPosX  - cameraRect.w / 2;
     cameraRect.y = playerPosY- cameraRect.h / 2;
 
-    if(cameraRect.x < 0){
+    if (cameraRect.x < 0) {
         cameraRect.x = 0;
     }
-    if(cameraRect.y < 0){
+    if (cameraRect.y < 0) {
         cameraRect.y = 0;
     }
-    if(cameraRect.x > levelWidth - cameraRect.w){
+    if (cameraRect.x > levelWidth - cameraRect.w) {
         cameraRect.x = levelWidth - cameraRect.w;
     }
-    if(cameraRect.y > levelHeight - cameraRect.h){
+    if (cameraRect.y > levelHeight - cameraRect.h) {
         cameraRect.y = levelHeight - cameraRect.h;
     }
 }

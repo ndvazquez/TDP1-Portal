@@ -18,7 +18,7 @@ class ViewFactory {
     int mtpFactor;
     YAML::Node texturesData;
 public:
-    ViewFactory(int mtpFactor);
+    explicit ViewFactory(int mtpFactor);
     ~ViewFactory();
     View* createView(int viewTypeCode,
             Window& gameWindow,

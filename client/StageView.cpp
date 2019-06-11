@@ -7,6 +7,7 @@
 #include <utility>
 #include "yaml-cpp/yaml.h"
 #include <map>
+#include <string>
 
 StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
         window(window),
@@ -46,8 +47,10 @@ void StageView::draw(const SDL_Rect& camera) {
             auto tileCoordinate = tile->first;
             auto tileName = tile->second;
             sprite = textures[tileName];
-            destRect.x = tileCoordinate.first  * mtpFactor - camera.x - destRect.w / 2;
-            destRect.y = tileCoordinate.second * mtpFactor - camera.y - destRect.h / 2;
+            destRect.x = tileCoordinate.first  * mtpFactor -
+                    camera.x - destRect.w / 2;
+            destRect.y = tileCoordinate.second * mtpFactor -
+                    camera.y - destRect.h / 2;
             sprite->draw(&destRect);
         }
     }

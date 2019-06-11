@@ -4,6 +4,7 @@
 
 #include "BulletView.h"
 #include "View.h"
+#include <string>
 
 BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
                    YAML::Node texturesData) :

@@ -11,6 +11,7 @@
 #include "View.h"
 #include "../common/constants.h"
 #include <unordered_map>
+#include <string>
 
 #define TEXTURES_PORTAL_KEY "Portal"
 #define PORTAL_BLUE "Blue"
@@ -24,7 +25,11 @@ class PortalView : public View {
     std::string currentSprite;
     int angle;
 public:
-    PortalView(Window &window, int xPos, int yPos, int factor, YAML::Node texturesData);
+    PortalView(Window &window,
+            int xPos,
+            int yPos,
+            int factor,
+            YAML::Node texturesData);
     ~PortalView();
     void playAnimation(const SDL_Rect& camera);
     void setState(int state);

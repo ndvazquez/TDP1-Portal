@@ -4,6 +4,7 @@
 
 #include "AudioSystem.h"
 #include <yaml-cpp/yaml.h>
+#include <string>
 
 AudioSystem::AudioSystem(SoundCodeQueue& queue) : soundsQueue(queue) {
     //TODO: Manejo de excepciones.

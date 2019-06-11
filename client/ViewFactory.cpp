@@ -31,19 +31,23 @@ View* ViewFactory::createView(int viewTypeCode,
             newView = new AcidView(gameWindow, 0, 0, mtpFactor, texturesData);
             break;
         case ENERGY_BALL__VIEW_CODE:
-            newView = new EnergyBallView(gameWindow, 0, 0, mtpFactor, texturesData);
+            newView = new EnergyBallView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
             break;
         case ROCK_VIEW_CODE:
             newView = new RockView(gameWindow, 0, 0, mtpFactor, texturesData);
             break;
         case PORTAL_VIEW_CODE:
-            newView = new PortalView(gameWindow, 0, 0, mtpFactor, texturesData);
+            newView = new PortalView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
             break;
         case BUTTON_VIEW_CODE:
-            newView = new ButtonView(gameWindow, 0, 0, mtpFactor, texturesData);
+            newView = new ButtonView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
             break;
         case BULLET_VIEW_CODE:
-            newView = new BulletView(gameWindow, 0, 0, mtpFactor, texturesData);
+            newView = new BulletView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
             break;
         default:
             break;
