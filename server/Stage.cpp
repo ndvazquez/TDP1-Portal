@@ -372,9 +372,11 @@ void Stage::managePortals(Chell* chell, std::string id) {
     if (orange_portal != nullptr) {
         Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
         if (orange_portal->isVertical()) {
-            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(), blue_portal_coord, VERTICAL);
+            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(),
+                    blue_portal_coord, VERTICAL);
         } else {
-            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(), blue_portal_coord, HORIZONTAL);
+            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(),
+                    blue_portal_coord, HORIZONTAL);
         }
     }
 
@@ -394,10 +396,11 @@ void Stage::managePortals(Chell* chell, std::string id) {
     if (blue_portal != nullptr) {
         Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
         if (blue_portal->isVertical()) {
-            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(), orange_portal_coord, VERTICAL);
-        }
-        else {
-            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(), orange_portal_coord, HORIZONTAL);
+            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(),
+                    orange_portal_coord, VERTICAL);
+        } else {
+            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(),
+                    orange_portal_coord, HORIZONTAL);
         }
     }
 }
@@ -612,7 +615,6 @@ nlohmann::json Stage::getCurrentState() {
         request[id_rock] = {
                 {"state", 0}, {"x", x_pos_rock}, {"y", y_pos_rock}
         };
-
     }
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++)  {
         std::string id_blue_shot = i->first;

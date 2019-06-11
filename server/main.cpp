@@ -2,6 +2,7 @@
 // Created by cecix on 12/05/19.
 //
 
+#include <string>
 #include <unordered_map>
 #include "Button.h"
 #include "Gate.h"
@@ -41,7 +42,8 @@ int main(int argc, char* argv[]) {
     buttons.insert({id_button_4, button4});
     buttons.insert({id_button_5, button5});
 
-    std::string logic = "! Button1 | (! Button2 & ! Button3) & (Button4 & Button5)";
+    std::string logic;
+    logic = "! Button1 | (! Button2 & ! Button3) & (Button4 & Button5)";
 
     Gate* gate = new Gate(body_gate, logic, buttons);
     gate->update();

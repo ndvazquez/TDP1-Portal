@@ -2,7 +2,7 @@
 // Created by cecix on 6/06/19.
 //
 
-#include <iostream>
+#include <string>
 #include "Portal.h"
 #include "Chell.h"
 
