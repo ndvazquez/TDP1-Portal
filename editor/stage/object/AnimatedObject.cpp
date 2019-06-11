@@ -10,7 +10,9 @@ AnimatedObject::AnimatedObject(std::string &path, Window &window, int totalFrame
         window(window) {}
 
 void AnimatedObject::draw(SDL_Rect* rect) {
-    sprite.draw(rect, SDL_FLIP_NONE);
+    int pixelsAbove = rect->h * (POSITIONS_ABOVE);
+    SDL_Rect newRect = {rect->x, rect->y - pixelsAbove, rect->w * w, rect->h * h};
+    sprite.draw(&newRect, SDL_FLIP_NONE);
     sprite.updateFrameStep();
 }
 

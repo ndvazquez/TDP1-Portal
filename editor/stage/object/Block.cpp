@@ -20,11 +20,6 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
     if (positionAbove != tiles.end()){
         std::string& tileName = positionAbove->second;
         Object* objAbove = textures[tileName];
-        /*
-        if (!obj) {
-            throw StageControllerNameException();
-        }
-         */
         // and is has gravity
         if (objAbove->hasGravity()) {
             // I can't be removed
@@ -32,6 +27,11 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
         }
     }
     Object::removeFrom(x, y, tiles, textures);
+}
+
+void Block::addTo(int x, int y, std::map<std::pair<int, int>,
+        std::string> &tiles, std::string sentinel) {
+    Object::addTo(x, y, tiles, ROCK_SENTINEL);
 }
 
 Block::~Block() = default;

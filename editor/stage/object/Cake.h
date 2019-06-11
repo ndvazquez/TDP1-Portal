@@ -11,7 +11,6 @@ class Cake : public AnimatedObject {
 public:
     Cake(std::string &path, Window &window, int totalFrames, const std::string& name, int w, int h);
     ~Cake();
-    void draw(SDL_Rect* rect) override;
 };
 
 

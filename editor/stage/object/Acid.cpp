@@ -10,6 +10,6 @@ Acid::Acid(std::string& path, Window& window, int totalFrames ,const std::string
 Acid::~Acid() = default;
 
 void Acid::draw(SDL_Rect* rect) {
-    SDL_Rect newRect = {rect->x, rect->y + rect->h/2, rect->w * w, rect->h * h /2};
+    SDL_Rect newRect = {rect->x, rect->y + rect->h/2, rect->w, rect->h/2};
     AnimatedObject::draw(&newRect);
 }

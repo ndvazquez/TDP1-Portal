@@ -1,26 +1,30 @@
 Blocks: # no gravity and no animation
   - name: MetalBlock
     path: resources/blocks/metal-block.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: RockBlock
     path: resources/blocks/rock-block.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockDown
     path: resources/lounch-block/down.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockUp
     path: resources/lounch-block/up.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockLeft
     path: resources/lounch-block/left.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockRight
     path: resources/lounch-block/right.png
+    w: 2
+    h: 2
+  - name: KindOfARock # It will never be added because the menu doesn't know it.
+    path: resources/blocks/sentinel.png #It just a sentinel.
     w: 1
     h: 1
 
