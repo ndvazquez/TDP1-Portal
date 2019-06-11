@@ -53,37 +53,49 @@ void drawChell(){
     float metalSide = 2;
     for (int i = 0; i < 40; i += 2){
         stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
-        stageView.addTile(metalBlockPosX+i, metalBlockPosY * -1 + stageHeight, metalBlock);
+        stageView.addTile(metalBlockPosX+i,
+                metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     // Time to add some platforms!
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 2,
+            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 6,
+            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
-    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 8,
+            (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 8,
+            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 12, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 12,
+            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 14, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 14,
+            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 16, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 16,
+            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 14, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 14,
+            (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 16, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 16,
+            (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 20, (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 20,
+            (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
-    stageView.addTile(metalBlockPosX + 2, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+    stageView.addTile(metalBlockPosX + 2,
+            (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
     std::string chell_id = "Chell1";
@@ -112,51 +124,70 @@ void drawChell(){
     std::string orange_shot_id = "OrangeShot1";
     float shotWidth = 1;
     float shotHeight = 1;
-
-    Coordinate* target_blue = new Coordinate(metalBlockPosX + 8, metalBlockPosY + 6); //Setting one block to shoot
-    stage.addBlueShot(blue_shot_id, shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
+    //Setting one block to shoot
+    Coordinate* target_blue = new Coordinate(metalBlockPosX + 8,
+            metalBlockPosY + 6);
+    stage.addBlueShot(blue_shot_id, shotHeight, shotWidth,
+            chell, target_blue); //Arbitrary width and height in Shot
     BlueShot* blueShot = stage.getBlueShot(blue_shot_id);
 
-    Coordinate* target_orange = new Coordinate(metalBlockPosX + 2, metalBlockPosY + 6);
-    stage.addOrangeShot(orange_shot_id, shotHeight, shotWidth, chell, target_orange);
+    Coordinate* target_orange = new Coordinate(metalBlockPosX + 2,
+            metalBlockPosY + 6);
+    stage.addOrangeShot(orange_shot_id, shotHeight,
+            shotWidth, chell, target_orange);
     OrangeShot* orangeShot = stage.getOrangeShot(orange_shot_id);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
 
-    View* blueShotView = viewFactory.createView(BULLET_VIEW_CODE, newWindow, soundQueue);
-    View* orangeShotView = viewFactory.createView(BULLET_VIEW_CODE, newWindow, soundQueue);
-    View* rockView = viewFactory.createView(ROCK_VIEW_CODE, newWindow, soundQueue);
-    View* cakeView = viewFactory.createView(CAKE_VIEW_CODE, newWindow, soundQueue);
+    View* blueShotView = viewFactory.createView(BULLET_VIEW_CODE,
+            newWindow, soundQueue);
+    View* orangeShotView = viewFactory.createView(BULLET_VIEW_CODE,
+            newWindow, soundQueue);
+    View* rockView = viewFactory.createView(ROCK_VIEW_CODE,
+            newWindow, soundQueue);
+    View* cakeView = viewFactory.createView(CAKE_VIEW_CODE,
+            newWindow, soundQueue);
 
     // ChellView and camera.
-    View* chellView = viewFactory.createView(CHELL_VIEW_CODE, newWindow, soundQueue);
+    View* chellView = viewFactory.createView(CHELL_VIEW_CODE,
+            newWindow, soundQueue);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
-    //audioSystem.playMusic(BG_SONG_GAME);
+    audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
-    while(!quit) {
+    while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            // This should be done server side, but we'll do the event handling here for now.
+            // This should be done server side,
+            // but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump}
                 if (e.key.keysym.sym == SDLK_m) audioSystem.stopMusic();
-                if (e.key.keysym.sym == SDLK_n) audioSystem.playMusic(BG_SONG_GAME);
+                if (e.key.keysym.sym == SDLK_n) {
+                    audioSystem.playMusic(BG_SONG_GAME);
+                }
                 if (e.key.keysym.sym == SDLK_f) chell->downloadRock();
                 if (e.key.keysym.sym == SDLK_g) chell->grabRock(rock);
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->moveRight();
+            }
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+                chell->moveLeft();
+            }
 
-            // This might become an issue when we actually implement a jump animation.
-            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
+            // This might become an issue
+            // when we actually implement a jump animation.
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->stop();
+            }
         }
 
         stage.step();
@@ -169,7 +200,8 @@ void drawChell(){
         // Gotta update the camera now to center it around Chell.
         int chellCenterPositionX = chellView->getCenterPosX();
         int chellCenterPositionY = chellView->getCenterPosY();
-        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        camera.centerCameraOnPlayer(chellCenterPositionX,
+                chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         //Shot position
@@ -201,8 +233,10 @@ void drawChell(){
                              MTP_FACTOR,
                              MTP_FACTOR};
 
-        SDL_Rect rockRect = {rockView->getViewPositionX() - cameraRect.x, rockView->getViewPositionY() - cameraRect.y,
-                             int(rockSide * MTP_FACTOR), int(rockSide * MTP_FACTOR)};
+        SDL_Rect rockRect = {rockView->getViewPositionX() - cameraRect.x,
+                             rockView->getViewPositionY() - cameraRect.y,
+                             int(rockSide * MTP_FACTOR),
+                             int(rockSide * MTP_FACTOR)};
 
         SDL_Rect outlineRect = {chellView->getViewPositionX() - cameraRect.x,
                                 chellView->getViewPositionY() - cameraRect.y,
@@ -260,7 +294,8 @@ void drawChellAndRock(){
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(chell_id);
     // Get the rock object.
-    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3, metalBlockPosY + 5);
+    Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3,
+            metalBlockPosY + 5);
     Rock* rock = stage.getRock(rock_id);
 
     // SoundCodeQueue and AudioSystem init.
@@ -268,31 +303,41 @@ void drawChellAndRock(){
     AudioSystem audioSystem(soundQueue);
 
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
+    ChellView chellView(newWindow, xPos, yPos,
+            MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     // RockView.
-    RockView rockView(newWindow, metalBlockPosX + 2, metalBlockPosY, MTP_FACTOR, textures);
+    RockView rockView(newWindow, metalBlockPosX + 2,
+            metalBlockPosY, MTP_FACTOR, textures);
 
     audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
 
-    while(!quit) {
+    while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            // This should be done server side, but we'll do the event handling here for now.
+            // This should be done server side,
+            // but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
                 if (e.key.keysym.sym == SDLK_f) chell->downloadRock();
                 if (e.key.keysym.sym == SDLK_g) chell->grabRock(rock);
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
-            // This might become an issue when we actually implement a jump animation.
-            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->moveRight();
+            }
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+                chell->moveLeft();
+            }
+            // This might become an issue when
+            // we actually implement a jump animation.
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->stop();
+            }
         }
 
         stage.step();
@@ -305,7 +350,8 @@ void drawChellAndRock(){
         // Gotta update the camera now to center it around Chell.
         int chellCenterPositionX = chellView.getCenterPosX();
         int chellCenterPositionY = chellView.getCenterPosY();
-        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        camera.centerCameraOnPlayer(chellCenterPositionX,
+                chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         // Get current Rock position and move it.
@@ -314,8 +360,10 @@ void drawChellAndRock(){
 
         rockView.move(newRockPosX, newRockPosY, levelHeight);
 
-        SDL_Rect rockRect = {rockView.getViewPositionX(), rockView.getViewPositionY(),
-                             int(rockSide * MTP_FACTOR), int(rockSide * MTP_FACTOR)};
+        SDL_Rect rockRect = {rockView.getViewPositionX(),
+                             rockView.getViewPositionY(),
+                             int(rockSide * MTP_FACTOR),
+                             int(rockSide * MTP_FACTOR)};
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
@@ -327,7 +375,6 @@ void drawChellAndRock(){
         chellView.playAnimation(cameraRect);
         newWindow.render();
         audioSystem.playSoundEffects();
-
     }
     delete coordinate;
     delete coordinateRock;
@@ -357,7 +404,8 @@ void drawChellAndEnergyBall(){
     std::string eb_id = "EnergyBall1";
     int xBall = 8;
     int yBall = 1;
-    EnergyBallView energyBallView(newWindow, xBall, yBall, MTP_FACTOR, textures);
+    EnergyBallView energyBallView(newWindow, xBall, yBall,
+            MTP_FACTOR, textures);
     float energyBallSide = 1;
     stage.addEnergyBallHorizontal(eb_id, energyBallSide, xBall, yBall);
     Coordinate* coordinateEB = new Coordinate(xBall, yBall);
@@ -367,26 +415,35 @@ void drawChellAndEnergyBall(){
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
-    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
+    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR,
+            soundQueue, textures);
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT,
+            levelWidth, levelHeight);
 
     audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
 
-    while(!quit) {
+    while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            // This should be done server side, but we'll do the event handling here for now.
+            // This should be done server side,
+            // but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
-            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->moveRight();
+            }
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+                chell->moveLeft();
+            }
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->stop();
+            }
         }
         stage.step();
         // Update EnergyBall position.
@@ -402,11 +459,14 @@ void drawChellAndEnergyBall(){
         // Gotta update the camera now to center it around Chell.
         int chellCenterPositionX = chellView.getCenterPosX();
         int chellCenterPositionY = chellView.getCenterPosY();
-        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        camera.centerCameraOnPlayer(chellCenterPositionX,
+                chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
-        SDL_Rect ebRect = {energyBallView.getViewPositionX(), energyBallView.getViewPositionY(),
-                           int(energyBallSide * MTP_FACTOR), int(energyBallSide * MTP_FACTOR)};
+        SDL_Rect ebRect = {energyBallView.getViewPositionX(),
+                           energyBallView.getViewPositionY(),
+                           int(energyBallSide * MTP_FACTOR),
+                           int(energyBallSide * MTP_FACTOR)};
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
@@ -419,7 +479,6 @@ void drawChellAndEnergyBall(){
         chellView.playAnimation(cameraRect);
         newWindow.render();
         audioSystem.playSoundEffects();
-
     }
     delete coordinateEB;
     delete coordinate;
@@ -456,37 +515,48 @@ void drawChellAndAcidPool(){
     float acidPosY = 0.5;
     float acidHeight = 0.5;
     float acidWidth = 3;
-    int acidViewPosX = (acidPosX - acidWidth / 2 ) * MTP_FACTOR;
-    int acidViewPosY = (acidPosY + acidHeight / 2) * MTP_FACTOR * -1 + levelHeight;
+    int acidViewPosX = (acidPosX - acidWidth / 2) * MTP_FACTOR;
+    int acidViewPosY = (acidPosY + acidHeight / 2) * MTP_FACTOR * -1 +
+            levelHeight;
     stage.addAcid(acid_id, acidHeight, acidWidth, acidPosX, acidPosY);
     // Acid View.
-    AcidView acidView(newWindow, acidViewPosX, acidViewPosY, MTP_FACTOR, textures);
+    AcidView acidView(newWindow, acidViewPosX, acidViewPosY,
+            MTP_FACTOR, textures);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
 
     // ChellView and camera.
-    ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
-    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
+    ChellView chellView(newWindow, xPos, yPos,
+            MTP_FACTOR, soundQueue, textures);
+    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT,
+            levelWidth, levelHeight);
 
     audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
 
-    while(!quit) {
+    while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            // This should be done server side, but we'll do the event handling here for now.
+            // This should be done server side,
+            // but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
-            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->moveRight();
+            }
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) {
+                chell->moveLeft();
+            }
+            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->stop();
+            }
         }
         stage.step();
 
@@ -499,12 +569,15 @@ void drawChellAndAcidPool(){
         // Gotta update the camera now to center it around Chell.
         int chellCenterPositionX = chellView.getCenterPosX();
         int chellCenterPositionY = chellView.getCenterPosY();
-        camera.centerCameraOnPlayer(chellCenterPositionX, chellCenterPositionY);
+        camera.centerCameraOnPlayer(chellCenterPositionX,
+                chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         newWindow.clear();
-        SDL_Rect acidRect = {acidViewPosX - cameraRect.x, acidViewPosY - cameraRect.y,
-                             int(acidWidth * MTP_FACTOR), int(acidHeight * MTP_FACTOR)};
+        SDL_Rect acidRect = {acidViewPosX - cameraRect.x,
+                             acidViewPosY - cameraRect.y,
+                             int(acidWidth * MTP_FACTOR),
+                             int(acidHeight * MTP_FACTOR)};
         SDL_Rect outlineRect = {chellView.getViewPositionX() - cameraRect.x,
                                 chellView.getViewPositionY() - cameraRect.y,
                                 int(chellWidth * MTP_FACTOR),
@@ -535,11 +608,15 @@ void jsonTest() {
             {
                     "Chell1",
                     {
-                            {"type", CHELL_VIEW_CODE}, {"state", 0}, {"x", xPosChell} ,{"y", yPosChell}
+                            {"type", CHELL_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
                     }
             },
     };
-    // This is what an update JSON looks like, sent from the server to the clients.
+    // This is what an update JSON looks like,
+    // sent from the server to the clients.
     nlohmann::json stageUpdateRequest;
     /*= {
             {
@@ -575,24 +652,30 @@ void jsonTest() {
     Chell* chell = stage.getChell(idChell);
 
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
-    ViewManager viewManager(newWindow, levelHeight, MTP_FACTOR, playerID, mapData, soundQueue);
+    ViewManager viewManager(newWindow, levelHeight,
+            MTP_FACTOR, playerID, mapData, soundQueue);
 
     bool quit = false;
     SDL_Event e;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
 
     audioSystem.playMusic(BG_SONG_GAME);
-    while(!quit) {
+    while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
             }
-            // This should be done server side, but we'll do the event handling here for now.
+            // This should be done server side,
+            // but we'll do the event handling here for now.
             if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
                 if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->moveRight();
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]) chell->moveLeft();
+            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+                chell->moveRight();
+            }
+            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]){
+                chell->moveLeft();
+            }
             if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
         }
         stage.step();
@@ -600,14 +683,15 @@ void jsonTest() {
         newWindow.clear();
         viewManager.showAndUpdateViews(stageUpdateRequest, camera);
         newWindow.render();
+        audioSystem.playSoundEffects();
     }
 }
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     drawChell();
-    //drawChellAndRock();
-    //drawChellAndEnergyBall();
-    //drawChellAndAcidPool();
-    //jsonTest();
+    drawChellAndRock();
+    drawChellAndEnergyBall();
+    drawChellAndAcidPool();
+    jsonTest();
 }

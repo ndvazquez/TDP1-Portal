@@ -3,6 +3,7 @@
 //
 
 #include "CakeView.h"
+#include <string>
 
 CakeView::CakeView(Window &window, int xPos, int yPos, int factor,
                    YAML::Node texturesData) :
