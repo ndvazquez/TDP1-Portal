@@ -224,5 +224,9 @@ void Controller::nameAnObject(int x, int y, std::string& enteredName) {
 
 void Controller::addCondition(int x, int y, std::string condition) {
     std::pair<int, int> pair = std::make_pair(x, y);
+    /// validate condition pliss.
+    // ask the button if that name exist is easy
+    // so, validate if is an existing name or a "&, |, !" is easy.
+    // Then, validate the correct intercalation between "name & !name" is hard.
     textures[tiles[pair]]->addCondition(pair, condition);
 }
