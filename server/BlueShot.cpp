@@ -43,8 +43,6 @@ void BlueShot::handleCollision(Entity* entity) {
         bool vertical_cond = left_side || right_side;
 
         if (vertical_cond) {
-            std::cout << "Se creo un portal vertical azul" << std::endl;
-
             if (left_side) {
                 Coordinate* coordinate = new Coordinate(x_left - portal_h_side/2, y_pos_metal);
                 Coordinate* coord_to_teleport = new Coordinate(x_left - portal_h_side, y_pos_metal);
@@ -57,8 +55,6 @@ void BlueShot::handleCollision(Entity* entity) {
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         } else {
-            std::cout << "Se creo un portal horizontal azul" << std::endl;
-
             if (down_side) {
                 Coordinate* coordinate = new Coordinate(x_pos_metal, y_down - portal_v_side/2);
                 Coordinate* coord_to_teleport = new Coordinate(x_pos_metal, y_down - portal_v_side);

@@ -19,3 +19,7 @@ float Coordinate::getY() {
 bool Coordinate::operator==(const Coordinate& other) {
     return other.y_pos == this->y_pos && other.x_pos == this->x_pos;
 }
+
+bool Coordinate::operator!=(const Coordinate& other) {
+    return other.y_pos != this->y_pos || other.x_pos != this->x_pos;
+}
