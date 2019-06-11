@@ -95,11 +95,6 @@ void drawChell(){
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
 
-    float xCake = xPos + 3;
-    float yCake = yPos;
-    stage.addCake(1, xCake, yCake);
-    Cake* cake = stage.getCake();
-
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(chell_id);
     //Rock
@@ -571,9 +566,9 @@ void jsonTest() {
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    //drawChell();
+    drawChell();
     //drawChellAndRock();
     //drawChellAndEnergyBall();
     //drawChellAndAcidPool();
-    jsonTest();
+    //jsonTest();
 }

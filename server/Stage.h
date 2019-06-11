@@ -103,6 +103,8 @@ public:
             float x_pos, float y_pos);
     void addRock(std::string id, float side,
             float x_pos, float y_pos);
+    void addPortal(std::string id, float v_side, float h_side,
+                          float x_pos, float y_pos);
 
     void step();
 

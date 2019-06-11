@@ -7,19 +7,21 @@
 
 
 #include "Coordinate.h"
+#include "Entity.h"
 
-class Portal {
+class Portal: public Entity {
 private:
     Coordinate* orange_portal;
     Coordinate* blue_portal;
 
 public:
-    Portal();
+    explicit Portal(b2Body* body);
     void addOrangePortal(Coordinate* portal);
     void addBluePortal(Coordinate* portal);
     Coordinate* teleport(Coordinate* origin);
     Coordinate* getOrangePortal();
     Coordinate* getBluePortal();
+    virtual void handleCollision(Entity* entity) override;
     ~Portal();
 };
 

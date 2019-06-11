@@ -30,7 +30,8 @@ Chell::Chell(b2Body* body):
     chell_is_on_floor = true;
     dead = false;
     rock = nullptr;
-    portal = new Portal();
+    orange_portal = nullptr;
+    blue_portal = nullptr;
     winner = false;
 }
 
@@ -43,11 +44,21 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
 
-    if (type == "MetalBlock") {
+    if (type == "Portal") {
+        float x_pos_origin = getHorizontalPosition();
+        float y_pos_origin = getVerticalPosition();
+        Coordinate* origin = new Coordinate(x_pos_origin, y_pos_origin);
+
+        Portal* portal = static_cast<Portal*>(entity);
+        Coordinate* target = portal->teleport(origin);
+        if (target != nullptr) teleport(target);
+    }
+
+    /*if (type == "MetalBlock") {
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         Coordinate* target = metalBlock->getOtherPortal();
         if (target != nullptr) this->dynamic.teleport(target);
-    }
+    }*/
 
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
@@ -171,22 +182,23 @@ State Chell::getState() {
 }
 
 void Chell::addOrangePortal(Coordinate* portal) {
-    this->portal->addOrangePortal(portal);
+    orange_portal = portal;
 }
 
 void Chell::addBluePortal(Coordinate* portal) {
-    this->portal->addBluePortal(portal);
+    blue_portal = portal;
 }
 
 Coordinate* Chell::getBluePortal() {
-    return portal->getBluePortal();
+    return blue_portal;
 }
 
 Coordinate* Chell::getOrangePortal() {
-    return portal->getOrangePortal();
+    return orange_portal;
 }
 
 Chell::~Chell() {
     destroyActualMovement();
-    delete portal;
+    if (orange_portal != nullptr) delete orange_portal;
+    if (blue_portal != nullptr) delete blue_portal;
 }

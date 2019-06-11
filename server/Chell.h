@@ -22,7 +22,8 @@ private:
     bool dead;
     Rock* rock;
     State actual_state;
-    Portal* portal;
+    Coordinate* orange_portal;
+    Coordinate* blue_portal;
     bool winner;
 
 public:

@@ -295,7 +295,7 @@ void Stage::addRock(std::string id, float side, float x_pos, float y_pos) {
 
 void Stage::addBlueShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
-    Coordinate* bluePortal = chell->getBluePortal();
+/*    Coordinate* bluePortal = chell->getBluePortal();
     if (bluePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(bluePortal);
         metalBlock->deletePortal();
@@ -303,7 +303,7 @@ void Stage::addBlueShot(std::string id, float v_side, float h_side,
     MetalBlock* metalBlock = getMetalBlock(target);
     if (metalBlock!= nullptr && metalBlock->hasPortal()) {
         metalBlock->deletePortal();
-    }
+    }*/
 
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
@@ -324,7 +324,7 @@ void Stage::addBlueShot(std::string id, float v_side, float h_side,
 
 void Stage::addOrangeShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
-    Coordinate* orangePortal = chell->getOrangePortal();
+  /*  Coordinate* orangePortal = chell->getOrangePortal();
     if (orangePortal != nullptr) {
         MetalBlock* metalBlock = getMetalBlock(orangePortal);
         if (metalBlock != nullptr) metalBlock->deletePortal();
@@ -332,7 +332,7 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
     MetalBlock* metalBlock = getMetalBlock(target);
     if (metalBlock != nullptr && metalBlock->hasPortal()) {
         metalBlock->deletePortal();
-    }
+    }*/
 
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
@@ -352,6 +352,9 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
     orange_shots.insert({id, orangeShot});
 }
 
+void Stage::addPortal(std::string id, float v_side, float h_side,
+        float x_pos, float y_pos) {
+}
 
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
@@ -364,10 +367,15 @@ void Stage::step() {
         Coordinate* blue_portal = i->second->getBluePortal();
         Coordinate* orange_portal = i->second->getOrangePortal();
         if (blue_portal != nullptr && orange_portal != nullptr) {
-            MetalBlock* blue_block = getMetalBlock(blue_portal);
+            std::string id_orange = "Orange"; //TODO: change this harcoded variable
+            std::string id_blue = "Blue"; //TODO: change this harcoded variable
+
+            addPortal();
+
+            /*MetalBlock* blue_block = getMetalBlock(blue_portal);
             MetalBlock* orange_block = getMetalBlock(orange_portal);
             blue_block->addOtherPortal(orange_block);
-            orange_block->addOtherPortal(blue_block);
+            orange_block->addOtherPortal(blue_block);*/
         }
 
         if (i->second->isDead()) {
