@@ -68,7 +68,9 @@ void Rock::moveLeft() {
 }
 
 void Rock::stop() {
-    body->SetLinearVelocity(b2Vec2(0, 0));
+    float velocity_y = body->GetLinearVelocity().y;
+    if (velocity_y >= 0) velocity_y = 0;
+    body->SetLinearVelocity(b2Vec2(0, velocity_y));
     destroyActualMovement();
     this->actual_movement = new Stop(body);
 }
@@ -84,6 +86,9 @@ void Rock::update() {
 
 void Rock::downloadToEarth() {
     body->SetGravityScale(1);
+    body->ApplyLinearImpulse(b2Vec2(0, -5), body->GetWorldCenter(), true);
+    /*body->ApplyForce(b2Vec2(0, -gameConfiguration.elevationForce),
+                     body->GetWorldCenter(), true);*/
 }
 
 void Rock::teleport(Coordinate* target) {

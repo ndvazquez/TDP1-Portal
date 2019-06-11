@@ -296,16 +296,6 @@ void Stage::addRock(std::string id, float side, float x_pos, float y_pos) {
 
 void Stage::addBlueShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
-/*    Coordinate* bluePortal = chell->getBluePortal();
-    if (bluePortal != nullptr) {
-        MetalBlock* metalBlock = getMetalBlock(bluePortal);
-        metalBlock->deletePortal();
-    }
-    MetalBlock* metalBlock = getMetalBlock(target);
-    if (metalBlock!= nullptr && metalBlock->hasPortal()) {
-        metalBlock->deletePortal();
-    }*/
-
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
@@ -325,16 +315,6 @@ void Stage::addBlueShot(std::string id, float v_side, float h_side,
 
 void Stage::addOrangeShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
-  /*  Coordinate* orangePortal = chell->getOrangePortal();
-    if (orangePortal != nullptr) {
-        MetalBlock* metalBlock = getMetalBlock(orangePortal);
-        if (metalBlock != nullptr) metalBlock->deletePortal();
-    }
-    MetalBlock* metalBlock = getMetalBlock(target);
-    if (metalBlock != nullptr && metalBlock->hasPortal()) {
-        metalBlock->deletePortal();
-    }*/
-
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
