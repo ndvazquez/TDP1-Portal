@@ -61,6 +61,7 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Gate.cpp
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
+        editor/stage/object/DiagonalBlockUp.cpp
         editor/MouseButton.cpp
 
 

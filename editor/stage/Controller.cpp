@@ -12,6 +12,7 @@
 #include "object/Gate.h"
 #include "object/Cake.h"
 #include "object/Acid.h"
+#include "object/DiagonalBlockUp.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -20,6 +21,7 @@
 #define GATE_KEY "Gate"
 #define CAKE_KEY "Cake"
 #define ACID_KEY "Acid"
+#define DIAGONAL_BLOCK_KEY "DiagonalBlock"
 
 
 
@@ -155,6 +157,18 @@ stageView(window, factor, textures, tiles) {
             newObject->hasToBeOn(name);
         }
     }
+
+    const YAML::Node& DiagonalBlocks = texturesInfo[DIAGONAL_BLOCK_KEY];
+    for (YAML::const_iterator it = DiagonalBlocks.begin();
+         it != DiagonalBlocks.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        DiagonalBlockUp* newObject = new DiagonalBlockUp(path, window, name, w, h);
+        textures[name] = newObject;
+    }
 }
 
 void Controller::draw(SDL_Rect* camera, int yStart) {
@@ -169,7 +183,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
     try {
         obj->addTo(x, y, tiles);
     }
-    catch(ObjectException) {
+    catch(ObjectException& e) {
         throw StageControllerAddTileException();
     }
 }
@@ -183,7 +197,7 @@ void Controller::removeTile(int x, int y) {
     try {
         obj->removeFrom(x, y, tiles, textures);
     }
-    catch(ObjectException) {
+    catch(ObjectException& e) {
         throw StageControllerRemoveTileException();
     }
 }

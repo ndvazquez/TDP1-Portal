@@ -39,6 +39,6 @@ void SwsContext::write() {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "RendererReadPixels error", SDL_GetError(), NULL);
         throw SwsContextRendererReadPixelsException();
     }
-    //operacion lenta que va a tenre que estar en otro thread
+    /// operacion lenta que va a tenre que estar en otro thread
     videoOutput.writeFrame(dataBuffer.data(), ctx);
 }
