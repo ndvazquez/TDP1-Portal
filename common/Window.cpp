@@ -5,10 +5,15 @@
 #include "Window.h"
 #include <SDL.h>
 #include <SDL_image.h>
+#include <string>
 
 Window::Window(const std::string& title, int width, int height, int flags):
     windowWidth(width), windowHeight(height){
-    if (SDL_CreateWindowAndRenderer(width, height, flags, &this->window, &this->renderer)){
+    if (SDL_CreateWindowAndRenderer(width,
+            height,
+            flags,
+            &this->window,
+            &this->renderer)){
         throw WindowInitException();
     }
     SDL_SetWindowTitle(this->window, title.c_str());

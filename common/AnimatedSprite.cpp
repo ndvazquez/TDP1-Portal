@@ -1,4 +1,4 @@
-//it is highly recommended because it helps trap errors, which was useful in this case. For that reason I have left it in this code listing.
+//
 // Created by ndv on 5/6/19.
 //
 
