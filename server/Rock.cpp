@@ -26,12 +26,12 @@ Rock::Rock(b2Body* body):
 void Rock::handleCollision(Entity *entity) {
     std::string type = entity->getType();
     if (type == "MetalBlock") {
-        MetalBlock *metalBlock = static_cast<MetalBlock *>(entity);
+/*        MetalBlock *metalBlock = static_cast<MetalBlock *>(entity);
         Coordinate *target = metalBlock->getOtherPortal();
         if (target != nullptr) {
             activateGravity();
             this->dynamic.teleport(target);
-        }
+        }*/ // TODO: watch this
     }
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);

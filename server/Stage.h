@@ -61,6 +61,7 @@ private:
     std::unordered_map<std::string, EnergyTransmitter*>
     energy_transmitters_verticals;
     std::unordered_map<std::string, Rock*> rocks;
+    std::unordered_map<std::string, Portal*> portals; //Id == shots
 
 public:
     Stage(size_t width, size_t height);
@@ -104,7 +105,7 @@ public:
     void addRock(std::string id, float side,
             float x_pos, float y_pos);
     void addPortal(std::string id, float v_side, float h_side,
-                          float x_pos, float y_pos);
+                    Coordinate* origin, Coordinate* target);
 
     void step();
 

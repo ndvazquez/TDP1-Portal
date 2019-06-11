@@ -45,20 +45,10 @@ void Chell::handleCollision(Entity* entity) {
     }
 
     if (type == "Portal") {
-        float x_pos_origin = getHorizontalPosition();
-        float y_pos_origin = getVerticalPosition();
-        Coordinate* origin = new Coordinate(x_pos_origin, y_pos_origin);
-
         Portal* portal = static_cast<Portal*>(entity);
-        Coordinate* target = portal->teleport(origin);
+        Coordinate* target = portal->getTarget();
         if (target != nullptr) teleport(target);
     }
-
-    /*if (type == "MetalBlock") {
-        MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
-        Coordinate* target = metalBlock->getOtherPortal();
-        if (target != nullptr) this->dynamic.teleport(target);
-    }*/
 
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
@@ -182,10 +172,12 @@ State Chell::getState() {
 }
 
 void Chell::addOrangePortal(Coordinate* portal) {
+    if (orange_portal != nullptr) delete orange_portal;
     orange_portal = portal;
 }
 
 void Chell::addBluePortal(Coordinate* portal) {
+    if (blue_portal != nullptr) delete blue_portal;
     blue_portal = portal;
 }
 

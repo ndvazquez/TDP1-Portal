@@ -46,7 +46,6 @@ void OrangeShot::handleCollision(Entity* entity) {
 
         if (vertical_cond) {
             std::cout << "Se creo un portal horizontal naranja" << std::endl;
-            metalBlock->createHorizontalPortal();
 
             if (left_side) {
                 chell->addOrangePortal(new Coordinate(x_left - portal_h_side/2, y_pos_metal));
@@ -55,7 +54,6 @@ void OrangeShot::handleCollision(Entity* entity) {
             }
         } else {
             std::cout << "Se creo un portal vertical naranja" << std::endl;
-            metalBlock->createVerticalPortal();
 
             if (down_side) {
                 chell->addOrangePortal(new Coordinate(x_pos_metal, y_down - portal_v_side/2));
@@ -63,13 +61,6 @@ void OrangeShot::handleCollision(Entity* entity) {
                 chell->addOrangePortal(new Coordinate(x_pos_metal, y_top + portal_v_side/2));
             }
         }
-
-        /*MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
-        metalBlock->createPortal();
-        float x = metalBlock->getHorizontalPosition();
-        float y = metalBlock->getVerticalPosition();
-        Coordinate* portalCoordinates = new Coordinate(x, y);
-        chell->addOrangePortal(portalCoordinates);*/
     }
     die(); //If the shot collides against something it dies
 }

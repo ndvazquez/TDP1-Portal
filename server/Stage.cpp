@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -353,7 +354,20 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
 }
 
 void Stage::addPortal(std::string id, float v_side, float h_side,
-        float x_pos, float y_pos) {
+        Coordinate* origin, Coordinate* target) {
+    float x_pos = origin->getX();
+    float y_pos = origin->getY();
+    std::cout << "X_Pos: " << x_pos << std::endl;
+    std::cout << "Y_Pos: " << y_pos << std::endl;
+
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Portal* portal = new Portal(portal_body, target);
+    portals.insert({id, portal});
 }
 
 void Stage::step() {
@@ -363,19 +377,36 @@ void Stage::step() {
     if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
+
     for (auto i = chells.begin(); i != chells.end(); i++) {
         Coordinate* blue_portal = i->second->getBluePortal();
         Coordinate* orange_portal = i->second->getOrangePortal();
-        if (blue_portal != nullptr && orange_portal != nullptr) {
-            std::string id_orange = "Orange"; //TODO: change this harcoded variable
-            std::string id_blue = "Blue"; //TODO: change this harcoded variable
-
-            addPortal();
-
-            /*MetalBlock* blue_block = getMetalBlock(blue_portal);
-            MetalBlock* orange_block = getMetalBlock(orange_portal);
-            blue_block->addOtherPortal(orange_block);
-            orange_block->addOtherPortal(blue_block);*/
+        std::string id_orange = "Orange"; // TODO: change this harcoded variable
+        std::string id_blue = "Blue"; // TODO: change this harcoded variable
+        std::unordered_map<std::string, Portal*>::iterator it;
+        /*it = portals.find(id_orange);
+        if (it != portals.end()) {
+            world->DestroyBody(it->second->getBody());
+            {
+                portals.erase(it->first);
+                break;
+            }
+        }*/
+        if (orange_portal != nullptr) {
+            std::cout << "Agrego el orange portal" << std::endl;
+            addPortal(id_orange, 2, 1, orange_portal, blue_portal);
+        }
+        /*it = portals.find(id_blue);
+        if (it != portals.end()) {
+            world->DestroyBody(it->second->getBody());
+            {
+                portals.erase(it->first);
+                break;
+            }
+        }*/
+        if (blue_portal != nullptr) {
+            std::cout << "Agrego el blue portal" << std::endl;
+            addPortal(id_blue, 2, 1, blue_portal, orange_portal);
         }
 
         if (i->second->isDead()) {
