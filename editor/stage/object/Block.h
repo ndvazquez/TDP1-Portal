@@ -20,6 +20,8 @@ public:
                     std::unordered_map<std::string, Object *>& map) override;
 
     bool hasGravity() override;
+    virtual void addTo(int x, int y, std::map<std::pair<int, int>,
+            std::string> &tiles, std::string sentinel = SENTINEL) override;
 };
 
 
