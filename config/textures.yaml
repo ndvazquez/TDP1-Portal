@@ -35,6 +35,8 @@ Button:
   - name: 0
     path: resources/button/off.png
 
+Cake: {path: resources/cake/initial.png, frames: 8}
+
 StaticObjects:
   - name: MetalBlock
     path: resources/blocks/metal-block.png

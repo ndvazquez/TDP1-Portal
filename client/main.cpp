@@ -95,8 +95,8 @@ void drawChell(){
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
 
-    float xCake = xPos + 3;
-    float yCake = yPos;
+    float xCake = 2;
+    float yCake = yPos + 12.5;
     stage.addCake(1, xCake, yCake);
     Cake* cake = stage.getCake();
 
@@ -130,9 +130,9 @@ void drawChell(){
     View* blueShotView = viewFactory.createView(BULLET_VIEW_CODE, newWindow, soundQueue);
     View* orangeShotView = viewFactory.createView(BULLET_VIEW_CODE, newWindow, soundQueue);
     View* rockView = viewFactory.createView(ROCK_VIEW_CODE, newWindow, soundQueue);
+    View* cakeView = viewFactory.createView(CAKE_VIEW_CODE, newWindow, soundQueue);
 
     // ChellView and camera.
-    //ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR, soundQueue, textures);
     View* chellView = viewFactory.createView(CHELL_VIEW_CODE, newWindow, soundQueue);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
@@ -191,8 +191,17 @@ void drawChell(){
         // Get current Rock position and move it.
         float newRockPosX = rock->getHorizontalPosition();
         float newRockPosY = rock->getVerticalPosition();
-
         rockView->move(newRockPosX, newRockPosY, levelHeight);
+
+        // Get cake position and "move it".
+        float cakePosX = cake->getHorizontalPosition();
+        float cakePosY = cake->getVerticalPosition();
+        cakeView->move(cakePosX, cakePosY, levelHeight);
+
+        SDL_Rect cakeRect = {cakeView->getViewPositionX() - cameraRect.x,
+                             cakeView->getViewPositionY() - cameraRect.y,
+                             MTP_FACTOR,
+                             MTP_FACTOR};
 
         SDL_Rect rockRect = {rockView->getViewPositionX() - cameraRect.x, rockView->getViewPositionY() - cameraRect.y,
                              int(rockSide * MTP_FACTOR), int(rockSide * MTP_FACTOR)};
@@ -206,12 +215,14 @@ void drawChell(){
         background.draw(bgRect);
         stageView.draw(cameraRect);
         rockView->playAnimation(cameraRect);
+        cakeView->playAnimation(cameraRect);
         chellView->playAnimation(cameraRect);
         if (!blueShot->isDead()) blueShotView->playAnimation(cameraRect);
         if (!orangeShot->isDead()) orangeShotView->playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(rockRect);
+        newWindow.drawRectangle(cakeRect);
         newWindow.render();
         audioSystem.playSoundEffects();
     }
@@ -571,9 +582,9 @@ void jsonTest() {
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    //drawChell();
+    drawChell();
     //drawChellAndRock();
     //drawChellAndEnergyBall();
     //drawChellAndAcidPool();
-    jsonTest();
+    //jsonTest();
 }
