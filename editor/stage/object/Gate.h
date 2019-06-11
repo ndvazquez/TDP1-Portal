@@ -13,8 +13,6 @@ public:
     Gate(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Gate();
 
-    void draw(SDL_Rect* rect) override;
-
     void setName() override;
 };
 

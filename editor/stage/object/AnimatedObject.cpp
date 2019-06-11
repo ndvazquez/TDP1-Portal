@@ -3,7 +3,6 @@
 //
 
 #include "AnimatedObject.h"
-#define POSITIONS_ABOVE h - 1
 
 AnimatedObject::AnimatedObject(std::string &path, Window &window, int totalFrames, const std::string &name, int w, int h) :
         Object(name, w , h),

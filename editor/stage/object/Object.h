@@ -11,6 +11,7 @@
 #include "../../../common/Sprite.h"
 #include "ObjectException.h"
 
+#define POSITIONS_ABOVE (h - 1)
 
 class Object {
 protected:
