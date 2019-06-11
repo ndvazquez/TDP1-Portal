@@ -12,6 +12,7 @@
 #include "object/Gate.h"
 #include "object/Cake.h"
 #include "object/Acid.h"
+#include "object/DiagonalBlock.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -20,6 +21,7 @@
 #define GATE_KEY "Gate"
 #define CAKE_KEY "Cake"
 #define ACID_KEY "Acid"
+#define DIAGONAL_BLOCK_KEY "DiagonalBlock"
 
 
 
@@ -169,7 +171,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
     try {
         obj->addTo(x, y, tiles);
     }
-    catch(ObjectException) {
+    catch(ObjectException& e) {
         throw StageControllerAddTileException();
     }
 }
@@ -183,7 +185,7 @@ void Controller::removeTile(int x, int y) {
     try {
         obj->removeFrom(x, y, tiles, textures);
     }
-    catch(ObjectException) {
+    catch(ObjectException& e) {
         throw StageControllerRemoveTileException();
     }
 }

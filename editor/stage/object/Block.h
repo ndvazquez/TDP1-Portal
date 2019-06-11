@@ -7,10 +7,7 @@
 
 
 #include "StaticObject.h"
-#include "Button.h"
-#include "Chell.h"
-#include "Gate.h"
-#include "Rock.h"
+
 
 class Block : public StaticObject {
 public:

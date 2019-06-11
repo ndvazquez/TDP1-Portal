@@ -23,10 +23,28 @@ Blocks: # no gravity and no animation
     path: resources/lounch-block/right.png
     w: 2
     h: 2
+  - name: DiagonalDownLeft
+    path: resources/blocks/diagonal-down-left.png
+    w: 2
+    h: 2
+  - name: DiagonalDownRight
+    path: resources/blocks/diagonal-down-right.png
+    w: 2
+    h: 2
   - name: KindOfARock # It will never be added because the menu doesn't know it.
     path: resources/blocks/sentinel.png #It just a sentinel.
     w: 1
     h: 1
+
+DiagonalBlock:
+  - name: DiagonalUpLeft
+    path: resources/blocks/diagonal-up-left.png
+    w: 2
+    h: 2
+  - name: DiagonalUpRight
+    path: resources/blocks/diagonal-up-right.png
+    w: 2
+    h: 2
 
 Buttons: # gravity, no animation
   - name: Button
@@ -85,6 +103,22 @@ MenuData:
     h: 1
   - name: RockBlock
     path: resources/blocks/rock-block.png
+    w: 1
+    h: 1
+  - name: DiagonalUpLeft
+    path: resources/blocks/diagonal-up-left.png
+    w: 1
+    h: 1
+  - name: DiagonalUpRight
+    path: resources/blocks/diagonal-up-right.png
+    w: 1
+    h: 1
+  - name: DiagonalDownLeft
+    path: resources/blocks/diagonal-down-left.png
+    w: 1
+    h: 1
+  - name: DiagonalDownRight
+    path: resources/blocks/diagonal-down-right.png
     w: 1
     h: 1
   - name: Button
