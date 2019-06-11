@@ -333,7 +333,8 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
 }
 
 void Stage::addPortal(std::string id, float v_side, float h_side,
-        Coordinate* origin, Coordinate* target) {
+        Coordinate* origin, Coordinate* target,
+        PortalOrientation orientation) {
     float x_pos = origin->getX();
     float y_pos = origin->getY();
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
@@ -342,7 +343,7 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
 
     b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
-    Portal* portal = new Portal(portal_body, target);
+    Portal* portal = new Portal(portal_body, target, orientation);
     portals.insert({id, portal});
 }
 
@@ -371,9 +372,9 @@ void Stage::managePortals(Chell* chell, std::string id) {
     if (orange_portal != nullptr) {
         Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
         if (orange_portal->isVertical()) {
-            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(), blue_portal_coord);
+            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(), blue_portal_coord, VERTICAL);
         } else {
-            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(), blue_portal_coord);
+            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(), blue_portal_coord, HORIZONTAL);
         }
     }
 
@@ -393,10 +394,10 @@ void Stage::managePortals(Chell* chell, std::string id) {
     if (blue_portal != nullptr) {
         Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
         if (blue_portal->isVertical()) {
-            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(), orange_portal_coord);
+            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(), orange_portal_coord, VERTICAL);
         }
         else {
-            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(), orange_portal_coord);
+            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(), orange_portal_coord, HORIZONTAL);
         }
     }
 }
@@ -739,7 +740,6 @@ Stage::~Stage() {
     }
 
     for (auto i = buttons.begin() ; i != buttons.end() ; i++) {
-        delete i->first;
         delete i->second;
     }
 
@@ -757,7 +757,6 @@ Stage::~Stage() {
     }
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
-        delete i->first;
         delete i->second;
     }
 

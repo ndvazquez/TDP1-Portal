@@ -8,20 +8,18 @@
 
 #include "Coordinate.h"
 #include "Entity.h"
+#include "../common/constants.h"
 
 class Portal: public Entity {
 private:
     Coordinate* target;
+    PortalOrientation orientation;
 
 public:
-    Portal(b2Body* body, Coordinate* target);
-    void addOrangePortal(Coordinate* portal);
-    void addBluePortal(Coordinate* portal);
-    Coordinate* teleport(Coordinate* origin);
-    Coordinate* getOrangePortal();
-    Coordinate* getBluePortal();
+    Portal(b2Body* body, Coordinate* target, PortalOrientation orientation);
     Coordinate* getTarget();
     virtual void handleCollision(Entity* entity) override;
+    PortalOrientation getOrientation();
     ~Portal();
 };
 
