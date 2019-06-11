@@ -10,6 +10,7 @@
 #include "RockView.h"
 #include "ButtonView.h"
 #include "BulletView.h"
+#include "CakeView.h"
 
 ViewFactory::ViewFactory(int mtpFactor) :
         mtpFactor(mtpFactor) {
@@ -49,6 +50,9 @@ View* ViewFactory::createView(int viewTypeCode,
             newView = new BulletView(gameWindow, 0, 0, mtpFactor,
                     texturesData);
             break;
+        case CAKE_VIEW_CODE:
+            newView = new CakeView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
         default:
             break;
     }

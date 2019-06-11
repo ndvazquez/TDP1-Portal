@@ -35,7 +35,8 @@ set(CLIENT_SOURCE_FILES
         client/AudioSystem.cpp
         client/SoundCodeQueue.cpp
         client/ViewFactory.cpp
-        client/ViewManager.cpp)
+        client/ViewManager.cpp
+        client/CakeView.cpp)
 
 #EDITOR CONFIG
 

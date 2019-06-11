@@ -14,6 +14,7 @@ enum State {
     WINNER
 };
 
+//
 #define CHELL_WIDTH 1
 #define CHELL_HEIGHT 1.95
 #define BUTTON_WIDTH 1
@@ -28,6 +29,8 @@ enum State {
 #define ENERGY_BALL_HEIGHT 1
 #define PORTAL_WIDTH 1
 #define PORTAL_HEIGHT 2
+#define CAKE_WIDTH 1
+#define CAKE_HEIGHT 1
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
@@ -37,6 +40,7 @@ enum State {
 #define PORTAL_VIEW_CODE 4
 #define BUTTON_VIEW_CODE 5
 #define BULLET_VIEW_CODE 6
+#define CAKE_VIEW_CODE 7
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0
