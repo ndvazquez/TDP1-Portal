@@ -23,20 +23,24 @@ protected:
     int h;
 
 public:
-    Object(std::string  name, int w, int h);
-    virtual void hasToBeOn(const std::string& name);
-    virtual void draw(SDL_Rect* rect) = 0;
+    Object(std::string name, int w, int h);
+
+    virtual void hasToBeOn(const std::string &name);
+
+    virtual void draw(SDL_Rect *rect) = 0;
 
     virtual void addTo(int x, int y, std::map<std::pair<int, int>,
             std::string> &tiles, std::string sentinel = SENTINEL);
-    virtual void setName(std::pair<int, int> position, std::string& enteredName);
+
+    virtual void setName(std::pair<int, int> position, std::string &enteredName);
 
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
 
     virtual void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                            std::unordered_map<std::string, Object *>& textures);
+                            std::unordered_map<std::string, Object *> &textures);
 
     virtual bool hasGravity();
+    virtual void addCondition(std::pair<int, int> position, std::string& condition);
 };
 
 #endif //PORTAL_OBJECT_H

@@ -113,3 +113,22 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
     controller.nameAnObject(x,y, enteredName);
 }
 
+void Stage::handleMouseRightClick(MouseButton &event) {
+    int xPixel = X_PIXEL(event);
+    int yPixel = Y_PIXEL(event);
+    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
+    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
+    SDL_Point sdlPoint = {xPixel, yPixel};
+    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
+    if (!isIn) {
+        return;
+    }
+    std::cerr << "Ingrese una condición lógica." << std::endl;
+
+    std::string enteredCondition;
+    std::getline(std::cin, enteredCondition);
+
+    std::cerr << "El nombre ingresado es: " << enteredCondition << std::endl;
+    controller.addCondition(x, y, enteredCondition);
+}
+

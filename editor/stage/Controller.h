@@ -70,6 +70,8 @@ public:
     std::string &getName(int x, int y);
 
     void nameAnObject(int x, int y, std::string& enteredName);
+
+    void addCondition(int x, int y, std::string condition);
 };
 
 

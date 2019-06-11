@@ -221,3 +221,8 @@ void Controller::nameAnObject(int x, int y, std::string& enteredName) {
     std::pair<int, int> pair = std::make_pair(x, y);
     textures[tiles[pair]]->setName(pair, enteredName);
 }
+
+void Controller::addCondition(int x, int y, std::string condition) {
+    std::pair<int, int> pair = std::make_pair(x, y);
+    textures[tiles[pair]]->addCondition(pair, condition);
+}
