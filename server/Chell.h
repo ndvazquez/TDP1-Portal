@@ -12,6 +12,8 @@
 #include "../common/constants.h"
 #include "Coordinate.h"
 #include "Portal.h"
+#include "OrangePortal.h"
+#include "BluePortal.h"
 #include <list>
 
 class Chell: public Entity {
@@ -22,7 +24,10 @@ private:
     bool dead;
     Rock* rock;
     State actual_state;
-    Portal* portal;
+    OrangePortal* orange_portal;
+    BluePortal* blue_portal;
+    Coordinate* orange_portal_to_teleport;
+    Coordinate* blue_portal_to_teleport;
     bool winner;
 
 public:
@@ -44,12 +49,14 @@ public:
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
     void downloadRock();
-    void addOrangePortal(Coordinate* coordinate);
-    void addBluePortal(Coordinate* coordinate);
+    void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
+    void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);
     void teleport(Coordinate* coordinate);
     State getState();
-    Coordinate* getBluePortal();
-    Coordinate* getOrangePortal();
+    BluePortal* getBluePortal();
+    OrangePortal* getOrangePortal();
+    Coordinate* getBluePortalToTeleport();
+    Coordinate* getOrangePortalToTeleport();
 };
 
 #endif //PORTAL_CHELL_H

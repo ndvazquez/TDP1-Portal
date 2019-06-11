@@ -11,14 +11,17 @@
 
 class MetalBlock: public Entity {
 private:
-    bool portal;
+    bool vertical_portal;
+    bool horizontal_portal;
     MetalBlock* other;
 
 public:
     explicit MetalBlock(b2Body* body);
     virtual void handleCollision(Entity* entity) override;
-    void createPortal();
-    bool hasPortal();
+    void createVerticalPortal();
+    void createHorizontalPortal();
+    bool hasVerticalPortal();
+    bool hasHorizontalPortal();
     void deletePortal();
     void addOtherPortal(MetalBlock* other);
     Coordinate* getOtherPortal();

@@ -30,7 +30,10 @@ Chell::Chell(b2Body* body):
     chell_is_on_floor = true;
     dead = false;
     rock = nullptr;
-    portal = new Portal();
+    orange_portal = nullptr;
+    blue_portal = nullptr;
+    blue_portal_to_teleport = nullptr;
+    orange_portal_to_teleport = nullptr;
     winner = false;
 }
 
@@ -43,10 +46,10 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
 
-    if (type == "MetalBlock") {
-        MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
-        Coordinate* target = metalBlock->getOtherPortal();
-        if (target != nullptr) this->dynamic.teleport(target);
+    if (type == "Portal") {
+        Portal* portal = static_cast<Portal*>(entity);
+        Coordinate* target = portal->getTarget();
+        if (target != nullptr) teleport(target);
     }
 
     if (type == "Button") {
@@ -170,23 +173,40 @@ State Chell::getState() {
     return actual_state;
 }
 
-void Chell::addOrangePortal(Coordinate* portal) {
-    this->portal->addOrangePortal(portal);
+void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {
+    if (orange_portal != nullptr) delete orange_portal;
+    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
+    orange_portal = portal;
+    orange_portal_to_teleport = to_teleport;
 }
 
-void Chell::addBluePortal(Coordinate* portal) {
-    this->portal->addBluePortal(portal);
+void Chell::addBluePortal(BluePortal* portal, Coordinate* to_teleport) {
+    if (blue_portal != nullptr) delete blue_portal;
+    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
+    blue_portal = portal;
+    blue_portal_to_teleport = to_teleport;
 }
 
-Coordinate* Chell::getBluePortal() {
-    return portal->getBluePortal();
+BluePortal* Chell::getBluePortal() {
+    return blue_portal;
 }
 
-Coordinate* Chell::getOrangePortal() {
-    return portal->getOrangePortal();
+OrangePortal* Chell::getOrangePortal() {
+    return orange_portal;
+}
+
+Coordinate* Chell::getBluePortalToTeleport() {
+    return blue_portal_to_teleport;
+}
+
+Coordinate* Chell::getOrangePortalToTeleport() {
+    return orange_portal_to_teleport;
 }
 
 Chell::~Chell() {
     destroyActualMovement();
-    delete portal;
+    if (orange_portal != nullptr) delete orange_portal;
+    if (blue_portal != nullptr) delete blue_portal;
+    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
+    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
 }
