@@ -23,7 +23,7 @@ private:
     bool chell_is_on_floor;
     bool dead;
     Rock* rock;
-    State actual_state;
+    ChellState actual_state;
     OrangePortal* orange_portal;
     BluePortal* blue_portal;
     Coordinate* orange_portal_to_teleport;
@@ -52,7 +52,7 @@ public:
     void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
     void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);
     void teleport(Coordinate* coordinate);
-    State getState();
+    ChellState getState();
     BluePortal* getBluePortal();
     OrangePortal* getOrangePortal();
     Coordinate* getBluePortalToTeleport();

@@ -44,32 +44,41 @@ void BlueShot::handleCollision(Entity* entity) {
 
         if (vertical_cond) {
             if (left_side) {
-                Coordinate* coordinate = new Coordinate(x_left - portal_h_side/2, y_pos_metal);
-                Coordinate* coord_to_teleport = new Coordinate(x_left - portal_h_side, y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coordinate, true);
+                Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
+                        y_pos_metal);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_left - portal_h_side,
+                        y_pos_metal);
+                BluePortal* bluePortal = new BluePortal(coord, true);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
-                Coordinate* coordinate = new Coordinate(x_right + portal_h_side/2, y_pos_metal);
-                Coordinate* coord_to_teleport = new Coordinate(x_left + portal_h_side, y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coordinate, true);
+                Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
+                        y_pos_metal);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_left + portal_h_side,
+                        y_pos_metal);
+                BluePortal* bluePortal = new BluePortal(coord, true);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         } else {
             if (down_side) {
-                Coordinate* coordinate = new Coordinate(x_pos_metal, y_down - portal_v_side/2);
-                Coordinate* coord_to_teleport = new Coordinate(x_pos_metal, y_down - portal_v_side);
-                BluePortal* bluePortal = new BluePortal(coordinate, false);
+                Coordinate* coord = new Coordinate(x_pos_metal,
+                        y_down - portal_v_side/2);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_pos_metal,
+                        y_down - portal_v_side);
+                BluePortal* bluePortal = new BluePortal(coord, false);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
-                Coordinate* coordinate = new Coordinate(x_pos_metal, y_top + portal_v_side/2);
-                Coordinate* coord_to_teleport = new Coordinate(x_pos_metal, y_top + portal_v_side);
-                BluePortal* bluePortal = new BluePortal(coordinate, false);
+                Coordinate* coord = new Coordinate(x_pos_metal,
+                        y_top + portal_v_side/2);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_pos_metal,
+                        y_top + portal_v_side);
+                BluePortal* bluePortal = new BluePortal(coord, false);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         }
     }
     die(); //If the shot collides against something it dies
 }
-
-
-

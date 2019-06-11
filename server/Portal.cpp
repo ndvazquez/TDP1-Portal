@@ -2,16 +2,18 @@
 // Created by cecix on 6/06/19.
 //
 
-#include <iostream>
+#include <string>
 #include "Portal.h"
 #include "Chell.h"
 
 #define portalType "Portal"
 
-Portal::Portal(b2Body* body, Coordinate* target):
+Portal::Portal(b2Body* body, Coordinate* target,
+        PortalOrientation orientation):
     Entity(portalType, body) {
     this->target = target;
     this->body->SetUserData(this);
+    this->orientation = orientation;
 }
 
 void Portal::handleCollision(Entity* entity) {
@@ -31,6 +33,10 @@ void Portal::handleCollision(Entity* entity) {
 
 Coordinate* Portal::getTarget() {
     return target;
+}
+
+PortalOrientation Portal::getOrientation() {
+    return orientation;
 }
 
 Portal::~Portal() {

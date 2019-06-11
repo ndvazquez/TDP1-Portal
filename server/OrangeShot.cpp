@@ -46,26 +46,38 @@ void OrangeShot::handleCollision(Entity* entity) {
 
         if (vertical_cond) {
             if (left_side) {
-                Coordinate* coordinate = new Coordinate(x_left - portal_h_side/2, y_pos_metal);
-                Coordinate* coord_to_teleport = new Coordinate(x_left - portal_h_side, y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coordinate, true);
+                Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
+                        y_pos_metal);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_left - portal_h_side,
+                        y_pos_metal);
+                OrangePortal* orangePortal = new OrangePortal(coord, true);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             } else {
-                Coordinate* coordinate = new Coordinate(x_right + portal_h_side/2, y_pos_metal);
-                Coordinate* coord_to_teleport = new Coordinate(x_right + portal_h_side, y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coordinate, true);
+                Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
+                        y_pos_metal);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_right + portal_h_side,
+                        y_pos_metal);
+                OrangePortal* orangePortal = new OrangePortal(coord, true);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         } else {
             if (down_side) {
-                Coordinate* coordinate = new Coordinate(x_pos_metal, y_down - portal_v_side/2);
-                Coordinate* coord_to_teleport = new Coordinate(x_pos_metal, y_down - portal_v_side);
-                OrangePortal* orangePortal = new OrangePortal(coordinate, false);
-                chell->addOrangePortal(orangePortal, coord_to_teleport);
+                Coordinate* coordinate = new Coordinate(x_pos_metal,
+                        y_down - portal_v_side/2);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_pos_metal,
+                        y_down - portal_v_side);
+                OrangePortal* oPortal = new OrangePortal(coordinate, false);
+                chell->addOrangePortal(oPortal, coord_to_teleport);
             } else {
-                Coordinate* coordinate = new Coordinate(x_pos_metal, y_top + portal_v_side/2);
-                Coordinate* coord_to_teleport = new Coordinate(x_pos_metal, y_top + portal_v_side);
-                OrangePortal* orangePortal = new OrangePortal(coordinate, false);
+                Coordinate* coord = new Coordinate(x_pos_metal,
+                        y_top + portal_v_side/2);
+                Coordinate* coord_to_teleport;
+                coord_to_teleport = new Coordinate(x_pos_metal,
+                        y_top + portal_v_side);
+                OrangePortal* orangePortal = new OrangePortal(coord, false);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         }

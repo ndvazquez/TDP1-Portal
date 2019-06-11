@@ -142,19 +142,17 @@ void Stage::addDiagonalMetalBlock(float side, float x_pos, float y_pos) {
     diagonal_metal_blocks.insert(std::make_pair(coordinates, block));
 }
 
-void Stage::addGate(float v_side, float h_side, float x_pos, float y_pos,
-                    std::unordered_map<std::string, Button*> buttons,
+void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
+        float y_pos, std::unordered_map<std::string, Button*> buttons,
                     std::string logic) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
-    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-
     b2Body* gate_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     Gate* gate = new Gate(gate_body, logic, buttons);
-    gates.insert({coordinates, gate});
+    gates.insert({id, gate});
 }
 
 void Stage::addEnergyBar(float v_side, float h_side,
@@ -171,17 +169,16 @@ void Stage::addEnergyBar(float v_side, float h_side,
     energy_bars.insert({coordinates, energy_bar});
 }
 
-void Stage::addButton(float v_side, float h_side, float x_pos, float y_pos) {
+void Stage::addButton(std::string id, float v_side, float h_side,
+        float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
-    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-
     b2Body* button_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     Button* button = new Button(button_body);
-    buttons.insert({coordinates, button});
+    buttons.insert({id, button});
 }
 
 void Stage::addAcid(std::string id, float v_side, float h_side,
@@ -336,7 +333,8 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
 }
 
 void Stage::addPortal(std::string id, float v_side, float h_side,
-        Coordinate* origin, Coordinate* target) {
+        Coordinate* origin, Coordinate* target,
+        PortalOrientation orientation) {
     float x_pos = origin->getX();
     float y_pos = origin->getY();
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
@@ -345,7 +343,7 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
 
     b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
-    Portal* portal = new Portal(portal_body, target);
+    Portal* portal = new Portal(portal_body, target, orientation);
     portals.insert({id, portal});
 }
 
@@ -374,9 +372,11 @@ void Stage::managePortals(Chell* chell, std::string id) {
     if (orange_portal != nullptr) {
         Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
         if (orange_portal->isVertical()) {
-            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(), blue_portal_coord);
+            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(),
+                    blue_portal_coord, VERTICAL);
         } else {
-            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(), blue_portal_coord);
+            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(),
+                    blue_portal_coord, HORIZONTAL);
         }
     }
 
@@ -396,10 +396,11 @@ void Stage::managePortals(Chell* chell, std::string id) {
     if (blue_portal != nullptr) {
         Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
         if (blue_portal->isVertical()) {
-            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(), orange_portal_coord);
-        }
-        else {
-            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(), orange_portal_coord);
+            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(),
+                    orange_portal_coord, VERTICAL);
+        } else {
+            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(),
+                    orange_portal_coord, HORIZONTAL);
         }
     }
 }
@@ -505,6 +506,7 @@ Cake* Stage::getCake() {
     return cake;
 }
 
+
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
@@ -534,9 +536,9 @@ EnergyBar* Stage::getEnergyBar(Coordinate *coordinate) {
     return nullptr;
 }
 
-Button* Stage::getButton(Coordinate *coordinate) {
+Button* Stage::getButton(std::string id) {
     for (auto item = buttons.begin() ; item != buttons.end() ; item++) {
-        if (*item->first == *coordinate) return item->second;
+        if (item->first == id) return item->second;
     }
     return nullptr;
 }
@@ -599,7 +601,7 @@ nlohmann::json Stage::getCurrentState() {
     nlohmann::json request;
     for (auto i = chells.begin(); i != chells.end(); i++)  {
         std::string id_chell = i->first;
-        State state_chell = i->second->getState();
+        ChellState state_chell = i->second->getState();
         float x_pos_chell = i->second->getHorizontalPosition();
         float y_pos_chell = i->second->getVerticalPosition();
         request[id_chell] = {
@@ -613,7 +615,6 @@ nlohmann::json Stage::getCurrentState() {
         request[id_rock] = {
                 {"state", 0}, {"x", x_pos_rock}, {"y", y_pos_rock}
         };
-
     }
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++)  {
         std::string id_blue_shot = i->first;
@@ -665,6 +666,34 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
         };
     }
+    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+        std::string id_button = i->first;
+        ButtonState state = i->second->getState();
+        float x_pos_button = i->second->getHorizontalPosition();
+        float y_pos_button = i->second->getVerticalPosition();
+        request[id_button] = {
+                {"state", state}, {"x", x_pos_button}, {"y", y_pos_button}
+        };
+    }
+    for (auto i = gates.begin(); i != gates.end(); i++) {
+        std::string id_gate = i->first;
+        GateState state = i->second->getState();
+        float x_pos_gate = i->second->getHorizontalPosition();
+        float y_pos_gate = i->second->getVerticalPosition();
+        request[id_gate] = {
+                {"state", state}, {"x", x_pos_gate}, {"y", y_pos_gate}
+        };
+    }
+    for (auto i = portals.begin(); i != portals.end(); i++) {
+        std::string id_portal = i->first;
+        PortalOrientation orientation = i->second->getOrientation();
+        float x_pos_portal = i->second->getHorizontalPosition();
+        float y_pos_portal = i->second->getVerticalPosition();
+        request[id_portal] = {
+                {"state", orientation}, {"x", x_pos_portal}, {"y", y_pos_portal}
+        };
+    }
+
     return request;
 }
 
@@ -713,7 +742,6 @@ Stage::~Stage() {
     }
 
     for (auto i = buttons.begin() ; i != buttons.end() ; i++) {
-        delete i->first;
         delete i->second;
     }
 
@@ -731,7 +759,6 @@ Stage::~Stage() {
     }
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
-        delete i->first;
         delete i->second;
     }
 

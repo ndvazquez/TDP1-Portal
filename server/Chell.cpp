@@ -169,7 +169,7 @@ bool Chell::inGround() {
     return chell_is_on_floor;
 }
 
-State Chell::getState() {
+ChellState Chell::getState() {
     return actual_state;
 }
 
