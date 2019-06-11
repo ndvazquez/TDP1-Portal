@@ -100,7 +100,9 @@ set(SERVER_SOURCE_FILES
         server/EnergyTransmitterLeft.cpp
         server/EnergyTransmitterRight.cpp
         server/Gate.cpp
-        server/Cake.cpp)
+        server/Cake.cpp
+        server/BluePortal.cpp
+        server/OrangePortal.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

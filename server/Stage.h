@@ -107,6 +107,7 @@ public:
     void addPortal(std::string id, float v_side, float h_side,
                     Coordinate* origin, Coordinate* target);
 
+    void managePortals(Chell* chell, std::string id);
     void step();
 
     Cake* getCake();

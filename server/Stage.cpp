@@ -370,6 +370,54 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
     portals.insert({id, portal});
 }
 
+void Stage::managePortals(Chell* chell, std::string id) {
+    BluePortal* blue_portal = chell->getBluePortal();
+    OrangePortal* orange_portal = chell->getOrangePortal();
+    std::string id_orange = "Orange"; // TODO: change this harcoded variable
+    std::string id_blue = "Blue"; // TODO: change this harcoded variable
+    std::unordered_map<std::string, Portal*>::iterator it;
+    it = portals.find(id_orange);
+    if (it != portals.end()) {
+        world->DestroyBody(it->second->getBody());
+        {
+            portals.erase(it->first);
+            break;
+        }
+    } else {
+        if (orange_portal != nullptr) {
+            std::cout << "Agrego el orange portal ";
+            Coordinate *blue_portal_coord = chell->getBluePortalToTeleport();
+            if (orange_portal->isVertical()) {
+                std::cout << " vertical" << std::endl;
+                addPortal(id_orange, 2, 0.5, orange_portal->getPortal(), blue_portal_coord);
+            } else {
+                std::cout << " horizontal" << std::endl;
+                addPortal(id_orange, 0.5, 2, orange_portal->getPortal(), blue_portal_coord);
+            }
+        }
+    }
+    /*it = portals.find(id_blue);
+    if (it != portals.end()) {
+        world->DestroyBody(it->second->getBody());
+        {
+            portals.erase(it->first);
+            break;
+        }
+    }*/
+    if (blue_portal != nullptr) {
+        std::cout << "Agrego el blue portal ";
+        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+        if (blue_portal->isVertical()) {
+            std::cout << " vertical" << std::endl;
+            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(), orange_portal_coord);
+        }
+        else {
+            std::cout << " horizontal"  << std::endl;
+            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(), orange_portal_coord);
+        }
+    }
+}
+
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -379,35 +427,7 @@ void Stage::step() {
 
 
     for (auto i = chells.begin(); i != chells.end(); i++) {
-        Coordinate* blue_portal = i->second->getBluePortal();
-        Coordinate* orange_portal = i->second->getOrangePortal();
-        std::string id_orange = "Orange"; // TODO: change this harcoded variable
-        std::string id_blue = "Blue"; // TODO: change this harcoded variable
-        std::unordered_map<std::string, Portal*>::iterator it;
-        /*it = portals.find(id_orange);
-        if (it != portals.end()) {
-            world->DestroyBody(it->second->getBody());
-            {
-                portals.erase(it->first);
-                break;
-            }
-        }*/
-        if (orange_portal != nullptr) {
-            std::cout << "Agrego el orange portal" << std::endl;
-            addPortal(id_orange, 2, 1, orange_portal, blue_portal);
-        }
-        /*it = portals.find(id_blue);
-        if (it != portals.end()) {
-            world->DestroyBody(it->second->getBody());
-            {
-                portals.erase(it->first);
-                break;
-            }
-        }*/
-        if (blue_portal != nullptr) {
-            std::cout << "Agrego el blue portal" << std::endl;
-            addPortal(id_blue, 2, 1, blue_portal, orange_portal);
-        }
+        managePortals(i->second, i->first);
 
         if (i->second->isDead()) {
             world->DestroyBody(i->second->getBody());
