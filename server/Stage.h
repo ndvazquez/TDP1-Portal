@@ -48,11 +48,11 @@ private:
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
-    std::unordered_map<Coordinate*, Gate*> gates;
     std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
-    std::unordered_map<Coordinate*, Button*> buttons;
 
-    std::unordered_map<std::string, Acid*> acids; //TODO: doubt
+    std::unordered_map<std::string, Gate*> gates;
+    std::unordered_map<std::string, Button*> buttons;
+    std::unordered_map<std::string, Acid*> acids;
     std::unordered_map<std::string, Chell*> chells;
     std::unordered_map<std::string, EnergyBall*> energy_balls;
     std::unordered_map<std::string, BlueShot*> blue_shots;
@@ -77,12 +77,14 @@ public:
     void addMetalBlock(float side, float x_pos, float y_pos);
     void addDiagonalMetalBlock(float side, float x_pos,
             float y_pos);
-    void addGate(float v_side, float h_side, float x_pos, float y_pos,
-                 std::unordered_map<std::string, Button*> buttons,
-                 std::string logic);
     void addEnergyBar(float v_side, float h_side, float x_pos, float y_pos);
-    void addButton(float v_side, float h_side, float x_pos, float y_pos);
 
+
+    void addGate(std::string id, float v_side, float h_side, float x_pos,
+            float y_pos, std::unordered_map<std::string, Button*> buttons,
+                 std::string logic);
+    void addButton(std::string id, float v_side, float h_side,
+            float x_pos, float y_pos);
     void addAcid(std::string id, float v_side, float h_side,
             float x_pos, float y_pos); //TODO: doubt
     void addChell(std::string id, float v_side, float h_side,
@@ -116,8 +118,8 @@ public:
     MetalBlock* getMetalBlock(Coordinate* coordinate);
     DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
     EnergyBar* getEnergyBar(Coordinate* coordinate);
-    Button* getButton(Coordinate* coordinate);
 
+    Button* getButton(std::string id);
     Acid* getAcid(std::string id);
     Chell* getChell(std::string id);
     EnergyBall* getEnergyBall(std::string id);

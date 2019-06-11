@@ -12,21 +12,21 @@
 #include <string>
 #include <chrono>
 
-class Gate {
+class Gate: public Entity {
 private:
-    b2Body* body;
     std::string logic;
     std::unordered_map<std::string, Button*> buttons;
-    bool open;
+    GateState state;
     std::chrono::system_clock::time_point timeStamp;
 
 public:
     Gate(b2Body* body, std::string logic,
             std::unordered_map<std::string, Button*> buttons);
     void update();
-    bool isOpen();
     bool parseBool();
+    virtual void handleCollision(Entity* entity) override;
     void handleGate();
+    GateState getState();
 };
 
 

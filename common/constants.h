@@ -5,13 +5,28 @@
 #ifndef PORTAL_CONSTANTS_H
 #define PORTAL_CONSTANTS_H
 
-enum State {
+enum ChellState {
     IDLE,
     JUMPING,
     DEAD,
     MOVING_LEFT,
     MOVING_RIGHT,
     WINNER
+};
+
+enum ButtonState {
+    ON,
+    OFF
+};
+
+enum GateState {
+    OPEN,
+    CLOSED
+};
+
+enum PortalOrientation {
+    HORIZONTAL,
+    VERTICAL
 };
 
 //

@@ -11,7 +11,7 @@
 Button::Button(b2Body* body):
     Entity(buttonType, body) {
     body->SetUserData(this);
-    this->activated = false;
+    this->state = OFF;
 }
 
 void Button::handleCollision(Entity *entity) {
@@ -38,9 +38,13 @@ void Button::handleCollision(Entity *entity) {
 }
 
 void Button::activate() {
-    this->activated = true;
+    this->state = ON;
 }
 
 bool Button::isActive() {
-    return this->activated;
+    return this->state == ON;
+}
+
+ButtonState Button::getState() {
+    return this->state;
 }

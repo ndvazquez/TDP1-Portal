@@ -2,17 +2,19 @@
 // Created by cecix on 9/06/19.
 //
 
+#define gateType "Gate"
+
 #include <string>
 #include <iostream>
 #include <boost/lexical_cast.hpp>
 #include "Gate.h"
 
 Gate::Gate(b2Body* body, std::string logic,
-          std::unordered_map<std::string, Button*> buttons) {
-    this->body = body;
+          std::unordered_map<std::string, Button*> buttons):
+          Entity(gateType, body) {
     this->logic = logic;
     this->buttons = buttons;
-    this->open = false;
+    this->state = CLOSED;
 }
 
 bool evaluateSubString(std::string str) {
@@ -171,11 +173,17 @@ void Gate::update() {
     }
 
     // Obtain boolean from string
-    open = parseBool();
-    if (open) handleGate();
+    if (parseBool()) {
+        this->state = OPEN;
+    } else {
+        this->state = CLOSED;
+    }
+    if (this->state == OPEN) handleGate();
 }
 
-bool Gate::isOpen() {
-    return open;
+GateState Gate::getState() {
+    return state;
 }
 
+void Gate::handleCollision(Entity* entity) {
+}
