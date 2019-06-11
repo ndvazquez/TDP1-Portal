@@ -6,6 +6,7 @@
 #include "ViewFactory.h"
 #include "../json/json.hpp"
 #include <iostream>
+#include <string>
 
 ViewManager::ViewManager(Window& window,
         int levelHeight,

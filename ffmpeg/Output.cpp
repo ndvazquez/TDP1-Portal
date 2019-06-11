@@ -55,7 +55,7 @@ void Output::close() {
 }
 
 
-
+/// Esto el run/start?
 void Output::writeFrame(const char* data, SwsContext* ctx) {
     frame.write(data, ctx);
     encode(&codecContext, &frame, &pkt, outputFile);

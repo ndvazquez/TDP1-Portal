@@ -33,11 +33,14 @@ class ChellView : public View {
     int runTimer;
     bool updateRunTimer();
 public:
-    ChellView(Window &window, int xPos, int yPos, int factor, SoundCodeQueue& queue,
+    ChellView(Window &window,
+            int xPos,
+            int yPos,
+            int factor,
+            SoundCodeQueue& queue,
             YAML::Node texturesData);
     ~ChellView();
     void playAnimation(const SDL_Rect& camera);
-    // This method is only used by the playable Chell;
     void setState(int state);
 };
 

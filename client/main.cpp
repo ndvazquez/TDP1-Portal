@@ -62,10 +62,8 @@ void drawChell(){
     stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 6, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 10, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 10, (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
+    stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
     stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 8, (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
@@ -95,11 +93,6 @@ void drawChell(){
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
 
-    float xCake = xPos + 3;
-    float yCake = yPos;
-    stage.addCake(1, xCake, yCake);
-    Cake* cake = stage.getCake();
-
     Coordinate* coordinate = new Coordinate(xPos, yPos);
     Chell* chell = stage.getChell(chell_id);
     //Rock
@@ -115,7 +108,7 @@ void drawChell(){
     float shotWidth = 1;
     float shotHeight = 1;
 
-    Coordinate* target_blue = new Coordinate(metalBlockPosX + 8, metalBlockPosY + 4); //Setting one block to shoot
+    Coordinate* target_blue = new Coordinate(metalBlockPosX + 8, metalBlockPosY + 6); //Setting one block to shoot
     stage.addBlueShot(blue_shot_id, shotHeight, shotWidth, chell, target_blue); //Arbitrary width and height in Shot
     BlueShot* blueShot = stage.getBlueShot(blue_shot_id);
 
@@ -136,7 +129,7 @@ void drawChell(){
     View* chellView = viewFactory.createView(CHELL_VIEW_CODE, newWindow, soundQueue);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
-    audioSystem.playMusic(BG_SONG_GAME);
+    //audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -600,5 +593,5 @@ int main(int argc, char* argv[]){
     //drawChellAndRock();
     //drawChellAndEnergyBall();
     //drawChellAndAcidPool();
-    jsonTest();
+    //jsonTest();
 }

@@ -3,6 +3,7 @@
 //
 
 #include "AcidView.h"
+#include <string>
 
 AcidView::AcidView(Window &window, int xPos, int yPos, int factor,
         YAML::Node texturesData) :

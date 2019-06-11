@@ -20,9 +20,12 @@ class ButtonView : public View{
     int buttonState;
     std::unordered_map<int, Sprite*> sprites;
 public:
-    ButtonView(Window& window, int xPos, int yPos, int factor, YAML::Node texturesData);
+    ButtonView(Window& window,
+            int xPos,
+            int yPos,
+            int factor,
+            YAML::Node texturesData);
     ~ButtonView();
-    // This will probably receive a state when the button logic is implemented server side.
     void setState(int state);
     void playAnimation(const SDL_Rect& camera);
 };

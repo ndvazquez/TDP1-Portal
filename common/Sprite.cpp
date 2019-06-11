@@ -6,6 +6,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "Window.h"
+#include <string>
 
 Sprite::Sprite(const std::string &path, Window& window) :
     window(window) {

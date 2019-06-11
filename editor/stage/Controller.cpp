@@ -11,6 +11,8 @@
 #include "object/Chell.h"
 #include "object/Gate.h"
 #include "object/Cake.h"
+#include "object/Acid.h"
+#include "object/DiagonalBlockUp.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -18,11 +20,13 @@
 #define CHELL_KEY "Chells"
 #define GATE_KEY "Gate"
 #define CAKE_KEY "Cake"
+#define ACID_KEY "Acid"
+#define DIAGONAL_BLOCK_KEY "DiagonalBlock"
+
 
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
-
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
     for (YAML::const_iterator it = blocks.begin();
          it != blocks.end(); ++it) {
@@ -135,10 +139,40 @@ stageView(window, factor, textures, tiles) {
             newObject->hasToBeOn(name);
         }
     }
+    const YAML::Node& acid = texturesInfo[ACID_KEY];
+    for (YAML::const_iterator it = acid.begin();
+         it != acid.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Acid* newObject = new Acid(path, window, node["frames"].as<int>(), name, w, h);
+        textures[name] = newObject;
+
+        for (YAML::const_iterator it = blocks.begin();
+             it != blocks.end(); ++it) {
+            const YAML::Node &node = *it;
+            std::string name = node["name"].as<std::string>();
+            newObject->hasToBeOn(name);
+        }
+    }
+
+    const YAML::Node& DiagonalBlocks = texturesInfo[DIAGONAL_BLOCK_KEY];
+    for (YAML::const_iterator it = DiagonalBlocks.begin();
+         it != DiagonalBlocks.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        DiagonalBlockUp* newObject = new DiagonalBlockUp(path, window, name, w, h);
+        textures[name] = newObject;
+    }
 }
 
-void Controller::draw(SDL_Rect* camera, int xStart) {
-    stageView.draw(camera, xStart);
+void Controller::draw(SDL_Rect* camera, int yStart) {
+    stageView.draw(camera, yStart);
 }
 
 void Controller::addTile(int x, int y, std::string& tileName) {
@@ -149,7 +183,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
     try {
         obj->addTo(x, y, tiles);
     }
-    catch(ObjectException) {
+    catch(ObjectException& e) {
         throw StageControllerAddTileException();
     }
 }
@@ -163,7 +197,7 @@ void Controller::removeTile(int x, int y) {
     try {
         obj->removeFrom(x, y, tiles, textures);
     }
-    catch(ObjectException) {
+    catch(ObjectException& e) {
         throw StageControllerRemoveTileException();
     }
 }

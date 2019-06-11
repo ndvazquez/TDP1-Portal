@@ -3,7 +3,6 @@
 //
 
 #include <string>
-
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -296,16 +295,6 @@ void Stage::addRock(std::string id, float side, float x_pos, float y_pos) {
 
 void Stage::addBlueShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
-    Coordinate* bluePortal = chell->getBluePortal();
-    if (bluePortal != nullptr) {
-        MetalBlock* metalBlock = getMetalBlock(bluePortal);
-        metalBlock->deletePortal();
-    }
-    MetalBlock* metalBlock = getMetalBlock(target);
-    if (metalBlock!= nullptr && metalBlock->hasPortal()) {
-        metalBlock->deletePortal();
-    }
-
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
@@ -325,16 +314,6 @@ void Stage::addBlueShot(std::string id, float v_side, float h_side,
 
 void Stage::addOrangeShot(std::string id, float v_side, float h_side,
         Chell* chell, Coordinate* target) {
-    Coordinate* orangePortal = chell->getOrangePortal();
-    if (orangePortal != nullptr) {
-        MetalBlock* metalBlock = getMetalBlock(orangePortal);
-        if (metalBlock != nullptr) metalBlock->deletePortal();
-    }
-    MetalBlock* metalBlock = getMetalBlock(target);
-    if (metalBlock != nullptr && metalBlock->hasPortal()) {
-        metalBlock->deletePortal();
-    }
-
     float x_target = target->getX();
     float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
     float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
@@ -356,6 +335,74 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
     orange_shots.insert({id, orangeShot});
 }
 
+void Stage::addPortal(std::string id, float v_side, float h_side,
+        Coordinate* origin, Coordinate* target) {
+    float x_pos = origin->getX();
+    float y_pos = origin->getY();
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
+    Portal* portal = new Portal(portal_body, target);
+    portals.insert({id, portal});
+}
+
+void Stage::managePortals(Chell* chell, std::string id) {
+    BluePortal *blue_portal = chell->getBluePortal();
+    OrangePortal *orange_portal = chell->getOrangePortal();
+    std::string id_orange = id;
+    id_orange.replace(0, id.length(), "Orange");
+    std::string id_blue = id;
+    id_blue.replace(0, id.length(), "Blue");
+
+    std::unordered_map<std::string, Portal *>::iterator it;
+    it = portals.find(id_orange);
+    if (it != portals.end()) {
+        Portal* portal = it->second;
+        float x_portal = portal->getHorizontalPosition();
+        float y_portal = portal->getVerticalPosition();
+        Coordinate coord_portal(x_portal, y_portal);
+        if (orange_portal != nullptr) {
+            if (*orange_portal->getPortal() != coord_portal) {
+                world->DestroyBody(it->second->getBody());
+                portals.erase(it->first);
+            }
+        }
+    }
+    if (orange_portal != nullptr) {
+        Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
+        if (orange_portal->isVertical()) {
+            addPortal(id_orange, 2, 0.5, orange_portal->getPortal(), blue_portal_coord);
+        } else {
+            addPortal(id_orange, 0.5, 2, orange_portal->getPortal(), blue_portal_coord);
+        }
+    }
+
+    it = portals.find(id_blue);
+    if (it != portals.end()) {
+        Portal *portal = it->second;
+        float x_portal = portal->getHorizontalPosition();
+        float y_portal = portal->getVerticalPosition();
+        Coordinate coord_portal(x_portal, y_portal);
+        if (blue_portal != nullptr) {
+            if (*blue_portal->getPortal() != coord_portal) {
+                world->DestroyBody(it->second->getBody());
+                portals.erase(it->first);
+            }
+        }
+    }
+    if (blue_portal != nullptr) {
+        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+        if (blue_portal->isVertical()) {
+            addPortal(id_blue, 2, 0.5, blue_portal->getPortal(), orange_portal_coord);
+        }
+        else {
+            addPortal(id_blue, 0.5, 2, blue_portal->getPortal(), orange_portal_coord);
+        }
+    }
+}
 
 void Stage::step() {
     auto end = std::chrono::system_clock::now();
@@ -364,15 +411,9 @@ void Stage::step() {
     if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
+
     for (auto i = chells.begin(); i != chells.end(); i++) {
-        Coordinate* blue_portal = i->second->getBluePortal();
-        Coordinate* orange_portal = i->second->getOrangePortal();
-        if (blue_portal != nullptr && orange_portal != nullptr) {
-            MetalBlock* blue_block = getMetalBlock(blue_portal);
-            MetalBlock* orange_block = getMetalBlock(orange_portal);
-            blue_block->addOtherPortal(orange_block);
-            orange_block->addOtherPortal(blue_block);
-        }
+        managePortals(i->second, i->first);
 
         if (i->second->isDead()) {
             world->DestroyBody(i->second->getBody());

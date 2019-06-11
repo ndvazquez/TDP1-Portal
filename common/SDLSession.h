@@ -12,7 +12,7 @@
 #include <string>
 
 class SDLInitException: public std::exception {
-    virtual const char* what() const throw () {
+    virtual const char* what() const throw() {
         std::string message = "There was an error initializing SDL: ";
         message += SDL_GetError();
         return message.c_str();
@@ -20,7 +20,7 @@ class SDLInitException: public std::exception {
 };
 
 class IMGInitException: public std::exception {
-    virtual const char* what() const throw () {
+    virtual const char* what() const throw() {
         std::string message = "Failed to init required image support: ";
         message += IMG_GetError();
         return message.c_str();
@@ -28,8 +28,8 @@ class IMGInitException: public std::exception {
 };
 
 class MixInitException: public std::exception {
-    virtual const char* what() const throw () {
-        std::string message = "Failed to init required image support: ";
+    virtual const char* what() const throw() {
+        std::string message = "Failed to init required sound support: ";
         message += Mix_GetError();
         return message.c_str();
     }
@@ -38,7 +38,7 @@ class MixInitException: public std::exception {
 // Wrapper to make SDL initialization RAII compliant.
 class SDLSession {
 public:
-    SDLSession(uint32_t initFlags);
+    explicit SDLSession(uint32_t initFlags);
     ~SDLSession();
 };
 

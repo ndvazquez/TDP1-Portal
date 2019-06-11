@@ -7,10 +7,7 @@
 
 
 #include "StaticObject.h"
-#include "Button.h"
-#include "Chell.h"
-#include "Gate.h"
-#include "Rock.h"
+
 
 class Block : public StaticObject {
 public:
@@ -20,6 +17,8 @@ public:
                     std::unordered_map<std::string, Object *>& map) override;
 
     bool hasGravity() override;
+    void addTo(int x, int y, std::map<std::pair<int, int>,
+            std::string> &tiles, std::string sentinel = SENTINEL) override;
 };
 
 

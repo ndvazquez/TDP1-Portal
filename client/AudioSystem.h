@@ -24,7 +24,7 @@ class AudioSystem {
     std::unordered_map<int, Mix_Chunk*> soundEffects;
     SoundCodeQueue& soundsQueue;
 public:
-    AudioSystem(SoundCodeQueue& queue);
+    explicit AudioSystem(SoundCodeQueue& queue);
     ~AudioSystem();
     void playMusic(int songCode);
     void stopMusic();
