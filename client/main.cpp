@@ -571,7 +571,7 @@ void jsonTest() {
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    //drawChell();
+    drawChell();
     //drawChellAndRock();
     //drawChellAndEnergyBall();
     //drawChellAndAcidPool();
