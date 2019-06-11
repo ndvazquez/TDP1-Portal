@@ -5,15 +5,18 @@
 #ifndef PORTAL_GATE_H
 #define PORTAL_GATE_H
 
-
+#include <map>
 #include "StaticObject.h"
 
 class Gate : public StaticObject {
+private:
+    std::map<std::pair<int, int>, std::string> names;
+
 public:
     Gate(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Gate();
 
-    void setName() override;
+    void setName(std::pair<int, int> position, std::string& enteredName) override;
 };
 
 

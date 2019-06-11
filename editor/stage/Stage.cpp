@@ -105,6 +105,11 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
     if (!isIn) {
         return;
     }
-    controller.nameAnObject(x,y);
+    std::string enteredName;
+    std::cerr << "Ingrese un nombre para su objeto." << std::endl;
+    std::getline(std::cin, enteredName);
+
+    std::cerr << "El nombre ingresado es: " << enteredName << std::endl;
+    controller.nameAnObject(x,y, enteredName);
 }
 

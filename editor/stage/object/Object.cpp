@@ -74,7 +74,7 @@ void Object::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string>
     }
 }
 
-void Object::setName() {
+void Object::setName(std::pair<int, int> position, std::string& enteredName) {
     // if is not overwritten it wont do much
     // i.e. if you are not a button or a gate u must do nothing
 }

@@ -217,6 +217,7 @@ std::string& Controller::getName(int x, int y) {
     return point->second;
 }
 
-void Controller::nameAnObject(int x, int y) {
-    textures[tiles[std::make_pair(x, y)]]->setName();
+void Controller::nameAnObject(int x, int y, std::string& enteredName) {
+    std::pair<int, int> pair = std::make_pair(x, y);
+    textures[tiles[pair]]->setName(pair, enteredName);
 }
