@@ -14,6 +14,7 @@ class UserEvent {
     float userMouseX;
     float userMouseY;
 public:
+    UserEvent();
     explicit UserEvent(nlohmann::json& jsonData);
     UserEvent(const std::string& id,
             int eventTypeCode,

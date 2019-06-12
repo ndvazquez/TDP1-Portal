@@ -6,6 +6,8 @@
 #include <string>
 #include <iostream>
 
+UserEvent::UserEvent() {}
+
 UserEvent::UserEvent(nlohmann::json &jsonData) {
     this->eventType = jsonData["eventType"].get<int>();
     this->userId = jsonData["id"].get<std::string>();
@@ -34,6 +36,10 @@ float UserEvent::getUserPosY() {
 
 const std::string& UserEvent::getUserId() {
     return this->userId;
+}
+
+int UserEvent::getEventType() {
+    return this->eventType;
 }
 
 std::string UserEvent::toJsonString() {
