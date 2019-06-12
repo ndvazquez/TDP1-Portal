@@ -11,48 +11,38 @@
 #include "FormatContext.h"
 #include "Output.h"
 #include "../common/Window.h"
+#include "BlockingQueue.h"
+
 extern "C" {
 #include <libavformat/avformat.h>
 #include <libswscale/swscale.h>
 }
 #define RRP_SWS_CONTEXT_EXC "There was an error while writing the frame\n"
 
-class SwsContextException : public std::exception {
-protected:
-    std::string message;
-public:
-    SwsContextException() = default;
-    virtual const char *what() const throw() {
-        return this->message.c_str();
-    }
-};
 
-class SwsContextRendererReadPixelsException : public SwsContextException {
-public:
-    SwsContextRendererReadPixelsException() {
-        message = RRP_SWS_CONTEXT_EXC;
-    }
-};
 
 // RAII wrapper for struct SwsContext
 class SwsContext {
 private:
-    FormatContext context;
-    Output videoOutput;
+    BlockingQueue& producedFrames;
     int width;
     int height;
-    // You need it to perform scaling/conversion operations using.
-    SwsContext* ctx;
     std::vector<char> dataBuffer;
     Window& window;
 
 
 public:
-    explicit SwsContext(std::string filename, Window& window);
+    explicit SwsContext(BlockingQueue& producedFrames, Window& window);
     ~SwsContext();
     void write();
 };
 
-
+class SwsContextRendererReadPixelsException : public std::exception {
+public:
+    SwsContextRendererReadPixelsException() = default;
+    virtual const char *what() const throw() {
+        return RRP_SWS_CONTEXT_EXC;
+    }
+};
 
 #endif //PORTAL_SWSCONTEXT_H

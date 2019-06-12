@@ -5,18 +5,23 @@ int main(int argc, char** argv){
         return -1;
     }
     try {
-        av_register_all();  // REALLY IMPORTANT. 
-                            // If you do not call this function before initializing SwsContext
-                            // your program will crash
-        std::string outputFilename = argv[1];
-        SwsContext ctx(outputFilename);
-
-
         Window window(800, 600);
+    
+        BlockingQueue queue; // needed for concurrency
+    
+        av_register_all();  // REALLY IMPORTANT. 
+                            // If you do not call this function before initializing Cosumer
+                            // your program will crash
+        SwsContext ctx(queue, window);
+        std::string outputFilename = argv[1];
+        Consumer consumer(queue, filename, window);
+
+
         window.clear();
         // Draw whatever you want
         window.render()
 
+        consumer.start()
         while (running) {
             
             handleSDLEvent(x, y, running);
@@ -27,6 +32,12 @@ int main(int argc, char** argv){
 
             ctx.write(window);  // Reads from the window.render and writes on disk
         }
+        
+        queue.close() // hey queue when you get empty it means that we finish. 
+                      // We are not going tu give you anything else to encolate
+                      
+        consumer.join()
+        
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;
