@@ -12,6 +12,7 @@ class Rock: public Entity {
 private:
     Dynamic dynamic;
     Dynamic* actual_movement;
+    bool dead;
 
 public:
     explicit Rock(b2Body* body);
@@ -26,6 +27,8 @@ public:
     void teleport(Coordinate* target);
     void release();
     void activateGravity();
+    bool isDead();
+    void die();
 };
 
 #endif //PORTAL_ROCK_H

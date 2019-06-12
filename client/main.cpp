@@ -117,6 +117,9 @@ void drawChell(){
     size_t rockSide = 1;
     stage.addRock(rock_id, rockSide, metalBlockPosX + 12, metalBlockPosY+2);
 
+    std::string eb_id = "EnergyBar1";
+    stage.addEnergyBar(eb_id, rockSide, rockSide, metalBlockPosX + 15, metalBlockPosY+2);
+
     Rock* rock = stage.getRock(rock_id);
 
     //Shot in Chell
@@ -247,11 +250,11 @@ void drawChell(){
         newWindow.clear();
         background.draw(bgRect);
         stageView.draw(cameraRect);
-        rockView->playAnimation(cameraRect);
         cakeView->playAnimation(cameraRect);
         chellView->playAnimation(cameraRect);
         if (!blueShot->isDead()) blueShotView->playAnimation(cameraRect);
         if (!orangeShot->isDead()) orangeShotView->playAnimation(cameraRect);
+        if (!rock->isDead()) rockView->playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
         newWindow.drawRectangle(rockRect);

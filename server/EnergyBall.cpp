@@ -8,6 +8,7 @@
 
 #include "EnergyBall.h"
 #include "Chell.h"
+#include "EnergyBar.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(energyBallType, body),
@@ -51,6 +52,9 @@ bool EnergyBall::isVertical() {
 
 void EnergyBall::handleCollision(Entity* entity) {
     std::string type = entity->getType();
+    if (type == "EnergyBar") {
+        static_cast<EnergyBar*>(entity)->disableBody();
+    }
     if (type == "BrickBlock") {
         die();
     }
