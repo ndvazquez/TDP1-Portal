@@ -47,24 +47,30 @@ void Rock::handleCollision(Entity *entity) {
     }
 }
 
-void Rock::elevate() {
+void Rock::elevate(Coordinate& coordinate) {
     body->SetGravityScale(0);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
+}
+
+void Rock::release() {
     body->ApplyForce(b2Vec2(0, gameConfiguration.elevationForce),
-            body->GetWorldCenter(), true);
+        body->GetWorldCenter(), true);
 }
 
 void Rock::activateGravity() {
     body->SetGravityScale(1);
 }
 
-void Rock::moveRight() {
+void Rock::moveRight(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
+    body->SetTransform(b2Vec2(coordinate.getX() - 1, coordinate.getY()), 0);
 }
 
-void Rock::moveLeft() {
+void Rock::moveLeft(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
 }
 
 void Rock::stop() {
@@ -87,8 +93,6 @@ void Rock::update() {
 void Rock::downloadToEarth() {
     body->SetGravityScale(1);
     body->ApplyLinearImpulse(b2Vec2(0, -5), body->GetWorldCenter(), true);
-    /*body->ApplyForce(b2Vec2(0, -gameConfiguration.elevationForce),
-                     body->GetWorldCenter(), true);*/
 }
 
 void Rock::teleport(Coordinate* target) {
