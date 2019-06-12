@@ -61,4 +61,13 @@ void EnergyBall::handleCollision(Entity* entity) {
         static_cast<Chell*>(entity)->die();
         die();
     }
+    if (type == "Portal") {
+        Portal* portal = static_cast<Portal*>(entity);
+        Coordinate* target = portal->getTarget();
+        if (target != nullptr) teleport(target);
+    }
+}
+
+void EnergyBall::teleport(Coordinate* target) {
+    this->dynamic.teleport(target);
 }
