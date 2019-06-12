@@ -155,18 +155,16 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
     gates.insert({id, gate});
 }
 
-void Stage::addEnergyBar(float v_side, float h_side,
+void Stage::addEnergyBar(std::string id, float v_side, float h_side,
                          float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
-    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-
     b2Body* energy_bar_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     EnergyBar* energy_bar = new EnergyBar(energy_bar_body);
-    energy_bars.insert({coordinates, energy_bar});
+    energy_bars.insert({id, energy_bar});
 }
 
 void Stage::addButton(std::string id, float v_side, float h_side,
@@ -540,9 +538,9 @@ DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
     return nullptr;
 }
 
-EnergyBar* Stage::getEnergyBar(Coordinate *coordinate) {
+EnergyBar* Stage::getEnergyBar(std::string id) {
     for (auto item = energy_bars.begin() ; item != energy_bars.end() ; item++) {
-        if (*item->first == *coordinate) return item->second;
+        if (item->first == id) return item->second;
     }
     return nullptr;
 }
@@ -677,6 +675,14 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
         };
     }
+    for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
+        std::string id_eb = i->first;
+        float x_pos_eb = i->second->getHorizontalPosition();
+        float y_pos_eb = i->second->getHorizontalPosition();
+        request[id_eb] = {
+                {"state", 0}, {"x", x_pos_eb}, {"y", y_pos_eb}
+        };
+    }
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
         std::string id_button = i->first;
         ButtonState state = i->second->getState();
@@ -748,7 +754,6 @@ Stage::~Stage() {
     }
 
     for (auto i = energy_bars.begin() ; i != energy_bars.end() ; i++) {
-        delete i->first;
         delete i->second;
     }
 
