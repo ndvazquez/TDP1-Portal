@@ -16,6 +16,8 @@ public:
     const SDL_Rect& getCameraRectangle();
     // Receives the player position, centered on the player's mass center.
     void centerCameraOnPlayer(int playerPosX, int playerPosY);
+    int getCameraX() const;
+    int getCameraY() const;
 };
 
 

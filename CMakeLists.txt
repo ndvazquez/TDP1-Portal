@@ -36,7 +36,10 @@ set(CLIENT_SOURCE_FILES
         client/SoundCodeQueue.cpp
         client/ViewFactory.cpp
         client/ViewManager.cpp
-        client/CakeView.cpp)
+        client/CakeView.cpp
+        common/UserEvent.cpp
+        client/UserEventHandler.cpp
+        client/UserEventQueue.cpp)
 
 #EDITOR CONFIG
 

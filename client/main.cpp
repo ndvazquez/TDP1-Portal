@@ -26,6 +26,9 @@
 #include "ViewFactory.h"
 #include "../json/json.hpp"
 #include "ViewManager.h"
+#include "../common/UserEvent.h"
+#include "UserEventQueue.h"
+#include "UserEventHandler.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -618,23 +621,6 @@ void jsonTest() {
     // This is what an update JSON looks like,
     // sent from the server to the clients.
     nlohmann::json stageUpdateRequest;
-    /*= {
-            {
-                    "Chell1",
-                    {
-                            {"state", 0}, {"x", 4} ,{"y", 1}
-                    }
-            },
-            {
-                    "Rock1",
-                    {
-                            {"state", 0}, {"x", 8}, {"y", 1}
-                    }
-            }
-    };*/
-
-
-
 
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
@@ -642,8 +628,8 @@ void jsonTest() {
     std::string playerID = "Chell1";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
-    int stageWidth = 60;
-    int stageHeight = 6;
+    int stageWidth = 20;
+    int stageHeight = 10;
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
 
@@ -655,28 +641,37 @@ void jsonTest() {
     ViewManager viewManager(newWindow, levelHeight,
             MTP_FACTOR, playerID, mapData, soundQueue);
 
+    UserEventQueue userEventQueue;
+    UserEventHandler userEventHandler(camera, userEventQueue, idChell, levelHeight);
+
     bool quit = false;
     SDL_Event e;
-    const Uint8* keys = SDL_GetKeyboardState(NULL);
-
     audioSystem.playMusic(BG_SONG_GAME);
+
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
-            if (e.type == SDL_QUIT) {
+            userEventHandler.run(e);
+        }
+        // This should be done server side,
+        // but we'll do the event handling here for now.
+        if (!userEventQueue.empty()) {
+            UserEvent userEvent = userEventQueue.pop();
+            std::string eventString = userEvent.toJsonString();
+
+            std::cout << eventString << std::endl;
+            if (userEvent.getEventType() == USER_QUIT_CODE) {
                 quit = true;
             }
-            // This should be done server side,
-            // but we'll do the event handling here for now.
-            if (e.type  == SDL_KEYDOWN  && e.key.repeat == 0) {
-                if (e.key.keysym.sym == SDLK_w) chell->jump(); //jump
+            if (userEvent.getEventType() == USER_JUMP_CODE) {
+                    chell->jump(); //jump
             }
-            if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
+            if (userEvent.getEventType() == USER_MOVE_RIGHT_CODE) {
                 chell->moveRight();
             }
-            if (keys[SDL_SCANCODE_A] && !keys[SDL_SCANCODE_D]){
+            if (userEvent.getEventType() == USER_MOVE_LEFT_CODE) {
                 chell->moveLeft();
             }
-            if (!keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) chell->stop();
+            if (userEvent.getEventType() == USER_STOP_CODE) chell->stop();
         }
         stage.step();
         stageUpdateRequest = stage.getCurrentState();
@@ -689,9 +684,9 @@ void jsonTest() {
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
+//    drawChell();
+//    drawChellAndRock();
+//    drawChellAndEnergyBall();
+//    drawChellAndAcidPool();
     jsonTest();
 }
