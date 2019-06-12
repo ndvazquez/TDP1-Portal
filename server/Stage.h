@@ -86,7 +86,7 @@ public:
     void addButton(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
     void addAcid(std::string id, float v_side, float h_side,
-            float x_pos, float y_pos); //TODO: doubt
+            float x_pos, float y_pos);
     void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
     void addEnergyBallHorizontal(std::string id, float side,

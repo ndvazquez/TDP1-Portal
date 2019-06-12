@@ -20,6 +20,7 @@
 #include "BlueShot.h"
 #include "EnergyBall.h"
 #include "Button.h"
+#include "EnergyBar.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType, body),
@@ -64,6 +65,10 @@ void Chell::handleCollision(Entity* entity) {
 
     if (type == "Cake") {
         win();
+    }
+
+    if (type == "EnergyBar") {
+        static_cast<EnergyBar*>(entity)->disableBody();
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"

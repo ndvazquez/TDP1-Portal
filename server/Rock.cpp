@@ -21,6 +21,7 @@ Rock::Rock(b2Body* body):
         dynamic(body) {
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
+    this->dead = false;
 }
 
 void Rock::handleCollision(Entity *entity) {
@@ -32,6 +33,9 @@ void Rock::handleCollision(Entity *entity) {
             teleport(target);
             activateGravity();
         }
+    }
+    if (type == "EnergyBar") {
+        die();
     }
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
@@ -93,4 +97,12 @@ void Rock::downloadToEarth() {
 
 void Rock::teleport(Coordinate* target) {
     this->dynamic.teleport(target);
+}
+
+void Rock::die() {
+    dead = true;
+}
+
+bool Rock::isDead() {
+    return dead;
 }
