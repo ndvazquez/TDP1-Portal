@@ -41,6 +41,8 @@ public:
 
     virtual bool hasGravity();
     virtual void addCondition(std::pair<int, int> position, std::string& condition);
+
+    virtual bool doesThisNameExist(std::string &string);
 };
 
 #endif //PORTAL_OBJECT_H

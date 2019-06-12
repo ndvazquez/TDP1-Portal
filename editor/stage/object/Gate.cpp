@@ -19,7 +19,7 @@ void Gate::setName(std::pair<int, int> position, std::string& enteredName) {
 
 void Gate::addCondition(std::pair<int, int> position, std::string &condition) {
     std::cerr << "Soy una compuerta " << std::endl;
-    conditions[names[position]] = condition;
+    conditions[position] = condition;
 
     std::cerr << "mi nombre es: '" << names[position];
     std::cerr << "' y mi condicion es '" << condition << "'" << std::endl;

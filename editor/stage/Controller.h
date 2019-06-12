@@ -14,39 +14,6 @@
 #include "View.h"
 #include "object/Object.h"
 
-#define ADD_TILE "Couldn't add the tile. That's not a valid place\n"
-#define NAME_EXC "Couldn't add the tile. That's not a valid element!\n"
-#define POSITION_EXC "Couldn't get tile's name. That's position is empty!\n"
-
-class StageControllerException : public std::exception {};
-
-class StageControllerNameException : public StageControllerException {
-    virtual const char* what() const throw () {
-        std::string message = NAME_EXC;
-        return message.c_str();
-    }
-};
-
-class StageControllerAddTileException : public StageControllerException {
-    virtual const char* what() const throw () {
-        std::string message = ADD_TILE;
-        return message.c_str();
-    }
-};
-
-class StageControllerRemoveTileException : public StageControllerException {
-    virtual const char* what() const throw () {
-        std::string message = ADD_TILE;
-        return message.c_str();
-    }
-};
-
-class StageControllerEmptyPositionException : public StageControllerException {
-    virtual const char* what() const throw () {
-        std::string message = POSITION_EXC;
-        return message.c_str();
-    }
-};
 
 class Controller {
 private:
@@ -71,8 +38,54 @@ public:
 
     void nameAnObject(int x, int y, std::string& enteredName);
 
-    void addCondition(int x, int y, std::string condition);
+    void addCondition(int x, int y);
+
+    void parseCondition(std::string& condition);
 };
 
+
+#define ADD_TILE "Couldn't add the tile. That's not a valid place\n"
+#define NAME_EXC "Couldn't add the tile. That's not a valid element!\n"
+#define POSITION_EXC "Couldn't get tile's name. That's position is empty!\n"
+#define REMOVE_TILE  "Couldn't remove the tile\n"
+#define INVALID_CONDITION_EXC "Invalid condition\n"
+
+
+class StageControllerException : public std::exception {};
+
+class StageControllerNameException : public StageControllerException {
+public:
+    virtual const char* what() const throw () {
+        return NAME_EXC;
+    }
+};
+
+class StageControllerAddTileException : public StageControllerException {
+public:
+    virtual const char* what() const throw () {
+        return ADD_TILE;
+    }
+};
+
+class StageControllerRemoveTileException : public StageControllerException {
+public:
+    virtual const char* what() const throw () {
+        return REMOVE_TILE;
+    }
+};
+
+class StageControllerEmptyPositionException : public StageControllerException {
+public:
+    virtual const char* what() const throw () {
+        return POSITION_EXC;
+    }
+};
+
+class StageControllerInvalidConditionException : public StageControllerException {
+public:
+    virtual const char* what() const throw () {
+        return INVALID_CONDITION_EXC;
+    }
+};
 
 #endif //PORTAL_CONTROLLER_H

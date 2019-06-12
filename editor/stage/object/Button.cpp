@@ -14,4 +14,14 @@ void Button::setName(std::pair<int, int> position, std::string& enteredName) {
     std::cerr << "y mi nombre es " << enteredName << std::endl;
 }
 
+bool Button::doesThisNameExist(std::string &string) {
+    auto it = this->names.begin();
+    for(; it != this->names.end(); it++) {
+       if (it->second == string) {
+           return true;
+       }
+    }
+    return false;
+}
+
 Button::~Button() = default;

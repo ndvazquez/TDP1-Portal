@@ -123,12 +123,6 @@ void Stage::handleMouseRightClick(MouseButton &event) {
     if (!isIn) {
         return;
     }
-    std::cerr << "Ingrese una condición lógica." << std::endl;
-
-    std::string enteredCondition;
-    std::getline(std::cin, enteredCondition);
-
-    std::cerr << "El nombre ingresado es: " << enteredCondition << std::endl;
-    controller.addCondition(x, y, enteredCondition);
+    controller.addCondition(x, y);
 }
 

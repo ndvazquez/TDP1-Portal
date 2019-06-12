@@ -87,3 +87,7 @@ void Object::addCondition(std::pair<int, int> position, std::string &condition) 
 bool Object::hasGravity() {
     return true;
 }
+
+bool Object::doesThisNameExist(std::string &string) {
+    return false;
+}

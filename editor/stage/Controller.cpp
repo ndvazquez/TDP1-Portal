@@ -24,6 +24,15 @@
 #define DIAGONAL_BLOCK_KEY "DiagonalBlock"
 
 
+#define NOT '!'
+#define BUTTON "Button"
+#define OR " |"
+#define AND " &"
+
+#define IS_ODD(x) x%2
+
+#define OPEN_BRACKET '('
+#define CLOSE_BRACKET ')'
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
@@ -222,11 +231,62 @@ void Controller::nameAnObject(int x, int y, std::string& enteredName) {
     textures[tiles[pair]]->setName(pair, enteredName);
 }
 
-void Controller::addCondition(int x, int y, std::string condition) {
+void Controller::addCondition(int x, int y) {
     std::pair<int, int> pair = std::make_pair(x, y);
-    /// validate condition pliss.
-    // ask the button if that name exist is easy
-    // so, validate if is an existing name or a "&, |, !" is easy.
-    // Then, validate the correct intercalation between "name & !name" is hard.
-    textures[tiles[pair]]->addCondition(pair, condition);
+
+    std::cerr << "Ingrese una condición lógica." << std::endl;
+
+    std::string enteredCondition;
+    std::getline(std::cin, enteredCondition);
+
+    std::cerr << "La condición ingresada es: " << enteredCondition << std::endl;
+    try {
+        this->parseCondition(enteredCondition);
+    } catch (StageControllerInvalidConditionException &e) {
+        return;
+    }
+    textures[tiles[pair]]->addCondition(pair, enteredCondition);
+}
+
+void Controller::parseCondition(std::string& condition) {
+    Object *button = this->textures[BUTTON];
+    std::istringstream iss(condition);
+    std::string word;
+    bool allGood;
+    int i = 0;
+    while (iss >> word) {
+        if (IS_ODD(i)) { //it is a button name
+            allGood = word != AND && word != OR;
+            if (!allGood) {
+                std::cerr << "Parece que no es & o |. Es: " << word << std::endl;
+            }
+        } else {
+            if (word[0] == NOT or word[0] == OPEN_BRACKET) {
+                word = word.substr(1);
+            }
+            if (word.back() == CLOSE_BRACKET) {
+                word.pop_back();
+            }
+            allGood = button->doesThisNameExist(word);
+
+            if (!allGood) {
+                std::cerr << "Parece que " << word << " no es un boton existente" << word << std::endl;
+            }
+        }
+
+        if (!allGood) {
+            std::cerr << "NOT ALL GOOD" << std::endl;
+            throw StageControllerInvalidConditionException();
+        }
+        i++;
+    }
+    std::cerr << "I es: " << i << std::endl;
+
+    std::cerr << "I%2 es: " << i%2 << std::endl;
+    if (IS_ODD(i)) {
+        return;
+    } else {
+        std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
+        throw StageControllerInvalidConditionException();
+    }
 }

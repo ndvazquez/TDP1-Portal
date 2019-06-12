@@ -20,6 +20,7 @@ public:
     ~Button();
 
     void setName(std::pair<int, int> position, std::string& enteredName) override;
+    bool doesThisNameExist(std::string &string) override;
 };
 
 
