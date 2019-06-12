@@ -55,35 +55,35 @@ class StageControllerException : public std::exception {};
 
 class StageControllerNameException : public StageControllerException {
 public:
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         return NAME_EXC;
     }
 };
 
 class StageControllerAddTileException : public StageControllerException {
 public:
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         return ADD_TILE;
     }
 };
 
 class StageControllerRemoveTileException : public StageControllerException {
 public:
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         return REMOVE_TILE;
     }
 };
 
 class StageControllerEmptyPositionException : public StageControllerException {
 public:
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         return POSITION_EXC;
     }
 };
 
 class StageControllerInvalidConditionException : public StageControllerException {
 public:
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         return INVALID_CONDITION_EXC;
     }
 };
