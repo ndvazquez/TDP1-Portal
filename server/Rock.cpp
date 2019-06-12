@@ -13,6 +13,7 @@
 #include "MetalBlock.h"
 #include "Chell.h"
 #include "Button.h"
+#include "EnergyBar.h"
 #include <Box2D/Dynamics/b2World.h>
 
 

@@ -11,6 +11,7 @@
 EnergyBar::EnergyBar(b2Body *body):
     Entity(energyBarType, body) {
     this->body->SetUserData(this);
+    this->timeStamp = std::chrono::system_clock::now();
 }
 
 void EnergyBar::handleCollision(Entity *entity) {
@@ -26,4 +27,13 @@ void EnergyBar::handleCollision(Entity *entity) {
 
 void EnergyBar::disableBody() {
     body->SetActive(false);
+}
+
+void EnergyBar::activateBody() {
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+            (end - timeStamp).count();
+    if (difference <= 1100) return; //1.1 seconds to traspass
+    this->timeStamp = std::chrono::system_clock::now();
+    body->SetActive(true);
 }

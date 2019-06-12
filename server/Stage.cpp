@@ -410,7 +410,6 @@ void Stage::step() {
     if (difference <= 1000 / 60) return;
     timeStamp = std::chrono::system_clock::now();
 
-
     for (auto i = chells.begin(); i != chells.end(); i++) {
         managePortals(i->second, i->first);
 
@@ -503,6 +502,10 @@ void Stage::step() {
             }
         }
         i->second->update();
+    }
+
+    for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
+        i->second->activateBody();
     }
 
     float timeStep = 1.0f / 60;
