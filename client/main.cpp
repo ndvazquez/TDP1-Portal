@@ -158,7 +158,7 @@ void drawChell(){
             newWindow, soundQueue);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
-    audioSystem.playMusic(BG_SONG_GAME);
+    //audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
     const Uint8* keys = SDL_GetKeyboardState(NULL);
     SDL_Event e;
@@ -178,6 +178,7 @@ void drawChell(){
                 }
                 if (e.key.keysym.sym == SDLK_f) chell->downloadRock();
                 if (e.key.keysym.sym == SDLK_g) chell->grabRock(rock);
+                if (e.key.keysym.sym == SDLK_t) chell->releaseRock();
             }
             if (keys[SDL_SCANCODE_D] && !keys[SDL_SCANCODE_A]) {
                 chell->moveRight();
@@ -693,8 +694,8 @@ void jsonTest() {
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     drawChell();
-    drawChellAndRock();
-    drawChellAndEnergyBall();
-    drawChellAndAcidPool();
-    jsonTest();
+    //drawChellAndRock();
+    //drawChellAndEnergyBall();
+    //drawChellAndAcidPool();
+    //jsonTest();
 }

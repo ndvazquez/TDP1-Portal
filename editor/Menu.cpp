@@ -48,19 +48,23 @@ void Menu::set() {
 
 
     // Set the rectangles
-    int totalX = window.getWindowWidth() / options_space;
+    int totalX  = window.getWindowWidth() / options_space * 1.90;
     int spaceBetweenX = totalX/6;
+
 
     int h = totalX - spaceBetweenX;
     int spaceBetweenY = (window.getWindowHeight()/HEIGHT_PROPORTION) - h;
+
+    //SDL_Rect rec = {totalX,  yStart + spaceBetweenY/2, h, h};
+
 
     auto optionsIt = options.begin();
     int acum = 0;
     int i = 0;
     for (; optionsIt != options.end(); optionsIt++) {
         MenuButton* option = *optionsIt;
-        acum += option->setRectangle(spaceBetweenX + acum, yStart + spaceBetweenY/2, h, h);
-        acum += spaceBetweenX;
+        acum = option->setRectangle(spaceBetweenX + acum, yStart + spaceBetweenY/2, h, h);
+        //acum += spaceBetweenX;
         i++;
     }
 

@@ -100,7 +100,8 @@ bool Chell::hasWon() {
 
 void Chell::grabRock(Rock* rock) {
     if (this->rock) return;
-    rock->elevate();
+    Coordinate coord(getHorizontalPosition(), getVerticalPosition());
+    rock->elevate(coord);
     this->rock = rock;
 }
 
@@ -119,7 +120,10 @@ void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
     if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
-    if (this->rock) rock->moveRight();
+    if (this->rock) {
+        Coordinate coord(getHorizontalPosition(), getVerticalPosition());
+        rock->moveRight(coord);
+    }
 }
 
 void Chell::moveLeft() {
@@ -127,7 +131,17 @@ void Chell::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
     if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
-    if (this->rock) rock->moveLeft();
+    if (this->rock) {
+        Coordinate coord(getHorizontalPosition(), getVerticalPosition());
+        rock->moveLeft(coord);
+    }
+}
+
+void Chell::releaseRock() {
+    if (this->rock) {
+        rock->release();
+        rock = nullptr;
+    }
 }
 
 void Chell::stop() {
@@ -154,7 +168,7 @@ void Chell::update() {
     }
     if (chell_is_on_floor && ! isDead()) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
-    if (this->rock) rock->update();
+    //if (this->rock) rock->update();
 }
 
 void Chell::jump() {

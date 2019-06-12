@@ -31,11 +31,14 @@ int main(int argc, char* argv[]) {
                     //if (e.button.button = SDL_BUTTON_RIGHT) { // and its a left click
                     //    break;
                     //}
-                    if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
+                     if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
                         editor.handleMouseButtonDown(&e);
-                    }
+                     }
                      if (e.button.clicks == 2 && e.button.button == SDL_BUTTON_LEFT) {
-                         editor.handleMouseDoubleCick(&e);
+                         editor.handleMouseDoubleClick(&e);
+                     }
+                     if (e.button.button == SDL_BUTTON_RIGHT) {
+                         editor.handleMouseRightClick(&e);
                      }
                     break;
                  case SDL_MOUSEBUTTONUP:

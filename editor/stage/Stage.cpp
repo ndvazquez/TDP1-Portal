@@ -105,6 +105,24 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
     if (!isIn) {
         return;
     }
-    controller.nameAnObject(x,y);
+    std::string enteredName;
+    std::cerr << "Ingrese un nombre para su objeto." << std::endl;
+    std::getline(std::cin, enteredName);
+
+    std::cerr << "El nombre ingresado es: " << enteredName << std::endl;
+    controller.nameAnObject(x,y, enteredName);
+}
+
+void Stage::handleMouseRightClick(MouseButton &event) {
+    int xPixel = X_PIXEL(event);
+    int yPixel = Y_PIXEL(event);
+    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
+    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
+    SDL_Point sdlPoint = {xPixel, yPixel};
+    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
+    if (!isIn) {
+        return;
+    }
+    controller.addCondition(x, y);
 }
 
