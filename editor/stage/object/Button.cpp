@@ -24,4 +24,11 @@ bool Button::doesThisNameExist(std::string &string) {
     return false;
 }
 
+void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                      std::unordered_map<std::string, Object *> &textures) {
+    names.erase(std::make_pair(x, y));
+    Object::removeFrom(x, y, tiles, textures);
+}
+
+
 Button::~Button() = default;

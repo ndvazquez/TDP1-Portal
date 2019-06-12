@@ -24,3 +24,16 @@ void Gate::addCondition(std::pair<int, int> position, std::string &condition) {
     std::cerr << "mi nombre es: '" << names[position];
     std::cerr << "' y mi condicion es '" << condition << "'" << std::endl;
 }
+
+void Gate::addTo(int x, int y, std::map<std::pair<int, int>,
+        std::string> &tiles, std::string sentinel) {
+    conditions[std::make_pair(x, y)] = "";
+    Object::addTo(x, y, tiles, sentinel);
+}
+
+void Gate::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                      std::unordered_map<std::string, Object *> &textures) {
+    conditions.erase(std::make_pair(x, y));
+    names.erase(std::make_pair(x, y));
+    Object::removeFrom(x, y, tiles, textures);
+}
