@@ -29,7 +29,7 @@ enum PortalOrientation {
     VERTICAL
 };
 
-//
+// Objects sizes.
 #define CHELL_WIDTH 1
 #define CHELL_HEIGHT 1.95
 #define BUTTON_WIDTH 1
@@ -63,5 +63,16 @@ enum PortalOrientation {
 
 // AudioSystem song codes.
 #define BG_SONG_GAME 0
+
+// Event type codes.
+#define USER_QUIT_CODE 0
+#define USER_JUMP_CODE 1
+#define USER_MOVE_LEFT_CODE 2
+#define USER_MOVE_RIGHT_CODE 3
+#define USER_STOP_CODE 4
+#define USER_BLUE_PORTAL_CODE 5
+#define USER_ORANGE_PORTAL_CODE 6
+#define USER_GRAB_ROCK 7
+#define USER_DROP_ROCK 8
 
 #endif //PORTAL_CONSTANTS_H
