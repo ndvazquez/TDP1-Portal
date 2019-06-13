@@ -20,6 +20,7 @@
 #include "BlueShot.h"
 #include "EnergyBall.h"
 #include "Button.h"
+#include "EnergyBar.h"
 
 Chell::Chell(b2Body* body):
         Entity(chellType, body),
@@ -52,6 +53,14 @@ void Chell::handleCollision(Entity* entity) {
         if (target != nullptr) teleport(target);
     }
 
+    if (type == "Cake") {
+        win();
+    }
+
+    if (type == "EnergyBar") {
+        static_cast<EnergyBar*>(entity)->disableBody();
+    }
+
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
         float x_button = button->getHorizontalPosition();
@@ -60,10 +69,6 @@ void Chell::handleCollision(Entity* entity) {
         if (x_chell > x_button - delta && x_chell < x_button + delta) {
             button->activate();
         }
-    }
-
-    if (type == "Cake") {
-        win();
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
@@ -95,7 +100,8 @@ bool Chell::hasWon() {
 
 void Chell::grabRock(Rock* rock) {
     if (this->rock) return;
-    rock->elevate();
+    Coordinate coord(getHorizontalPosition(), getVerticalPosition());
+    rock->elevate(coord);
     this->rock = rock;
 }
 
@@ -114,7 +120,10 @@ void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
     if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
-    if (this->rock) rock->moveRight();
+    if (this->rock) {
+        Coordinate coord(getHorizontalPosition(), getVerticalPosition());
+        rock->moveRight(coord);
+    }
 }
 
 void Chell::moveLeft() {
@@ -122,7 +131,17 @@ void Chell::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
     if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
-    if (this->rock) rock->moveLeft();
+    if (this->rock) {
+        Coordinate coord(getHorizontalPosition(), getVerticalPosition());
+        rock->moveLeft(coord);
+    }
+}
+
+void Chell::releaseRock() {
+    if (this->rock) {
+        rock->release();
+        rock = nullptr;
+    }
 }
 
 void Chell::stop() {
@@ -149,7 +168,7 @@ void Chell::update() {
     }
     if (chell_is_on_floor && ! isDead()) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
-    if (this->rock) rock->update();
+    //if (this->rock) rock->update();
 }
 
 void Chell::jump() {

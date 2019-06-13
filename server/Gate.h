@@ -15,6 +15,7 @@
 class Gate: public Entity {
 private:
     std::string logic;
+    std::string replaced;
     std::unordered_map<std::string, Button*> buttons;
     GateState state;
     std::chrono::system_clock::time_point timeStamp;

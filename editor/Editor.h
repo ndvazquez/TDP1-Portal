@@ -37,7 +37,8 @@ public:
     void handleMouseButtonUp(SDL_Event* event);
     void handleMouseButtonDown(SDL_Event* event);
 
-    void handleMouseDoubleCick(SDL_Event* event);
+    void handleMouseDoubleClick(SDL_Event *event);
+    void handleMouseRightClick(SDL_Event *event);
 
 };
 

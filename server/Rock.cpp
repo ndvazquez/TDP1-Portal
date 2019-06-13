@@ -13,6 +13,9 @@
 #include "MetalBlock.h"
 #include "Chell.h"
 #include "Button.h"
+#include "EnergyBar.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 #include <Box2D/Dynamics/b2World.h>
 
 
@@ -21,6 +24,7 @@ Rock::Rock(b2Body* body):
         dynamic(body) {
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
+    this->dead = false;
 }
 
 void Rock::handleCollision(Entity *entity) {
@@ -32,6 +36,15 @@ void Rock::handleCollision(Entity *entity) {
             teleport(target);
             activateGravity();
         }
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
+    }
+    if (type == "EnergyBar") {
+        die();
     }
     if (type == "Chell") {
         static_cast<Chell*>(entity)->onFloor(true);
@@ -47,24 +60,30 @@ void Rock::handleCollision(Entity *entity) {
     }
 }
 
-void Rock::elevate() {
+void Rock::elevate(Coordinate& coordinate) {
     body->SetGravityScale(0);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
+}
+
+void Rock::release() {
     body->ApplyForce(b2Vec2(0, gameConfiguration.elevationForce),
-            body->GetWorldCenter(), true);
+        body->GetWorldCenter(), true);
 }
 
 void Rock::activateGravity() {
     body->SetGravityScale(1);
 }
 
-void Rock::moveRight() {
+void Rock::moveRight(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
+    body->SetTransform(b2Vec2(coordinate.getX() - 1, coordinate.getY()), 0);
 }
 
-void Rock::moveLeft() {
+void Rock::moveLeft(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
 }
 
 void Rock::stop() {
@@ -87,10 +106,16 @@ void Rock::update() {
 void Rock::downloadToEarth() {
     body->SetGravityScale(1);
     body->ApplyLinearImpulse(b2Vec2(0, -5), body->GetWorldCenter(), true);
-    /*body->ApplyForce(b2Vec2(0, -gameConfiguration.elevationForce),
-                     body->GetWorldCenter(), true);*/
 }
 
 void Rock::teleport(Coordinate* target) {
     this->dynamic.teleport(target);
+}
+
+void Rock::die() {
+    dead = true;
+}
+
+bool Rock::isDead() {
+    return dead;
 }

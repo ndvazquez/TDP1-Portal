@@ -5,11 +5,14 @@
 #define buttonType "Button"
 
 #include <string>
+#include <iostream>
 #include "Button.h"
 #include "Chell.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 Button::Button(b2Body* body):
-    Entity(buttonType, body) {
+    Entity(buttonType, body), dynamic(body) {
     body->SetUserData(this);
     this->state = OFF;
 }
@@ -35,10 +38,23 @@ void Button::handleCollision(Entity *entity) {
             activate();
         }
     }
+    else {
+        desactivate();
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }
 
 void Button::activate() {
     this->state = ON;
+}
+
+void Button::desactivate() {
+    this->state = OFF;
 }
 
 bool Button::isActive() {
@@ -47,4 +63,10 @@ bool Button::isActive() {
 
 ButtonState Button::getState() {
     return this->state;
+}
+
+void Button::update() {
+    if (! dynamic.handleCollisions()) {
+        desactivate();
+    }
 }

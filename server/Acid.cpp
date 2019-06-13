@@ -6,6 +6,8 @@
 
 #include "Acid.h"
 #include "Chell.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 #define acidType "Acid"
 
@@ -18,5 +20,11 @@ void Acid::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "Chell") {
         static_cast<Chell*>(entity)->die();
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
     }
 }

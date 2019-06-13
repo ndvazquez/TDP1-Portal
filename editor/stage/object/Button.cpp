@@ -8,8 +8,27 @@
 Button::Button(std::string& path, Window& window, const std::string& name, int w, int h) :
     StaticObject(path, window, name, w, h) {}
 
-void Button::setName() {
-    std::cerr << "Soy un boton" << std::endl;
+void Button::setName(std::pair<int, int> position, std::string& enteredName) {
+    std::cerr << "Soy un boton ";
+    names[position] = enteredName;
+    std::cerr << "y mi nombre es " << enteredName << std::endl;
 }
+
+bool Button::doesThisNameExist(std::string &string) {
+    auto it = this->names.begin();
+    for(; it != this->names.end(); it++) {
+       if (it->second == string) {
+           return true;
+       }
+    }
+    return false;
+}
+
+void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+                      std::unordered_map<std::string, Object *> &textures) {
+    names.erase(std::make_pair(x, y));
+    Object::removeFrom(x, y, tiles, textures);
+}
+
 
 Button::~Button() = default;

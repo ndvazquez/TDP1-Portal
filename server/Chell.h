@@ -48,6 +48,7 @@ public:
     virtual void handleCollision(Entity* entity) override;
     void onFloor(bool onFloor);
     void grabRock(Rock* rock);
+    void releaseRock();
     void downloadRock();
     void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
     void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);

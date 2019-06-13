@@ -10,27 +10,18 @@
 
 /// first you need to Initialize libavformat and register all the muxers, demuxers and
 /// protocols with av_register_all();
-SwsContext::SwsContext(std::string filename, Window& window) :
-        videoOutput(context, filename),
-        width(window.getWindowWidth()),
-        height(window.getWindowHeight()),
-        ctx(sws_getContext(width, height,
-                           AV_PIX_FMT_RGB24,
-                           width, height,
-                           AV_PIX_FMT_YUV420P,
-                           0, 0, 0, 0)) ,
+SwsContext::SwsContext(BlockingQueue& producedFrames, Window& window) :
         // Este buffer tiene el tamaño de la sección de SDL que quiero leer, multiplico
         // x3 por la cantidad de bytes (8R,8G,8B)
         // A sws parece que no le gusta este tamaño
+        producedFrames(producedFrames),
+        width(window.getWindowWidth()),
+        height(window.getWindowHeight()),
         dataBuffer(width * height * 3),
         window(window) {
 }
 
-SwsContext::~SwsContext() {
-    videoOutput.close();
-    // Libero escalador
-    sws_freeContext(ctx);
-}
+SwsContext::~SwsContext() = default;
 
 void SwsContext::write() {
     // Obtengo los bytes de la textura en el buffer
@@ -39,6 +30,7 @@ void SwsContext::write() {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "RendererReadPixels error", SDL_GetError(), NULL);
         throw SwsContextRendererReadPixelsException();
     }
-    /// operacion lenta que va a tenre que estar en otro thread
-    videoOutput.writeFrame(dataBuffer.data(), ctx);
+    //operacion lenta que pasó a otro thread:
+    //videoOutput.writeFrame(dataBuffer.data(), ctx);
+    producedFrames.push(dataBuffer);
 }

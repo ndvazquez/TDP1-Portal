@@ -8,18 +8,22 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include "Entity.h"
 #include "../common/constants.h"
+#include "Dynamic.h"
 
 class Button: public Entity {
 private:
     b2Body* body;
     ButtonState state;
+    Dynamic dynamic;
 
 public:
     explicit Button(b2Body* body);
     virtual void handleCollision(Entity* entity) override;
     void activate();
+    void desactivate();
     bool isActive();
     ButtonState getState();
+    void update();
 };
 
 

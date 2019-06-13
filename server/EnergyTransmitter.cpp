@@ -4,18 +4,14 @@
 
 #include <Box2D/Dynamics/b2Body.h>
 #include "EnergyTransmitter.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
+
+#define energyTransmitterType "EnergyTransmitter"
 
 EnergyTransmitter::EnergyTransmitter(b2Body* body):
-    body(body) {
+    Entity(energyTransmitterType, body) {
     this->timeStamp = std::chrono::system_clock::now();
-}
-
-float EnergyTransmitter::getHorizontalPosition() {
-    return this->body->GetPosition().x;
-}
-
-float EnergyTransmitter::getVerticalPosition() {
-    return this->body->GetPosition().y;
 }
 
 bool EnergyTransmitter::isTimeToThrow() {
@@ -27,4 +23,14 @@ bool EnergyTransmitter::isTimeToThrow() {
     if (difference <= deathTime + delay) return false; //throws energy_ball
     timeStamp = std::chrono::system_clock::now();
     return true;
+}
+
+void EnergyTransmitter::handleCollision(Entity *entity) {
+    std::string type = entity->getType();
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }

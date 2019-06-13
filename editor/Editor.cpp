@@ -27,7 +27,7 @@ void Editor::handleMouseButtonDown(SDL_Event* event) {
     this->stage.handleMouseButtonDown(e);
 }
 
-void Editor::handleMouseDoubleCick(SDL_Event *event) {
+void Editor::handleMouseDoubleClick(SDL_Event *event) {
     MouseButton e(event);
     this->stage.handleMouseDoubleClick(e);
 }
@@ -36,4 +36,9 @@ void Editor::handleMouseButtonUp(SDL_Event *event) {
     MouseButton e(event);
     this->menu.handleMouseButtonUp(e);
     this->stage.handleMouseButtonUp(e);
+}
+
+void Editor::handleMouseRightClick(SDL_Event *event) {
+    MouseButton e(event);
+    this->stage.handleMouseRightClick(e);
 }

@@ -8,17 +8,15 @@
 #include <chrono>
 #include "EnergyBall.h"
 
-class EnergyTransmitter {
+class EnergyTransmitter: public Entity {
 protected:
-    b2Body* body;
     std::chrono::system_clock::time_point timeStamp;
 
 public:
     explicit EnergyTransmitter(b2Body* body);
-    float getHorizontalPosition();
-    float getVerticalPosition();
     bool isTimeToThrow();
     virtual Coordinate* throwEnergyBall() = 0;
+    virtual void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_ENERGYTRANSMITTER_H

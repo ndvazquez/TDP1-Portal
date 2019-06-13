@@ -3,8 +3,10 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Portal.h"
 #include "Chell.h"
+#include "EnergyBall.h"
 
 #define portalType "Portal"
 
@@ -27,6 +29,12 @@ void Portal::handleCollision(Entity* entity) {
         if (target != nullptr)  {
             rock->teleport(target);
             rock->activateGravity();
+        }
+    }
+    if (type == "EnergyBall") {
+        EnergyBall* eb = static_cast<EnergyBall*>(entity);
+        if (target != nullptr) {
+            eb->teleport(target);
         }
     }
 }

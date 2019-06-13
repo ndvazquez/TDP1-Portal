@@ -76,6 +76,9 @@ set(EDITOR_SOURCE_FILES
         ffmpeg/Output.cpp
         ffmpeg/Packet.cpp
         ffmpeg/SwsContext.cpp
+        ffmpeg/BlockingQueue.cpp
+        ffmpeg/Consumer.cpp
+        ffmpeg/Thread.cpp
         )
 
 set(SERVER_SOURCE_FILES

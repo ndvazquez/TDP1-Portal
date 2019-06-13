@@ -47,8 +47,8 @@ private:
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
-    std::unordered_map<Coordinate*, EnergyBar*> energy_bars;
 
+    std::unordered_map<std::string, EnergyBar*> energy_bars;
     std::unordered_map<std::string, Gate*> gates;
     std::unordered_map<std::string, Button*> buttons;
     std::unordered_map<std::string, Acid*> acids;
@@ -76,16 +76,16 @@ public:
     void addMetalBlock(float side, float x_pos, float y_pos);
     void addDiagonalMetalBlock(float side, float x_pos,
             float y_pos);
-    void addEnergyBar(float v_side, float h_side, float x_pos, float y_pos);
 
-
+    void addEnergyBar(std::string id, float v_side, float h_side,
+            float x_pos, float y_pos);
     void addGate(std::string id, float v_side, float h_side, float x_pos,
             float y_pos, std::unordered_map<std::string, Button*> buttons,
                  std::string logic);
     void addButton(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
     void addAcid(std::string id, float v_side, float h_side,
-            float x_pos, float y_pos); //TODO: doubt
+            float x_pos, float y_pos);
     void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
     void addEnergyBallHorizontal(std::string id, float side,
@@ -116,7 +116,7 @@ public:
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
     DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
-    EnergyBar* getEnergyBar(Coordinate* coordinate);
+    EnergyBar* getEnergyBar(std::string id);
 
     Button* getButton(std::string id);
     Acid* getAcid(std::string id);
@@ -126,7 +126,11 @@ public:
     OrangeShot* getOrangeShot(std::string id);
     EnergyTransmitter* getEnergyTransmitter(std::string id);
     Rock* getRock(std::string id);
+<<<<<<< HEAD
     Rock* getClosestRock(float x_pos, float y_pos);
+=======
+    Gate* getGate(std::string id);
+>>>>>>> f289a085db3cf84f6a69b8b5ceac0813a26a9b27
 
     nlohmann::json getCurrentState();
 };

@@ -155,18 +155,16 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
     gates.insert({id, gate});
 }
 
-void Stage::addEnergyBar(float v_side, float h_side,
+void Stage::addEnergyBar(std::string id, float v_side, float h_side,
                          float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
     }
 
-    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-
     b2Body* energy_bar_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     EnergyBar* energy_bar = new EnergyBar(energy_bar_body);
-    energy_bars.insert({coordinates, energy_bar});
+    energy_bars.insert({id, energy_bar});
 }
 
 void Stage::addButton(std::string id, float v_side, float h_side,
@@ -408,6 +406,15 @@ void Stage::managePortals(Chell* chell, std::string id) {
 }
 
 void Stage::step() {
+<<<<<<< HEAD
+=======
+    auto end = std::chrono::system_clock::now();
+    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+                     (end - timeStamp).count();
+    if (difference <= 1000 / 60) return;
+    timeStamp = std::chrono::system_clock::now();
+
+>>>>>>> f289a085db3cf84f6a69b8b5ceac0813a26a9b27
     for (auto i = chells.begin(); i != chells.end(); i++) {
         managePortals(i->second, i->first);
 
@@ -491,6 +498,25 @@ void Stage::step() {
         i->second->update();
     }
 
+    for (auto i = rocks.begin(); i != rocks.end(); i++) {
+        if (i->second->isDead()) {
+            world->DestroyBody(i->second->getBody());
+            {
+                rocks.erase(i->first);
+                break;
+            }
+        }
+        i->second->update();
+    }
+
+    for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
+        i->second->activateBody();
+    }
+
+    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+        i->second->update();
+    }
+
     float timeStep = 1.0f / 60;
     int velocityIterations = 8;
     int positionIterations = 2;
@@ -524,9 +550,9 @@ DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
     return nullptr;
 }
 
-EnergyBar* Stage::getEnergyBar(Coordinate *coordinate) {
+EnergyBar* Stage::getEnergyBar(std::string id) {
     for (auto item = energy_bars.begin() ; item != energy_bars.end() ; item++) {
-        if (*item->first == *coordinate) return item->second;
+        if (item->first == id) return item->second;
     }
     return nullptr;
 }
@@ -592,6 +618,7 @@ Rock* Stage::getRock(std::string id) {
     return nullptr;
 }
 
+<<<<<<< HEAD
 Rock* Stage::getClosestRock(float x_pos, float y_pos) {
     b2Vec2 origin(x_pos, y_pos);
     Rock* result_rock = nullptr;
@@ -608,6 +635,13 @@ Rock* Stage::getClosestRock(float x_pos, float y_pos) {
         }
     }
     return result_rock;
+=======
+Gate* Stage::getGate(std::string id) {
+    for (auto item = gates.begin() ; item != gates.end() ; item++) {
+        if (item->first == id) return item->second;
+    }
+    return nullptr;
+>>>>>>> f289a085db3cf84f6a69b8b5ceac0813a26a9b27
 }
 
 nlohmann::json Stage::getCurrentState() {
@@ -677,6 +711,14 @@ nlohmann::json Stage::getCurrentState() {
         float y_pos_et = i->second->getVerticalPosition();
         request[id_et] = {
                 {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
+        };
+    }
+    for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
+        std::string id_eb = i->first;
+        float x_pos_eb = i->second->getHorizontalPosition();
+        float y_pos_eb = i->second->getHorizontalPosition();
+        request[id_eb] = {
+                {"state", 0}, {"x", x_pos_eb}, {"y", y_pos_eb}
         };
     }
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
@@ -754,7 +796,6 @@ Stage::~Stage() {
     }
 
     for (auto i = energy_bars.begin() ; i != energy_bars.end() ; i++) {
-        delete i->first;
         delete i->second;
     }
 
