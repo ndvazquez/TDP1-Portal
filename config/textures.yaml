@@ -13,13 +13,9 @@ Chell:
     frames: 12
 
 
-Portal:
-  - name: Blue
-    path: resources/portal/BluePortal.png
-    frames: 1
-  - name: Orange
-    path: resources/portal/OrangePortal.png
-    frames: 1
+BluePortal: {path: resources/portal/BluePortal.png, frames: 5}
+
+OrangePortal: {path: resources/portal/OrangePortal.png, frames: 5}
 
 EnergyBall: {path: resources/EnergyBall/energy-ball.png, frames: 4}
 

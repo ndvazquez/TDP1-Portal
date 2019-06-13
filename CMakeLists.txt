@@ -30,13 +30,17 @@ set(CLIENT_SOURCE_FILES
         client/View.cpp
         client/RockView.cpp
         client/ButtonView.cpp
-        client/PortalView.cpp
+        client/BluePortalView.cpp
         client/Camera.cpp
         client/AudioSystem.cpp
         client/SoundCodeQueue.cpp
         client/ViewFactory.cpp
         client/ViewManager.cpp
-        client/CakeView.cpp)
+        client/CakeView.cpp
+        common/UserEvent.cpp
+        client/UserEventHandler.cpp
+        common/UserEventQueue.cpp
+        client/OrangePortalView.cpp)
 
 #EDITOR CONFIG
 
@@ -110,7 +114,8 @@ set(SERVER_SOURCE_FILES
         server/Gate.cpp
         server/Cake.cpp
         server/BluePortal.cpp
-        server/OrangePortal.cpp)
+        server/OrangePortal.cpp
+        server/StageManager.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

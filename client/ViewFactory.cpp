@@ -6,11 +6,12 @@
 #include "ChellView.h"
 #include "AcidView.h"
 #include "EnergyBallView.h"
-#include "PortalView.h"
+#include "BluePortalView.h"
 #include "RockView.h"
 #include "ButtonView.h"
 #include "BulletView.h"
 #include "CakeView.h"
+#include "OrangePortalView.h"
 
 ViewFactory::ViewFactory(int mtpFactor) :
         mtpFactor(mtpFactor) {
@@ -38,9 +39,13 @@ View* ViewFactory::createView(int viewTypeCode,
         case ROCK_VIEW_CODE:
             newView = new RockView(gameWindow, 0, 0, mtpFactor, texturesData);
             break;
-        case PORTAL_VIEW_CODE:
-            newView = new PortalView(gameWindow, 0, 0, mtpFactor,
+        case BLUE_PORTAL_VIEW_CODE:
+            newView = new BluePortalView(gameWindow, 0, 0, mtpFactor,
                     texturesData);
+            break;
+        case ORANGE_PORTAL_VIEW_CODE:
+            newView = new OrangePortalView(gameWindow, 0, 0, mtpFactor,
+                                         texturesData);
             break;
         case BUTTON_VIEW_CODE:
             newView = new ButtonView(gameWindow, 0, 0, mtpFactor,

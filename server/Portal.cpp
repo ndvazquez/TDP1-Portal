@@ -47,6 +47,10 @@ PortalOrientation Portal::getOrientation() {
     return orientation;
 }
 
+void Portal::addTarget(Coordinate* target) {
+    this->target = target;
+}
+
 Portal::~Portal() {
     if (target != nullptr) delete target;
 }

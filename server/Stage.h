@@ -43,7 +43,6 @@ private:
     b2World* world;
     Floor* floor;
     Cake* cake;
-    std::chrono::system_clock::time_point timeStamp;
 
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
@@ -127,6 +126,7 @@ public:
     OrangeShot* getOrangeShot(std::string id);
     EnergyTransmitter* getEnergyTransmitter(std::string id);
     Rock* getRock(std::string id);
+    Rock* getClosestRock(float x_pos, float y_pos);
     Gate* getGate(std::string id);
 
     nlohmann::json getCurrentState();

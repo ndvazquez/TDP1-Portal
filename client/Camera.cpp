@@ -38,3 +38,11 @@ void Camera::centerCameraOnPlayer(int playerPosX, int playerPosY) {
         cameraRect.y = levelHeight - cameraRect.h;
     }
 }
+//TODO: Proteger con cv
+int Camera::getCameraX() const {
+    return cameraRect.x;
+}
+//TODO: Proteger con cv
+int Camera::getCameraY() const{
+    return cameraRect.y;
+}
