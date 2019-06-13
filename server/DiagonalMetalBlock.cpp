@@ -15,8 +15,15 @@ DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
 }
 
 void DiagonalMetalBlock::handleCollision(Entity* entity) {
-    if (entity->getType() == "EnergyBall") {
+    std::string type = entity->getType();
+    if (type == "EnergyBall") {
         static_cast<EnergyBall*>(entity)->changeDirection();
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
     }
 }
 

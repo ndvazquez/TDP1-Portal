@@ -99,48 +99,56 @@ Gate: # gravity, no animation
 MenuData:
   - name: MetalBlock
     path: resources/blocks/metal-block.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: RockBlock
     path: resources/blocks/rock-block.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: DiagonalUpLeft
     path: resources/blocks/diagonal-up-left.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: DiagonalUpRight
     path: resources/blocks/diagonal-up-right.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: DiagonalDownLeft
     path: resources/blocks/diagonal-down-left.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: DiagonalDownRight
     path: resources/blocks/diagonal-down-right.png
-    w: 1
-    h: 1
-  - name: Button
-    path: resources/button/off.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockDown
     path: resources/lounch-block/down.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockUp
     path: resources/lounch-block/up.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockLeft
     path: resources/lounch-block/left.png
-    w: 1
-    h: 1
+    w: 2
+    h: 2
   - name: LounchBlockRight
     path: resources/lounch-block/right.png
+    w: 2
+    h: 2
+  - name: Chell
+    path: resources/Chell/EnterHold.png
     w: 1
-    h: 1
+    h: 2
+  - name: Gate
+    path: resources/gate.png
+    w: 1
+    h: 2
+  - name: Button
+    path: resources/button/off.png
+    w: 2
+    h: 2
   - name: Rock1
     path: resources/rocks/1.png
     w: 1
@@ -153,19 +161,12 @@ MenuData:
     path: resources/rocks/3.png
     w: 1
     h: 1
-  - name: Chell
-    path: resources/Chell/EnterHold.png
-    w: 1
-    h: 2
-  - name: Gate
-    path: resources/gate.png
-    w: 1
-    h: 2
+
   - name: Cake
     path: resources/cake/menu.png
     w: 1
     h: 1
   - name: Acid
     path: resources/Acid/menu.png
-    w: 2
+    w: 3
     h: 1

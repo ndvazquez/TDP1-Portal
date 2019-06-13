@@ -8,6 +8,8 @@
 #include <iostream>
 #include <boost/lexical_cast.hpp>
 #include "Gate.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 Gate::Gate(b2Body* body, std::string logic,
           std::unordered_map<std::string, Button*> buttons):
@@ -15,6 +17,7 @@ Gate::Gate(b2Body* body, std::string logic,
     this->logic = logic;
     this->buttons = buttons;
     this->state = CLOSED;
+    this->replaced = "";
 }
 
 bool evaluateSubString(std::string str) {
@@ -79,7 +82,7 @@ bool Gate::parseBool() {
     bool parenthesis = false;
     bool skip = false;
     bool negation = false;
-    for (std::string::iterator it = logic.begin(); it != logic.end(); ++it) {
+    for (std::string::iterator it = replaced.begin(); it != replaced.end(); ++it) {
         bool to_evaluate;
         if (*it == '(') {
             parenthesis = true;
@@ -160,16 +163,18 @@ void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
         std::string id = i->first;
+        replaced = logic;
         bool isActive = i->second->isActive();
         size_t length_id = id.length();
-        size_t i_id = logic.find(id);
+        size_t i_id = replaced.find(id);
+        if (i_id == std::string::npos) break;
         std::string to_replace;
         if (isActive) {
             to_replace = "1";
         } else {
             to_replace = "0";
         }
-        logic.replace(i_id, length_id, to_replace);
+        replaced.replace(i_id, length_id, to_replace);
     }
 
     // Obtain boolean from string
@@ -186,4 +191,11 @@ GateState Gate::getState() {
 }
 
 void Gate::handleCollision(Entity* entity) {
+    std::string type = entity->getType();
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }

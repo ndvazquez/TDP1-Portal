@@ -1,4 +1,3 @@
-
 ///
 // Created by ndv on 5/5/19.
 //
@@ -188,3 +187,4 @@ int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     playGame();
 }
+

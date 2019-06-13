@@ -74,11 +74,20 @@ void Object::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string>
     }
 }
 
-void Object::setName() {
+void Object::setName(std::pair<int, int> position, std::string& enteredName) {
     // if is not overwritten it wont do much
     // i.e. if you are not a button or a gate u must do nothing
 }
 
+void Object::addCondition(std::pair<int, int> position, std::string &condition) {
+    // if is not overwritten it wont do much
+    // i.e. if you are not a gate u must do nothing
+}
+
 bool Object::hasGravity() {
     return true;
+}
+
+bool Object::doesThisNameExist(std::string &string) {
+    return false;
 }

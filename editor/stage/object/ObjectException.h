@@ -22,7 +22,7 @@ public:
 };
 
 class AddTileGravityException : public ObjectException {
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         std::string message = EXC_INTRO + this->name + GRAVITY;
         return message.c_str();
     }
@@ -33,7 +33,7 @@ public:
 };
 
 class AddTileTakenPositionException : public ObjectException {
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         std::string message = EXC_INTRO + this->name + TAKEN_POSITION;
         return message.c_str();
     }
@@ -45,7 +45,7 @@ public:
 };
 
 class RemoveTileFloorNeeded : public ObjectException {
-    virtual const char* what() const throw () {
+    const char* what() const noexcept override {
         std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
         std::cerr << message;
         return message.c_str();

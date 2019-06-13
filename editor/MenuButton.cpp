@@ -50,5 +50,5 @@ int MenuButton::setRectangle(int x, int y, int w, int h) {
     }
     myPosition->w = myPosition->w * w/2;
     myPosition->h = myPosition->h * h/2;
-    return myPosition->h;
+    return myPosition->w + myPosition->x;
 }
