@@ -8,6 +8,8 @@
 #include <iostream>
 #include <boost/lexical_cast.hpp>
 #include "Gate.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 Gate::Gate(b2Body* body, std::string logic,
           std::unordered_map<std::string, Button*> buttons):
@@ -186,4 +188,11 @@ GateState Gate::getState() {
 }
 
 void Gate::handleCollision(Entity* entity) {
+    std::string type = entity->getType();
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }

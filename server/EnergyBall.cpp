@@ -9,6 +9,8 @@
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(energyBallType, body),
@@ -69,6 +71,12 @@ void EnergyBall::handleCollision(Entity* entity) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) teleport(target);
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
     }
 }
 

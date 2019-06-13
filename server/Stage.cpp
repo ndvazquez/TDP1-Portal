@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"

@@ -7,6 +7,8 @@
 #include <string>
 #include "Button.h"
 #include "Chell.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 Button::Button(b2Body* body):
     Entity(buttonType, body) {
@@ -34,6 +36,12 @@ void Button::handleCollision(Entity *entity) {
         if (x_chell > x_button - delta && x_chell < x_button + delta) {
             activate();
         }
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
     }
 }
 
