@@ -165,6 +165,7 @@ void Gate::update() {
         bool isActive = i->second->isActive();
         size_t length_id = id.length();
         size_t i_id = logic.find(id);
+        if (i_id == std::string::npos) break;
         std::string to_replace;
         if (isActive) {
             to_replace = "1";

@@ -127,6 +127,7 @@ public:
     OrangeShot* getOrangeShot(std::string id);
     EnergyTransmitter* getEnergyTransmitter(std::string id);
     Rock* getRock(std::string id);
+    Gate* getGate(std::string id);
 
     nlohmann::json getCurrentState();
 };
