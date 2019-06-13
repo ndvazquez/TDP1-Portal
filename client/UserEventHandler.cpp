@@ -58,7 +58,7 @@ void UserEventHandler::run(SDL_Event& event) {
                 userEventQueue.push(userEvent);
             }
         case SDL_MOUSEBUTTONDOWN:
-            xMeters = x + camera.getCameraX() * MTP_FACTOR_INV;
+            xMeters = (x + camera.getCameraX()) * MTP_FACTOR_INV;
             yMeters = ((y + camera.getCameraY()) * -1 +
                     levelHeight) *MTP_FACTOR_INV;
             if (event.button.button == SDL_BUTTON_LEFT) {
