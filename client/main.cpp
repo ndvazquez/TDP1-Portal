@@ -241,10 +241,11 @@ void drawChell(){
 
         GateState gateState = gate->getState();
         if (gateState == OPEN) std::cout << "La puerta esta abierta" << std::endl;
+        else std::cout << "La puerta esta cerrada" << std::endl;
 
         ButtonState buttonState = button->getState();
         if (buttonState == ON) std::cout << "El boton esta activado" << std::endl;
-
+        else std::cout << "El boton esta cerrado" << std::endl;
 
     }
     delete coordinate;
