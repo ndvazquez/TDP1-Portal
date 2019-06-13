@@ -8,7 +8,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <queue>
-#include "../common/UserEvent.h"
+#include "UserEvent.h"
 
 class UserEventQueue {
     std::condition_variable _cv;

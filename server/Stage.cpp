@@ -47,7 +47,6 @@ Stage::Stage(size_t width, size_t height):
     shape.SetAsBox(2, height/2);
     this->world->CreateBody(&body)->CreateFixture(&shape, 0.0f);
 
-    this->timeStamp = std::chrono::system_clock::now();
     this->cake = nullptr;
 }
 
@@ -406,13 +405,6 @@ void Stage::managePortals(Chell* chell, std::string id) {
 }
 
 void Stage::step() {
-    auto end = std::chrono::system_clock::now();
-    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
-                     (end - timeStamp).count();
-    if (difference <= 1000 / 60) return;
-    timeStamp = std::chrono::system_clock::now();
-
-
     for (auto i = chells.begin(); i != chells.end(); i++) {
         managePortals(i->second, i->first);
 
@@ -693,7 +685,11 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", orientation}, {"x", x_pos_portal}, {"y", y_pos_portal}
         };
     }
-
+    float x_pos_cake = cake->getHorizontalPosition();
+    float y_pos_cake = cake->getVerticalPosition();
+    request["Cake"] = {
+            {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
+    };
     return request;
 }
 

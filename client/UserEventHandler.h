@@ -7,7 +7,7 @@
 
 #include "../common/constants.h"
 #include "Camera.h"
-#include "UserEventQueue.h"
+#include "../common/UserEventQueue.h"
 
 #define MTP_FACTOR_INV 0.01f
 

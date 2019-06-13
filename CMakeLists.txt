@@ -39,7 +39,7 @@ set(CLIENT_SOURCE_FILES
         client/CakeView.cpp
         common/UserEvent.cpp
         client/UserEventHandler.cpp
-        client/UserEventQueue.cpp)
+        common/UserEventQueue.cpp)
 
 #EDITOR CONFIG
 
@@ -110,7 +110,8 @@ set(SERVER_SOURCE_FILES
         server/Gate.cpp
         server/Cake.cpp
         server/BluePortal.cpp
-        server/OrangePortal.cpp)
+        server/OrangePortal.cpp
+        server/StageManager.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

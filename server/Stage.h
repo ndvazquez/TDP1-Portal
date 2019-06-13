@@ -43,7 +43,6 @@ private:
     b2World* world;
     Floor* floor;
     Cake* cake;
-    std::chrono::system_clock::time_point timeStamp;
 
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
