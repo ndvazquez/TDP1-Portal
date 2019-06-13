@@ -53,10 +53,11 @@ enum PortalOrientation {
 #define ACID_VIEW_CODE 1
 #define ENERGY_BALL__VIEW_CODE 2
 #define ROCK_VIEW_CODE 3
-#define PORTAL_VIEW_CODE 4
-#define BUTTON_VIEW_CODE 5
-#define BULLET_VIEW_CODE 6
-#define CAKE_VIEW_CODE 7
+#define BLUE_PORTAL_VIEW_CODE 4
+#define ORANGE_PORTAL_VIEW_CODE 5
+#define BUTTON_VIEW_CODE 6
+#define BULLET_VIEW_CODE 7
+#define CAKE_VIEW_CODE 8
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0

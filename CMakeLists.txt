@@ -30,7 +30,7 @@ set(CLIENT_SOURCE_FILES
         client/View.cpp
         client/RockView.cpp
         client/ButtonView.cpp
-        client/PortalView.cpp
+        client/BluePortalView.cpp
         client/Camera.cpp
         client/AudioSystem.cpp
         client/SoundCodeQueue.cpp
@@ -39,7 +39,8 @@ set(CLIENT_SOURCE_FILES
         client/CakeView.cpp
         common/UserEvent.cpp
         client/UserEventHandler.cpp
-        common/UserEventQueue.cpp)
+        common/UserEventQueue.cpp
+        client/OrangePortalView.cpp)
 
 #EDITOR CONFIG
 

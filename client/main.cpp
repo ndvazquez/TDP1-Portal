@@ -56,7 +56,39 @@ void playGame() {
                             {"x", xPosCake},
                             {"y", yPosCake}
                     }
-            },
+            },{
+                    "BlueShot",
+                    {
+                            {"type", BULLET_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
+            },{
+                    "OrangeShot",
+                    {
+                            {"type", BULLET_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
+            },{
+                    "BluePortal",
+                    {
+                            {"type", BLUE_PORTAL_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
+            },{
+                    "OrangePortal",
+                    {
+                            {"type", ORANGE_PORTAL_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
+            }
 
     };
     nlohmann::json stageUpdateRequest;
