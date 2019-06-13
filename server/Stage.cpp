@@ -407,6 +407,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
 
 void Stage::step() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
@@ -415,6 +416,8 @@ void Stage::step() {
     timeStamp = std::chrono::system_clock::now();
 
 >>>>>>> f289a085db3cf84f6a69b8b5ceac0813a26a9b27
+=======
+>>>>>>> 5465d57cf678bccdd0673149814f57393653c5c8
     for (auto i = chells.begin(); i != chells.end(); i++) {
         managePortals(i->second, i->first);
 
@@ -618,7 +621,6 @@ Rock* Stage::getRock(std::string id) {
     return nullptr;
 }
 
-<<<<<<< HEAD
 Rock* Stage::getClosestRock(float x_pos, float y_pos) {
     b2Vec2 origin(x_pos, y_pos);
     Rock* result_rock = nullptr;
@@ -635,13 +637,12 @@ Rock* Stage::getClosestRock(float x_pos, float y_pos) {
         }
     }
     return result_rock;
-=======
+
 Gate* Stage::getGate(std::string id) {
     for (auto item = gates.begin() ; item != gates.end() ; item++) {
         if (item->first == id) return item->second;
     }
     return nullptr;
->>>>>>> f289a085db3cf84f6a69b8b5ceac0813a26a9b27
 }
 
 nlohmann::json Stage::getCurrentState() {
