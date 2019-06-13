@@ -20,6 +20,7 @@ public:
     Coordinate* getTarget();
     virtual void handleCollision(Entity* entity) override;
     PortalOrientation getOrientation();
+    void addTarget(Coordinate* target);
     ~Portal();
 };
 

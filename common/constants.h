@@ -30,6 +30,7 @@ enum PortalOrientation {
 };
 
 // Objects sizes.
+#define METAL_SIDE 2
 #define CHELL_WIDTH 1
 #define CHELL_HEIGHT 1.95
 #define BUTTON_WIDTH 1
@@ -42,7 +43,7 @@ enum PortalOrientation {
 #define BULLET_HEIGHT 0.5
 #define ENERGY_BALL_WIDTH 1
 #define ENERGY_BALL_HEIGHT 1
-#define PORTAL_WIDTH 1
+#define PORTAL_WIDTH 0.5
 #define PORTAL_HEIGHT 2
 #define CAKE_WIDTH 1
 #define CAKE_HEIGHT 1

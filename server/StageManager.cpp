@@ -69,11 +69,9 @@ void StageManager::handleEvent(UserEvent &userEvent,
             {
                 float x_target = userEvent.getUserPosX();
                 float y_target = userEvent.getUserPosY();
-                std::cout << "X target blue: " << x_target << std::endl;
-                std::cout << "Y target blue: " << y_target << std::endl;
                 Coordinate* target = new Coordinate(x_target, y_target);
                 std::string id = chell_id;
-                id.replace(0, chell_id.length(), "Blue");
+                id.replace(0, chell_id.length(), "BlueShot");
                 stage.addBlueShot(id, BULLET_HEIGHT, BULLET_WIDTH,
                         chell, target);
             }
@@ -82,14 +80,11 @@ void StageManager::handleEvent(UserEvent &userEvent,
             {
                 float x_target = userEvent.getUserPosX();
                 float y_target = userEvent.getUserPosY();
-                std::cout << "X target orange: " << x_target << std::endl;
-                std::cout << "Y target orange: " << y_target << std::endl;
                 Coordinate* target = new Coordinate(x_target, y_target);
                 std::string id = chell_id;
-                id.replace(0, chell_id.length(), "Orange");
+                id.replace(0, chell_id.length(), "OrangeShot");
                 stage.addOrangeShot(id, BULLET_HEIGHT, BULLET_WIDTH,
                                   chell, target);
-                std::cout << "lanzo naranja" << std::endl;
             }
             break;
         default:

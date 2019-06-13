@@ -26,7 +26,7 @@ void BlueShot::handleCollision(Entity* entity) {
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         float x_pos_metal = metalBlock->getHorizontalPosition();
         float y_pos_metal = metalBlock->getVerticalPosition();
-        float side_metal = 2;
+        float side_metal = METAL_SIDE;
 
         float x_pos_blue = getHorizontalPosition();
         float y_pos_orange = getVerticalPosition();
@@ -35,14 +35,14 @@ void BlueShot::handleCollision(Entity* entity) {
         float x_right = x_pos_metal + side_metal/2;
         float y_top = y_pos_metal + side_metal/2;
         float y_down = y_pos_metal - side_metal/2;
-        float side_blue = 1;
+        float side_blue = BULLET_HEIGHT;
 
         bool left_side = x_pos_blue <= x_left - side_blue/2;
         bool right_side = x_pos_blue >= x_right + side_blue/2;
         bool down_side = y_pos_orange <= y_down - side_blue/2;
 
-        float portal_h_side = 0.5;
-        float portal_v_side = 2;
+        float portal_h_side = PORTAL_WIDTH;
+        float portal_v_side = PORTAL_HEIGHT;
 
         bool vertical_cond = left_side || right_side;
 
