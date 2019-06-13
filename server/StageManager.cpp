@@ -2,6 +2,7 @@
 // Created by ndv on 6/13/19.
 //
 
+#include <iostream>
 #include "StageManager.h"
 
 StageManager::StageManager(Stage &stage,
@@ -35,6 +36,7 @@ void StageManager::run() {
 
 void StageManager::handleEvent(UserEvent &userEvent,
         Chell *chell) {
+    std::string chell_id = userEvent.getUserId();
     int eventTypeCode = userEvent.getEventType();
     switch (eventTypeCode) {
         case USER_QUIT_CODE:
@@ -57,17 +59,38 @@ void StageManager::handleEvent(UserEvent &userEvent,
             break;
         case USER_GRAB_ROCK:
             {
-            float x_chell = chell->getHorizontalPosition();
-            float y_chell = chell->getVerticalPosition();
-            Rock *rock = stage.getClosestRock(x_chell, y_chell);
-            chell->grabRock(rock);
+                float x_chell = chell->getHorizontalPosition();
+                float y_chell = chell->getVerticalPosition();
+                Rock *rock = stage.getClosestRock(x_chell, y_chell);
+                chell->grabRock(rock);
             }
-        break;
+            break;
         case USER_BLUE_PORTAL_CODE:
-            // Shoot and jump into the portal!
+            {
+                float x_target = userEvent.getUserPosX();
+                float y_target = userEvent.getUserPosY();
+                std::cout << "X target blue: " << x_target << std::endl;
+                std::cout << "Y target blue: " << y_target << std::endl;
+                Coordinate* target = new Coordinate(x_target, y_target);
+                std::string id = chell_id;
+                id.replace(0, chell_id.length(), "Blue");
+                stage.addBlueShot(id, BULLET_HEIGHT, BULLET_WIDTH,
+                        chell, target);
+            }
             break;
         case USER_ORANGE_PORTAL_CODE:
-            // Shoot and jump into the portal!
+            {
+                float x_target = userEvent.getUserPosX();
+                float y_target = userEvent.getUserPosY();
+                std::cout << "X target orange: " << x_target << std::endl;
+                std::cout << "Y target orange: " << y_target << std::endl;
+                Coordinate* target = new Coordinate(x_target, y_target);
+                std::string id = chell_id;
+                id.replace(0, chell_id.length(), "Orange");
+                stage.addOrangeShot(id, BULLET_HEIGHT, BULLET_WIDTH,
+                                  chell, target);
+                std::cout << "lanzo naranja" << std::endl;
+            }
             break;
         default:
             break;

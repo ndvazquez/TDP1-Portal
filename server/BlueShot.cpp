@@ -16,6 +16,10 @@ BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
     body->SetUserData(this);
 }
 
+Coordinate* BlueShot::getTarget() {
+    return target;
+}
+
 void BlueShot::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "MetalBlock") {

@@ -31,10 +31,17 @@ void MetalBlock::handleCollision(Entity* entity) {
 
         float x_pos_metal = getHorizontalPosition();
         float y_pos_metal = getVerticalPosition();
+
+        /*std::cout << "X metal: " << x_pos_metal << std::endl;
+        std::cout << "Y metal: " << y_pos_metal << std::endl;*/
+
         float side_metal = 2;
 
         float x_pos_blue = blueShot->getHorizontalPosition();
         float y_pos_blue = blueShot->getVerticalPosition();
+
+       /* std::cout << "X blue: " << x_pos_metal << std::endl;
+        std::cout << "Y blue: " << y_pos_metal << std::endl;*/
 
         float x_left = x_pos_metal - side_metal/2;
         float x_right = x_pos_metal + side_metal/2;
@@ -53,6 +60,7 @@ void MetalBlock::handleCollision(Entity* entity) {
 
         if (vertical_cond) {
             if (left_side) {
+                std::cout << "Portal azul vertical a la izquierda" << std::endl;
                 Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
@@ -61,6 +69,7 @@ void MetalBlock::handleCollision(Entity* entity) {
                 BluePortal* bluePortal = new BluePortal(coord, true);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
+                std::cout << "Portal azul vertical a la derecha" << std::endl;
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
@@ -71,6 +80,8 @@ void MetalBlock::handleCollision(Entity* entity) {
             }
         } else {
             if (down_side) {
+                std::cout << "Portal azul horizontal abajo" << std::endl;
+
                 Coordinate* coord = new Coordinate(x_pos_metal,
                         y_down - portal_v_side/2);
                 Coordinate* coord_to_teleport;
@@ -79,6 +90,7 @@ void MetalBlock::handleCollision(Entity* entity) {
                 BluePortal* bluePortal = new BluePortal(coord, false);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
+                std::cout << "Portal azul horizonta arriba" << std::endl;
                 Coordinate* coord = new Coordinate(x_pos_metal,
                         y_top + portal_v_side/2);
                 Coordinate* coord_to_teleport;

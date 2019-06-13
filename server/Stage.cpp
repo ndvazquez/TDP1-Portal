@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -363,6 +364,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
         Coordinate coord_portal(x_portal, y_portal);
         if (orange_portal != nullptr) {
             if (*orange_portal->getPortal() != coord_portal) {
+                std::cout << "No deberia pasar" << std::endl;
                 world->DestroyBody(it->second->getBody());
                 portals.erase(it->first);
             }
@@ -387,6 +389,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
         Coordinate coord_portal(x_portal, y_portal);
         if (blue_portal != nullptr) {
             if (*blue_portal->getPortal() != coord_portal) {
+                std::cout << "No deberia pasarx2" << std::endl;
                 world->DestroyBody(it->second->getBody());
                 portals.erase(it->first);
             }
