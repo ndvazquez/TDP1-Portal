@@ -14,6 +14,8 @@
 #include "Chell.h"
 #include "Button.h"
 #include "EnergyBar.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 #include <Box2D/Dynamics/b2World.h>
 
 
@@ -34,6 +36,12 @@ void Rock::handleCollision(Entity *entity) {
             teleport(target);
             activateGravity();
         }
+    }
+    if (type == "BlueShot") {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == "OrangeShot") {
+        static_cast<OrangeShot*>(entity)->die();
     }
     if (type == "EnergyBar") {
         die();

@@ -53,6 +53,14 @@ void Chell::handleCollision(Entity* entity) {
         if (target != nullptr) teleport(target);
     }
 
+    if (type == "Cake") {
+        win();
+    }
+
+    if (type == "EnergyBar") {
+        static_cast<EnergyBar*>(entity)->disableBody();
+    }
+
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
         float x_button = button->getHorizontalPosition();
@@ -61,14 +69,6 @@ void Chell::handleCollision(Entity* entity) {
         if (x_chell > x_button - delta && x_chell < x_button + delta) {
             button->activate();
         }
-    }
-
-    if (type == "Cake") {
-        win();
-    }
-
-    if (type == "EnergyBar") {
-        static_cast<EnergyBar*>(entity)->disableBody();
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"

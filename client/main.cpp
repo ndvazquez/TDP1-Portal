@@ -1,4 +1,3 @@
-
 ///
 // Created by ndv on 5/5/19.
 //
@@ -54,57 +53,35 @@ void drawChell(){
     for (int i = 0; i < 40; i += 2){
         stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
         stageView.addTile(metalBlockPosX+i,
-                metalBlockPosY * -1 + stageHeight, metalBlock);
+                          metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     // Time to add some platforms!
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 2,
-            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 6,
-            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 8,
-            (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+                      (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 8,
-            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 12,
-            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 14,
-            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
-    stageView.addTile(metalBlockPosX + 16,
-            (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 14,
-            (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 16,
-            (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-
-    stage.addMetalBlock(metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
-    stageView.addTile(metalBlockPosX + 20,
-            (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
+    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 2,
-            (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+                      (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
 
     // Box2D Chell and stuff.
     std::string chell_id = "Chell1";
+    std::string button_id = "Button1";
     float xPos = 4;
     float yPos = 1;
     float chellHeight = CHELL_HEIGHT;
     float chellWidth = CHELL_WIDTH;
     stage.addChell(chell_id, chellHeight, chellWidth, xPos, yPos);
-  
+    stage.addButton(button_id, 1, 1, metalBlockPosX + 2, metalBlockPosY + 2);
+    Button* button = stage.getButton(button_id);
+
+    std::unordered_map<std::string, Button*> buttons;
+    buttons.insert({button_id, button});
+
+    stage.addGate(chell_id, 3, 1, metalBlockPosX + 5, 2, buttons, "Button1");
+    Gate* gate = stage.getGate(chell_id);
+
     float xCake = 2;
     float yCake = yPos + 12.5;
     stage.addCake(1, xCake, yCake);
@@ -117,11 +94,9 @@ void drawChell(){
     size_t rockSide = 1;
     stage.addRock(rock_id, rockSide, metalBlockPosX + 12, metalBlockPosY+2);
 
-    std::string eb_id = "EnergyBar1";
-    stage.addEnergyBar(eb_id, rockSide, rockSide, metalBlockPosX + 15, metalBlockPosY+2);
-
     Rock* rock = stage.getRock(rock_id);
 
+    /*
     //Shot in Chell
     std::string blue_shot_id = "BlueShot1";
     std::string orange_shot_id = "OrangeShot1";
@@ -129,33 +104,33 @@ void drawChell(){
     float shotHeight = 1;
     //Setting one block to shoot
     Coordinate* target_blue = new Coordinate(metalBlockPosX + 8,
-            metalBlockPosY + 6);
+                                             metalBlockPosY + 8);
     stage.addBlueShot(blue_shot_id, shotHeight, shotWidth,
-            chell, target_blue); //Arbitrary width and height in Shot
+                      chell, target_blue); //Arbitrary width and height in Shot
     BlueShot* blueShot = stage.getBlueShot(blue_shot_id);
 
     Coordinate* target_orange = new Coordinate(metalBlockPosX + 2,
-            metalBlockPosY + 6);
+                                               metalBlockPosY + 8);
     stage.addOrangeShot(orange_shot_id, shotHeight,
-            shotWidth, chell, target_orange);
-    OrangeShot* orangeShot = stage.getOrangeShot(orange_shot_id);
+                        shotWidth, chell, target_orange);
+    OrangeShot* orangeShot = stage.getOrangeShot(orange_shot_id);*/
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
 
-    View* blueShotView = viewFactory.createView(BULLET_VIEW_CODE,
-            newWindow, soundQueue);
+    /*View* blueShotView = viewFactory.createView(BULLET_VIEW_CODE,
+                                                newWindow, soundQueue);
     View* orangeShotView = viewFactory.createView(BULLET_VIEW_CODE,
-            newWindow, soundQueue);
+                                                  newWindow, soundQueue);*/
     View* rockView = viewFactory.createView(ROCK_VIEW_CODE,
-            newWindow, soundQueue);
+                                            newWindow, soundQueue);
     View* cakeView = viewFactory.createView(CAKE_VIEW_CODE,
-            newWindow, soundQueue);
+                                            newWindow, soundQueue);
 
     // ChellView and camera.
     View* chellView = viewFactory.createView(CHELL_VIEW_CODE,
-            newWindow, soundQueue);
+                                             newWindow, soundQueue);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
     //audioSystem.playMusic(BG_SONG_GAME);
@@ -205,9 +180,11 @@ void drawChell(){
         int chellCenterPositionX = chellView->getCenterPosX();
         int chellCenterPositionY = chellView->getCenterPosY();
         camera.centerCameraOnPlayer(chellCenterPositionX,
-                chellCenterPositionY);
+                                    chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
+
+        /*
         //Shot position
         if (! blueShot->isDead()) {
             float blueShotX = blueShot->getHorizontalPosition();
@@ -220,7 +197,7 @@ void drawChell(){
             float orangeShotX = orangeShot->getHorizontalPosition();
             float orangeShotY = orangeShot->getVerticalPosition();
             orangeShotView->move(orangeShotX, orangeShotY, levelHeight);
-        }
+        }*/
 
         // Get current Rock position and move it.
         float newRockPosX = rock->getHorizontalPosition();
@@ -252,8 +229,8 @@ void drawChell(){
         stageView.draw(cameraRect);
         cakeView->playAnimation(cameraRect);
         chellView->playAnimation(cameraRect);
-        if (!blueShot->isDead()) blueShotView->playAnimation(cameraRect);
-        if (!orangeShot->isDead()) orangeShotView->playAnimation(cameraRect);
+        //if (!blueShot->isDead()) blueShotView->playAnimation(cameraRect);
+        //if (!orangeShot->isDead()) orangeShotView->playAnimation(cameraRect);
         if (!rock->isDead()) rockView->playAnimation(cameraRect);
         //Debug rectangle to see Chell's collision box.
         newWindow.drawRectangle(outlineRect);
@@ -261,13 +238,22 @@ void drawChell(){
         newWindow.drawRectangle(cakeRect);
         newWindow.render();
         audioSystem.playSoundEffects();
+
+        GateState gateState = gate->getState();
+        if (gateState == OPEN) std::cout << "La puerta esta abierta" << std::endl;
+        else std::cout << "La puerta esta cerrada" << std::endl;
+
+        ButtonState buttonState = button->getState();
+        if (buttonState == ON) std::cout << "El boton esta activado" << std::endl;
+        else std::cout << "El boton esta cerrado" << std::endl;
+
     }
     delete coordinate;
-    delete target_blue;
-    delete target_orange;
+   // delete target_blue;
+    //delete target_orange;
     delete chellView;
-    delete blueShotView;
-    delete orangeShotView;
+    //delete blueShotView;
+    //delete orangeShotView;
 }
 
 void drawChellAndRock(){
@@ -299,7 +285,7 @@ void drawChellAndRock(){
     Chell* chell = stage.getChell(chell_id);
     // Get the rock object.
     Coordinate* coordinateRock = new Coordinate(metalBlockPosX + 3,
-            metalBlockPosY + 5);
+                                                metalBlockPosY + 5);
     Rock* rock = stage.getRock(rock_id);
 
     // SoundCodeQueue and AudioSystem init.
@@ -308,11 +294,11 @@ void drawChellAndRock(){
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos,
-            MTP_FACTOR, soundQueue, textures);
+                        MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     // RockView.
     RockView rockView(newWindow, metalBlockPosX + 2,
-            metalBlockPosY, MTP_FACTOR, textures);
+                      metalBlockPosY, MTP_FACTOR, textures);
 
     audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
@@ -355,7 +341,7 @@ void drawChellAndRock(){
         int chellCenterPositionX = chellView.getCenterPosX();
         int chellCenterPositionY = chellView.getCenterPosY();
         camera.centerCameraOnPlayer(chellCenterPositionX,
-                chellCenterPositionY);
+                                    chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         // Get current Rock position and move it.
@@ -409,7 +395,7 @@ void drawChellAndEnergyBall(){
     int xBall = 8;
     int yBall = 1;
     EnergyBallView energyBallView(newWindow, xBall, yBall,
-            MTP_FACTOR, textures);
+                                  MTP_FACTOR, textures);
     float energyBallSide = 1;
     stage.addEnergyBallHorizontal(eb_id, energyBallSide, xBall, yBall);
     Coordinate* coordinateEB = new Coordinate(xBall, yBall);
@@ -420,9 +406,9 @@ void drawChellAndEnergyBall(){
     AudioSystem audioSystem(soundQueue);
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos, MTP_FACTOR,
-            soundQueue, textures);
+                        soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT,
-            levelWidth, levelHeight);
+                  levelWidth, levelHeight);
 
     audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
@@ -464,7 +450,7 @@ void drawChellAndEnergyBall(){
         int chellCenterPositionX = chellView.getCenterPosX();
         int chellCenterPositionY = chellView.getCenterPosY();
         camera.centerCameraOnPlayer(chellCenterPositionX,
-                chellCenterPositionY);
+                                    chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         SDL_Rect ebRect = {energyBallView.getViewPositionX(),
@@ -521,11 +507,11 @@ void drawChellAndAcidPool(){
     float acidWidth = 3;
     int acidViewPosX = (acidPosX - acidWidth / 2) * MTP_FACTOR;
     int acidViewPosY = (acidPosY + acidHeight / 2) * MTP_FACTOR * -1 +
-            levelHeight;
+                       levelHeight;
     stage.addAcid(acid_id, acidHeight, acidWidth, acidPosX, acidPosY);
     // Acid View.
     AcidView acidView(newWindow, acidViewPosX, acidViewPosY,
-            MTP_FACTOR, textures);
+                      MTP_FACTOR, textures);
 
     // SoundCodeQueue and AudioSystem init.
     SoundCodeQueue soundQueue;
@@ -533,9 +519,9 @@ void drawChellAndAcidPool(){
 
     // ChellView and camera.
     ChellView chellView(newWindow, xPos, yPos,
-            MTP_FACTOR, soundQueue, textures);
+                        MTP_FACTOR, soundQueue, textures);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT,
-            levelWidth, levelHeight);
+                  levelWidth, levelHeight);
 
     audioSystem.playMusic(BG_SONG_GAME);
     bool quit = false;
@@ -574,7 +560,7 @@ void drawChellAndAcidPool(){
         int chellCenterPositionX = chellView.getCenterPosX();
         int chellCenterPositionY = chellView.getCenterPosY();
         camera.centerCameraOnPlayer(chellCenterPositionX,
-                chellCenterPositionY);
+                                    chellCenterPositionY);
         const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
         newWindow.clear();
@@ -657,7 +643,7 @@ void jsonTest() {
 
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
     ViewManager viewManager(newWindow, levelHeight,
-            MTP_FACTOR, playerID, mapData, soundQueue);
+                            MTP_FACTOR, playerID, mapData, soundQueue);
 
     bool quit = false;
     SDL_Event e;

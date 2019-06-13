@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -508,6 +509,10 @@ void Stage::step() {
         i->second->activateBody();
     }
 
+    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+        i->second->update();
+    }
+
     float timeStep = 1.0f / 60;
     int velocityIterations = 8;
     int positionIterations = 2;
@@ -604,6 +609,13 @@ EnergyTransmitter* Stage::getEnergyTransmitter(std::string id) {
 
 Rock* Stage::getRock(std::string id) {
     for (auto item = rocks.begin() ; item != rocks.end() ; item++) {
+        if (item->first == id) return item->second;
+    }
+    return nullptr;
+}
+
+Gate* Stage::getGate(std::string id) {
+    for (auto item = gates.begin() ; item != gates.end() ; item++) {
         if (item->first == id) return item->second;
     }
     return nullptr;

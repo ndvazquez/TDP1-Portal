@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Portal.h"
 #include "Chell.h"
 #include "EnergyBall.h"
@@ -32,7 +33,9 @@ void Portal::handleCollision(Entity* entity) {
     }
     if (type == "EnergyBall") {
         EnergyBall* eb = static_cast<EnergyBall*>(entity);
-        if (target != nullptr) eb->teleport(target);
+        if (target != nullptr) {
+            eb->teleport(target);
+        }
     }
 }
 

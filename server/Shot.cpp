@@ -62,10 +62,6 @@ void Shot::shoot() {
         die();
         return;
     }
-
-    if (body->GetLinearVelocity(). y != 0 || body->GetLinearVelocity().x != 0) {
-        return;
-    }
 }
 
 bool Shot::isDead() {
