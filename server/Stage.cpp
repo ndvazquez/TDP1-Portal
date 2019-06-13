@@ -589,6 +589,24 @@ Rock* Stage::getRock(std::string id) {
     return nullptr;
 }
 
+Rock* Stage::getClosestRock(float x_pos, float y_pos) {
+    b2Vec2 origin(x_pos, y_pos);
+    Rock* result_rock = nullptr;
+    float distance = -1;
+    for (auto i = rocks.begin(); i != rocks.end(); i++) {
+        Rock* rock = i->second;
+        float x_rock = i->second->getHorizontalPosition();
+        float y_rock = i->second->getVerticalPosition();
+        b2Vec2 target(x_rock, y_rock);
+        float new_distance = (target - origin).Length();
+        if (distance < 0 || new_distance < distance) {
+            distance = new_distance;
+            result_rock = rock;
+        }
+    }
+    return result_rock;
+}
+
 nlohmann::json Stage::getCurrentState() {
     nlohmann::json request;
     for (auto i = chells.begin(); i != chells.end(); i++)  {

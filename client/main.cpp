@@ -64,7 +64,15 @@ void playGame() {
                             {"x", xPosRock} ,
                             {"y", yPosRock}
                     }
-            }
+            },{
+                    "Rock2",
+                    {
+                            {"type", ROCK_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosRock + 2},
+                            {"y", yPosRock}
+                    }
+            },
 
     };
     nlohmann::json stageUpdateRequest;
@@ -88,6 +96,10 @@ void playGame() {
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
             xPosChell, yPosChell);
     stage.addCake(1, xPosCake, yPosCake);
+    stage.addRock(idRock, ROCK_HEIGHT,
+            xPosRock, yPosRock);
+    stage.addRock("Rock2", ROCK_HEIGHT,
+            xPosRock + 2, yPosRock);
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;

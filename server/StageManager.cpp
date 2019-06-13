@@ -53,11 +53,16 @@ void StageManager::handleEvent(UserEvent &userEvent,
             chell->stop();
             break;
         case USER_DROP_ROCK:
-            // Please sir, drop the rock!
+            chell->downloadRock();
             break;
         case USER_GRAB_ROCK:
-            // Grab a rock.
-            break;
+            {
+            float x_chell = chell->getHorizontalPosition();
+            float y_chell = chell->getVerticalPosition();
+            Rock *rock = stage.getClosestRock(x_chell, y_chell);
+            chell->grabRock(rock);
+            }
+        break;
         case USER_BLUE_PORTAL_CODE:
             // Shoot and jump into the portal!
             break;
