@@ -140,8 +140,8 @@ void playGame() {
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
                    xPosChell, yPosChell);
     stage.addCake(1, xPosCake, yPosCake);
-    stage.addRock(idRock, ROCK_HEIGHT,
-                  xPosRock, yPosRock);
+   /* stage.addRock(idRock, ROCK_HEIGHT,
+                  xPosRock, yPosRock);*/
    /* stage.addRock("Rock2", ROCK_HEIGHT,
                   xPosRock + 2, yPosRock);*/
    stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
@@ -157,11 +157,11 @@ void playGame() {
     }
 
     std::string id_et = "EnergyTransmitter1";
-    std::string et = "LounchBlockUp";
+    std::string et = "LounchBlockDown";
 
-    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 6, 2);
-    stageView.addTile(6,
-                      (2) * -1 + stageHeight, et);
+    stage.addEnergyTransmitterDown(id_et, METAL_SIDE, 5, 4);
+    stageView.addTile(5,
+                      (4) * -1 + stageHeight, et);
 
     // Time to add some platforms!
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
