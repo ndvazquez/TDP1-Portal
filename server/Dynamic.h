@@ -29,7 +29,7 @@ public:
     void flyHorizontal();
     void flyVertical();
     bool handleCollisions();
-    void teleport(Coordinate* coordinate);
+    void teleport(Coordinate* coordinate, PortalType type);
 };
 
 #endif //PORTAL_DYNAMIC_H

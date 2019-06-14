@@ -12,10 +12,12 @@ class BluePortal {
 private:
     Coordinate* portal;
     bool is_vertical;
+    PortalType type;
 public:
-    BluePortal(Coordinate* portal, bool is_vertical);
+    BluePortal(Coordinate* portal, bool is_vertical, PortalType type);
     Coordinate* getPortal();
     bool isVertical();
+    PortalType getPortalType();
 };
 
 #endif //PORTAL_BLUEPORTAL_H

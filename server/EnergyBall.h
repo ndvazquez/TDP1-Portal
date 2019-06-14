@@ -24,7 +24,7 @@ public:
     bool isVertical();
     void changeDirection();
     virtual void handleCollision(Entity* entity) override;
-    void teleport(Coordinate* target);
+    void teleport(Coordinate* target, PortalType type);
 };
 
 

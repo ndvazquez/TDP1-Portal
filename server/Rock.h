@@ -13,6 +13,7 @@ private:
     Dynamic dynamic;
     Dynamic* actual_movement;
     bool dead;
+    bool teletransported;
 
 public:
     explicit Rock(b2Body* body);
@@ -24,7 +25,7 @@ public:
     void destroyActualMovement();
     void update();
     virtual void handleCollision(Entity* entity) override;
-    void teleport(Coordinate* target);
+    void teleport(Coordinate* target, PortalType type);
     void release();
     void activateGravity();
     bool isDead();

@@ -4,9 +4,10 @@
 
 #include "OrangePortal.h"
 
-OrangePortal::OrangePortal(Coordinate *portal, bool is_vertical) {
+OrangePortal::OrangePortal(Coordinate *portal, bool is_vertical, PortalType type) {
     this->portal = portal;
     this->is_vertical = is_vertical;
+    this->type = type;
 }
 
 bool OrangePortal::isVertical() {
@@ -15,4 +16,8 @@ bool OrangePortal::isVertical() {
 
 Coordinate* OrangePortal::getPortal() {
     return portal;
+}
+
+PortalType OrangePortal::getPortalType() {
+    return type;
 }

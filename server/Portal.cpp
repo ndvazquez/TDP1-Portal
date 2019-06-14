@@ -13,11 +13,20 @@
 #define portalType "Portal"
 
 Portal::Portal(b2Body* body, Coordinate* target,
-        PortalOrientation orientation):
+        PortalOrientation orientation, PortalType type):
     Entity(portalType, body) {
     this->target = target;
     this->body->SetUserData(this);
     this->orientation = orientation;
+    this->portal_type_target = type;
+}
+
+PortalType Portal::getPortalType() {
+    return portal_type_target;
+}
+
+void Portal::addPortalType(PortalType type) {
+    this->portal_type_target = type;
 }
 
 void Portal::handleCollision(Entity* entity) {
@@ -25,20 +34,19 @@ void Portal::handleCollision(Entity* entity) {
     if (type == "Chell") {
         Chell* chell = static_cast<Chell*>(entity);
         if (target != nullptr) {
-            chell->teleport(target);
+            chell->teleport(target, portal_type_target);
         }
     }
     if (type == "Rock") {
         Rock* rock = static_cast<Rock*>(entity);
         if (target != nullptr)  {
-            rock->teleport(target);
-            rock->activateGravity();
+            rock->teleport(target, portal_type_target);
         }
     }
     if (type == "EnergyBall") {
         EnergyBall* eb = static_cast<EnergyBall*>(entity);
         if (target != nullptr) {
-            eb->teleport(target);
+            eb->teleport(target, portal_type_target);
         }
     }
     if (type == "BlueShot") {

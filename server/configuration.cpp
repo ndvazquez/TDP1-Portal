@@ -19,4 +19,5 @@ struct box2DConfiguration gameConfiguration = {
         .deathTimeEnergyBall = 10000,
         .delayEnergyTransmitter = 3000,
         .offsetEnergyTransmitter = 2,
+        .velocityDownload = 10,
 };

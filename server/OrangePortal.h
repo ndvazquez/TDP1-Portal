@@ -13,10 +13,12 @@ class OrangePortal {
 private:
     Coordinate* portal;
     bool is_vertical;
+    PortalType type;
 public:
-    OrangePortal(Coordinate* portal, bool is_vertical);
+    OrangePortal(Coordinate* portal, bool is_vertical, PortalType type);
     Coordinate* getPortal();
     bool isVertical();
+    PortalType getPortalType();
 };
 
 

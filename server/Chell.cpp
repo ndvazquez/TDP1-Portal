@@ -50,8 +50,7 @@ void Chell::handleCollision(Entity* entity) {
     if (type == "Portal") {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
-        if (target != nullptr) teleport(target);
-
+        if (target != nullptr) teleport(target, portal->getPortalType());
     }
 
     if (type == "Cake") {
@@ -77,8 +76,8 @@ void Chell::handleCollision(Entity* entity) {
                         || type == "Rock" || type == "Button";
 }
 
-void Chell::teleport(Coordinate* coordinate) {
-    this->dynamic.teleport(coordinate);
+void Chell::teleport(Coordinate* coordinate, PortalType type) {
+    this->dynamic.teleport(coordinate, type);
 }
 
 void Chell::die() {

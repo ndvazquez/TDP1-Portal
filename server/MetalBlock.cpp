@@ -57,17 +57,17 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left - portal_h_side,
+                coord_to_teleport = new Coordinate(x_left - portal_h_side - ROCK_WIDTH,
                         y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coord, true);
+                BluePortal* bluePortal = new BluePortal(coord, true, LEFT);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_right + portal_h_side,
+                coord_to_teleport = new Coordinate(x_right + portal_h_side + ROCK_WIDTH,
                         y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coord, true);
+                BluePortal* bluePortal = new BluePortal(coord, true, RIGHT);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         } else {
@@ -79,7 +79,7 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_down - portal_v_side);
-                BluePortal* bluePortal = new BluePortal(coord, false);
+                BluePortal* bluePortal = new BluePortal(coord, false, DOWN);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_pos_metal,
@@ -87,7 +87,7 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_top + portal_v_side + CHELL_HEIGHT);
-                BluePortal* bluePortal = new BluePortal(coord, false);
+                BluePortal* bluePortal = new BluePortal(coord, false, UP);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         }
@@ -125,18 +125,18 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left - portal_h_side,
+                coord_to_teleport = new Coordinate(x_left - portal_h_side - ROCK_WIDTH,
                         y_pos_metal);
 
-                OrangePortal* orangePortal = new OrangePortal(coord, true);
+                OrangePortal* orangePortal = new OrangePortal(coord, true, LEFT);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left + portal_h_side,
+                coord_to_teleport = new Coordinate(x_left + portal_h_side + ROCK_WIDTH,
                         y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coord, true);
+                OrangePortal* orangePortal = new OrangePortal(coord, true, RIGHT);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         } else {
@@ -147,7 +147,7 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_down - portal_v_side);
-                OrangePortal* orangePortal = new OrangePortal(coord, false);
+                OrangePortal* orangePortal = new OrangePortal(coord, false, DOWN);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_pos_metal,
@@ -155,7 +155,7 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_top + portal_v_side + CHELL_HEIGHT);
-                OrangePortal* orangePortal = new OrangePortal(coord, false);
+                OrangePortal* orangePortal = new OrangePortal(coord, false, UP);
 
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
