@@ -10,7 +10,7 @@
 #include "SoundCodeQueue.h"
 #include "../common/constants.h"
 
-#define MUSIC_VOLUME 50
+#define MUSIC_VOLUME 30
 #define SOUNDS_RESOURCES_FILE "config/sounds.yaml"
 #define SONGS_KEY "Music"
 #define SONG_CODE_KEY "songCode"

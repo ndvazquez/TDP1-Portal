@@ -62,6 +62,7 @@ enum PortalOrientation {
 // AudioSystem sound codes.
 #define RUN_SOUND 0
 #define JUMP_SOUND 1
+#define PORTAL_GUN_SOUND 2
 
 // AudioSystem song codes.
 #define BG_SONG_GAME 0

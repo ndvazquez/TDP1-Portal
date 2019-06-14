@@ -57,22 +57,6 @@ void playGame() {
                             {"y", yPosCake}
                     }
             },{
-                    "BlueShot",
-                    {
-                            {"type", BULLET_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "OrangeShot",
-                    {
-                            {"type", BULLET_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
                     "BluePortal",
                     {
                             {"type", BLUE_PORTAL_VIEW_CODE},
@@ -173,7 +157,8 @@ void playGame() {
 
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,
-                                      idChell, levelHeight);
+                                      idChell, levelHeight,
+                                      soundQueue);
     // We share the same queue for now, but once we start to use sockets,
     // we'll use different queues;
     StageManager stageManager(stage, userEventQueue);
