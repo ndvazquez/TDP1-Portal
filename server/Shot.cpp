@@ -67,7 +67,3 @@ void Shot::shoot() {
 bool Shot::isDead() {
     return is_dead;
 }
-
-Coordinate* Shot::getTarget() {
-    return target;
-}

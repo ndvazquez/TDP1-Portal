@@ -354,7 +354,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
     std::string id_blue = id;
     id_blue.replace(0, id.length()- 1, "BluePortal");
 
-    std::unordered_map<std::string, Portal *>::iterator it;
+    std::unordered_map<std::string, Portal*>::iterator it;
     it = portals.find(id_orange);
     if (it != portals.end()) {
         Portal* portal = it->second;

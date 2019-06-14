@@ -16,10 +16,6 @@ BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
     body->SetUserData(this);
 }
 
-Coordinate* BlueShot::getTarget() {
-    return target;
-}
-
 void BlueShot::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == "MetalBlock") {
@@ -42,7 +38,7 @@ void BlueShot::handleCollision(Entity* entity) {
         bool down_side = y_pos_orange <= y_down - side_blue/2;
 
         float portal_h_side = PORTAL_WIDTH;
-        float portal_v_side = PORTAL_HEIGHT;
+        float portal_v_side;
 
         bool vertical_cond = left_side || right_side;
 
@@ -65,6 +61,8 @@ void BlueShot::handleCollision(Entity* entity) {
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         } else {
+            portal_v_side = PORTAL_WIDTH;
+
             if (down_side) {
                 Coordinate* coord = new Coordinate(x_pos_metal,
                         y_down - portal_v_side/2);
