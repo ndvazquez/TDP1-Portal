@@ -179,7 +179,7 @@ void playGame() {
     StageManager stageManager(stage, userEventQueue);
     bool quit = false;
     SDL_Event e;
-    audioSystem.playMusic(BG_SONG_GAME);
+    //audioSystem.playMusic(BG_SONG_GAME);
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {

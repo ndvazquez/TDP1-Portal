@@ -7,6 +7,7 @@
 #include "Dynamic.h"
 #include "Entity.h"
 #include "Coordinate.h"
+#include "../common/constants.h"
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
@@ -17,7 +18,7 @@ Dynamic::Dynamic(b2Body* body):
 void Dynamic::move(float force) {
 }
 
-void Dynamic::teleport(Coordinate* coordinate) {
+void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();

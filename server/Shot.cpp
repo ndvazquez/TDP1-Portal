@@ -28,6 +28,7 @@ void Shot::die() {
 }
 
 void Shot::shoot() {
+    chell->stop();
     float delta = 0.5;
 
     b2World* world = body->GetWorld();

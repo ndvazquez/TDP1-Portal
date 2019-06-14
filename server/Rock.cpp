@@ -33,7 +33,7 @@ void Rock::handleCollision(Entity *entity) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            teleport(target);
+            teleport(target, portal->getPortalType());
             activateGravity();
         }
     }
@@ -108,8 +108,8 @@ void Rock::downloadToEarth() {
     body->ApplyLinearImpulse(b2Vec2(0, -5), body->GetWorldCenter(), true);
 }
 
-void Rock::teleport(Coordinate* target) {
-    this->dynamic.teleport(target);
+void Rock::teleport(Coordinate* target, PortalType type) {
+    this->dynamic.teleport(target, type);
 }
 
 void Rock::die() {

@@ -14,12 +14,14 @@ class Portal: public Entity {
 private:
     Coordinate* target;
     PortalOrientation orientation;
+    PortalType type;
 
 public:
-    Portal(b2Body* body, Coordinate* target, PortalOrientation orientation);
+    Portal(b2Body* body, Coordinate* target, PortalOrientation orientation, PortalType type);
     Coordinate* getTarget();
     virtual void handleCollision(Entity* entity) override;
     PortalOrientation getOrientation();
+    PortalType getPortalType();
     void addTarget(Coordinate* target);
     ~Portal();
 };

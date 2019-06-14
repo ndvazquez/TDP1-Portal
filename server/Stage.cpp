@@ -332,7 +332,7 @@ void Stage::addOrangeShot(std::string id, float v_side, float h_side,
 
 void Stage::addPortal(std::string id, float v_side, float h_side,
         Coordinate* origin, Coordinate* target,
-        PortalOrientation orientation) {
+        PortalOrientation orientation, PortalType type) {
     float x_pos = origin->getX();
     float y_pos = origin->getY();
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
@@ -341,7 +341,7 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
 
     b2Body* portal_body = addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
-    Portal* portal = new Portal(portal_body, target, orientation);
+    Portal* portal = new Portal(portal_body, target, orientation, type);
     portals.insert({id, portal});
 }
 
@@ -368,19 +368,18 @@ void Stage::managePortals(Chell* chell, std::string id) {
             }
         }
         if (blue_portal != nullptr) {
-            float x_blue = blue_portal->getPortal()->getX();
-            float y_blue = orange_portal->getPortal()->getY();
-            portal->addTarget(new Coordinate(x_blue, y_blue));
+            Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
+            portal->addTarget(blue_portal_coord);
         }
     }
     else if (orange_portal != nullptr) {
         Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
         if (orange_portal->isVertical()) {
             addPortal(id_orange, PORTAL_HEIGHT, PORTAL_WIDTH, orange_portal->getPortal(),
-                    blue_portal_coord, VERTICAL);
+                    blue_portal_coord, VERTICAL, orange_portal->getType());
         } else {
             addPortal(id_orange, PORTAL_WIDTH, PORTAL_HEIGHT, orange_portal->getPortal(),
-                    blue_portal_coord, HORIZONTAL);
+                    blue_portal_coord, HORIZONTAL, orange_portal->getType());
         }
     }
 
@@ -400,19 +399,18 @@ void Stage::managePortals(Chell* chell, std::string id) {
             }
         }
         if (orange_portal != nullptr) {
-            float x_orange = orange_portal->getPortal()->getX();
-            float y_orange = orange_portal->getPortal()->getY();
-            portal->addTarget(new Coordinate(x_orange, y_orange));
+            Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+            portal->addTarget(orange_portal_coord);
         }
     }
     else if (blue_portal != nullptr) {
         Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
         if (blue_portal->isVertical()) {
             addPortal(id_blue, PORTAL_HEIGHT, PORTAL_WIDTH, blue_portal->getPortal(),
-                    orange_portal_coord, VERTICAL);
+                    orange_portal_coord, VERTICAL, blue_portal->getType());
         } else {
             addPortal(id_blue, PORTAL_WIDTH, PORTAL_HEIGHT, blue_portal->getPortal(),
-                    orange_portal_coord, HORIZONTAL);
+                    orange_portal_coord, HORIZONTAL, blue_portal->getType());
         }
     }
 }

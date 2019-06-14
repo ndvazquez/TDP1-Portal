@@ -6,15 +6,18 @@
 #define PORTAL_BLUEPORTAL_H
 
 #include "Coordinate.h"
+#include "../common/constants.h"
 
 class BluePortal {
 private:
     Coordinate* portal;
     bool is_vertical;
+    PortalType type;
 public:
-    BluePortal(Coordinate* portal, bool is_vertical);
+    BluePortal(Coordinate* portal, bool is_vertical, PortalType type);
     Coordinate* getPortal();
     bool isVertical();
+    PortalType getType();
 };
 
 #endif //PORTAL_BLUEPORTAL_H

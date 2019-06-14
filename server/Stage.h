@@ -108,7 +108,7 @@ public:
             float x_pos, float y_pos);
     void addPortal(std::string id, float v_side, float h_side,
             Coordinate* origin, Coordinate* target,
-            PortalOrientation orientation);
+            PortalOrientation orientation, PortalType type);
     void managePortals(Chell* chell, std::string id);
     void step();
 
