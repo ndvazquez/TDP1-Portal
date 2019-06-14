@@ -47,6 +47,8 @@ enum PortalOrientation {
 #define PORTAL_HEIGHT 2
 #define CAKE_WIDTH 1
 #define CAKE_HEIGHT 1
+#define GATE_WIDTH 1
+#define GATE_HEIGHT 2
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
@@ -58,6 +60,7 @@ enum PortalOrientation {
 #define BUTTON_VIEW_CODE 6
 #define BULLET_VIEW_CODE 7
 #define CAKE_VIEW_CODE 8
+#define GATE_VIEW_CODE 9
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0

@@ -12,6 +12,7 @@
 #include "BulletView.h"
 #include "CakeView.h"
 #include "OrangePortalView.h"
+#include "GateView.h"
 
 ViewFactory::ViewFactory(int mtpFactor) :
         mtpFactor(mtpFactor) {
@@ -58,6 +59,9 @@ View* ViewFactory::createView(int viewTypeCode,
         case CAKE_VIEW_CODE:
             newView = new CakeView(gameWindow, 0, 0, mtpFactor,
                     texturesData);
+        case GATE_VIEW_CODE:
+            newView = new GateView(gameWindow, 0, 0, mtpFactor,
+                                   texturesData);
         default:
             break;
     }

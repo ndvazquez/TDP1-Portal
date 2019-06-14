@@ -88,6 +88,14 @@ void playGame() {
                             {"x", xPosChell} ,
                             {"y", yPosChell}
                     }
+            },{
+                    "Gate",
+                    {
+                            {"type", GATE_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
             }
 
     };

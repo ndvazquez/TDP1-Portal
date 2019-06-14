@@ -40,7 +40,8 @@ set(CLIENT_SOURCE_FILES
         common/UserEvent.cpp
         client/UserEventHandler.cpp
         common/UserEventQueue.cpp
-        client/OrangePortalView.cpp)
+        client/OrangePortalView.cpp
+        client/GateView.cpp)
 
 #EDITOR CONFIG
 
