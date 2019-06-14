@@ -155,13 +155,14 @@ void playGame() {
         stageView.addTile(metalBlockPosX+i,
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
+    std::string bb = "RockBlock";
 
     std::string id_et = "EnergyTransmitter1";
-    std::string et = "LounchBlockDown";
+    std::string et = "LounchBlockUp";
 
-    stage.addEnergyTransmitterDown(id_et, METAL_SIDE, 5, 4);
-    stageView.addTile(5,
-                      (4) * -1 + stageHeight, et);
+    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
+    stageView.addTile(8,
+                      (2) * -1 + stageHeight, et);
 
     // Time to add some platforms!
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
