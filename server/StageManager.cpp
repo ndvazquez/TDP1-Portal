@@ -72,7 +72,8 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 float y_target = userEvent.getUserPosY();
                 Coordinate* target = new Coordinate(x_target, y_target);
                 std::string id = chell_id;
-                id.replace(0, chell_id.length() - 1, "BlueShot");
+                std::string replaced = "Chell";
+                id.replace(0, replaced.length(), "BlueShot");
                 stage.addBlueShot(id, BULLET_HEIGHT, BULLET_WIDTH,
                         chell, target);
             }
@@ -83,7 +84,8 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 float y_target = userEvent.getUserPosY();
                 Coordinate* target = new Coordinate(x_target, y_target);
                 std::string id = chell_id;
-                id.replace(0, chell_id.length() - 1, "OrangeShot");
+                std::string replaced = "Chell";
+                id.replace(0, replaced.length(), "OrangeShot");
                 stage.addOrangeShot(id, BULLET_HEIGHT, BULLET_WIDTH,
                                   chell, target);
             }

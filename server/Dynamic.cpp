@@ -2,7 +2,6 @@
 // Created by cecix on 18/05/19.
 //
 
-#include <iostream>
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
 #include "Entity.h"

@@ -350,9 +350,10 @@ void Stage::managePortals(Chell* chell, std::string id) {
     OrangePortal *orange_portal = chell->getOrangePortal();
     if (blue_portal == nullptr && orange_portal == nullptr) return;
     std::string id_orange = id;
-    id_orange.replace(0, id.length() - 1, "OrangePortal");
+    std::string replaced = "Chell";
+    id_orange.replace(0, replaced.length(), "OrangePortal");
     std::string id_blue = id;
-    id_blue.replace(0, id.length()- 1, "BluePortal");
+    id_blue.replace(0, replaced.length(), "BluePortal");
 
     std::unordered_map<std::string, Portal*>::iterator it;
     it = portals.find(id_orange);
@@ -465,7 +466,7 @@ void Stage::step() {
                 std::string id = i->first;
                 std::string to_replace = "EnergyBall";
                 std::string replaced = "EnergyTransmitter";
-                id.replace(0, replaced.length() - 1, to_replace);
+                id.replace(0, replaced.length(), to_replace);
                 addEnergyBallHorizontal(id, 1, x_pos, y_pos);
                 delete energyBallCoordinates;
             }
@@ -475,12 +476,14 @@ void Stage::step() {
     i != energy_transmitters_verticals.end(); i++) {
         Coordinate* energyBallCoordinates = i->second->throwEnergyBall();
         if (energyBallCoordinates != nullptr) {
+            std::cout << "holi" << std::endl;
+
             float x_pos = energyBallCoordinates->getX();
             float y_pos = energyBallCoordinates->getY();
             std::string id = i->first;
             std::string to_replace = "EnergyBall";
             std::string replaced = "EnergyTransmitter";
-            id.replace(0, replaced.length() - 1, to_replace);
+            id.replace(0, replaced.length(), to_replace);
             addEnergyBallVertical(id, 1, x_pos, y_pos);
             delete energyBallCoordinates;
         }

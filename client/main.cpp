@@ -108,6 +108,14 @@ void playGame() {
                             {"x", xPosAcid},
                             {"y", yPosAcid}
                     }
+            },{
+                "EnergyBall1",
+                    {
+                            {"type", ENERGY_BALL__VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell},
+                            {"y", yPosChell}
+                    }
             },
 
     };
@@ -147,6 +155,14 @@ void playGame() {
         stageView.addTile(metalBlockPosX+i,
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
+
+    std::string id_et = "EnergyTransmitter1";
+    std::string et = "LounchBlockUp";
+
+    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 6, 2);
+    stageView.addTile(6,
+                      (2) * -1 + stageHeight, et);
+
     // Time to add some platforms!
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 2,
