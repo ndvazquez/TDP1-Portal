@@ -87,6 +87,9 @@ void StageManager::handleEvent(UserEvent &userEvent,
                                   chell, target);
             }
             break;
+        case USER_THROW_ROCK:
+            chell->releaseRock();
+            break;
         default:
             break;
     }

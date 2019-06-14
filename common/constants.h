@@ -76,5 +76,6 @@ enum PortalOrientation {
 #define USER_ORANGE_PORTAL_CODE 6
 #define USER_GRAB_ROCK 7
 #define USER_DROP_ROCK 8
+#define USER_THROW_ROCK 9
 
 #endif //PORTAL_CONSTANTS_H
