@@ -47,17 +47,17 @@ void BlueShot::handleCollision(Entity* entity) {
                 Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left - portal_h_side - CHELL_WIDTH,
+                coord_to_teleport = new Coordinate(x_left - portal_h_side,
                         y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coord, true, LEFT);
+                BluePortal* bluePortal = new BluePortal(coord, true);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left + portal_h_side + CHELL_WIDTH,
+                coord_to_teleport = new Coordinate(x_left + portal_h_side,
                         y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coord, true, RIGHT);
+                BluePortal* bluePortal = new BluePortal(coord, true);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         } else {
@@ -68,8 +68,8 @@ void BlueShot::handleCollision(Entity* entity) {
                         y_down - portal_v_side/2);
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
-                        y_down - portal_v_side - CHELL_HEIGHT);
-                BluePortal* bluePortal = new BluePortal(coord, false, DOWN);
+                        y_down - portal_v_side);
+                BluePortal* bluePortal = new BluePortal(coord, false);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_pos_metal,
@@ -77,7 +77,7 @@ void BlueShot::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_top + portal_v_side + CHELL_HEIGHT);
-                BluePortal* bluePortal = new BluePortal(coord, false, UP);
+                BluePortal* bluePortal = new BluePortal(coord, false);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         }

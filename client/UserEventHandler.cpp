@@ -62,14 +62,12 @@ void UserEventHandler::run(SDL_Event& event) {
             yMeters = ((y + camera.getCameraY()) * -1 +
                     levelHeight) *MTP_FACTOR_INV;
             if (event.button.button == SDL_BUTTON_LEFT) {
-                std::cout << "clickeo azul" << std::endl;
                 userEvent = UserEvent(userId, USER_BLUE_PORTAL_CODE,
                         xMeters, yMeters);
                 userEventQueue.push(userEvent);
                 break;
             }
             if (event.button.button == SDL_BUTTON_RIGHT) {
-                std::cout << "clickeo naranja" << std::endl;
                 userEvent = UserEvent(userId, USER_ORANGE_PORTAL_CODE,
                         xMeters, yMeters);
                 userEventQueue.push(userEvent);

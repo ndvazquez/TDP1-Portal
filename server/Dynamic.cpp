@@ -18,11 +18,11 @@ Dynamic::Dynamic(b2Body* body):
 void Dynamic::move(float force) {
 }
 
-void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
+void Dynamic::teleport(Coordinate* coordinate) {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
-    if (difference <= 3000) return; //3 seconds to teletransport
+    if (difference <= 100) return; //3 seconds to teletransport
     timeStamp = std::chrono::system_clock::now();
 
     float x = coordinate->getX();

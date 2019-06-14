@@ -49,17 +49,17 @@ void OrangeShot::handleCollision(Entity* entity) {
                 Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left - portal_h_side - CHELL_WIDTH,
+                coord_to_teleport = new Coordinate(x_left - portal_h_side,
                         y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coord, true, LEFT);
+                OrangePortal* orangePortal = new OrangePortal(coord, true);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_right + portal_h_side + CHELL_WIDTH,
+                coord_to_teleport = new Coordinate(x_right + portal_h_side,
                         y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coord, true, RIGHT);
+                OrangePortal* orangePortal = new OrangePortal(coord, true);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         } else {
@@ -71,8 +71,8 @@ void OrangeShot::handleCollision(Entity* entity) {
                         y_down - portal_v_side/2);
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
-                        y_down - portal_v_side - CHELL_HEIGHT);
-                OrangePortal* oPortal = new OrangePortal(coordinate, false, DOWN);
+                        y_down - portal_v_side);
+                OrangePortal* oPortal = new OrangePortal(coordinate, false);
                 chell->addOrangePortal(oPortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_pos_metal,
@@ -80,7 +80,7 @@ void OrangeShot::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_top + portal_v_side + CHELL_HEIGHT);
-                OrangePortal* orangePortal = new OrangePortal(coord, false, UP);
+                OrangePortal* orangePortal = new OrangePortal(coord, false);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         }

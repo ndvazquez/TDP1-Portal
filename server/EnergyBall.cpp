@@ -78,7 +78,7 @@ void EnergyBall::handleCollision(Entity* entity) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            teleport(target, portal->getPortalType());
+            teleport(target);
         }
     }
     if (type == "BlueShot") {
@@ -89,6 +89,6 @@ void EnergyBall::handleCollision(Entity* entity) {
     }
 }
 
-void EnergyBall::teleport(Coordinate* target, PortalType type) {
-    this->dynamic.teleport(target, type);
+void EnergyBall::teleport(Coordinate* target) {
+    this->dynamic.teleport(target);
 }

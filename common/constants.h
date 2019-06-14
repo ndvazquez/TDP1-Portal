@@ -29,14 +29,6 @@ enum PortalOrientation {
     VERTICAL
 };
 
-//For server side
-enum PortalType {
-    UP,
-    DOWN,
-    RIGHT,
-    LEFT
-};
-
 // Objects sizes.
 #define METAL_SIDE 2
 #define CHELL_WIDTH 1
