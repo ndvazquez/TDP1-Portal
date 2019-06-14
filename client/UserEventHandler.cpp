@@ -9,11 +9,12 @@
 UserEventHandler::UserEventHandler(const Camera &camera,
         UserEventQueue &userEventQueue,
         const std::string& userId,
-        int levelHeight) :
+        int levelHeight, SoundCodeQueue& soundCodeQueue) :
         camera(camera),
         userEventQueue(userEventQueue),
         userId(userId),
-        levelHeight(levelHeight){
+        levelHeight(levelHeight),
+        soundCodeQueue(soundCodeQueue){
 }
 
 UserEventHandler::~UserEventHandler() {}
@@ -62,6 +63,7 @@ void UserEventHandler::run(SDL_Event& event) {
             yMeters = ((y + camera.getCameraY()) * -1 +
                     levelHeight) *MTP_FACTOR_INV;
             if (event.button.button == SDL_BUTTON_LEFT) {
+                soundCodeQueue.push(PORTAL_GUN_SOUND);
                 std::cout << "clickeo azul" << std::endl;
                 userEvent = UserEvent(userId, USER_BLUE_PORTAL_CODE,
                         xMeters, yMeters);
@@ -69,6 +71,7 @@ void UserEventHandler::run(SDL_Event& event) {
                 break;
             }
             if (event.button.button == SDL_BUTTON_RIGHT) {
+                soundCodeQueue.push(PORTAL_GUN_SOUND);
                 std::cout << "clickeo naranja" << std::endl;
                 userEvent = UserEvent(userId, USER_ORANGE_PORTAL_CODE,
                         xMeters, yMeters);
