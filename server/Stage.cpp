@@ -350,9 +350,9 @@ void Stage::managePortals(Chell* chell, std::string id) {
     OrangePortal *orange_portal = chell->getOrangePortal();
     if (blue_portal == nullptr && orange_portal == nullptr) return;
     std::string id_orange = id;
-    id_orange.replace(0, id.length(), "OrangePortal");
+    id_orange.replace(0, id.length() - 1, "OrangePortal");
     std::string id_blue = id;
-    id_blue.replace(0, id.length(), "BluePortal");
+    id_blue.replace(0, id.length()- 1, "BluePortal");
 
     std::unordered_map<std::string, Portal *>::iterator it;
     it = portals.find(id_orange);
