@@ -86,7 +86,7 @@ void Chell::die() {
 }
 
 void Chell::win() {
-    //this->actual_state = WINNER;
+    this->actual_state = WINNER;
     winner = true;
 }
 
