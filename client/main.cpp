@@ -57,7 +57,7 @@ void playGame() {
                             {"y", yPosCake}
                     }
             },{
-                    "BlueShot",
+                    "BlueShot1",
                     {
                             {"type", BULLET_VIEW_CODE},
                             {"state", 0},
@@ -65,7 +65,7 @@ void playGame() {
                             {"y", yPosChell}
                     }
             },{
-                    "OrangeShot",
+                    "OrangeShot1",
                     {
                             {"type", BULLET_VIEW_CODE},
                             {"state", 0},
@@ -73,7 +73,7 @@ void playGame() {
                             {"y", yPosChell}
                     }
             },{
-                    "BluePortal",
+                    "BluePortal1",
                     {
                             {"type", BLUE_PORTAL_VIEW_CODE},
                             {"state", 0},
@@ -81,7 +81,7 @@ void playGame() {
                             {"y", yPosChell}
                     }
             },{
-                    "OrangePortal",
+                    "OrangePortal1",
                     {
                             {"type", ORANGE_PORTAL_VIEW_CODE},
                             {"state", 0},

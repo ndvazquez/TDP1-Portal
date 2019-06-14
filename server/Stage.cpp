@@ -465,7 +465,7 @@ void Stage::step() {
                 std::string id = i->first;
                 std::string to_replace = "EnergyBall";
                 std::string replaced = "EnergyTransmitter";
-                id.replace(0, replaced.length(), to_replace);
+                id.replace(0, replaced.length() - 1, to_replace);
                 addEnergyBallHorizontal(id, 1, x_pos, y_pos);
                 delete energyBallCoordinates;
             }
@@ -480,7 +480,7 @@ void Stage::step() {
             std::string id = i->first;
             std::string to_replace = "EnergyBall";
             std::string replaced = "EnergyTransmitter";
-            id.replace(0, replaced.length(), to_replace);
+            id.replace(0, replaced.length() - 1, to_replace);
             addEnergyBallVertical(id, 1, x_pos, y_pos);
             delete energyBallCoordinates;
         }

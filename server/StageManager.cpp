@@ -71,9 +71,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 float y_target = userEvent.getUserPosY();
                 Coordinate* target = new Coordinate(x_target, y_target);
                 std::string id = chell_id;
-                std::cout << id << std::endl;
                 id.replace(0, chell_id.length() - 1, "BlueShot");
-                std::cout << id << std::endl;
                 stage.addBlueShot(id, BULLET_HEIGHT, BULLET_WIDTH,
                         chell, target);
             }
