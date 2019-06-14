@@ -37,6 +37,10 @@ void playGame() {
     float xPosCake = 2;
     float yPosCake = yPosChell + 12.5;
 
+    float xPosAcid = 12;
+    float yPosAcid = 1;
+    std::string idAcid = "Acid1";
+
     nlohmann::json objectsData = {
             {
                     "Chell1",
@@ -57,7 +61,7 @@ void playGame() {
                             {"y", yPosCake}
                     }
             },{
-                    "BlueShot",
+                    "BlueShot1",
                     {
                             {"type", BULLET_VIEW_CODE},
                             {"state", 0},
@@ -65,7 +69,7 @@ void playGame() {
                             {"y", yPosChell}
                     }
             },{
-                    "OrangeShot",
+                    "OrangeShot1",
                     {
                             {"type", BULLET_VIEW_CODE},
                             {"state", 0},
@@ -73,7 +77,7 @@ void playGame() {
                             {"y", yPosChell}
                     }
             },{
-                    "BluePortal",
+                    "BluePortal1",
                     {
                             {"type", BLUE_PORTAL_VIEW_CODE},
                             {"state", 0},
@@ -81,14 +85,38 @@ void playGame() {
                             {"y", yPosChell}
                     }
             },{
-                    "OrangePortal",
+                    "OrangePortal1",
                     {
                             {"type", ORANGE_PORTAL_VIEW_CODE},
                             {"state", 0},
                             {"x", xPosChell} ,
                             {"y", yPosChell}
                     }
-            }
+            },{
+                    "Rock1",
+                    {
+                            {"type", ROCK_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosRock},
+                            {"y", yPosRock}
+                    }
+            },{
+                "Acid1",
+                    {
+                            {"type", ACID_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosAcid},
+                            {"y", yPosAcid}
+                    }
+            },{
+                "EnergyBall1",
+                    {
+                            {"type", ENERGY_BALL__VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell},
+                            {"y", yPosChell}
+                    }
+            },
 
     };
     nlohmann::json stageUpdateRequest;
@@ -112,10 +140,12 @@ void playGame() {
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
                    xPosChell, yPosChell);
     stage.addCake(1, xPosCake, yPosCake);
-    /*stage.addRock(idRock, ROCK_HEIGHT,
+   /* stage.addRock(idRock, ROCK_HEIGHT,
                   xPosRock, yPosRock);*/
-    /*stage.addRock("Rock2", ROCK_HEIGHT,
+   /* stage.addRock("Rock2", ROCK_HEIGHT,
                   xPosRock + 2, yPosRock);*/
+   stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
+           xPosAcid, yPosAcid);
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
@@ -125,6 +155,15 @@ void playGame() {
         stageView.addTile(metalBlockPosX+i,
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
+    std::string bb = "RockBlock";
+
+    std::string id_et = "EnergyTransmitter1";
+    std::string et = "LounchBlockUp";
+
+    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
+    stageView.addTile(8,
+                      (2) * -1 + stageHeight, et);
+
     // Time to add some platforms!
     stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 2,
@@ -180,7 +219,7 @@ void playGame() {
     StageManager stageManager(stage, userEventQueue);
     bool quit = false;
     SDL_Event e;
-    audioSystem.playMusic(BG_SONG_GAME);
+    //audioSystem.playMusic(BG_SONG_GAME);
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {

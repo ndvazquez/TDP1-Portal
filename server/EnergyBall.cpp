@@ -5,8 +5,6 @@
 #define energyBallType "EnergyBall"
 
 #include <string>
-#include <iostream>
-
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
@@ -23,11 +21,6 @@ EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
 }
 
 void EnergyBall::fly() {
-    std::cout << "Se lanzo!" << std::endl;
-
-    std::cout << "X: " << getHorizontalPosition() << std::endl;
-    std::cout << "Y: " << getVerticalPosition() << std::endl;
-
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
@@ -47,7 +40,6 @@ void EnergyBall::changeDirection() {
 }
 
 void EnergyBall::die() {
-    std::cout << "muri" << std::endl;
     this->is_dead = true;
 }
 
@@ -78,7 +70,7 @@ void EnergyBall::handleCollision(Entity* entity) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            teleport(target);
+            teleport(target, portal->getPortalType());
         }
     }
     if (type == "BlueShot") {
@@ -89,6 +81,6 @@ void EnergyBall::handleCollision(Entity* entity) {
     }
 }
 
-void EnergyBall::teleport(Coordinate* target) {
-    this->dynamic.teleport(target);
+void EnergyBall::teleport(Coordinate* target, PortalType type) {
+    this->dynamic.teleport(target, type);
 }

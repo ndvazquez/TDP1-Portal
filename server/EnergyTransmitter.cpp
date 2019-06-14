@@ -3,6 +3,7 @@
 //
 
 #include <Box2D/Dynamics/b2Body.h>
+#include <iostream>
 #include "EnergyTransmitter.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
@@ -12,6 +13,7 @@
 EnergyTransmitter::EnergyTransmitter(b2Body* body):
     Entity(energyTransmitterType, body) {
     this->timeStamp = std::chrono::system_clock::now();
+    body->SetUserData(this);
 }
 
 bool EnergyTransmitter::isTimeToThrow() {
@@ -32,5 +34,8 @@ void EnergyTransmitter::handleCollision(Entity *entity) {
     }
     if (type == "OrangeShot") {
         static_cast<OrangeShot*>(entity)->die();
+    }
+    if (type == "Chell") {
+        static_cast<Chell*>(entity)->onFloor(true);
     }
 }

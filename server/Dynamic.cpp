@@ -2,11 +2,11 @@
 // Created by cecix on 18/05/19.
 //
 
-#include <iostream>
 #include <Box2D/Box2D.h>
 #include "Dynamic.h"
 #include "Entity.h"
 #include "Coordinate.h"
+#include "../common/constants.h"
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
@@ -17,16 +17,35 @@ Dynamic::Dynamic(b2Body* body):
 void Dynamic::move(float force) {
 }
 
-void Dynamic::teleport(Coordinate* coordinate) {
+void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
-    if (difference <= 3000) return; //3 seconds to teletransport
+    if (difference <= 100) return; //0.1 seconds to teletransport
     timeStamp = std::chrono::system_clock::now();
 
     float x = coordinate->getX();
     float y = coordinate->getY();
+
     body->SetTransform(b2Vec2(x, y), 0);
+
+    float portal_velocity = gameConfiguration.velocityDownload;
+
+    if (type == UP) {
+        body->ApplyLinearImpulse(b2Vec2(0, portal_velocity), body->GetWorldCenter(), 0);
+
+    }
+    else if (type == DOWN) {
+        body->ApplyLinearImpulse(b2Vec2(0, -portal_velocity), body->GetWorldCenter(), 0);
+
+    }
+    else if (type == RIGHT) {
+        body->ApplyLinearImpulse(b2Vec2(portal_velocity, 0), body->GetWorldCenter(), 0);
+
+    }
+    else if (type == LEFT) {
+        body->ApplyLinearImpulse(b2Vec2(-portal_velocity, 0), body->GetWorldCenter(), 0);
+    }
 }
 
 void Dynamic::moveRight(float force) {

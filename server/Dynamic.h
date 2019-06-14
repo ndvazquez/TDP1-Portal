@@ -9,6 +9,7 @@
 #include <chrono>
 #include "configuration.h"
 #include "Coordinate.h"
+#include "../common/constants.h"
 
 class Dynamic {
 private:
@@ -28,7 +29,7 @@ public:
     void flyHorizontal();
     void flyVertical();
     bool handleCollisions();
-    void teleport(Coordinate* coordinate);
+    void teleport(Coordinate* coordinate, PortalType type);
 };
 
 #endif //PORTAL_DYNAMIC_H

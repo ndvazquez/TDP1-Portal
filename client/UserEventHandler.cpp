@@ -44,6 +44,9 @@ void UserEventHandler::run(SDL_Event& event) {
             } else if (event.key.keysym.sym == SDLK_f && event.key.repeat == 0) {
                 eventCode = USER_DROP_ROCK;
             }
+            else if (event.key.keysym.sym == SDLK_t && event.key.repeat == 0) {
+                eventCode = USER_THROW_ROCK;
+            }
             else {
                 break;
             }
@@ -64,7 +67,6 @@ void UserEventHandler::run(SDL_Event& event) {
                     levelHeight) *MTP_FACTOR_INV;
             if (event.button.button == SDL_BUTTON_LEFT) {
                 soundCodeQueue.push(PORTAL_GUN_SOUND);
-                std::cout << "clickeo azul" << std::endl;
                 userEvent = UserEvent(userId, USER_BLUE_PORTAL_CODE,
                         xMeters, yMeters);
                 userEventQueue.push(userEvent);
@@ -72,7 +74,6 @@ void UserEventHandler::run(SDL_Event& event) {
             }
             if (event.button.button == SDL_BUTTON_RIGHT) {
                 soundCodeQueue.push(PORTAL_GUN_SOUND);
-                std::cout << "clickeo naranja" << std::endl;
                 userEvent = UserEvent(userId, USER_ORANGE_PORTAL_CODE,
                         xMeters, yMeters);
                 userEventQueue.push(userEvent);

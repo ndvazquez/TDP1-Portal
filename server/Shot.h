@@ -24,7 +24,6 @@ public:
     void shoot();
     bool isDead();
     void die();
-    Coordinate* getTarget();
 };
 
 #endif //PORTAL_SHOT_H
