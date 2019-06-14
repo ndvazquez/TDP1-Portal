@@ -476,8 +476,6 @@ void Stage::step() {
     i != energy_transmitters_verticals.end(); i++) {
         Coordinate* energyBallCoordinates = i->second->throwEnergyBall();
         if (energyBallCoordinates != nullptr) {
-            std::cout << "holi" << std::endl;
-
             float x_pos = energyBallCoordinates->getX();
             float y_pos = energyBallCoordinates->getY();
             std::string id = i->first;
