@@ -5,6 +5,9 @@ SoundEffects:
   - soundCode: 1
     path: resources/sounds/jump.wav
     volume: 20
+  - soundCode: 2
+    path: resources/sounds/gun.mp3
+    volume: 50
 
 Music:
   - songCode: 0

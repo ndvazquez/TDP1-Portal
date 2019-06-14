@@ -20,8 +20,9 @@
 #define IDLE 0
 #define JUMPING 1
 #define DEAD 2
-#define MOVING_LEFT 3
-#define MOVING_RIGHT 4
+#define WINNER 3
+#define MOVING_LEFT 4
+#define MOVING_RIGHT 5
 
 class ChellView : public View {
     SoundCodeQueue& soundsQueue;

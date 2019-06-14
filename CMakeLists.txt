@@ -40,7 +40,8 @@ set(CLIENT_SOURCE_FILES
         common/UserEvent.cpp
         client/UserEventHandler.cpp
         common/UserEventQueue.cpp
-        client/OrangePortalView.cpp)
+        client/OrangePortalView.cpp
+        client/GateView.cpp)
 
 #EDITOR CONFIG
 
@@ -70,16 +71,16 @@ set(EDITOR_SOURCE_FILES
         editor/MouseButton.cpp
 
 
-        ffmpeg/CodecContext.cpp
-        ffmpeg/FormatOutput.cpp
-        ffmpeg/FormatContext.cpp
-        ffmpeg/Frame.cpp
-        ffmpeg/Output.cpp
-        ffmpeg/Packet.cpp
-        ffmpeg/SwsContext.cpp
-        ffmpeg/BlockingQueue.cpp
-        ffmpeg/Consumer.cpp
-        ffmpeg/Thread.cpp
+        #ffmpeg/CodecContext.cpp
+        #ffmpeg/FormatOutput.cpp
+        #ffmpeg/FormatContext.cpp
+        #ffmpeg/Frame.cpp
+        #ffmpeg/Output.cpp
+        #ffmpeg/Packet.cpp
+        #ffmpeg/SwsContext.cpp
+        #ffmpeg/BlockingQueue.cpp
+        #ffmpeg/Consumer.cpp
+        #ffmpeg/Thread.cpp
         )
 
 set(SERVER_SOURCE_FILES
@@ -126,7 +127,7 @@ add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
 target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TG::Box2D)
-target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}  avformat avcodec avutil swscale)
+target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}) # avformat avcodec avutil swscale)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
 target_link_libraries(Server TG::Box2D)

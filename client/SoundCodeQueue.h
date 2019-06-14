@@ -5,10 +5,14 @@
 #ifndef PORTAL_SOUNDCODEQUEUE_H
 #define PORTAL_SOUNDCODEQUEUE_H
 
+#include <mutex>
+#include <condition_variable>
 #include <deque>
 
 class SoundCodeQueue {
     std::deque<int> internalQueue;
+    std::condition_variable _cv;
+    std::mutex _mtx;
 public:
     SoundCodeQueue();
     ~SoundCodeQueue();

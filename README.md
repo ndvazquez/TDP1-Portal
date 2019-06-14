@@ -25,3 +25,9 @@ Estamos trabajando para enviar la información entre cliente y servidor a travé
 
 - Para la libreria de sonidos:
 `sudo apt-get install libsdl2-mixer-dev`
+
+### Ffmpeg
+Este feature fue desarrollado en un repositorio externo. 
+Aún no está integrado al proyecto por lo tanto no hay necesidad de compilarlo ni mucho menos descargar sus dependecias.
+
+En el [repositorio](https://github.com/camiboj/tutorial-ffmpeg) se pueden encontrar (a modo de ejemplo/prueba) un programa simple. Su README explica que dependencias se deben installar y cómo ejecutar el programa.

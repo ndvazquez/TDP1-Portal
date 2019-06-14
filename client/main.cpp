@@ -212,7 +212,8 @@ void playGame() {
 
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,
-                                      idChell, levelHeight);
+                                      idChell, levelHeight,
+                                      soundQueue);
     // We share the same queue for now, but once we start to use sockets,
     // we'll use different queues;
     StageManager stageManager(stage, userEventQueue);
