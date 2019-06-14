@@ -36,6 +36,7 @@ void StageManager::run() {
 
 void StageManager::handleEvent(UserEvent &userEvent,
         Chell *chell) {
+    if (chell == nullptr) return;
     std::string chell_id = userEvent.getUserId();
     int eventTypeCode = userEvent.getEventType();
     switch (eventTypeCode) {

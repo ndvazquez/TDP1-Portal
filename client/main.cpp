@@ -37,6 +37,10 @@ void playGame() {
     float xPosCake = 2;
     float yPosCake = yPosChell + 12.5;
 
+    float xPosAcid = 12;
+    float yPosAcid = 1;
+    std::string idAcid = "Acid1";
+
     nlohmann::json objectsData = {
             {
                     "Chell1",
@@ -96,6 +100,14 @@ void playGame() {
                             {"x", xPosRock},
                             {"y", yPosRock}
                     }
+            },{
+                "Acid1",
+                    {
+                            {"type", ACID_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosAcid},
+                            {"y", yPosAcid}
+                    }
             },
 
     };
@@ -124,6 +136,8 @@ void playGame() {
                   xPosRock, yPosRock);
    /* stage.addRock("Rock2", ROCK_HEIGHT,
                   xPosRock + 2, yPosRock);*/
+   stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
+           xPosAcid, yPosAcid);
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
