@@ -13,8 +13,8 @@
 #include "../common/constants.h"
 
 #define TEXTURES_BUTTON_KEY "Button"
-#define BUTTON_STATE_ON 1
-#define BUTTON_STATE_OFF 0
+#define BUTTON_STATE_ON 0
+#define BUTTON_STATE_OFF 1
 
 class ButtonView : public View{
     int buttonState;
