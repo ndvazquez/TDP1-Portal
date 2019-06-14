@@ -9,9 +9,9 @@ enum ChellState {
     IDLE,
     JUMPING,
     DEAD,
+    WINNER,
     MOVING_LEFT,
-    MOVING_RIGHT,
-    WINNER
+    MOVING_RIGHT
 };
 
 enum ButtonState {

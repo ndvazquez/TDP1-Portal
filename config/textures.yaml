@@ -8,9 +8,13 @@ Chell:
   - name: Death
     path: resources/Chell/Death.png
     frames: 14
+  - name: Win
+    path: resources/Chell/WinRelief.png
+    frames: 13
   - name: Run
     path: resources/Chell/Run.png
     frames: 12
+
 
 
 BluePortal: {path: resources/portal/BluePortal.png, frames: 5}
