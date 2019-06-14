@@ -418,16 +418,24 @@ void Stage::managePortals(Chell* chell, std::string id) {
     }
 }
 
+bool hasObject(b2World* world, b2Body* body) {
+    b2Body* body_list = world->GetBodyList();
+    while (body_list != nullptr) {
+        if (body == body_list) return true;
+        body_list = body_list->GetNext();
+    }
+    return false;
+}
+
 void Stage::step() {
     for (auto i = chells.begin(); i != chells.end(); i++) {
-        managePortals(i->second, i->first);
-
         if (i->second->isDead()) {
-            world->DestroyBody(i->second->getBody());
-            {
-                chells.erase(i->first);
-                break;
+            if (hasObject(world, i->second->getBody())) {
+                world->DestroyBody(i->second->getBody());
             }
+        }
+        else {
+            managePortals(i->second, i->first);
         }
         if (i->second->hasWon()) {
         //TODO: Tell client to end game

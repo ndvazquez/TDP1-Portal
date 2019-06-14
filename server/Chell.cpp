@@ -162,13 +162,13 @@ void Chell::destroyActualMovement() {
 }
 
 void Chell::update() {
+    if (isDead()) return;
     chell_is_on_floor = inGround();
     if (chell_is_on_floor && actual_state == JUMPING){
         this->stop();
     }
     if (chell_is_on_floor && ! isDead()) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
-    //if (this->rock) rock->update();
 }
 
 void Chell::jump() {
