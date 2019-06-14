@@ -116,9 +116,7 @@ void Dynamic::flyVertical() {
 }
 
 void Dynamic::adjustJump() {
-    b2World* world = body->GetWorld();
-    float gravity_jump = gameConfiguration.gravityJump;
-    world->SetGravity(b2Vec2(0, gravity_jump));
+    body->SetGravityScale(0.6);
 }
 
 bool Dynamic::jump(bool chellFloor) {
@@ -133,6 +131,7 @@ bool Dynamic::jump(bool chellFloor) {
     float initialVelocity = gameConfiguration.chellInitialVelocity;
     float impulse = body->GetMass() * initialVelocity;
     body->ApplyLinearImpulse(b2Vec2(0,impulse), body->GetWorldCenter() , true);
+
     return true;
 }
 
