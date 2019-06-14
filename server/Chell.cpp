@@ -192,6 +192,13 @@ ChellState Chell::getState() {
     return actual_state;
 }
 
+void Chell::removePortals() {
+    if (this->blue_portal) delete blue_portal;
+    if (this->orange_portal) delete orange_portal;
+    this->blue_portal = nullptr;
+    this->orange_portal = nullptr;
+}
+
 void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {
     if (orange_portal != nullptr) delete orange_portal;
     if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;

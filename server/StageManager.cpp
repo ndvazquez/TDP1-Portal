@@ -93,6 +93,9 @@ void StageManager::handleEvent(UserEvent &userEvent,
         case USER_THROW_ROCK:
             chell->releaseRock();
             break;
+        case USER_REMOVE_PORTAL:
+            chell->removePortals();
+            break;
         default:
             break;
     }

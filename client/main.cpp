@@ -160,7 +160,7 @@ void playGame() {
     std::string id_et = "EnergyTransmitter1";
     std::string et = "LounchBlockUp";
 
-    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
+    //stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
     stageView.addTile(8,
                       (2) * -1 + stageHeight, et);
 

@@ -348,7 +348,6 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
 void Stage::managePortals(Chell* chell, std::string id) {
     BluePortal *blue_portal = chell->getBluePortal();
     OrangePortal *orange_portal = chell->getOrangePortal();
-    if (blue_portal == nullptr && orange_portal == nullptr) return;
     std::string id_orange = id;
     std::string replaced = "Chell";
     id_orange.replace(0, replaced.length(), "OrangePortal");
@@ -362,11 +361,10 @@ void Stage::managePortals(Chell* chell, std::string id) {
         float x_portal = portal->getHorizontalPosition();
         float y_portal = portal->getVerticalPosition();
         Coordinate coord_portal(x_portal, y_portal);
-        if (orange_portal != nullptr) {
-            if (*orange_portal->getPortal() != coord_portal) {
+        if ((orange_portal != nullptr && *orange_portal->getPortal() != coord_portal)
+            || orange_portal == nullptr) {
                 world->DestroyBody(it->second->getBody());
                 portals.erase(it->first);
-            }
         }
         if (blue_portal != nullptr) {
             Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
@@ -392,13 +390,12 @@ void Stage::managePortals(Chell* chell, std::string id) {
         float x_portal = portal->getHorizontalPosition();
         float y_portal = portal->getVerticalPosition();
         Coordinate coord_portal(x_portal, y_portal);
-        if (blue_portal != nullptr) {
-            if (*blue_portal->getPortal() != coord_portal) {
+        if ((blue_portal != nullptr && *blue_portal->getPortal() != coord_portal)
+            || blue_portal == nullptr) {
                 world->DestroyBody(portal->getBody());
                 {
                     portals.erase(portal_id);
                 }
-            }
         }
         if (orange_portal != nullptr) {
             Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
