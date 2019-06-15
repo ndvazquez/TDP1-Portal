@@ -15,6 +15,10 @@
 #include "EnergyTransmitterLeft.h"
 #include "EnergyTransmitterUp.h"
 #include "EnergyTransmitterDown.h"
+#include "EnergyReceptorRight.h"
+#include "EnergyReceptorLeft.h"
+#include "EnergyReceptorDown.h"
+#include "EnergyReceptorUp.h"
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
@@ -96,7 +100,7 @@ void Stage::addEnergyBall(std::string identifier, std::string id, float side,
     }
 }
 
-void Stage::addEnergyTransmitter(std::string identifier, std::string id, float side,
+void Stage::addEnergyItem(std::string identifier, std::string id, float side,
         float x_pos, float y_pos) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -116,6 +120,18 @@ void Stage::addEnergyTransmitter(std::string identifier, std::string id, float s
     } else if (identifier == ET_UP_NAME) {
         EnergyTransmitterUp* energy = new EnergyTransmitterUp(body);
         energy_transmitters_verticals.insert({id, energy});
+    } else if (identifier == ER_RIGHT_NAME) {
+        EnergyReceptorRight* energy = new EnergyReceptorRight(body);
+        energy_receptors.insert({id, energy});
+    } else if (identifier == ER_LEFT_NAME) {
+        EnergyReceptorLeft* energy = new EnergyReceptorLeft(body);
+        energy_receptors.insert({id, energy});
+    } else if (identifier == ER_DOWN_NAME) {
+        EnergyReceptorDown* energy = new EnergyReceptorDown(body);
+        energy_receptors.insert({id, energy});
+    } else if (identifier == ER_UP_NAME) {
+        EnergyReceptorUp* energy = new EnergyReceptorUp(body);
+        energy_receptors.insert({id, energy});
     } else {
         throw StageBadIdentifierException();
     }
@@ -564,6 +580,16 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
         };
     }
+    /*for (auto i = energy_receptors.begin();
+         i != energy_receptors.end(); i++) {
+        std::string id_er = i->first;
+        float x_pos_er = i->second->getHorizontalPosition();
+        float y_pos_er = i->second->getVerticalPosition();
+        SwitchState state = i->second->getState();
+        request[id_er] = {
+                {"state", state}, {"x", x_pos_er}, {"y", y_pos_er}
+        };
+    }*/
     for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
         std::string id_eb = i->first;
         float x_pos_eb = i->second->getHorizontalPosition();

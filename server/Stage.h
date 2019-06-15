@@ -28,6 +28,7 @@
 #include "Gate.h"
 #include "Cake.h"
 #include "PhysicsWorld.h"
+#include "EnergyReceptor.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -38,7 +39,7 @@ class StageOutOfRangeException : public std::exception {
 
 class StageBadIdentifierException : public std::exception {
     virtual const char* what() const throw() {
-        std::string message = "This object doesn't fit in the stage!\n";
+        std::string message = "This object doesn't belong in the stage!\n";
         return message.c_str();
     }
 };
@@ -67,6 +68,8 @@ private:
     energy_transmitters_horizontals;
     std::unordered_map<std::string, EnergyTransmitter*>
     energy_transmitters_verticals;
+    std::unordered_map<std::string, EnergyReceptor*>
+    energy_receptors;
     std::unordered_map<std::string, Rock*> rocks;
     std::unordered_map<std::string, Portal*> portals; //Id == shots
 
@@ -77,7 +80,7 @@ public:
     void addBlock(std::string identifier, float side, float x_pos, float y_pos);
     void addEnergyBall(std::string identifier, std::string id,
             float side, float x_pos, float y_pos);
-    void addEnergyTransmitter(std::string identifier, std::string id, float side,
+    void addEnergyItem(std::string identifier, std::string id, float side,
                               float x_pos, float y_pos);
     void addShot(std::string identifier, std::string id, float v_side,
     float h_side, Chell* chell, Coordinate* target);

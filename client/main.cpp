@@ -41,14 +41,11 @@ void playGame() {
     float xPosAcid = 12;
     float yPosAcid = 1;
 
-    float xPosButton1 = 17;
+    float xPosButton1 = 3;
     float yPosButton1= 1;
 
     float xPosButton2 = 5;
     float yPosButton2 = 1;
-
-    float xPosButton3 = 3;
-    float yPosButton3 = 1;
 
     float xPosGate = 13;
     float yPosGate = 2;
@@ -163,14 +160,6 @@ void playGame() {
                             {"y", yPosGate}
                     }
             },{
-                "Button3",
-                    {
-                            {"type", BUTTON_VIEW_CODE},
-                            {"state", OFF},
-                            {"x", xPosButton3},
-                            {"y", yPosButton3}
-                    }
-            },{
                 "Rock3",
                     {
                             {"type", ROCK_VIEW_CODE},
@@ -204,20 +193,16 @@ void playGame() {
     std::string id_gate = "Gate1";
     std::string id_button_1 = "Button1";
     std::string id_button_2 = "Button2";
-    std::string id_button_3 = "Button3";
     stage.addElement(BUTTON_NAME, id_button_1, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton1, yPosButton1);
     stage.addElement(BUTTON_NAME, id_button_2, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton2, yPosButton2);
-    stage.addElement(BUTTON_NAME, id_button_3, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton3, yPosButton3);
     Button* button1 = stage.getButton(id_button_1);
     Button* button2 = stage.getButton(id_button_2);
-    Button* button3 = stage.getButton(id_button_3);
 
     std::unordered_map<std::string, Button*> buttons;
     buttons.insert({id_button_1, button1});
     buttons.insert({id_button_2, button2});
-    buttons.insert({id_button_3, button3});
 
-    std::string logic = "Button1 & Button2 & !Button3";
+    std::string logic = "Button1 & Button2";
     stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH, xPosGate,
             yPosGate, buttons, logic);
 
