@@ -18,6 +18,7 @@
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
+    this->end_of_game = false;
     float module_gravity = gameConfiguration.gravity;
     b2Vec2 gravity(0.0f, module_gravity);
     this->world = new b2World(gravity);
@@ -429,14 +430,17 @@ void Stage::step() {
             if (hasObject(world, i->second->getBody())) {
                 world->DestroyBody(i->second->getBody());
             }
-        }
-        else {
+        } else if (end_of_game) {
+            i->second->win();
+        } else if (i->second->hasWon()) {
+            if (hasObject(world, i->second->getBody())) {
+                world->DestroyBody(i->second->getBody());
+            }
+            end_of_game = true;
+        } else {
             managePortals(i->second, i->first);
+            i->second->update();
         }
-        if (i->second->hasWon()) {
-        //TODO: Tell client to end game
-        }
-        i->second->update();
     }
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {

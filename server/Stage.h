@@ -43,6 +43,7 @@ private:
     b2World* world;
     Floor* floor;
     Cake* cake;
+    bool end_of_game;
 
     std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;

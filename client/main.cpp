@@ -34,8 +34,9 @@ void playGame() {
     float xPosRock = 8;
     float yPosRock = 1;
     std::string idRock = "Rock1";
-    float xPosCake = 2;
-    float yPosCake = yPosChell + 12.5;
+    //float xPosCake = 2;
+    float xPosCake = xPosRock;
+    float yPosCake = yPosChell;
 
     float xPosAcid = 12;
     float yPosAcid = 1;
@@ -140,8 +141,8 @@ void playGame() {
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
                    xPosChell, yPosChell);
     stage.addCake(1, xPosCake, yPosCake);
-    stage.addRock(idRock, ROCK_HEIGHT,
-                  xPosRock, yPosRock);
+   /* stage.addRock(idRock, ROCK_HEIGHT,
+                  xPosRock, yPosRock);*/
    /* stage.addRock("Rock2", ROCK_HEIGHT,
                   xPosRock + 2, yPosRock);*/
    /*stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
