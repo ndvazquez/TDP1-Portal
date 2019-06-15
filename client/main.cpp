@@ -136,72 +136,53 @@ void playGame() {
     int levelHeight = stageHeight * MTP_FACTOR;
 
     StageView stageView(newWindow, textures, MTP_FACTOR);
-    Stage stage(stageWidth, stageHeight);
-    stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
-                   xPosChell, yPosChell);
-    stage.addCake(1, xPosCake, yPosCake);
+
    /* stage.addRock(idRock, ROCK_HEIGHT,
                   xPosRock, yPosRock);*/
    /* stage.addRock("Rock2", ROCK_HEIGHT,
                   xPosRock + 2, yPosRock);*/
-   stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
-           xPosAcid, yPosAcid);
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
     float metalSide = METAL_SIDE;
     for (int i = 0; i < 40; i += 2){
-        stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
         stageView.addTile(metalBlockPosX+i,
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
     std::string bb = "RockBlock";
-
     std::string id_et = "EnergyTransmitter1";
     std::string et = "LounchBlockUp";
 
-    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
     stageView.addTile(8,
                       (2) * -1 + stageHeight, et);
 
     // Time to add some platforms!
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 2,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 6,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
     stageView.addTile(metalBlockPosX + 8,
                       (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 8,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 12,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 14,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
     stageView.addTile(metalBlockPosX + 14,
                       (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 20,
                       (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
     stageView.addTile(metalBlockPosX + 2,
                       (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
@@ -214,9 +195,11 @@ void playGame() {
     UserEventHandler userEventHandler(camera, userEventQueue,
                                       idChell, levelHeight,
                                       soundQueue);
+    StageStatusQueue stageStatusQueue;
     // We share the same queue for now, but once we start to use sockets,
     // we'll use different queues;
-    StageManager stageManager(stage, userEventQueue);
+    StageManager stageManager(userEventQueue, stageStatusQueue,
+            stageWidth, stageHeight);
     bool quit = false;
     SDL_Event e;
     //audioSystem.playMusic(BG_SONG_GAME);
@@ -229,7 +212,11 @@ void playGame() {
             }
         }
         stageManager.run();
-        stageUpdateRequest = stage.getCurrentState();
+        if (!stageStatusQueue.empty()) {
+            std::string stageStatusString = stageStatusQueue.pop();
+            stageUpdateRequest = nlohmann::json::parse(stageStatusString);
+
+        }
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;
         background.draw(bgRect);

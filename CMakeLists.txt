@@ -120,7 +120,8 @@ set(SERVER_SOURCE_FILES
         server/OrangePortal.cpp
         server/StageManager.cpp
         common/Thread.cpp
-        common/Socket.cpp)
+        common/Socket.cpp
+        common/StageStatusQueue.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

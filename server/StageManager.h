@@ -9,14 +9,20 @@
 #include "../common/UserEventQueue.h"
 #include "Stage.h"
 #include "../common/constants.h"
+#include "../common/StageStatusQueue.h"
 
 class StageManager {
-    Stage& stage;
+    int playerCounter;
     UserEventQueue& userEventQueue;
+    StageStatusQueue& stageStatusQueue;
+    Stage stage;
     std::chrono::system_clock::time_point timeStamp;
     void handleEvent(UserEvent& userEvent, Chell* chell);
 public:
-    StageManager(Stage& stage, UserEventQueue& queue);
+    StageManager(UserEventQueue& eventQueue,
+                StageStatusQueue& statusQueue,
+                int stageWidth,
+                int stageHeight);
     ~StageManager();
     // This is going to run on another thread.
     void run();
