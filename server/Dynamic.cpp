@@ -54,12 +54,12 @@ void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
 }
 
 void Dynamic::moveRight(float force) {
-    if (body->GetLinearVelocity().x > 0.5) force = 0;
+    if (body->GetLinearVelocity().x > 3) force = 0;
     body->ApplyForce(b2Vec2(force, 0), body->GetWorldCenter(), true);
 }
 
 void Dynamic::moveLeft(float force) {
-    if (body->GetLinearVelocity().x < -0.5) force = 0;
+    if (body->GetLinearVelocity().x < -3) force = 0;
     body->ApplyForce(b2Vec2(-force, 0), body->GetWorldCenter(), true);
 }
 
