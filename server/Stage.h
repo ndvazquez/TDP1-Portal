@@ -27,7 +27,6 @@
 #include "OrangeShot.h"
 #include "Gate.h"
 #include "Cake.h"
-#include "PortalsManager.h"
 #include "PhysicsWorld.h"
 
 class StageOutOfRangeException : public std::exception {

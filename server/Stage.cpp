@@ -201,9 +201,6 @@ void Stage::addElement(std::string identifier, std::string id, float v_side,
 }
 
 void Stage::managePortals(Chell* chell, std::string id) {
-    /*PortalsManager manager(portals, &this, world);
-    manager.managePortals(chell, id);*/
-
     BluePortal *blue_portal = chell->getBluePortal();
     OrangePortal *orange_portal = chell->getOrangePortal();
     std::string id_orange = id;
