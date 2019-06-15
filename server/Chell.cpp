@@ -8,6 +8,7 @@
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 #include <Box2D/Dynamics/b2World.h>
+#include <iostream>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -72,12 +73,9 @@ void Chell::handleCollision(Entity* entity) {
 
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
-        float x_button = button->getHorizontalPosition();
-        float x_chell = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_chell > x_button - delta && x_chell < x_button + delta) {
-            button->activate();
-        }
+        float y_button = button->getVerticalPosition();
+        float y_chell = getVerticalPosition();
+        if (y_chell > y_button) button->activate();
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"

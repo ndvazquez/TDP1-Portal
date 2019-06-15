@@ -15,8 +15,8 @@ enum ChellState {
 };
 
 enum ButtonState {
-    ON,
-    OFF
+    OFF,
+    ON
 };
 
 enum GateState {

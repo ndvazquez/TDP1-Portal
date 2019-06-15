@@ -759,11 +759,13 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", orientation}, {"x", x_pos_portal}, {"y", y_pos_portal}
         };
     }
-    float x_pos_cake = cake->getHorizontalPosition();
-    float y_pos_cake = cake->getVerticalPosition();
-    request["Cake"] = {
-            {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
-    };
+    if (cake != nullptr) {
+        float x_pos_cake = cake->getHorizontalPosition();
+        float y_pos_cake = cake->getVerticalPosition();
+        request["Cake"] = {
+                {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
+        };
+    }
     return request;
 }
 

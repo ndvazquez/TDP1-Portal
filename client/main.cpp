@@ -40,6 +40,10 @@ void playGame() {
 
     float xPosAcid = 12;
     float yPosAcid = 1;
+
+    float xPosButton1 = 12;
+    float yPosButton1= 1;
+
     std::string idAcid = "Acid1";
 
     nlohmann::json objectsData = {
@@ -117,6 +121,14 @@ void playGame() {
                             {"x", xPosChell},
                             {"y", yPosChell}
                     }
+            },{
+                "Button1",
+                    {
+                            {"type", BUTTON_VIEW_CODE},
+                            {"state", OFF},
+                            {"x", xPosButton1},
+                            {"y", yPosButton1}
+                    }
             },
 
     };
@@ -140,10 +152,15 @@ void playGame() {
     Stage stage(stageWidth, stageHeight);
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
                    xPosChell, yPosChell);
-    stage.addCake(1, xPosCake, yPosCake);
-   /* stage.addRock(idRock, ROCK_HEIGHT,
-                  xPosRock, yPosRock);*/
-   /* stage.addRock("Rock2", ROCK_HEIGHT,
+
+
+    std::string id_button_1 = "Button1";
+    stage.addButton(id_button_1, BUTTON_HEIGHT, BUTTON_HEIGHT, xPosButton1, yPosButton1);
+
+   // stage.addCake(1, xPosCake, yPosCake);
+   stage.addRock(idRock, ROCK_HEIGHT,
+                  xPosRock, yPosRock);
+  /* stage.addRock("Rock2", ROCK_HEIGHT,
                   xPosRock + 2, yPosRock);*/
    /*stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
            xPosAcid, yPosAcid);*/

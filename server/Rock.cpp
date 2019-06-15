@@ -5,7 +5,6 @@
 #define rockType "Rock"
 
 #include <string>
-#include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
 #include "MoveLeft.h"
@@ -58,12 +57,9 @@ void Rock::handleCollision(Entity *entity) {
     }
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
-        float x_button = button->getHorizontalPosition();
-        float x_rock = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_rock > x_button - delta && x_rock < x_button + delta) {
-            button->activate();
-        }
+        float y_button = button->getVerticalPosition();
+        float y_rock = getVerticalPosition();
+        if (y_rock > y_button) button->activate();
     }
 }
 
