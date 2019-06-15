@@ -165,7 +165,6 @@ void Gate::update() {
         }
         replaced.replace(i_id, length_id, to_replace);
     }
-
     // Obtain boolean from string
     if (! parseBool()) {
         this->state = CLOSED;

@@ -195,7 +195,7 @@ void playGame() {
     buttons.insert({id_button_1, button1});
     buttons.insert({id_button_2, button2});
 
-    std::string logic = "Button2 | Button1";
+    std::string logic = "!Button1 & Button2";
     stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH, xPosGate,
             yPosGate, buttons, logic);
 
