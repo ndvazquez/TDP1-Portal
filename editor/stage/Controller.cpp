@@ -13,6 +13,7 @@
 #include "object/Cake.h"
 #include "object/Acid.h"
 #include "object/DiagonalBlockUp.h"
+#include "object/Receptor.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
