@@ -66,6 +66,8 @@ void Rock::elevate(Coordinate& coordinate) {
 
 void Rock::release() {
     activateGravity();
+    body->ApplyLinearImpulse(b2Vec2(0, gameConfiguration.velocityRelease),
+            body->GetWorldCenter(), true);
     body->ApplyForce(b2Vec2(0, gameConfiguration.elevationForce),
         body->GetWorldCenter(), true);
 }

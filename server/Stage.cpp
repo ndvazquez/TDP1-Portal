@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -355,6 +354,35 @@ void Stage::managePortals(Chell* chell, std::string id) {
     id_blue.replace(0, replaced.length(), "BluePortal");
 
     std::unordered_map<std::string, Portal*>::iterator it;
+
+    it = portals.find(id_blue);
+    if (it != portals.end()) {
+        Portal *portal = it->second;
+        float x_portal = portal->getHorizontalPosition();
+        float y_portal = portal->getVerticalPosition();
+        Coordinate coord_portal(x_portal, y_portal);
+        if ((blue_portal != nullptr && *blue_portal->getPortal() != coord_portal)
+            || blue_portal == nullptr) {
+            world->DestroyBody(portal->getBody());
+            portals.erase(it->first);
+        }
+        if (orange_portal != nullptr) {
+            Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+            portal->addTarget(orange_portal_coord);
+            portal->addPortalType(orange_portal->getPortalType());
+        }
+    }
+    else if (blue_portal != nullptr) {
+        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+        if (blue_portal->isVertical()) {
+            addPortal(id_blue, PORTAL_HEIGHT, PORTAL_WIDTH, blue_portal->getPortal(),
+                      orange_portal_coord, VERTICAL, INVALID);
+        } else {
+            addPortal(id_blue, PORTAL_WIDTH, PORTAL_HEIGHT, blue_portal->getPortal(),
+                      orange_portal_coord, HORIZONTAL, INVALID);
+        }
+    }
+
     it = portals.find(id_orange);
     if (it != portals.end()) {
         Portal* portal = it->second;
@@ -383,36 +411,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
         }
     }
 
-    it = portals.find(id_blue);
-    if (it != portals.end()) {
-        std::string portal_id = it->first;
-        Portal *portal = it->second;
-        float x_portal = portal->getHorizontalPosition();
-        float y_portal = portal->getVerticalPosition();
-        Coordinate coord_portal(x_portal, y_portal);
-        if ((blue_portal != nullptr && *blue_portal->getPortal() != coord_portal)
-            || blue_portal == nullptr) {
-                world->DestroyBody(portal->getBody());
-                {
-                    portals.erase(portal_id);
-                }
-        }
-        if (orange_portal != nullptr) {
-            Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
-            portal->addTarget(orange_portal_coord);
-            portal->addPortalType(orange_portal->getPortalType());
-        }
-    }
-    else if (blue_portal != nullptr) {
-        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
-        if (blue_portal->isVertical()) {
-            addPortal(id_blue, PORTAL_HEIGHT, PORTAL_WIDTH, blue_portal->getPortal(),
-                    orange_portal_coord, VERTICAL, INVALID);
-        } else {
-            addPortal(id_blue, PORTAL_WIDTH, PORTAL_HEIGHT, blue_portal->getPortal(),
-                    orange_portal_coord, HORIZONTAL, INVALID);
-        }
-    }
+
 }
 
 bool hasObject(b2World* world, b2Body* body) {

@@ -3,6 +3,7 @@
 //
 
 #include <Box2D/Box2D.h>
+#include <iostream>
 #include "Dynamic.h"
 #include "Entity.h"
 #include "Coordinate.h"
@@ -29,22 +30,26 @@ void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
 
     body->SetTransform(b2Vec2(x, y), 0);
 
-    float portal_velocity = gameConfiguration.velocityDownload;
+    float gravity_force = -body->GetMass() * gameConfiguration.gravity;
+    float net_force = gameConfiguration.elevationForce;
 
     if (type == UP) {
-        body->ApplyLinearImpulse(b2Vec2(0, portal_velocity), body->GetWorldCenter(), 0);
-
+        float force_to_apply = net_force + gravity_force;
+        body->ApplyForce(b2Vec2(0, force_to_apply),
+                         body->GetWorldCenter(), true);
     }
     else if (type == DOWN) {
-        body->ApplyLinearImpulse(b2Vec2(0, -portal_velocity), body->GetWorldCenter(), 0);
-
+        float force_to_apply = -net_force + gravity_force;
+        body->ApplyForce(b2Vec2(0, force_to_apply),
+                         body->GetWorldCenter(), true);
     }
     else if (type == RIGHT) {
-        body->ApplyLinearImpulse(b2Vec2(portal_velocity, 0), body->GetWorldCenter(), 0);
-
+        body->ApplyForce(b2Vec2(net_force, 0),
+                 body->GetWorldCenter(), true);
     }
     else if (type == LEFT) {
-        body->ApplyLinearImpulse(b2Vec2(-portal_velocity, 0), body->GetWorldCenter(), 0);
+        body->ApplyForce(b2Vec2(-net_force, 0),
+                         body->GetWorldCenter(), true);
     }
 }
 
