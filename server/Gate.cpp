@@ -150,9 +150,9 @@ bool Gate::parseBool() {
 
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
+    replaced = logic;
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
         std::string id = i->first;
-        replaced = logic;
         bool isActive = i->second->isActive();
         size_t length_id = id.length();
         size_t i_id = replaced.find(id);

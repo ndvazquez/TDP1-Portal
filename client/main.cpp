@@ -44,6 +44,9 @@ void playGame() {
     float xPosButton1 = 11;
     float yPosButton1= 1;
 
+    float xPosButton2 = 5;
+    float yPosButton2 = 1;
+
     float xPosGate = 13;
     float yPosGate = 2;
 
@@ -108,6 +111,14 @@ void playGame() {
                             {"x", xPosRock},
                             {"y", yPosRock}
                     }
+            }, {
+                    "Rock2",
+                    {
+                            {"type", ROCK_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosRock + 2},
+                            {"y", yPosRock}
+                    }
             },{
                 "Acid1",
                     {
@@ -131,6 +142,14 @@ void playGame() {
                             {"state", OFF},
                             {"x", xPosButton1},
                             {"y", yPosButton1}
+                    }
+            }, {
+                    "Button2",
+                    {
+                            {"type", BUTTON_VIEW_CODE},
+                            {"state", OFF},
+                            {"x", xPosButton2},
+                            {"y", yPosButton2}
                     }
             },{
                 "Gate1",
@@ -166,13 +185,17 @@ void playGame() {
 
     std::string id_gate = "Gate1";
     std::string id_button_1 = "Button1";
-    stage.addButton(id_button_1, BUTTON_HEIGHT, BUTTON_HEIGHT, xPosButton1, yPosButton1);
-    Button* button = stage.getButton(id_button_1);
+    std::string id_button_2 = "Button2";
+    stage.addButton(id_button_1, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton1, yPosButton1);
+    stage.addButton(id_button_2, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton2, yPosButton2);
+    Button* button1 = stage.getButton(id_button_1);
+    Button* button2 = stage.getButton(id_button_2);
 
     std::unordered_map<std::string, Button*> buttons;
-    buttons.insert({id_button_1, button});
+    buttons.insert({id_button_1, button1});
+    buttons.insert({id_button_2, button2});
 
-    std::string logic = "Button1";
+    std::string logic = "Button2 | Button1";
     stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH, xPosGate,
             yPosGate, buttons, logic);
 
@@ -180,8 +203,8 @@ void playGame() {
    //stage.addCake(1, xPosCake, yPosCake);
    stage.addRock(idRock, ROCK_HEIGHT,
                   xPosRock, yPosRock);
-  /* stage.addRock("Rock2", ROCK_HEIGHT,
-                  xPosRock + 2, yPosRock);*/
+   stage.addRock("Rock2", ROCK_HEIGHT,
+                  xPosRock + 2, yPosRock);
    /*stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
            xPosAcid, yPosAcid);*/
 
