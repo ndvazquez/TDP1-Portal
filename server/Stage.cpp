@@ -197,7 +197,25 @@ void Stage::addChell(std::string id, float v_side, float h_side,
         throw StageOutOfRangeException();
     }
 
-    b2Body* chell_body = addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+    b2Body* chell_body = addDynamicRectangle(v_side - CHELL_WHEEL_RADIUS, h_side, x_pos, y_pos);
+
+    b2CircleShape circleShape;
+    circleShape.m_radius = CHELL_WHEEL_RADIUS;
+    circleShape.m_p.Set(CHELL_WHEEL_RADIUS, -(v_side - CHELL_WHEEL_RADIUS)/2);
+
+    b2FixtureDef fixture;
+    fixture.shape = &circleShape;
+    chell_body->CreateFixture(&fixture);
+
+    b2CircleShape circleShape2;
+    circleShape2.m_radius = CHELL_WHEEL_RADIUS;
+    circleShape2.m_p.Set(-CHELL_WHEEL_RADIUS, -(v_side - CHELL_WHEEL_RADIUS)/2);
+
+    b2FixtureDef fixture2;
+    fixture2.shape = &circleShape2;
+    chell_body->CreateFixture(&fixture2);
+
+    chell_body->SetFixedRotation(true);
 
     Chell* chell = new Chell(chell_body);
     chells.insert({id, chell});
