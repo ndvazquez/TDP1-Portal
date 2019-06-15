@@ -5,8 +5,8 @@
 #define gateType "Gate"
 
 #include <string>
-#include <iostream>
 #include <boost/lexical_cast.hpp>
+#include <iostream>
 #include "Gate.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
@@ -148,17 +148,6 @@ bool Gate::parseBool() {
     return variable;
 }
 
-void Gate::handleGate() {
-    body->SetActive(false); //So Chell could traspass the object
-    auto end = std::chrono::system_clock::now();
-    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
-            (end - timeStamp).count();
-    if (difference <= 3000) return; //3 seconds to open the gate
-    timeStamp = std::chrono::system_clock::now();
-
-    body->SetActive(true);
-}
-
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
@@ -178,12 +167,13 @@ void Gate::update() {
     }
 
     // Obtain boolean from string
-    if (parseBool()) {
-        this->state = OPEN;
-    } else {
+    if (! parseBool()) {
         this->state = CLOSED;
+        body->SetActive(true);
+    } else {
+        this->state = OPEN;
+        body->SetActive(false);
     }
-    if (this->state == OPEN) handleGate();
 }
 
 GateState Gate::getState() {

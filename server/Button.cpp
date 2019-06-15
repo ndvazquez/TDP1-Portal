@@ -43,7 +43,6 @@ void Button::handleCollision(Entity *entity) {
 void Button::activate() {
     this->state = ON;
 }
-
 void Button::desactivate() {
     this->state = OFF;
 }
