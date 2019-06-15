@@ -25,7 +25,6 @@ Rock::Rock(b2Body* body):
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     this->dead = false;
-    this->teletransported = false;
 }
 
 void Rock::handleCollision(Entity *entity) {
@@ -35,7 +34,6 @@ void Rock::handleCollision(Entity *entity) {
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
             teleport(target, portal->getPortalType());
-            this->teletransported = true;
         }
     }
     if (type == "BlueShot") {
@@ -103,11 +101,6 @@ void Rock::destroyActualMovement() {
 void Rock::update() {
     dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.rockForce);
-   /* if (teletransported) {
-        teletransported = false;
-        activateGravity();
-        body->ApplyLinearImpulse(b2Vec2(0, -gameConfiguration.velocityDownload), body->GetWorldCenter(), true);
-    }*/
 }
 
 void Rock::downloadToEarth() {
