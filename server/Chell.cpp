@@ -47,6 +47,16 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
 
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        float y_chell = getVerticalPosition();
+        float y_rock = rock->getVerticalPosition();
+        float vy_rock = rock->getVerticalVelocity();
+        if (y_rock > y_chell && vy_rock == 0 && ! rock->isGrabbed()) {
+            die();
+        }
+    }
+
     if (type == "Portal") {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();

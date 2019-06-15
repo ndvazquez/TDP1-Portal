@@ -25,6 +25,7 @@ Rock::Rock(b2Body* body):
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     this->dead = false;
+    this->grabbed = false;
 }
 
 void Rock::handleCollision(Entity *entity) {
@@ -46,7 +47,14 @@ void Rock::handleCollision(Entity *entity) {
         die();
     }
     if (type == "Chell") {
-        static_cast<Chell*>(entity)->onFloor(true);
+        Chell* chell = static_cast<Chell*>(entity);
+        chell->onFloor(true);
+        float y_chell = chell->getVerticalPosition();
+        float y_rock = getVerticalPosition();
+        float vy_rock = getVerticalVelocity();
+        if (y_rock > y_chell && vy_rock == 0 && ! isGrabbed()) {
+            chell->die();
+        }
     }
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
@@ -59,12 +67,18 @@ void Rock::handleCollision(Entity *entity) {
     }
 }
 
+bool Rock::isGrabbed() {
+    return grabbed;
+}
+
 void Rock::elevate(Coordinate& coordinate) {
+    this->grabbed = true;
     body->SetGravityScale(0);
-    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1.01, coordinate.getY()), 0);
 }
 
 void Rock::release() {
+    this->grabbed = false;
     activateGravity();
     body->ApplyLinearImpulse(b2Vec2(0, gameConfiguration.velocityRelease),
             body->GetWorldCenter(), true);
@@ -79,13 +93,13 @@ void Rock::activateGravity() {
 void Rock::moveRight(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
-    body->SetTransform(b2Vec2(coordinate.getX() - 1, coordinate.getY()), 0);
+    body->SetTransform(b2Vec2(coordinate.getX() - 1.01, coordinate.getY()), 0);
 }
 
 void Rock::moveLeft(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
-    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1.01, coordinate.getY()), 0);
 }
 
 void Rock::stop() {
@@ -106,6 +120,7 @@ void Rock::update() {
 }
 
 void Rock::downloadToEarth() {
+    this->grabbed = false;
     body->SetGravityScale(1);
     body->ApplyLinearImpulse(b2Vec2(0, -gameConfiguration.velocityDownload), body->GetWorldCenter(), true);
 }
