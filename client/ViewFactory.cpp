@@ -59,9 +59,11 @@ View* ViewFactory::createView(int viewTypeCode,
         case CAKE_VIEW_CODE:
             newView = new CakeView(gameWindow, 0, 0, mtpFactor,
                     texturesData);
+            break;
         case GATE_VIEW_CODE:
             newView = new GateView(gameWindow, 0, 0, mtpFactor,
                                    texturesData);
+            break;
         default:
             break;
     }
