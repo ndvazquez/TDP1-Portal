@@ -4,8 +4,6 @@
 
 #include "OrangeShot.h"
 
-#define orangeShotType "OrangeShot"
-
 #include <string>
 #include <iostream>
 #include "OrangeShot.h"
@@ -13,7 +11,7 @@
 #include "DiagonalMetalBlock.h"
 
 OrangeShot::OrangeShot(b2Body *body, Chell* chell, Coordinate* target) :
-        Shot(orangeShotType, body, chell, target) {
+        Shot(ORANGE_SHOT_NAME, body, chell, target) {
     body->SetUserData(this);
 }
 

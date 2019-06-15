@@ -1,7 +1,6 @@
 //
 // Created by cecix on 13/05/19.
 //
-#define diagonalMetalBlockType "DiagonalMetalBlock"
 
 #include "DiagonalMetalBlock.h"
 #include "EnergyBall.h"
@@ -10,7 +9,7 @@
 #include "OrangeShot.h"
 
 DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body):
-    Entity(diagonalMetalBlockType, body) {
+    Entity(DIAGONAL_METAL_BLOCK_NAME, body) {
     body->SetUserData(this); //to handle collisions
 }
 

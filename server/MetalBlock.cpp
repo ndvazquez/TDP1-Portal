@@ -2,8 +2,6 @@
 // Created by cecix on 13/05/19.
 //
 
-#define metalBlockType "MetalBlock"
-
 #include <string>
 #include <iostream>
 #include "MetalBlock.h"
@@ -12,7 +10,7 @@
 #include "BlueShot.h"
 
 MetalBlock::MetalBlock(b2Body* body):
-    Entity(metalBlockType, body) {
+    Entity(METAL_BLOCK_NAME, body) {
     body->SetUserData(this);
 }
 

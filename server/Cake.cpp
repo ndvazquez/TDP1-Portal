@@ -8,10 +8,8 @@
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-#define cakeType "Cake"
-
 Cake::Cake(b2Body* body):
-        Entity(cakeType, body) {
+        Entity(CAKE_NAME, body) {
     body->SetUserData(this);
 }
 

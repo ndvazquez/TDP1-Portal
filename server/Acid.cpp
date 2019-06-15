@@ -9,10 +9,8 @@
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-#define acidType "Acid"
-
 Acid::Acid(b2Body* body):
-    Entity(acidType, body) {
+    Entity(ACID_NAME, body) {
     body->SetUserData(this);
 }
 

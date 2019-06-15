@@ -11,7 +11,6 @@
 #include <chrono>
 #include "../json/json.hpp"
 
-#include "Box2D/Box2D.h"
 #include "Coordinate.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -28,6 +27,8 @@
 #include "OrangeShot.h"
 #include "Gate.h"
 #include "Cake.h"
+#include "PortalsManager.h"
+#include "PhysicsWorld.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -36,12 +37,19 @@ class StageOutOfRangeException : public std::exception {
     }
 };
 
+class StageBadIdentifierException : public std::exception {
+    virtual const char* what() const throw() {
+        std::string message = "This object doesn't fit in the stage!\n";
+        return message.c_str();
+    }
+};
+
 class Stage {
 private:
+    PhysicsWorld* world;
     size_t width;
     size_t height;
-    b2World* world;
-    Floor* floor;
+    //Floor* floor;
     Cake* cake;
     bool end_of_game;
 
@@ -67,49 +75,30 @@ private:
 public:
     Stage(size_t width, size_t height);
     ~Stage();
-    b2Body* addStaticRectangle(float v_side, float h_side,
-            float x_pos, float y_pos);
-    b2Body* addDynamicRectangle(float v_side, float h_side,
-            float x_pos, float y_pos);
 
-    void addCake(float side, float x_pos, float y_pos);
-    void addBrickBlock(float side, float x_pos, float y_pos);
-    void addMetalBlock(float side, float x_pos, float y_pos);
-    void addDiagonalMetalBlock(float side, float x_pos,
-            float y_pos);
+    void addBlock(std::string identifier, float side, float x_pos, float y_pos);
+    void addEnergyBall(std::string identifier, std::string id,
+            float side, float x_pos, float y_pos);
+    void addEnergyTransmitter(std::string identifier, std::string id, float side,
+                              float x_pos, float y_pos);
+    void addShot(std::string identifier, std::string id, float v_side,
+    float h_side, Chell* chell, Coordinate* target);
+    void addElement(std::string identifier, std::string id, float v_side,
+            float h_side, float x_pos, float y_pos);
+    void addRock(std::string id, float side,
+                 float x_pos, float y_pos);
 
-    void addEnergyBar(std::string id, float v_side, float h_side,
-            float x_pos, float y_pos);
     void addGate(std::string id, float v_side, float h_side, float x_pos,
             float y_pos, std::unordered_map<std::string, Button*> buttons,
                  std::string logic);
-    void addButton(std::string id, float v_side, float h_side,
-            float x_pos, float y_pos);
-    void addAcid(std::string id, float v_side, float h_side,
-            float x_pos, float y_pos);
+
     void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
-    void addEnergyBallHorizontal(std::string id, float side,
-            float x_pos, float y_pos);
-    void addEnergyBallVertical(std::string id, float side,
-            float x_pos, float y_pos);
-    void addBlueShot(std::string id, float v_side,
-            float h_side, Chell* chell, Coordinate* target);
-    void addOrangeShot(std::string id, float v_side, float h_side,
-            Chell* chell, Coordinate* target);
-    void addEnergyTransmitterRight(std::string id, float side,
-            float x_pos, float y_pos);
-    void addEnergyTransmitterLeft(std::string id, float side,
-            float x_pos, float y_pos);
-    void addEnergyTransmitterUp(std::string id, float side,
-            float x_pos, float y_pos);
-    void addEnergyTransmitterDown(std::string id, float side,
-            float x_pos, float y_pos);
-    void addRock(std::string id, float side,
-            float x_pos, float y_pos);
+
     void addPortal(std::string id, float v_side, float h_side,
             Coordinate* origin, Coordinate* target,
             PortalOrientation orientation, PortalType type);
+
     void managePortals(Chell* chell, std::string id);
     void step();
 
@@ -117,8 +106,8 @@ public:
     BrickBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
     DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
-    EnergyBar* getEnergyBar(std::string id);
 
+    EnergyBar* getEnergyBar(std::string id);
     Button* getButton(std::string id);
     Acid* getAcid(std::string id);
     Chell* getChell(std::string id);

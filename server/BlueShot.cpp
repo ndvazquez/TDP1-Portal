@@ -2,8 +2,6 @@
 // Created by cecix on 2/06/19.
 //
 
-#define blueShotType "BlueShot"
-
 #include <string>
 
 #include <iostream>
@@ -12,7 +10,7 @@
 #include "DiagonalMetalBlock.h"
 
 BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
-    Shot(blueShotType, body, chell, target) {
+    Shot(BLUE_SHOT_NAME, body, chell, target) {
     body->SetUserData(this);
 }
 

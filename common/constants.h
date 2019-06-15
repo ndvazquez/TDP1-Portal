@@ -14,7 +14,7 @@ enum ChellState {
     MOVING_RIGHT
 };
 
-enum ButtonState {
+enum SwitchState {
     OFF,
     ON
 };
@@ -36,6 +36,24 @@ enum PortalType {
     UP,
     INVALID
 };
+
+//Object names
+#define METAL_BLOCK_NAME "MetalBlock"
+#define DIAGONAL_METAL_BLOCK_NAME "DiagonalMetalBlock"
+#define BRICK_BLOCK_NAME "BrickBlock"
+#define EB_HORIZONTAL_NAME "EnergyBallHorizontal"
+#define EB_VERTICAL_NAME "EnergyBallVertical"
+#define ET_RIGHT_NAME "EnergyTransmitterRight"
+#define ET_LEFT_NAME "EnergyTransmitterLeft"
+#define ET_UP_NAME "EnergyTransmitterUp"
+#define ET_DOWN_NAME "EnergyTransmitterDown"
+#define BLUE_SHOT_NAME "BlueShot"
+#define ORANGE_SHOT_NAME "OrangeShot"
+#define ACID_NAME "Acid"
+#define ENERGY_BAR_NAME "EnergyBar"
+#define BUTTON_NAME "Button"
+#define ROCK_NAME "Rock"
+#define CAKE_NAME "Cake"
 
 // Objects sizes.
 #define METAL_SIDE 2

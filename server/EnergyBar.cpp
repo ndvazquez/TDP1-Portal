@@ -9,7 +9,7 @@
 #include "OrangeShot.h"
 
 EnergyBar::EnergyBar(b2Body *body):
-    Entity(energyBarType, body) {
+    Entity(ENERGY_BAR_NAME, body) {
     this->body->SetUserData(this);
     this->timeStamp = std::chrono::system_clock::now();
 }

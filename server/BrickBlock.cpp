@@ -11,10 +11,8 @@
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-#define brickBlockType "BrickBlock"
-
 BrickBlock::BrickBlock(b2Body* body):
-    Entity(brickBlockType, body) {
+    Entity(BRICK_BLOCK_NAME, body) {
     body->SetUserData(this); //to handle collisions
 }
 

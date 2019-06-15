@@ -13,7 +13,7 @@
 class Button: public Entity {
 private:
     b2Body* body;
-    ButtonState state;
+    SwitchState state;
     Dynamic dynamic;
 
 public:
@@ -22,7 +22,7 @@ public:
     void activate();
     void desactivate();
     bool isActive();
-    ButtonState getState();
+    SwitchState getState();
     void update();
 };
 

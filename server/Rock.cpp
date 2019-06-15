@@ -2,8 +2,6 @@
 // Created by cecix on 17/05/19.
 //
 
-#define rockType "Rock"
-
 #include <string>
 #include "Rock.h"
 #include "MoveRight.h"
@@ -19,7 +17,7 @@
 
 
 Rock::Rock(b2Body* body):
-        Entity(rockType, body),
+        Entity(ROCK_NAME, body),
         dynamic(body) {
     this->actual_movement = new Stop(body);
     body->SetUserData(this);

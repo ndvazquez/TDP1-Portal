@@ -2,8 +2,6 @@
 // Created by cecix on 17/05/19.
 //
 
-#define buttonType "Button"
-
 #include <string>
 #include "Button.h"
 #include "Chell.h"
@@ -11,7 +9,7 @@
 #include "OrangeShot.h"
 
 Button::Button(b2Body* body):
-    Entity(buttonType, body), dynamic(body) {
+    Entity(BUTTON_NAME, body), dynamic(body) {
     body->SetUserData(this);
     this->state = OFF;
 }
@@ -51,7 +49,7 @@ bool Button::isActive() {
     return this->state == ON;
 }
 
-ButtonState Button::getState() {
+SwitchState Button::getState() {
     return this->state;
 }
 
