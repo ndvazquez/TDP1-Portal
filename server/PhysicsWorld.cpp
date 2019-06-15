@@ -3,6 +3,7 @@
 //
 
 #include "PhysicsWorld.h"
+#include "../common/constants.h"
 
 PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
     world(world), width(width), height(height) {
@@ -66,6 +67,30 @@ PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
 
      return rectangle_body;
  }
+
+ b2Body* PhysicsWorld::addDynamicRectangleWithWheels(float v_side, float h_side,
+         float x_pos, float y_pos) {
+     b2Body* wheel_body = addDynamicRectangle(v_side - CHELL_WHEEL_RADIUS, h_side, x_pos, y_pos);
+
+     b2CircleShape circleShape;
+     circleShape.m_radius = CHELL_WHEEL_RADIUS;
+     circleShape.m_p.Set(CHELL_WHEEL_RADIUS, -(v_side - CHELL_WHEEL_RADIUS)/2);
+
+     b2FixtureDef fixture;
+     fixture.shape = &circleShape;
+     wheel_body->CreateFixture(&fixture);
+
+     b2CircleShape circleShape2;
+     circleShape2.m_radius = CHELL_WHEEL_RADIUS;
+     circleShape2.m_p.Set(-CHELL_WHEEL_RADIUS, -(v_side - CHELL_WHEEL_RADIUS)/2);
+
+     b2FixtureDef fixture2;
+     fixture2.shape = &circleShape2;
+     wheel_body->CreateFixture(&fixture2);
+
+     wheel_body->SetFixedRotation(true);
+     return wheel_body;
+}
 
  void PhysicsWorld::destroyBody(b2Body* body) {
      world->DestroyBody(body);

@@ -75,6 +75,7 @@ enum PortalType {
 #define CAKE_HEIGHT 1
 #define GATE_WIDTH 1
 #define GATE_HEIGHT 2
+#define CHELL_WHEEL_RADIUS 0.25
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0

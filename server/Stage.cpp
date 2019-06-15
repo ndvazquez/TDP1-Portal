@@ -70,7 +70,7 @@ void Stage::addChell(std::string id, float v_side, float h_side,
         throw StageOutOfRangeException();
     }
 
-    b2Body* chell_body = world->addDynamicRectangle(v_side, h_side, x_pos, y_pos);
+    b2Body* chell_body = world->addDynamicRectangleWithWheels(v_side, h_side, x_pos, y_pos);
 
     Chell* chell = new Chell(chell_body);
     chells.insert({id, chell});

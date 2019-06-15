@@ -49,7 +49,6 @@ private:
     PhysicsWorld* world;
     size_t width;
     size_t height;
-    //Floor* floor;
     Cake* cake;
     bool end_of_game;
 
