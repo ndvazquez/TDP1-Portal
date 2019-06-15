@@ -42,7 +42,8 @@ set(CLIENT_SOURCE_FILES
         common/UserEventQueue.cpp
         client/OrangePortalView.cpp
         client/GateView.cpp
-        common/Thread.cpp)
+        common/Thread.cpp
+        common/Socket.cpp)
 
 #EDITOR CONFIG
 
@@ -117,7 +118,9 @@ set(SERVER_SOURCE_FILES
         server/Cake.cpp
         server/BluePortal.cpp
         server/OrangePortal.cpp
-        server/StageManager.cpp)
+        server/StageManager.cpp
+        common/Thread.cpp
+        common/Socket.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
