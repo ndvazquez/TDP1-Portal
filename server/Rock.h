@@ -13,7 +13,7 @@ private:
     Dynamic dynamic;
     Dynamic* actual_movement;
     bool dead;
-    bool teletransported;
+    bool grabbed;
 
 public:
     explicit Rock(b2Body* body);
@@ -30,6 +30,7 @@ public:
     void activateGravity();
     bool isDead();
     void die();
+    bool isGrabbed();
 };
 
 #endif //PORTAL_ROCK_H

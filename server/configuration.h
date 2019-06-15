@@ -19,6 +19,7 @@ struct box2DConfiguration {
     float delayEnergyTransmitter;
     float offsetEnergyTransmitter;
     float velocityDownload;
+    float velocityRelease;
 };
 
 extern struct box2DConfiguration gameConfiguration;

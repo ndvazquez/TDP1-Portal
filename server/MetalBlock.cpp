@@ -14,9 +14,6 @@
 MetalBlock::MetalBlock(b2Body* body):
     Entity(metalBlockType, body) {
     body->SetUserData(this);
-    this->vertical_portal = false;
-    this->horizontal_portal = false;
-    this->other = nullptr;
 }
 
 void MetalBlock::handleCollision(Entity* entity) {

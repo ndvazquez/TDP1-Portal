@@ -31,8 +31,7 @@ void Shot::shoot() {
     chell->stop();
     float delta = 0.5;
 
-    b2World* world = body->GetWorld();
-    world->SetGravity(b2Vec2(0, 0));
+    body->SetGravityScale(0);
 
     this->dynamic.handleCollisions();
 
@@ -59,10 +58,7 @@ void Shot::shoot() {
 
     body->SetLinearVelocity(b2Vec2(velocity_x, velocity_y));
 
-    if (x_done && y_done) {
-        die();
-        return;
-    }
+    if (x_done && y_done) die();
 }
 
 bool Shot::isDead() {

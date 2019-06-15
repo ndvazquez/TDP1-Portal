@@ -15,8 +15,8 @@ enum ChellState {
 };
 
 enum ButtonState {
-    ON,
-    OFF
+    OFF,
+    ON
 };
 
 enum GateState {
@@ -89,5 +89,6 @@ enum PortalType {
 #define USER_GRAB_ROCK 7
 #define USER_DROP_ROCK 8
 #define USER_THROW_ROCK 9
+#define USER_REMOVE_PORTAL 10
 
 #endif //PORTAL_CONSTANTS_H

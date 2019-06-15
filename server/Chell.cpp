@@ -5,10 +5,10 @@
 #define chellType "Chell"
 
 #include <string>
-#include <iostream>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 #include <Box2D/Dynamics/b2World.h>
+#include <iostream>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -47,6 +47,16 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
 
+    if (type == "Rock") {
+        Rock* rock = static_cast<Rock*>(entity);
+        float y_chell = getVerticalPosition();
+        float y_rock = rock->getVerticalPosition();
+        float vy_rock = rock->getVerticalVelocity();
+        if (y_rock > y_chell && vy_rock == 0 && ! rock->isGrabbed()) {
+            die();
+        }
+    }
+
     if (type == "Portal") {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
@@ -63,12 +73,9 @@ void Chell::handleCollision(Entity* entity) {
 
     if (type == "Button") {
         Button* button = static_cast<Button*>(entity);
-        float x_button = button->getHorizontalPosition();
-        float x_chell = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_chell > x_button - delta && x_chell < x_button + delta) {
-            button->activate();
-        }
+        float y_button = button->getVerticalPosition();
+        float y_chell = getVerticalPosition();
+        if (y_chell > y_button) button->activate();
     }
 
     chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
@@ -116,7 +123,7 @@ void Chell::onFloor(bool onFloor) {
 }
 
 void Chell::moveRight() {
-    if (dead) return;
+    if (dead || winner) return;
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
     if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
@@ -127,7 +134,7 @@ void Chell::moveRight() {
 }
 
 void Chell::moveLeft() {
-    if (dead) return;
+    if (dead || winner) return;
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
     if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
@@ -145,7 +152,7 @@ void Chell::releaseRock() {
 }
 
 void Chell::stop() {
-    if (dead) return;
+    if (dead || winner) return;
     destroyActualMovement();
     this->actual_movement = new Stop(body);
     if (! chell_is_on_floor) {
@@ -168,11 +175,10 @@ void Chell::update() {
     }
     if (chell_is_on_floor && ! isDead()) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
-    //if (this->rock) rock->update();
 }
 
 void Chell::jump() {
-    if (dead) return;
+    if (dead || winner) return;
     bool resul = this->dynamic.jump(chell_is_on_floor);
     if (resul) {
         actual_state = JUMPING;
@@ -190,6 +196,13 @@ bool Chell::inGround() {
 
 ChellState Chell::getState() {
     return actual_state;
+}
+
+void Chell::removePortals() {
+    if (this->blue_portal) delete blue_portal;
+    if (this->orange_portal) delete orange_portal;
+    this->blue_portal = nullptr;
+    this->orange_portal = nullptr;
 }
 
 void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {

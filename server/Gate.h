@@ -26,7 +26,6 @@ public:
     void update();
     bool parseBool();
     virtual void handleCollision(Entity* entity) override;
-    void handleGate();
     GateState getState();
 };
 

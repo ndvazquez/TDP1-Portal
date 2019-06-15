@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -19,6 +18,7 @@
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
+    this->end_of_game = false;
     float module_gravity = gameConfiguration.gravity;
     b2Vec2 gravity(0.0f, module_gravity);
     this->world = new b2World(gravity);
@@ -348,7 +348,6 @@ void Stage::addPortal(std::string id, float v_side, float h_side,
 void Stage::managePortals(Chell* chell, std::string id) {
     BluePortal *blue_portal = chell->getBluePortal();
     OrangePortal *orange_portal = chell->getOrangePortal();
-    if (blue_portal == nullptr && orange_portal == nullptr) return;
     std::string id_orange = id;
     std::string replaced = "Chell";
     id_orange.replace(0, replaced.length(), "OrangePortal");
@@ -356,17 +355,45 @@ void Stage::managePortals(Chell* chell, std::string id) {
     id_blue.replace(0, replaced.length(), "BluePortal");
 
     std::unordered_map<std::string, Portal*>::iterator it;
+
+    it = portals.find(id_blue);
+    if (it != portals.end()) {
+        Portal *portal = it->second;
+        float x_portal = portal->getHorizontalPosition();
+        float y_portal = portal->getVerticalPosition();
+        Coordinate coord_portal(x_portal, y_portal);
+        if ((blue_portal != nullptr && *blue_portal->getPortal() != coord_portal)
+            || blue_portal == nullptr) {
+            world->DestroyBody(portal->getBody());
+            portals.erase(it->first);
+        }
+        if (orange_portal != nullptr) {
+            Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+            portal->addTarget(orange_portal_coord);
+            portal->addPortalType(orange_portal->getPortalType());
+        }
+    }
+    else if (blue_portal != nullptr) {
+        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
+        if (blue_portal->isVertical()) {
+            addPortal(id_blue, PORTAL_HEIGHT, PORTAL_WIDTH, blue_portal->getPortal(),
+                      orange_portal_coord, VERTICAL, INVALID);
+        } else {
+            addPortal(id_blue, PORTAL_WIDTH, PORTAL_HEIGHT, blue_portal->getPortal(),
+                      orange_portal_coord, HORIZONTAL, INVALID);
+        }
+    }
+
     it = portals.find(id_orange);
     if (it != portals.end()) {
         Portal* portal = it->second;
         float x_portal = portal->getHorizontalPosition();
         float y_portal = portal->getVerticalPosition();
         Coordinate coord_portal(x_portal, y_portal);
-        if (orange_portal != nullptr) {
-            if (*orange_portal->getPortal() != coord_portal) {
+        if ((orange_portal != nullptr && *orange_portal->getPortal() != coord_portal)
+            || orange_portal == nullptr) {
                 world->DestroyBody(it->second->getBody());
                 portals.erase(it->first);
-            }
         }
         if (blue_portal != nullptr) {
             Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
@@ -385,54 +412,35 @@ void Stage::managePortals(Chell* chell, std::string id) {
         }
     }
 
-    it = portals.find(id_blue);
-    if (it != portals.end()) {
-        std::string portal_id = it->first;
-        Portal *portal = it->second;
-        float x_portal = portal->getHorizontalPosition();
-        float y_portal = portal->getVerticalPosition();
-        Coordinate coord_portal(x_portal, y_portal);
-        if (blue_portal != nullptr) {
-            if (*blue_portal->getPortal() != coord_portal) {
-                world->DestroyBody(portal->getBody());
-                {
-                    portals.erase(portal_id);
-                }
-            }
-        }
-        if (orange_portal != nullptr) {
-            Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
-            portal->addTarget(orange_portal_coord);
-            portal->addPortalType(orange_portal->getPortalType());
-        }
+
+}
+
+bool hasObject(b2World* world, b2Body* body) {
+    b2Body* body_list = world->GetBodyList();
+    while (body_list != nullptr) {
+        if (body == body_list) return true;
+        body_list = body_list->GetNext();
     }
-    else if (blue_portal != nullptr) {
-        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
-        if (blue_portal->isVertical()) {
-            addPortal(id_blue, PORTAL_HEIGHT, PORTAL_WIDTH, blue_portal->getPortal(),
-                    orange_portal_coord, VERTICAL, INVALID);
-        } else {
-            addPortal(id_blue, PORTAL_WIDTH, PORTAL_HEIGHT, blue_portal->getPortal(),
-                    orange_portal_coord, HORIZONTAL, INVALID);
-        }
-    }
+    return false;
 }
 
 void Stage::step() {
     for (auto i = chells.begin(); i != chells.end(); i++) {
-        managePortals(i->second, i->first);
-
         if (i->second->isDead()) {
-            world->DestroyBody(i->second->getBody());
-            {
-                chells.erase(i->first);
-                break;
+            if (hasObject(world, i->second->getBody())) {
+                world->DestroyBody(i->second->getBody());
             }
+        } else if (end_of_game) {
+            i->second->win();
+        } else if (i->second->hasWon()) {
+            if (hasObject(world, i->second->getBody())) {
+                world->DestroyBody(i->second->getBody());
+            }
+            end_of_game = true;
+        } else {
+            managePortals(i->second, i->first);
+            i->second->update();
         }
-        if (i->second->hasWon()) {
-        //TODO: Tell client to end game
-        }
-        i->second->update();
     }
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
@@ -751,11 +759,13 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", orientation}, {"x", x_pos_portal}, {"y", y_pos_portal}
         };
     }
-    float x_pos_cake = cake->getHorizontalPosition();
-    float y_pos_cake = cake->getVerticalPosition();
-    request["Cake"] = {
-            {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
-    };
+    if (cake != nullptr) {
+        float x_pos_cake = cake->getHorizontalPosition();
+        float y_pos_cake = cake->getVerticalPosition();
+        request["Cake"] = {
+                {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
+        };
+    }
     return request;
 }
 

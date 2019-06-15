@@ -47,6 +47,10 @@ void UserEventHandler::run(SDL_Event& event) {
             else if (event.key.keysym.sym == SDLK_t && event.key.repeat == 0) {
                 eventCode = USER_THROW_ROCK;
             }
+            else if (event.key.keysym.sym == SDLK_r && event.key.repeat == 0) {
+                eventCode = USER_REMOVE_PORTAL;
+            }
+
             else {
                 break;
             }
