@@ -36,6 +36,24 @@ Blocks: # no gravity and no animation
     w: 1
     h: 1
 
+Receptors:
+  - name: ReceptorDown
+    path: resources/lounch-block/receptor-down.png
+    w: 2
+    h: 2
+  - name: ReceptorUp
+    path: resources/lounch-block/receptor-up.png
+    w: 2
+    h: 2
+  - name: ReceptorLeft
+    path: resources/lounch-block/receptor-left.png
+    w: 2
+    h: 2
+  - name: ReceptorRight
+    path: resources/lounch-block/receptor-right.png
+    w: 2
+    h: 2
+
 DiagonalBlock:
   - name: DiagonalUpLeft
     path: resources/blocks/diagonal-up-left.png
@@ -161,7 +179,6 @@ MenuData:
     path: resources/rocks/3.png
     w: 1
     h: 1
-
   - name: Cake
     path: resources/cake/menu.png
     w: 1
@@ -170,3 +187,19 @@ MenuData:
     path: resources/Acid/menu.png
     w: 3
     h: 1
+  - name: ReceptorDown
+    path: resources/lounch-block/receptor-down.png
+    w: 2
+    h: 2
+  - name: ReceptorUp
+    path: resources/lounch-block/receptor-up.png
+    w: 2
+    h: 2
+  - name: ReceptorLeft
+    path: resources/lounch-block/receptor-left.png
+    w: 2
+    h: 2
+  - name: ReceptorRight
+    path: resources/lounch-block/receptor-right.png
+    w: 2
+    h: 2

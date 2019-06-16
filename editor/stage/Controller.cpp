@@ -23,10 +23,12 @@
 #define CAKE_KEY "Cake"
 #define ACID_KEY "Acid"
 #define DIAGONAL_BLOCK_KEY "DiagonalBlock"
+#define RECPTOR_KEY "Receptors"
 
 
 #define NOT '!'
 #define BUTTON "Button"
+#define RECEPTOR "ReceptorUp"
 #define OR " |"
 #define AND " &"
 
@@ -46,6 +48,18 @@ stageView(window, factor, textures, tiles) {
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
         Block* newObject = new Block(path, window, name, w, h);
+        textures[name] = newObject;
+    }
+
+    const YAML::Node& receptors = texturesInfo[RECPTOR_KEY];
+    for (YAML::const_iterator it = receptors.begin();
+         it != receptors.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Receptor* newObject = new Receptor(path, window, name, w, h);
         textures[name] = newObject;
     }
 
@@ -194,6 +208,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
         obj->addTo(x, y, tiles);
     }
     catch(ObjectException& e) {
+        std::cerr << e.what();
         throw StageControllerAddTileException();
     }
 }
@@ -208,6 +223,7 @@ void Controller::removeTile(int x, int y) {
         obj->removeFrom(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
+        std::cerr << e.what();
         throw StageControllerRemoveTileException();
     }
 }
@@ -229,7 +245,11 @@ std::string& Controller::getName(int x, int y) {
 
 void Controller::nameAnObject(int x, int y, std::string& enteredName) {
     std::pair<int, int> pair = std::make_pair(x, y);
-    textures[tiles[pair]]->setName(pair, enteredName);
+    try {
+        textures[tiles[pair]]->setName(pair, enteredName);
+    } catch(ObjectException &e) {
+        std::cerr << "Lo sentimos, ese nombre ya existe" << std::endl;
+    }
 }
 
 void Controller::addCondition(int x, int y) {
@@ -251,6 +271,7 @@ void Controller::addCondition(int x, int y) {
 
 void Controller::parseCondition(std::string& condition) {
     Object *button = this->textures[BUTTON];
+    Object *receptor = this->textures[RECEPTOR];
     std::istringstream iss(condition);
     std::string word;
     bool allGood;
@@ -269,6 +290,7 @@ void Controller::parseCondition(std::string& condition) {
                 word.pop_back();
             }
             allGood = button->doesThisNameExist(word);
+            allGood ^= receptor->doesThisNameExist(word);
 
             if (!allGood) {
                 std::cerr << "Parece que " << word << " no es un boton existente" << word << std::endl;

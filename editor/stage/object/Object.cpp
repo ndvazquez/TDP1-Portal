@@ -61,7 +61,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
             tiles.insert(std::make_pair(std::make_pair(x + i, y - j), sentinel));
         }
     }
-
+    std::pair<int, int> pair = std::make_pair(x, y);
 }
 
 
@@ -69,7 +69,7 @@ void Object::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string>
                         std::unordered_map<std::string, Object *>& textures) {
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            tiles.erase(std::make_pair(x - i , y - j));
+            tiles.erase(std::make_pair(x + i , y - j));
         }
     }
 }

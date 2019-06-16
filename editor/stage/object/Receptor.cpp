@@ -20,7 +20,7 @@ Receptor::~Receptor() = default;
 
 
 void Receptor::setName(std::pair<int, int> position, std::string& enteredName) {
-    std::cerr << "Soy un boton ";
+    std::cerr << "Soy un receptor ";
     names[position] = enteredName;
     std::cerr << "y mi nombre es " << enteredName << std::endl;
 }
