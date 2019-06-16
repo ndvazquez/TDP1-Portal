@@ -26,11 +26,11 @@
 #define MTP_FACTOR 100
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-void playGame() {
+void playGame(std::string& idChell) {
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     float xPosChell = 4;
     float yPosChell = 1;
-    std::string idChell = "Chell1";
+    //std::string idChell = "Chell1";
     float xPosRock = 8;
     float yPosRock = 1;
     std::string idRock = "Rock1";
@@ -44,6 +44,15 @@ void playGame() {
     nlohmann::json objectsData = {
             {
                     "Chell1",
+                    {
+                            {"type", CHELL_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
+
+            },{
+                    "Chell2",
                     {
                             {"type", CHELL_VIEW_CODE},
                             {"state", 0},
@@ -124,7 +133,7 @@ void playGame() {
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
-    std::string playerID = "Chell1";
+    //std::string playerID = "Chell1";
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     // Cool space background.
     std::string bgPath = "resources/Backgrounds/NebulaRed.png";
@@ -188,18 +197,26 @@ void playGame() {
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
 
     ViewManager viewManager(newWindow, levelHeight,
-                            MTP_FACTOR, playerID, objectsData, soundQueue);
+                            MTP_FACTOR, idChell, objectsData, soundQueue);
 
 
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,
                                       idChell, levelHeight,
                                       soundQueue);
-    StageStatusQueue stageStatusQueue;
-    // We share the same queue for now, but once we start to use sockets,
-    // we'll use different queues;
-    StageManager stageManager(userEventQueue, stageStatusQueue,
-            stageWidth, stageHeight);
+    //StageStatusQueue stageStatusQueue;
+
+    std::string host = "localhost";
+    std::string service = "8000";
+
+    Socket clientSocket;
+    int status = clientSocket.connectToHost(host, service);
+    if (status == -1){
+        std::cout << "Fallo la conexion" << std::endl;
+    } else {
+        std::cout << "Estamos conectados!" << std::endl;
+    }
+
     bool quit = false;
     SDL_Event e;
     //audioSystem.playMusic(BG_SONG_GAME);
@@ -210,13 +227,22 @@ void playGame() {
             if (e.type == SDL_QUIT){
                 quit = true;
             }
+            if (!userEventQueue.empty()) {
+                UserEvent userEvent = userEventQueue.pop();
+                std::string userJson = userEvent.toJsonString();
+                std::cout << userJson << std::endl;
+                int request_size = userJson.size();
+                clientSocket.sendMessage(&request_size, REQUEST_LEN_SIZE);
+                clientSocket.sendMessage(&userJson[0], request_size);
+            }
         }
-        stageManager.run();
-        if (!stageStatusQueue.empty()) {
-            std::string stageStatusString = stageStatusQueue.pop();
-            stageUpdateRequest = nlohmann::json::parse(stageStatusString);
+        int stageStatusSize;
+        clientSocket.receiveMessage(&stageStatusSize, REQUEST_LEN_SIZE);
+        std::string stageStatusString(stageStatusSize, '\0');
+        clientSocket.receiveMessage(&stageStatusString[0], stageStatusSize);
+        stageUpdateRequest = nlohmann::json::parse(stageStatusString);
 
-        }
+        SDL_Delay(1000/60);
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;
         background.draw(bgRect);
@@ -225,9 +251,14 @@ void playGame() {
         newWindow.render();
         audioSystem.playSoundEffects();
     }
+    clientSocket.shutdownAndClose();
 }
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    playGame();
+    if (argc < 2) {
+        std::cout << "Falta el id del cliente\n";
+    }
+    std::string playerID = argv[1];
+    playGame(playerID);
 }
