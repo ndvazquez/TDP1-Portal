@@ -9,6 +9,8 @@
 #include <yaml-cpp/node/node.h>
 #include <unordered_map>
 #include <map>
+
+#include "LogicGates.h"
 #include "../../common/Window.h"
 #include "../../common/Sprite.h"
 #include "View.h"
@@ -21,7 +23,7 @@ private:
     std::map<std::pair<int, int>, std::string> tiles;
     //std::map<std::string, bool> gravity;
     View stageView;
-
+    LogicGates logicGates;
 
 
 public:
@@ -78,13 +80,6 @@ class StageControllerEmptyPositionException : public StageControllerException {
 public:
     const char* what() const noexcept override {
         return POSITION_EXC;
-    }
-};
-
-class StageControllerInvalidConditionException : public StageControllerException {
-public:
-    const char* what() const noexcept override {
-        return INVALID_CONDITION_EXC;
     }
 };
 

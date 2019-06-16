@@ -20,7 +20,7 @@ public:
     void addTo(int x, int y, std::map<std::pair<int, int>,
             std::string> &tiles, std::string sentinel) override;
     ~Receptor();
-    void setName(std::pair<int, int> position, std::string& enteredName) override;
+    void setName(std::pair<int, int>& position, std::string& enteredName) override;
     bool doesThisNameExist(std::string &string) override;
     void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
                     std::unordered_map<std::string, Object *> &textures) override;
