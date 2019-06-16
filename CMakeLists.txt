@@ -121,7 +121,10 @@ set(SERVER_SOURCE_FILES
         server/StageManager.cpp
         common/Thread.cpp
         common/Socket.cpp
-        common/StageStatusQueue.cpp)
+        common/StageStatusQueue.cpp
+        server/ClientHandler.cpp
+        server/ClientSender.cpp
+        server/ClientReceiver.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
