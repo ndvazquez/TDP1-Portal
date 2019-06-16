@@ -46,15 +46,26 @@ void Stage::addBlock(std::string identifier, float side, float x_pos, float y_po
     } else if (identifier == METAL_BLOCK_NAME) {
         MetalBlock* block = new MetalBlock(block_body);
         metal_blocks.insert({coordinates, block});
-    } else if (identifier == DIAGONAL_METAL_BLOCK_NAME) {
-        DiagonalMetalBlock* block = new DiagonalMetalBlock(block_body);
-        diagonal_metal_blocks.insert({coordinates, block});
     } else if (identifier == CAKE_NAME) {
       this->cake = new Cake(block_body);
     } else {
+        world->destroyBody(block_body);
         throw StageBadIdentifierException();
     }
 }
+
+void Stage::addDiagonalBlock(float side, float x_pos, float y_pos, float angle) {
+    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
+        throw StageOutOfRangeException();
+    }
+
+    Coordinate* coordinates = new Coordinate(x_pos, y_pos);
+
+    b2Body *block_body = world->addTriangle(side, x_pos, y_pos, angle);
+    DiagonalMetalBlock *block = new DiagonalMetalBlock(block_body);
+    diagonal_metal_blocks.insert({coordinates, block});
+}
+
 
 void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
         float y_pos, std::unordered_map<std::string, ItemActivable*> items,
@@ -97,6 +108,7 @@ void Stage::addEnergyBall(std::string identifier, std::string id, float side,
         EnergyBall* energy_ball = new EnergyBall(energy_ball_body, true);
         energy_balls.insert({id, energy_ball});
     } else {
+        world->destroyBody(energy_ball_body);
         throw StageBadIdentifierException();
     }
 }
@@ -134,6 +146,7 @@ void Stage::addEnergyItem(std::string identifier, std::string id, float side,
         EnergyReceptorUp* energy = new EnergyReceptorUp(body);
         energy_receptors.insert({id, energy});
     } else {
+        world->destroyBody(body);
         throw StageBadIdentifierException();
     }
 }
@@ -177,6 +190,7 @@ void Stage::addShot(std::string identifier, std::string id, float v_side, float 
         OrangeShot* orangeShot = new OrangeShot(body, chell, target);
         orange_shots.insert({id, orangeShot});
     } else {
+        world->destroyBody(body);
         throw StageBadIdentifierException();
     }
 }
@@ -213,6 +227,7 @@ void Stage::addElement(std::string identifier, std::string id, float v_side,
         Button* button = new Button(body);
         buttons.insert({id, button});
     } else {
+        world->destroyBody(body);
         throw StageBadIdentifierException();
     }
 }

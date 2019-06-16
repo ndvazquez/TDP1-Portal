@@ -79,6 +79,7 @@ public:
     ~Stage();
 
     void addBlock(std::string identifier, float side, float x_pos, float y_pos);
+    void addDiagonalBlock(float side, float x_pos, float y_pos, float angle);
     void addEnergyBall(std::string identifier, std::string id,
             float side, float x_pos, float y_pos);
     void addEnergyItem(std::string identifier, std::string id, float side,

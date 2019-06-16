@@ -68,7 +68,47 @@ PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
      return rectangle_body;
  }
 
- b2Body* PhysicsWorld::addDynamicRectangleWithWheels(float v_side, float h_side,
+b2Body* PhysicsWorld::addTriangle(float side, float x_pos, float y_pos, float angle) {
+    b2BodyDef body;
+    body.type = b2_staticBody;
+    body.position.Set(x_pos, y_pos);
+    body.fixedRotation = true;
+
+    b2Body* triangle_body = this->world->CreateBody(&body);
+
+    b2Vec2 vertices[3];
+
+    if (angle == 45) {
+        vertices[0].Set((-2.0/3) * side, (-1.0/3) * side);
+        vertices[1].Set((1.0/3) * side, (2.0/3) * side);
+        vertices[2].Set((1.0/3) * side,  (-1.0/3) * side);
+    } else if (angle == 135) {
+        vertices[0].Set((-1.0/3) * side, (-1.0/3) * side);
+        vertices[1].Set((-1.0/3) * side, (2.0/3) * side);
+        vertices[2].Set((2.0/3) * side,  (-1.0/3) * side);
+    } else if (angle == 225) {
+        vertices[0].Set((-1.0/3) * side, (-2.0/3) * side);
+        vertices[1].Set((-1.0/3) * side, (1.0/3) * side);
+        vertices[2].Set((2.0/3) * side,  (1.0/3) * side);
+    } else {
+        vertices[0].Set((-2.0/3) * side, (1.0/3) * side);
+        vertices[1].Set((1.0/3) * side, (1.0/3) * side);
+        vertices[2].Set((1.0/3) * side,  (-2.0/3) * side);
+    }
+
+    b2PolygonShape shape;
+    shape.Set(vertices, 3);
+
+    b2FixtureDef fixture;
+    fixture.shape = &shape;
+    fixture.density = 1;
+    fixture.friction = 0.2;
+    triangle_body->CreateFixture(&fixture);
+
+    return triangle_body;
+}
+
+b2Body* PhysicsWorld::addDynamicRectangleWithWheels(float v_side, float h_side,
          float x_pos, float y_pos) {
      b2Body* wheel_body = addDynamicRectangle(v_side - CHELL_WHEEL_RADIUS, h_side, x_pos, y_pos);
 

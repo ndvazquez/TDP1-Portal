@@ -24,6 +24,7 @@ public:
                                 float x_pos, float y_pos);
     b2Body* addDynamicRectangleWithWheels(float v_side, float h_side,
             float x_pos, float y_pos);
+    b2Body* addTriangle(float side, float x_pos, float y_pos, float angle);
     void destroyBody(b2Body* body);
     bool hasObject(b2Body* body);
     void step();

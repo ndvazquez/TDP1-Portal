@@ -170,32 +170,12 @@ void playGame() {
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
 
-    std::string id_et = "EnergyTransmitter1";
-    std::string id_er = "EnergyReceptor1";
-    std::string er = "LounchBlockUp";
-    std::string et = "LounchBlockDown";
-    std::string id_gate = "Gate1";
-    std::string id_button = "Button1";
+    float xPosDiagonal = 8;
+    float yPosDiagonal = 2;
+    float angle = 315;
 
-    stage.addEnergyItem("EnergyTransmitterDown", id_et, METAL_SIDE, 10, 6);
-    stage.addElement("Button", id_button, BUTTON_HEIGHT,
-            BUTTON_WIDTH, xPosButton1, yPosButton1);
-    stageView.addTile(10,
-                      (6) * -1 + stageHeight, et);
-    stage.addEnergyItem("EnergyReceptorUp", id_er, METAL_SIDE, 10, 2);
-    stageView.addTile(10,
-                      (2) * -1 + stageHeight, er);
-    Button* button = stage.getButton(id_button);
-    EnergyReceptor* energyReceptor = stage.getEnergyReceptor(id_er);
-    std::unordered_map<std::string, ItemActivable*> items;
-    items.insert({id_er, energyReceptor});
-    items.insert({id_button, button});
-
-    std::string logic = "!EnergyReceptor1 & !Button1";
-    stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH,
-            xPosGate, yPosGate, items, logic);
-
-    stage.addRock(idRock, 1, xPosRock, yPosRock);
+    stage.addDiagonalBlock(metalSide, xPosDiagonal, yPosDiagonal, angle);
+    stageView.addTile(8, -2 + stageHeight, metalBlock);
 
     // Time to add some platforms!
     stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
