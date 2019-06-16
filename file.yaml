@@ -1,0 +1,75 @@
+name: DiagonalUpLeft
+position:
+  []
+name: Cake
+position:
+  []
+name: Gate
+position:
+  []
+name: DiagonalUpRight
+position:
+  []
+name: Rock3
+position:
+  []
+name: LounchBlockLeft
+position:
+  []
+name: Chell
+position:
+  []
+name: LounchBlockUp
+position:
+  []
+name: ReceptorLeft
+position:
+  []
+name: Button
+position:
+  []
+name: MetalBlock
+position:
+  - (0,1)
+  - (2,1)
+name: LounchBlockRight
+position:
+  []
+name: RockBlock
+position:
+  []
+name: ReceptorRight
+position:
+  []
+name: DiagonalDownRight
+position:
+  []
+name: Acid
+position:
+  []
+name: DiagonalDownLeft
+position:
+  []
+name: KindOfARock
+position:
+  - (0,0)
+  - (1,0)
+  - (1,1)
+  - (2,0)
+  - (3,0)
+  - (3,1)
+name: ReceptorDown
+position:
+  []
+name: ReceptorUp
+position:
+  []
+name: LounchBlockDown
+position:
+  []
+name: Rock1
+position:
+  []
+name: Rock2
+position:
+  []
