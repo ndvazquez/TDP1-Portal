@@ -46,7 +46,7 @@ std::string UserEvent::toJsonString() {
     nlohmann::json jsonData;
     jsonData["id"] = this->userId;
     jsonData["eventType"] = this->eventType;
-    jsonData["x"] = this->userMouseY;
+    jsonData["x"] = this->userMouseX;
     jsonData["y"] = this->userMouseY;
     std::string jsonString = jsonData.dump();
     return jsonString;
