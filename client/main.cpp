@@ -31,23 +31,18 @@ void playGame() {
     float xPosChell = 4;
     float yPosChell = 1;
     std::string idChell = "Chell1";
-    float xPosRock = 8;
+
+    float xPosRock = xPosChell + 1;
     float yPosRock = 1;
     std::string idRock = "Rock1";
-    //float xPosCake = 2;
-    float xPosCake = xPosRock;
-    float yPosCake = yPosChell + 0.5;
 
-    float xPosAcid = 12;
-    float yPosAcid = 1;
-
-    float xPosButton1 = 11;
-    float yPosButton1= 1;
+    float xPosButton1 = 7;
+    float yPosButton1=  1;
 
     float xPosButton2 = 5;
     float yPosButton2 = 1;
 
-    float xPosGate = 13;
+    float xPosGate = 2;
     float yPosGate = 2;
 
     std::string idAcid = "Acid1";
@@ -62,15 +57,6 @@ void playGame() {
                             {"y", yPosChell}
                     }
 
-            },
-            {
-                    "Cake",
-                    {
-                            {"type", CAKE_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosCake},
-                            {"y", yPosCake}
-                    }
             },{
                     "BlueShot1",
                     {
@@ -120,14 +106,6 @@ void playGame() {
                             {"y", yPosRock}
                     }
             },{
-                "Acid1",
-                    {
-                            {"type", ACID_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosAcid},
-                            {"y", yPosAcid}
-                    }
-            },{
                 "EnergyBall1",
                     {
                             {"type", ENERGY_BALL__VIEW_CODE},
@@ -159,8 +137,8 @@ void playGame() {
                             {"x", xPosGate},
                             {"y", yPosGate}
                     }
-            },
 
+            },
     };
     nlohmann::json stageUpdateRequest;
 
@@ -181,88 +159,63 @@ void playGame() {
     StageView stageView(newWindow, textures, MTP_FACTOR);
     Stage stage(stageWidth, stageHeight);
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
-                   xPosChell, yPosChell);
-
-    std::string id_gate = "Gate1";
-    std::string id_button_1 = "Button1";
-    std::string id_button_2 = "Button2";
-    stage.addButton(id_button_1, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton1, yPosButton1);
-    stage.addButton(id_button_2, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton2, yPosButton2);
-    Button* button1 = stage.getButton(id_button_1);
-    Button* button2 = stage.getButton(id_button_2);
-
-    std::unordered_map<std::string, Button*> buttons;
-    buttons.insert({id_button_1, button1});
-    buttons.insert({id_button_2, button2});
-
-    std::string logic = "!Button1 & Button2";
-    stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH, xPosGate,
-            yPosGate, buttons, logic);
-
-
-   //stage.addCake(1, xPosCake, yPosCake);
-   stage.addRock(idRock, ROCK_HEIGHT,
-                  xPosRock, yPosRock);
-   stage.addRock("Rock2", ROCK_HEIGHT,
-                  xPosRock + 2, yPosRock);
-   /*stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
-           xPosAcid, yPosAcid);*/
+            xPosChell, yPosChell);
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
     float metalSide = METAL_SIDE;
     for (int i = 0; i < 40; i += 2){
-        stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
+        stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX+i, metalBlockPosY);
         stageView.addTile(metalBlockPosX+i,
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
-    std::string bb = "RockBlock";
 
-    std::string id_et = "EnergyTransmitter1";
-    std::string et = "LounchBlockUp";
+    float xPosDiagonal = 6;
+    float yPosDiagonal = 8;
 
-    /*stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
-    stageView.addTile(8,
-                      (2) * -1 + stageHeight, et);*/
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, 6, 2);
+    stageView.addTile(6, -(2) + stageHeight, metalBlock);
+
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, xPosDiagonal, yPosDiagonal);
+    stageView.addTile(xPosDiagonal, -yPosDiagonal + stageHeight, metalBlock);
+
+    stage.addRock(idRock, 1, xPosRock, yPosRock);
 
     // Time to add some platforms!
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 2,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 6,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
+  /*  stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
     stageView.addTile(metalBlockPosX + 8,
-                      (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
+                      (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);*/
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 8,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 12,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 14,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 14,
-                      (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 
-    stage.addMetalBlock(metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
     stageView.addTile(metalBlockPosX + 20,
                       (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
     stageView.addTile(metalBlockPosX + 2,
                       (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);

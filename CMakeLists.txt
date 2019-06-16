@@ -116,7 +116,16 @@ set(SERVER_SOURCE_FILES
         server/Cake.cpp
         server/BluePortal.cpp
         server/OrangePortal.cpp
-        server/StageManager.cpp)
+        server/StageManager.cpp
+        server/EnergyReceptor.cpp
+        server/EnergyReceptorUp.cpp
+        server/EnergyReceptorDown.cpp
+        server/EnergyReceptorLeft.cpp
+        server/EnergyReceptorRight.cpp
+        server/PhysicsWorld.cpp
+        server/ItemActivable.cpp
+        server/PortalManager.cpp
+        common/UserEvent.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

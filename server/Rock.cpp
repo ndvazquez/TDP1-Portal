@@ -2,8 +2,6 @@
 // Created by cecix on 17/05/19.
 //
 
-#define rockType "Rock"
-
 #include <string>
 #include "Rock.h"
 #include "MoveRight.h"
@@ -17,9 +15,8 @@
 #include "OrangeShot.h"
 #include <Box2D/Dynamics/b2World.h>
 
-
 Rock::Rock(b2Body* body):
-        Entity(rockType, body),
+        Entity(ROCK_NAME, body),
         dynamic(body) {
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
@@ -29,23 +26,23 @@ Rock::Rock(b2Body* body):
 
 void Rock::handleCollision(Entity *entity) {
     std::string type = entity->getType();
-    if (type == "Portal") {
+    if (type == PORTAL_NAME) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
             teleport(target, portal->getPortalType());
         }
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
-    if (type == "EnergyBar") {
+    if (type == ENERGY_BAR_NAME) {
         die();
     }
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         Chell* chell = static_cast<Chell*>(entity);
         chell->onFloor(true);
         float y_chell = chell->getVerticalPosition();
@@ -55,7 +52,7 @@ void Rock::handleCollision(Entity *entity) {
             chell->die();
         }
     }
-    if (type == "Button") {
+    if (type == BUTTON_NAME) {
         Button* button = static_cast<Button*>(entity);
         float y_button = button->getVerticalPosition();
         float y_rock = getVerticalPosition();

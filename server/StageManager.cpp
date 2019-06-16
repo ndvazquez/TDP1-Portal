@@ -74,7 +74,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 std::string id = chell_id;
                 std::string replaced = "Chell";
                 id.replace(0, replaced.length(), "BlueShot");
-                stage.addBlueShot(id, BULLET_HEIGHT, BULLET_WIDTH,
+                stage.addShot(BLUE_SHOT_NAME, id, BULLET_HEIGHT, BULLET_WIDTH,
                         chell, target);
             }
             break;
@@ -86,7 +86,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 std::string id = chell_id;
                 std::string replaced = "Chell";
                 id.replace(0, replaced.length(), "OrangeShot");
-                stage.addOrangeShot(id, BULLET_HEIGHT, BULLET_WIDTH,
+                stage.addShot(ORANGE_SHOT_NAME, id, BULLET_HEIGHT, BULLET_WIDTH,
                                   chell, target);
             }
             break;

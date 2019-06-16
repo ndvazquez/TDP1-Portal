@@ -2,8 +2,6 @@
 // Created by cecix on 9/06/19.
 //
 
-#define gateType "Gate"
-
 #include <string>
 #include <boost/lexical_cast.hpp>
 #include <iostream>
@@ -12,10 +10,10 @@
 #include "OrangeShot.h"
 
 Gate::Gate(b2Body* body, std::string logic,
-          std::unordered_map<std::string, Button*> buttons):
-          Entity(gateType, body) {
+          std::unordered_map<std::string, ItemActivable*> items):
+          Entity(GATE_NAME, body) {
     this->logic = logic;
-    this->buttons = buttons;
+    this->items = items;
     this->state = CLOSED;
     this->replaced = "";
 }
@@ -151,7 +149,7 @@ bool Gate::parseBool() {
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
     replaced = logic;
-    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+    for (auto i = items.begin(); i != items.end(); i++) {
         std::string id = i->first;
         bool isActive = i->second->isActive();
         size_t length_id = id.length();

@@ -21,4 +21,6 @@ struct box2DConfiguration gameConfiguration = {
         .offsetEnergyTransmitter = 2,
         .velocityDownload = 5,
         .velocityRelease = 2,
+        .directionFactor = 10,
+        .shotFactor = 6
 };

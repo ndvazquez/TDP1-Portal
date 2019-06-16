@@ -9,6 +9,7 @@
 #include "Coordinate.h"
 #include "Entity.h"
 #include "../common/constants.h"
+#include "Dynamic.h"
 
 class Portal: public Entity {
 private:
