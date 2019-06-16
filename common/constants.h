@@ -90,4 +90,8 @@ enum PortalType {
 #define USER_DROP_ROCK 8
 #define USER_THROW_ROCK 9
 
+// Protocol stuff
+#define THREAD_SUICIDE_PILL "F"
+#define REQUEST_LEN_SIZE 4
+
 #endif //PORTAL_CONSTANTS_H
