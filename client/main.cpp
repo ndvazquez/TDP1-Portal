@@ -170,12 +170,19 @@ void playGame() {
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
 
-    float xPosDiagonal = 8;
+    float xPosDiagonal = 6;
     float yPosDiagonal = 2;
-    float angle = 315;
+    float angle = 135;
+
+    std::string id_et = "EnergyTransmitter1";
+    std::string et = "LounchBlockLeft";
+
+
+    stage.addEnergyItem("EnergyTransmitterLeft", id_et, METAL_SIDE, xPosDiagonal + 5, yPosDiagonal);
+    stageView.addTile(xPosDiagonal + 5, -(yPosDiagonal) + stageHeight, et);
 
     stage.addDiagonalBlock(metalSide, xPosDiagonal, yPosDiagonal, angle);
-    stageView.addTile(8, -2 + stageHeight, metalBlock);
+    stageView.addTile(xPosDiagonal, -yPosDiagonal + stageHeight, metalBlock);
 
     // Time to add some platforms!
     stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
@@ -204,10 +211,6 @@ void playGame() {
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
-    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
-    stageView.addTile(metalBlockPosX + 14,
-                      (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 

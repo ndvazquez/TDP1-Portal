@@ -2,6 +2,7 @@
 // Created by cecix on 13/05/19.
 //
 
+#include <iostream>
 #include "DiagonalMetalBlock.h"
 #include "EnergyBall.h"
 #include "Chell.h"

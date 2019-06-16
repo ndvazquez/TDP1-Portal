@@ -380,6 +380,7 @@ void Stage::step() {
             }
         }
         i->second->fly();
+        i->second->update();
     }
 
     for (auto i = gates.begin(); i != gates.end(); i++) {

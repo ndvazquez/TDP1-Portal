@@ -125,3 +125,7 @@ void EnergyBall::handleCollision(Entity* entity) {
 void EnergyBall::teleport(Coordinate* target, PortalType type) {
     this->dynamic.teleport(target, type);
 }
+
+void EnergyBall::update() {
+    this->dynamic.handleCollisions();
+}
