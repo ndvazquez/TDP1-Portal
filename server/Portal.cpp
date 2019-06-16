@@ -3,18 +3,15 @@
 //
 
 #include <string>
-#include <iostream>
 #include "Portal.h"
 #include "Chell.h"
 #include "EnergyBall.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-#define portalType "Portal"
-
 Portal::Portal(b2Body* body, Coordinate* target,
         PortalOrientation orientation, PortalType type):
-    Entity(portalType, body) {
+    Entity(PORTAL_NAME, body) {
     this->target = target;
     this->body->SetUserData(this);
     this->orientation = orientation;
@@ -31,28 +28,29 @@ void Portal::addPortalType(PortalType type) {
 
 void Portal::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Chell") {
+
+    if (type == CHELL_NAME) {
         Chell* chell = static_cast<Chell*>(entity);
         if (target != nullptr) {
             chell->teleport(target, portal_type_target);
         }
     }
-    if (type == "Rock") {
+    if (type == ROCK_NAME) {
         Rock* rock = static_cast<Rock*>(entity);
         if (target != nullptr)  {
             rock->teleport(target, portal_type_target);
         }
     }
-    if (type == "EnergyBall") {
+    if (type == EB_NAME) {
         EnergyBall* eb = static_cast<EnergyBall*>(entity);
         if (target != nullptr) {
             eb->teleport(target, portal_type_target);
         }
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
 }

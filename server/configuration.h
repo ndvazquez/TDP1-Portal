@@ -21,6 +21,7 @@ struct box2DConfiguration {
     float velocityDownload;
     float velocityRelease;
     float directionFactor;
+    float shotFactor;
 };
 
 extern struct box2DConfiguration gameConfiguration;

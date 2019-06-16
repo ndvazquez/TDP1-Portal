@@ -6,18 +6,16 @@
 #include "Chell.h"
 #include "EnergyBall.h"
 
-#define eRUpType "EnergyReceptorUp"
-
 EnergyReceptorUp::EnergyReceptorUp(b2Body* body):
-        EnergyReceptor(body, eRUpType) {
+        EnergyReceptor(body, ER_UP_NAME) {
 }
 
 void EnergyReceptorUp::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         static_cast<Chell*>(entity)->onFloor(true);
     }
-    if (type == "EnergyBall") {
+    if (type == EB_NAME) {
         EnergyBall* energyBall = static_cast<EnergyBall*>(entity);
         float y_pos = getVerticalPosition();
         float y_eb = energyBall->getVerticalPosition();

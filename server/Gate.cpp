@@ -2,8 +2,6 @@
 // Created by cecix on 9/06/19.
 //
 
-#define gateType "Gate"
-
 #include <string>
 #include <boost/lexical_cast.hpp>
 #include <iostream>
@@ -13,7 +11,7 @@
 
 Gate::Gate(b2Body* body, std::string logic,
           std::unordered_map<std::string, ItemActivable*> items):
-          Entity(gateType, body) {
+          Entity(GATE_NAME, body) {
     this->logic = logic;
     this->items = items;
     this->state = CLOSED;

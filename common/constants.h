@@ -41,12 +41,15 @@ enum PortalType {
 #define METAL_BLOCK_NAME "MetalBlock"
 #define DIAGONAL_METAL_BLOCK_NAME "DiagonalMetalBlock"
 #define BRICK_BLOCK_NAME "BrickBlock"
+#define EB_NAME "EnergyBall"
 #define EB_HORIZONTAL_NAME "EnergyBallHorizontal"
 #define EB_VERTICAL_NAME "EnergyBallVertical"
+#define ET_NAME "EnergyTransmitter"
 #define ET_RIGHT_NAME "EnergyTransmitterRight"
 #define ET_LEFT_NAME "EnergyTransmitterLeft"
 #define ET_UP_NAME "EnergyTransmitterUp"
 #define ET_DOWN_NAME "EnergyTransmitterDown"
+#define ER_NAME "EnergyReceptor"
 #define ER_UP_NAME "EnergyReceptorUp"
 #define ER_DOWN_NAME "EnergyReceptorDown"
 #define ER_RIGHT_NAME "EnergyReceptorRight"
@@ -58,6 +61,10 @@ enum PortalType {
 #define BUTTON_NAME "Button"
 #define ROCK_NAME "Rock"
 #define CAKE_NAME "Cake"
+#define CHELL_NAME "Chell"
+#define PORTAL_NAME "Portal"
+#define FLOOR_NAME "Floor"
+#define GATE_NAME "Gate"
 
 // Objects sizes.
 #define METAL_SIDE 2

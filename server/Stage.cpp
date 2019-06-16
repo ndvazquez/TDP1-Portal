@@ -140,8 +140,8 @@ void Stage::addRock(std::string id, float side, float x_pos, float y_pos) {
 void Stage::addShot(std::string identifier, std::string id, float v_side, float h_side,
                     Chell* chell, Coordinate* target) {
     float x_target = target->getX();
-    float x_origin_right = chell->getHorizontalPosition() + 2 + h_side/2;
-    float x_origin_left = chell->getHorizontalPosition() - 2 - h_side/2;
+    float x_origin_right = chell->getHorizontalPosition() + 1;
+    float x_origin_left = chell->getHorizontalPosition() - 1;
 
     float x = chell->getHorizontalPosition();
     float x_pos;
@@ -297,6 +297,7 @@ void Stage::step() {
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
         i->second->update();
     }
+
     world->step();
 }
 

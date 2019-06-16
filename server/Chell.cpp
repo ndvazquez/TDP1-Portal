@@ -2,8 +2,6 @@
 // Created by cecix on 18/05/19.
 //
 
-#define chellType "Chell"
-
 #include <string>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
@@ -23,7 +21,7 @@
 #include "EnergyBar.h"
 
 Chell::Chell(b2Body* body):
-        Entity(chellType, body),
+        Entity(CHELL_NAME, body),
         dynamic(body) {
     this->actual_movement = new Stop(body);
     this->actual_state = IDLE;
@@ -40,14 +38,14 @@ Chell::Chell(b2Body* body):
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Acid" || type == "EnergyBall") {
+    if (type == ACID_NAME || type == EB_NAME) {
         die();
-        if (type == "EnergyBall") {
+        if (type == EB_NAME) {
             static_cast<EnergyBall*>(entity)->die();
         }
     }
 
-    if (type == "Rock") {
+    if (type == ROCK_NAME) {
         Rock* rock = static_cast<Rock*>(entity);
         float y_chell = getVerticalPosition();
         float y_rock = rock->getVerticalPosition();
@@ -57,30 +55,30 @@ void Chell::handleCollision(Entity* entity) {
         }
     }
 
-    if (type == "Portal") {
+    if (type == PORTAL_NAME) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) teleport(target, portal->getPortalType());
     }
 
-    if (type == "Cake") {
+    if (type == CAKE_NAME) {
         win();
     }
 
-    if (type == "EnergyBar") {
+    if (type == ENERGY_BAR_NAME) {
         static_cast<EnergyBar*>(entity)->disableBody();
     }
 
-    if (type == "Button") {
+    if (type == BUTTON_NAME) {
         Button* button = static_cast<Button*>(entity);
         float y_button = button->getVerticalPosition();
         float y_chell = getVerticalPosition();
         if (y_chell > y_button) button->activate();
     }
 
-    chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-                        || type == "DiagonalMetalBlock" || type == "Floor"
-                        || type == "Rock" || type == "Button" || type == "EnergyTransmitter";
+    chell_is_on_floor = type == METAL_BLOCK_NAME || type == BRICK_BLOCK_NAME
+                        || type == DIAGONAL_METAL_BLOCK_NAME || type == FLOOR_NAME
+                        || type == ROCK_NAME || type == BUTTON_NAME || type == ET_NAME || type == ER_NAME;
 }
 
 void Chell::teleport(Coordinate* coordinate, PortalType type) {

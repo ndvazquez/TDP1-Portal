@@ -208,6 +208,7 @@ void playGame() {
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
 
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
     stageView.addTile(metalBlockPosX + 16,
                       (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
 

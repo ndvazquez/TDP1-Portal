@@ -18,17 +18,17 @@ DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body, float angle):
 
 void DiagonalMetalBlock::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "EnergyBall") {
+    if (type == EB_NAME) {
         b2Vec2 velocity = calculateVelocity();
         static_cast<EnergyBall*>(entity)->changeDirection(velocity);
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         static_cast<Chell*>(entity)->onFloor(true);
     }
 }

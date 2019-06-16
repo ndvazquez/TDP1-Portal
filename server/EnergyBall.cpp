@@ -2,8 +2,6 @@
 // Created by cecix on 19/05/19.
 //
 
-#define energyBallType "EnergyBall"
-
 #include <string>
 #include <iostream>
 #include "EnergyBall.h"
@@ -18,7 +16,7 @@
 #include "DiagonalMetalBlock.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
-    Entity(energyBallType, body),
+    Entity(EB_NAME, body),
     dynamic(body) {
     this->is_vertical = is_vertical;
     body->SetUserData(this); //to handle collisions
@@ -59,34 +57,34 @@ bool EnergyBall::isVertical() {
 
 void EnergyBall::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "EnergyBar") {
+    if (type == ENERGY_BAR_NAME) {
         static_cast<EnergyBar*>(entity)->disableBody();
     }
-    if (type == "BrickBlock") {
+    if (type == BRICK_BLOCK_NAME) {
         die();
     }
-    if (type == "DiagonalMetalBlock") {
+    if (type == DIAGONAL_METAL_BLOCK_NAME) {
         b2Vec2 velocity = static_cast<DiagonalMetalBlock*>(entity)->calculateVelocity();
         changeDirection(velocity);
     }
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         static_cast<Chell*>(entity)->die();
         die();
     }
-    if (type == "Portal") {
+    if (type == PORTAL_NAME) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
             teleport(target, portal->getPortalType());
         }
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
-    if (type == "EnergyReceptorRight") {
+    if (type == ER_RIGHT_NAME) {
         EnergyReceptorRight* er = static_cast<EnergyReceptorRight*>(entity);
         float x_er = er->getHorizontalPosition();
         float x_eb =getHorizontalPosition();
@@ -95,7 +93,7 @@ void EnergyBall::handleCollision(Entity* entity) {
             die();
         }
     }
-    if (type == "EnergyReceptorLeft") {
+    if (type == ER_LEFT_NAME) {
         EnergyReceptorLeft* er = static_cast<EnergyReceptorLeft*>(entity);
         float x_er = er->getHorizontalPosition();
         float x_eb = getHorizontalPosition();
@@ -104,7 +102,7 @@ void EnergyBall::handleCollision(Entity* entity) {
             die();
         }
     }
-    if (type == "EnergyReceptorUp") {
+    if (type == ER_UP_NAME) {
         EnergyReceptorUp* er = static_cast<EnergyReceptorUp*>(entity);
         float y_er = er->getVerticalPosition();
         float y_eb = getVerticalPosition();
@@ -113,7 +111,7 @@ void EnergyBall::handleCollision(Entity* entity) {
             die();
         }
     }
-    if (type == "EnergyReceptorDown") {
+    if (type == ER_DOWN_NAME) {
         EnergyReceptorDown* er = static_cast<EnergyReceptorDown*>(entity);
         float y_er = er->getVerticalPosition();
         float y_eb = getVerticalPosition();
