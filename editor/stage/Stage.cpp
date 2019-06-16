@@ -126,3 +126,7 @@ void Stage::handleMouseRightClick(MouseButton &event) {
     controller.addCondition(x, y);
 }
 
+void Stage::close() {
+    controller.writeYaml();
+}
+

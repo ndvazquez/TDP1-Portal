@@ -8,12 +8,13 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
+#include <sstream>
 #include "../../../common/Sprite.h"
 #include "ObjectException.h"
 
 #define POSITIONS_ABOVE (h - 1)
 #define SENTINEL ""
-#define ROCK_SENTINEL "KindOfARock"
+#define BLOCK_SENTINEL "KindOfARock"
 
 class Object {
 protected:
@@ -43,6 +44,15 @@ public:
     virtual void addCondition(std::pair<int, int> position, std::string& condition);
 
     virtual bool doesThisNameExist(std::string &string);
+<<<<<<< Updated upstream
+=======
+
+    virtual bool hasCondition();
+
+    std::string name;
+
+    std::string getMetersPosition(const std::pair<int, int> position);
+>>>>>>> Stashed changes
 };
 
 #endif //PORTAL_OBJECT_H

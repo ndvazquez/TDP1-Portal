@@ -40,6 +40,8 @@ public:
 
     void handleMouseDoubleClick(MouseButton &event);
     void handleMouseRightClick(MouseButton &event);
+
+    void close();
 };
 
 

@@ -91,3 +91,17 @@ bool Object::hasGravity() {
 bool Object::doesThisNameExist(std::string &string) {
     return false;
 }
+<<<<<<< Updated upstream
+=======
+
+bool Object::hasCondition() {
+    return false;
+}
+
+
+std::string Object::getMetersPosition(const std::pair<int, int> position) {
+    std::string s;
+    s = "(" + std::to_string(position.first) + "," + std::to_string(position.second) + ")";
+    return s;
+}
+>>>>>>> Stashed changes

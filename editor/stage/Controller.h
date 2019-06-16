@@ -40,7 +40,7 @@ public:
 
     void addCondition(int x, int y);
 
-    void parseCondition(std::string& condition);
+    void writeYaml();
 };
 
 

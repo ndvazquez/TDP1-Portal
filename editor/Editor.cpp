@@ -42,3 +42,7 @@ void Editor::handleMouseRightClick(SDL_Event *event) {
     MouseButton e(event);
     this->stage.handleMouseRightClick(e);
 }
+
+void Editor::close() {
+    stage.close();
+}

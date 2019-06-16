@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include "yaml-cpp/yaml.h"
 #include "Controller.h"
 #include "object/Block.h"
@@ -289,4 +290,31 @@ void Controller::parseCondition(std::string& condition) {
         std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
         throw StageControllerInvalidConditionException();
     }
+}
+
+#define OBJECT_NAME "name"
+#define OBJECT_POSITION "position"
+
+void Controller::writeYaml() {
+    YAML::Emitter out;
+    out << YAML::BeginMap;
+    for(auto textures_it = textures.begin(); textures_it != textures.end(); textures_it++) {
+        const std::string& currentName = textures_it->first;
+        Object* object = textures_it->second;
+        out << YAML::Key << OBJECT_NAME;
+        out << YAML::Value << currentName;
+        out << YAML::Key << OBJECT_POSITION;
+        out << YAML::BeginSeq;
+        for (auto tiles_it = tiles.begin(); tiles_it != tiles.end(); tiles_it++) {
+            const std::pair<int,int>& position = tiles_it->first;
+            const std::string& thisName = tiles_it->second;
+            if (thisName == currentName) {
+                out << YAML::Value << object->getMetersPosition(position);
+            }
+        }
+        out << YAML::EndSeq;
+    }
+    out << YAML::EndMap;
+    std::ofstream fout("file.yaml");
+    fout << out.c_str();
 }
