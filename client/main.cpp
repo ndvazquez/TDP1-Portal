@@ -102,6 +102,38 @@ void playGame(std::string& idChell) {
                             {"y", yPosChell}
                     }
             },{
+                "BlueShot2",
+                        {
+                                {"type", BULLET_VIEW_CODE},
+                                {"state", 0},
+                                {"x", xPosChell} ,
+                                {"y", yPosChell}
+                        }
+            },{
+                "OrangeShot2",
+                        {
+                                {"type", BULLET_VIEW_CODE},
+                                {"state", 0},
+                                {"x", xPosChell} ,
+                                {"y", yPosChell}
+                        }
+            },{
+                "BluePortal2",
+                        {
+                                {"type", BLUE_PORTAL_VIEW_CODE},
+                                {"state", 0},
+                                {"x", xPosChell} ,
+                                {"y", yPosChell}
+                        }
+            },{
+                "OrangePortal2",
+                        {
+                                {"type", ORANGE_PORTAL_VIEW_CODE},
+                                {"state", 0},
+                                {"x", xPosChell} ,
+                                {"y", yPosChell}
+                        }
+            },{
                     "Rock1",
                     {
                             {"type", ROCK_VIEW_CODE},
