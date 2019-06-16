@@ -9,6 +9,13 @@
 #include "Floor.h"
 #include "Box2D/Box2D.h"
 
+class WorldOutOfRangeException : public std::exception {
+    virtual const char* what() const throw() {
+        std::string message = "This object doesn't fit in the stage!\n";
+        return message.c_str();
+    }
+};
+
 class PhysicsWorld {
 private:
     b2World* world;

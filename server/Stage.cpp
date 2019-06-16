@@ -20,6 +20,7 @@
 #include "EnergyReceptorLeft.h"
 #include "EnergyReceptorDown.h"
 #include "EnergyReceptorUp.h"
+#include "PortalManager.h"
 
 Stage::Stage(size_t width, size_t height):
     width(width), height(height) {
@@ -32,13 +33,9 @@ Stage::Stage(size_t width, size_t height):
 }
 
 void Stage::addBlock(std::string identifier, float side, float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
+    b2Body* block_body = world->addStaticRectangle(side, side, x_pos, y_pos);
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-
-    b2Body* block_body = world->addStaticRectangle(side, side, x_pos, y_pos);
 
     if (identifier == BRICK_BLOCK_NAME) {
         BrickBlock* block = new BrickBlock(block_body);
@@ -55,13 +52,10 @@ void Stage::addBlock(std::string identifier, float side, float x_pos, float y_po
 }
 
 void Stage::addDiagonalBlock(float side, float x_pos, float y_pos, float angle) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
+    b2Body *block_body = world->addTriangle(side, x_pos, y_pos, angle);
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    b2Body *block_body = world->addTriangle(side, x_pos, y_pos, angle);
     DiagonalMetalBlock *block = new DiagonalMetalBlock(block_body, angle);
     diagonal_metal_blocks.insert({coordinates, block});
 }
@@ -70,10 +64,6 @@ void Stage::addDiagonalBlock(float side, float x_pos, float y_pos, float angle) 
 void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
         float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                     std::string logic) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
     b2Body* gate_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
     Gate* gate = new Gate(gate_body, logic, items);
@@ -82,10 +72,6 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
 
 void Stage::addChell(std::string id, float v_side, float h_side,
         float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
     b2Body* chell_body = world->addDynamicRectangleWithWheels(v_side, h_side, x_pos, y_pos);
 
     Chell* chell = new Chell(chell_body);
@@ -94,10 +80,6 @@ void Stage::addChell(std::string id, float v_side, float h_side,
 
 void Stage::addEnergyBall(std::string identifier, std::string id, float side,
         float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
     b2Body* energy_ball_body = world->addDynamicRectangle(side, side, x_pos, y_pos);
 
     if (identifier == EB_HORIZONTAL_NAME) {
@@ -115,10 +97,6 @@ void Stage::addEnergyBall(std::string identifier, std::string id, float side,
 
 void Stage::addEnergyItem(std::string identifier, std::string id, float side,
         float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
     b2Body *body = world->addStaticRectangle(side, side, x_pos, y_pos);
 
     if (identifier == ET_RIGHT_NAME) {
@@ -152,10 +130,6 @@ void Stage::addEnergyItem(std::string identifier, std::string id, float side,
 }
 
 void Stage::addRock(std::string id, float side, float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
     b2Body* rock_body = world->addDynamicRectangle(side, side, x_pos, y_pos);
     b2Fixture* fixture = rock_body->GetFixtureList();
     fixture->SetFriction(gameConfiguration.rockFriction);
@@ -195,28 +169,10 @@ void Stage::addShot(std::string identifier, std::string id, float v_side, float 
     }
 }
 
-void Stage::addPortal(std::string id, float v_side, float h_side,
-        Coordinate* origin, Coordinate* target,
-        PortalOrientation orientation, PortalType type) {
-    float x_pos = origin->getX();
-    float y_pos = origin->getY();
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
-    b2Body* portal_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
-
-    Portal* portal = new Portal(portal_body, target, orientation, type);
-    portals.insert({id, portal});
-}
-
 void Stage::addElement(std::string identifier, std::string id, float v_side,
         float h_side, float x_pos, float y_pos) {
-    if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
-        throw StageOutOfRangeException();
-    }
-
     b2Body* body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
+
     if (identifier == ENERGY_BAR_NAME) {
         EnergyBar* energy_bar = new EnergyBar(body);
         energy_bars.insert({id, energy_bar});
@@ -233,71 +189,8 @@ void Stage::addElement(std::string identifier, std::string id, float v_side,
 }
 
 void Stage::managePortals(Chell* chell, std::string id) {
-    BluePortal *blue_portal = chell->getBluePortal();
-    OrangePortal *orange_portal = chell->getOrangePortal();
-    std::string id_orange = id;
-    std::string replaced = "Chell";
-    id_orange.replace(0, replaced.length(), "OrangePortal");
-    std::string id_blue = id;
-    id_blue.replace(0, replaced.length(), "BluePortal");
-
-    std::unordered_map<std::string, Portal*>::iterator it;
-
-    it = portals.find(id_blue);
-    if (it != portals.end()) {
-        Portal *portal = it->second;
-        float x_portal = portal->getHorizontalPosition();
-        float y_portal = portal->getVerticalPosition();
-        Coordinate coord_portal(x_portal, y_portal);
-        if ((blue_portal != nullptr && *blue_portal->getPortal() != coord_portal)
-            || blue_portal == nullptr) {
-            world->destroyBody(portal->getBody());
-            portals.erase(it->first);
-        }
-        if (orange_portal != nullptr) {
-            Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
-            portal->addTarget(orange_portal_coord);
-            portal->addPortalType(orange_portal->getPortalType());
-        }
-    }
-    else if (blue_portal != nullptr) {
-        Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
-        if (blue_portal->isVertical()) {
-            addPortal(id_blue, PORTAL_HEIGHT, PORTAL_WIDTH, blue_portal->getPortal(),
-                      orange_portal_coord, VERTICAL, INVALID);
-        } else {
-            addPortal(id_blue, PORTAL_WIDTH, PORTAL_HEIGHT, blue_portal->getPortal(),
-                      orange_portal_coord, HORIZONTAL, INVALID);
-        }
-    }
-
-    it = portals.find(id_orange);
-    if (it != portals.end()) {
-        Portal* portal = it->second;
-        float x_portal = portal->getHorizontalPosition();
-        float y_portal = portal->getVerticalPosition();
-        Coordinate coord_portal(x_portal, y_portal);
-        if ((orange_portal != nullptr && *orange_portal->getPortal() != coord_portal)
-            || orange_portal == nullptr) {
-                world->destroyBody(it->second->getBody());
-                portals.erase(it->first);
-        }
-        if (blue_portal != nullptr) {
-            Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
-            portal->addTarget(blue_portal_coord);
-            portal->addPortalType(blue_portal->getPortalType());
-        }
-    }
-    else if (orange_portal != nullptr) {
-        Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
-        if (orange_portal->isVertical()) {
-            addPortal(id_orange, PORTAL_HEIGHT, PORTAL_WIDTH, orange_portal->getPortal(),
-                    blue_portal_coord, VERTICAL, INVALID);
-        } else {
-            addPortal(id_orange, PORTAL_WIDTH, PORTAL_HEIGHT, orange_portal->getPortal(),
-                    blue_portal_coord, HORIZONTAL, INVALID);
-        }
-    }
+    PortalManager manager(portals, world);
+    manager.managePortals(chell, id);
 }
 
 void Stage::step() {
@@ -411,7 +304,6 @@ void Stage::step() {
 Cake* Stage::getCake() {
     return cake;
 }
-
 
 BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {

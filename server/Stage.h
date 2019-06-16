@@ -31,13 +31,6 @@
 #include "EnergyReceptor.h"
 #include "ItemActivable.h"
 
-class StageOutOfRangeException : public std::exception {
-    virtual const char* what() const throw() {
-        std::string message = "This object doesn't fit in the stage!\n";
-        return message.c_str();
-    }
-};
-
 class StageBadIdentifierException : public std::exception {
     virtual const char* what() const throw() {
         std::string message = "This object doesn't belong in the stage!\n";
@@ -90,18 +83,13 @@ public:
             float h_side, float x_pos, float y_pos);
     void addRock(std::string id, float side,
                  float x_pos, float y_pos);
-
     void addGate(std::string id, float v_side, float h_side, float x_pos,
             float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                  std::string logic);
-
     void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
 
-    void addPortal(std::string id, float v_side, float h_side,
-            Coordinate* origin, Coordinate* target,
-            PortalOrientation orientation, PortalType type);
-
+    Rock* getClosestRock(float x_pos, float y_pos);
     void managePortals(Chell* chell, std::string id);
     void step();
 
@@ -119,10 +107,8 @@ public:
     OrangeShot* getOrangeShot(std::string id);
     EnergyTransmitter* getEnergyTransmitter(std::string id);
     Rock* getRock(std::string id);
-    Rock* getClosestRock(float x_pos, float y_pos);
     Gate* getGate(std::string id);
     EnergyReceptor* getEnergyReceptor(std::string id);
-
     nlohmann::json getCurrentState();
 };
 

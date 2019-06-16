@@ -32,6 +32,10 @@ PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
 
  b2Body* PhysicsWorld::addStaticRectangle(float v_side, float h_side,
                                    float x_pos, float y_pos) {
+     if ( x_pos > width || y_pos > height) {
+         throw WorldOutOfRangeException();
+     }
+
      b2BodyDef body;
      body.type = b2_staticBody;
      body.position.Set(x_pos, y_pos);
@@ -50,6 +54,10 @@ PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
 
  b2Body* PhysicsWorld::addDynamicRectangle(float v_side, float h_side,
                                     float x_pos, float y_pos) {
+     if (x_pos > width || y_pos > height) {
+         throw WorldOutOfRangeException();
+     }
+
      b2BodyDef body;
      body.type = b2_dynamicBody;
      body.position.Set(x_pos, y_pos);
@@ -70,6 +78,10 @@ PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
  }
 
 b2Body* PhysicsWorld::addTriangle(float side, float x_pos, float y_pos, float angle) {
+    if (x_pos > width || y_pos > height) {
+        throw WorldOutOfRangeException();
+    }
+
     b2BodyDef body;
     body.type = b2_staticBody;
     body.position.Set(x_pos, y_pos);
@@ -112,6 +124,10 @@ b2Body* PhysicsWorld::addTriangle(float side, float x_pos, float y_pos, float an
 
 b2Body* PhysicsWorld::addDynamicRectangleWithWheels(float v_side, float h_side,
          float x_pos, float y_pos) {
+    if (x_pos > width || y_pos > height) {
+        throw WorldOutOfRangeException();
+    }
+
      b2Body* wheel_body = addDynamicRectangle(v_side - CHELL_WHEEL_RADIUS, h_side, x_pos, y_pos);
 
      b2CircleShape circleShape;
