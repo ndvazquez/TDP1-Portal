@@ -24,6 +24,8 @@ public:
 
     void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
                     std::unordered_map<std::string, Object *> &textures) override;
+
+    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 };
 
 

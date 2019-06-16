@@ -43,6 +43,8 @@ public:
     void addCondition(int x, int y);
 
     void writeYaml();
+
+    void matrixToMeter(std::pair<float, float> &pair);
 };
 
 

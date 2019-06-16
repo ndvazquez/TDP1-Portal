@@ -20,6 +20,7 @@ public:
     std::string> &tiles, std::unordered_map<std::string,
             Object *>& textures, bool needGravitySentinel = false) override;
     void draw(SDL_Rect* rec) override;
+    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 
 };
 

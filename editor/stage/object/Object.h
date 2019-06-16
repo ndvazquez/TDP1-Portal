@@ -11,23 +11,20 @@
 #include <sstream>
 #include "../../../common/Sprite.h"
 #include "ObjectException.h"
+#include "../../../common/constants.h"
 
 #define POSITIONS_ABOVE (h - 1)
-#define SENTINEL ""
 #define WITHOUT_GRAVITY_SENTINEL "WithoutGravitySentinel"
 #define GRAVITY_SENTINEL "GravitySentinel"
 
 class Object {
 protected:
-    std::vector<std::string> floors;
     int w;
     int h;
     std::string name;
 
 public:
     Object(std::string name, int w, int h);
-
-    virtual void hasToBeOn(const std::string &name);
 
     virtual void draw(SDL_Rect *rect) = 0;
 
@@ -50,8 +47,9 @@ public:
     virtual bool doesThisNameExist(std::string &string);
 
 
-    std::string getMetersPosition(const std::pair<int, int> position);
-
+    virtual std::pair<float, float> rectangleCenterOfMass(const std::pair<int, int> &position, float w, float h);
+    virtual std::pair<float, float> triangleCenterOfMass(const std::pair<int, int> &position, float w, float h);
+    virtual std::pair<float, float> centerOfMass(const std::pair<int, int> &position) = 0;
     virtual bool hasCondition();
 };
 

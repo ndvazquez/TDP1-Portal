@@ -263,7 +263,10 @@ void Controller::writeYaml() {
             const std::pair<int,int>& position = tiles_it->first;
             const std::string& thisName = tiles_it->second;
             if (thisName == currentName) {
-                out << YAML::Value << object->getMetersPosition(position);
+                std::pair<float, float> centerOfMass = object->centerOfMass(position);
+                matrixToMeter(centerOfMass);
+                std::string s = "(" + std::to_string(centerOfMass.first) + ", " + std::to_string(centerOfMass.second) + ")";
+                out << YAML::Value << s;
             }
         }
         out << YAML::EndSeq;
@@ -271,4 +274,8 @@ void Controller::writeYaml() {
     out << YAML::EndMap;
     std::ofstream fout("file.yaml");
     fout << out.c_str();
+}
+
+void Controller::matrixToMeter(std::pair<float, float> &pair) {
+    pair.second = stageView.getWindowHeight() - pair.second;
 }

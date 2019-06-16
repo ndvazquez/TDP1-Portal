@@ -13,6 +13,8 @@ public:
     Acid(std::string &path, Window &window, int totalFrames, const std::string& name, int w, int h);
     ~Acid();
     void draw(SDL_Rect* rect) override;
+
+    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 };
 
 

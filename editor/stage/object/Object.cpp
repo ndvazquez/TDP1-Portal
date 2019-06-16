@@ -10,9 +10,6 @@
 Object::Object(std::string name, int w, int h) :
         name(std::move(name)), w(w), h(h) {}
 
-void Object::hasToBeOn(const std::string &name) {
-    floors.push_back(name);
-}
 
 void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>,std::string>
                         &tiles,
@@ -102,14 +99,36 @@ bool Object::hasCondition() {
     return false;
 }
 
+std::pair<float, float> Object::rectangleCenterOfMass(
+        const std::pair<int, int> &position, float w, float h) {
+    std::pair<float, float> p(position.first + w/2, position.second + 1 - h/2);
+    std::cerr << "\nSoy un " << name << std::endl;
+    std::cerr << "Mi pos era: (" << position.first << ", " << position.second << ")" << std::endl;
 
-
-
-std::string Object::getMetersPosition(const std::pair<int, int> position) {
-    std::string s;
-    s = "(" + std::to_string(position.first) + "," + std::to_string(position.second) + ")";
-    return s;
+    std::cerr << "Mi pos es: (" << p.first << ", " << p.second << ")" << std::endl;
+    return p;
 }
 
+/// Deberia recibir 3 pares, cada muno ser un vertice.
+/// Para ello tiene que haber 4 clases distintas de triangulo
+/// una por cada rotación.
+std::pair<float, float> Object::triangleCenterOfMass(
+        const std::pair<int, int> &position, float w, float h) {
+    float ax = position.first;
+    float ay = position.second +1;
 
+    float bx = ax + w;
+    float by = ay;
+
+    float cx = ax;
+    float cy = ay - h;
+
+    std::pair<float, float> p((ax + bx + cx)/3, (ay + by + cy)/3);
+
+    std::cerr << "\nSoy un " << name << std::endl;
+    std::cerr << "Mi pos era: (" << position.first << ", " << position.second << ")" << std::endl;
+
+    std::cerr << "Mi pos es: (" << p.first << ", " << p.second << ")" << std::endl;
+    return p;
+}
 

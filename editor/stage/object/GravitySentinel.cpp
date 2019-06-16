@@ -29,4 +29,8 @@ void GravitySentinel::addTo(int x, int y, std::map<std::pair<int, int>,
     //you can't be added on your own. U does not exist by your own.
 }
 
+std::pair<float, float> GravitySentinel::centerOfMass(const std::pair<int, int> &position) {
+    return std::pair<int, int>();
+}
+
 GravitySentinel::~GravitySentinel() = default;

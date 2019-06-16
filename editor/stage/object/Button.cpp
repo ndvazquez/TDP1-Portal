@@ -36,3 +36,7 @@ void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string>
 }
 
 Button::~Button() = default;
+
+std::pair<float, float> Button::centerOfMass(const std::pair<int, int> &position) {
+    return this->rectangleCenterOfMass(position, BUTTON_WIDTH, BUTTON_HEIGHT);
+}

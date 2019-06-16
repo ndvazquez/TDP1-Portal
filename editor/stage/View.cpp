@@ -35,3 +35,7 @@ void View::draw(SDL_Rect *camera, int yStart) {
 }
 
 View::~View() {}
+
+int View::getWindowHeight() {
+    window.getWindowHeight();
+}

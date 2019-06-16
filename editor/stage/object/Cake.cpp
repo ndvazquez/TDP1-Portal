@@ -9,3 +9,7 @@ Cake::Cake(std::string& path, Window& window, int totalFrames ,const std::string
         AnimatedObject(path, window, totalFrames, name, w, h) {}
 
 Cake::~Cake() = default;
+
+std::pair<float, float> Cake::centerOfMass(const std::pair<int, int> &position) {
+    return this->rectangleCenterOfMass(position, CAKE_WIDTH, CAKE_HEIGHT);
+}

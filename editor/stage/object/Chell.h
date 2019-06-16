@@ -15,6 +15,7 @@ public:
     ~Chell();
 
     //void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
+    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 };
 
 
