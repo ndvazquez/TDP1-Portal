@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Stage.h"
 #include "BrickBlock.h"
 #include "MetalBlock.h"
@@ -56,7 +57,7 @@ void Stage::addBlock(std::string identifier, float side, float x_pos, float y_po
 }
 
 void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
-        float y_pos, std::unordered_map<std::string, Button*> buttons,
+        float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                     std::string logic) {
     if (x_pos < 0 || x_pos > width || y_pos < 0 || y_pos > height) {
         throw StageOutOfRangeException();
@@ -64,7 +65,7 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
 
     b2Body* gate_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
-    Gate* gate = new Gate(gate_body, logic, buttons);
+    Gate* gate = new Gate(gate_body, logic, items);
     gates.insert({id, gate});
 }
 
@@ -479,6 +480,13 @@ EnergyTransmitter* Stage::getEnergyTransmitter(std::string id) {
     return nullptr;
 }
 
+EnergyReceptor* Stage::getEnergyReceptor(std::string id) {
+    for (auto i = energy_receptors.begin() ; i != energy_receptors.end() ; i++) {
+        if (i->first == id) return i->second;
+    }
+    return nullptr;
+}
+
 Rock* Stage::getRock(std::string id) {
     for (auto item = rocks.begin() ; item != rocks.end() ; item++) {
         if (item->first == id) return item->second;
@@ -580,16 +588,16 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_et}, {"y", y_pos_et}
         };
     }
-    /*for (auto i = energy_receptors.begin();
+    for (auto i = energy_receptors.begin();
          i != energy_receptors.end(); i++) {
         std::string id_er = i->first;
         float x_pos_er = i->second->getHorizontalPosition();
         float y_pos_er = i->second->getVerticalPosition();
         SwitchState state = i->second->getState();
-        request[id_er] = {
+        /*request[id_er] = {
                 {"state", state}, {"x", x_pos_er}, {"y", y_pos_er}
-        };
-    }*/
+        };*/
+    }
     for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
         std::string id_eb = i->first;
         float x_pos_eb = i->second->getHorizontalPosition();
@@ -689,6 +697,11 @@ Stage::~Stage() {
     }
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
+        delete i->second;
+    }
+
+    for (auto i = energy_receptors.begin();
+    i != energy_receptors.end(); i++) {
         delete i->second;
     }
 

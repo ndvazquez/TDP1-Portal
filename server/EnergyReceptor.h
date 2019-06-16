@@ -8,17 +8,12 @@
 
 #include "Entity.h"
 #include "../common/constants.h"
+#include "ItemActivable.h"
 
-class EnergyReceptor: public Entity {
-private:
-    SwitchState state;
-
+class EnergyReceptor: public ItemActivable {
 public:
     EnergyReceptor(b2Body* body, std::string type);
     virtual void handleCollision(Entity* entity) override;
-    bool isActive();
-    void activate();
-    SwitchState getState();
 };
 
 #endif //PORTAL_ENERGYRECEPTOR_H

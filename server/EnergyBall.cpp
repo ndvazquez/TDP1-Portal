@@ -5,11 +5,16 @@
 #define energyBallType "EnergyBall"
 
 #include <string>
+#include <iostream>
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
+#include "EnergyReceptorRight.h"
+#include "EnergyReceptorLeft.h"
+#include "EnergyReceptorUp.h"
+#include "EnergyReceptorDown.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(energyBallType, body),
@@ -78,6 +83,42 @@ void EnergyBall::handleCollision(Entity* entity) {
     }
     if (type == "OrangeShot") {
         static_cast<OrangeShot*>(entity)->die();
+    }
+    if (type == "EnergyReceptorRight") {
+        EnergyReceptorRight* er = static_cast<EnergyReceptorRight*>(entity);
+        float x_er = er->getHorizontalPosition();
+        float x_eb =getHorizontalPosition();
+        if (x_eb > x_er) {
+            er->activate();
+            die();
+        }
+    }
+    if (type == "EnergyReceptorLeft") {
+        EnergyReceptorLeft* er = static_cast<EnergyReceptorLeft*>(entity);
+        float x_er = er->getHorizontalPosition();
+        float x_eb = getHorizontalPosition();
+        if (x_eb < x_er) {
+            er->activate();
+            die();
+        }
+    }
+    if (type == "EnergyReceptorUp") {
+        EnergyReceptorUp* er = static_cast<EnergyReceptorUp*>(entity);
+        float y_er = er->getVerticalPosition();
+        float y_eb = getVerticalPosition();
+        if (y_eb > y_er) {
+            er->activate();
+            die();
+        }
+    }
+    if (type == "EnergyReceptorDown") {
+        EnergyReceptorDown* er = static_cast<EnergyReceptorDown*>(entity);
+        float y_er = er->getVerticalPosition();
+        float y_eb = getVerticalPosition();
+        if (y_eb < y_er) {
+            er->activate();
+            die();
+        }
     }
 }
 

@@ -9,9 +9,8 @@
 #include "OrangeShot.h"
 
 Button::Button(b2Body* body):
-    Entity(BUTTON_NAME, body), dynamic(body) {
+    ItemActivable(BUTTON_NAME, body), dynamic(body) {
     body->SetUserData(this);
-    this->state = OFF;
 }
 
 void Button::handleCollision(Entity *entity) {
@@ -36,21 +35,6 @@ void Button::handleCollision(Entity *entity) {
     if (type == "OrangeShot") {
         static_cast<OrangeShot*>(entity)->die();
     }
-}
-
-void Button::activate() {
-    this->state = ON;
-}
-void Button::desactivate() {
-    this->state = OFF;
-}
-
-bool Button::isActive() {
-    return this->state == ON;
-}
-
-SwitchState Button::getState() {
-    return this->state;
 }
 
 void Button::update() {

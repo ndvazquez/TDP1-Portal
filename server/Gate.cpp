@@ -12,10 +12,10 @@
 #include "OrangeShot.h"
 
 Gate::Gate(b2Body* body, std::string logic,
-          std::unordered_map<std::string, Button*> buttons):
+          std::unordered_map<std::string, ItemActivable*> items):
           Entity(gateType, body) {
     this->logic = logic;
-    this->buttons = buttons;
+    this->items = items;
     this->state = CLOSED;
     this->replaced = "";
 }
@@ -151,7 +151,7 @@ bool Gate::parseBool() {
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
     replaced = logic;
-    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+    for (auto i = items.begin(); i != items.end(); i++) {
         std::string id = i->first;
         bool isActive = i->second->isActive();
         size_t length_id = id.length();
@@ -165,7 +165,6 @@ void Gate::update() {
         }
         replaced.replace(i_id, length_id, to_replace);
     }
-    std::cout << replaced << std::endl;
     // Obtain boolean from string
     if (! parseBool()) {
         this->state = CLOSED;

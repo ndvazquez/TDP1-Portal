@@ -8,6 +8,7 @@
 
 #include <Box2D/Dynamics/b2Body.h>
 #include "Button.h"
+#include "ItemActivable.h"
 #include <unordered_map>
 #include <string>
 #include <chrono>
@@ -16,13 +17,12 @@ class Gate: public Entity {
 private:
     std::string logic;
     std::string replaced;
-    std::unordered_map<std::string, Button*> buttons;
+    std::unordered_map<std::string, ItemActivable*> items;
     GateState state;
-    std::chrono::system_clock::time_point timeStamp;
 
 public:
     Gate(b2Body* body, std::string logic,
-            std::unordered_map<std::string, Button*> buttons);
+            std::unordered_map<std::string, ItemActivable*> items);
     void update();
     bool parseBool();
     virtual void handleCollision(Entity* entity) override;

@@ -122,7 +122,8 @@ set(SERVER_SOURCE_FILES
         server/EnergyReceptorDown.cpp
         server/EnergyReceptorLeft.cpp
         server/EnergyReceptorRight.cpp
-        server/PhysicsWorld.cpp)
+        server/PhysicsWorld.cpp
+        server/ItemActivable)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

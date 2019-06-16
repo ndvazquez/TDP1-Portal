@@ -29,6 +29,7 @@
 #include "Cake.h"
 #include "PhysicsWorld.h"
 #include "EnergyReceptor.h"
+#include "ItemActivable.h"
 
 class StageOutOfRangeException : public std::exception {
     virtual const char* what() const throw() {
@@ -90,7 +91,7 @@ public:
                  float x_pos, float y_pos);
 
     void addGate(std::string id, float v_side, float h_side, float x_pos,
-            float y_pos, std::unordered_map<std::string, Button*> buttons,
+            float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                  std::string logic);
 
     void addChell(std::string id, float v_side, float h_side,
@@ -119,6 +120,7 @@ public:
     Rock* getRock(std::string id);
     Rock* getClosestRock(float x_pos, float y_pos);
     Gate* getGate(std::string id);
+    EnergyReceptor* getEnergyReceptor(std::string id);
 
     nlohmann::json getCurrentState();
 };

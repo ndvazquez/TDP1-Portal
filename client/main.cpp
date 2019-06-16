@@ -31,23 +31,18 @@ void playGame() {
     float xPosChell = 4;
     float yPosChell = 1;
     std::string idChell = "Chell1";
-    float xPosRock = 8;
+
+    float xPosRock = xPosChell + 1;
     float yPosRock = 1;
     std::string idRock = "Rock1";
-    //float xPosCake = 2;
-    float xPosCake = xPosRock;
-    float yPosCake = yPosChell + 0.5;
 
-    float xPosAcid = 12;
-    float yPosAcid = 1;
-
-    float xPosButton1 = 3;
-    float yPosButton1= 1;
+    float xPosButton1 = 7;
+    float yPosButton1=  1;
 
     float xPosButton2 = 5;
     float yPosButton2 = 1;
 
-    float xPosGate = 13;
+    float xPosGate = 2;
     float yPosGate = 2;
 
     std::string idAcid = "Acid1";
@@ -62,15 +57,6 @@ void playGame() {
                             {"y", yPosChell}
                     }
 
-            },
-            {
-                    "Cake",
-                    {
-                            {"type", CAKE_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosCake},
-                            {"y", yPosCake}
-                    }
             },{
                     "BlueShot1",
                     {
@@ -120,14 +106,6 @@ void playGame() {
                             {"y", yPosRock}
                     }
             },{
-                "Acid1",
-                    {
-                            {"type", ACID_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosAcid},
-                            {"y", yPosAcid}
-                    }
-            },{
                 "EnergyBall1",
                     {
                             {"type", ENERGY_BALL__VIEW_CODE},
@@ -159,14 +137,7 @@ void playGame() {
                             {"x", xPosGate},
                             {"y", yPosGate}
                     }
-            },{
-                "Rock3",
-                    {
-                            {"type", ROCK_VIEW_CODE},
-                            {"state", OFF},
-                            {"x", xPosRock + 15},
-                            {"y", yPosRock}
-                    }
+
             },
     };
     nlohmann::json stageUpdateRequest;
@@ -188,34 +159,7 @@ void playGame() {
     StageView stageView(newWindow, textures, MTP_FACTOR);
     Stage stage(stageWidth, stageHeight);
     stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
-                   xPosChell, yPosChell);
-
-    std::string id_gate = "Gate1";
-    std::string id_button_1 = "Button1";
-    std::string id_button_2 = "Button2";
-    stage.addElement(BUTTON_NAME, id_button_1, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton1, yPosButton1);
-    stage.addElement(BUTTON_NAME, id_button_2, BUTTON_HEIGHT, BUTTON_WIDTH, xPosButton2, yPosButton2);
-    Button* button1 = stage.getButton(id_button_1);
-    Button* button2 = stage.getButton(id_button_2);
-
-    std::unordered_map<std::string, Button*> buttons;
-    buttons.insert({id_button_1, button1});
-    buttons.insert({id_button_2, button2});
-
-    std::string logic = "Button1 & Button2";
-    stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH, xPosGate,
-            yPosGate, buttons, logic);
-
-
-   //stage.addCake(1, xPosCake, yPosCake);
-   stage.addRock(idRock, ROCK_HEIGHT,
-                  xPosRock, yPosRock);
-   stage.addRock("Rock2", ROCK_HEIGHT,
-                  xPosRock + 2, yPosRock);
-   stage.addRock("Rock3", ROCK_HEIGHT,
-           xPosRock + 15, yPosRock);
-   /*stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
-           xPosAcid, yPosAcid);*/
+            xPosChell, yPosChell);
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
@@ -225,14 +169,33 @@ void playGame() {
         stageView.addTile(metalBlockPosX+i,
                           metalBlockPosY * -1 + stageHeight, metalBlock);
     }
-    std::string bb = "RockBlock";
 
     std::string id_et = "EnergyTransmitter1";
-    std::string et = "LounchBlockUp";
+    std::string id_er = "EnergyReceptor1";
+    std::string er = "LounchBlockUp";
+    std::string et = "LounchBlockDown";
+    std::string id_gate = "Gate1";
+    std::string id_button = "Button1";
 
-    /*stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
-    stageView.addTile(8,
-                      (2) * -1 + stageHeight, et);*/
+    stage.addEnergyItem("EnergyTransmitterDown", id_et, METAL_SIDE, 10, 6);
+    stage.addElement("Button", id_button, BUTTON_HEIGHT,
+            BUTTON_WIDTH, xPosButton1, yPosButton1);
+    stageView.addTile(10,
+                      (6) * -1 + stageHeight, et);
+    stage.addEnergyItem("EnergyReceptorUp", id_er, METAL_SIDE, 10, 2);
+    stageView.addTile(10,
+                      (2) * -1 + stageHeight, er);
+    Button* button = stage.getButton(id_button);
+    EnergyReceptor* energyReceptor = stage.getEnergyReceptor(id_er);
+    std::unordered_map<std::string, ItemActivable*> items;
+    items.insert({id_er, energyReceptor});
+    items.insert({id_button, button});
+
+    std::string logic = "!EnergyReceptor1 & !Button1";
+    stage.addGate(id_gate, GATE_HEIGHT, GATE_WIDTH,
+            xPosGate, yPosGate, items, logic);
+
+    stage.addRock(idRock, 1, xPosRock, yPosRock);
 
     // Time to add some platforms!
     stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 12);

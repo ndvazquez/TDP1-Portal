@@ -21,6 +21,9 @@ void EnergyReceptorRight::handleCollision(Entity* entity) {
         EnergyBall* energyBall = static_cast<EnergyBall*>(entity);
         float x_pos = getHorizontalPosition();
         float x_eb = energyBall->getHorizontalPosition();
-        if (x_eb > x_pos) activate();
+        if (x_eb > x_pos) {
+            activate();
+            energyBall->die();
+        }
     }
 }
