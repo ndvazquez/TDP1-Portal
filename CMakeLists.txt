@@ -71,6 +71,7 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Receptor.cpp
         editor/MouseButton.cpp
         editor/stage/LogicGates.cpp
+        editor/stage/object/SentinelBlock.cpp
 
         #ffmpeg/CodecContext.cpp
         #ffmpeg/FormatOutput.cpp

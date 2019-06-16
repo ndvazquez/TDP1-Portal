@@ -16,6 +16,7 @@
 #include "object/Acid.h"
 #include "object/DiagonalBlockUp.h"
 #include "object/Receptor.h"
+#include "object/SentinelBlock.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -26,6 +27,7 @@
 #define ACID_KEY "Acid"
 #define DIAGONAL_BLOCK_KEY "DiagonalBlock"
 #define RECPTOR_KEY "Receptors"
+#define SENTINEL_BLOCK "SentinelBlocks"
 
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
@@ -42,6 +44,7 @@ stageView(window, factor, textures, tiles) {
         textures[name] = newObject;
     }
 
+
     const YAML::Node& receptors = texturesInfo[RECPTOR_KEY];
     for (YAML::const_iterator it = receptors.begin();
          it != receptors.end(); ++it) {
@@ -54,6 +57,20 @@ stageView(window, factor, textures, tiles) {
         textures[name] = newObject;
         logicGates.addElement(newObject);
     }
+
+
+    const YAML::Node& b_sentinels = texturesInfo[SENTINEL_BLOCK];
+    for (YAML::const_iterator it = b_sentinels.begin();
+         it != b_sentinels.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        SentinelBlock* newObject = new SentinelBlock(path, window, name, w, h);
+        textures[name] = newObject;
+    }
+
 
     const YAML::Node& buttons = texturesInfo[BUTTON_KEY];
     for (YAML::const_iterator it = buttons.begin();
@@ -200,7 +217,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
         throw StageControllerNameException();
     }
     try {
-        obj->addTo(x, y, tiles);
+        obj->addTo(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
         std::cerr << e.what();
@@ -253,6 +270,7 @@ void Controller::addCondition(int x, int y) {
     std::getline(std::cin, enteredCondition);
 
     std::cerr << "La condición ingresada es: " << enteredCondition << std::endl;
+
     Object* obj = textures[tiles[pair]];
 
     logicGates.addCondition(obj, pair, enteredCondition);

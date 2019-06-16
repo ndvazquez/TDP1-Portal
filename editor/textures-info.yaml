@@ -31,6 +31,8 @@ Blocks: # no gravity and no animation
     path: resources/blocks/diagonal-down-right.png
     w: 2
     h: 2
+
+SentinelBlocks:
   - name: KindOfARock # It will never be added because the menu doesn't know it.
     path: resources/blocks/sentinel.png #It just a sentinel.
     w: 1

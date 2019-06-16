@@ -16,8 +16,8 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
                        std::unordered_map<std::string, Object *>& textures) {
     auto positionAbove = tiles.find(std::make_pair(x, y - 1));
 
-
     /// if(name == BLOCK_SENTINEL) return;
+
 
     // if i have something above me
     if (positionAbove != tiles.end()){
@@ -33,11 +33,9 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
 }
 
 void Block::addTo(int x, int y, std::map<std::pair<int, int>,
-        std::string> &tiles, std::string sentinel) {
-
-    /// if(name == ROCK_SENTINEL) return;
-
-    Object::addTo(x, y, tiles, BLOCK_SENTINEL);
+        std::string> &tiles, std::unordered_map<std::string,
+        Object *> &textures, std::string sentinel) {
+    Object::addTo(x, y, tiles, textures, BLOCK_SENTINEL);
 }
 
 Block::~Block() = default;

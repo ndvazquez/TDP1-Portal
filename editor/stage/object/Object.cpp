@@ -14,14 +14,25 @@ void Object::hasToBeOn(const std::string &name) {
     floors.push_back(name);
 }
 
-void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) {
+void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>,std::string>
+                        &tiles,
+                        std::unordered_map<std::string, Object *>& textures) {
     for (int i = 0; i < w; i++) {
         // if we dont have something under us there is no way to be add.
         auto positionBelow = tiles.find(std::make_pair(x + i, y + 1));
         if (positionBelow == tiles.end()) {
+            std::cerr << "No tengo nada abajo" << std::endl;
             throw AddTileGravityException(this->name);
         }
+        std::cerr << "Si tengo nada abajo" << std::endl;
 
+        // now, we have something
+        std::string &under = positionBelow->second;
+        // but it can not be just anything
+        if(textures[under]->hasGravity()) {
+            throw AddTileGravityException(this->name);
+        }
+        /*
         // now, we have something but it can not be just anything
         std::string &under = positionBelow->second;
         auto possibleFloor = floors.begin();
@@ -32,16 +43,19 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::s
         }
         if (possibleFloor == floors.end()) {
             throw AddTileGravityException(this->name);
-        }
+        }*/
     }
     // is something we can be on!!!
     //Object::addTo(x,y,tiles);
 }
 
-void Object::addTo(int x, int y, std::map<std::pair<int, int>,
-        std::string> &tiles, std::string sentinel) {
+void Object::addTo(int x, int y, std::map<std::pair<int, int>,std::string>
+        &tiles,
+        std::unordered_map<std::string, Object *>& textures,
+        std::string sentinel) {
     if(this->hasGravity()) {
-        this->addWithGravityTo(x, y, tiles);
+        std::cerr << "Soy "<< name <<" y tengo gravedad" << std::endl;
+        this->addWithGravityTo(x, y, tiles, textures);
     }
 
     // If there's nothing in the space i need
@@ -95,6 +109,7 @@ bool Object::doesThisNameExist(std::string &string) {
 bool Object::hasCondition() {
     return false;
 }
+
 
 
 

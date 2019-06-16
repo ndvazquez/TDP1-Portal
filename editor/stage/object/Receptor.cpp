@@ -11,11 +11,6 @@ bool Receptor::hasGravity() {
     return false;
 }
 
-void Receptor::addTo(int x, int y, std::map<std::pair<int, int>,
-std::string> &tiles, std::string sentinel) {
-    Object::addTo(x, y, tiles, RECEPTOR_SENTINEL);
-}
-
 Receptor::~Receptor() = default;
 
 
@@ -49,4 +44,10 @@ void Receptor::removeFrom(int x, int y, std::map<std::pair<int, int>, std::strin
                         std::unordered_map<std::string, Object *> &textures) {
     names.erase(std::make_pair(x, y));
     Object::removeFrom(x, y, tiles, textures);
+}
+
+void Receptor::addTo(int x, int y, std::map<std::pair<int, int>,
+        std::string> &tiles, std::unordered_map<std::string,
+        Object *> &textures, std::string sentinel) {
+    Object::addTo(x, y, tiles, textures, RECEPTOR_SENTINEL);
 }
