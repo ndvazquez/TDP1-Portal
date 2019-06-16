@@ -1,6 +1,6 @@
-.jpeg
-.out
-.log
-.aux
-.gz
-.toc
+*.jpeg
+*.out
+*.log
+*.aux
+*.gz
+*.toc
