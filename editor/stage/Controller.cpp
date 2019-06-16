@@ -6,6 +6,7 @@
 #include <fstream>
 #include "yaml-cpp/yaml.h"
 #include "Controller.h"
+
 #include "object/Block.h"
 #include "object/Button.h"
 #include "object/Rock.h"
@@ -14,6 +15,7 @@
 #include "object/Cake.h"
 #include "object/Acid.h"
 #include "object/DiagonalBlockUp.h"
+#include "object/Receptor.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -23,17 +25,8 @@
 #define CAKE_KEY "Cake"
 #define ACID_KEY "Acid"
 #define DIAGONAL_BLOCK_KEY "DiagonalBlock"
+#define RECPTOR_KEY "Receptors"
 
-
-#define NOT '!'
-#define BUTTON "Button"
-#define OR " |"
-#define AND " &"
-
-#define IS_ODD(x) x%2
-
-#define OPEN_BRACKET '('
-#define CLOSE_BRACKET ')'
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
@@ -47,6 +40,19 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Block* newObject = new Block(path, window, name, w, h);
         textures[name] = newObject;
+    }
+
+    const YAML::Node& receptors = texturesInfo[RECPTOR_KEY];
+    for (YAML::const_iterator it = receptors.begin();
+         it != receptors.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        Receptor* newObject = new Receptor(path, window, name, w, h);
+        textures[name] = newObject;
+        logicGates.addElement(newObject);
     }
 
     const YAML::Node& buttons = texturesInfo[BUTTON_KEY];
@@ -67,6 +73,8 @@ stageView(window, factor, textures, tiles) {
 
             newObject->hasToBeOn(name);
         }
+
+        logicGates.addElement(newObject);
     }
 
     const YAML::Node& rocks = texturesInfo[ROCK_KEY];
@@ -85,7 +93,6 @@ stageView(window, factor, textures, tiles) {
              it != blocks.end(); ++it) {
             const YAML::Node &node = *it;
             std::string name = node["name"].as<std::string>();
-
             newObject->hasToBeOn(name);
         }
     }
@@ -128,6 +135,8 @@ stageView(window, factor, textures, tiles) {
 
             newObject->hasToBeOn(name);
         }
+
+        logicGates.addElement(newObject);
     }
 
     const YAML::Node& cakes = texturesInfo[CAKE_KEY];
@@ -194,6 +203,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
         obj->addTo(x, y, tiles);
     }
     catch(ObjectException& e) {
+        std::cerr << e.what();
         throw StageControllerAddTileException();
     }
 }
@@ -208,6 +218,7 @@ void Controller::removeTile(int x, int y) {
         obj->removeFrom(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
+        std::cerr << e.what();
         throw StageControllerRemoveTileException();
     }
 }
@@ -229,7 +240,8 @@ std::string& Controller::getName(int x, int y) {
 
 void Controller::nameAnObject(int x, int y, std::string& enteredName) {
     std::pair<int, int> pair = std::make_pair(x, y);
-    textures[tiles[pair]]->setName(pair, enteredName);
+    Object* obj = textures[tiles[pair]];
+    logicGates.setName(obj, pair, enteredName);
 }
 
 void Controller::addCondition(int x, int y) {
@@ -241,55 +253,9 @@ void Controller::addCondition(int x, int y) {
     std::getline(std::cin, enteredCondition);
 
     std::cerr << "La condición ingresada es: " << enteredCondition << std::endl;
-    try {
-        this->parseCondition(enteredCondition);
-    } catch (StageControllerInvalidConditionException &e) {
-        return;
-    }
-    textures[tiles[pair]]->addCondition(pair, enteredCondition);
-}
+    Object* obj = textures[tiles[pair]];
 
-void Controller::parseCondition(std::string& condition) {
-    Object *button = this->textures[BUTTON];
-    std::istringstream iss(condition);
-    std::string word;
-    bool allGood;
-    int i = 0;
-    while (iss >> word) {
-        if (IS_ODD(i)) { //it is a button name
-            allGood = word != AND && word != OR;
-            if (!allGood) {
-                std::cerr << "Parece que no es & o |. Es: " << word << std::endl;
-            }
-        } else {
-            if (word[0] == NOT or word[0] == OPEN_BRACKET) {
-                word = word.substr(1);
-            }
-            if (word.back() == CLOSE_BRACKET) {
-                word.pop_back();
-            }
-            allGood = button->doesThisNameExist(word);
-
-            if (!allGood) {
-                std::cerr << "Parece que " << word << " no es un boton existente" << word << std::endl;
-            }
-        }
-
-        if (!allGood) {
-            std::cerr << "NOT ALL GOOD" << std::endl;
-            throw StageControllerInvalidConditionException();
-        }
-        i++;
-    }
-    std::cerr << "I es: " << i << std::endl;
-
-    std::cerr << "I%2 es: " << i%2 << std::endl;
-    if (IS_ODD(i)) {
-        return;
-    } else {
-        std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
-        throw StageControllerInvalidConditionException();
-    }
+    logicGates.addCondition(obj, pair, enteredCondition);
 }
 
 #define OBJECT_NAME "name"

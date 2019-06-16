@@ -61,7 +61,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,
             tiles.insert(std::make_pair(std::make_pair(x + i, y - j), sentinel));
         }
     }
-
+    std::pair<int, int> pair = std::make_pair(x, y);
 }
 
 
@@ -69,12 +69,12 @@ void Object::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string>
                         std::unordered_map<std::string, Object *>& textures) {
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            tiles.erase(std::make_pair(x - i , y - j));
+            tiles.erase(std::make_pair(x + i , y - j));
         }
     }
 }
 
-void Object::setName(std::pair<int, int> position, std::string& enteredName) {
+void Object::setName(std::pair<int, int>& position, std::string& enteredName) {
     // if is not overwritten it wont do much
     // i.e. if you are not a button or a gate u must do nothing
 }
@@ -91,12 +91,11 @@ bool Object::hasGravity() {
 bool Object::doesThisNameExist(std::string &string) {
     return false;
 }
-<<<<<<< Updated upstream
-=======
 
 bool Object::hasCondition() {
     return false;
 }
+
 
 
 std::string Object::getMetersPosition(const std::pair<int, int> position) {
@@ -104,4 +103,4 @@ std::string Object::getMetersPosition(const std::pair<int, int> position) {
     s = "(" + std::to_string(position.first) + "," + std::to_string(position.second) + ")";
     return s;
 }
->>>>>>> Stashed changes
+

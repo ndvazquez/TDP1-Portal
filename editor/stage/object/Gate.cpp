@@ -11,7 +11,7 @@ Gate::Gate(std::string& path, Window& window, const std::string& name, int w, in
 Gate::~Gate() = default;
 
 
-void Gate::setName(std::pair<int, int> position, std::string& enteredName) {
+void Gate::setName(std::pair<int, int>& position, std::string& enteredName) {
     std::cerr << "Soy una compuerta " << std::endl;
     names[position] = enteredName;
     std::cerr << "y mi nombre es " << enteredName << std::endl;
@@ -36,4 +36,8 @@ void Gate::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &
     conditions.erase(std::make_pair(x, y));
     names.erase(std::make_pair(x, y));
     Object::removeFrom(x, y, tiles, textures);
+}
+
+bool Gate::hasCondition() {
+    return true;
 }

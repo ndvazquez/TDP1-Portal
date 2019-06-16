@@ -11,7 +11,7 @@
 #define GRAVITY ". That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
 #define FLOOR_NEEDED "The object above needs to be over a statick object\n"
-
+#define SET_NAME_EXC "That name already exist in another object"
 
 
 class ObjectException : public std::exception {
@@ -47,12 +47,23 @@ public:
 class RemoveTileFloorNeeded : public ObjectException {
     const char* what() const noexcept override {
         std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
-        std::cerr << message;
         return message.c_str();
     }
 
 public:
     explicit RemoveTileFloorNeeded(std::string& name) :
+            ObjectException(name) {}
+};
+
+
+class SetNameException : public ObjectException {
+    const char* what() const noexcept override {
+        std::string message = EXC_INTRO + this->name + SET_NAME_EXC;
+        return message.c_str();
+    }
+
+public:
+    explicit SetNameException(std::string& name) :
             ObjectException(name) {}
 };
 

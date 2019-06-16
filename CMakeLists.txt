@@ -68,8 +68,9 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
         editor/stage/object/DiagonalBlockUp.cpp
+        editor/stage/object/Receptor.cpp
         editor/MouseButton.cpp
-
+        editor/stage/LogicGates.cpp
 
         #ffmpeg/CodecContext.cpp
         #ffmpeg/FormatOutput.cpp

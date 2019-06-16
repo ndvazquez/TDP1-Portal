@@ -19,7 +19,6 @@
 class Object {
 protected:
     std::vector<std::string> floors;
-    std::string name;
     int w;
     int h;
 
@@ -33,7 +32,7 @@ public:
     virtual void addTo(int x, int y, std::map<std::pair<int, int>,
             std::string> &tiles, std::string sentinel = SENTINEL);
 
-    virtual void setName(std::pair<int, int> position, std::string &enteredName);
+    virtual void setName(std::pair<int, int>& position, std::string &enteredName);
 
     void addWithGravityTo(int x, int y, std::map<std::pair<int, int>, std::string> &tiles);
 
@@ -44,15 +43,12 @@ public:
     virtual void addCondition(std::pair<int, int> position, std::string& condition);
 
     virtual bool doesThisNameExist(std::string &string);
-<<<<<<< Updated upstream
-=======
 
     virtual bool hasCondition();
 
     std::string name;
 
     std::string getMetersPosition(const std::pair<int, int> position);
->>>>>>> Stashed changes
 };
 
 #endif //PORTAL_OBJECT_H
