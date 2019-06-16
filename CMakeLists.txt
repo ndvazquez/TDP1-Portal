@@ -71,7 +71,9 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Receptor.cpp
         editor/MouseButton.cpp
         editor/stage/LogicGates.cpp
-        editor/stage/object/SentinelBlock.cpp
+        editor/stage/object/WithOutGravitySentinel.cpp
+
+        editor/stage/object/GravitySentinel.cpp
 
         #ffmpeg/CodecContext.cpp
         #ffmpeg/FormatOutput.cpp

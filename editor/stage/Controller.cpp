@@ -16,7 +16,8 @@
 #include "object/Acid.h"
 #include "object/DiagonalBlockUp.h"
 #include "object/Receptor.h"
-#include "object/SentinelBlock.h"
+#include "object/WithOutGravitySentinel.h"
+#include "object/GravitySentinel.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -27,8 +28,10 @@
 #define ACID_KEY "Acid"
 #define DIAGONAL_BLOCK_KEY "DiagonalBlock"
 #define RECPTOR_KEY "Receptors"
-#define SENTINEL_BLOCK "SentinelBlocks"
 
+
+#define KEY_WITHOUT_GRAVITY_SENTINEL "WithoutGravitySentinel"
+#define KEY_GRAVITY_SENTINEL "GravitySentinel"
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
 stageView(window, factor, textures, tiles) {
@@ -55,22 +58,34 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Receptor* newObject = new Receptor(path, window, name, w, h);
         textures[name] = newObject;
+
         logicGates.addElement(newObject);
     }
 
 
-    const YAML::Node& b_sentinels = texturesInfo[SENTINEL_BLOCK];
-    for (YAML::const_iterator it = b_sentinels.begin();
-         it != b_sentinels.end(); ++it) {
+    const YAML::Node& wGSentinels = texturesInfo[KEY_WITHOUT_GRAVITY_SENTINEL];
+    for (YAML::const_iterator it = wGSentinels.begin();
+         it != wGSentinels.end(); ++it) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        SentinelBlock* newObject = new SentinelBlock(path, window, name, w, h);
+        WithOutGravitySentinel* newObject = new WithOutGravitySentinel(path, window, name, w, h);
         textures[name] = newObject;
     }
 
+    const YAML::Node& gSentinels = texturesInfo[KEY_GRAVITY_SENTINEL];
+    for (YAML::const_iterator it = gSentinels.begin();
+         it != gSentinels.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        GravitySentinel* newObject = new GravitySentinel(path, window, name, w, h);
+        textures[name] = newObject;
+    }
 
     const YAML::Node& buttons = texturesInfo[BUTTON_KEY];
     for (YAML::const_iterator it = buttons.begin();
@@ -82,14 +97,6 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Button* newObject = new Button(path, window, name, w, h);
         textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
 
         logicGates.addElement(newObject);
     }
@@ -105,13 +112,6 @@ stageView(window, factor, textures, tiles) {
 
         Rock* newObject = new Rock(path, window, name, w, h);
         textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-            newObject->hasToBeOn(name);
-        }
     }
 
     const YAML::Node& chells = texturesInfo[CHELL_KEY];
@@ -124,14 +124,6 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Chell* newObject = new Chell(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
     }
 
     const YAML::Node& gates = texturesInfo[GATE_KEY];
@@ -144,14 +136,6 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Gate* newObject = new Gate(path, window, name, w, h);
         textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
 
         logicGates.addElement(newObject);
     }
@@ -166,15 +150,8 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Cake* newObject = new Cake(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
     }
+
     const YAML::Node& acid = texturesInfo[ACID_KEY];
     for (YAML::const_iterator it = acid.begin();
          it != acid.end(); ++it) {
@@ -185,13 +162,6 @@ stageView(window, factor, textures, tiles) {
         int h = node["h"].as<int>();
         Acid* newObject = new Acid(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-            newObject->hasToBeOn(name);
-        }
     }
 
     const YAML::Node& DiagonalBlocks = texturesInfo[DIAGONAL_BLOCK_KEY];

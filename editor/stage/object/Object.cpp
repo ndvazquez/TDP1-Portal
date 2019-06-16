@@ -32,28 +32,20 @@ void Object::addWithGravityTo(int x, int y, std::map<std::pair<int, int>,std::st
         if(textures[under]->hasGravity()) {
             throw AddTileGravityException(this->name);
         }
-        /*
-        // now, we have something but it can not be just anything
-        std::string &under = positionBelow->second;
-        auto possibleFloor = floors.begin();
-        for (; possibleFloor != floors.end(); possibleFloor++) {
-            if (*possibleFloor == under) {
-                break;
-            }
-        }
-        if (possibleFloor == floors.end()) {
-            throw AddTileGravityException(this->name);
-        }*/
     }
-    // is something we can be on!!!
-    //Object::addTo(x,y,tiles);
 }
 
 void Object::addTo(int x, int y, std::map<std::pair<int, int>,std::string>
         &tiles,
         std::unordered_map<std::string, Object *>& textures,
-        std::string sentinel) {
+        bool needGravitySentinel) {
+    std::string sentinel = WITHOUT_GRAVITY_SENTINEL;
+
+    if (needGravitySentinel) {
+        sentinel = GRAVITY_SENTINEL;
+    }
     if(this->hasGravity()) {
+        sentinel = GRAVITY_SENTINEL;
         std::cerr << "Soy "<< name <<" y tengo gravedad" << std::endl;
         this->addWithGravityTo(x, y, tiles, textures);
     }
@@ -118,4 +110,6 @@ std::string Object::getMetersPosition(const std::pair<int, int> position) {
     s = "(" + std::to_string(position.first) + "," + std::to_string(position.second) + ")";
     return s;
 }
+
+
 

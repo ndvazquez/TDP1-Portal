@@ -14,7 +14,8 @@
 
 #define POSITIONS_ABOVE (h - 1)
 #define SENTINEL ""
-#define BLOCK_SENTINEL "KindOfARock"
+#define WITHOUT_GRAVITY_SENTINEL "WithoutGravitySentinel"
+#define GRAVITY_SENTINEL "GravitySentinel"
 
 class Object {
 protected:
@@ -32,7 +33,7 @@ public:
 
     virtual void addTo(int x, int y, std::map<std::pair<int, int>,
             std::string> &tiles, std::unordered_map<std::string,
-            Object *>& textures, std::string sentinel = SENTINEL);
+            Object *>& texturesL, bool needGravitySentinel = false);
 
     virtual void setName(std::pair<int, int>& position, std::string &enteredName);
 

@@ -9,11 +9,11 @@ position:
   []
 name: DiagonalUpRight
 position:
-  []
+  - (12,15)
 name: Rock3
 position:
   []
-name: LounchBlockLeft
+name: Rock2
 position:
   []
 name: Chell
@@ -30,7 +30,13 @@ position:
   []
 name: MetalBlock
 position:
-  - (12,14)
+  []
+name: Acid
+position:
+  []
+name: DiagonalDownLeft
+position:
+  []
 name: LounchBlockRight
 position:
   []
@@ -49,23 +55,20 @@ position:
 name: ReceptorUp
 position:
   []
-name: Acid
+name: LounchBlockLeft
 position:
   []
-name: DiagonalDownLeft
+name: WithoutGravitySentinel
 position:
   []
-name: KindOfARock
+name: GravitySentinel
 position:
-  - (12,13)
-  - (13,13)
+  - (12,14)
   - (13,14)
+  - (13,15)
 name: LounchBlockDown
 position:
   []
 name: Rock1
-position:
-  []
-name: Rock2
 position:
   []

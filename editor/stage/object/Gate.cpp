@@ -39,7 +39,7 @@ bool Gate::hasCondition() {
 
 void Gate::addTo(int x, int y, std::map<std::pair<int, int>,
         std::string> &tiles, std::unordered_map<std::string,
-        Object *> &textures, std::string sentinel) {
+        Object *> &textures, bool needGravitySentinel) {
     conditions[std::make_pair(x, y)] = "";
-    Object::addTo(x, y, tiles, textures, sentinel);
+    Object::addTo(x, y, tiles, textures);
 }

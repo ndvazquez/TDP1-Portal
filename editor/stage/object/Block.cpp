@@ -32,10 +32,4 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
     Object::removeFrom(x, y, tiles, textures);
 }
 
-void Block::addTo(int x, int y, std::map<std::pair<int, int>,
-        std::string> &tiles, std::unordered_map<std::string,
-        Object *> &textures, std::string sentinel) {
-    Object::addTo(x, y, tiles, textures, BLOCK_SENTINEL);
-}
-
 Block::~Block() = default;

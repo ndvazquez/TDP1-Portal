@@ -17,9 +17,6 @@ public:
                     std::unordered_map<std::string, Object *>& map) override;
 
     bool hasGravity() override;
-    void addTo(int x, int y, std::map<std::pair<int, int>,
-            std::string> &tiles, std::unordered_map<std::string,
-            Object *>& textures, std::string sentinel = SENTINEL) override;
 };
 
 
