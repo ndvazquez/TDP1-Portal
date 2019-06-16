@@ -93,5 +93,5 @@ enum PortalType {
 // Protocol stuff
 #define THREAD_SUICIDE_PILL "F"
 #define REQUEST_LEN_SIZE 4
-
+#define PLAYER_ID_PREFIX "Chell"
 #endif //PORTAL_CONSTANTS_H

@@ -5,13 +5,9 @@
 #include <iostream>
 #include "StageManager.h"
 
-StageManager::StageManager(UserEventQueue &eventQueue,
-        StageStatusQueue& statusQueue,
-        int stageWidth,
+StageManager::StageManager(int stageWidth,
         int stageHeight) :
         playerCounter(1),
-        userEventQueue(eventQueue),
-        stageStatusQueue(statusQueue),
         stage(Stage(stageWidth, stageHeight)){
     this->timeStamp = std::chrono::system_clock::now();
     // Parseo del YAML con la informaci[on del mapa acá.
@@ -30,8 +26,8 @@ StageManager::StageManager(UserEventQueue &eventQueue,
     float yPosAcid = 1;
     std::string idAcid = "Acid1";
 
-    stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
-                   xPosChell, yPosChell);
+//    stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
+//                   xPosChell, yPosChell);
     stage.addCake(1, xPosCake, yPosCake);
     stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
                   xPosAcid, yPosAcid);
@@ -58,6 +54,14 @@ StageManager::StageManager(UserEventQueue &eventQueue,
 }
 
 StageManager::~StageManager() {
+    for (auto it = clients.begin(); it != clients.end(); ++it) {
+        it->second->stop();
+        it->second->join();
+        delete it->second;
+    }
+    for (auto it = clientQueues.begin(); it != clientQueues.end(); ++it) {
+        delete it->second;
+    }
 }
 
 void StageManager::run() {
@@ -65,23 +69,58 @@ void StageManager::run() {
     // everyone loses.
     // Also, I think it's a good idea to have the time step handled
     // here, because we can consume events between steps!
-    auto end = std::chrono::system_clock::now();
-    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
-            (end - timeStamp).count();
-    if (difference <= 1000 / 60) {
-        if (!userEventQueue.empty()){
-            UserEvent userEvent = userEventQueue.pop();
-            Chell* chell = stage.getChell(userEvent.getUserId());
-            handleEvent(userEvent, chell);
+    for (auto it = clients.begin(); it != clients.end(); ++it) {
+        it->second->start();
+    }
+    bool weGaming = true;
+    while (weGaming) {
+        auto end = std::chrono::system_clock::now();
+        auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
+                (end - timeStamp).count();
+        if (difference <= 1000 / 60) {
+            if (!userEventQueue.empty()){
+                UserEvent userEvent = userEventQueue.pop();
+                Chell* chell = stage.getChell(userEvent.getUserId());
+                handleEvent(userEvent, chell);
+            }
+        } else {
+            timeStamp = std::chrono::system_clock::now();
+            stage.step();
+            nlohmann::json stageStatus = stage.getCurrentState();
+            // Check if any client is dead (disconnected).
+            // If so, then delete his queue and the ClientHandler.
+            for (auto it = clients.begin(); it != clients.end(); ){
+                auto clientIt = it++;
+                if (clientIt->second->isDead()) {
+                    std::string playerID = clientIt->first;
+                    std::cout << "Removing " + playerID << " from the client pool\n";
+                    auto queueIt = clientQueues.find(playerID);
+                    queueIt->second->push(THREAD_SUICIDE_PILL);
+                    // Sanity check.
+                    clientIt->second->stop();
+                    clientIt->second->join();
+                    delete queueIt->second;
+                    clientQueues.erase(queueIt);
+                    delete clientIt->second;
+                    clients.erase(clientIt);
+                    std::cout << "Client deleted\n";
+                }
+            }
+            // Push stage status to each queue.
+            // Doing a dump for each queue might be a performance hit.
+            for (auto it = clientQueues.begin(); it != clientQueues.end(); it++) {
+                it->second->push(stageStatus.dump());
+            }
+            // Provisory way to exit the loop.
+            if (clients.size() == 0) {
+                weGaming = false;
+                std::cout << "Goodbye!\n";
+            }
         }
-    } else {
-        timeStamp = std::chrono::system_clock::now();
-        stage.step();
-        nlohmann::json stageStatus = stage.getCurrentState();
-        stageStatusQueue.push(stageStatus.dump());
     }
 }
 
+// This should use a factory but a switch will do for now.
 void StageManager::handleEvent(UserEvent &userEvent,
         Chell *chell) {
     if (chell == nullptr) return;
@@ -146,3 +185,12 @@ void StageManager::handleEvent(UserEvent &userEvent,
     }
 }
 
+// For now we'll receive x and y to position Chell in stage.
+void StageManager::addPlayer(Socket &socket, float x, float y) {
+    std::string playerID = PLAYER_ID_PREFIX + std::to_string(playerCounter);
+    ++playerCounter;
+    StageStatusQueue* newStatusQueue = new StageStatusQueue();
+    clientQueues.insert({playerID, newStatusQueue});
+    clients.insert({playerID, new ClientHandler(socket, userEventQueue, *newStatusQueue)});
+    stage.addChell(playerID, CHELL_HEIGHT, CHELL_WIDTH, x, y);
+}
