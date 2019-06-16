@@ -15,6 +15,7 @@
 #include "EnergyReceptorLeft.h"
 #include "EnergyReceptorUp.h"
 #include "EnergyReceptorDown.h"
+#include "DiagonalMetalBlock.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
     Entity(energyBallType, body),
@@ -40,8 +41,8 @@ void EnergyBall::fly() {
     }
 }
 
-void EnergyBall::changeDirection() {
-    this->is_vertical = ! is_vertical;
+void EnergyBall::changeDirection(b2Vec2 velocity) {
+    this->dynamic.fly(velocity);
 }
 
 void EnergyBall::die() {
@@ -65,7 +66,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         die();
     }
     if (type == "DiagonalMetalBlock") {
-        changeDirection();
+        b2Vec2 velocity = static_cast<DiagonalMetalBlock*>(entity)->calculateVelocity();
+        changeDirection(velocity);
     }
     if (type == "Chell") {
         static_cast<Chell*>(entity)->die();

@@ -28,6 +28,7 @@ public:
     void stop(float force);
     void flyHorizontal();
     void flyVertical();
+    void fly(b2Vec2 velocity);
     bool handleCollisions();
     void teleport(Coordinate* coordinate, PortalType type);
 };

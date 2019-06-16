@@ -62,7 +62,7 @@ void Stage::addDiagonalBlock(float side, float x_pos, float y_pos, float angle) 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
     b2Body *block_body = world->addTriangle(side, x_pos, y_pos, angle);
-    DiagonalMetalBlock *block = new DiagonalMetalBlock(block_body);
+    DiagonalMetalBlock *block = new DiagonalMetalBlock(block_body, angle);
     diagonal_metal_blocks.insert({coordinates, block});
 }
 

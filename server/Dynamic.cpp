@@ -77,12 +77,21 @@ bool Dynamic::handleCollisions() {
         if (contact->IsTouching()) {
             void* user_A = contact->GetFixtureA()->GetBody()->GetUserData();
             void* user_B = contact->GetFixtureB()->GetBody()->GetUserData();
+            if (user_A != NULL) {
+                Entity* entity_A = static_cast<Entity*>(user_A);
+                std::string typeA = entity_A->getType();
+                if (typeA == "EnergyBall") resul = true;
+            }
+            if (user_B != NULL) {
+                Entity* entity_B = static_cast<Entity*>(user_B);
+                std::string typeB = entity_B->getType();
+                if (typeB == "EnergyBall") resul = true;
+            }
             if (user_A != NULL && user_B != NULL) {
                 Entity* entity_A = static_cast<Entity*>(user_A);
                 Entity* entity_B = static_cast<Entity*> (user_B);
                 entity_A->handleCollision(entity_B);
             }
-            resul = true;
         }
         edge = edge->next;
         counter++;
@@ -118,6 +127,14 @@ void Dynamic::flyVertical() {
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
+}
+
+void Dynamic::fly(b2Vec2 velocity) {
+    body->SetGravityScale(0);
+
+    float factor = gameConfiguration.directionFactor;
+
+    body->SetLinearVelocity(b2Vec2(velocity.x*factor, velocity.y*factor));
 }
 
 void Dynamic::adjustJump() {
