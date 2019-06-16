@@ -194,7 +194,7 @@ protected:
 
 	uint32 m_flags;
 
-	// PhysicsWorld pool and list pointers.
+	// World pool and list pointers.
 	b2Contact* m_prev;
 	b2Contact* m_next;
 
