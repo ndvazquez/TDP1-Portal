@@ -124,7 +124,8 @@ set(SERVER_SOURCE_FILES
         server/EnergyReceptorRight.cpp
         server/PhysicsWorld.cpp
         server/ItemActivable.cpp
-        server/PortalManager.cpp)
+        server/PortalManager.cpp
+        common/UserEvent.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
