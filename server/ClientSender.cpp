@@ -3,6 +3,7 @@
 //
 
 #include "ClientSender.h"
+#include <iostream>
 
 ClientSender::ClientSender(StageStatusQueue &stageQueue, Socket &socket) :
                             stageStatusQueue(stageQueue),
@@ -12,7 +13,7 @@ ClientSender::ClientSender(StageStatusQueue &stageQueue, Socket &socket) :
 ClientSender::~ClientSender() {}
 
 void ClientSender::run() {
-    while (!_isDead){
+    while (!_isDead) {
         try {
             // It should block here until there's something in the queue.
             std::string stageStatus = stageStatusQueue.pop();
@@ -21,11 +22,17 @@ void ClientSender::run() {
                 _isDead = true;
                 break;
             }
-            int stageStatusSize = stageStatus.length();
-            clientSocket.sendMessage(stageStatus.c_str(), stageStatusSize);
-        } catch (...){
+            int stageStatusSize = stageStatus.size();
+            clientSocket.sendMessage(&stageStatusSize, REQUEST_LEN_SIZE);
+            clientSocket.sendMessage(&stageStatus[0], stageStatusSize);
+        } catch (std::runtime_error &e){
             // TODO: Implement a real exception.
+            std::cout << "Force shutdown, expected behaviour." << std::endl;
             _isDead = true;
+        } catch (...) {
+            _isDead = true;
+            std::cout << "Aborting Sender execution." << std::endl;
+            return;
         }
     }
 }
