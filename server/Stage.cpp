@@ -22,8 +22,7 @@
 #include "EnergyReceptorUp.h"
 #include "PortalManager.h"
 
-Stage::Stage(size_t width, size_t height):
-    width(width), height(height) {
+Stage::Stage(size_t width, size_t height) {
     this->end_of_game = false;
     float module_gravity = gameConfiguration.gravity;
     b2Vec2 gravity(0.0f, module_gravity);

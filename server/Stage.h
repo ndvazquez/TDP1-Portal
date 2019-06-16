@@ -41,8 +41,6 @@ class StageBadIdentifierException : public std::exception {
 class Stage {
 private:
     PhysicsWorld* world;
-    size_t width;
-    size_t height;
     Cake* cake;
     bool end_of_game;
 
