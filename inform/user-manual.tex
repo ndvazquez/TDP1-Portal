@@ -1,0 +1,60 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{fancyhdr,graphicx}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,bookmarksopen=true]{hyperref}
+
+\newcommand{\materia}{[75.41] Taller de Programación I}
+\newcommand{\trabajo}{Manual de usuario}
+\newcommand{\trabajoheader}{Ejercicio final }
+\newcommand{\cuatri}{1c2019}
+\newcommand{\cuatrimestre}{Primer cuatrimestre de 2019}
+\newcommand{\grupo}{Grupo 3}
+
+\newcommand{\autores}{
+	Camila Bojman,
+	Cecilia Hortas,
+	Nicolas Vazquez}
+
+\hypersetup{
+	pdftitle={\trabajo},
+	pdfsubject={\materia},
+	pdfauthor={\autores},
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\materia}
+\fancyhead[R]{\trabajoheader - \trabajo}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyfoot[C]{\thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+	\pagenumbering{gobble}
+	\pagenumbering{roman}
+	\pagenumbering{arabic}
+	\setcounter{page}{1}
+	
+	\begin{titlepage}
+		\hfill\includegraphics[width=6cm]{fiuba.jpeg}
+		\begin{center}
+			\vfill
+			\Huge \textbf{\trabajo}
+			\vskip2cm
+			\Large \materia\\
+			\cuatrimestre
+			\vfill
+			\grupo
+			\begin{itemize}
+				\item Camila Bojman 101055 camiboj@gmail.com
+				\item Cecilia Hortas 100687 ceci.hortas@gmail.com 100338 
+				\item Nicolas Vazquez  vazquez.nicolas.daniel@gmail.com
+			\end{itemize}
+			\vskip1cm
+		\end{center}
+	\end{titlepage}
+
+
+\end{document}
