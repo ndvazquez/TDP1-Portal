@@ -10,8 +10,6 @@
 #include <iostream>
 #include "../common/SDLSession.h"
 #include <yaml-cpp/yaml.h>
-#include <Stage.h>
-#include <StageManager.h>
 #include "../common/constants.h"
 #include "Camera.h"
 #include "AudioSystem.h"
@@ -20,6 +18,7 @@
 #include "../common/UserEvent.h"
 #include "../common/UserEventQueue.h"
 #include "UserEventHandler.h"
+#include "../common/Socket.h"
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 600
@@ -102,37 +101,37 @@ void playGame(std::string& idChell) {
                             {"y", yPosChell}
                     }
             },{
-                "BlueShot2",
-                        {
-                                {"type", BULLET_VIEW_CODE},
-                                {"state", 0},
-                                {"x", xPosChell} ,
-                                {"y", yPosChell}
-                        }
+                    "BlueShot2",
+                    {
+                            {"type", BULLET_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
             },{
-                "OrangeShot2",
-                        {
-                                {"type", BULLET_VIEW_CODE},
-                                {"state", 0},
-                                {"x", xPosChell} ,
-                                {"y", yPosChell}
-                        }
+                    "OrangeShot2",
+                    {
+                            {"type", BULLET_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
             },{
-                "BluePortal2",
-                        {
-                                {"type", BLUE_PORTAL_VIEW_CODE},
-                                {"state", 0},
-                                {"x", xPosChell} ,
-                                {"y", yPosChell}
-                        }
+                    "BluePortal2",
+                    {
+                            {"type", BLUE_PORTAL_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
             },{
-                "OrangePortal2",
-                        {
-                                {"type", ORANGE_PORTAL_VIEW_CODE},
-                                {"state", 0},
-                                {"x", xPosChell} ,
-                                {"y", yPosChell}
-                        }
+                    "OrangePortal2",
+                    {
+                            {"type", ORANGE_PORTAL_VIEW_CODE},
+                            {"state", 0},
+                            {"x", xPosChell} ,
+                            {"y", yPosChell}
+                    }
             },{
                     "Rock1",
                     {
@@ -142,7 +141,7 @@ void playGame(std::string& idChell) {
                             {"y", yPosRock}
                     }
             },{
-                "Acid1",
+                    "Acid1",
                     {
                             {"type", ACID_VIEW_CODE},
                             {"state", 0},
@@ -150,7 +149,7 @@ void playGame(std::string& idChell) {
                             {"y", yPosAcid}
                     }
             },{
-                "EnergyBall1",
+                    "EnergyBall1",
                     {
                             {"type", ENERGY_BALL__VIEW_CODE},
                             {"state", 0},
@@ -178,10 +177,10 @@ void playGame(std::string& idChell) {
 
     StageView stageView(newWindow, textures, MTP_FACTOR);
 
-   /* stage.addRock(idRock, ROCK_HEIGHT,
-                  xPosRock, yPosRock);*/
-   /* stage.addRock("Rock2", ROCK_HEIGHT,
-                  xPosRock + 2, yPosRock);*/
+    /* stage.addRock(idRock, ROCK_HEIGHT,
+                   xPosRock, yPosRock);*/
+    /* stage.addRock("Rock2", ROCK_HEIGHT,
+                   xPosRock + 2, yPosRock);*/
 
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;

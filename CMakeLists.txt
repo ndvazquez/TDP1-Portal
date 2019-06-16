@@ -127,7 +127,15 @@ set(SERVER_SOURCE_FILES
         common/UserEvent.cpp
         server/ClientHandler.cpp
         server/ClientSender.cpp
-        server/ClientReceiver.cpp)
+        server/ClientReceiver.cpp
+        server/EnergyReceptor.cpp
+        server/EnergyReceptorUp.cpp
+        server/EnergyReceptorDown.cpp
+        server/EnergyReceptorLeft.cpp
+        server/EnergyReceptorRight.cpp
+        server/PhysicsWorld.cpp
+        server/ItemActivable.cpp
+        server/PortalManager.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

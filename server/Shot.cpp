@@ -31,8 +31,7 @@ void Shot::shoot() {
     chell->stop();
     float delta = 0.5;
 
-    b2World* world = body->GetWorld();
-    world->SetGravity(b2Vec2(0, 0));
+    body->SetGravityScale(0);
 
     this->dynamic.handleCollisions();
 
@@ -41,28 +40,27 @@ void Shot::shoot() {
     float target_x = target->getX();
     float target_y = target->getY();
 
-    float to_advance_x = target_x - origin_x;
-    float to_advance_y = target_y - origin_y;
-
-    float velocity_x = to_advance_x * 3;
-    float velocity_y = to_advance_y * 3;
-
     float x_act = body->GetPosition().x;
     float y_act = body->GetPosition().y;
 
     bool x_done = (x_act >= target_x - delta && x_act <= target_x + delta);
     bool y_done = (y_act >= target_y - delta && y_act <= target_y + delta);
 
-    if (x_done) velocity_x = 0;
+    float to_advance_x = target_x - origin_x;
+    float to_advance_y = target_y - origin_y;
 
-    if (y_done) velocity_y = 0;
+    b2Vec2 velocity (to_advance_x, to_advance_y);
+    velocity.Normalize();
+    velocity.x *= gameConfiguration.shotFactor;
+    velocity.y *= gameConfiguration.shotFactor;
 
-    body->SetLinearVelocity(b2Vec2(velocity_x, velocity_y));
+    if (x_done) velocity.x = 0;
 
-    if (x_done && y_done) {
-        die();
-        return;
-    }
+    if (y_done) velocity.y = 0;
+
+    body->SetLinearVelocity(velocity);
+
+    if (x_done && y_done) die();
 }
 
 bool Shot::isDead() {

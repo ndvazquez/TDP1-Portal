@@ -2,67 +2,39 @@
 // Created by cecix on 17/05/19.
 //
 
-#define buttonType "Button"
-
 #include <string>
-#include <iostream>
 #include "Button.h"
 #include "Chell.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
 Button::Button(b2Body* body):
-    Entity(buttonType, body), dynamic(body) {
+    ItemActivable(BUTTON_NAME, body), dynamic(body) {
     body->SetUserData(this);
-    this->state = OFF;
 }
 
 void Button::handleCollision(Entity *entity) {
     std::string type = entity->getType();
-    if (type == "Rock") {
+    if (type == ROCK_NAME) {
         Rock* rock = static_cast<Rock*>(entity);
-        float x_rock = rock->getHorizontalPosition();
-        float x_button = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_rock > x_button - delta && x_rock < x_button + delta) {
-            activate();
-        }
-    }
-    if (type == "Chell") {
+        float y_rock = rock->getVerticalPosition();
+        float y_button = getVerticalPosition();
+        if (y_rock > y_button) activate();
+    } else if (type == CHELL_NAME) {
         Chell* chell = static_cast<Chell*>(entity);
         chell->onFloor(true);
-        float x_chell = chell->getHorizontalPosition();
-        float x_button = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_chell > x_button - delta && x_chell < x_button + delta) {
-            activate();
-        }
-    }
-    else {
+        float y_chell = chell->getVerticalPosition();
+        float y_button = getVerticalPosition();
+        if (y_chell > y_button) activate();
+    } else {
         desactivate();
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
-}
-
-void Button::activate() {
-    this->state = ON;
-}
-
-void Button::desactivate() {
-    this->state = OFF;
-}
-
-bool Button::isActive() {
-    return this->state == ON;
-}
-
-ButtonState Button::getState() {
-    return this->state;
 }
 
 void Button::update() {

@@ -11,25 +11,23 @@
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-#define brickBlockType "BrickBlock"
-
 BrickBlock::BrickBlock(b2Body* body):
-    Entity(brickBlockType, body) {
+    Entity(BRICK_BLOCK_NAME, body) {
     body->SetUserData(this); //to handle collisions
 }
 
 void BrickBlock::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "EnergyBall") {
+    if (type == EB_NAME) {
         static_cast<EnergyBall*>(entity)->die();
     }
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         static_cast<Chell*>(entity)->onFloor(true);
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
 }

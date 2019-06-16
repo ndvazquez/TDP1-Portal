@@ -26,30 +26,29 @@ StageManager::StageManager(int stageWidth,
     float yPosAcid = 1;
     std::string idAcid = "Acid1";
 
-//    stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH,
-//                   xPosChell, yPosChell);
-    stage.addCake(1, xPosCake, yPosCake);
-    stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
-                  xPosAcid, yPosAcid);
+    stage.addBlock(CAKE_NAME, 1, xPosCake, yPosCake);
+    // help pls
+//    stage.addAcid(idAcid, ACID_HEIGHT, ACID_WIDTH,
+//                  xPosAcid, yPosAcid);
     float metalBlockPosX = 0;
     float metalBlockPosY = 0;
     float metalSide = METAL_SIDE;
     for (int i = 0; i < 40; i += 2){
-        stage.addMetalBlock(metalSide, metalBlockPosX+i, metalBlockPosY);
+        stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX+i, metalBlockPosY);
     }
     std::string id_et = "EnergyTransmitter1";
-    stage.addEnergyTransmitterUp(id_et, METAL_SIDE, 8, 2);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
-    stage.addMetalBlock(metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
+    stage.addEnergyItem(ET_UP_NAME, id_et, METAL_SIDE, 8, 2);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 6, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 8, metalBlockPosY + 6);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 8, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 12, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 14, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 12);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 14, metalBlockPosY + 4);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
+    stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
 
 }
 
@@ -161,7 +160,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 std::string id = chell_id;
                 std::string replaced = "Chell";
                 id.replace(0, replaced.length(), "BlueShot");
-                stage.addBlueShot(id, BULLET_HEIGHT, BULLET_WIDTH,
+                stage.addShot(BLUE_SHOT_NAME, id, BULLET_HEIGHT, BULLET_WIDTH,
                         chell, target);
             }
             break;
@@ -173,12 +172,15 @@ void StageManager::handleEvent(UserEvent &userEvent,
                 std::string id = chell_id;
                 std::string replaced = "Chell";
                 id.replace(0, replaced.length(), "OrangeShot");
-                stage.addOrangeShot(id, BULLET_HEIGHT, BULLET_WIDTH,
+                stage.addShot(ORANGE_SHOT_NAME, id, BULLET_HEIGHT, BULLET_WIDTH,
                                   chell, target);
             }
             break;
         case USER_THROW_ROCK:
             chell->releaseRock();
+            break;
+        case USER_REMOVE_PORTAL:
+            chell->removePortals();
             break;
         default:
             break;

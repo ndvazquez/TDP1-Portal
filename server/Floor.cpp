@@ -9,22 +9,20 @@
 #include "OrangeShot.h"
 #include "BlueShot.h"
 
-#define floorType "Floor"
-
 Floor::Floor(b2Body* body):
-        Entity(floorType, body) {
+        Entity(FLOOR_NAME, body) {
     body->SetUserData(this);
 }
 
 void Floor::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         static_cast<Chell*>(entity)->onFloor(true);
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
 }
