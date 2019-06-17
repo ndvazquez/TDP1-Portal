@@ -193,24 +193,24 @@ void Stage::managePortals(Chell* chell, std::string id) {
 }
 
 void Stage::step() {
+    end_of_game = true;
     for (auto i = chells.begin(); i != chells.end(); i++) {
         if (i->second->isDead()) {
             if (world->hasObject(i->second->getBody())) {
                 world->destroyBody(i->second->getBody());
             }
-        } else if (end_of_game) {
-            i->second->win();
-        } else if (i->second->hasWon()) {
+        }
+        end_of_game &= i->second->hasWon();
+        managePortals(i->second, i->first);
+        i->second->update();
+    }
+    if (end_of_game) {
+        for (auto i = chells.begin(); i != chells.end(); i++) {
             if (world->hasObject(i->second->getBody())) {
                 world->destroyBody(i->second->getBody());
             }
-            end_of_game = true;
-        } else {
-            managePortals(i->second, i->first);
-            i->second->update();
         }
     }
-
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
             world->destroyBody(i->second->getBody());
