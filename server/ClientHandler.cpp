@@ -24,9 +24,8 @@ void ClientHandler::run() {
     clientReceiver.start();
     bool quit = false;
     while (!quit || !_isDead) {
-        std::this_thread::sleep_for (std::chrono::seconds(5));
+        std::this_thread::sleep_for (std::chrono::seconds(1));
         if (clientSender.isDead() || clientReceiver.isDead()) {
-            std::cout << "ClientHandler sale del loop\n";
             quit = true;
             _isDead = true;
         }

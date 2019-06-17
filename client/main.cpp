@@ -20,7 +20,7 @@
 #include "UserEventHandler.h"
 #include "../common/Socket.h"
 
-#define SCREEN_WIDTH 1000
+#define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 #define MTP_FACTOR 100
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
@@ -261,7 +261,6 @@ void playGame(std::string& idChell) {
             if (!userEventQueue.empty()) {
                 UserEvent userEvent = userEventQueue.pop();
                 std::string userJson = userEvent.toJsonString();
-                std::cout << userJson << std::endl;
                 int request_size = userJson.size();
                 clientSocket.sendMessage(&request_size, REQUEST_LEN_SIZE);
                 clientSocket.sendMessage(&userJson[0], request_size);
