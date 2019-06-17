@@ -5,8 +5,8 @@
 #include "DiagonalBlockLeftDown.h"
 
 DiagonalBlockLeftDown::DiagonalBlockLeftDown(std::string &path, Window &window,
-                                    const std::string& name, int w, int h) :
-        DiagonalBlockDown(path, window, name, w, h) {}
+                                             int id, int w, int h) :
+        DiagonalBlockDown(path, window, id, w, h) {}
 
 DiagonalBlockLeftDown::~DiagonalBlockLeftDown() = default;
 

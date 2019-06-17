@@ -29,6 +29,33 @@ enum PortalOrientation {
     VERTICAL
 };
 
+// stage objects id
+enum StageObjects {
+    EMPTY = 0,
+    METAL_BLOCK = 1,
+    ROCK_BLOCK,
+    LOUNCH_BLOCK_DOWN,
+    LOUNCH_BLOCK_UP,
+    LOUNCH_BLOCK_LEFT,
+    LOUNCH_BLOCK_RIGHT,
+    RECEPTOR_DOWN,
+    RECEPTOR_UP,
+    RECEPTOR_LEFT,
+    RECEPTOR_RIGHT,
+    DIAGONAL_UP_LEFT,
+    DIAGONAL_DOWN_LEFT,
+    DIAGONAL_DOWN_RIGHT,
+    DIAGONAL_UP_RIGHT,
+    ROCK1,
+    ROCK2,
+    ROCK3,
+    CHELL,
+    CAKE,
+    ACID,
+    GATE,
+    BUTTON
+};
+
 // Objects sizes.
 #define METAL_SIDE 2
 #define CHELL_WIDTH 1

@@ -19,8 +19,8 @@ void Controller::draw(SDL_Rect* camera, int yStart) {
     stageView.draw(camera, yStart);
 }
 
-void Controller::addTile(int x, int y, std::string& tileName) {
-    Object* obj = textures[tileName];
+void Controller::addTile(int x, int y, int id) {
+    Object* obj = textures[id];
     if (!obj) {
         throw StageControllerNameException();
     }
@@ -34,7 +34,7 @@ void Controller::addTile(int x, int y, std::string& tileName) {
 }
 
 void Controller::removeTile(int x, int y) {
-    std::string& tileName = tiles[std::make_pair(x, y)];
+    int tileName = tiles[std::make_pair(x, y)];
     Object* obj = textures[tileName];
     if (!obj) {
         throw StageControllerNameException();
@@ -55,7 +55,7 @@ Controller::~Controller() {
     }
 }
 
-std::string& Controller::getName(int x, int y) {
+int Controller::getName(int x, int y) {
     auto point = tiles.find(std::make_pair(x, y));
     if (point == tiles.end()) {
         throw StageControllerEmptyPositionException();

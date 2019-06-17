@@ -1,122 +1,105 @@
 Blocks: # no gravity and no animation
-  - name: MetalBlock
+  - id: 1
     path: resources/blocks/metal-block.png
     w: 2
     h: 2
-  - name: RockBlock
+  - id: 2
     path: resources/blocks/rock-block.png
     w: 2
     h: 2
-  - name: LounchBlockDown
+  - id: 3
     path: resources/lounch-block/down.png
     w: 2
     h: 2
-  - name: LounchBlockUp
+  - id: 4
     path: resources/lounch-block/up.png
     w: 2
     h: 2
-  - name: LounchBlockLeft
+  - id: 5
     path: resources/lounch-block/left.png
     w: 2
     h: 2
-  - name: LounchBlockRight
+  - id: 6
     path: resources/lounch-block/right.png
     w: 2
     h: 2
 
 
-WithoutGravitySentinel:
-  - name: WithoutGravitySentinel
-    path: resources/blocks/sentinel.png
-    w: 1
-    h: 1
-
-GravitySentinel:
-  - name: GravitySentinel
-    path: resources/blocks/sentinel.png
-    w: 1
-    h: 1
-
 Receptors:
-  - name: ReceptorDown
+  - id: 7
     path: resources/lounch-block/receptor-down.png
     w: 2
     h: 2
-  - name: ReceptorUp
+  - id: 8
     path: resources/lounch-block/receptor-up.png
     w: 2
     h: 2
-  - name: ReceptorLeft
+  - id: 9
     path: resources/lounch-block/receptor-left.png
     w: 2
     h: 2
-  - name: ReceptorRight
+  - id: 10
     path: resources/lounch-block/receptor-right.png
     w: 2
     h: 2
 
-DiagonalBlockRU:
-  - name: DiagonalUpRight
-    path: resources/blocks/diagonal-up-right.png
-    w: 2
-    h: 2
 
 DiagonalBlockLU:
-  - name: DiagonalUpLeft
+  - id: 11
     path: resources/blocks/diagonal-up-left.png
     w: 2
     h: 2
 
 DiagonalBlockLD:
-  - name: DiagonalDownLeft
+  - id: 12
     path: resources/blocks/diagonal-down-left.png
     w: 2
     h: 2
 
 DiagonalBlockRD:
-  - name: DiagonalDownRight
+  - id: 13
     path: resources/blocks/diagonal-down-right.png
     w: 2
     h: 2
 
+DiagonalBlockRU:
+  - id: 14
+    path: resources/blocks/diagonal-up-right.png
+    w: 2
+    h: 2
 
-Buttons: # gravity, no animation
-  - name: Button
-    path: resources/button/off.png
-    w: 1
-    h: 1
 
 Rocks: # gravity, no animation
-  - name: Rock1
+  - id: 15
     path: resources/rocks/1.png
     w: 1
     h: 1
-  - name: Rock2
+  - id: 16
     path: resources/rocks/2.png
     w: 1
     h: 1
-  - name: Rock3
+  - id: 17
     path: resources/rocks/3.png
     w: 1
     h: 1
 
 
 Chells: # gravity and animation
-  - name: Chell
+  - id: 18
     path: resources/Chell/RestingIdle.png
     frames: 7
     w: 1
     h: 2
 
 Cake:
-  - name: Cake
+  - id: 19
     path: resources/cake/initial.png
     frames: 8
     w: 1
     h: 1
 
 Acid:
-  - name: Acid
+  - id: 20
     path: resources/Acid/acid.png
     frames: 8
     w: 3
@@ -124,98 +107,115 @@ Acid:
 
 
 Gate: # gravity, no animation
-  - name: Gate
+  - id: 21
     path: resources/gate.png
     w: 1
     h: 2
 
+Buttons: # gravity, no animation
+  - id: 22
+    path: resources/button/off.png
+    w: 1
+    h: 1
+
+WithoutGravitySentinel:
+  - id: 23
+    path: resources/blocks/sentinel.png
+    w: 1
+    h: 1
+
+GravitySentinel:
+  - id: 24
+    path: resources/blocks/sentinel.png
+    w: 1
+    h: 1
 
 MenuData:
-  - name: MetalBlock
+  - id: 1
     path: resources/blocks/metal-block.png
     w: 2
     h: 2
-  - name: RockBlock
+  - id: 2
     path: resources/blocks/rock-block.png
     w: 2
     h: 2
-  - name: DiagonalUpLeft
+  - id: 11
     path: resources/blocks/diagonal-up-left.png
     w: 2
     h: 2
-  - name: DiagonalUpRight
+  - id: 14
     path: resources/blocks/diagonal-up-right.png
     w: 2
     h: 2
-  - name: DiagonalDownLeft
+  - id: 12
     path: resources/blocks/diagonal-down-left.png
     w: 2
     h: 2
-  - name: DiagonalDownRight
+  - id: 13
     path: resources/blocks/diagonal-down-right.png
     w: 2
     h: 2
-  - name: LounchBlockDown
+  - id: 3
     path: resources/lounch-block/down.png
     w: 2
     h: 2
-  - name: LounchBlockUp
+  - id: 4
     path: resources/lounch-block/up.png
     w: 2
     h: 2
-  - name: LounchBlockLeft
+  - id: 5
     path: resources/lounch-block/left.png
     w: 2
     h: 2
-  - name: LounchBlockRight
+  - id: 6
     path: resources/lounch-block/right.png
     w: 2
     h: 2
-  - name: Chell
+  - id: 18
     path: resources/Chell/EnterHold.png
     w: 1
     h: 2
-  - name: Gate
+  - id: 21
     path: resources/gate.png
     w: 1
     h: 2
-  - name: Button
+  - id: 22
     path: resources/button/off.png
     w: 2
     h: 2
-  - name: Rock1
+  - id: 15
     path: resources/rocks/1.png
     w: 1
     h: 1
-  - name: Rock2
+  - id: 16
     path: resources/rocks/2.png
     w: 1
     h: 1
-  - name: Rock3
+  - id: 17
     path: resources/rocks/3.png
     w: 1
     h: 1
-  - name: Cake
+  - id: 19
     path: resources/cake/menu.png
     w: 1
     h: 1
-  - name: Acid
+  - id: 20
     path: resources/Acid/menu.png
     w: 3
     h: 1
-  - name: ReceptorDown
+  - id: 7
     path: resources/lounch-block/receptor-down.png
     w: 2
     h: 2
-  - name: ReceptorUp
+  - id: 8
     path: resources/lounch-block/receptor-up.png
     w: 2
     h: 2
-  - name: ReceptorLeft
+  - id: 10
     path: resources/lounch-block/receptor-left.png
     w: 2
     h: 2
-  - name: ReceptorRight
+  - id: 9
     path: resources/lounch-block/receptor-right.png
     w: 2
     h: 2

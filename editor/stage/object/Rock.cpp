@@ -6,8 +6,8 @@
 #include "Rock.h"
 #include "../../../common/Window.h"
 
-Rock::Rock(std::string& path, Window& window, const std::string& name, int w, int h) :
-    StaticObject(path, window, name, w, h) {}
+Rock::Rock(std::string &path, Window &window, int id, int w, int h) :
+    StaticObject(path, window, id, w, h) {}
 
 Rock::~Rock() = default;
 

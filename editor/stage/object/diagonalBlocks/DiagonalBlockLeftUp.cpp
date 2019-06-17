@@ -5,8 +5,8 @@
 #include "DiagonalBlockLeftUp.h"
 
 DiagonalBlockLeftUp::DiagonalBlockLeftUp(std::string &path, Window &window,
-                                    const std::string& name, int w, int h) :
-        DiagonalBlockUp(path, window, name, w, h) {}
+                                         int id, int w, int h) :
+        DiagonalBlockUp(path, window, id, w, h) {}
 
 DiagonalBlockLeftUp::~DiagonalBlockLeftUp() = default;
 

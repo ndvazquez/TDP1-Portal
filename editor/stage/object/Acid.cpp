@@ -4,8 +4,8 @@
 
 #include "Acid.h"
 
-Acid::Acid(std::string& path, Window& window, int totalFrames ,const std::string& name, int w, int h) :
-        AnimatedObject(path, window, totalFrames, name, w, h) {}
+Acid::Acid(std::string &path, Window &window, int totalFrames, int id, int w, int h) :
+        AnimatedObject(path, window, totalFrames, id, w, h) {}
 
 Acid::~Acid() = default;
 

@@ -13,13 +13,13 @@
 
 class YamlManager {
 public:
-    void write(std::unordered_map<std::string, Object *> &textures,
-               std::map<std::pair<int, int>, std::string> &tiles, int totalMeters);
+    void write(std::unordered_map<int, Object *> &textures,
+               std::map<std::pair<int, int>, int> &tiles, int totalMeters);
 
     void read(Window &window,
-              YAML::Node &texturesInfo,
-              std::unordered_map<std::string, Object *> &textures,
-              std::map<std::pair<int, int>, std::string> &tiles,
+                YAML::Node &texturesInfo,
+                std::unordered_map<int, Object *> &textures,
+              std::map<std::pair<int, int>, int> &tiles,
               LogicGates &logicGates);
 };
 

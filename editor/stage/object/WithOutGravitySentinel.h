@@ -10,15 +10,13 @@
 
 class WithOutGravitySentinel : public StaticObject {
 public:
-    WithOutGravitySentinel(std::string& path, Window& window, const std::string& name, int w, int h);
+    WithOutGravitySentinel(std::string &path, Window &window, int id, int w, int h);
     ~WithOutGravitySentinel();
-    void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                    std::unordered_map<std::string, Object *>& map) override;
+    void removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
+                    std::unordered_map<int, Object *> &map) override;
 
     bool hasGravity() override;
-    void addTo(int x, int y, std::map<std::pair<int, int>,
-            std::string> &tiles, std::unordered_map<std::string,
-            Object *>& textures, bool needGravitySentinel = false) override;
+    void addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures, bool needGravitySentinel = false) override;
     void draw(SDL_Rect* rec) override;
     std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 };

@@ -21,8 +21,8 @@
 
 class Controller {
 private:
-    std::unordered_map<std::string, Object*> textures;
-    std::map<std::pair<int, int>, std::string> tiles;
+    std::unordered_map<int, Object*> textures;
+    std::map<std::pair<int, int>, int> tiles;
     //std::map<std::string, bool> gravity;
     int factor;
     View stageView;
@@ -35,11 +35,11 @@ public:
 
     void draw(SDL_Rect *camera, int xStart);
 
-    void addTile(int x, int y, std::string &tileName);
+    void addTile(int x, int y, int id);
 
     void removeTile(int x, int y);
 
-    std::string &getName(int x, int y);
+    int getName(int x, int y);
 
     void nameAnObject(int x, int y, std::string& enteredName);
 

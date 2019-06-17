@@ -5,8 +5,8 @@
 #include "DiagonalBlockRightDown.h"
 
 DiagonalBlockRightDown::DiagonalBlockRightDown(std::string &path, Window &window,
-                                             const std::string& name, int w, int h) :
-        DiagonalBlockDown(path, window, name, w, h) {}
+                                               int id, int w, int h) :
+        DiagonalBlockDown(path, window, id, w, h) {}
 
 DiagonalBlockRightDown::~DiagonalBlockRightDown() = default;
 

@@ -7,41 +7,41 @@
 #include "Object.h"
 
 
-Object::Object(std::string name, int w, int h) :
-        name(std::move(name)), w(w), h(h) {}
+Object::Object(int id, int w, int h) :
+        name(id), w(w), h(h) {}
 
 
 void Object::addWithGravityTo(int x, int y,
-                    std::map<std::pair<int, int>,std::string> &tiles,
-                    std::unordered_map<std::string, Object *>& textures) {
+                              std::map<std::pair<int, int>, int> &tiles,
+                              std::unordered_map<int, Object *> &textures) {
     for (int i = 0; i < w; i++) {
         // if we dont have something under us there is no way to be add.
         auto positionBelow = tiles.find(std::make_pair(x + i, y + 1));
         if (positionBelow == tiles.end()) {
-            throw AddTileGravityException(this->name);
+            throw AddTileGravityException();
         }
 
         // now, we have something
-        std::string &under = positionBelow->second;
+        int under = positionBelow->second;
         // but it can not be just anything
         if(textures[under]->hasGravity()) {
-            throw AddTileGravityException(this->name);
+            throw AddTileGravityException();
         }
     }
 }
 
-void Object::addTo(int x, int y, std::map<std::pair<int, int>,std::string>
-        &tiles,
-        std::unordered_map<std::string, Object *>& textures,
-        bool needGravitySentinel) {
-    std::string sentinel = WITHOUT_GRAVITY_SENTINEL;
+void Object::addTo(int x, int y, std::map<std::pair<int, int>, int>
+&tiles,
+                   std::unordered_map<int, Object *> &texturesL,
+                   bool needGravitySentinel) {
+    int sentinel = WITHOUT_GRAVITY_SENTINEL;
 
     if (needGravitySentinel) {
         sentinel = GRAVITY_SENTINEL;
     }
     if(this->hasGravity()) {
         sentinel = GRAVITY_SENTINEL;
-        this->addWithGravityTo(x, y, tiles, textures);
+        this->addWithGravityTo(x, y, tiles, texturesL);
     }
 
     // If there's nothing in the space i need
@@ -49,7 +49,7 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,std::string>
         for (int j = 0; j < h; j++) {
             auto it = tiles.find(std::make_pair(x + i, y- j));
             if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
-                throw AddTileTakenPositionException(this->name);
+                throw AddTileTakenPositionException();
             }
         }
     }
@@ -68,8 +68,8 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,std::string>
 
 
 void Object::removeFrom(int x, int y,
-                std::map<std::pair<int, int>, std::string> &tiles,
-                std::unordered_map<std::string, Object *>& textures) {
+                        std::map<std::pair<int, int>, int> &tiles,
+                        std::unordered_map<int, Object *> &textures) {
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
             tiles.erase(std::make_pair(x + i , y - j));

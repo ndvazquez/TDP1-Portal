@@ -10,7 +10,7 @@
 
 class DiagonalBlockLeftUp : public DiagonalBlockUp {
 public:
-    DiagonalBlockLeftUp(std::string& path, Window& window, const std::string& name, int w, int h);
+    DiagonalBlockLeftUp(std::string &path, Window &window, int id, int w, int h);
     ~DiagonalBlockLeftUp();
     std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 };

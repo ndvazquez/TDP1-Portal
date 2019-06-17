@@ -5,8 +5,8 @@
 #include <iostream>
 #include "Block.h"
 
-Block::Block(std::string &path, Window &window, const std::string& name, int w, int h) :
-    StaticObject(path, window, name, w, h) {}
+Block::Block(std::string &path, Window &window, int id, int w, int h) :
+    StaticObject(path, window, id, w, h) {}
 
 bool Block::hasGravity() {
     return false;

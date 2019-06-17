@@ -9,7 +9,7 @@
 #include <yaml-cpp/yaml.h>
 
 #define BACKGROUND "resources/editor-menu-bg.png"
-#define NO_BUTTON ""
+#define NO_BUTTON 0
 #define MENU_TEXTURES "editor/textures-info.yaml"
 #define MENU_TEXTURES_KEY "MenuData"
 
@@ -36,7 +36,7 @@ void Menu::set() {
     YAML::const_iterator it = staticObjects.begin();
     for (; it != staticObjects.end(); ++it) {
         const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
+        int name = node["id"].as<int>();
         std::string path = node["path"].as<std::string>();
         int x = node["w"].as<int>();
         int y = node["h"].as<int>();
@@ -93,7 +93,7 @@ void Menu::handleMouseButtonDown(MouseButton& event) {
     auto it = options.begin();
     for (; it != options.end(); it++) {
         if ((**it).has(event.getX(), event.getY())) {
-            current = (**it).getName();
+            *current = (**it).getName();
             return;
         }
     }
@@ -103,13 +103,13 @@ void Menu::handleMouseButtonUp(MouseButton& event) {
     SDL_Point sdlPoint = {event.getX(), event.getY()};
     bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
     if (isIn) {
-        current = NO_BUTTON;
+        *current = NO_BUTTON;
         return;
     }
 }
 
 
-Menu::Menu(Window &window, std::string &current) :
+Menu::Menu(Window &window, int *current) :
         window(window), current(current) {
     this->set();
 }

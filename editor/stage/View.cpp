@@ -7,8 +7,8 @@
 #include "../../common/Sprite.h"
 
 View::View(Window &window, int factor,
-        std::unordered_map<std::string, Object*>& textures,
-        std::map<std::pair<int, int>, std::string>& tiles) :
+           std::unordered_map<int, Object *> &textures,
+           std::map<std::pair<int, int>, int> &tiles) :
 window(window), factor(factor), textures(textures), tiles(tiles) {}
 
 void View::draw(SDL_Rect *camera, int yStart) {

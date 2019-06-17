@@ -15,56 +15,46 @@
 
 
 class ObjectException : public std::exception {
-protected:
-    std::string& name;
 public:
-    explicit ObjectException(std::string& name) : name(name) {}
+    explicit ObjectException() = default;
 };
 
 class AddTileGravityException : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + GRAVITY;
-        return message.c_str();
+        return EXC_INTRO GRAVITY;
     }
 
 public:
-    explicit AddTileGravityException(std::string& name) :
-            ObjectException(name) {}
+    explicit AddTileGravityException() = default;
 };
 
 class AddTileTakenPositionException : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + TAKEN_POSITION;
-        return message.c_str();
+        return EXC_INTRO TAKEN_POSITION;
     }
 
 public:
-    explicit AddTileTakenPositionException(std::string& name) :
-            ObjectException(name) {}
+    explicit AddTileTakenPositionException() = default;
 
 };
 
 class RemoveTileFloorNeeded : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
-        return message.c_str();
+        return EXC_INTRO FLOOR_NEEDED;
     }
 
 public:
-    explicit RemoveTileFloorNeeded(std::string& name) :
-            ObjectException(name) {}
+    explicit RemoveTileFloorNeeded() = default;
 };
 
 
 class SetNameException : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + SET_NAME_EXC;
-        return message.c_str();
+        return EXC_INTRO SET_NAME_EXC;;
     }
 
 public:
-    explicit SetNameException(std::string& name) :
-            ObjectException(name) {}
+    explicit SetNameException() = default;
 };
 
 #endif //PORTAL_STAGEOBJECTEX_H

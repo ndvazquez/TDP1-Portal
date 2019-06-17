@@ -1,75 +1,75 @@
-DiagonalDownRight:
+13:
   position:
     - x: 4.666667
       y: 1.333334
-DiagonalUpLeft:
-  position:
-    - x: 7.333333
-      y: 0.666666
-DiagonalDownLeft:
+12:
   position:
     - x: 3.333333
       y: 1.333334
-Acid:
+11:
+  position:
+    - x: 7.333333
+      y: 0.666666
+14:
+  position:
+    - x: 0.6666667
+      y: 0.666666
+20:
   position:
     []
-Cake:
+19:
   position:
     []
-Gate:
+21:
   position:
     - x: 1.5
       y: 5
-Chell:
+18:
   position:
     - x: 0.5
       y: 4.975
-LounchBlockUp:
+6:
   position:
     []
-ReceptorLeft:
+5:
   position:
     []
-Button:
+22:
   position:
     []
-MetalBlock:
+4:
+  position:
+    []
+3:
+  position:
+    []
+1:
   position:
     - x: 1
       y: 7
     - x: 1
       y: 3
-LounchBlockRight:
+2:
   position:
     []
-RockBlock:
+7:
   position:
     []
-ReceptorRight:
+8:
   position:
     []
-ReceptorDown:
+9:
   position:
     []
-ReceptorUp:
+10:
   position:
     []
-LounchBlockLeft:
+15:
   position:
     []
-LounchBlockDown:
+16:
   position:
     []
-Rock1:
-  position:
-    []
-Rock2:
-  position:
-    []
-DiagonalUpRight:
-  position:
-    - x: 0.6666667
-      y: 0.666666
-Rock3:
+17:
   position:
     []

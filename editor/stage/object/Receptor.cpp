@@ -4,8 +4,8 @@
 
 #include "Receptor.h"
 
-Receptor::Receptor(std::string &path, Window &window, const std::string& name, int w, int h) :
-        StaticObject(path, window, name, w, h) {}
+Receptor::Receptor(std::string &path, Window &window, int id, int w, int h) :
+        StaticObject(path, window, id, w, h) {}
 
 bool Receptor::hasGravity() {
     return false;
@@ -17,7 +17,7 @@ Receptor::~Receptor() = default;
 void Receptor::setName(std::pair<int, int>& position, std::string& enteredName) {
     for(auto it = names.begin(); it != names.end(); it++) {
         if (it->second == enteredName && it->first != position) {
-            throw SetNameException(this->name);
+            throw SetNameException();
         }
     }
     std::cerr << "Soy un receptor ";
@@ -40,8 +40,8 @@ bool Receptor::doesThisNameExist(std::string &string) {
     return false;
 }
 
-void Receptor::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                        std::unordered_map<std::string, Object *> &textures) {
+void Receptor::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
+                          std::unordered_map<int, Object *> &textures) {
     names.erase(std::make_pair(x, y));
     Object::removeFrom(x, y, tiles, textures);
 }

@@ -5,13 +5,13 @@
 #include <iostream>
 #include "Button.h"
 
-Button::Button(std::string& path, Window& window, const std::string& name, int w, int h) :
-    StaticObject(path, window, name, w, h) {}
+Button::Button(std::string &path, Window &window, int id, int w, int h) :
+    StaticObject(path, window, id, w, h) {}
 
 void Button::setName(std::pair<int, int>& position, std::string& enteredName) {
     for(auto it = names.begin(); it != names.end(); it++) {
         if (it->second == enteredName && it->first != position) {
-            throw SetNameException(this->name);
+            throw SetNameException();
         }
     }
     names[position] = enteredName;
@@ -29,8 +29,8 @@ bool Button::doesThisNameExist(std::string &string) {
     return false;
 }
 
-void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                      std::unordered_map<std::string, Object *> &textures) {
+void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
+                        std::unordered_map<int, Object *> &textures) {
     names.erase(std::make_pair(x, y));
     Object::removeFrom(x, y, tiles, textures);
 }

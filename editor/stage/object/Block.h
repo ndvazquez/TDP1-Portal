@@ -11,7 +11,7 @@
 
 class Block : public StaticObject {
 public:
-    Block(std::string& path, Window& window, const std::string& name, int w, int h);
+    Block(std::string &path, Window &window, int id, int w, int h);
     ~Block();
 
     //void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,

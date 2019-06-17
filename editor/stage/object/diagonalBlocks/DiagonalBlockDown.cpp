@@ -6,8 +6,8 @@
 
 
 DiagonalBlockDown::DiagonalBlockDown(std::string &path, Window &window,
-                                const std::string& name, int w, int h) :
-        StaticObject(path, window, name, w, h) {}
+                                     int id, int w, int h) :
+        StaticObject(path, window, id, w, h) {}
 
 bool DiagonalBlockDown::hasGravity() {
     return false;

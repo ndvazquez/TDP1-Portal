@@ -14,35 +14,35 @@
 #include "../../../common/constants.h"
 
 #define POSITIONS_ABOVE (h - 1)
-#define WITHOUT_GRAVITY_SENTINEL "WithoutGravitySentinel"
-#define GRAVITY_SENTINEL "GravitySentinel"
+#define WITHOUT_GRAVITY_SENTINEL 23
+#define GRAVITY_SENTINEL 24
 
 class Object {
 protected:
     int w;
     int h;
-    std::string name;
+    int name;
 
 public:
-    Object(std::string name, int w, int h);
+    Object(int id, int w, int h);
 
     virtual void draw(SDL_Rect *rect) = 0;
 
-    virtual void addTo(int x, int y, std::map<std::pair<int, int>,
-            std::string> &tiles, std::unordered_map<std::string,
-            Object *>& texturesL, bool needGravitySentinel = false);
+    virtual void addTo(int x, int y,
+                       std::map<std::pair<int, int>, int> &tiles,
+                       std::unordered_map<int, Object *> &texturesL,
+                       bool needGravitySentinel = false);
 
     virtual void setName(std::pair<int, int>& position,
                     std::string &enteredName);
 
     void addWithGravityTo(int x, int y,
-                    std::map<std::pair<int, int>,std::string> &tiles,
-                    std::unordered_map<std::string, Object *>& textures);
+                          std::map<std::pair<int, int>, int> &tiles,
+                          std::unordered_map<int, Object *> &textures);
 
-    virtual void removeFrom(int x, int y, std::map<std::pair<int, int>,
-                     std::string> &tiles,
-                     std::unordered_map<std::string,
-                     Object *> &textures);
+    virtual void removeFrom(int x, int y,
+                            std::map<std::pair<int, int>, int> &tiles,
+                            std::unordered_map<int, Object *> &textures);
 
     virtual bool hasGravity();
     virtual void addCondition(std::pair<int, int> position,
