@@ -127,6 +127,6 @@ void Stage::handleMouseRightClick(MouseButton &event) {
 }
 
 void Stage::close() {
-    controller.writeYaml();
+    controller.writeYaml(Y_END);
 }
 

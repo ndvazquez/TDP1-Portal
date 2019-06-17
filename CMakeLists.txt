@@ -74,6 +74,7 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/WithOutGravitySentinel.cpp
 
         editor/stage/object/GravitySentinel.cpp
+        editor/stage/YamlManager.cpp
 
         #ffmpeg/CodecContext.cpp
         #ffmpeg/FormatOutput.cpp

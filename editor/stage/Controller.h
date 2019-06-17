@@ -6,15 +6,17 @@
 #define PORTAL_CONTROLLER_H
 
 
-#include <yaml-cpp/node/node.h>
+
 #include <unordered_map>
 #include <map>
+#include <yaml-cpp/node/node.h>
 
 #include "LogicGates.h"
 #include "../../common/Window.h"
 #include "../../common/Sprite.h"
 #include "View.h"
 #include "object/Object.h"
+#include "YamlManager.h"
 
 
 class Controller {
@@ -22,6 +24,7 @@ private:
     std::unordered_map<std::string, Object*> textures;
     std::map<std::pair<int, int>, std::string> tiles;
     //std::map<std::string, bool> gravity;
+    int factor;
     View stageView;
     LogicGates logicGates;
 
@@ -42,7 +45,7 @@ public:
 
     void addCondition(int x, int y);
 
-    void writeYaml();
+    void writeYaml(int i);
 
     void matrixToMeter(std::pair<float, float> &pair);
 };
