@@ -19,6 +19,7 @@
 #include "../common/UserEventQueue.h"
 #include "UserEventHandler.h"
 #include "../common/Socket.h"
+#include "EventSender.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -247,20 +248,14 @@ void playGame(std::string& idChell) {
     } else {
         std::cout << "Estamos conectados!" << std::endl;
     }
-
+    EventSender eventSender(clientSocket, userEventQueue);
     bool quit = false;
-    SDL_Event e;
+
     //audioSystem.playMusic(BG_SONG_GAME);
     userEventHandler.start();
+    eventSender.start();
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
     while (!quit) {
-        if (!userEventQueue.empty()) {
-            UserEvent userEvent = userEventQueue.pop();
-            std::string userJson = userEvent.toJsonString();
-            int request_size = userJson.size();
-            clientSocket.sendMessage(&request_size, REQUEST_LEN_SIZE);
-            clientSocket.sendMessage(&userJson[0], request_size);
-        }
         
         int stageStatusSize;
         clientSocket.receiveMessage(&stageStatusSize, REQUEST_LEN_SIZE);
@@ -280,6 +275,8 @@ void playGame(std::string& idChell) {
     }
     userEventHandler.stop();
     userEventHandler.join();
+    eventSender.stop();
+    eventSender.join();
     clientSocket.shutdownAndClose();
 }
 

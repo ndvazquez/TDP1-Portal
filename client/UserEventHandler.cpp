@@ -22,11 +22,8 @@ UserEventHandler::~UserEventHandler() {}
 void UserEventHandler::run() {
     SDL_Event event;
     while (SDL_WaitEvent(&event) != 0){
-        if (event.type == SDL_QUIT) {
-            _isDead = true;
-        }
-        if (_isDead) break;
         handleEvent(event);
+        if (_isDead) break;
     }
 }
 
@@ -44,6 +41,7 @@ void UserEventHandler::handleEvent(SDL_Event &event) {
         case SDL_QUIT:
             userEvent = UserEvent(userId, USER_QUIT_CODE, xMeters, yMeters);
             userEventQueue.push(userEvent);
+            _isDead = true;
             break;
         case SDL_KEYDOWN:
             int eventCode;
