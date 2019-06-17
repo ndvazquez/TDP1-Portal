@@ -35,39 +35,41 @@ Stage::Stage(Window &window, int *current, int yPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
     controller(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
     yPortion(yPortion) {
-    this->me = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
-    this->setSize();
-    this->camera = (struct SDL_Rect*) malloc(sizeof(struct SDL_Rect*));
-    *this->camera = {0 ,0, W, H};
+    this->me = {X_START, Y_START, W, H};
+    this->camera = {0 ,0, W, H};
 }
 
 void Stage::setSize() {
-    setSDL_Rect(this->me, X_START, Y_START, W, H);
+    //setSDL_Rect(this->me, X_START, Y_START, W, H);
 }
 
 Stage::~Stage() {
-    delete(this->camera);
-    delete(this->me);
+    //delete(this->camera);
+    //delete(this->me);
 }
-
 
 void Stage::draw() {
     Sprite bgSprite("resources/editor-stage-bg.png", window);
-    bgSprite.draw(this->me);
-    controller.draw(this->camera , Y_START);
+    bgSprite.draw(&this->me);
+    controller.draw(&this->camera , Y_START);
+}
+
+void Stage::pixelToMatrix(MouseButton &event,
+                          int *xPixel, int *yPixel, int *x, int *y) {
+    *xPixel = X_PIXEL(event);
+    *yPixel = Y_PIXEL(event);
+    *x = X_PIXEL_TO_MATRIX_POSITION(*xPixel);
+    *y = Y_PIXEL_TO_MATRIX_POSITION(*yPixel);
+    SDL_Point sdlPoint = {*xPixel, *yPixel};
+    if (! (bool) SDL_PointInRect(&sdlPoint, &this->me)) {
+        throw StageNotInsideMeException();
+    }
 }
 
 void Stage::handleMouseButtonDown(MouseButton& event) {
-    int xPixel = X_PIXEL(event);
-    int yPixel = Y_PIXEL(event);
-    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
-    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
-    SDL_Point sdlPoint = {xPixel, yPixel};
-    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
-    if (!isIn) {
-        return;
-    }
+    int xPixel, yPixel, x, y;
     try {
+        pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
         *current = controller.getName(x, y);
         controller.removeTile(x,y);
     }
@@ -75,34 +77,32 @@ void Stage::handleMouseButtonDown(MouseButton& event) {
         *current = EMPTY;
         return;
     }
+    catch(StageNotInsideMeException& e) {
+        return;
+    }
 }
 
 void Stage::handleMouseButtonUp(MouseButton& event) {
-    int xPixel = X_PIXEL(event);
-    int yPixel = Y_PIXEL(event);
-    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
-    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
-    SDL_Point sdlPoint = {xPixel, yPixel};
-    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
-    if (!isIn ) {
-        return;
-    }
+    int xPixel, yPixel, x, y;
     try {
+        pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
         controller.addTile(x, y, *current);
         *current = EMPTY;
     }
     catch (StageControllerException& e) {
         return;
     }
+    catch(StageNotInsideMeException& e) {
+        return;
+    }
 }
+
 void Stage::handleMouseDoubleClick(MouseButton &event) {
-    int xPixel = X_PIXEL(event);
-    int yPixel = Y_PIXEL(event);
-    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
-    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
-    SDL_Point sdlPoint = {xPixel, yPixel};
-    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
-    if (!isIn) {
+    int xPixel, yPixel, x, y;
+    try {
+        pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
+    }
+    catch(StageNotInsideMeException& e) {
         return;
     }
     std::string enteredName;
@@ -114,16 +114,14 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
 }
 
 void Stage::handleMouseRightClick(MouseButton &event) {
-    int xPixel = X_PIXEL(event);
-    int yPixel = Y_PIXEL(event);
-    int x = X_PIXEL_TO_MATRIX_POSITION(xPixel);
-    int y = Y_PIXEL_TO_MATRIX_POSITION(yPixel);
-    SDL_Point sdlPoint = {xPixel, yPixel};
-    bool isIn = (bool) SDL_PointInRect(&sdlPoint, this->me);
-    if (!isIn) {
+    int xPixel, yPixel, x, y;
+    try {
+        pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
+        controller.addCondition(x, y);
+    }
+    catch(StageNotInsideMeException& e) {
         return;
     }
-    controller.addCondition(x, y);
 }
 
 void Stage::close() {
