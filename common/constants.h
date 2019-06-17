@@ -124,5 +124,6 @@ enum PortalType {
 #define USER_THROW_ROCK 9
 #define USER_REMOVE_PORTAL 10
 #define USER_PINTOOL 11
+#define USER_REMOVE_PINTOOL 12
 
 #endif //PORTAL_CONSTANTS_H

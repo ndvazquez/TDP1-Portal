@@ -106,6 +106,10 @@ void StageManager::handleEvent(UserEvent &userEvent,
                         x_pos, y_pos, chell);
             }
             break;
+        case USER_REMOVE_PINTOOL:
+        {
+            chell->getPinTool()->die();
+        }
         default:
             break;
     }

@@ -45,20 +45,18 @@ void UserEventHandler::run(SDL_Event& event) {
                 eventCode = USER_GRAB_ROCK;
             } else if (event.key.keysym.sym == SDLK_f && event.key.repeat == 0) {
                 eventCode = USER_DROP_ROCK;
-            }
-            else if (event.key.keysym.sym == SDLK_t && event.key.repeat == 0) {
+            } else if (event.key.keysym.sym == SDLK_t && event.key.repeat == 0) {
                 eventCode = USER_THROW_ROCK;
-            }
-            else if (event.key.keysym.sym == SDLK_r && event.key.repeat == 0) {
+            } else if (event.key.keysym.sym == SDLK_r && event.key.repeat == 0) {
                 eventCode = USER_REMOVE_PORTAL;
-            }
-            else if (event.key.keysym.sym == SDLK_p && event.key.repeat == 0) {
+            } else if (event.key.keysym.sym == SDLK_p && event.key.repeat == 0) {
                 eventCode = USER_PINTOOL;
                 xMeters = (x + camera.getCameraX()) * MTP_FACTOR_INV;
                 yMeters = ((y + camera.getCameraY()) * -1 +
                            levelHeight) *MTP_FACTOR_INV;
-            }
-            else {
+            } else if (event.key.keysym.sym == SDLK_o && event.key.repeat == 0) {
+                eventCode = USER_REMOVE_PINTOOL;
+            } else {
                 break;
             }
             userEvent = UserEvent(userId, eventCode, xMeters, yMeters);
