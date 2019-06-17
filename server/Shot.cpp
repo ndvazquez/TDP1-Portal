@@ -4,9 +4,11 @@
 
 #include "Shot.h"
 
+#define PI 3.14159265
+
+#include <math.h>
 #include <string>
 #include <Box2D/Dynamics/b2World.h>
-#include <iostream>
 
 Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
         Entity(type, body), dynamic(body) {
@@ -14,10 +16,15 @@ Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
     this->target = target;
     this->is_dead = false;
     this->origin = new Coordinate(body->GetPosition().x, body->GetPosition().y);
+    this->angle = 0;
 }
 
 Chell* Shot::getChell() {
     return chell;
+}
+
+float Shot::getAngle() {
+    return angle;
 }
 
 void Shot::handleCollision(Entity* entity) {
@@ -28,7 +35,6 @@ void Shot::die() {
 }
 
 void Shot::shoot() {
-    chell->stop();
     float delta = 0.5;
 
     body->SetGravityScale(0);
@@ -48,6 +54,21 @@ void Shot::shoot() {
 
     float to_advance_x = target_x - origin_x;
     float to_advance_y = target_y - origin_y;
+
+    float opposite = target_y - origin_y;
+    if (opposite < 0) opposite = -opposite;
+    float adyacent = target_x - origin_x;
+    if (adyacent < 0) adyacent = -adyacent;
+
+    this->angle = atan(opposite/adyacent) * 180 / PI;
+
+    if (to_advance_x < 0 && to_advance_y > 0) { //2d quarter
+        this->angle += 90;
+    } else if (to_advance_x < 0 && to_advance_y < 0) { //3er quarter
+        this->angle += 90*2;
+    } else if (to_advance_x > 0 && to_advance_y < 0) { //4to quarter
+        this->angle += 90*3;
+    }
 
     b2Vec2 velocity (to_advance_x, to_advance_y);
     velocity.Normalize();

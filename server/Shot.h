@@ -16,6 +16,7 @@ protected:
     Coordinate* origin;
     bool is_dead;
     Dynamic dynamic;
+    float angle;
 
 public:
     Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target);
@@ -24,6 +25,7 @@ public:
     void shoot();
     bool isDead();
     void die();
+    float getAngle();
 };
 
 #endif //PORTAL_SHOT_H
