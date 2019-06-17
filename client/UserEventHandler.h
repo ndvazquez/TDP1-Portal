@@ -9,15 +9,17 @@
 #include "Camera.h"
 #include "../common/UserEventQueue.h"
 #include "SoundCodeQueue.h"
+#include "../common/Thread.h"
 
 #define MTP_FACTOR_INV 0.01f
 
-class UserEventHandler {
+class UserEventHandler : public Thread {
     const Camera& camera;
     UserEventQueue& userEventQueue;
     const std::string& userId;
     int levelHeight;
     SoundCodeQueue& soundCodeQueue;
+    void handleEvent(SDL_Event& event);
 
 public:
     UserEventHandler(const Camera& camera,
@@ -26,7 +28,8 @@ public:
             int levelHeight,
             SoundCodeQueue& soundCodeQueue);
     ~UserEventHandler();
-    void run(SDL_Event& event);
+    void run();
+    void stop();
 };
 
 
