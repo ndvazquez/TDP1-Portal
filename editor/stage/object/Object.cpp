@@ -18,10 +18,8 @@ void Object::addWithGravityTo(int x, int y,
         // if we dont have something under us there is no way to be add.
         auto positionBelow = tiles.find(std::make_pair(x + i, y + 1));
         if (positionBelow == tiles.end()) {
-            std::cerr << "No tengo nada abajo" << std::endl;
             throw AddTileGravityException(this->name);
         }
-        std::cerr << "Si tengo nada abajo" << std::endl;
 
         // now, we have something
         std::string &under = positionBelow->second;
@@ -43,7 +41,6 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>,std::string>
     }
     if(this->hasGravity()) {
         sentinel = GRAVITY_SENTINEL;
-        std::cerr << "Soy "<< name <<" y tengo gravedad" << std::endl;
         this->addWithGravityTo(x, y, tiles, textures);
     }
 
@@ -105,16 +102,9 @@ bool Object::hasCondition() {
 std::pair<float, float> Object::rectangleCenterOfMass(
         const std::pair<int, int> &position, float w, float h) {
     std::pair<float, float> p(position.first + w/2, position.second + 1 - h/2);
-    std::cerr << "\nSoy un " << name << std::endl;
-    std::cerr << "Mi pos era: (" << position.first << ", " << position.second << ")" << std::endl;
-
-    std::cerr << "Mi pos es: (" << p.first << ", " << p.second << ")" << std::endl;
     return p;
 }
 
-/// Deberia recibir 3 pares, cada muno ser un vertice.
-/// Para ello tiene que haber 4 clases distintas de triangulo
-/// una por cada rotación.
 std::pair<float, float> Object::triangleCenterOfMass(
         const std::pair<float, float> &a,
         const std::pair<float, float> &b,
@@ -124,7 +114,7 @@ std::pair<float, float> Object::triangleCenterOfMass(
     float cx = c.first, cy = c.second + 1;
 
     std::pair<float, float> p((ax + bx + cx)/3, (ay + by + cy)/3);
-
+    /*
     std::cerr << "\nSoy un " << name << std::endl;
     std::cerr << "Mi pos es:" << std::endl;
     std::cerr << "\t(" << ax << ", " << ay << ")" << std::endl;
@@ -135,6 +125,7 @@ std::pair<float, float> Object::triangleCenterOfMass(
 
     std::cerr << "Y me centro de masa:" << std::endl;
     std::cerr << "\t(" << p.first << ", " << p.second << ")" << std::endl;
+    */
     return p;
 }
 

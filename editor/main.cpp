@@ -26,8 +26,8 @@ int main(int argc, char* argv[]) {
              switch (e.type) {
                  case SDL_QUIT:
                      editor.close();
-                     //quit = true;
-                     //break;
+                     quit = true;
+                     break;
                  case SDL_MOUSEBUTTONDOWN: // if the event is mouse click
                     //if (e.button.button = SDL_BUTTON_RIGHT) { // and its a left click
                     //    break;

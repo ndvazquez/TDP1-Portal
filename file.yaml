@@ -1,13 +1,15 @@
 DiagonalDownRight:
   position:
-    - x: 0.6666667
+    - x: 4.666667
       y: 1.333334
 DiagonalUpLeft:
   position:
-    []
+    - x: 7.333333
+      y: 0.666666
 DiagonalDownLeft:
   position:
-    []
+    - x: 3.333333
+      y: 1.333334
 Acid:
   position:
     []
@@ -16,10 +18,12 @@ Cake:
     []
 Gate:
   position:
-    []
+    - x: 1.5
+      y: 5
 Chell:
   position:
-    []
+    - x: 0.5
+      y: 4.975
 LounchBlockUp:
   position:
     []
@@ -31,7 +35,10 @@ Button:
     []
 MetalBlock:
   position:
-    []
+    - x: 1
+      y: 7
+    - x: 1
+      y: 3
 LounchBlockRight:
   position:
     []
@@ -61,7 +68,8 @@ Rock2:
     []
 DiagonalUpRight:
   position:
-    []
+    - x: 0.6666667
+      y: 0.666666
 Rock3:
   position:
     []

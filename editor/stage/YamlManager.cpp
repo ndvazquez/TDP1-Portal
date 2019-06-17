@@ -71,9 +71,6 @@ void YamlManager::write(std::unordered_map<std::string, Object *> &textures,
                 std::pair<float, float> centerOfMass =
                         object->centerOfMass(position);
                 matrixToMeter(centerOfMass, totalMeters);
-
-                std::cerr << "Mi centrode masa en metros es:" << std::endl;
-                std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << "x";
                 out << YAML::Value << centerOfMass.first;
