@@ -1,74 +1,86 @@
-name: DiagonalUpLeft
-position:
-  []
-name: Cake
-position:
-  []
-name: Gate
-position:
-  []
-name: DiagonalUpRight
-position:
-  []
-name: Rock3
-position:
-  []
-name: Rock2
-position:
-  []
-name: Chell
-position:
-  []
-name: LounchBlockUp
-position:
-  []
-name: ReceptorLeft
-position:
-  []
-name: Button
-position:
-  - (0.500000, 999.250000)
-name: MetalBlock
-position:
-  - (1.000000, 998.000000)
-name: Acid
-position:
-  []
-name: DiagonalDownLeft
-position:
-  []
-name: LounchBlockRight
-position:
-  []
-name: RockBlock
-position:
-  []
-name: ReceptorRight
-position:
-  []
-name: DiagonalDownRight
-position:
-  []
-name: ReceptorDown
-position:
-  []
-name: ReceptorUp
-position:
-  []
-name: LounchBlockLeft
-position:
-  []
-name: WithoutGravitySentinel
-position:
-  - (0.000000, 1000.000000)
-  - (0.000000, 1000.000000)
-  - (0.000000, 1000.000000)
-name: GravitySentinel
-position:
-  []
-name: LounchBlockDown
-position:
-  []
-name: Rock1
-position:
-  []
+DiagonalUpLeft:
+  position:
+    []
+Cake:
+  position:
+    []
+Gate:
+  position:
+    []
+DiagonalUpRight:
+  position:
+    []
+Rock3:
+  position:
+    []
+Rock2:
+  position:
+    []
+Chell:
+  position:
+    []
+LounchBlockUp:
+  position:
+    []
+ReceptorLeft:
+  position:
+    []
+Button:
+  position:
+    []
+MetalBlock:
+  position:
+    - x: 1
+      y: 999
+    - x: 3
+      y: 999
+Acid:
+  position:
+    []
+DiagonalDownLeft:
+  position:
+    []
+LounchBlockRight:
+  position:
+    []
+RockBlock:
+  position:
+    []
+ReceptorRight:
+  position:
+    []
+DiagonalDownRight:
+  position:
+    []
+ReceptorDown:
+  position:
+    []
+ReceptorUp:
+  position:
+    []
+LounchBlockLeft:
+  position:
+    []
+WithoutGravitySentinel:
+  position:
+    - x: 0
+      y: 1000
+    - x: 0
+      y: 1000
+    - x: 0
+      y: 1000
+    - x: 0
+      y: 1000
+    - x: 0
+      y: 1000
+    - x: 0
+      y: 1000
+GravitySentinel:
+  position:
+    []
+LounchBlockDown:
+  position:
+    []
+Rock1:
+  position:
+    []

@@ -246,7 +246,6 @@ void Controller::addCondition(int x, int y) {
     logicGates.addCondition(obj, pair, enteredCondition);
 }
 
-#define OBJECT_NAME "name"
 #define OBJECT_POSITION "position"
 
 void Controller::writeYaml() {
@@ -255,21 +254,28 @@ void Controller::writeYaml() {
     for(auto textures_it = textures.begin(); textures_it != textures.end(); textures_it++) {
         const std::string& currentName = textures_it->first;
         Object* object = textures_it->second;
-        out << YAML::Key << OBJECT_NAME;
-        out << YAML::Value << currentName;
+        out << YAML::Key << currentName;
+        out << YAML::Value << YAML::BeginMap;
         out << YAML::Key << OBJECT_POSITION;
-        out << YAML::BeginSeq;
+        out << YAML::Key  << YAML::BeginSeq;
         for (auto tiles_it = tiles.begin(); tiles_it != tiles.end(); tiles_it++) {
             const std::pair<int,int>& position = tiles_it->first;
             const std::string& thisName = tiles_it->second;
             if (thisName == currentName) {
                 std::pair<float, float> centerOfMass = object->centerOfMass(position);
                 matrixToMeter(centerOfMass);
-                std::string s = "(" + std::to_string(centerOfMass.first) + ", " + std::to_string(centerOfMass.second) + ")";
-                out << YAML::Value << s;
+
+                out << YAML::Value << YAML::BeginMap;
+                out << YAML::Key << "x";
+                out << YAML::Value << centerOfMass.first;
+                out << YAML::Key << "y";
+                out << YAML::Value << centerOfMass.second;
+                out << YAML::Value << YAML::EndMap;
+
             }
         }
-        out << YAML::EndSeq;
+        out << YAML::Key  << YAML::EndSeq;
+        out << YAML::Value << YAML::EndMap;
     }
     out << YAML::EndMap;
     std::ofstream fout("file.yaml");
