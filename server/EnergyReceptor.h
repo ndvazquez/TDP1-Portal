@@ -9,6 +9,8 @@
 #include "Entity.h"
 #include "../common/constants.h"
 #include "ItemActivable.h"
+#include "BlueShot.h"
+#include "OrangeShot.h"
 
 class EnergyReceptor: public ItemActivable {
 public:

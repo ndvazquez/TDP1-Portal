@@ -22,7 +22,12 @@ void EnergyBar::handleCollision(Entity *entity) {
     if (type == ROCK_NAME) {
         static_cast<Rock*>(entity)->die();
     }
-    //Didnt handle special cases of shots because it dies anyway
+    if (type == BLUE_SHOT_NAME) {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == ORANGE_SHOT_NAME) {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }
 
 void EnergyBar::disableBody() {
