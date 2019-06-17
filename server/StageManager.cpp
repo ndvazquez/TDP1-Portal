@@ -127,7 +127,7 @@ void StageManager::run() {
 // This should use a factory but a switch will do for now.
 void StageManager::handleEvent(UserEvent &userEvent,
         Chell *chell) {
-    if (chell == nullptr) return;
+    if (chell == nullptr || chell->hasWon()) return;
     std::string chell_id = userEvent.getUserId();
     int eventTypeCode = userEvent.getEventType();
     switch (eventTypeCode) {
