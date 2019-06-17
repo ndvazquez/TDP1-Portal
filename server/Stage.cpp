@@ -193,6 +193,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
 }
 
 void Stage::step() {
+    if (end_of_game) return;
     end_of_game = true;
     for (auto i = chells.begin(); i != chells.end(); i++) {
         if (i->second->isDead()) {
@@ -210,6 +211,7 @@ void Stage::step() {
                 world->destroyBody(i->second->getBody());
             }
         }
+        return;
     }
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
