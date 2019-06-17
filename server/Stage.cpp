@@ -59,7 +59,6 @@ void Stage::addDiagonalBlock(float side, float x_pos, float y_pos, float angle) 
     diagonal_metal_blocks.insert({coordinates, block});
 }
 
-
 void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
         float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                     std::string logic) {
@@ -168,6 +167,20 @@ void Stage::addShot(std::string identifier, std::string id, float v_side, float 
     }
 }
 
+void Stage::addPinTool(std::string id, float v_side, float h_side,
+        float x_pos, float y_pos, Chell* chell) {
+    PinTool* pinTool = chell->getPinTool();
+    if (pinTool != nullptr) {
+        if (world->hasObject(pinTool->getBody())) {
+            world->destroyBody(pinTool->getBody());
+        }
+    }
+    b2Body* body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
+    pinTool = new PinTool(body);
+    chell->addPinTool(pinTool);
+    pintools.insert({id, pinTool});
+}
+
 void Stage::addElement(std::string identifier, std::string id, float v_side,
         float h_side, float x_pos, float y_pos) {
     b2Body* body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
@@ -193,6 +206,7 @@ void Stage::managePortals(Chell* chell, std::string id) {
 }
 
 void Stage::step() {
+    std::cout << pintools.size() << std::endl;
     for (auto i = chells.begin(); i != chells.end(); i++) {
         if (i->second->isDead()) {
             if (world->hasObject(i->second->getBody())) {
@@ -272,6 +286,19 @@ void Stage::step() {
             }
         }
         i->second->fly();
+        i->second->update();
+    }
+
+    std::cout << pintools.size() << std::endl;
+
+    for (auto i = pintools.begin(); i != pintools.end(); i++) {
+        if (i->second->isDead()) {
+            world->destroyBody(i->second->getBody());
+            {
+                pintools.erase(i->first);
+                break;
+            }
+        }
         i->second->update();
     }
 
@@ -548,6 +575,16 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
         };
     }
+
+    /*for (auto i = pintools.begin(); i != pintools.end(); i++) {
+        std::string id_pintool = i->first;
+        float x_pos_portal = i->second->getHorizontalPosition();
+        float y_pos_portal = i->second->getVerticalPosition();
+        request[id_pintool] = {
+                {"state", 0}, {"x", x_pos_portal}, {"y", y_pos_portal}
+        };
+    }*/
+
     return request;
 }
 
@@ -610,6 +647,10 @@ Stage::~Stage() {
 
     for (auto i = energy_receptors.begin();
     i != energy_receptors.end(); i++) {
+        delete i->second;
+    }
+
+    for (auto i = pintools.begin(); i != pintools.end(); i++) {
         delete i->second;
     }
 

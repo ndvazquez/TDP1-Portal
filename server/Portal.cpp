@@ -3,11 +3,13 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Portal.h"
 #include "Chell.h"
 #include "EnergyBall.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
+#include "PinTool.h"
 
 Portal::Portal(b2Body* body, Coordinate* target,
         PortalOrientation orientation, PortalType type):

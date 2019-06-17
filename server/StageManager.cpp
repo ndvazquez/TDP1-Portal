@@ -2,7 +2,6 @@
 // Created by ndv on 6/13/19.
 //
 
-#include <iostream>
 #include "StageManager.h"
 
 StageManager::StageManager(Stage &stage,
@@ -41,7 +40,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
     int eventTypeCode = userEvent.getEventType();
     switch (eventTypeCode) {
         case USER_QUIT_CODE:
-            // Kill Chell, I guess?
+            chell->die();
             break;
         case USER_JUMP_CODE:
             chell->jump();
@@ -95,6 +94,17 @@ void StageManager::handleEvent(UserEvent &userEvent,
             break;
         case USER_REMOVE_PORTAL:
             chell->removePortals();
+            break;
+        case USER_PINTOOL:
+            {
+                std::string id = chell_id;
+                std::string replaced = "Chell";
+                id.replace(0, replaced.length(), "PinTool");
+                float x_pos = userEvent.getUserPosX();
+                float y_pos = userEvent.getUserPosY();
+                stage.addPinTool(id, PINTOOL_HEIGHT, PINTOOL_WIDTH,
+                        x_pos, y_pos, chell);
+            }
             break;
         default:
             break;

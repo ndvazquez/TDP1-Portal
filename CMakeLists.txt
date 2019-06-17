@@ -125,7 +125,8 @@ set(SERVER_SOURCE_FILES
         server/PhysicsWorld.cpp
         server/ItemActivable.cpp
         server/PortalManager.cpp
-        common/UserEvent.cpp)
+        common/UserEvent.cpp
+        server/PinTool.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

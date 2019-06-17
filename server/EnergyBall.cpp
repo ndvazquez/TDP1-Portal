@@ -51,10 +51,6 @@ bool EnergyBall::isDead() {
     return is_dead;
 }
 
-bool EnergyBall::isVertical() {
-    return this->is_vertical;
-}
-
 void EnergyBall::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == ENERGY_BAR_NAME) {

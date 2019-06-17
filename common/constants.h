@@ -65,6 +65,7 @@ enum PortalType {
 #define PORTAL_NAME "Portal"
 #define FLOOR_NAME "Floor"
 #define GATE_NAME "Gate"
+#define PINTOOL_NAME "PinTool"
 
 // Objects sizes.
 #define METAL_SIDE 2
@@ -87,6 +88,8 @@ enum PortalType {
 #define GATE_WIDTH 1
 #define GATE_HEIGHT 2
 #define CHELL_WHEEL_RADIUS 0.25
+#define PINTOOL_HEIGHT 0.5
+#define PINTOOL_WIDTH 0.5
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
@@ -120,5 +123,6 @@ enum PortalType {
 #define USER_DROP_ROCK 8
 #define USER_THROW_ROCK 9
 #define USER_REMOVE_PORTAL 10
+#define USER_PINTOOL 11
 
 #endif //PORTAL_CONSTANTS_H

@@ -14,6 +14,7 @@
 #include "Portal.h"
 #include "OrangePortal.h"
 #include "BluePortal.h"
+#include "PinTool.h"
 #include <list>
 
 class Chell: public Entity {
@@ -29,6 +30,7 @@ private:
     Coordinate* orange_portal_to_teleport;
     Coordinate* blue_portal_to_teleport;
     bool winner;
+    PinTool* pintool;
 
 public:
     explicit Chell(b2Body* body);
@@ -52,6 +54,7 @@ public:
     void downloadRock();
     void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
     void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);
+    void addPinTool(PinTool* pintool);
     void teleport(Coordinate* coordinate, PortalType type);
     void removePortals();
     ChellState getState();
@@ -59,6 +62,7 @@ public:
     OrangePortal* getOrangePortal();
     Coordinate* getBluePortalToTeleport();
     Coordinate* getOrangePortalToTeleport();
+    PinTool* getPinTool();
 };
 
 #endif //PORTAL_CHELL_H

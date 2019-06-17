@@ -30,6 +30,7 @@
 #include "PhysicsWorld.h"
 #include "EnergyReceptor.h"
 #include "ItemActivable.h"
+#include "PinTool.h"
 
 class StageBadIdentifierException : public std::exception {
     virtual const char* what() const throw() {
@@ -64,6 +65,7 @@ private:
     energy_receptors;
     std::unordered_map<std::string, Rock*> rocks;
     std::unordered_map<std::string, Portal*> portals; //Id == shots
+    std::unordered_map<std::string, PinTool*> pintools;
 
 public:
     Stage(size_t width, size_t height);
@@ -86,6 +88,8 @@ public:
                  std::string logic);
     void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
+    void addPinTool(std::string id, float v_side, float h_side,
+                           float x_pos, float y_pos, Chell* chell);
 
     Rock* getClosestRock(float x_pos, float y_pos);
     void managePortals(Chell* chell, std::string id);

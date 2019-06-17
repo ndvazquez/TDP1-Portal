@@ -21,7 +21,6 @@ public:
     void fly();
     void die();
     bool isDead();
-    bool isVertical();
     void changeDirection(b2Vec2 velocity);
     virtual void handleCollision(Entity* entity) override;
     void teleport(Coordinate* target, PortalType type);

@@ -151,7 +151,7 @@ b2Body* PhysicsWorld::addDynamicRectangleWithWheels(float v_side, float h_side,
 }
 
  void PhysicsWorld::destroyBody(b2Body* body) {
-     world->DestroyBody(body);
+    world->DestroyBody(body);
 }
 
 bool PhysicsWorld::hasObject(b2Body* body) {

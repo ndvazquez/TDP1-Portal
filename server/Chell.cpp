@@ -34,6 +34,7 @@ Chell::Chell(b2Body* body):
     blue_portal_to_teleport = nullptr;
     orange_portal_to_teleport = nullptr;
     winner = false;
+    pintool = nullptr;
 }
 
 void Chell::handleCollision(Entity* entity) {
@@ -215,6 +216,14 @@ void Chell::addBluePortal(BluePortal* portal, Coordinate* to_teleport) {
     if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
     blue_portal = portal;
     blue_portal_to_teleport = to_teleport;
+}
+
+void Chell::addPinTool(PinTool* pintool) {
+    this->pintool = pintool;
+}
+
+PinTool* Chell::getPinTool() {
+    return pintool;
 }
 
 BluePortal* Chell::getBluePortal() {
