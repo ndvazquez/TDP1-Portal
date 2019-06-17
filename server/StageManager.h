@@ -29,9 +29,7 @@ public:
     ~StageManager();
     // This is going to run on another thread.
     void run();
-    void addPlayer(Socket& socket,
-            float x,
-            float y);
+    void addPlayer(Socket& socket);
 };
 
 

@@ -23,9 +23,10 @@ void testRunServer() {
     Socket peerSocket1 = acceptorSocket.acceptPeer();
     Socket peerSocket2 = acceptorSocket.acceptPeer();
     StageManager stageManager(stageWidth, stageHeight);
-    stageManager.addPlayer(peerSocket1, chellPosX, chellPosY);
-    stageManager.addPlayer(peerSocket2, chellPosX + 20, chellPosY);
+    stageManager.addPlayer(peerSocket1);
+    stageManager.addPlayer(peerSocket2);
     stageManager.run();
+    // Sanity check.
     peerSocket1.shutdownAndClose();
     peerSocket2.shutdownAndClose();
     acceptorSocket.shutdownAndClose();

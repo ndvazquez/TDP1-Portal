@@ -16,6 +16,7 @@ StageManager::StageManager(int stageWidth,
     float xPosChell = 4;
     float yPosChell = 1;
     std::string idChell = "Chell1";
+    std::string idChell2 = "Chell2";
     float xPosRock = 8;
     float yPosRock = 1;
     std::string idRock = "Rock1";
@@ -49,6 +50,8 @@ StageManager::StageManager(int stageWidth,
     stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 16, metalBlockPosY + 4);
     stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 20, metalBlockPosY + 8);
     stage.addBlock(METAL_BLOCK_NAME, metalSide, metalBlockPosX + 2, metalBlockPosY + 6);
+    stage.addChell(idChell, CHELL_HEIGHT, CHELL_WIDTH, xPosChell, yPosChell);
+    stage.addChell(idChell2, CHELL_HEIGHT, CHELL_WIDTH, xPosChell + 20, yPosChell);
 
 }
 
@@ -190,11 +193,10 @@ void StageManager::handleEvent(UserEvent &userEvent,
 }
 
 // For now we'll receive x and y to position Chell in stage.
-void StageManager::addPlayer(Socket &socket, float x, float y) {
+void StageManager::addPlayer(Socket &socket) {
     std::string playerID = PLAYER_ID_PREFIX + std::to_string(playerCounter);
     ++playerCounter;
     StageStatusQueue* newStatusQueue = new StageStatusQueue();
     clientQueues.insert({playerID, newStatusQueue});
     clients.insert({playerID, new ClientHandler(socket, userEventQueue, *newStatusQueue)});
-    stage.addChell(playerID, CHELL_HEIGHT, CHELL_WIDTH, x, y);
 }
