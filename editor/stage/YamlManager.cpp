@@ -16,8 +16,8 @@
 #include "object/Receptor.h"
 #include "object/WithOutGravitySentinel.h"
 #include "object/GravitySentinel.h"
-#include "object/DiagonalBlockRightUp.h"
-#include "object/DiagonalBlockLeftUp.h"
+#include "object/diagonalBlocks/DiagonalBlockRightUp.h"
+#include "object/diagonalBlocks/DiagonalBlockLeftUp.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"

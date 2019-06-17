@@ -68,9 +68,9 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
         editor/stage/object/Receptor.cpp
-        editor/stage/object/DiagonalBlockUp.cpp
-        editor/stage/object/DiagonalBlockRightUp.cpp
-        editor/stage/object/DiagonalBlockLeftUp.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockUp.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockRightUp.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockLeftUp.cpp
 
         editor/stage/object/WithOutGravitySentinel.cpp
         editor/stage/object/GravitySentinel.cpp

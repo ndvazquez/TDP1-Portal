@@ -6,7 +6,7 @@
 #define PORTAL_DIAGONALBLOCKUP_H
 
 
-#include "StaticObject.h"
+#include "../StaticObject.h"
 
 class DiagonalBlockUp : public StaticObject {
 public:

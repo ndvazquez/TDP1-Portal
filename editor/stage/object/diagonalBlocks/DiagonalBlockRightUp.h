@@ -6,7 +6,7 @@
 #define PORTAL_DIAGONALBLOCKRIGHTUP_H
 
 
-#include "StaticObject.h"
+#include "../StaticObject.h"
 #include "DiagonalBlockUp.h"
 
 
