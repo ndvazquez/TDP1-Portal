@@ -1,5 +1,5 @@
 //
-// Created by camix on 11/06/19.
+// Created by camix on 17/06/19.
 //
 
 #include "DiagonalBlockUp.h"
@@ -18,7 +18,3 @@ void DiagonalBlockUp::addTo(int x, int y, std::map<std::pair<int, int>,
 }
 
 DiagonalBlockUp::~DiagonalBlockUp() = default;
-
-std::pair<float, float> DiagonalBlockUp::centerOfMass(const std::pair<int, int> &position) {
-    return this->triangleCenterOfMass(position, METAL_SIDE, METAL_SIDE);
-}

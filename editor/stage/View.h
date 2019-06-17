@@ -20,10 +20,11 @@ private:
     std::map<std::pair<int, int>, std::string>& tiles;
 
 public:
-    View(Window& window, int factor, std::unordered_map<std::string, Object*>& textures, std::map<std::pair<int, int>, std::string>& tiles);
+    View(Window& window, int factor,
+            std::unordered_map<std::string, Object*>& textures,
+            std::map<std::pair<int, int>, std::string>& tiles);
     ~View();
     void draw(SDL_Rect *camera, int xStart);
-    int getWindowHeight();
 };
 
 

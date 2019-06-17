@@ -1,6 +1,7 @@
 DiagonalUpLeft:
   position:
-    []
+    - x: 1.333333
+      y: 0.666666
 Cake:
   position:
     []
@@ -9,7 +10,8 @@ Gate:
     []
 DiagonalUpRight:
   position:
-    []
+    - x: 4.666667
+      y: 0.666666
 Rock3:
   position:
     []
@@ -30,12 +32,7 @@ Button:
     []
 MetalBlock:
   position:
-    - x: 1
-      y: 17
-    - x: 1
-      y: 15
-    - x: 1
-      y: 13
+    []
 Acid:
   position:
     []

@@ -63,13 +63,15 @@ Receptors:
     w: 2
     h: 2
 
-DiagonalBlock:
-  - name: DiagonalUpLeft
-    path: resources/blocks/diagonal-up-left.png
-    w: 2
-    h: 2
+DiagonalBlockRU:
   - name: DiagonalUpRight
     path: resources/blocks/diagonal-up-right.png
+    w: 2
+    h: 2
+
+DiagonalBlockLU:
+  - name: DiagonalUpLeft
+    path: resources/blocks/diagonal-up-left.png
     w: 2
     h: 2
 

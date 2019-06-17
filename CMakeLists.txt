@@ -67,13 +67,16 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Gate.cpp
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
-        editor/stage/object/DiagonalBlockUp.cpp
         editor/stage/object/Receptor.cpp
+        editor/stage/object/DiagonalBlockUp.cpp
+        editor/stage/object/DiagonalBlockRightUp.cpp
+        editor/stage/object/DiagonalBlockLeftUp.cpp
+
+        editor/stage/object/WithOutGravitySentinel.cpp
+        editor/stage/object/GravitySentinel.cpp
+
         editor/MouseButton.cpp
         editor/stage/LogicGates.cpp
-        editor/stage/object/WithOutGravitySentinel.cpp
-
-        editor/stage/object/GravitySentinel.cpp
         editor/stage/YamlManager.cpp
 
         #ffmpeg/CodecContext.cpp

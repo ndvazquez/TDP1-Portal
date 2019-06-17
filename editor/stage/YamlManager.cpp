@@ -13,10 +13,11 @@
 #include "object/Gate.h"
 #include "object/Cake.h"
 #include "object/Acid.h"
-#include "object/DiagonalBlockUp.h"
 #include "object/Receptor.h"
 #include "object/WithOutGravitySentinel.h"
 #include "object/GravitySentinel.h"
+#include "object/DiagonalBlockRightUp.h"
+#include "object/DiagonalBlockLeftUp.h"
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -25,7 +26,9 @@
 #define GATE_KEY "Gate"
 #define CAKE_KEY "Cake"
 #define ACID_KEY "Acid"
-#define DIAGONAL_BLOCK_KEY "DiagonalBlock"
+#define DIAGONAL_BLOCK_RU_KEY "DiagonalBlockRU"
+#define DIAGONAL_BLOCK_LU_KEY "DiagonalBlockLU"
+
 #define RECPTOR_KEY "Receptors"
 
 
@@ -40,7 +43,8 @@ void matrixToMeter(std::pair<float, float> &pair, int totalMeters) {
 }
 
 void YamlManager::write(std::unordered_map<std::string, Object *> &textures,
-                        std::map<std::pair<int, int>, std::string> &tiles, int totalMeters) {
+                        std::map<std::pair<int, int>, std::string> &tiles,
+                        int totalMeters) {
     YAML::Emitter out;
     out << YAML::BeginMap;
     for(auto & texture : textures) {
@@ -58,9 +62,12 @@ void YamlManager::write(std::unordered_map<std::string, Object *> &textures,
             const std::pair<int,int>& position = tile.first;
             const std::string& thisName = tile.second;
             if (thisName == currentName) {
-                std::pair<float, float> centerOfMass = object->centerOfMass(position);
+                std::pair<float, float> centerOfMass =
+                        object->centerOfMass(position);
                 matrixToMeter(centerOfMass, totalMeters);
 
+                std::cerr << "Mi centrode masa en metros es:" << std::endl;
+                std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << "x";
                 out << YAML::Value << centerOfMass.first;
@@ -118,7 +125,8 @@ void YamlManager::read(Window &window,
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        WithOutGravitySentinel* newObject = new WithOutGravitySentinel(path, window, name, w, h);
+        WithOutGravitySentinel* newObject =
+                new WithOutGravitySentinel(path, window, name, w, h);
         textures[name] = newObject;
     }
 
@@ -130,7 +138,8 @@ void YamlManager::read(Window &window,
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        GravitySentinel* newObject = new GravitySentinel(path, window, name, w, h);
+        GravitySentinel* newObject =
+                new GravitySentinel(path, window, name, w, h);
         textures[name] = newObject;
     }
 
@@ -169,7 +178,8 @@ void YamlManager::read(Window &window,
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        Chell* newObject = new Chell(path, window, node["frames"].as<int>(), name, w, h);
+        Chell* newObject =
+                new Chell(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
     }
 
@@ -195,7 +205,8 @@ void YamlManager::read(Window &window,
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        Cake* newObject = new Cake(path, window, node["frames"].as<int>(), name, w, h);
+        Cake* newObject =
+                new Cake(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
     }
 
@@ -207,19 +218,34 @@ void YamlManager::read(Window &window,
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        Acid* newObject = new Acid(path, window, node["frames"].as<int>(), name, w, h);
+        Acid* newObject =
+                new Acid(path, window, node["frames"].as<int>(), name, w, h);
         textures[name] = newObject;
     }
 
-    const YAML::Node& DiagonalBlocks = texturesInfo[DIAGONAL_BLOCK_KEY];
-    for (YAML::const_iterator it = DiagonalBlocks.begin();
-         it != DiagonalBlocks.end(); ++it) {
+    const YAML::Node& DiagonalBlocksRU = texturesInfo[DIAGONAL_BLOCK_RU_KEY];
+    for (YAML::const_iterator it = DiagonalBlocksRU.begin();
+         it != DiagonalBlocksRU.end(); ++it) {
         const YAML::Node& node = *it;
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
         int w = node["w"].as<int>();
         int h = node["h"].as<int>();
-        DiagonalBlockUp* newObject = new DiagonalBlockUp(path, window, name, w, h);
+        DiagonalBlockRightUp* newObject =
+                new DiagonalBlockRightUp(path, window, name, w, h);
+        textures[name] = newObject;
+    }
+
+    const YAML::Node& DiagonalBlocksLE = texturesInfo[DIAGONAL_BLOCK_LU_KEY];
+    for (YAML::const_iterator it = DiagonalBlocksLE.begin();
+         it != DiagonalBlocksLE.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        DiagonalBlockLeftUp* newObject =
+                new DiagonalBlockLeftUp(path, window, name, w, h);
         textures[name] = newObject;
     }
 }

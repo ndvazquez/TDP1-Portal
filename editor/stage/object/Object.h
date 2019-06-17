@@ -32,24 +32,36 @@ public:
             std::string> &tiles, std::unordered_map<std::string,
             Object *>& texturesL, bool needGravitySentinel = false);
 
-    virtual void setName(std::pair<int, int>& position, std::string &enteredName);
+    virtual void setName(std::pair<int, int>& position,
+                    std::string &enteredName);
 
-    void addWithGravityTo(int x, int y, std::map<std::pair<int, int>,std::string>
-    &tiles,
-                          std::unordered_map<std::string, Object *>& textures);
+    void addWithGravityTo(int x, int y,
+                    std::map<std::pair<int, int>,std::string> &tiles,
+                    std::unordered_map<std::string, Object *>& textures);
 
-    virtual void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                            std::unordered_map<std::string, Object *> &textures);
+    virtual void removeFrom(int x, int y, std::map<std::pair<int, int>,
+                     std::string> &tiles,
+                     std::unordered_map<std::string,
+                     Object *> &textures);
 
     virtual bool hasGravity();
-    virtual void addCondition(std::pair<int, int> position, std::string& condition);
+    virtual void addCondition(std::pair<int, int> position,
+                    std::string& condition);
 
     virtual bool doesThisNameExist(std::string &string);
 
 
-    virtual std::pair<float, float> rectangleCenterOfMass(const std::pair<int, int> &position, float w, float h);
-    virtual std::pair<float, float> triangleCenterOfMass(const std::pair<int, int> &position, float w, float h);
-    virtual std::pair<float, float> centerOfMass(const std::pair<int, int> &position) = 0;
+    virtual std::pair<float, float> rectangleCenterOfMass(
+                     const std::pair<int, int> &position,
+                     float w, float h);
+    virtual std::pair<float, float> triangleCenterOfMass(
+                    const std::pair<float, float> &a,
+                    const std::pair<float, float> &b,
+                    const std::pair<float, float> &c);
+
+    virtual std::pair<float, float> centerOfMass(
+                    const std::pair<int, int> &position) = 0;
+
     virtual bool hasCondition();
 };
 
