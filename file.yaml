@@ -1,10 +1,13 @@
+DiagonalDownRight:
+  position:
+    - x: 0.6666667
+      y: 1.333334
 DiagonalUpLeft:
   position:
     []
 DiagonalDownLeft:
   position:
-    - x: 1.333333
-      y: 1.333334
+    []
 Acid:
   position:
     []

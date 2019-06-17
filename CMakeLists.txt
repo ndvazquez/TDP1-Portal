@@ -73,6 +73,7 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/diagonalBlocks/DiagonalBlockLeftUp.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockDown.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockLeftDown.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockRightDown.cpp
 
 
         editor/stage/object/WithOutGravitySentinel.cpp

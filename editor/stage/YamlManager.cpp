@@ -20,6 +20,7 @@
 #include "object/diagonalBlocks/DiagonalBlockLeftUp.h"
 #include "object/diagonalBlocks/DiagonalBlockDown.h"
 #include "object/diagonalBlocks/DiagonalBlockLeftDown.h"
+#include "object/diagonalBlocks/DiagonalBlockRightDown.h"
 
 
 #define BLOCK_KEY "Blocks"
@@ -264,6 +265,19 @@ void YamlManager::read(Window &window,
         int h = node["h"].as<int>();
         DiagonalBlockLeftDown* newObject =
                 new DiagonalBlockLeftDown(path, window, name, w, h);
+        textures[name] = newObject;
+    }
+
+    const YAML::Node& DiagonalBlocksRD = texturesInfo[DIAGONAL_BLOCK_RD_KEY];
+    for (YAML::const_iterator it = DiagonalBlocksRD.begin();
+         it != DiagonalBlocksRD.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        DiagonalBlockRightDown* newObject =
+                new DiagonalBlockRightDown(path, window, name, w, h);
         textures[name] = newObject;
     }
 }
