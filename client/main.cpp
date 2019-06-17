@@ -20,6 +20,8 @@
 #include "UserEventHandler.h"
 #include "../common/Socket.h"
 #include "EventSender.h"
+#include "../common/StageStatusQueue.h"
+#include "StageStatusReceiver.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
@@ -160,7 +162,7 @@ void playGame(std::string& idChell) {
             },
 
     };
-    nlohmann::json stageUpdateRequest;
+
 
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
@@ -236,7 +238,7 @@ void playGame(std::string& idChell) {
     UserEventHandler userEventHandler(camera, userEventQueue,
                                       idChell, levelHeight,
                                       soundQueue);
-    //StageStatusQueue stageStatusQueue;
+    StageStatusQueue stageStatusQueue;
 
     std::string host = "localhost";
     std::string service = "8000";
@@ -249,21 +251,26 @@ void playGame(std::string& idChell) {
         std::cout << "Estamos conectados!" << std::endl;
     }
     EventSender eventSender(clientSocket, userEventQueue);
+    StageStatusReceiver stageStatusReceiver(clientSocket, stageStatusQueue);
     bool quit = false;
 
     //audioSystem.playMusic(BG_SONG_GAME);
     userEventHandler.start();
     eventSender.start();
+    stageStatusReceiver.start();
+    
+    nlohmann::json stageUpdateRequest = "{}"_json;
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
+    
     while (!quit) {
+        // This isn't optimal but it'll do for now.
+        if (!stageStatusQueue.empty()) {
+            std::string stageStatusString = stageStatusQueue.pop();
+            stageUpdateRequest = nlohmann::json::parse(stageStatusString);
+        }
         
-        int stageStatusSize;
-        clientSocket.receiveMessage(&stageStatusSize, REQUEST_LEN_SIZE);
-        std::string stageStatusString(stageStatusSize, '\0');
-        clientSocket.receiveMessage(&stageStatusString[0], stageStatusSize);
-        stageUpdateRequest = nlohmann::json::parse(stageStatusString);
-
         SDL_Delay(1000/60);
+        // Time to draw!
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;
         background.draw(bgRect);
@@ -273,11 +280,16 @@ void playGame(std::string& idChell) {
         audioSystem.playSoundEffects();
         if (userEventHandler.isDead()) quit = true;
     }
+    
+    clientSocket.shutdownAndClose();
     userEventHandler.stop();
     userEventHandler.join();
     eventSender.stop();
     eventSender.join();
-    clientSocket.shutdownAndClose();
+    stageStatusReceiver.stop();
+    stageStatusReceiver.join();
+    
+    
 }
 
 int main(int argc, char* argv[]){

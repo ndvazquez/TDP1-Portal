@@ -45,7 +45,9 @@ set(CLIENT_SOURCE_FILES
         client/GateView.cpp
         common/Thread.cpp
         common/Socket.cpp
-        client/EventSender.cpp)
+        client/EventSender.cpp
+        client/StageStatusReceiver.cpp
+        common/StageStatusQueue.cpp)
 
 #EDITOR CONFIG
 
