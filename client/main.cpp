@@ -251,21 +251,17 @@ void playGame(std::string& idChell) {
     bool quit = false;
     SDL_Event e;
     //audioSystem.playMusic(BG_SONG_GAME);
+    userEventHandler.start();
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
     while (!quit) {
-        while (SDL_PollEvent(&e) != 0) {
-            userEventHandler.run(e);
-            if (e.type == SDL_QUIT){
-                quit = true;
-            }
-            if (!userEventQueue.empty()) {
-                UserEvent userEvent = userEventQueue.pop();
-                std::string userJson = userEvent.toJsonString();
-                int request_size = userJson.size();
-                clientSocket.sendMessage(&request_size, REQUEST_LEN_SIZE);
-                clientSocket.sendMessage(&userJson[0], request_size);
-            }
+        if (!userEventQueue.empty()) {
+            UserEvent userEvent = userEventQueue.pop();
+            std::string userJson = userEvent.toJsonString();
+            int request_size = userJson.size();
+            clientSocket.sendMessage(&request_size, REQUEST_LEN_SIZE);
+            clientSocket.sendMessage(&userJson[0], request_size);
         }
+        
         int stageStatusSize;
         clientSocket.receiveMessage(&stageStatusSize, REQUEST_LEN_SIZE);
         std::string stageStatusString(stageStatusSize, '\0');
@@ -280,7 +276,10 @@ void playGame(std::string& idChell) {
         viewManager.showAndUpdateViews(stageUpdateRequest, camera);
         newWindow.render();
         audioSystem.playSoundEffects();
+        if (userEventHandler.isDead()) quit = true;
     }
+    userEventHandler.stop();
+    userEventHandler.join();
     clientSocket.shutdownAndClose();
 }
 
