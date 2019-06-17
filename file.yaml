@@ -1,21 +1,17 @@
 DiagonalUpLeft:
   position:
+    []
+DiagonalDownLeft:
+  position:
     - x: 1.333333
-      y: 0.666666
+      y: 1.333334
+Acid:
+  position:
+    []
 Cake:
   position:
     []
 Gate:
-  position:
-    []
-DiagonalUpRight:
-  position:
-    - x: 4.666667
-      y: 0.666666
-Rock3:
-  position:
-    []
-Rock2:
   position:
     []
 Chell:
@@ -33,12 +29,6 @@ Button:
 MetalBlock:
   position:
     []
-Acid:
-  position:
-    []
-DiagonalDownLeft:
-  position:
-    []
 LounchBlockRight:
   position:
     []
@@ -46,9 +36,6 @@ RockBlock:
   position:
     []
 ReceptorRight:
-  position:
-    []
-DiagonalDownRight:
   position:
     []
 ReceptorDown:
@@ -64,5 +51,14 @@ LounchBlockDown:
   position:
     []
 Rock1:
+  position:
+    []
+Rock2:
+  position:
+    []
+DiagonalUpRight:
+  position:
+    []
+Rock3:
   position:
     []

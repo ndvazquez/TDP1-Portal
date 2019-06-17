@@ -23,14 +23,6 @@ Blocks: # no gravity and no animation
     path: resources/lounch-block/right.png
     w: 2
     h: 2
-  - name: DiagonalDownLeft
-    path: resources/blocks/diagonal-down-left.png
-    w: 2
-    h: 2
-  - name: DiagonalDownRight
-    path: resources/blocks/diagonal-down-right.png
-    w: 2
-    h: 2
 
 
 WithoutGravitySentinel:
@@ -74,6 +66,19 @@ DiagonalBlockLU:
     path: resources/blocks/diagonal-up-left.png
     w: 2
     h: 2
+
+DiagonalBlockLD:
+  - name: DiagonalDownLeft
+    path: resources/blocks/diagonal-down-left.png
+    w: 2
+    h: 2
+
+DiagonalBlockRD:
+  - name: DiagonalDownRight
+    path: resources/blocks/diagonal-down-right.png
+    w: 2
+    h: 2
+
 
 Buttons: # gravity, no animation
   - name: Button

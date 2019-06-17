@@ -18,6 +18,9 @@
 #include "object/GravitySentinel.h"
 #include "object/diagonalBlocks/DiagonalBlockRightUp.h"
 #include "object/diagonalBlocks/DiagonalBlockLeftUp.h"
+#include "object/diagonalBlocks/DiagonalBlockDown.h"
+#include "object/diagonalBlocks/DiagonalBlockLeftDown.h"
+
 
 #define BLOCK_KEY "Blocks"
 #define BUTTON_KEY "Buttons"
@@ -28,6 +31,8 @@
 #define ACID_KEY "Acid"
 #define DIAGONAL_BLOCK_RU_KEY "DiagonalBlockRU"
 #define DIAGONAL_BLOCK_LU_KEY "DiagonalBlockLU"
+#define DIAGONAL_BLOCK_LD_KEY "DiagonalBlockLD"
+#define DIAGONAL_BLOCK_RD_KEY "DiagonalBlockRD"
 
 #define RECPTOR_KEY "Receptors"
 
@@ -246,6 +251,19 @@ void YamlManager::read(Window &window,
         int h = node["h"].as<int>();
         DiagonalBlockLeftUp* newObject =
                 new DiagonalBlockLeftUp(path, window, name, w, h);
+        textures[name] = newObject;
+    }
+
+    const YAML::Node& DiagonalBlocksLD = texturesInfo[DIAGONAL_BLOCK_LD_KEY];
+    for (YAML::const_iterator it = DiagonalBlocksLD.begin();
+         it != DiagonalBlocksLD.end(); ++it) {
+        const YAML::Node& node = *it;
+        std::string name = node["name"].as<std::string>();
+        std::string path = node["path"].as<std::string>();
+        int w = node["w"].as<int>();
+        int h = node["h"].as<int>();
+        DiagonalBlockLeftDown* newObject =
+                new DiagonalBlockLeftDown(path, window, name, w, h);
         textures[name] = newObject;
     }
 }

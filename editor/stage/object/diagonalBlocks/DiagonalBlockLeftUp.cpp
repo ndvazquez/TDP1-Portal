@@ -4,12 +4,14 @@
 
 #include "DiagonalBlockLeftUp.h"
 
-DiagonalBlockLeftUp::DiagonalBlockLeftUp(std::string &path, Window &window, const std::string& name, int w, int h) :
+DiagonalBlockLeftUp::DiagonalBlockLeftUp(std::string &path, Window &window,
+                                    const std::string& name, int w, int h) :
         DiagonalBlockUp(path, window, name, w, h) {}
 
 DiagonalBlockLeftUp::~DiagonalBlockLeftUp() = default;
 
-std::pair<float, float> DiagonalBlockLeftUp::centerOfMass(const std::pair<int, int> &position) {
+std::pair<float, float> DiagonalBlockLeftUp::centerOfMass(
+                                    const std::pair<int, int> &position) {
     float ax = position.first;
     float ay = position.second ;//+1;
 
@@ -18,5 +20,6 @@ std::pair<float, float> DiagonalBlockLeftUp::centerOfMass(const std::pair<int, i
 
     float cx = bx;
     float cy = by - h;
-    return this->triangleCenterOfMass(position, std::make_pair(bx,by), std::make_pair(cx,cy));
+    return this->triangleCenterOfMass(position, std::make_pair(bx,by),
+                                         std::make_pair(cx,cy));
 }

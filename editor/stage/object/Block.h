@@ -13,8 +13,9 @@ class Block : public StaticObject {
 public:
     Block(std::string& path, Window& window, const std::string& name, int w, int h);
     ~Block();
-    void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
-                    std::unordered_map<std::string, Object *>& map) override;
+
+    //void removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> &tiles,
+    //                std::unordered_map<std::string, Object *>& map) override;
 
     bool hasGravity() override;
     std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
