@@ -8,10 +8,11 @@
 #include <iostream>
 
 #define EXC_INTRO "Couldn't add the tile: "
-#define GRAVITY ". That's not a valid place for an object with physics laws!\n"
+#define GRAVITY "That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
 #define FLOOR_NEEDED "The object above needs to be over a statick object\n"
 #define SET_NAME_EXC "That name already exist in another object"
+#define END_OF_STAGE "That's not a valid place for an object"
 
 
 class ObjectException : public std::exception {
@@ -35,6 +36,16 @@ class AddTileTakenPositionException : public ObjectException {
 
 public:
     explicit AddTileTakenPositionException() = default;
+
+};
+
+class AddTileEndOfStageException : public ObjectException {
+    const char* what() const noexcept override {
+        return EXC_INTRO END_OF_STAGE;
+    }
+
+public:
+    explicit AddTileEndOfStageException() = default;
 
 };
 
