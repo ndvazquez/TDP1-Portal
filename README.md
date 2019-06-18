@@ -6,14 +6,20 @@
 - Nicolas Vázquez
 
 ### Estado del trabajo hasta el momento:
-Al ejecutar el main del cliente se pueden probar los movimientos de Chell con las teclas:
+Separamos cliente y servidor y está implementado el soporte multijugador. Para ejecutarlo hay que hacer lo siguiente:
+1. Compilar Server y ejecutarlo: `./Server`
+2. Compilar Cliente y ejecutar:
+`./Client Chell1`
+`./Client Chell2`
+
+Después vamos a sacar esta versión harcodeada y usar los comandos vistos en los TPS individuales.
+
+Se pueden probar los movimientos de Chell con las teclas:
 - **w** para saltar
 - **d** para moverse a la derecha
 - **a** para moverse a la izquierda
 
-Hay una roca en el escenario para levantarla con la tecla **g** y descargarla con la tecla **f**. Debajo de los dos bloques de metal dibujados hay dos portales horizontales colocados justo debajo de ellos donde se pueden teletransportar ambos objetos presentes en el escenario.
-
-Estamos trabajando para enviar la información entre cliente y servidor a través de elementos de formato JSON y poder terminar de testear la lógica del juego y unirla a sus vistas.
+El juego completo está implementado pero la versión en master no tiene un nivel con todas las funcionalidades a testear. Arriba de todo hay una cake que si se llega a ella se gana. Estamos trabajando en el parseo del YAML del editor al comienzo del juego y en el soporte multipartida. Así mismo hay algunas vistas a fixear y algunos bugs detectados en los que vamos a trabajar esta semana.
 
 ### Dependencias a instalar:
 - Para la interfaz gráfica:
