@@ -101,7 +101,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
     int eventTypeCode = userEvent.getEventType();
     switch (eventTypeCode) {
         case USER_QUIT_CODE:
-            // Kill Chell, I guess?
+            chell->die();
             break;
         case USER_JUMP_CODE:
             chell->jump();

@@ -44,6 +44,7 @@ void YamlParser::parseAndAdd() {
     const YAML::Node& et_down = editor_data[std::to_string(LOUNCH_BLOCK_DOWN)]["position"];
     for (YAML::const_iterator it = et_down.begin();
          it != et_down.end(); ++it) {
+        std::cout << "Soy un emisor" << std::endl;
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
@@ -51,7 +52,7 @@ void YamlParser::parseAndAdd() {
         std::string eb_id = EB_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_DOWN_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
-                {"type", LOUNCH_BLOCK_DOWN}, {"x", x}, {"y", y}
+                {"type", "LounchBlockDown"}, {"x", x}, {"y", y}
         };
         dynamic_json[eb_id] = {
                 {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
@@ -70,7 +71,7 @@ void YamlParser::parseAndAdd() {
         std::string eb_id = EB_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_UP_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
-                {"type", ET_NAME}, {"x", x}, {"y", y}
+                {"type", "LounchBlockUp"}, {"x", x}, {"y", y}
         };
         dynamic_json[eb_id] = {
                 {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
@@ -89,7 +90,7 @@ void YamlParser::parseAndAdd() {
         std::string eb_id = EB_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_LEFT_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
-                {"type", ET_NAME}, {"x", x}, {"y", y}
+                {"type", "LounchBlockLeft"}, {"x", x}, {"y", y}
         };
         dynamic_json[eb_id] = {
                 {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
@@ -109,7 +110,7 @@ void YamlParser::parseAndAdd() {
         std::string eb_id = EB_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_RIGHT_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
-                {"type", ET_NAME}, {"x", x}, {"y", y}
+                {"type", "LounchBlockRight"}, {"x", x}, {"y", y}
         };
         dynamic_json[eb_id] = {
                 {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
@@ -128,9 +129,9 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_DOWN_NAME, id, METAL_SIDE, x, y);
-        dynamic_json[id] = {
-                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
-        };
+        /*dynamic_json[id] = {
+                {"type", ER_DOWN_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };*/
         er_counter++;
     }
 
@@ -142,9 +143,9 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_UP_NAME, id, METAL_SIDE, x, y);
-        dynamic_json[id] = {
-                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
-        };
+       /* dynamic_json[id] = {
+                {"type", ER_UP_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };*/
         er_counter++;
     }
 
@@ -156,9 +157,9 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_LEFT_NAME, id, METAL_SIDE, x, y);
-        dynamic_json[id] = {
-                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
-        };
+        /*dynamic_json[id] = {
+                {"type", ER_LEFT_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };*/
         er_counter++;
     }
 
@@ -170,9 +171,9 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_RIGHT_NAME, id, METAL_SIDE, x, y);
-        dynamic_json[id] = {
-                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
-        };
+       /* dynamic_json[id] = {
+                {"type", ER_RIGHT_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };*/
         er_counter++;
     }
 

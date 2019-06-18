@@ -16,7 +16,6 @@ Button::Button(b2Body* body):
 
 void Button::handleCollision(Entity *entity) {
     std::string type = entity->getType();
-    std::cout << type << std::endl;
     if (type == ROCK_NAME) {
         Rock* rock = static_cast<Rock*>(entity);
         float y_rock = rock->getVerticalPosition();
@@ -27,7 +26,9 @@ void Button::handleCollision(Entity *entity) {
         chell->onFloor(true);
         float y_chell = chell->getVerticalPosition();
         float y_button = getVerticalPosition();
-        if (y_chell > y_button) activate();
+        if (y_chell > y_button) {
+            activate();
+        }
     } else {
         desactivate();
     }
@@ -40,7 +41,5 @@ void Button::handleCollision(Entity *entity) {
 }
 
 void Button::update() {
-    if (! dynamic.handleCollisions()) {
-        desactivate();
-    }
+    if (! dynamic.handleCollisions()) desactivate();
 }
