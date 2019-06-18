@@ -63,6 +63,8 @@ public:
                     const std::pair<int, int> &position) = 0;
 
     virtual bool hasCondition();
+    virtual std::map<std::pair<int, int>, std::string>& getNames();
+    int getWidth();
 };
 
 #endif //PORTAL_OBJECT_H

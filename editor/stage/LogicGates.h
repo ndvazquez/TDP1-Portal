@@ -16,16 +16,21 @@
 class LogicGates {
 private:
     std::vector<Object*> namedElements;
-    std::map<std::pair<int, int>, std::string> names;
-    std::map<std::pair<int, int>, std::string> conditions;
+    std::vector<Object*> conditionalElements;
+    std::map<std::pair<float, float>, std::string> names;
+    std::map<std::pair<float, float>, std::string> conditions;
 
 public:
     LogicGates();
-    void addElement(Object* obj);
+    void addNamedElement(Object *obj);
     void setName(Object* obj, std::pair<int, int> position, std::string newName);
     void addCondition(Object* obj, std::pair<int, int> position, std::string &condition);
 
     void parseCondition(std::string &condition);
+    std::map<std::pair<float, float>, std::string>& getNames();
+    std::map<std::pair<float, float>, std::string>& getConditions();
+
+    void addConditionalElement(Object *obj);
 };
 
 class StageControllerInvalidConditionException : public std::exception  {

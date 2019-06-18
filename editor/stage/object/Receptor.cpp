@@ -50,3 +50,13 @@ std::pair<float, float> Receptor::centerOfMass(const std::pair<int, int> &positi
     return this->rectangleCenterOfMass(position, METAL_SIDE, METAL_SIDE);
 }
 
+std::map<std::pair<int, int>, std::string> &Receptor::getNames() {
+    return names;
+}
+
+void
+Receptor::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures,
+                bool needGravitySentinel) {
+    names[std::make_pair(x, y)] = "";
+    Object::addTo(x, y, tiles, textures);
+}

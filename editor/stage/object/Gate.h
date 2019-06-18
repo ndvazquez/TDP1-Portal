@@ -26,6 +26,8 @@ public:
     bool hasCondition() override;
 
     std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+
+    std::map<std::pair<int, int>, std::string> &getNames() override;
 };
 
 

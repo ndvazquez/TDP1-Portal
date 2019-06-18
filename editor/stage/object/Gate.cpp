@@ -46,3 +46,7 @@ void Gate::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::u
 std::pair<float, float> Gate::centerOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, GATE_WIDTH, GATE_HEIGHT);
 }
+
+std::map<std::pair<int, int>, std::string> &Gate::getNames() {
+    return names;
+}

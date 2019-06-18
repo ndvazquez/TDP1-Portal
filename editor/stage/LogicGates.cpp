@@ -16,13 +16,21 @@
 
 LogicGates::LogicGates() = default;
 
-void LogicGates::addElement(Object* obj) {
+void LogicGates::addNamedElement(Object *obj) {
     namedElements.push_back(obj);
 }
 
+void LogicGates::addConditionalElement(Object *obj) {
+    conditionalElements.push_back(obj);
+}
 
 void LogicGates::setName(Object *obj, std::pair<int, int> position, std::string newName) {
-    obj->setName(position, newName);
+    try {
+        obj->setName(position, newName);
+    }
+    catch (SetNameException &e) {
+        std::cerr << e.what();
+    }
 }
 
 void LogicGates::addCondition(Object* obj, std::pair<int, int> position, std::string &condition) {
@@ -31,10 +39,10 @@ void LogicGates::addCondition(Object* obj, std::pair<int, int> position, std::st
     }
     try {
         this->parseCondition(condition);
+        obj->addCondition(position, condition);
     } catch (...) {
         return;
     }
-    obj->addCondition(position, condition);
 }
 
 void LogicGates::parseCondition(std::string &condition) {
@@ -56,8 +64,7 @@ void LogicGates::parseCondition(std::string &condition) {
                 word.pop_back();
             }
             allGood = false;
-            for(auto it = namedElements.begin(); it != namedElements.end(); it++) {
-                Object* obj = *it;
+            for(auto obj : namedElements) {
                 allGood ^= obj->doesThisNameExist(word);
             }
 
@@ -75,4 +82,33 @@ void LogicGates::parseCondition(std::string &condition) {
         std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
         throw StageControllerInvalidConditionException();
     }
+}
+
+std::map<std::pair<float, float>, std::string> &LogicGates::getNames() {
+    for(auto obj : namedElements) {
+        std::map<std::pair<int, int>, std::string>& subNames = obj->getNames();
+        for(auto it : subNames) {
+            const std::pair<int,int>& position = it.first;
+            std::string& name = it.second;
+            std::pair<float, float> centerOfMass =
+                    obj->centerOfMass(position);
+            names[centerOfMass] = name;
+        }
+    }
+    return names;
+}
+
+std::map<std::pair<float, float>, std::string> &LogicGates::getConditions() {
+    for(auto obj : conditionalElements) {
+        std::map<std::pair<int, int>, std::string>& subConditions =
+                                                    obj->getNames();
+        for(auto it : subConditions) {
+            const std::pair<int,int>& position = it.first;
+            std::string& name = it.second;
+            std::pair<float, float> centerOfMass =
+                    obj->centerOfMass(position);
+            conditions[centerOfMass] = name;
+        }
+    }
+    return conditions;
 }

@@ -132,3 +132,10 @@ std::pair<float, float> Object::triangleCenterOfMass(
     return p;
 }
 
+std::map<std::pair<int, int>, std::string> &Object::getNames() {
+}
+
+int Object::getWidth() {
+    return w;
+}
+

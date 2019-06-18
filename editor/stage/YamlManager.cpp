@@ -106,6 +106,68 @@ void YamlManager::write() {
         out << YAML::Value << YAML::EndMap;
     }
 
+    /*
+    out << YAML::Key << "Stage";
+    out << YAML::Value << YAML::BeginMap;
+    out << YAML::Key << "width";
+    out << YAML::Value << width;
+    out << YAML::Key << "height";
+    out << YAML::Value << height;
+    out << YAML::Value << YAML::EndMap;
+    */
+
+
+    std::map<std::pair<float, float>, std::string>& names = logicGates.getNames();
+    out << YAML::Key << "Names";
+    out << YAML::Key << YAML::BeginSeq;
+    for(auto & it : names) {
+        std::pair<float, float> centerOfMassPos = it.first;
+        matrixToMeter(centerOfMassPos, height);
+        std::string& name = it.second;
+        out << YAML::Value << YAML::BeginMap;
+
+        out << YAML::Key << "name";
+        out << YAML::Value << name;
+        out << YAML::Key << "position";
+
+        out << YAML::Value << YAML::BeginMap;
+        out << YAML::Key << "x";
+        out << YAML::Value << centerOfMassPos.first;
+        out << YAML::Key << "y";
+        out << YAML::Value << centerOfMassPos.second;
+        out << YAML::Value << YAML::EndMap;
+
+
+        out << YAML::Value << YAML::EndMap;
+    }
+    out << YAML::Key << YAML::EndSeq;
+
+
+    std::map<std::pair<float, float>, std::string>& conditions = logicGates.getConditions();
+    out << YAML::Key << "Conditions";
+    out << YAML::Key << YAML::BeginSeq;
+    for(auto & it : conditions) {
+        std::pair<float, float> centerOfMassPos = it.first;
+        matrixToMeter(centerOfMassPos, height);
+        std::string& name = it.second;
+        out << YAML::Value << YAML::BeginMap;
+
+        out << YAML::Key << "name";
+        out << YAML::Value << name;
+        out << YAML::Key << "position";
+
+        out << YAML::Value << YAML::BeginMap;
+        out << YAML::Key << "x";
+        out << YAML::Value << centerOfMassPos.first;
+        out << YAML::Key << "y";
+        out << YAML::Value << centerOfMassPos.second;
+        out << YAML::Value << YAML::EndMap;
+
+
+        out << YAML::Value << YAML::EndMap;
+    }
+    out << YAML::Key << YAML::EndSeq;
+
     out << YAML::EndMap;
     std::ofstream fileOut("file.yaml");
     fileOut << out.c_str();
@@ -141,7 +203,7 @@ void YamlManager::read(Window &window, YAML::Node &texturesInfo) {
         Receptor* newObject = new Receptor(path, window, id, w, h);
         textures[id] = newObject;
 
-        logicGates.addElement(newObject);
+        logicGates.addNamedElement(newObject);
     }
 
 
@@ -182,7 +244,7 @@ void YamlManager::read(Window &window, YAML::Node &texturesInfo) {
         Button* newObject = new Button(path, window, id, w, h);
         textures[id] = newObject;
 
-        logicGates.addElement(newObject);
+        logicGates.addNamedElement(newObject);
     }
 
     const YAML::Node& rocks = texturesInfo[ROCK_KEY];
@@ -222,7 +284,8 @@ void YamlManager::read(Window &window, YAML::Node &texturesInfo) {
         Gate* newObject = new Gate(path, window, id, w, h);
         textures[id] = newObject;
 
-        logicGates.addElement(newObject);
+        logicGates.addNamedElement(newObject);
+        logicGates.addConditionalElement(newObject);
     }
 
     const YAML::Node& cakes = texturesInfo[CAKE_KEY];
@@ -308,7 +371,8 @@ void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
     int maxXMtrixPosition = 0, maxXMtriyPosition = 0;
     for (auto & tile : tiles) {
         const std::pair<int,int>& pixelsPosition = tile.first;
-        if (maxXMtrixPosition < pixelsPosition.first) {
+        int id = tile.second;
+        if (maxXMtrixPosition < pixelsPosition.first + textures[id]->getWidth()) {
             maxXMtrixPosition = pixelsPosition.first;
         }
         if (maxXMtriyPosition < pixelsPosition.second) {
