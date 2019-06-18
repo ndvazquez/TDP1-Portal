@@ -10,9 +10,10 @@
 
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
-stageView(window, factor, textures, tiles), factor(factor) {
-    YamlManager yaml;
-    yaml.read(window, texturesInfo, textures, tiles, logicGates);
+                    stageView(window, factor, textures, tiles),
+                    factor(factor),
+                    yaml(textures, tiles, logicGates) {
+    yaml.getObjects(window, texturesInfo);
 }
 
 void Controller::draw(SDL_Rect* camera, int yStart) {
@@ -95,7 +96,6 @@ void Controller::addCondition(int x, int y) {
 
 
 void Controller::writeYaml(int lenPixelsInY) {
-    YamlManager yaml;
-    yaml.write(textures, tiles, lenPixelsInY/factor);
+    yaml.writeStage();
 }
 

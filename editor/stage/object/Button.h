@@ -26,6 +26,13 @@ public:
                     std::unordered_map<int, Object *> &textures) override;
 
     std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::map<std::pair<int, int>, std::string>& getNames() override;
+
+    void addTo(int x, int y,
+            std::map<std::pair<int, int>, int> &tiles,
+            std::unordered_map<int, Object *> &textures,
+               bool needGravitySentinel) override;
+
 };
 
 

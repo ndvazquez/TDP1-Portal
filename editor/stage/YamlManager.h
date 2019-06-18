@@ -12,15 +12,21 @@
 #include "LogicGates.h"
 
 class YamlManager {
-public:
-    void write(std::unordered_map<int, Object *> &textures,
-               std::map<std::pair<int, int>, int> &tiles, int totalMeters);
+private:
+    std::unordered_map<int, Object *> &textures;
+    std::map<std::pair<int, int>, int> &tiles;
+    LogicGates &logicGates;
 
-    void read(Window &window,
-                YAML::Node &texturesInfo,
-                std::unordered_map<int, Object *> &textures,
-              std::map<std::pair<int, int>, int> &tiles,
-              LogicGates &logicGates);
+public:
+    YamlManager(std::unordered_map<int, Object *> &textures,
+                    std::map<std::pair<int, int>, int> &tiles,
+                    LogicGates &logicGates);
+
+    void writeStage();
+
+    void getObjects(Window &window, YAML::Node &texturesInfo);
+
+    void getWidthAndHeightInMeters(int *width, int *eight);
 };
 
 

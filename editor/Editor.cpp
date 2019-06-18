@@ -16,8 +16,8 @@ Editor::~Editor() {}
 
 void Editor::draw(int x, int y) {
     window.clear();
-    menu.draw();
     stage.draw(x, y);
+    menu.draw();
     window.render();
 }
 

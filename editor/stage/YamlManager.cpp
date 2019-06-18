@@ -48,11 +48,52 @@ void matrixToMeter(std::pair<float, float> &pair, int totalMeters) {
     pair.second = totalMeters - pair.second;
 }
 
-void YamlManager::write(std::unordered_map<int, Object *> &textures,
-                        std::map<std::pair<int, int>, int> &tiles,
-                        int totalMeters) {
+YamlManager::YamlManager(std::unordered_map<int, Object *> &textures,
+                         std::map<std::pair<int, int>, int> &tiles,
+                         LogicGates &logicGates) :
+        textures(textures),
+        tiles(tiles),
+        logicGates(logicGates) {}
+
+
+void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
+    int maxXMtrixPosition = 0, maxXMtriyPosition = 0;
+    for (auto & tile : tiles) {
+        const std::pair<int,int>& pixelsPosition = tile.first;
+        int id = tile.second;
+        if (maxXMtrixPosition < pixelsPosition.first + textures[id]->getWidth()) {
+            maxXMtrixPosition = pixelsPosition.first;
+        }
+        if (maxXMtriyPosition < pixelsPosition.second) {
+            maxXMtriyPosition = pixelsPosition.second;
+        }
+    }
+    *width = maxXMtrixPosition;
+    *height = maxXMtriyPosition + 1;
+}
+
+
+void YamlManager::writeStage() {
+    int width, height;
     YAML::Emitter out;
+    getWidthAndHeightInMeters(&width, &height);
     out << YAML::BeginMap;
+    out << YAML::Key << "Stage";
+    out << YAML::Value << YAML::BeginMap;
+    out << YAML::Key << "dimentions";
+
+    out << YAML::Value << YAML::BeginMap;
+    out << YAML::Key << "width";
+    out << YAML::Value << width;
+    out << YAML::Key << "height";
+    out << YAML::Value << height;
+    out << YAML::Value << YAML::EndMap;
+
+    out << YAML::Value << YAML::EndMap;
+
+
+
+
     for(auto & texture : textures) {
         int currentID = texture.first;
         if (currentID == GRAVITY_SENTINEL ||
@@ -70,7 +111,7 @@ void YamlManager::write(std::unordered_map<int, Object *> &textures,
             if (thisID == currentID) {
                 std::pair<float, float> centerOfMass =
                         object->centerOfMass(position);
-                matrixToMeter(centerOfMass, totalMeters);
+                matrixToMeter(centerOfMass, height);
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << "x";
                 out << YAML::Value << centerOfMass.first;
@@ -82,6 +123,59 @@ void YamlManager::write(std::unordered_map<int, Object *> &textures,
         out << YAML::Key  << YAML::EndSeq;
         out << YAML::Value << YAML::EndMap;
     }
+
+
+    std::map<std::pair<float, float>, std::string>& names = logicGates.getNames();
+    out << YAML::Key << "Names";
+    out << YAML::Key << YAML::BeginSeq;
+    for(auto & it : names) {
+        std::pair<float, float> centerOfMassPos = it.first;
+        matrixToMeter(centerOfMassPos, height);
+        std::string& name = it.second;
+        out << YAML::Value << YAML::BeginMap;
+
+        out << YAML::Key << "name";
+        out << YAML::Value << name;
+        out << YAML::Key << "position";
+
+        out << YAML::Value << YAML::BeginMap;
+        out << YAML::Key << "x";
+        out << YAML::Value << centerOfMassPos.first;
+        out << YAML::Key << "y";
+        out << YAML::Value << centerOfMassPos.second;
+        out << YAML::Value << YAML::EndMap;
+
+
+        out << YAML::Value << YAML::EndMap;
+    }
+    out << YAML::Key << YAML::EndSeq;
+
+
+    std::map<std::pair<float, float>, std::string>& conditions = logicGates.getConditions();
+    out << YAML::Key << "Conditions";
+    out << YAML::Key << YAML::BeginSeq;
+    for(auto & it : conditions) {
+        std::pair<float, float> centerOfMassPos = it.first;
+        matrixToMeter(centerOfMassPos, height);
+        std::string& name = it.second;
+        out << YAML::Value << YAML::BeginMap;
+
+        out << YAML::Key << "name";
+        out << YAML::Value << name;
+        out << YAML::Key << "position";
+
+        out << YAML::Value << YAML::BeginMap;
+        out << YAML::Key << "x";
+        out << YAML::Value << centerOfMassPos.first;
+        out << YAML::Key << "y";
+        out << YAML::Value << centerOfMassPos.second;
+        out << YAML::Value << YAML::EndMap;
+
+
+        out << YAML::Value << YAML::EndMap;
+    }
+    out << YAML::Key << YAML::EndSeq;
+
     out << YAML::EndMap;
     std::ofstream fileOut("file.yaml");
     fileOut << out.c_str();
@@ -92,11 +186,7 @@ void YamlManager::write(std::unordered_map<int, Object *> &textures,
 #define OBJECT_HEIGHT "h"
 #define OBJECT_WIDTH "w"
 
-void YamlManager::read(Window &window,
-                       YAML::Node &texturesInfo,
-                       std::unordered_map<int, Object *> &textures,
-                       std::map<std::pair<int, int>, int> &tiles,
-                       LogicGates &logicGates) {
+void YamlManager::getObjects(Window &window, YAML::Node &texturesInfo) {
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
     for (YAML::const_iterator it = blocks.begin();
          it != blocks.end(); ++it) {
@@ -121,7 +211,7 @@ void YamlManager::read(Window &window,
         Receptor* newObject = new Receptor(path, window, id, w, h);
         textures[id] = newObject;
 
-        logicGates.addElement(newObject);
+        logicGates.addNamedElement(newObject);
     }
 
 
@@ -162,7 +252,7 @@ void YamlManager::read(Window &window,
         Button* newObject = new Button(path, window, id, w, h);
         textures[id] = newObject;
 
-        logicGates.addElement(newObject);
+        logicGates.addNamedElement(newObject);
     }
 
     const YAML::Node& rocks = texturesInfo[ROCK_KEY];
@@ -202,7 +292,8 @@ void YamlManager::read(Window &window,
         Gate* newObject = new Gate(path, window, id, w, h);
         textures[id] = newObject;
 
-        logicGates.addElement(newObject);
+        logicGates.addNamedElement(newObject);
+        logicGates.addConditionalElement(newObject);
     }
 
     const YAML::Node& cakes = texturesInfo[CAKE_KEY];
@@ -283,3 +374,4 @@ void YamlManager::read(Window &window,
         textures[id] = newObject;
     }
 }
+

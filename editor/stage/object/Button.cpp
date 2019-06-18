@@ -40,3 +40,13 @@ Button::~Button() = default;
 std::pair<float, float> Button::centerOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, BUTTON_WIDTH, BUTTON_HEIGHT);
 }
+
+std::map<std::pair<int, int>, std::string> &Button::getNames() {
+    return names;
+}
+
+void Button::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures,
+                 bool needGravitySentinel) {
+    names[std::make_pair(x, y)] = "";
+    Object::addTo(x, y, tiles, textures);
+}

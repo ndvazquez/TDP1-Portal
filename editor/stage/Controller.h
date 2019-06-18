@@ -27,6 +27,7 @@ private:
     int factor;
     View stageView;
     LogicGates logicGates;
+    YamlManager yaml;
 
 
 public:

@@ -48,8 +48,11 @@ void Object::addTo(int x, int y, std::map<std::pair<int, int>, int>
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
             auto it = tiles.find(std::make_pair(x + i, y- j));
-            if (it != tiles.end()) { //} || x - i < 0 || y - j < 0) { ;
+            if (it != tiles.end()) {
                 throw AddTileTakenPositionException();
+            }
+            if (x + i < 0 || y - j < 0) {
+                throw AddTileEndOfStageException();
             }
         }
     }
@@ -127,5 +130,12 @@ std::pair<float, float> Object::triangleCenterOfMass(
     std::cerr << "\t(" << p.first << ", " << p.second << ")" << std::endl;
     */
     return p;
+}
+
+std::map<std::pair<int, int>, std::string> &Object::getNames() {
+}
+
+int Object::getWidth() {
+    return w;
 }
 
