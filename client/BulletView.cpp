@@ -8,7 +8,8 @@
 
 BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
                    YAML::Node texturesData) :
-        View(window, xPos, yPos, factor, BULLET_WIDTH, BULLET_HEIGHT) {
+        View(window, xPos, yPos, factor, BULLET_WIDTH, BULLET_HEIGHT),
+        rotationAngle(0) {
     YAML::Node animationData = texturesData[TEXTURES_BULLET_KEY];
     std::string path = animationData["path"].as<std::string>();
     int totalFrames = animationData["frames"].as<int>();
@@ -18,7 +19,7 @@ BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
 
 void BulletView::playAnimation(const SDL_Rect &camera){
     if (!checkCollisionWithCamera(camera)) return;
-    animation->draw(viewPosX - camera.x, viewPosY - camera.y);
+    animation->draw(viewPosX - camera.x, viewPosY - camera.y, rotationAngle);
     animation->updateFrameStep();
 }
 
@@ -26,4 +27,6 @@ BulletView::~BulletView(){
     delete animation;
 }
 
-void BulletView::setState(int state) {}
+void BulletView::setState(int state) {
+    rotationAngle = -1 * state;
+}
