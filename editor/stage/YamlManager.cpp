@@ -124,16 +124,6 @@ void YamlManager::write() {
         out << YAML::Value << YAML::EndMap;
     }
 
-    /*
-    out << YAML::Key << "Stage";
-    out << YAML::Value << YAML::BeginMap;
-    out << YAML::Key << "width";
-    out << YAML::Value << width;
-    out << YAML::Key << "height";
-    out << YAML::Value << height;
-    out << YAML::Value << YAML::EndMap;
-    */
-
 
     std::map<std::pair<float, float>, std::string>& names = logicGates.getNames();
     out << YAML::Key << "Names";
