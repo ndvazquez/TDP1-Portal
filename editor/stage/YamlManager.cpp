@@ -48,11 +48,34 @@ void matrixToMeter(std::pair<float, float> &pair, int totalMeters) {
     pair.second = totalMeters - pair.second;
 }
 
-void YamlManager::write(std::unordered_map<int, Object *> &textures,
-                        std::map<std::pair<int, int>, int> &tiles,
-                        int totalMeters) {
+YamlManager::YamlManager(std::unordered_map<int, Object *> &textures,
+                         std::map<std::pair<int, int>, int> &tiles,
+                         LogicGates &logicGates) :
+        textures(textures),
+        tiles(tiles),
+        logicGates(logicGates) {}
+
+void YamlManager::write() {
+    int width, height;
     YAML::Emitter out;
+    getWidthAndHeightInMeters(&width, &height);
     out << YAML::BeginMap;
+    out << YAML::Key << "Stage";
+    out << YAML::Value << YAML::BeginMap;
+    out << YAML::Key << "dimentions";
+
+    out << YAML::Value << YAML::BeginMap;
+    out << YAML::Key << "width";
+    out << YAML::Value << width;
+    out << YAML::Key << "height";
+    out << YAML::Value << height;
+    out << YAML::Value << YAML::EndMap;
+
+    out << YAML::Value << YAML::EndMap;
+
+
+
+
     for(auto & texture : textures) {
         int currentID = texture.first;
         if (currentID == GRAVITY_SENTINEL ||
@@ -70,7 +93,7 @@ void YamlManager::write(std::unordered_map<int, Object *> &textures,
             if (thisID == currentID) {
                 std::pair<float, float> centerOfMass =
                         object->centerOfMass(position);
-                matrixToMeter(centerOfMass, totalMeters);
+                matrixToMeter(centerOfMass, height);
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << "x";
                 out << YAML::Value << centerOfMass.first;
@@ -82,6 +105,7 @@ void YamlManager::write(std::unordered_map<int, Object *> &textures,
         out << YAML::Key  << YAML::EndSeq;
         out << YAML::Value << YAML::EndMap;
     }
+
     out << YAML::EndMap;
     std::ofstream fileOut("file.yaml");
     fileOut << out.c_str();
@@ -92,11 +116,7 @@ void YamlManager::write(std::unordered_map<int, Object *> &textures,
 #define OBJECT_HEIGHT "h"
 #define OBJECT_WIDTH "w"
 
-void YamlManager::read(Window &window,
-                       YAML::Node &texturesInfo,
-                       std::unordered_map<int, Object *> &textures,
-                       std::map<std::pair<int, int>, int> &tiles,
-                       LogicGates &logicGates) {
+void YamlManager::read(Window &window, YAML::Node &texturesInfo) {
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
     for (YAML::const_iterator it = blocks.begin();
          it != blocks.end(); ++it) {
@@ -282,4 +302,19 @@ void YamlManager::read(Window &window,
                 new DiagonalBlockRightDown(path, window, id, w, h);
         textures[id] = newObject;
     }
+}
+
+void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
+    int maxXMtrixPosition = 0, maxXMtriyPosition = 0;
+    for (auto & tile : tiles) {
+        const std::pair<int,int>& pixelsPosition = tile.first;
+        if (maxXMtrixPosition < pixelsPosition.first) {
+            maxXMtrixPosition = pixelsPosition.first;
+        }
+        if (maxXMtriyPosition < pixelsPosition.second) {
+            maxXMtriyPosition = pixelsPosition.second;
+        }
+    }
+    *width = maxXMtrixPosition;
+    *height = maxXMtriyPosition;
 }
