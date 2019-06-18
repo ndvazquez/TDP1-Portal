@@ -13,7 +13,7 @@ Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
                     yaml(textures, tiles, logicGates) {
-    yaml.read(window, texturesInfo);
+    yaml.getObjects(window, texturesInfo);
 }
 
 void Controller::draw(SDL_Rect* camera, int yStart) {
@@ -96,6 +96,6 @@ void Controller::addCondition(int x, int y) {
 
 
 void Controller::writeYaml(int lenPixelsInY) {
-    yaml.write();
+    yaml.writeStage();
 }
 

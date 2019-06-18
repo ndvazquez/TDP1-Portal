@@ -22,9 +22,9 @@ public:
                     std::map<std::pair<int, int>, int> &tiles,
                     LogicGates &logicGates);
 
-    void write();
+    void writeStage();
 
-    void read(Window &window, YAML::Node &texturesInfo);
+    void getObjects(Window &window, YAML::Node &texturesInfo);
 
     void getWidthAndHeightInMeters(int *width, int *eight);
 };

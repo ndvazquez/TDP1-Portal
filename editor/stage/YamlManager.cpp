@@ -73,7 +73,7 @@ void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
 }
 
 
-void YamlManager::write() {
+void YamlManager::writeStage() {
     int width, height;
     YAML::Emitter out;
     getWidthAndHeightInMeters(&width, &height);
@@ -186,7 +186,7 @@ void YamlManager::write() {
 #define OBJECT_HEIGHT "h"
 #define OBJECT_WIDTH "w"
 
-void YamlManager::read(Window &window, YAML::Node &texturesInfo) {
+void YamlManager::getObjects(Window &window, YAML::Node &texturesInfo) {
     const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
     for (YAML::const_iterator it = blocks.begin();
          it != blocks.end(); ++it) {
