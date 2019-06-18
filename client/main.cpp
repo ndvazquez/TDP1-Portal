@@ -253,7 +253,16 @@ void playGame(std::string& idChell) {
     EventSender eventSender(clientSocket, userEventQueue);
     StageStatusReceiver stageStatusReceiver(clientSocket, stageStatusQueue);
     bool quit = false;
-
+    int jsonSOsize;
+    clientSocket.receiveMessage(&jsonSOsize, REQUEST_LEN_SIZE);
+    std::string jsonStaticObjects(jsonSOsize, '\0');
+    clientSocket.receiveMessage(&jsonStaticObjects[0], jsonSOsize);
+    int jsonDOsize;
+    clientSocket.receiveMessage(&jsonDOsize, REQUEST_LEN_SIZE);
+    std::string jsonDynamicObjects(jsonDOsize, '\0');
+    clientSocket.receiveMessage(&jsonStaticObjects[0], jsonDOsize);
+    nlohmann::json json1 = nlohmann::json::parse(jsonStaticObjects);
+    nlohmann::json json2 = nlohmann::json::parse(jsonDynamicObjects);
     //audioSystem.playMusic(BG_SONG_GAME);
     userEventHandler.start();
     eventSender.start();
@@ -297,6 +306,7 @@ int main(int argc, char* argv[]){
     if (argc < 2) {
         std::cout << "Falta el id del cliente\n";
     }
-    std::string playerID = argv[1];
+    //std::string playerID = argv[1];
+    std::string playerID = "Chell2";
     playGame(playerID);
 }
