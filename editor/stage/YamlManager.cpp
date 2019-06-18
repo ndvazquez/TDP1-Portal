@@ -55,6 +55,24 @@ YamlManager::YamlManager(std::unordered_map<int, Object *> &textures,
         tiles(tiles),
         logicGates(logicGates) {}
 
+
+void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
+    int maxXMtrixPosition = 0, maxXMtriyPosition = 0;
+    for (auto & tile : tiles) {
+        const std::pair<int,int>& pixelsPosition = tile.first;
+        int id = tile.second;
+        if (maxXMtrixPosition < pixelsPosition.first + textures[id]->getWidth()) {
+            maxXMtrixPosition = pixelsPosition.first;
+        }
+        if (maxXMtriyPosition < pixelsPosition.second) {
+            maxXMtriyPosition = pixelsPosition.second;
+        }
+    }
+    *width = maxXMtrixPosition;
+    *height = maxXMtriyPosition + 1;
+}
+
+
 void YamlManager::write() {
     int width, height;
     YAML::Emitter out;
@@ -367,18 +385,3 @@ void YamlManager::read(Window &window, YAML::Node &texturesInfo) {
     }
 }
 
-void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
-    int maxXMtrixPosition = 0, maxXMtriyPosition = 0;
-    for (auto & tile : tiles) {
-        const std::pair<int,int>& pixelsPosition = tile.first;
-        int id = tile.second;
-        if (maxXMtrixPosition < pixelsPosition.first + textures[id]->getWidth()) {
-            maxXMtrixPosition = pixelsPosition.first;
-        }
-        if (maxXMtriyPosition < pixelsPosition.second) {
-            maxXMtriyPosition = pixelsPosition.second;
-        }
-    }
-    *width = maxXMtrixPosition;
-    *height = maxXMtriyPosition;
-}
