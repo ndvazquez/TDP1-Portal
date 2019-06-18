@@ -11,10 +11,11 @@
 
 class Chell : public AnimatedObject {
 public:
-    Chell(std::string &path, Window &window, int totalFrames, const std::string& name, int w, int h);
+    Chell(std::string &path, Window &window, int totalFrames, int id, int w, int h);
     ~Chell();
 
     //void addTo(int x, int y, std::map<std::pair<int, int>, std::string>& tiles) override;
+    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
 };
 
 

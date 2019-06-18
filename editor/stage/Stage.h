@@ -18,7 +18,7 @@ private:
     Window& window;
     YAML::Node textures;
     Controller controller;
-    std::string& current;
+    int* current;
     int yPortion;
     struct SDL_Rect* me;
     struct SDL_Rect* camera;
@@ -27,7 +27,7 @@ private:
     //for now is hard
 
 public:
-    explicit Stage(Window& window, std::string& current, int yPortion);
+    explicit Stage(Window &window, int *current, int yPortion);
 
     //Stage(uint8_t& current)//, uint32_t xStart);
     ~Stage();
@@ -40,6 +40,8 @@ public:
 
     void handleMouseDoubleClick(MouseButton &event);
     void handleMouseRightClick(MouseButton &event);
+
+    void close();
 };
 
 

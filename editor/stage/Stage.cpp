@@ -31,7 +31,7 @@ void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
     rect->h = h;
 }
 
-Stage::Stage(Window& window, std::string& current, int yPortion):
+Stage::Stage(Window &window, int *current, int yPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
     controller(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
     yPortion(yPortion) {
@@ -68,11 +68,11 @@ void Stage::handleMouseButtonDown(MouseButton& event) {
         return;
     }
     try {
-        current = controller.getName(x, y);
+        *current = controller.getName(x, y);
         controller.removeTile(x,y);
     }
     catch (StageControllerException& e) {
-        current = "";
+        *current = EMPTY;
         return;
     }
 }
@@ -88,8 +88,8 @@ void Stage::handleMouseButtonUp(MouseButton& event) {
         return;
     }
     try {
-        controller.addTile(x, y, current);
-        current = "";
+        controller.addTile(x, y, *current);
+        *current = EMPTY;
     }
     catch (StageControllerException& e) {
         return;
@@ -124,5 +124,9 @@ void Stage::handleMouseRightClick(MouseButton &event) {
         return;
     }
     controller.addCondition(x, y);
+}
+
+void Stage::close() {
+    controller.writeYaml(Y_END);
 }
 

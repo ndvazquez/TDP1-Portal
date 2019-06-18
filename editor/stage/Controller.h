@@ -6,22 +6,27 @@
 #define PORTAL_CONTROLLER_H
 
 
-#include <yaml-cpp/node/node.h>
+
 #include <unordered_map>
 #include <map>
+#include <yaml-cpp/node/node.h>
+
+#include "LogicGates.h"
 #include "../../common/Window.h"
 #include "../../common/Sprite.h"
 #include "View.h"
 #include "object/Object.h"
+#include "YamlManager.h"
 
 
 class Controller {
 private:
-    std::unordered_map<std::string, Object*> textures;
-    std::map<std::pair<int, int>, std::string> tiles;
+    std::unordered_map<int, Object*> textures;
+    std::map<std::pair<int, int>, int> tiles;
     //std::map<std::string, bool> gravity;
+    int factor;
     View stageView;
-
+    LogicGates logicGates;
 
 
 public:
@@ -30,17 +35,17 @@ public:
 
     void draw(SDL_Rect *camera, int xStart);
 
-    void addTile(int x, int y, std::string &tileName);
+    void addTile(int x, int y, int id);
 
     void removeTile(int x, int y);
 
-    std::string &getName(int x, int y);
+    int getName(int x, int y);
 
     void nameAnObject(int x, int y, std::string& enteredName);
 
     void addCondition(int x, int y);
 
-    void parseCondition(std::string& condition);
+    void writeYaml(int i);
 };
 
 
@@ -78,13 +83,6 @@ class StageControllerEmptyPositionException : public StageControllerException {
 public:
     const char* what() const noexcept override {
         return POSITION_EXC;
-    }
-};
-
-class StageControllerInvalidConditionException : public StageControllerException {
-public:
-    const char* what() const noexcept override {
-        return INVALID_CONDITION_EXC;
     }
 };
 

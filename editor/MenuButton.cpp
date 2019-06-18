@@ -7,8 +7,8 @@
 #include "MenuButton.h"
 #include "../common/Sprite.h"
 
-MenuButton::MenuButton(struct SDL_Rect* rect, std::string name, std::string& path) :
-        myPosition(rect), name(std::move(name)), path(path) {}
+MenuButton::MenuButton(struct SDL_Rect *rect, int id, std::string &path) :
+        myPosition(rect), name(id), path(path) {}
 
 MenuButton::~MenuButton() {
     delete(myPosition);
@@ -23,7 +23,7 @@ bool MenuButton::has(Sint32 x, Sint32 y) {
     return (bool) SDL_PointInRect(&sdlPoint, this->myPosition);
 }
 
-std::string MenuButton::getName() {
+int MenuButton::getName() {
     return this->name;
 }
 

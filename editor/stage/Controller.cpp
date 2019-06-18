@@ -3,202 +3,38 @@
 //
 
 #include <iostream>
-#include "yaml-cpp/yaml.h"
+#include <fstream>
 #include "Controller.h"
-#include "object/Block.h"
-#include "object/Button.h"
-#include "object/Rock.h"
-#include "object/Chell.h"
-#include "object/Gate.h"
-#include "object/Cake.h"
-#include "object/Acid.h"
-#include "object/DiagonalBlockUp.h"
-
-#define BLOCK_KEY "Blocks"
-#define BUTTON_KEY "Buttons"
-#define ROCK_KEY "Rocks"
-#define CHELL_KEY "Chells"
-#define GATE_KEY "Gate"
-#define CAKE_KEY "Cake"
-#define ACID_KEY "Acid"
-#define DIAGONAL_BLOCK_KEY "DiagonalBlock"
+#include "YamlManager.h"
 
 
-#define NOT '!'
-#define BUTTON "Button"
-#define OR " |"
-#define AND " &"
-
-#define IS_ODD(x) x%2
-
-#define OPEN_BRACKET '('
-#define CLOSE_BRACKET ')'
 
 Controller::Controller(Window& window, YAML::Node& texturesInfo, int factor) :
-stageView(window, factor, textures, tiles) {
-    const YAML::Node& blocks = texturesInfo[BLOCK_KEY];
-    for (YAML::const_iterator it = blocks.begin();
-         it != blocks.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        Block* newObject = new Block(path, window, name, w, h);
-        textures[name] = newObject;
-    }
-
-    const YAML::Node& buttons = texturesInfo[BUTTON_KEY];
-    for (YAML::const_iterator it = buttons.begin();
-         it != buttons.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        Button* newObject = new Button(path, window, name, w, h);
-        textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
-    }
-
-    const YAML::Node& rocks = texturesInfo[ROCK_KEY];
-    for (YAML::const_iterator it = rocks.begin();
-         it != rocks.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-
-        Rock* newObject = new Rock(path, window, name, w, h);
-        textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
-    }
-
-    const YAML::Node& chells = texturesInfo[CHELL_KEY];
-    for (YAML::const_iterator it = chells.begin();
-         it != chells.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        Chell* newObject = new Chell(path, window, node["frames"].as<int>(), name, w, h);
-        textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
-    }
-
-    const YAML::Node& gates = texturesInfo[GATE_KEY];
-    for (YAML::const_iterator it = gates.begin();
-         it != gates.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        Gate* newObject = new Gate(path, window, name, w, h);
-        textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
-    }
-
-    const YAML::Node& cakes = texturesInfo[CAKE_KEY];
-    for (YAML::const_iterator it = cakes.begin();
-         it != cakes.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        Cake* newObject = new Cake(path, window, node["frames"].as<int>(), name, w, h);
-        textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-
-            newObject->hasToBeOn(name);
-        }
-    }
-    const YAML::Node& acid = texturesInfo[ACID_KEY];
-    for (YAML::const_iterator it = acid.begin();
-         it != acid.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        Acid* newObject = new Acid(path, window, node["frames"].as<int>(), name, w, h);
-        textures[name] = newObject;
-
-        for (YAML::const_iterator it = blocks.begin();
-             it != blocks.end(); ++it) {
-            const YAML::Node &node = *it;
-            std::string name = node["name"].as<std::string>();
-            newObject->hasToBeOn(name);
-        }
-    }
-
-    const YAML::Node& DiagonalBlocks = texturesInfo[DIAGONAL_BLOCK_KEY];
-    for (YAML::const_iterator it = DiagonalBlocks.begin();
-         it != DiagonalBlocks.end(); ++it) {
-        const YAML::Node& node = *it;
-        std::string name = node["name"].as<std::string>();
-        std::string path = node["path"].as<std::string>();
-        int w = node["w"].as<int>();
-        int h = node["h"].as<int>();
-        DiagonalBlockUp* newObject = new DiagonalBlockUp(path, window, name, w, h);
-        textures[name] = newObject;
-    }
+stageView(window, factor, textures, tiles), factor(factor) {
+    YamlManager yaml;
+    yaml.read(window, texturesInfo, textures, tiles, logicGates);
 }
 
 void Controller::draw(SDL_Rect* camera, int yStart) {
     stageView.draw(camera, yStart);
 }
 
-void Controller::addTile(int x, int y, std::string& tileName) {
-    Object* obj = textures[tileName];
+void Controller::addTile(int x, int y, int id) {
+    Object* obj = textures[id];
     if (!obj) {
         throw StageControllerNameException();
     }
     try {
-        obj->addTo(x, y, tiles);
+        obj->addTo(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
+        std::cerr << e.what();
         throw StageControllerAddTileException();
     }
 }
 
 void Controller::removeTile(int x, int y) {
-    std::string& tileName = tiles[std::make_pair(x, y)];
+    int tileName = tiles[std::make_pair(x, y)];
     Object* obj = textures[tileName];
     if (!obj) {
         throw StageControllerNameException();
@@ -207,6 +43,7 @@ void Controller::removeTile(int x, int y) {
         obj->removeFrom(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
+        std::cerr << e.what();
         throw StageControllerRemoveTileException();
     }
 }
@@ -218,7 +55,7 @@ Controller::~Controller() {
     }
 }
 
-std::string& Controller::getName(int x, int y) {
+int Controller::getName(int x, int y) {
     auto point = tiles.find(std::make_pair(x, y));
     if (point == tiles.end()) {
         throw StageControllerEmptyPositionException();
@@ -228,7 +65,8 @@ std::string& Controller::getName(int x, int y) {
 
 void Controller::nameAnObject(int x, int y, std::string& enteredName) {
     std::pair<int, int> pair = std::make_pair(x, y);
-    textures[tiles[pair]]->setName(pair, enteredName);
+    Object* obj = textures[tiles[pair]];
+    logicGates.setName(obj, pair, enteredName);
 }
 
 void Controller::addCondition(int x, int y) {
@@ -240,53 +78,15 @@ void Controller::addCondition(int x, int y) {
     std::getline(std::cin, enteredCondition);
 
     std::cerr << "La condición ingresada es: " << enteredCondition << std::endl;
-    try {
-        this->parseCondition(enteredCondition);
-    } catch (StageControllerInvalidConditionException &e) {
-        return;
-    }
-    textures[tiles[pair]]->addCondition(pair, enteredCondition);
+
+    Object* obj = textures[tiles[pair]];
+
+    logicGates.addCondition(obj, pair, enteredCondition);
 }
 
-void Controller::parseCondition(std::string& condition) {
-    Object *button = this->textures[BUTTON];
-    std::istringstream iss(condition);
-    std::string word;
-    bool allGood;
-    int i = 0;
-    while (iss >> word) {
-        if (IS_ODD(i)) { //it is a button name
-            allGood = word != AND && word != OR;
-            if (!allGood) {
-                std::cerr << "Parece que no es & o |. Es: " << word << std::endl;
-            }
-        } else {
-            if (word[0] == NOT or word[0] == OPEN_BRACKET) {
-                word = word.substr(1);
-            }
-            if (word.back() == CLOSE_BRACKET) {
-                word.pop_back();
-            }
-            allGood = button->doesThisNameExist(word);
 
-            if (!allGood) {
-                std::cerr << "Parece que " << word << " no es un boton existente" << word << std::endl;
-            }
-        }
-
-        if (!allGood) {
-            std::cerr << "NOT ALL GOOD" << std::endl;
-            throw StageControllerInvalidConditionException();
-        }
-        i++;
-    }
-    std::cerr << "I es: " << i << std::endl;
-
-    std::cerr << "I%2 es: " << i%2 << std::endl;
-    if (IS_ODD(i)) {
-        return;
-    } else {
-        std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
-        throw StageControllerInvalidConditionException();
-    }
+void Controller::writeYaml(int lenPixelsInY) {
+    YamlManager yaml;
+    yaml.write(textures, tiles, lenPixelsInY/factor);
 }
+

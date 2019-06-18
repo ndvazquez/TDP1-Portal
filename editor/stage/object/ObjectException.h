@@ -11,49 +11,50 @@
 #define GRAVITY ". That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
 #define FLOOR_NEEDED "The object above needs to be over a statick object\n"
-
+#define SET_NAME_EXC "That name already exist in another object"
 
 
 class ObjectException : public std::exception {
-protected:
-    std::string& name;
 public:
-    explicit ObjectException(std::string& name) : name(name) {}
+    explicit ObjectException() = default;
 };
 
 class AddTileGravityException : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + GRAVITY;
-        return message.c_str();
+        return EXC_INTRO GRAVITY;
     }
 
 public:
-    explicit AddTileGravityException(std::string& name) :
-            ObjectException(name) {}
+    explicit AddTileGravityException() = default;
 };
 
 class AddTileTakenPositionException : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + TAKEN_POSITION;
-        return message.c_str();
+        return EXC_INTRO TAKEN_POSITION;
     }
 
 public:
-    explicit AddTileTakenPositionException(std::string& name) :
-            ObjectException(name) {}
+    explicit AddTileTakenPositionException() = default;
 
 };
 
 class RemoveTileFloorNeeded : public ObjectException {
     const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
-        std::cerr << message;
-        return message.c_str();
+        return EXC_INTRO FLOOR_NEEDED;
     }
 
 public:
-    explicit RemoveTileFloorNeeded(std::string& name) :
-            ObjectException(name) {}
+    explicit RemoveTileFloorNeeded() = default;
+};
+
+
+class SetNameException : public ObjectException {
+    const char* what() const noexcept override {
+        return EXC_INTRO SET_NAME_EXC;;
+    }
+
+public:
+    explicit SetNameException() = default;
 };
 
 #endif //PORTAL_STAGEOBJECTEX_H

@@ -13,16 +13,16 @@
 class MenuButton {
 protected:
     struct SDL_Rect* myPosition;
-    std::string name;
+    int name;
     std::string path;
 
 public:
-    MenuButton(struct SDL_Rect* rect, std::string name, std::string& path);
+    MenuButton(struct SDL_Rect *rect, int id, std::string &path);
     ~MenuButton();
     MenuButton& operator=(MenuButton origin);
     MenuButton(const MenuButton& origin);
     bool has(Sint32 x, Sint32 y);
-    std::string getName();
+    int getName();
     void draw(Window& window);
 
     void set(SDL_Rect *rect);

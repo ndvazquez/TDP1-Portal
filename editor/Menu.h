@@ -19,13 +19,13 @@
 class Menu {
 private:
     Window& window;
-    std::string& current;
+    int* current;
     std::vector<MenuButton*> options;
     struct SDL_Rect* me;
     void set();
 
 public:
-    explicit Menu(Window &window, std::string& current);
+    explicit Menu(Window &window, int *current);
     ~Menu();
     void draw();
     void handleMouseButtonDown(MouseButton& event);

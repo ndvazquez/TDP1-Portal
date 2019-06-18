@@ -6,8 +6,8 @@
 #include "StaticObject.h"
 #include "../../../common/Window.h"
 
-StaticObject::StaticObject(std::string& path, Window& window, const std::string &name, int w, int h) :
-    Object(name, w, h),
+StaticObject::StaticObject(std::string &path, Window &window, int id, int w, int h) :
+    Object(id, w, h),
     window(window),
     sprite(path, window) {}
 

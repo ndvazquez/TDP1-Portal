@@ -8,7 +8,7 @@
 #define SCREEN_HEIGHT 600
 
 
-Editor::Editor(Window& window) : window(window), stage(window, current, HEIGHT_PROPORTION), menu(window, current) {
+Editor::Editor(Window& window) : window(window), stage(window, &current, HEIGHT_PROPORTION), menu(window, &current) {
     this->current = INVALID_CURRENT;
 }
 
@@ -41,4 +41,8 @@ void Editor::handleMouseButtonUp(SDL_Event *event) {
 void Editor::handleMouseRightClick(SDL_Event *event) {
     MouseButton e(event);
     this->stage.handleMouseRightClick(e);
+}
+
+void Editor::close() {
+    stage.close();
 }
