@@ -91,7 +91,7 @@ std::map<std::pair<float, float>, std::string> &LogicGates::getNames() {
             const std::pair<int,int>& position = it.first;
             std::string& name = it.second;
             std::pair<float, float> centerOfMass =
-                    obj->MatrixPosToCenterOfMass(position);
+                    obj->matrixPosToCenterOfMass(position);
             names[centerOfMass] = name;
         }
     }
@@ -106,7 +106,7 @@ std::map<std::pair<float, float>, std::string> &LogicGates::getConditions() {
             const std::pair<int,int>& position = it.first;
             std::string& name = it.second;
             std::pair<float, float> centerOfMass =
-                    obj->MatrixPosToCenterOfMass(position);
+                    obj->matrixPosToCenterOfMass(position);
             conditions[centerOfMass] = name;
         }
     }

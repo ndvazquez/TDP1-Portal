@@ -111,7 +111,7 @@ void YamlManager::writeStage() {
             int thisID = tile.second;
             if (thisID == currentID) {
                 std::pair<float, float> centerOfMass =
-                        object->MatrixPosToCenterOfMass(position);
+                        object->matrixPosToCenterOfMass(position);
                 matrixPosToMeters(centerOfMass, height);
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << HORIZONTAL_POSITION;
@@ -203,7 +203,7 @@ void YamlManager::readStage(std::string& texturesPath) {
             std::cerr << "El centro de masa en ejes SDL:" << std::endl;
             std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
             std::pair<int, int> matrixPos =
-                    object->rectangleCenterOfMassToMatrixPos(centerOfMass);
+                    object->centerOfMassToMatrixPos(centerOfMass);
 
             std::cerr << "Posicion final: " << std::endl;
             std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;

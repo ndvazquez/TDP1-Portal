@@ -12,8 +12,10 @@ bool DiagonalBlockUp::hasGravity() {
     return false;
 }
 
-void DiagonalBlockUp::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles,
-                            std::unordered_map<int, Object *> &texturesL, bool needGravitySentinel) {
+void DiagonalBlockUp::addTo(int x, int y,
+        std::map<std::pair<int, int>, int> &tiles,
+        std::unordered_map<int, Object *> &texturesL,
+        bool needGravitySentinel) {
     Object::addTo(x, y, tiles, texturesL, true);
 }
 

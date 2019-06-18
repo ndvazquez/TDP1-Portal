@@ -102,13 +102,13 @@ bool Object::hasCondition() {
     return false;
 }
 
-std::pair<float, float> Object::rectangleCenterOfMass(
+std::pair<float, float> Object::rectangleMatrixPosToCenterOfMass(
         const std::pair<int, int> &position, float w, float h) {
     std::pair<float, float> p(position.first + w/2, position.second + 1 - h/2);
     return p;
 }
 
-std::pair<float, float> Object::triangleCenterOfMass(
+std::pair<float, float> Object::triangleMatrixPosToCenterOfMass(
         const std::pair<float, float> &a,
         const std::pair<float, float> &b,
         const std::pair<float, float> &c) {
@@ -140,10 +140,8 @@ int Object::getWidth() {
 }
 
 std::pair<int, int> Object::rectangleCenterOfMassToMatrixPos(
-        const std::pair<float, float> &position) {
+        const std::pair<float, float> &position, float w, float h) {
     std::pair<int, int> p(position.first - w/2, position.second - 1 + h/2);
     return p;
 }
-
-
 

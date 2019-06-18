@@ -25,7 +25,12 @@ public:
     void removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
                     std::unordered_map<int, Object *> &textures) override;
 
-    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> matrixPosToCenterOfMass(
+            const std::pair<int, int> &position) override;
+
+    std::pair<int, int> centerOfMassToMatrixPos(
+            const std::pair<float, float> &pair) override;
+
     std::map<std::pair<int, int>, std::string>& getNames() override;
 
     void addTo(int x, int y,

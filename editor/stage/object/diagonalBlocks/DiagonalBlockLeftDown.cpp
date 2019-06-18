@@ -10,7 +10,7 @@ DiagonalBlockLeftDown::DiagonalBlockLeftDown(std::string &path, Window &window,
 
 DiagonalBlockLeftDown::~DiagonalBlockLeftDown() = default;
 
-std::pair<float, float> DiagonalBlockLeftDown::MatrixPosToCenterOfMass(
+std::pair<float, float> DiagonalBlockLeftDown::matrixPosToCenterOfMass(
         const std::pair<int, int> &position) {
     float ax = position.first;
     float ay = position.second;
@@ -23,7 +23,11 @@ std::pair<float, float> DiagonalBlockLeftDown::MatrixPosToCenterOfMass(
 
     ax = ax;
     ay = ay - h;
-    return this->triangleCenterOfMass(std::make_pair(ax, ay),
-                                 std::make_pair(bx, by),
-                                 std::make_pair(cx, cy));
+    return this->triangleMatrixPosToCenterOfMass(std::make_pair(ax, ay),
+                                                 std::make_pair(bx, by),
+                                                 std::make_pair(cx, cy));
+}
+
+std::pair<int, int> DiagonalBlockLeftDown::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
+    return std::pair<int, int>();
 }

@@ -51,25 +51,30 @@ public:
     virtual bool doesThisNameExist(std::string &string);
 
 
-    virtual std::pair<float, float> rectangleCenterOfMass(
-                     const std::pair<int, int> &position,
-                     float w, float h);
-    virtual std::pair<float, float> triangleCenterOfMass(
-                    const std::pair<float, float> &a,
-                    const std::pair<float, float> &b,
-                    const std::pair<float, float> &c);
+    std::pair<float, float> rectangleMatrixPosToCenterOfMass(
+            const std::pair<int, int> &position,
+            float w, float h);
 
-    virtual std::pair<float, float> MatrixPosToCenterOfMass(
+    std::pair<float, float> triangleMatrixPosToCenterOfMass(
+            const std::pair<float, float> &a,
+            const std::pair<float, float> &b,
+            const std::pair<float, float> &c);
+
+    virtual std::pair<float, float> matrixPosToCenterOfMass(
             const std::pair<int, int> &position) = 0;
 
-    virtual std::pair<int, int> rectangleCenterOfMassToMatrixPos(
-            const std::pair<float, float> &position);
+
+
+    std::pair<int, int> rectangleCenterOfMassToMatrixPos(
+            const std::pair<float, float> &position, float w, float h);
+
+    virtual std::pair<int, int> centerOfMassToMatrixPos(
+            const std::pair<float, float> &pair) = 0;
+
 
     virtual bool hasCondition();
     virtual std::map<std::pair<int, int>, std::string>& getNames();
     int getWidth();
-
-    // virtual std::pair<int, int> centerOfMassToMatrixPos(std::pair<float, float> &pair) = 0;
 };
 
 #endif //PORTAL_OBJECT_H

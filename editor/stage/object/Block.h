@@ -18,7 +18,10 @@ public:
     //                std::unordered_map<std::string, Object *>& map) override;
 
     bool hasGravity() override;
-    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> matrixPosToCenterOfMass(
+            const std::pair<int, int> &position) override;
+    std::pair<int, int> centerOfMassToMatrixPos(
+            const std::pair<float, float> &pair) override;
 };
 
 

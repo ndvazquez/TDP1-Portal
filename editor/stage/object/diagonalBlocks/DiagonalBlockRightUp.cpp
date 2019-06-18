@@ -10,7 +10,7 @@ DiagonalBlockRightUp::DiagonalBlockRightUp(std::string &path, Window &window,
 
 DiagonalBlockRightUp::~DiagonalBlockRightUp() = default;
 
-std::pair<float, float> DiagonalBlockRightUp::MatrixPosToCenterOfMass(
+std::pair<float, float> DiagonalBlockRightUp::matrixPosToCenterOfMass(
         const std::pair<int, int> &position) {
     float ax = position.first;
     float ay = position.second ;//+1;
@@ -20,6 +20,11 @@ std::pair<float, float> DiagonalBlockRightUp::MatrixPosToCenterOfMass(
 
     float cx = ax;
     float cy = ay - h;
-    return this->triangleCenterOfMass(position, std::make_pair(bx,by),
-                                                 std::make_pair(cx,cy));
+    return this->triangleMatrixPosToCenterOfMass(position, std::make_pair(bx, by),
+                                                 std::make_pair(cx, cy));
+}
+
+std::pair<int, int> DiagonalBlockRightUp::centerOfMassToMatrixPos(
+        const std::pair<float, float> &pair) {
+    return std::pair<int, int>();
 }
