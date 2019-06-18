@@ -21,7 +21,7 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addBlock(METAL_BLOCK_NAME, METAL_SIDE, x, y);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", METAL_BLOCK_NAME}, {"x", x}, {"y", y}
         };
         counter++;
@@ -34,7 +34,7 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addBlock(BRICK_BLOCK_NAME, METAL_SIDE, x, y);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", BRICK_BLOCK_NAME}, {"x", x}, {"y", y}
         };
         counter++;
@@ -49,7 +49,7 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_DOWN_NAME, id, METAL_SIDE, x, y);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
         };
         et_counter++;
@@ -64,7 +64,7 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_UP_NAME, id, METAL_SIDE, x, y);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
         };
         et_counter++;
@@ -79,7 +79,7 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_LEFT_NAME, id, METAL_SIDE, x, y);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
         };
         et_counter++;
@@ -95,7 +95,7 @@ void YamlParser::parseAndAdd() {
         float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
         stage.addEnergyItem(ET_RIGHT_NAME, id, METAL_SIDE, x, y);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
         };
         et_counter++;
@@ -167,7 +167,7 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 45);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", DIAGONAL_METAL_BLOCK_45}, {"x", x}, {"y", y}
         };
         counter++;
@@ -180,7 +180,7 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 135);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", DIAGONAL_METAL_BLOCK_135}, {"x", x}, {"y", y}
         };
         counter++;
@@ -193,7 +193,7 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 225);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", DIAGONAL_METAL_BLOCK_225}, {"x", x}, {"y", y}
         };
         counter++;
@@ -206,7 +206,7 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 315);
-        static_json[counter] = {
+        static_json[std::to_string(counter)] = {
                 {"type", DIAGONAL_METAL_BLOCK_315}, {"x", x}, {"y", y}
         };
         counter++;
