@@ -277,10 +277,10 @@ void YamlParser::parseAndAdd() {
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
         stage.addBlock(CAKE_NAME, CAKE_HEIGHT, x, y);
-        static_json[counter] = {
-                {"type", CAKE_NAME}, {"x", x}, {"y", y}
+        std::string id = "Cake";
+        dynamic_json[id] = {
+                {"type", CAKE_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
         };
-        counter++;
     }
 
     int acid_counter = 1;
