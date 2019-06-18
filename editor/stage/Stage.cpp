@@ -24,13 +24,6 @@
 #define Y_PIXEL_TO_MATRIX_POSITION(yPixel) (((yPixel) - Y_START)/MATRIX_TO_PIXEL_FACTOR) + this->camera.y
 
 
-void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
-    rect->x = x;
-    rect->y = y;
-    rect->w = w;
-    rect->h = h;
-}
-
 Stage::Stage(Window &window, int *current, int yPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
     controller(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
