@@ -26,7 +26,7 @@
 
 Stage::Stage(Window &window, int *current, int yPortion):
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
-    controller(window, textures, MATRIX_TO_PIXEL_FACTOR) , current(current),
+    controller(window, TEXTURE_CONFIG_FILE, MATRIX_TO_PIXEL_FACTOR) , current(current),
     yPortion(yPortion) {
     this->me = {X_START, Y_START, W, H};
     this->camera = {0 ,0, W, H};

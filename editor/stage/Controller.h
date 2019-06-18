@@ -31,7 +31,7 @@ private:
 
 
 public:
-    Controller(Window& window, YAML::Node& texturesInfo, int factor);
+    Controller(Window &window, std::string &texturesPath, int factor);
     ~Controller();
 
     void draw(SDL_Rect *camera, int xStart);
