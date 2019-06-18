@@ -31,8 +31,8 @@ enum PortalOrientation {
 
 // stage objects id
 enum StageObjects {
-    EMPTY = 0,
-    METAL_BLOCK = 1,
+    EMPTY,
+    METAL_BLOCK,
     ROCK_BLOCK,
     LOUNCH_BLOCK_DOWN,
     LOUNCH_BLOCK_UP,

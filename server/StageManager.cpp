@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "StageManager.h"
+#include "YamlParser.h"
 
 StageManager::StageManager(int stageWidth,
         int stageHeight) :
@@ -13,6 +14,11 @@ StageManager::StageManager(int stageWidth,
     // Parseo del YAML con la informaci[on del mapa acá.
     // Si o si necesitamos que nos pasen las medidas del mapa antes.
     // Por ahora hardcodeo un mapa.
+
+    YamlParser yamlParser("file.yaml", stage);
+    yamlParser.parseAndAdd();
+
+
     float xPosChell = 4;
     float yPosChell = 1;
     std::string idChell = "Chell1";
