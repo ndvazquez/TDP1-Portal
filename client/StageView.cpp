@@ -9,7 +9,8 @@
 #include <map>
 #include <string>
 
-StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
+StageView::StageView(Window& window, YAML::Node& texturesInfo,
+        int factor,  nlohmann::json& objectsData, int stageHeight) :
         window(window),
         mtpFactor(factor) {
     const YAML::Node& staticObjects = texturesInfo[TEXTURES_STATICOBJETS_KEY];
@@ -20,6 +21,13 @@ StageView::StageView(Window& window, YAML::Node& texturesInfo, int factor) :
         std::string path = node["path"].as<std::string>();
         Sprite* newSprite = new Sprite(path, window);
         textures[name] = newSprite;
+    }
+    for (const auto& item : objectsData.items()){
+        nlohmann::json& data = item.value();
+        int xPos = data["x"].get<float>();
+        int yPos = data["y"].get<float>();
+        const std::string& blockName = data["type"].get<std::string>();
+        this->addTile(xPos, yPos * -1 + stageHeight, blockName);
     }
 }
 
@@ -56,7 +64,7 @@ void StageView::draw(const SDL_Rect& camera) {
     }
 }
 
-void StageView::addTile(int x, int y, std::string& tileName) {
+void StageView::addTile(int x, int y, const std::string& tileName) {
     if (textures.count(tileName) == 0) {
         throw StageViewAddTileException();
     }

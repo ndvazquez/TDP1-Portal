@@ -11,6 +11,7 @@
 #include "../common/constants.h"
 #include "../common/StageStatusQueue.h"
 #include "ClientHandler.h"
+#include "YamlParser.h"
 #include <unordered_map>
 #include <string>
 
@@ -20,6 +21,7 @@ class StageManager {
     Stage stage;
     std::unordered_map<std::string, ClientHandler*> clients;
     std::unordered_map<std::string, StageStatusQueue*> clientQueues;
+    YamlParser parser;
 
     std::chrono::system_clock::time_point timeStamp;
     void handleEvent(UserEvent& userEvent, Chell* chell);

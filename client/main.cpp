@@ -30,139 +30,6 @@
 
 void playGame(std::string& idChell) {
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
-    float xPosChell = 4;
-    float yPosChell = 1;
-    //std::string idChell = "Chell1";
-    float xPosRock = 8;
-    float yPosRock = 1;
-    std::string idRock = "Rock1";
-    float xPosCake = 2;
-    float yPosCake = yPosChell + 12.5;
-
-    float xPosAcid = 12;
-    float yPosAcid = 1;
-    std::string idAcid = "Acid1";
-
-    nlohmann::json objectsData = {
-            {
-                    "Chell1",
-                    {
-                            {"type", CHELL_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-
-            },{
-                    "Chell2",
-                    {
-                            {"type", CHELL_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-
-            },
-            {
-                    "Cake",
-                    {
-                            {"type", CAKE_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosCake},
-                            {"y", yPosCake}
-                    }
-            },{
-                    "BlueShot1",
-                    {
-                            {"type", BULLET_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "OrangeShot1",
-                    {
-                            {"type", BULLET_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "BluePortal1",
-                    {
-                            {"type", BLUE_PORTAL_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "OrangePortal1",
-                    {
-                            {"type", ORANGE_PORTAL_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "BlueShot2",
-                    {
-                            {"type", BULLET_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "OrangeShot2",
-                    {
-                            {"type", BULLET_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "BluePortal2",
-                    {
-                            {"type", BLUE_PORTAL_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "OrangePortal2",
-                    {
-                            {"type", ORANGE_PORTAL_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell} ,
-                            {"y", yPosChell}
-                    }
-            },{
-                    "Rock1",
-                    {
-                            {"type", ROCK_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosRock},
-                            {"y", yPosRock}
-                    }
-            },{
-                    "Acid1",
-                    {
-                            {"type", ACID_VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosAcid},
-                            {"y", yPosAcid}
-                    }
-            },{
-                    "EnergyBall1",
-                    {
-                            {"type", ENERGY_BALL__VIEW_CODE},
-                            {"state", 0},
-                            {"x", xPosChell},
-                            {"y", yPosChell}
-                    }
-            },
-
-    };
-
 
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
@@ -178,61 +45,7 @@ void playGame(std::string& idChell) {
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
 
-    StageView stageView(newWindow, textures, MTP_FACTOR);
-
-    /* stage.addRock(idRock, ROCK_HEIGHT,
-                   xPosRock, yPosRock);*/
-    /* stage.addRock("Rock2", ROCK_HEIGHT,
-                   xPosRock + 2, yPosRock);*/
-
-    float metalBlockPosX = 0;
-    float metalBlockPosY = 0;
-    float metalSide = METAL_SIDE;
-    for (int i = 0; i < 40; i += 2){
-        stageView.addTile(metalBlockPosX+i,
-                          metalBlockPosY * -1 + stageHeight, metalBlock);
-    }
-    std::string bb = "RockBlock";
-    std::string id_et = "EnergyTransmitter1";
-    std::string et = "LounchBlockUp";
-
-    stageView.addTile(8,
-                      (2) * -1 + stageHeight, et);
-
-    // Time to add some platforms!
-    stageView.addTile(metalBlockPosX + 2,
-                      (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stageView.addTile(metalBlockPosX + 6,
-                      (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stageView.addTile(metalBlockPosX + 8,
-                      (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
-
-    stageView.addTile(metalBlockPosX + 8,
-                      (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stageView.addTile(metalBlockPosX + 12,
-                      (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stageView.addTile(metalBlockPosX + 14,
-                      (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-    stageView.addTile(metalBlockPosX + 16,
-                      (metalBlockPosY + 12) * -1 + stageHeight, metalBlock);
-
-    stageView.addTile(metalBlockPosX + 14,
-                      (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-    stageView.addTile(metalBlockPosX + 16,
-                      (metalBlockPosY + 4) * -1 + stageHeight, metalBlock);
-
-    stageView.addTile(metalBlockPosX + 20,
-                      (metalBlockPosY + 8) * -1 + stageHeight, metalBlock);
-    stageView.addTile(metalBlockPosX + 2,
-                      (metalBlockPosY + 6) * -1 + stageHeight, metalBlock);
     Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
-
-    ViewManager viewManager(newWindow, levelHeight,
-                            MTP_FACTOR, idChell, objectsData, soundQueue);
-
 
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,
@@ -250,18 +63,36 @@ void playGame(std::string& idChell) {
     } else {
         std::cout << "Estamos conectados!" << std::endl;
     }
+
     EventSender eventSender(clientSocket, userEventQueue);
     StageStatusReceiver stageStatusReceiver(clientSocket, stageStatusQueue);
-    bool quit = false;
 
-    //audioSystem.playMusic(BG_SONG_GAME);
+    // Here we'll receive two jsons with the data of the map to be played.
+    // First one is for static objects without state.
+    int jsonSOsize;
+    clientSocket.receiveMessage(&jsonSOsize, REQUEST_LEN_SIZE);
+    std::string jsonStaticObjects(jsonSOsize, '\0');
+    clientSocket.receiveMessage(&jsonStaticObjects[0], jsonSOsize);
+    // Second one is for objects with state.
+    int jsonDOsize;
+    clientSocket.receiveMessage(&jsonDOsize, REQUEST_LEN_SIZE);
+    std::string jsonDynamicObjects(jsonDOsize, '\0');
+    clientSocket.receiveMessage(&jsonDynamicObjects[0], jsonDOsize);
+    //
+    nlohmann::json staticObjects = nlohmann::json::parse(jsonStaticObjects);
+    nlohmann::json dynamicObjects = nlohmann::json::parse(jsonDynamicObjects);
+
+    StageView stageView(newWindow, textures, MTP_FACTOR, staticObjects, stageHeight);
+    ViewManager viewManager(newWindow, levelHeight,
+                            MTP_FACTOR, idChell, dynamicObjects, soundQueue);
+    audioSystem.playMusic(BG_SONG_GAME);
     userEventHandler.start();
     eventSender.start();
     stageStatusReceiver.start();
     
     nlohmann::json stageUpdateRequest = "{}"_json;
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
-    
+    bool quit = false;
     while (!quit) {
         // This isn't optimal but it'll do for now.
         if (!stageStatusQueue.empty()) {

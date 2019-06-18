@@ -84,7 +84,7 @@ void Chell::handleCollision(Entity* entity) {
         static_cast<OrangeShot*>(entity)->die();
     }
 
-    chell_is_on_floor = type == METAL_BLOCK_NAME || type == BRICK_BLOCK_NAME
+    chell_is_on_floor = type == METAL_BLOCK_NAME || type == ROCK_BLOCK_NAME
                         || type == DIAGONAL_METAL_BLOCK_NAME || type == FLOOR_NAME
                         || type == ROCK_NAME || type == BUTTON_NAME || type == ET_NAME || type == ER_NAME;
 }

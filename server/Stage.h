@@ -12,7 +12,7 @@
 #include "../json/json.hpp"
 
 #include "Coordinate.h"
-#include "BrickBlock.h"
+#include "RockBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 #include "EnergyTransmitter.h"
@@ -44,7 +44,7 @@ private:
     Cake* cake;
     bool end_of_game;
 
-    std::unordered_map<Coordinate*, BrickBlock*> brick_blocks;
+    std::unordered_map<Coordinate*, RockBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
 
@@ -92,7 +92,7 @@ public:
     void step();
 
     Cake* getCake();
-    BrickBlock* getBrickBlock(Coordinate* coordinate);
+    RockBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
     DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
 

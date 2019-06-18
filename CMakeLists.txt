@@ -104,8 +104,8 @@ set(EDITOR_SOURCE_FILES
 set(SERVER_SOURCE_FILES
         server/Stage.cpp
         server/Coordinate.cpp
-        server/BrickBlock.cpp
-        server/BrickBlock.cpp
+        server/RockBlock.cpp
+        server/RockBlock.cpp
         server/MetalBlock.cpp
         server/DiagonalMetalBlock.cpp
         server/EnergyTransmitter.cpp
@@ -150,7 +150,8 @@ set(SERVER_SOURCE_FILES
         server/EnergyReceptorRight.cpp
         server/PhysicsWorld.cpp
         server/ItemActivable.cpp
-        server/PortalManager.cpp)
+        server/PortalManager.cpp
+        server/YamlParser.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
@@ -162,6 +163,7 @@ add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
 target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} pthread)
 target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}) # avformat avcodec avutil swscale)
+target_link_libraries(Server yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
 target_link_libraries(Server TG::Box2D pthread)

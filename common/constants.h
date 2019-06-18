@@ -31,8 +31,8 @@ enum PortalOrientation {
 
 // stage objects id
 enum StageObjects {
-    EMPTY = 0,
-    METAL_BLOCK = 1,
+    EMPTY,
+    METAL_BLOCK,
     ROCK_BLOCK,
     LOUNCH_BLOCK_DOWN,
     LOUNCH_BLOCK_UP,
@@ -67,7 +67,11 @@ enum PortalType {
 //Object names
 #define METAL_BLOCK_NAME "MetalBlock"
 #define DIAGONAL_METAL_BLOCK_NAME "DiagonalMetalBlock"
-#define BRICK_BLOCK_NAME "BrickBlock"
+#define DIAGONAL_METAL_BLOCK_45 "DiagonalMetalBlock45"
+#define DIAGONAL_METAL_BLOCK_135 "DiagonalMetalBlock135"
+#define DIAGONAL_METAL_BLOCK_225 "DiagonalMetalBlock225"
+#define DIAGONAL_METAL_BLOCK_315 "DiagonalMetalBlock315"
+#define ROCK_BLOCK_NAME "RockBlock"
 #define EB_NAME "EnergyBall"
 #define EB_HORIZONTAL_NAME "EnergyBallHorizontal"
 #define EB_VERTICAL_NAME "EnergyBallVertical"
@@ -92,6 +96,8 @@ enum PortalType {
 #define PORTAL_NAME "Portal"
 #define FLOOR_NAME "Floor"
 #define GATE_NAME "Gate"
+#define BLUE_PORTAL_NAME "BluePortal"
+#define ORANGE_PORTAL_NAME "OrangePortal"
 
 // Objects sizes.
 #define METAL_SIDE 2

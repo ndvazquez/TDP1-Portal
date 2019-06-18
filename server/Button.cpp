@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Button.h"
 #include "Chell.h"
 #include "BlueShot.h"
@@ -25,7 +26,9 @@ void Button::handleCollision(Entity *entity) {
         chell->onFloor(true);
         float y_chell = chell->getVerticalPosition();
         float y_button = getVerticalPosition();
-        if (y_chell > y_button) activate();
+        if (y_chell > y_button) {
+            activate();
+        }
     } else {
         desactivate();
     }
@@ -38,7 +41,5 @@ void Button::handleCollision(Entity *entity) {
 }
 
 void Button::update() {
-    if (! dynamic.handleCollisions()) {
-        desactivate();
-    }
+    if (! dynamic.handleCollisions()) desactivate();
 }
