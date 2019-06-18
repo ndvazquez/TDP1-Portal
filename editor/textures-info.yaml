@@ -211,11 +211,11 @@ MenuData:
     path: resources/lounch-block/receptor-up.png
     w: 2
     h: 2
-  - id: 10
+  - id: 9
     path: resources/lounch-block/receptor-left.png
     w: 2
     h: 2
-  - id: 9
+  - id: 10
     path: resources/lounch-block/receptor-right.png
     w: 2
     h: 2

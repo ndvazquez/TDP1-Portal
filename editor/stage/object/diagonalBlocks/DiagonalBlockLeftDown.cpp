@@ -31,6 +31,5 @@ std::pair<float, float> DiagonalBlockLeftDown::matrixPosToCenterOfMass(
 std::pair<int, int> DiagonalBlockLeftDown::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     float x = pair.first;
     float y = pair.second;
-    std::pair<float, float> b(x - (1.0/3) * w, y - (1.0/3) * h + 1);
-    return b;
+    return std::pair<int, int> (x - (1.0/3) * w, y - (1.0/3) * h + 1);
 }
