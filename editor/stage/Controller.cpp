@@ -60,10 +60,7 @@ void Controller::drawCurrent(int id, int x, int y) {
     std::pair<int, int> pair = std::make_pair(x, y);
     SDL_Rect rect = {x*factor, y*factor, factor, factor};
     Object* obj = textures[id];
-    if (!obj) {
-        std::cerr << "no hay objeto" << std::endl;
-        return;
-    }
+    if (!obj) return;
     obj->draw(&rect);
 }
 
