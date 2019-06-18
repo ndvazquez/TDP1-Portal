@@ -306,7 +306,6 @@ int main(int argc, char* argv[]){
     if (argc < 2) {
         std::cout << "Falta el id del cliente\n";
     }
-    //std::string playerID = argv[1];
-    std::string playerID = "Chell2";
+    std::string playerID = argv[1];
     playGame(playerID);
 }
