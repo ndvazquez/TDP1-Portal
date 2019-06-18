@@ -19,6 +19,7 @@
 #include "EnergyBall.h"
 #include "Button.h"
 #include "EnergyBar.h"
+#include "OrangeShot.h"
 
 Chell::Chell(b2Body* body):
         Entity(CHELL_NAME, body),
@@ -74,6 +75,13 @@ void Chell::handleCollision(Entity* entity) {
         float y_button = button->getVerticalPosition();
         float y_chell = getVerticalPosition();
         if (y_chell > y_button) button->activate();
+    }
+
+    if (type == BLUE_SHOT_NAME) {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == ORANGE_SHOT_NAME) {
+        static_cast<OrangeShot*>(entity)->die();
     }
 
     chell_is_on_floor = type == METAL_BLOCK_NAME || type == BRICK_BLOCK_NAME

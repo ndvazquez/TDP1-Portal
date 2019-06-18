@@ -24,4 +24,10 @@ void EnergyReceptorUp::handleCollision(Entity* entity) {
             energyBall->die();
         }
     }
+    if (type == BLUE_SHOT_NAME) {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == ORANGE_SHOT_NAME) {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }

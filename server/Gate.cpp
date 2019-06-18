@@ -179,10 +179,10 @@ GateState Gate::getState() {
 
 void Gate::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
 }

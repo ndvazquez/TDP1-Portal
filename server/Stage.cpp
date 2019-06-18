@@ -452,16 +452,18 @@ nlohmann::json Stage::getCurrentState() {
         std::string id_blue_shot = i->first;
         float x_pos_blue_shot = i->second->getHorizontalPosition();
         float y_pos_blue_shot = i->second->getVerticalPosition();
+        float angle = i->second->getAngle();
         request[id_blue_shot] = {
-                {"state", 0}, {"x", x_pos_blue_shot}, {"y", y_pos_blue_shot}
+                {"state", angle}, {"x", x_pos_blue_shot}, {"y", y_pos_blue_shot}
         };
     }
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++)  {
         std::string id_orange_shot = i->first;
         float x_pos_orange_shot = i->second->getHorizontalPosition();
         float y_pos_orange_shot = i->second->getVerticalPosition();
+        float angle = i->second->getAngle();
         request[id_orange_shot] = {
-                {"state", 0}, {"x", x_pos_orange_shot}, {"y", y_pos_orange_shot}
+                {"state", angle}, {"x", x_pos_orange_shot}, {"y", y_pos_orange_shot}
         };
     }
     for (auto i = energy_balls.begin(); i != energy_balls.end(); i++)  {
