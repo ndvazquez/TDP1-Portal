@@ -23,7 +23,7 @@ public:
         std::cout << "Testing the brick block dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addBrickBlock(side, x_pos, y_pos);
+        stage.addBlock(BRICK_BLOCK_NAME, side, x_pos, y_pos);
         Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         BrickBlock* block = stage.getBrickBlock(coordinates);
 
@@ -45,7 +45,7 @@ public:
         std::cout << "Testing the metal block dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addMetalBlock(side, x_pos, y_pos);
+        stage.addBlock(METAL_BLOCK_NAME, side, x_pos, y_pos);
         Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         MetalBlock* block = stage.getMetalBlock(coordinates);
 
@@ -68,7 +68,7 @@ public:
         std::cout << "Testing the diagonal metal block dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addDiagonalMetalBlock(side, x_pos, y_pos);
+        stage.addDiagonalBlock(side, x_pos, y_pos, 45);
         Coordinate* coordinates = new Coordinate(x_pos, y_pos);
         DiagonalMetalBlock* block = stage.getDiagonalMetalBlock(coordinates);
 
@@ -93,7 +93,7 @@ public:
         std::cout << "Testing the energy transmitter dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyTransmitterRight(id_et, side, x_pos, y_pos);
+        stage.addEnergyItem(ET_RIGHT_NAME, id_et, side, x_pos, y_pos);
         EnergyTransmitter* energy = stage.getEnergyTransmitter(id_et);
 
         TS_ASSERT_EQUALS(x_pos, energy->getHorizontalPosition());
@@ -132,15 +132,16 @@ class EnergyBarTest : public CxxTest::TestSuite
     size_t y_pos = 10;
     size_t v_side = 2;
     size_t h_side = 4;
+    std::string id_eb = "EnergyBar";
 
 public:
     void testEnergyBar() {
         std::cout << "Testing the energy bar dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBar(v_side, h_side, x_pos, y_pos);
+        stage.addElement(ENERGY_BAR_NAME, id_eb, v_side, h_side, x_pos, y_pos);
         Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-        EnergyBar* energy_bar = stage.getEnergyBar(coordinates);
+        EnergyBar* energy_bar = stage.getEnergyBar(id_eb);
 
         TS_ASSERT_EQUALS(x_pos, energy_bar->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, energy_bar->getVerticalPosition());
@@ -163,7 +164,7 @@ public:
 
         Stage stage(width_stage, height_stage);
         std::string id_button = "Button1";
-        stage.addButton(id_button, v_side, h_side, x_pos, y_pos);
+        stage.addElement(BUTTON_NAME, id_button, v_side, h_side, x_pos, y_pos);
         Button* button = stage.getButton(id_button);
 
         TS_ASSERT_EQUALS(x_pos, button->getHorizontalPosition());
@@ -186,7 +187,7 @@ public:
         std::cout << "Testing the acid dimentions" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addAcid(id_acid, v_side, h_side, x_pos, y_pos);
+        stage.addElement(ACID_NAME, id_acid, v_side, h_side, x_pos, y_pos);
         Acid* button = stage.getAcid(id_acid);
 
         TS_ASSERT_EQUALS(x_pos, button->getHorizontalPosition());
@@ -209,19 +210,19 @@ public:
 
         Stage stage(width_stage, height_stage);
         try {
-            stage.addBrickBlock(5, x_pos_bad, y_pos_ok);
+            stage.addBlock(BRICK_BLOCK_NAME, 5, x_pos_bad, y_pos_ok);
         }
         catch (...) {
             std::cout << "Catching the excepcion correctly 1" << std::endl;
         }
         try {
-            stage.addBrickBlock(5, x_pos_ok, y_pos_bad);
+            stage.addBlock(BRICK_BLOCK_NAME, 5, x_pos_ok, y_pos_bad);
         }
         catch (...) {
             std::cout << "Catching the excepcion correctly 2" << std::endl;
         }
         try {
-            stage.addBrickBlock(5, x_pos_bad, y_pos_bad);
+            stage.addBlock(BRICK_BLOCK_NAME, 5,  x_pos_bad, y_pos_bad);
         }
         catch (...) {
             std::cout << "Catching the excepcion correctly 3" << std::endl;
@@ -294,7 +295,7 @@ public:
 
         for (size_t i = 0; i < 120; i++) {
             stage.step();
-            if (velocity_x <= 0.5) velocity_x += acceleration * dt;
+            if (velocity_x <= 3) velocity_x += acceleration * dt;
             position += velocity_x * dt;
             TS_ASSERT_DELTA(position, chell->getHorizontalPosition(), 0.1f);
             TS_ASSERT_DELTA(velocity_x, chell->getHorizontalVelocity(), 0.1f);
@@ -318,7 +319,7 @@ public:
 
         for (size_t i = 0; i < 120; i++) {
             stage.step();
-            if(velocity_x >= -0.5) velocity_x += acceleration * dt;
+            if(velocity_x >= -3) velocity_x += acceleration * dt;
             position += velocity_x * dt;
             TS_ASSERT_DELTA(position, chell->getHorizontalPosition(), 0.1f);
             TS_ASSERT_DELTA(velocity_x, chell->getHorizontalVelocity(), 0.1f);
@@ -344,7 +345,7 @@ public:
             velocity_y += gravity * dt;
             position += velocity_y * dt;
             if (position <= 5) continue; //it has reached the floor
-            TS_ASSERT_DELTA(position, chell->getVerticalPosition(), 0.1f);
+            TS_ASSERT_DELTA(position, chell->getVerticalPosition(), 0.5f);
         }
     }
 };
@@ -363,7 +364,7 @@ public:
         std::cout << "Testing the creation of EnergyBall" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
+        stage.addEnergyBall(EB_HORIZONTAL_NAME, id_eb, side, initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         TS_ASSERT_EQUALS(initial_position_x, energy_ball->getHorizontalPosition());
@@ -376,7 +377,7 @@ public:
         std::cout << "Testing that the energy ball doesn't fall" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
+        stage.addEnergyBall(EB_HORIZONTAL_NAME, id_eb, side, initial_position_x, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         for (size_t i = 0; i < 120; i++) {
@@ -390,7 +391,7 @@ public:
         std::cout << "Testing that the horizontal energy ball collides against a wall and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(id_eb, side, width_stage - 50, initial_position_y);
+        stage.addEnergyBall(EB_HORIZONTAL_NAME, id_eb, side, width_stage - 50, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -416,7 +417,7 @@ public:
         std::cout << "Testing that the vertical energy ball collides against a wall and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(id_eb, side, initial_position_x, height_stage - 50);
+        stage.addEnergyBall(EB_VERTICAL_NAME, id_eb, side, initial_position_x, height_stage - 50);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -441,8 +442,8 @@ public:
         std::cout << "Testing that the vertical energy ball collides against a metal block and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
-        stage.addMetalBlock(side, initial_position_x, initial_position_y + 10);
+        stage.addEnergyBall(EB_VERTICAL_NAME, id_eb, side, initial_position_x, initial_position_y);
+        stage.addBlock(METAL_BLOCK_NAME, side, initial_position_x, initial_position_y + 10);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -469,8 +470,8 @@ public:
         std::cout << "Testing that the horizontal energy ball collides against a metal block and inverts direction" << std::endl;
 
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
-        stage.addMetalBlock(side, initial_position_x + 10, initial_position_y);
+        stage.addEnergyBall(EB_HORIZONTAL_NAME, id_eb, side, initial_position_x, initial_position_y);
+        stage.addBlock(METAL_BLOCK_NAME, side, initial_position_x + 10, initial_position_y);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -499,8 +500,8 @@ public:
         float initial_position_x_brick_block = initial_position_x;
         float initial_position_y_brick_block = initial_position_y + 10; //colliding
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
-        stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
+        stage.addEnergyBall(EB_VERTICAL_NAME, id_eb, side, initial_position_x, initial_position_y);
+        stage.addBlock(BRICK_BLOCK_NAME, side, initial_position_x_brick_block, initial_position_y_brick_block);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
@@ -522,60 +523,14 @@ public:
         float initial_position_x_brick_block = initial_position_x + 10;
         float initial_position_y_brick_block = initial_position_y; //colliding
         Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
-        stage.addBrickBlock(side, initial_position_x_brick_block, initial_position_y_brick_block);
+        stage.addEnergyBall(EB_HORIZONTAL_NAME, id_eb, side, initial_position_x, initial_position_y);
+        stage.addBlock(BRICK_BLOCK_NAME, side, initial_position_x_brick_block, initial_position_y_brick_block);
         EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
 
         energy_ball->fly();
         bool test = false;
         for (size_t i = 0; i < 300; i++) {
             if (energy_ball->isDead()) {
-                test = true;
-                break;
-            }
-            stage.step();
-        }
-        TS_ASSERT_EQUALS(test, true);
-    }
-
-    void testEnergyBallHorizontalCollidesAgainstDiagonalMetalBlockAndChangesDirection() {
-        std::cout << "Testing that the horizontal energy ball collides against diagonal metal block and changes direction" << std::endl;
-
-        float initial_position_x_diagonal_block = initial_position_x + 100;
-        float initial_position_y_diagonal_block = initial_position_y; //colliding
-        Stage stage(width_stage, height_stage);
-        stage.addEnergyBallHorizontal(id_eb, side, initial_position_x, initial_position_y);
-        stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
-        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
-
-        energy_ball->fly();
-
-        bool test = false;
-        for (size_t i = 0; i < 3000; i++) {
-            if (energy_ball->isVertical()) {
-                test = true;
-                break;
-            }
-            stage.step();
-        }
-        TS_ASSERT_EQUALS(test, true);
-    }
-
-    void testEnergyBallVerticalCollidesAgainstDiagonalMetalBlockAndChangesDirection() {
-        std::cout << "Testing that the vertical energy ball collides against diagonal metal block and changes direction" << std::endl;
-
-        float initial_position_x_diagonal_block = initial_position_x;
-        float initial_position_y_diagonal_block = initial_position_y + 100; //colliding
-        Stage stage(width_stage, height_stage);
-        stage.addEnergyBallVertical(id_eb, side, initial_position_x, initial_position_y);
-        stage.addDiagonalMetalBlock(side, initial_position_x_diagonal_block, initial_position_y_diagonal_block);
-        EnergyBall* energy_ball = stage.getEnergyBall(id_eb);
-
-        energy_ball->fly();
-
-        bool test = false;
-        for (size_t i = 0; i < 3000; i++) {
-            if (! energy_ball->isVertical()) {
                 test = true;
                 break;
             }
@@ -638,7 +593,7 @@ public:
 
         Stage stage(width_stage, height_stage);
         stage.addChell(id_chell, side_chell, side_chell, x_pos_chell, y_pos);
-        stage.addAcid(id_acid, side_acid, side_acid, x_pos_acid, y_pos);
+        stage.addElement(ACID_NAME, id_acid, side_acid, side_acid, x_pos_acid, y_pos);
 
         Chell* chell_right = stage.getChell(id_chell);
 
@@ -680,7 +635,7 @@ public:
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(8, 1);
-        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
+        stage.addShot(BLUE_SHOT_NAME, id_blue_shot, v_side_shot, h_side_shot, chell, target);
 
         BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
@@ -703,7 +658,7 @@ public:
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(8, 1);
-        stage.addOrangeShot(id_orange_shot, v_side_shot, h_side_shot, chell, target);
+        stage.addShot(ORANGE_SHOT_NAME, id_orange_shot, v_side_shot, h_side_shot, chell, target);
 
         OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
@@ -728,7 +683,7 @@ public:
 
         Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(3, 1);
-        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
+        stage.addShot(BLUE_SHOT_NAME, id_blue_shot, v_side_shot, h_side_shot, chell, target);
 
         BlueShot* blueShot = stage.getBlueShot(id_blue_shot);
 
@@ -736,8 +691,8 @@ public:
             if (blueShot->isDead()) break;
             stage.step();
         }
-        TS_ASSERT_DELTA(blueShot->getHorizontalPosition(), 4, 0.5);
-        TS_ASSERT_DELTA(blueShot->getVerticalPosition(), 1, 0.5);
+        TS_ASSERT_DELTA(blueShot->getHorizontalPosition(), 4, 0.6);
+        TS_ASSERT_DELTA(blueShot->getVerticalPosition(), 1, 0.6);
         TS_ASSERT_EQUALS(blueShot->isDead(), true);
     }
 
@@ -753,7 +708,7 @@ public:
 
         Coordinate* origin = new Coordinate(x_pos_chell - 2 - h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(4, 4);
-        stage.addOrangeShot(id_orange_shot, v_side_shot, h_side_shot, chell, target);
+        stage.addShot(ORANGE_SHOT_NAME, id_orange_shot, v_side_shot, h_side_shot, chell, target);
 
         OrangeShot* orangeShot = stage.getOrangeShot(id_orange_shot);
 
@@ -778,7 +733,7 @@ public:
 
         Coordinate* origin = new Coordinate(x_pos_chell + 2 + h_side_shot/2, y_pos + 1);
         Coordinate* target = new Coordinate(18, 1);
-        stage.addBlueShot(id_blue_shot, v_side_shot, h_side_shot, chell, target);
+        stage.addShot(BLUE_SHOT_NAME, id_blue_shot, v_side_shot, h_side_shot, chell, target);
         stage.addChell(id_chell, side_chell, side_chell, 14, 1);
 
         BlueShot* blueShot = stage.getBlueShot(id_blue_shot);

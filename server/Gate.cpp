@@ -2,20 +2,18 @@
 // Created by cecix on 9/06/19.
 //
 
-#define gateType "Gate"
-
 #include <string>
-#include <iostream>
 #include <boost/lexical_cast.hpp>
+#include <iostream>
 #include "Gate.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
 Gate::Gate(b2Body* body, std::string logic,
-          std::unordered_map<std::string, Button*> buttons):
-          Entity(gateType, body) {
+          std::unordered_map<std::string, ItemActivable*> items):
+          Entity(GATE_NAME, body) {
     this->logic = logic;
-    this->buttons = buttons;
+    this->items = items;
     this->state = CLOSED;
     this->replaced = "";
 }
@@ -148,22 +146,11 @@ bool Gate::parseBool() {
     return variable;
 }
 
-void Gate::handleGate() {
-    body->SetActive(false); //So Chell could traspass the object
-    auto end = std::chrono::system_clock::now();
-    auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
-            (end - timeStamp).count();
-    if (difference <= 3000) return; //3 seconds to open the gate
-    timeStamp = std::chrono::system_clock::now();
-
-    body->SetActive(true);
-}
-
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
-    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+    replaced = logic;
+    for (auto i = items.begin(); i != items.end(); i++) {
         std::string id = i->first;
-        replaced = logic;
         bool isActive = i->second->isActive();
         size_t length_id = id.length();
         size_t i_id = replaced.find(id);
@@ -176,14 +163,14 @@ void Gate::update() {
         }
         replaced.replace(i_id, length_id, to_replace);
     }
-
     // Obtain boolean from string
-    if (parseBool()) {
-        this->state = OPEN;
-    } else {
+    if (! parseBool()) {
         this->state = CLOSED;
+        body->SetActive(true);
+    } else {
+        this->state = OPEN;
+        body->SetActive(false);
     }
-    if (this->state == OPEN) handleGate();
 }
 
 GateState Gate::getState() {
@@ -192,10 +179,10 @@ GateState Gate::getState() {
 
 void Gate::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
 }

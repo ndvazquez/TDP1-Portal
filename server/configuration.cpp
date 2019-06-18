@@ -14,9 +14,13 @@ struct box2DConfiguration gameConfiguration = {
         .gravityJump = -6,
         .gravity = -10,
         .rockForce = 250,
-        .elevationForce = 3000,
+        .elevationForce = 300,
         .rockFriction = 4000,
         .deathTimeEnergyBall = 10000,
         .delayEnergyTransmitter = 3000,
         .offsetEnergyTransmitter = 2,
+        .velocityDownload = 5,
+        .velocityRelease = 2,
+        .directionFactor = 10,
+        .shotFactor = 6
 };

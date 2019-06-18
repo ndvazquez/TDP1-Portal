@@ -7,14 +7,16 @@
 
 #include <Box2D/Dynamics/b2Body.h>
 #include "Entity.h"
+#include "Coordinate.h"
 
 class DiagonalMetalBlock: public Entity  {
 private:
     bool portal;
+    float angle;
 public:
-    explicit DiagonalMetalBlock(b2Body* body);
+    explicit DiagonalMetalBlock(b2Body* body, float angle);
     virtual void handleCollision(Entity* entity) override;
+    b2Vec2 calculateVelocity();
 };
-
 
 #endif //PORTAL_DIAGONALMETALBLOCK_H

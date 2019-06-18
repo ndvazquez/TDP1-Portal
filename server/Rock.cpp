@@ -2,10 +2,7 @@
 // Created by cecix on 17/05/19.
 //
 
-#define rockType "Rock"
-
 #include <string>
-#include <iostream>
 #include "Rock.h"
 #include "MoveRight.h"
 #include "MoveLeft.h"
@@ -18,54 +15,66 @@
 #include "OrangeShot.h"
 #include <Box2D/Dynamics/b2World.h>
 
-
 Rock::Rock(b2Body* body):
-        Entity(rockType, body),
+        Entity(ROCK_NAME, body),
         dynamic(body) {
     this->actual_movement = new Stop(body);
     body->SetUserData(this);
     this->dead = false;
+    this->grabbed = false;
 }
 
 void Rock::handleCollision(Entity *entity) {
     std::string type = entity->getType();
-    if (type == "Portal") {
+    if (type == PORTAL_NAME) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            teleport(target);
-            activateGravity();
+            teleport(target, portal->getPortalType());
         }
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
     }
-    if (type == "EnergyBar") {
+    if (type == ENERGY_BAR_NAME) {
         die();
     }
-    if (type == "Chell") {
-        static_cast<Chell*>(entity)->onFloor(true);
-    }
-    if (type == "Button") {
-        Button* button = static_cast<Button*>(entity);
-        float x_button = button->getHorizontalPosition();
-        float x_rock = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_rock > x_button - delta && x_rock < x_button + delta) {
-            button->activate();
+    if (type == CHELL_NAME) {
+        Chell* chell = static_cast<Chell*>(entity);
+        chell->onFloor(true);
+        float y_chell = chell->getVerticalPosition();
+        float y_rock = getVerticalPosition();
+        float vy_rock = getVerticalVelocity();
+        if (y_rock > y_chell && vy_rock == 0 && ! isGrabbed()) {
+            chell->die();
         }
     }
+    if (type == BUTTON_NAME) {
+        Button* button = static_cast<Button*>(entity);
+        float y_button = button->getVerticalPosition();
+        float y_rock = getVerticalPosition();
+        if (y_rock > y_button) button->activate();
+    }
+}
+
+bool Rock::isGrabbed() {
+    return grabbed;
 }
 
 void Rock::elevate(Coordinate& coordinate) {
+    this->grabbed = true;
     body->SetGravityScale(0);
-    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1.01, coordinate.getY()), 0);
 }
 
 void Rock::release() {
+    this->grabbed = false;
+    activateGravity();
+    body->ApplyLinearImpulse(b2Vec2(0, gameConfiguration.velocityRelease),
+            body->GetWorldCenter(), true);
     body->ApplyForce(b2Vec2(0, gameConfiguration.elevationForce),
         body->GetWorldCenter(), true);
 }
@@ -77,13 +86,13 @@ void Rock::activateGravity() {
 void Rock::moveRight(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
-    body->SetTransform(b2Vec2(coordinate.getX() - 1, coordinate.getY()), 0);
+    body->SetTransform(b2Vec2(coordinate.getX() - 1.01, coordinate.getY()), 0);
 }
 
 void Rock::moveLeft(Coordinate& coordinate) {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
-    body->SetTransform(b2Vec2(coordinate.getX() + 1, coordinate.getY()), 0);
+    body->SetTransform(b2Vec2(coordinate.getX() + 1.01, coordinate.getY()), 0);
 }
 
 void Rock::stop() {
@@ -104,12 +113,13 @@ void Rock::update() {
 }
 
 void Rock::downloadToEarth() {
+    this->grabbed = false;
     body->SetGravityScale(1);
-    body->ApplyLinearImpulse(b2Vec2(0, -5), body->GetWorldCenter(), true);
+    body->ApplyLinearImpulse(b2Vec2(0, -gameConfiguration.velocityDownload), body->GetWorldCenter(), true);
 }
 
-void Rock::teleport(Coordinate* target) {
-    this->dynamic.teleport(target);
+void Rock::teleport(Coordinate* target, PortalType type) {
+    this->dynamic.teleport(target, type);
 }
 
 void Rock::die() {

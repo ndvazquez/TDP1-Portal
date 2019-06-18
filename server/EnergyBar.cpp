@@ -9,20 +9,25 @@
 #include "OrangeShot.h"
 
 EnergyBar::EnergyBar(b2Body *body):
-    Entity(energyBarType, body) {
+    Entity(ENERGY_BAR_NAME, body) {
     this->body->SetUserData(this);
     this->timeStamp = std::chrono::system_clock::now();
 }
 
 void EnergyBar::handleCollision(Entity *entity) {
     std::string type = entity->getType();
-    if (type == "Chell" || type == "EnergyBall") {
+    if (type == CHELL_NAME || type == EB_NAME) {
         disableBody();
     }
-    if (type == "Rock") {
+    if (type == ROCK_NAME) {
         static_cast<Rock*>(entity)->die();
     }
-    //Didnt handle special cases of shots because it dies anyway
+    if (type == BLUE_SHOT_NAME) {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == ORANGE_SHOT_NAME) {
+        static_cast<OrangeShot*>(entity)->die();
+    }
 }
 
 void EnergyBar::disableBody() {

@@ -14,9 +14,9 @@ enum ChellState {
     MOVING_RIGHT
 };
 
-enum ButtonState {
-    ON,
-    OFF
+enum SwitchState {
+    OFF,
+    ON
 };
 
 enum GateState {
@@ -56,6 +56,43 @@ enum StageObjects {
     BUTTON
 };
 
+enum PortalType {
+    RIGHT,
+    LEFT,
+    DOWN,
+    UP,
+    INVALID
+};
+
+//Object names
+#define METAL_BLOCK_NAME "MetalBlock"
+#define DIAGONAL_METAL_BLOCK_NAME "DiagonalMetalBlock"
+#define BRICK_BLOCK_NAME "BrickBlock"
+#define EB_NAME "EnergyBall"
+#define EB_HORIZONTAL_NAME "EnergyBallHorizontal"
+#define EB_VERTICAL_NAME "EnergyBallVertical"
+#define ET_NAME "EnergyTransmitter"
+#define ET_RIGHT_NAME "EnergyTransmitterRight"
+#define ET_LEFT_NAME "EnergyTransmitterLeft"
+#define ET_UP_NAME "EnergyTransmitterUp"
+#define ET_DOWN_NAME "EnergyTransmitterDown"
+#define ER_NAME "EnergyReceptor"
+#define ER_UP_NAME "EnergyReceptorUp"
+#define ER_DOWN_NAME "EnergyReceptorDown"
+#define ER_RIGHT_NAME "EnergyReceptorRight"
+#define ER_LEFT_NAME "EnergyReceptorLeft"
+#define BLUE_SHOT_NAME "BlueShot"
+#define ORANGE_SHOT_NAME "OrangeShot"
+#define ACID_NAME "Acid"
+#define ENERGY_BAR_NAME "EnergyBar"
+#define BUTTON_NAME "Button"
+#define ROCK_NAME "Rock"
+#define CAKE_NAME "Cake"
+#define CHELL_NAME "Chell"
+#define PORTAL_NAME "Portal"
+#define FLOOR_NAME "Floor"
+#define GATE_NAME "Gate"
+
 // Objects sizes.
 #define METAL_SIDE 2
 #define CHELL_WIDTH 1
@@ -76,6 +113,7 @@ enum StageObjects {
 #define CAKE_HEIGHT 1
 #define GATE_WIDTH 1
 #define GATE_HEIGHT 2
+#define CHELL_WHEEL_RADIUS 0.25
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
@@ -107,5 +145,11 @@ enum StageObjects {
 #define USER_ORANGE_PORTAL_CODE 6
 #define USER_GRAB_ROCK 7
 #define USER_DROP_ROCK 8
+#define USER_THROW_ROCK 9
+#define USER_REMOVE_PORTAL 10
 
+// Protocol stuff
+#define THREAD_SUICIDE_PILL "F"
+#define REQUEST_LEN_SIZE 4
+#define PLAYER_ID_PREFIX "Chell"
 #endif //PORTAL_CONSTANTS_H

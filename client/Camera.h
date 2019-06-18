@@ -5,11 +5,15 @@
 #ifndef PORTAL_CAMERA_H
 #define PORTAL_CAMERA_H
 #include <SDL.h>
+#include <mutex>
+#include <condition_variable>
 
 class Camera {
     int levelWidth;
     int levelHeight;
     SDL_Rect cameraRect;
+    std::condition_variable _cv;
+    std::mutex _mtx;
 public:
     Camera(int screenWidth, int screenHeight, int levelWidth, int levelHeight);
     ~Camera();

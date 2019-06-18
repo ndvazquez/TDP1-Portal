@@ -2,8 +2,6 @@
 // Created by cecix on 2/06/19.
 //
 
-#define blueShotType "BlueShot"
-
 #include <string>
 
 #include <iostream>
@@ -12,17 +10,13 @@
 #include "DiagonalMetalBlock.h"
 
 BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
-    Shot(blueShotType, body, chell, target) {
+    Shot(BLUE_SHOT_NAME, body, chell, target) {
     body->SetUserData(this);
-}
-
-Coordinate* BlueShot::getTarget() {
-    return target;
 }
 
 void BlueShot::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "MetalBlock") {
+    if (type == METAL_BLOCK_NAME) {
         MetalBlock* metalBlock = static_cast<MetalBlock*>(entity);
         float x_pos_metal = metalBlock->getHorizontalPosition();
         float y_pos_metal = metalBlock->getVerticalPosition();
@@ -35,14 +29,13 @@ void BlueShot::handleCollision(Entity* entity) {
         float x_right = x_pos_metal + side_metal/2;
         float y_top = y_pos_metal + side_metal/2;
         float y_down = y_pos_metal - side_metal/2;
-        float side_blue = BULLET_HEIGHT;
 
-        bool left_side = x_pos_blue <= x_left - side_blue/2;
-        bool right_side = x_pos_blue >= x_right + side_blue/2;
-        bool down_side = y_pos_orange <= y_down - side_blue/2;
+        bool left_side = x_pos_blue <= x_left;
+        bool right_side = x_pos_blue >= x_right;
+        bool down_side = y_pos_orange <= y_down;
 
         float portal_h_side = PORTAL_WIDTH;
-        float portal_v_side = PORTAL_HEIGHT;
+        float portal_v_side;
 
         bool vertical_cond = left_side || right_side;
 
@@ -51,35 +44,37 @@ void BlueShot::handleCollision(Entity* entity) {
                 Coordinate* coord = new Coordinate(x_left - portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left - portal_h_side,
+                coord_to_teleport = new Coordinate(x_left - portal_h_side - ROCK_WIDTH,
                         y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coord, true);
+                BluePortal* bluePortal = new BluePortal(coord, true, LEFT);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
-                coord_to_teleport = new Coordinate(x_left + portal_h_side,
+                coord_to_teleport = new Coordinate(x_left + portal_h_side + ROCK_WIDTH,
                         y_pos_metal);
-                BluePortal* bluePortal = new BluePortal(coord, true);
+                BluePortal* bluePortal = new BluePortal(coord, true, RIGHT);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         } else {
+            portal_v_side = PORTAL_WIDTH;
+
             if (down_side) {
                 Coordinate* coord = new Coordinate(x_pos_metal,
                         y_down - portal_v_side/2);
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_down - portal_v_side);
-                BluePortal* bluePortal = new BluePortal(coord, false);
+                BluePortal* bluePortal = new BluePortal(coord, false, DOWN);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_pos_metal,
                         y_top + portal_v_side/2);
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
-                        y_top + portal_v_side);
-                BluePortal* bluePortal = new BluePortal(coord, false);
+                        y_top + portal_v_side + CHELL_HEIGHT);
+                BluePortal* bluePortal = new BluePortal(coord, false, UP);
                 chell->addBluePortal(bluePortal, coord_to_teleport);
             }
         }

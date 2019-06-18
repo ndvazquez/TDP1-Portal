@@ -3,6 +3,7 @@ project(Portal)
 
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS -pthread)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 
@@ -41,7 +42,12 @@ set(CLIENT_SOURCE_FILES
         client/UserEventHandler.cpp
         common/UserEventQueue.cpp
         client/OrangePortalView.cpp
-        client/GateView.cpp)
+        client/GateView.cpp
+        common/Thread.cpp
+        common/Socket.cpp
+        client/EventSender.cpp
+        client/StageStatusReceiver.cpp
+        common/StageStatusQueue.cpp)
 
 #EDITOR CONFIG
 
@@ -128,19 +134,35 @@ set(SERVER_SOURCE_FILES
         server/Cake.cpp
         server/BluePortal.cpp
         server/OrangePortal.cpp
-        server/StageManager.cpp)
+        server/StageManager.cpp
+        common/Thread.cpp
+        common/Socket.cpp
+        common/StageStatusQueue.cpp
+        common/UserEventQueue.cpp
+        common/UserEvent.cpp
+        server/ClientHandler.cpp
+        server/ClientSender.cpp
+        server/ClientReceiver.cpp
+        server/EnergyReceptor.cpp
+        server/EnergyReceptorUp.cpp
+        server/EnergyReceptorDown.cpp
+        server/EnergyReceptorLeft.cpp
+        server/EnergyReceptorRight.cpp
+        server/PhysicsWorld.cpp
+        server/ItemActivable.cpp
+        server/PortalManager.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
 
-add_executable(Client client/main.cpp ${CLIENT_SOURCE_FILES} ${SERVER_SOURCE_FILES})
+add_executable(Client client/main.cpp ${CLIENT_SOURCE_FILES})
 add_executable(Server server/main.cpp ${SERVER_SOURCE_FILES})
 add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
-target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TG::Box2D)
+target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} pthread)
 target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}) # avformat avcodec avutil swscale)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
-target_link_libraries(Server TG::Box2D)
+target_link_libraries(Server TG::Box2D pthread)
 target_link_libraries(Test TG::Box2D)

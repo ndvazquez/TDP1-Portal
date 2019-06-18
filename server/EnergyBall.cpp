@@ -2,19 +2,21 @@
 // Created by cecix on 19/05/19.
 //
 
-#define energyBallType "EnergyBall"
-
 #include <string>
 #include <iostream>
-
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
+#include "EnergyReceptorRight.h"
+#include "EnergyReceptorLeft.h"
+#include "EnergyReceptorUp.h"
+#include "EnergyReceptorDown.h"
+#include "DiagonalMetalBlock.h"
 
 EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
-    Entity(energyBallType, body),
+    Entity(EB_NAME, body),
     dynamic(body) {
     this->is_vertical = is_vertical;
     body->SetUserData(this); //to handle collisions
@@ -23,11 +25,6 @@ EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
 }
 
 void EnergyBall::fly() {
-    std::cout << "Se lanzo!" << std::endl;
-
-    std::cout << "X: " << getHorizontalPosition() << std::endl;
-    std::cout << "Y: " << getVerticalPosition() << std::endl;
-
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
@@ -42,12 +39,11 @@ void EnergyBall::fly() {
     }
 }
 
-void EnergyBall::changeDirection() {
-    this->is_vertical = ! is_vertical;
+void EnergyBall::changeDirection(b2Vec2 velocity) {
+    this->dynamic.fly(velocity);
 }
 
 void EnergyBall::die() {
-    std::cout << "muri" << std::endl;
     this->is_dead = true;
 }
 
@@ -61,34 +57,75 @@ bool EnergyBall::isVertical() {
 
 void EnergyBall::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "EnergyBar") {
+    if (type == ENERGY_BAR_NAME) {
         static_cast<EnergyBar*>(entity)->disableBody();
     }
-    if (type == "BrickBlock") {
+    if (type == BRICK_BLOCK_NAME) {
         die();
     }
-    if (type == "DiagonalMetalBlock") {
-        changeDirection();
+    if (type == DIAGONAL_METAL_BLOCK_NAME) {
+        b2Vec2 velocity = static_cast<DiagonalMetalBlock*>(entity)->calculateVelocity();
+        changeDirection(velocity);
     }
-    if (type == "Chell") {
+    if (type == CHELL_NAME) {
         static_cast<Chell*>(entity)->die();
         die();
     }
-    if (type == "Portal") {
+    if (type == PORTAL_NAME) {
         Portal* portal = static_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            teleport(target);
+            teleport(target, portal->getPortalType());
         }
     }
-    if (type == "BlueShot") {
+    if (type == BLUE_SHOT_NAME) {
         static_cast<BlueShot*>(entity)->die();
     }
-    if (type == "OrangeShot") {
+    if (type == ORANGE_SHOT_NAME) {
         static_cast<OrangeShot*>(entity)->die();
+    }
+    if (type == ER_RIGHT_NAME) {
+        EnergyReceptorRight* er = static_cast<EnergyReceptorRight*>(entity);
+        float x_er = er->getHorizontalPosition();
+        float x_eb =getHorizontalPosition();
+        if (x_eb > x_er) {
+            er->activate();
+            die();
+        }
+    }
+    if (type == ER_LEFT_NAME) {
+        EnergyReceptorLeft* er = static_cast<EnergyReceptorLeft*>(entity);
+        float x_er = er->getHorizontalPosition();
+        float x_eb = getHorizontalPosition();
+        if (x_eb < x_er) {
+            er->activate();
+            die();
+        }
+    }
+    if (type == ER_UP_NAME) {
+        EnergyReceptorUp* er = static_cast<EnergyReceptorUp*>(entity);
+        float y_er = er->getVerticalPosition();
+        float y_eb = getVerticalPosition();
+        if (y_eb > y_er) {
+            er->activate();
+            die();
+        }
+    }
+    if (type == ER_DOWN_NAME) {
+        EnergyReceptorDown* er = static_cast<EnergyReceptorDown*>(entity);
+        float y_er = er->getVerticalPosition();
+        float y_eb = getVerticalPosition();
+        if (y_eb < y_er) {
+            er->activate();
+            die();
+        }
     }
 }
 
-void EnergyBall::teleport(Coordinate* target) {
-    this->dynamic.teleport(target);
+void EnergyBall::teleport(Coordinate* target, PortalType type) {
+    this->dynamic.teleport(target, type);
+}
+
+void EnergyBall::update() {
+    this->dynamic.handleCollisions();
 }

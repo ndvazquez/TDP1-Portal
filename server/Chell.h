@@ -52,7 +52,8 @@ public:
     void downloadRock();
     void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
     void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);
-    void teleport(Coordinate* coordinate);
+    void teleport(Coordinate* coordinate, PortalType type);
+    void removePortals();
     ChellState getState();
     BluePortal* getBluePortal();
     OrangePortal* getOrangePortal();

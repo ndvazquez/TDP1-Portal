@@ -2,13 +2,11 @@
 // Created by cecix on 18/05/19.
 //
 
-#define chellType "Chell"
-
 #include <string>
-#include <iostream>
 #include <Box2D/Collision/Shapes/b2PolygonShape.h>
 #include <Box2D/Dynamics/b2Fixture.h>
 #include <Box2D/Dynamics/b2World.h>
+#include <iostream>
 #include "Chell.h"
 #include "MoveRight.h"
 #include "Stop.h"
@@ -21,9 +19,10 @@
 #include "EnergyBall.h"
 #include "Button.h"
 #include "EnergyBar.h"
+#include "OrangeShot.h"
 
 Chell::Chell(b2Body* body):
-        Entity(chellType, body),
+        Entity(CHELL_NAME, body),
         dynamic(body) {
     this->actual_movement = new Stop(body);
     this->actual_state = IDLE;
@@ -40,44 +39,58 @@ Chell::Chell(b2Body* body):
 
 void Chell::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == "Acid" || type == "EnergyBall") {
+    if (type == ACID_NAME || type == EB_NAME) {
         die();
-        if (type == "EnergyBall") {
+        if (type == EB_NAME) {
             static_cast<EnergyBall*>(entity)->die();
         }
     }
 
-    if (type == "Portal") {
-        Portal* portal = static_cast<Portal*>(entity);
-        Coordinate* target = portal->getTarget();
-        if (target != nullptr) teleport(target);
-    }
-
-    if (type == "Cake") {
-        win();
-    }
-
-    if (type == "EnergyBar") {
-        static_cast<EnergyBar*>(entity)->disableBody();
-    }
-
-    if (type == "Button") {
-        Button* button = static_cast<Button*>(entity);
-        float x_button = button->getHorizontalPosition();
-        float x_chell = body->GetPosition().x;
-        float delta = 0.1;
-        if (x_chell > x_button - delta && x_chell < x_button + delta) {
-            button->activate();
+    if (type == ROCK_NAME) {
+        Rock* rock = static_cast<Rock*>(entity);
+        float y_chell = getVerticalPosition();
+        float y_rock = rock->getVerticalPosition();
+        float vy_rock = rock->getVerticalVelocity();
+        if (y_rock > y_chell && vy_rock == 0 && ! rock->isGrabbed()) {
+            die();
         }
     }
 
-    chell_is_on_floor = type == "MetalBlock" || type == "BrickBlock"
-                        || type == "DiagonalMetalBlock" || type == "Floor"
-                        || type == "Rock" || type == "Button";
+    if (type == PORTAL_NAME) {
+        Portal* portal = static_cast<Portal*>(entity);
+        Coordinate* target = portal->getTarget();
+        if (target != nullptr) teleport(target, portal->getPortalType());
+    }
+
+    if (type == CAKE_NAME) {
+        win();
+    }
+
+    if (type == ENERGY_BAR_NAME) {
+        static_cast<EnergyBar*>(entity)->disableBody();
+    }
+
+    if (type == BUTTON_NAME) {
+        Button* button = static_cast<Button*>(entity);
+        float y_button = button->getVerticalPosition();
+        float y_chell = getVerticalPosition();
+        if (y_chell > y_button) button->activate();
+    }
+
+    if (type == BLUE_SHOT_NAME) {
+        static_cast<BlueShot*>(entity)->die();
+    }
+    if (type == ORANGE_SHOT_NAME) {
+        static_cast<OrangeShot*>(entity)->die();
+    }
+
+    chell_is_on_floor = type == METAL_BLOCK_NAME || type == BRICK_BLOCK_NAME
+                        || type == DIAGONAL_METAL_BLOCK_NAME || type == FLOOR_NAME
+                        || type == ROCK_NAME || type == BUTTON_NAME || type == ET_NAME || type == ER_NAME;
 }
 
-void Chell::teleport(Coordinate* coordinate) {
-    this->dynamic.teleport(coordinate);
+void Chell::teleport(Coordinate* coordinate, PortalType type) {
+    this->dynamic.teleport(coordinate, type);
 }
 
 void Chell::die() {
@@ -116,7 +129,7 @@ void Chell::onFloor(bool onFloor) {
 }
 
 void Chell::moveRight() {
-    if (dead) return;
+    if (dead || winner) return;
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
     if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
@@ -127,7 +140,7 @@ void Chell::moveRight() {
 }
 
 void Chell::moveLeft() {
-    if (dead) return;
+    if (dead || winner) return;
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
     if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
@@ -145,7 +158,7 @@ void Chell::releaseRock() {
 }
 
 void Chell::stop() {
-    if (dead) return;
+    if (dead || winner) return;
     destroyActualMovement();
     this->actual_movement = new Stop(body);
     if (! chell_is_on_floor) {
@@ -168,11 +181,10 @@ void Chell::update() {
     }
     if (chell_is_on_floor && ! isDead()) this->dynamic.handleCollisions();
     this->actual_movement->move(gameConfiguration.chellForce);
-    //if (this->rock) rock->update();
 }
 
 void Chell::jump() {
-    if (dead) return;
+    if (dead || winner) return;
     bool resul = this->dynamic.jump(chell_is_on_floor);
     if (resul) {
         actual_state = JUMPING;
@@ -190,6 +202,13 @@ bool Chell::inGround() {
 
 ChellState Chell::getState() {
     return actual_state;
+}
+
+void Chell::removePortals() {
+    if (this->blue_portal) delete blue_portal;
+    if (this->orange_portal) delete orange_portal;
+    this->blue_portal = nullptr;
+    this->orange_portal = nullptr;
 }
 
 void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {

@@ -10,21 +10,9 @@
 #include "Coordinate.h"
 
 class MetalBlock: public Entity {
-private:
-    bool vertical_portal;
-    bool horizontal_portal;
-    MetalBlock* other;
-
 public:
     explicit MetalBlock(b2Body* body);
     virtual void handleCollision(Entity* entity) override;
-    void createVerticalPortal();
-    void createHorizontalPortal();
-    bool hasVerticalPortal();
-    bool hasHorizontalPortal();
-    void deletePortal();
-    void addOtherPortal(MetalBlock* other);
-    Coordinate* getOtherPortal();
 };
 
 #endif //PORTAL_METALBLOCK_H
