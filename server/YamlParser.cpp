@@ -33,9 +33,9 @@ void YamlParser::parseAndAdd() {
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
-        stage.addBlock(BRICK_BLOCK_NAME, METAL_SIDE, x, y);
+        stage.addBlock(ROCK_BLOCK_NAME, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
-                {"type", BRICK_BLOCK_NAME}, {"x", x}, {"y", y}
+                {"type", ROCK_BLOCK_NAME}, {"x", x}, {"y", y}
         };
         counter++;
     }
@@ -47,10 +47,14 @@ void YamlParser::parseAndAdd() {
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
-        std::string id = ET_NAME + std::to_string(et_counter);
-        stage.addEnergyItem(ET_DOWN_NAME, id, METAL_SIDE, x, y);
+        std::string et_id = ET_NAME + std::to_string(et_counter);
+        std::string eb_id = EB_NAME + std::to_string(et_counter);
+        stage.addEnergyItem(ET_DOWN_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
-                {"type", ET_NAME}, {"x", x}, {"y", y}
+                {"type", LOUNCH_BLOCK_DOWN}, {"x", x}, {"y", y}
+        };
+        dynamic_json[eb_id] = {
+                {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
         };
         et_counter++;
         counter++;
@@ -62,10 +66,14 @@ void YamlParser::parseAndAdd() {
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
-        std::string id = ET_NAME + std::to_string(et_counter);
-        stage.addEnergyItem(ET_UP_NAME, id, METAL_SIDE, x, y);
+        std::string et_id = ET_NAME + std::to_string(et_counter);
+        std::string eb_id = EB_NAME + std::to_string(et_counter);
+        stage.addEnergyItem(ET_UP_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
+        dynamic_json[eb_id] = {
+                {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
         };
         et_counter++;
         counter++;
@@ -77,10 +85,14 @@ void YamlParser::parseAndAdd() {
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
-        std::string id = ET_NAME + std::to_string(et_counter);
-        stage.addEnergyItem(ET_LEFT_NAME, id, METAL_SIDE, x, y);
+        std::string et_id = ET_NAME + std::to_string(et_counter);
+        std::string eb_id = EB_NAME + std::to_string(et_counter);
+        stage.addEnergyItem(ET_LEFT_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
+        dynamic_json[eb_id] = {
+                {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
         };
         et_counter++;
         counter++;
@@ -93,10 +105,14 @@ void YamlParser::parseAndAdd() {
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
-        std::string id = ET_NAME + std::to_string(et_counter);
-        stage.addEnergyItem(ET_RIGHT_NAME, id, METAL_SIDE, x, y);
+        std::string et_id = ET_NAME + std::to_string(et_counter);
+        std::string eb_id = EB_NAME + std::to_string(et_counter);
+        stage.addEnergyItem(ET_RIGHT_NAME, et_id, METAL_SIDE, x, y);
         static_json[std::to_string(counter)] = {
                 {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
+        dynamic_json[eb_id] = {
+                {"type", ENERGY_BALL__VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
         };
         et_counter++;
         counter++;
@@ -262,11 +278,29 @@ void YamlParser::parseAndAdd() {
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
-        std::string id = CHELL_NAME + std::to_string(chell_counter);
-        stage.addChell(id, CHELL_HEIGHT, CHELL_WIDTH, x, y);
-        dynamic_json[id] = {
+        std::string chell_id = CHELL_NAME + std::to_string(chell_counter);
+        std::string blue_shot_id = BLUE_SHOT_NAME + std::to_string(chell_counter);
+        std::string orange_shot_id = ORANGE_SHOT_NAME + std::to_string(chell_counter);
+        std::string blue_portal_id = BLUE_PORTAL_NAME + std::to_string(chell_counter);
+        std::string orange_portal_id  = ORANGE_PORTAL_NAME + std::to_string(chell_counter);
+
+        stage.addChell(chell_id, CHELL_HEIGHT, CHELL_WIDTH, x, y);
+        dynamic_json[chell_id] = {
                 {"type", CHELL_VIEW_CODE}, {"state", IDLE}, {"x", x}, {"y", y}
         };
+        dynamic_json[blue_shot_id] = {
+                    {"type", BULLET_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
+        dynamic_json[orange_shot_id] = {
+                {"type", BULLET_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
+        dynamic_json[blue_portal_id] = {
+                {"type", BLUE_PORTAL_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
+        dynamic_json[orange_portal_id] = {
+                {"type", ORANGE_PORTAL_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
+
         chell_counter++;
     }
 
@@ -315,6 +349,7 @@ void YamlParser::parseAndAdd() {
         };
         button_counter++;
     }
+
 }
 
 nlohmann::json YamlParser::getStaticJson() {

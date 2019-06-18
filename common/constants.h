@@ -71,7 +71,7 @@ enum PortalType {
 #define DIAGONAL_METAL_BLOCK_135 "DiagonalMetalBlock135"
 #define DIAGONAL_METAL_BLOCK_225 "DiagonalMetalBlock225"
 #define DIAGONAL_METAL_BLOCK_315 "DiagonalMetalBlock315"
-#define BRICK_BLOCK_NAME "BrickBlock"
+#define ROCK_BLOCK_NAME "RockBlock"
 #define EB_NAME "EnergyBall"
 #define EB_HORIZONTAL_NAME "EnergyBallHorizontal"
 #define EB_VERTICAL_NAME "EnergyBallVertical"
@@ -96,6 +96,8 @@ enum PortalType {
 #define PORTAL_NAME "Portal"
 #define FLOOR_NAME "Floor"
 #define GATE_NAME "Gate"
+#define BLUE_PORTAL_NAME "BluePortal"
+#define ORANGE_PORTAL_NAME "OrangePortal"
 
 // Objects sizes.
 #define METAL_SIDE 2

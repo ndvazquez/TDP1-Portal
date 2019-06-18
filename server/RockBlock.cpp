@@ -5,18 +5,18 @@
 #include <string>
 #include <iostream>
 
-#include "BrickBlock.h"
+#include "RockBlock.h"
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-BrickBlock::BrickBlock(b2Body* body):
-    Entity(BRICK_BLOCK_NAME, body) {
+RockBlock::RockBlock(b2Body* body):
+    Entity(ROCK_BLOCK_NAME, body) {
     body->SetUserData(this); //to handle collisions
 }
 
-void BrickBlock::handleCollision(Entity* entity) {
+void RockBlock::handleCollision(Entity* entity) {
     std::string type = entity->getType();
     if (type == EB_NAME) {
         static_cast<EnergyBall*>(entity)->die();

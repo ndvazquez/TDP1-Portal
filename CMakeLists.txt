@@ -104,8 +104,8 @@ set(EDITOR_SOURCE_FILES
 set(SERVER_SOURCE_FILES
         server/Stage.cpp
         server/Coordinate.cpp
-        server/BrickBlock.cpp
-        server/BrickBlock.cpp
+        server/RockBlock.cpp
+        server/RockBlock.cpp
         server/MetalBlock.cpp
         server/DiagonalMetalBlock.cpp
         server/EnergyTransmitter.cpp

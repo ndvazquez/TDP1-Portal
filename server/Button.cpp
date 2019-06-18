@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Button.h"
 #include "Chell.h"
 #include "BlueShot.h"
@@ -15,6 +16,7 @@ Button::Button(b2Body* body):
 
 void Button::handleCollision(Entity *entity) {
     std::string type = entity->getType();
+    std::cout << type << std::endl;
     if (type == ROCK_NAME) {
         Rock* rock = static_cast<Rock*>(entity);
         float y_rock = rock->getVerticalPosition();

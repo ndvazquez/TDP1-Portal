@@ -5,7 +5,7 @@
 #include <Acid.h>
 #include <OrangeShot.h>
 #include "../server/Stage.h"
-#include "BrickBlock.h"
+#include "RockBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 #include "configuration.h"
@@ -25,7 +25,7 @@ public:
         Stage stage(width_stage, height_stage);
         stage.addBlock(BRICK_BLOCK_NAME, side, x_pos, y_pos);
         Coordinate* coordinates = new Coordinate(x_pos, y_pos);
-        BrickBlock* block = stage.getBrickBlock(coordinates);
+        RockBlock* block = stage.getBrickBlock(coordinates);
 
         TS_ASSERT_EQUALS(x_pos, block->getHorizontalPosition());
         TS_ASSERT_EQUALS(y_pos, block->getVerticalPosition());

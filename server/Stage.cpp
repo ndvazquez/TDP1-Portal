@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include "Stage.h"
-#include "BrickBlock.h"
+#include "RockBlock.h"
 #include "MetalBlock.h"
 #include "DiagonalMetalBlock.h"
 #include "EnergyBar.h"
@@ -36,8 +36,8 @@ void Stage::addBlock(std::string identifier, float side, float x_pos, float y_po
 
     Coordinate* coordinates = new Coordinate(x_pos, y_pos);
 
-    if (identifier == BRICK_BLOCK_NAME) {
-        BrickBlock* block = new BrickBlock(block_body);
+    if (identifier == ROCK_BLOCK_NAME) {
+        RockBlock* block = new RockBlock(block_body);
         brick_blocks.insert({coordinates, block});
     } else if (identifier == METAL_BLOCK_NAME) {
         MetalBlock* block = new MetalBlock(block_body);
@@ -307,7 +307,7 @@ Cake* Stage::getCake() {
     return cake;
 }
 
-BrickBlock* Stage::getBrickBlock(Coordinate* coordinate) {
+RockBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
     }

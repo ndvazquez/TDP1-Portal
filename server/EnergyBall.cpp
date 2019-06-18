@@ -60,7 +60,7 @@ void EnergyBall::handleCollision(Entity* entity) {
     if (type == ENERGY_BAR_NAME) {
         static_cast<EnergyBar*>(entity)->disableBody();
     }
-    if (type == BRICK_BLOCK_NAME) {
+    if (type == ROCK_BLOCK_NAME) {
         die();
     }
     if (type == DIAGONAL_METAL_BLOCK_NAME) {
