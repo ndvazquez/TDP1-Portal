@@ -67,6 +67,10 @@ enum PortalType {
 //Object names
 #define METAL_BLOCK_NAME "MetalBlock"
 #define DIAGONAL_METAL_BLOCK_NAME "DiagonalMetalBlock"
+#define DIAGONAL_METAL_BLOCK_45 "DiagonalMetalBlock45"
+#define DIAGONAL_METAL_BLOCK_135 "DiagonalMetalBlock135"
+#define DIAGONAL_METAL_BLOCK_225 "DiagonalMetalBlock225"
+#define DIAGONAL_METAL_BLOCK_315 "DiagonalMetalBlock315"
 #define BRICK_BLOCK_NAME "BrickBlock"
 #define EB_NAME "EnergyBall"
 #define EB_HORIZONTAL_NAME "EnergyBallHorizontal"

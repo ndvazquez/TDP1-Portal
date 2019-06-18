@@ -13,25 +13,31 @@ YamlParser::YamlParser(const std::string& path, Stage& stage):
 }
 
 void YamlParser::parseAndAdd() {
+    int counter = 1;
+
     const YAML::Node& metal_blocks = editor_data[std::to_string(METAL_BLOCK)]["position"];
     for (YAML::const_iterator it = metal_blocks.begin(); it != metal_blocks.end(); it++) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-        std::cout << x << std::endl;
-        std::cout << y << std::endl;
-        //stage.addBlock(METAL_BLOCK_NAME, METAL_SIDE, x, y);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addBlock(METAL_BLOCK_NAME, METAL_SIDE, x, y);
+        static_json[counter] = {
+                {"type", METAL_BLOCK_NAME}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     const YAML::Node& brick_blocks = editor_data[std::to_string(ROCK_BLOCK)]["position"];
     for (YAML::const_iterator it = brick_blocks.begin();
          it != brick_blocks.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-        std::cout << x << std::endl;
-        std::cout << y << std::endl;
-        //stage.addBlock(BRICK_BLOCK_NAME, METAL_SIDE, x, y);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addBlock(BRICK_BLOCK_NAME, METAL_SIDE, x, y);
+        static_json[counter] = {
+                {"type", BRICK_BLOCK_NAME}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     int et_counter = 1;
@@ -39,36 +45,45 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = et_down.begin();
          it != et_down.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ET_DOWN_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ET_DOWN_NAME, id, METAL_SIDE, x, y);
+        static_json[counter] = {
+                {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
         et_counter++;
+        counter++;
     }
 
     const YAML::Node& et_up = editor_data[std::to_string(LOUNCH_BLOCK_UP)]["position"];
     for (YAML::const_iterator it = et_up.begin();
          it != et_up.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ET_UP_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ET_UP_NAME, id, METAL_SIDE, x, y);
+        static_json[counter] = {
+                {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
         et_counter++;
+        counter++;
     }
 
     const YAML::Node& et_left = editor_data[std::to_string(LOUNCH_BLOCK_LEFT)]["position"];
     for (YAML::const_iterator it = et_left.begin();
          it != et_left.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ET_LEFT_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ET_LEFT_NAME, id, METAL_SIDE, x, y);
+        static_json[counter] = {
+                {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
         et_counter++;
+        counter++;
     }
 
 
@@ -76,12 +91,15 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = et_right.begin();
          it != et_right.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ET_NAME + std::to_string(et_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ET_RIGHT_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ET_RIGHT_NAME, id, METAL_SIDE, x, y);
+        static_json[counter] = {
+                {"type", ET_NAME}, {"x", x}, {"y", y}
+        };
         et_counter++;
+        counter++;
     }
 
     int er_counter = 1;
@@ -90,11 +108,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = er_down.begin();
          it != er_down.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ER_DOWN_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ER_DOWN_NAME, id, METAL_SIDE, x, y);
+        dynamic_json[id] = {
+                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };
         er_counter++;
     }
 
@@ -102,11 +122,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = er_up.begin();
          it != er_up.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ER_UP_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ER_UP_NAME, id, METAL_SIDE, x, y);
+        dynamic_json[id] = {
+                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };
         er_counter++;
     }
 
@@ -114,11 +136,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = er_left.begin();
          it != er_left.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
-        std::cout << id << std::endl;
-       // stage.addEnergyItem(ER_LEFT_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ER_LEFT_NAME, id, METAL_SIDE, x, y);
+        dynamic_json[id] = {
+                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };
         er_counter++;
     }
 
@@ -126,11 +150,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = er_right.begin();
          it != er_right.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ER_NAME + std::to_string(er_counter);
-        std::cout << id << std::endl;
-        //stage.addEnergyItem(ER_RIGHT_NAME, id, METAL_SIDE, x, y);
+        stage.addEnergyItem(ER_RIGHT_NAME, id, METAL_SIDE, x, y);
+        dynamic_json[id] = {
+                {"type", ER_NAME}, {"state", OFF}, {"x", x}, {"y", y}
+        };
         er_counter++;
     }
 
@@ -138,36 +164,52 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = diagonal_45.begin();
          it != diagonal_45.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-       // stage.addDiagonalBlock(METAL_SIDE, x, y, 45);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addDiagonalBlock(METAL_SIDE, x, y, 45);
+        static_json[counter] = {
+                {"type", DIAGONAL_METAL_BLOCK_45}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     const YAML::Node& diagonal_135 = editor_data[std::to_string(DIAGONAL_UP_RIGHT)]["position"];
     for (YAML::const_iterator it = diagonal_135.begin();
          it != diagonal_135.end(); ++it) {
         const YAML::Node &position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-       // stage.addDiagonalBlock(METAL_SIDE, x, y, 135);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addDiagonalBlock(METAL_SIDE, x, y, 135);
+        static_json[counter] = {
+                {"type", DIAGONAL_METAL_BLOCK_135}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     const YAML::Node& diagonal_225 = editor_data[std::to_string(DIAGONAL_DOWN_RIGHT)]["position"];
     for (YAML::const_iterator it = diagonal_225.begin();
          it != diagonal_225.end(); ++it) {
         const YAML::Node &position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-       // stage.addDiagonalBlock(METAL_SIDE, x, y, 225);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addDiagonalBlock(METAL_SIDE, x, y, 225);
+        static_json[counter] = {
+                {"type", DIAGONAL_METAL_BLOCK_225}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     const YAML::Node& diagonal_315 = editor_data[std::to_string(DIAGONAL_DOWN_LEFT)]["position"];
     for (YAML::const_iterator it = diagonal_315.begin();
          it != diagonal_315.end(); ++it) {
         const YAML::Node &position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-       // stage.addDiagonalBlock(METAL_SIDE, x, y, 315);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addDiagonalBlock(METAL_SIDE, x, y, 315);
+        static_json[counter] = {
+                {"type", DIAGONAL_METAL_BLOCK_315}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     int rock_counter = 1;
@@ -175,11 +217,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = rocks_1.begin();
          it != rocks_1.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ROCK_NAME + std::to_string(rock_counter);
-        std::cout << id << std::endl;
-       // stage.addRock(id, ROCK_WIDTH, x, y);
+        stage.addRock(id, ROCK_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", ROCK_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
         rock_counter++;
     }
 
@@ -187,11 +231,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = rocks_2.begin();
          it != rocks_2.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ROCK_NAME + std::to_string(rock_counter);
-        std::cout << id << std::endl;
-       // stage.addRock(id, ROCK_WIDTH, x, y);
+        stage.addRock(id, ROCK_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", ROCK_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
         rock_counter++;
     }
 
@@ -199,11 +245,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = rocks_3.begin();
          it != rocks_3.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ROCK_NAME + std::to_string(rock_counter);
-        std::cout << id << std::endl;
-       // stage.addRock(id, ROCK_WIDTH, x, y);
+        stage.addRock(id, ROCK_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", ROCK_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
         rock_counter++;
     }
 
@@ -212,11 +260,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = chells.begin();
          it != chells.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = CHELL_NAME + std::to_string(chell_counter);
-        std::cout << id << std::endl;
-      //  stage.addChell(id, CHELL_HEIGHT, CHELL_WIDTH, x, y);
+        stage.addChell(id, CHELL_HEIGHT, CHELL_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", CHELL_VIEW_CODE}, {"state", IDLE}, {"x", x}, {"y", y}
+        };
         chell_counter++;
     }
 
@@ -224,9 +274,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = cake.begin();
          it != cake.end(); ++it) {
         const YAML::Node &position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
-        //stage.addBlock(CAKE_NAME, CAKE_HEIGHT, x, y);
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
+        stage.addBlock(CAKE_NAME, CAKE_HEIGHT, x, y);
+        static_json[counter] = {
+                {"type", CAKE_NAME}, {"x", x}, {"y", y}
+        };
+        counter++;
     }
 
     int acid_counter = 1;
@@ -234,11 +288,13 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = acids.begin();
          it != acids.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = ACID_NAME + std::to_string(acid_counter);
-        std::cout << id << std::endl;
-      //  stage.addElement(ACID_NAME, id, ACID_HEIGHT, ACID_WIDTH, x, y);
+        stage.addElement(ACID_NAME, id, ACID_HEIGHT, ACID_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", ACID_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
         acid_counter++;
     }
 
@@ -250,11 +306,21 @@ void YamlParser::parseAndAdd() {
     for (YAML::const_iterator it = buttons.begin();
          it != buttons.end(); ++it) {
         const YAML::Node& position = *it;
-        int x = position["x"].as<int>();
-        int y = position["y"].as<int>();
+        float x = position["x"].as<float>();
+        float y = position["y"].as<float>();
         std::string id = BUTTON_NAME + std::to_string(button_counter);
-        std::cout << id << std::endl;
-       // stage.addElement(BUTTON_NAME, id, BUTTON_HEIGHT, BUTTON_WIDTH, x, y);
+        stage.addElement(BUTTON_NAME, id, BUTTON_HEIGHT, BUTTON_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", BUTTON_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
+        };
         button_counter++;
     }
+}
+
+nlohmann::json YamlParser::getStaticJson() {
+    return static_json;
+}
+
+nlohmann::json YamlParser::getDynamicJson() {
+    return dynamic_json;
 }
