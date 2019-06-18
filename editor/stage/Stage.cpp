@@ -60,8 +60,8 @@ void Stage::draw(int x, int y) {
     if (! (bool) SDL_PointInRect(&sdlPoint, &this->me)) {
        return;
     }
-    x = X_PIXEL_TO_MATRIX_POSITION(x);
-    y = Y_PIXEL_TO_MATRIX_POSITION(y);
+    x = (X_PIXEL_TO_MATRIX_POSITION(x)) - this->camera.x;
+    y = (Y_PIXEL_TO_MATRIX_POSITION(y)) - this->camera.y;
     controller.drawCurrent(*current, x, y);
 
 }
