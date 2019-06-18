@@ -38,12 +38,6 @@ Stage::~Stage() {
     //delete(this->me);
 }
 
-void Stage::draw() {
-    Sprite bgSprite("resources/editor-stage-bg.png", window);
-    bgSprite.draw(&this->me);
-    controller.draw(&this->camera , Y_START);
-}
-
 void Stage::pixelToMatrix(MouseButton &event,
                           int *xPixel, int *yPixel, int *x, int *y) {
     *xPixel = X_PIXEL(event);
@@ -55,6 +49,23 @@ void Stage::pixelToMatrix(MouseButton &event,
         throw StageNotInsideMeException();
     }
 }
+
+void Stage::draw(int x, int y) {
+    Sprite bgSprite("resources/editor-stage-bg.png", window);
+    bgSprite.draw(&this->me);
+    controller.draw(&this->camera , Y_START);
+    // draw the selected object.
+
+    SDL_Point sdlPoint = {x, y};
+    if (! (bool) SDL_PointInRect(&sdlPoint, &this->me)) {
+       return;
+    }
+    x = X_PIXEL_TO_MATRIX_POSITION(x);
+    y = Y_PIXEL_TO_MATRIX_POSITION(y);
+    controller.drawCurrent(*current, x, y);
+
+}
+
 
 void Stage::handleMouseButtonDown(MouseButton& event) {
     int xPixel, yPixel, x, y;

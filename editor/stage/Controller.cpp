@@ -55,6 +55,18 @@ Controller::~Controller() {
     }
 }
 
+void Controller::drawCurrent(int id, int x, int y) {
+    if(!id) return;
+    std::pair<int, int> pair = std::make_pair(x, y);
+    SDL_Rect rect = {x*factor, y*factor, factor, factor};
+    Object* obj = textures[id];
+    if (!obj) {
+        std::cerr << "no hay objeto" << std::endl;
+        return;
+    }
+    obj->draw(&rect);
+}
+
 int Controller::getName(int x, int y) {
     auto point = tiles.find(std::make_pair(x, y));
     if (point == tiles.end()) {

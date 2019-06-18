@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
 
     Editor editor(window);
-    editor.draw();
+    editor.draw(0, 0);
 
     bool quit = false;
     SDL_Event e;
@@ -68,7 +68,7 @@ int main(int argc, char* argv[]) {
                      }
              }
          }
-        editor.draw();
+        editor.draw((int) e.motion.x, (int) e.motion.y);
     }
 
     SDL_Delay(500);

@@ -34,7 +34,7 @@ public:
     //Stage(uint8_t& current)//, uint32_t xStart);
     ~Stage();
     // (x,y) pixeles.
-    void draw();
+    void draw(int x, int y);
     void handleMouseButtonDown(MouseButton& event);
 
     void handleMouseButtonUp(MouseButton& event);
