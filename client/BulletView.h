@@ -17,6 +17,7 @@
 
 class BulletView : public View {
     AnimatedSprite* animation;
+    int rotationAngle;
 public:
     BulletView(Window &window,
             int xPos,
