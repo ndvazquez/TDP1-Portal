@@ -15,7 +15,7 @@
 #include "SoundCodeQueue.h"
 
 #define TEXTURES_INFO_KEY "Chell"
-#define DEATH_COUNTER_MULTIPLIER 120
+#define DEATH_COUNTER_MULTIPLIER 5
 #define RUN_TIMESTEP 350
 #define IDLE 0
 #define JUMPING 1
