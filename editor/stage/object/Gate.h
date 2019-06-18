@@ -25,7 +25,7 @@ public:
     void addCondition(std::pair<int, int> position, std::string& condition) override;
     bool hasCondition() override;
 
-    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
 
     std::map<std::pair<int, int>, std::string> &getNames() override;
 };

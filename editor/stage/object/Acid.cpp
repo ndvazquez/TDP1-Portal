@@ -14,6 +14,6 @@ void Acid::draw(SDL_Rect* rect) {
     AnimatedObject::draw(&newRect);
 }
 
-std::pair<float, float> Acid::centerOfMass(const std::pair<int, int> &position) {
+std::pair<float, float> Acid::MatrixPosToCenterOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, ACID_WIDTH, ACID_HEIGHT);
 }

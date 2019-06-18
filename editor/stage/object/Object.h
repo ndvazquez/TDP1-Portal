@@ -59,12 +59,17 @@ public:
                     const std::pair<float, float> &b,
                     const std::pair<float, float> &c);
 
-    virtual std::pair<float, float> centerOfMass(
-                    const std::pair<int, int> &position) = 0;
+    virtual std::pair<float, float> MatrixPosToCenterOfMass(
+            const std::pair<int, int> &position) = 0;
+
+    virtual std::pair<int, int> rectangleCenterOfMassToMatrixPos(
+            const std::pair<float, float> &position);
 
     virtual bool hasCondition();
     virtual std::map<std::pair<int, int>, std::string>& getNames();
     int getWidth();
+
+    // virtual std::pair<int, int> centerOfMassToMatrixPos(std::pair<float, float> &pair) = 0;
 };
 
 #endif //PORTAL_OBJECT_H

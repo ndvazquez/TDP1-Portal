@@ -139,3 +139,11 @@ int Object::getWidth() {
     return w;
 }
 
+std::pair<int, int> Object::rectangleCenterOfMassToMatrixPos(
+        const std::pair<float, float> &position) {
+    std::pair<int, int> p(position.first - w/2, position.second - 1 + h/2);
+    return p;
+}
+
+
+

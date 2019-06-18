@@ -41,9 +41,15 @@
 
 
 
-void matrixToMeter(std::pair<float, float> &pair, int totalMeters) {
+void matrixPosToMeters(std::pair<float, float> &pair, int totalMeters) {
     pair.second = totalMeters - pair.second;
 }
+
+
+void YamlManager::MetersToMatrixPos(std::pair<float, float> &pair, int width) {
+    pair.second = width - pair.second;
+}
+
 
 YamlManager::YamlManager(std::unordered_map<int, Object *> &textures,
                          std::map<std::pair<int, int>, int> &tiles,
@@ -89,8 +95,6 @@ void YamlManager::writeStage() {
     out << YAML::Value << YAML::EndMap;
 
 
-
-
     for(auto & texture : textures) {
         int currentID = texture.first;
         Object* object = texture.second;
@@ -107,8 +111,8 @@ void YamlManager::writeStage() {
             int thisID = tile.second;
             if (thisID == currentID) {
                 std::pair<float, float> centerOfMass =
-                        object->centerOfMass(position);
-                matrixToMeter(centerOfMass, height);
+                        object->MatrixPosToCenterOfMass(position);
+                matrixPosToMeters(centerOfMass, height);
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << HORIZONTAL_POSITION;
                 out << YAML::Value << centerOfMass.first;
@@ -127,7 +131,7 @@ void YamlManager::writeStage() {
     out << YAML::Key << YAML::BeginSeq;
     for(auto & it : names) {
         std::pair<float, float> centerOfMassPos = it.first;
-        matrixToMeter(centerOfMassPos, height);
+        matrixPosToMeters(centerOfMassPos, height);
         std::string& name = it.second;
         out << YAML::Value << YAML::BeginMap;
 
@@ -153,7 +157,7 @@ void YamlManager::writeStage() {
     out << YAML::Key << YAML::BeginSeq;
     for(auto & it : conditions) {
         std::pair<float, float> centerOfMassPos = it.first;
-        matrixToMeter(centerOfMassPos, height);
+        matrixPosToMeters(centerOfMassPos, height);
         std::string& name = it.second;
         out << YAML::Value << YAML::BeginMap;
 
@@ -177,6 +181,37 @@ void YamlManager::writeStage() {
     std::ofstream fileOut("file.yaml");
     fileOut << out.c_str();
 }
+
+
+void YamlManager::readStage(std::string& texturesPath) {
+    YAML::Node texturesInfo = YAML::LoadFile(texturesPath);
+    const YAML::Node& node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
+    int width = (int) node[VERTICAL_SIZE].as<float>();
+    for (auto & texture : textures) {
+        int currentID = texture.first;
+        Object* object = texture.second;
+        const YAML::Node& objects = texturesInfo[currentID][OBJECT_POSITION];
+        for (YAML::const_iterator it = objects.begin();
+             it != objects.end(); ++it) {
+            const YAML::Node& node = *it;
+            float x = node[HORIZONTAL_POSITION].as<float>();
+            float y = node[VERTICAL_POSITION].as<float>();
+            std::pair<float, float> centerOfMass = std::make_pair(x,y);
+            std::cerr << "Leo el centro de masa ejes box2d:" << std::endl;
+            std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
+            MetersToMatrixPos(centerOfMass, width);
+            std::cerr << "El centro de masa en ejes SDL:" << std::endl;
+            std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
+            std::pair<int, int> matrixPos =
+                    object->rectangleCenterOfMassToMatrixPos(centerOfMass);
+
+            std::cerr << "Posicion final: " << std::endl;
+            std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
+            tiles[matrixPos] = currentID;
+        }
+    }
+}
+
 
 void YamlManager::getObjects(Window &window, std::string& texturesPath) {
     YAML::Node texturesInfo = YAML::LoadFile(texturesPath);
@@ -365,21 +400,6 @@ void YamlManager::getObjects(Window &window, std::string& texturesPath) {
         DiagonalBlockRightDown* newObject =
                 new DiagonalBlockRightDown(path, window, id, w, h);
         textures[id] = newObject;
-    }
-}
-
-void YamlManager::readStage(std::string& texturesPath) {
-    YAML::Node texturesInfo = YAML::LoadFile(texturesPath);
-    for (auto & texture : textures) {
-        int currentID = texture.first;
-        Object* object = texture.second;
-        const YAML::Node& DiagonalBlocksRD = texturesInfo[currentID];
-        for (YAML::const_iterator it = DiagonalBlocksRD.begin();
-             it != DiagonalBlocksRD.end(); ++it) {
-            
-            
-        }
-
     }
 }
 

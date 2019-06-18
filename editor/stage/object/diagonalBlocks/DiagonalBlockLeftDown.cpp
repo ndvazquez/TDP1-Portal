@@ -10,8 +10,8 @@ DiagonalBlockLeftDown::DiagonalBlockLeftDown(std::string &path, Window &window,
 
 DiagonalBlockLeftDown::~DiagonalBlockLeftDown() = default;
 
-std::pair<float, float> DiagonalBlockLeftDown::centerOfMass(
-                            const std::pair<int, int> &position) {
+std::pair<float, float> DiagonalBlockLeftDown::MatrixPosToCenterOfMass(
+        const std::pair<int, int> &position) {
     float ax = position.first;
     float ay = position.second;
 

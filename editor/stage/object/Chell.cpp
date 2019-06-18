@@ -10,6 +10,6 @@ Chell::Chell(std::string &path, Window &window, int totalFrames, int id, int w, 
 
 Chell::~Chell() = default;
 
-std::pair<float, float> Chell::centerOfMass(const std::pair<int, int> &position) {
+std::pair<float, float> Chell::MatrixPosToCenterOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, CHELL_WIDTH, CHELL_HEIGHT);
 }

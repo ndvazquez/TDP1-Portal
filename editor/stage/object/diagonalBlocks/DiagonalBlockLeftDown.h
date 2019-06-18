@@ -12,7 +12,7 @@ class DiagonalBlockLeftDown : public DiagonalBlockDown {
 public:
     DiagonalBlockLeftDown(std::string &path, Window &window, int id, int w, int h);
     ~DiagonalBlockLeftDown();
-    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
 };
 
 

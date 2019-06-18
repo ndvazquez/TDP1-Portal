@@ -15,7 +15,7 @@ class DiagonalBlockRightUp : public DiagonalBlockUp {
 public:
     DiagonalBlockRightUp(std::string &path, Window &window, int id, int w, int h);
     ~DiagonalBlockRightUp();
-    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
 };
 
 

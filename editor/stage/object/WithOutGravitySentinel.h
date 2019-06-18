@@ -18,7 +18,7 @@ public:
     bool hasGravity() override;
     void addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures, bool needGravitySentinel = false) override;
     void draw(SDL_Rect* rec) override;
-    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
 };
 
 

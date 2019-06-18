@@ -46,7 +46,7 @@ void Receptor::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tile
     Object::removeFrom(x, y, tiles, textures);
 }
 
-std::pair<float, float> Receptor::centerOfMass(const std::pair<int, int> &position) {
+std::pair<float, float> Receptor::MatrixPosToCenterOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, METAL_SIDE, METAL_SIDE);
 }
 

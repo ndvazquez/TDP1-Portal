@@ -43,7 +43,7 @@ void Gate::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::u
     Object::addTo(x, y, tiles, textures);
 }
 
-std::pair<float, float> Gate::centerOfMass(const std::pair<int, int> &position) {
+std::pair<float, float> Gate::MatrixPosToCenterOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, GATE_WIDTH, GATE_HEIGHT);
 }
 

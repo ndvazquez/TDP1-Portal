@@ -14,7 +14,7 @@ public:
     ~Acid();
     void draw(SDL_Rect* rect) override;
 
-    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
 };
 
 

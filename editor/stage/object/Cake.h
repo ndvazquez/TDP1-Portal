@@ -12,7 +12,7 @@ public:
     Cake(std::string &path, Window &window, int totalFrames, int id, int w, int h);
     ~Cake();
 
-    std::pair<float, float> centerOfMass(const std::pair<int, int> &position) override;
+    std::pair<float, float> MatrixPosToCenterOfMass(const std::pair<int, int> &position) override;
 };
 
 

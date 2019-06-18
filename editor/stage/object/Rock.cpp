@@ -12,6 +12,6 @@ Rock::Rock(std::string &path, Window &window, int id, int w, int h) :
 Rock::~Rock() = default;
 
 
-std::pair<float, float> Rock::centerOfMass(const std::pair<int, int> &position) {
+std::pair<float, float> Rock::MatrixPosToCenterOfMass(const std::pair<int, int> &position) {
     return this->rectangleCenterOfMass(position, ROCK_WIDTH, ROCK_HEIGHT);
 }

@@ -67,13 +67,13 @@ enum PortalType {
 // Stage yaml key
 #define STAGE_ATTRIBUTES "Stage"
 #define STAGE_SIZE "dimentions"
+#define OBJECT_POSITION "position"
 #define VERTICAL_SIZE "height"
 #define HORIZONTAL_SIZE "width"
 #define HORIZONTAL_POSITION "x"
 #define VERTICAL_POSITION "y"
 #define SATAGE_OBJECTS_NAMES "Names"
 #define LOGICAL_GATES "Conditions"
-#define OBJECT_POSITION "position"
 #define OBJECT_NAME "name"
 
 //Object names
