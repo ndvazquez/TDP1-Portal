@@ -14,10 +14,10 @@ Editor::Editor(Window& window) : window(window), stage(window, &current, HEIGHT_
 
 Editor::~Editor() {}
 
-void Editor::draw() {
+void Editor::draw(int x, int y) {
     window.clear();
     menu.draw();
-    stage.draw();
+    stage.draw(x, y);
     window.render();
 }
 
@@ -43,6 +43,24 @@ void Editor::handleMouseRightClick(SDL_Event *event) {
     this->stage.handleMouseRightClick(e);
 }
 
+
+
 void Editor::close() {
     stage.close();
+}
+
+void Editor::handleLeft() {
+    stage.handleLeft();
+}
+
+void Editor::handleRight() {
+    stage.handleRight();
+}
+
+void Editor::handleUp() {
+    stage.handleUp();
+}
+
+void Editor::handleDown() {
+    stage.handleDown();
 }

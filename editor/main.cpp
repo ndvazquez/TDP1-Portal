@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
 
     Editor editor(window);
-    editor.draw();
+    editor.draw(0, 0);
 
     bool quit = false;
     SDL_Event e;
@@ -32,23 +32,43 @@ int main(int argc, char* argv[]) {
                     //if (e.button.button = SDL_BUTTON_RIGHT) { // and its a left click
                     //    break;
                     //}
-                     if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
-                        editor.handleMouseButtonDown(&e);
-                     }
-                     if (e.button.clicks == 2 && e.button.button == SDL_BUTTON_LEFT) {
+                     if (e.button.clicks == 2 &&
+                         e.button.button == SDL_BUTTON_LEFT) {
                          editor.handleMouseDoubleClick(&e);
                      }
-                     if (e.button.button == SDL_BUTTON_RIGHT) {
+                     else if (e.button.clicks == 1 &&
+                        e.button.button == SDL_BUTTON_LEFT) {
+                        editor.handleMouseButtonDown(&e);
+                     }
+                     else if (e.button.button == SDL_BUTTON_RIGHT) {
                          editor.handleMouseRightClick(&e);
                      }
                     break;
                  case SDL_MOUSEBUTTONUP:
-                     if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
+                     if (e.button.clicks == 1 &&
+                            e.button.button == SDL_BUTTON_LEFT) {
                          editor.handleMouseButtonUp(&e);
+                     }
+                     break;
+                 case SDL_KEYDOWN:
+                     if (e.key.keysym.sym == SDLK_d && e.key.repeat == 0) {
+                         editor.handleRight();
+                     }
+                     else if (e.key.keysym.sym == SDLK_a &&
+                                e.key.repeat == 0) {
+                         editor.handleLeft();
+                     }
+                     else if (e.key.keysym.sym == SDLK_w &&
+                                e.key.repeat == 0) {
+                         editor.handleUp();
+                     }
+                     if (e.key.keysym.sym == SDLK_s &&
+                                e.key.repeat == 0) {
+                         editor.handleDown();
                      }
              }
          }
-        editor.draw();
+        editor.draw((int) e.motion.x, (int) e.motion.y);
     }
 
     SDL_Delay(500);

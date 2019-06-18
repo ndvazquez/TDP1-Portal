@@ -33,7 +33,7 @@ private:
 public:
     explicit Editor(Window& window);
     ~Editor();
-    void draw();
+    void draw(int x, int y);
     void handleMouseButtonUp(SDL_Event* event);
     void handleMouseButtonDown(SDL_Event* event);
 
@@ -41,6 +41,11 @@ public:
     void handleMouseRightClick(SDL_Event *event);
 
     void close();
+
+    void handleLeft();
+    void handleRight();
+    void handleUp();
+    void handleDown();
 };
 
 
