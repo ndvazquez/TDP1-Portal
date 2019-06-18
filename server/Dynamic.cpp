@@ -80,12 +80,12 @@ bool Dynamic::handleCollisions() {
             if (user_A != NULL) {
                 Entity* entity_A = static_cast<Entity*>(user_A);
                 std::string typeA = entity_A->getType();
-                if (typeA == BUTTON_NAME) resul = true;
+                if (typeA == "EnergyBall" || typeA == "Button") resul = true;
             }
             if (user_B != NULL) {
                 Entity* entity_B = static_cast<Entity*>(user_B);
                 std::string typeB = entity_B->getType();
-                if (typeB == BUTTON_NAME) resul = true;
+                if (typeB == "EnergyBall" || typeB == "Button") resul = true;
             }
             if (user_A != NULL && user_B != NULL) {
                 Entity* entity_A = static_cast<Entity*>(user_A);
