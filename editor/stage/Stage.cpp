@@ -20,8 +20,8 @@
 #define MATRIX_TO_PIXEL_FACTOR 50
 #define X_PIXEL(event) ((event).getX())
 #define Y_PIXEL(event) ((event).getY())
-#define X_PIXEL_TO_MATRIX_POSITION(xPixel) (((xPixel)  - X_START)/MATRIX_TO_PIXEL_FACTOR)
-#define Y_PIXEL_TO_MATRIX_POSITION(yPixel) (((yPixel) - Y_START)/MATRIX_TO_PIXEL_FACTOR)
+#define X_PIXEL_TO_MATRIX_POSITION(xPixel) (((xPixel)  - X_START)/MATRIX_TO_PIXEL_FACTOR) + this->camera.x
+#define Y_PIXEL_TO_MATRIX_POSITION(yPixel) (((yPixel) - Y_START)/MATRIX_TO_PIXEL_FACTOR) + this->camera.y
 
 
 void setSDL_Rect(struct SDL_Rect* rect, int x, int y, int w, int h) {
@@ -39,9 +39,6 @@ Stage::Stage(Window &window, int *current, int yPortion):
     this->camera = {0 ,0, W, H};
 }
 
-void Stage::setSize() {
-    //setSDL_Rect(this->me, X_START, Y_START, W, H);
-}
 
 Stage::~Stage() {
     //delete(this->camera);
@@ -124,7 +121,24 @@ void Stage::handleMouseRightClick(MouseButton &event) {
     }
 }
 
+void Stage::handleLeft() {
+    if(!this->camera.x) return;
+    this->camera.x --;
+}
+
+void Stage::handleRight() {
+    this->camera.x ++;
+}
+
+void Stage::handleUp() {
+    if(!this->camera.y) return;
+    this->camera.y --;
+}
+
+void Stage::handleDown() {
+    this->camera.y ++;
+}
+
 void Stage::close() {
     controller.writeYaml(Y_END);
 }
-

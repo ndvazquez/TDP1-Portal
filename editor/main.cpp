@@ -32,19 +32,39 @@ int main(int argc, char* argv[]) {
                     //if (e.button.button = SDL_BUTTON_RIGHT) { // and its a left click
                     //    break;
                     //}
-                     if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
-                        editor.handleMouseButtonDown(&e);
-                     }
-                     if (e.button.clicks == 2 && e.button.button == SDL_BUTTON_LEFT) {
+                     if (e.button.clicks == 2 &&
+                         e.button.button == SDL_BUTTON_LEFT) {
                          editor.handleMouseDoubleClick(&e);
                      }
-                     if (e.button.button == SDL_BUTTON_RIGHT) {
+                     else if (e.button.clicks == 1 &&
+                        e.button.button == SDL_BUTTON_LEFT) {
+                        editor.handleMouseButtonDown(&e);
+                     }
+                     else if (e.button.button == SDL_BUTTON_RIGHT) {
                          editor.handleMouseRightClick(&e);
                      }
                     break;
                  case SDL_MOUSEBUTTONUP:
-                     if (e.button.clicks == 1 && e.button.button == SDL_BUTTON_LEFT) {
+                     if (e.button.clicks == 1 &&
+                            e.button.button == SDL_BUTTON_LEFT) {
                          editor.handleMouseButtonUp(&e);
+                     }
+                     break;
+                 case SDL_KEYDOWN:
+                     if (e.key.keysym.sym == SDLK_d && e.key.repeat == 0) {
+                         editor.handleRight();
+                     }
+                     else if (e.key.keysym.sym == SDLK_a &&
+                                e.key.repeat == 0) {
+                         editor.handleLeft();
+                     }
+                     else if (e.key.keysym.sym == SDLK_w &&
+                                e.key.repeat == 0) {
+                         editor.handleUp();
+                     }
+                     if (e.key.keysym.sym == SDLK_s &&
+                                e.key.repeat == 0) {
+                         editor.handleDown();
                      }
              }
          }

@@ -45,6 +45,14 @@ public:
     void close();
 
     void pixelToMatrix(MouseButton &event, int *xPixel, int *yPixel, int *x, int *y);
+
+    void handleLeft();
+
+    void handleRight();
+
+    void handleUp();
+
+    void handleDown();
 };
 
 

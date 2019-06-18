@@ -41,6 +41,11 @@ public:
     void handleMouseRightClick(SDL_Event *event);
 
     void close();
+
+    void handleLeft();
+    void handleRight();
+    void handleUp();
+    void handleDown();
 };
 
 
