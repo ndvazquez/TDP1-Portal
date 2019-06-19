@@ -151,10 +151,9 @@ void Chell::moveLeft() {
 }
 
 void Chell::releaseRock() {
-    if (this->rock) {
-        rock->release();
-        rock = nullptr;
-    }
+    if (rock == nullptr) return;
+    rock->release();
+    rock = nullptr;
 }
 
 void Chell::stop() {

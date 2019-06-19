@@ -116,6 +116,10 @@ void EnergyBall::handleCollision(Entity* entity) {
             die();
         }
     }
+    if (type == ROCK_NAME) {
+        dynamic_cast<Rock*>(entity)->die();
+        die();
+    }
 }
 
 void EnergyBall::teleport(Coordinate* target, PortalType type) {

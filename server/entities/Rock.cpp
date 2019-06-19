@@ -13,6 +13,7 @@
 #include "entities/EnergyBar.h"
 #include "entities/BlueShot.h"
 #include "OrangeShot.h"
+#include "EnergyBall.h"
 #include <Box2D/Dynamics/b2World.h>
 
 Rock::Rock(b2Body* body):
@@ -57,6 +58,11 @@ void Rock::handleCollision(Entity *entity) {
         float y_button = button->getVerticalPosition();
         float y_rock = getVerticalPosition();
         if (y_rock > y_button) button->activate();
+    }
+
+    if (type == EB_NAME) {
+        die();
+        dynamic_cast<EnergyBall*>(entity)->die();
     }
 }
 
