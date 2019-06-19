@@ -9,6 +9,7 @@
 #include <math.h>
 #include <string>
 #include <Box2D/Dynamics/b2World.h>
+#include <iostream>
 
 Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
         Entity(type, body), dynamic(body) {
@@ -17,6 +18,11 @@ Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
     this->is_dead = false;
     this->origin = new Coordinate(body->GetPosition().x, body->GetPosition().y);
     this->angle = 0;
+}
+
+Shot::~Shot() {
+    delete origin;
+    delete target;
 }
 
 Chell* Shot::getChell() {

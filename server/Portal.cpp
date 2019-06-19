@@ -68,5 +68,5 @@ void Portal::addTarget(Coordinate* target) {
 }
 
 Portal::~Portal() {
-    if (target != nullptr) delete target;
+    //if (target != nullptr) delete target;
 }

@@ -18,6 +18,7 @@ public:
     Coordinate* getPortal();
     bool isVertical();
     PortalType getPortalType();
+    ~BluePortal();
 };
 
 #endif //PORTAL_BLUEPORTAL_H

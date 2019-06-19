@@ -21,3 +21,7 @@ Coordinate* BluePortal::getPortal() {
 PortalType BluePortal::getPortalType() {
     return type;
 }
+
+BluePortal::~BluePortal() {
+    delete portal;
+}
