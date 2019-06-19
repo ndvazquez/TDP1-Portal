@@ -6,11 +6,11 @@
 #define PORTAL_BUTTONVIEW_H
 
 #include "View.h"
-#include "../common/Sprite.h"
+#include "../../common/Sprite.h"
 #include <unordered_map>
 #include <string>
 #include <yaml-cpp/yaml.h>
-#include "../common/constants.h"
+#include "../../common/constants.h"
 
 #define TEXTURES_BUTTON_KEY "Button"
 #define BUTTON_STATE_ON 0

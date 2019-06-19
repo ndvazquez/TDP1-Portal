@@ -6,11 +6,11 @@
 #define PORTAL_STAGESTATUSRECEIVER_H
 
 
-#include "../common/Thread.h"
-#include "../common/StageStatusQueue.h"
-#include "../common/Socket.h"
-#include "../json/json.hpp"
-#include "../common/constants.h"
+#include "../../common/Thread.h"
+#include "../../common/StageStatusQueue.h"
+#include "../../common/Socket.h"
+#include "../../json/json.hpp"
+#include "../../common/constants.h"
 
 class StageStatusReceiver : public Thread {
     Socket& clientSocket;

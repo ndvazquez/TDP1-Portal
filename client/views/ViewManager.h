@@ -9,9 +9,9 @@
 #include <string>
 #include <vector>
 #include <yaml-cpp/yaml.h>
-#include "../json/json.hpp"
+#include "../../json/json.hpp"
 #include "View.h"
-#include "SoundCodeQueue.h"
+#include "audio/SoundCodeQueue.h"
 #include "Camera.h"
 
 class ViewManager {

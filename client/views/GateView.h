@@ -6,10 +6,10 @@
 #define PORTAL_GATEVIEW_H
 
 #include <yaml-cpp/yaml.h>
-#include "../common/Window.h"
-#include "../common/Sprite.h"
+#include "../../common/Window.h"
+#include "../../common/Sprite.h"
 #include "View.h"
-#include "../common/constants.h"
+#include "../../common/constants.h"
 
 #define TEXTURES_GATE_KEY "Gate"
 #define GATE_CLOSED 1

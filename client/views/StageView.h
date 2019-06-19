@@ -8,11 +8,11 @@
 #include <exception>
 #include <map>
 #include <yaml-cpp/yaml.h>
-#include "../common/Window.h"
-#include "../common/Sprite.h"
+#include "../../common/Window.h"
+#include "../../common/Sprite.h"
 #include <utility>
 #include <string>
-#include "../json/json.hpp"
+#include "../../json/json.hpp"
 
 #define TEXTURES_STATICOBJETS_KEY "StaticObjects"
 #define EXTRA_TILES 2

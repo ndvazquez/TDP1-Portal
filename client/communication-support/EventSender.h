@@ -6,12 +6,12 @@
 #define PORTAL_EVENTSENDER_H
 
 
-#include "../common/Thread.h"
-#include "../common/Socket.h"
-#include "../json/json.hpp"
-#include "../common/constants.h"
-#include "../common/UserEventQueue.h"
-#include "../common/UserEvent.h"
+#include "../../common/Thread.h"
+#include "../../common/Socket.h"
+#include "../../json/json.hpp"
+#include "../../common/constants.h"
+#include "../../common/UserEventQueue.h"
+#include "../../common/UserEvent.h"
 
 class EventSender : public Thread{
     Socket& clientSocket;

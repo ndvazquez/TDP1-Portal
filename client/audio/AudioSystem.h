@@ -8,7 +8,7 @@
 #include <SDL_mixer.h>
 #include <unordered_map>
 #include "SoundCodeQueue.h"
-#include "../common/constants.h"
+#include "../../common/constants.h"
 
 #define MUSIC_VOLUME 30
 #define SOUNDS_RESOURCES_FILE "config/sounds.yaml"

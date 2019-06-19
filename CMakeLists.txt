@@ -23,30 +23,30 @@ set(CLIENT_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        client/StageView.cpp
-        client/ChellView.cpp
-        client/EnergyBallView.cpp
-        client/AcidView.cpp
-        client/BulletView.cpp
-        client/View.cpp
-        client/RockView.cpp
-        client/ButtonView.cpp
-        client/BluePortalView.cpp
-        client/Camera.cpp
-        client/AudioSystem.cpp
-        client/SoundCodeQueue.cpp
-        client/ViewFactory.cpp
-        client/ViewManager.cpp
-        client/CakeView.cpp
+        client/views/StageView.cpp
+        client/views/ChellView.cpp
+        client/views/EnergyBallView.cpp
+        client/views/AcidView.cpp
+        client/views/BulletView.cpp
+        client/views/View.cpp
+        client/views/RockView.cpp
+        client/views/ButtonView.cpp
+        client/views/BluePortalView.cpp
+        client/views/Camera.cpp
+        client/audio/AudioSystem.cpp
+        client/audio/SoundCodeQueue.cpp
+        client/views/ViewFactory.cpp
+        client/views/ViewManager.cpp
+        client/views/CakeView.cpp
         common/UserEvent.cpp
-        client/UserEventHandler.cpp
+        client/communication-support/UserEventHandler.cpp
         common/UserEventQueue.cpp
-        client/OrangePortalView.cpp
-        client/GateView.cpp
+        client/views/OrangePortalView.cpp
+        client/views/GateView.cpp
         common/Thread.cpp
         common/Socket.cpp
-        client/EventSender.cpp
-        client/StageStatusReceiver.cpp
+        client/communication-support/EventSender.cpp
+        client/communication-support/StageStatusReceiver.cpp
         common/StageStatusQueue.cpp)
 
 #EDITOR CONFIG

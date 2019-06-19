@@ -5,8 +5,8 @@
 #include "ChellView.h"
 #include <SDL.h>
 #include <vector>
-#include "../common/AnimatedSprite.h"
-#include "SoundCodeQueue.h"
+#include "../../common/AnimatedSprite.h"
+#include "audio/SoundCodeQueue.h"
 #include <string>
 #include <yaml-cpp/yaml.h>
 

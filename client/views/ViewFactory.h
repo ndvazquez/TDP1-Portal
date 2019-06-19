@@ -6,11 +6,11 @@
 #define PORTAL_VIEWFACTORY_H
 
 
-#include "../common/Window.h"
+#include "../../common/Window.h"
 #include <yaml-cpp/yaml.h>
-#include "SoundCodeQueue.h"
+#include "audio/SoundCodeQueue.h"
 #include "View.h"
-#include "../common/constants.h"
+#include "../../common/constants.h"
 
 #define TEXTURES_DATA_PATH "config/textures.yaml"
 

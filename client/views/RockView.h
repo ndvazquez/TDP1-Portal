@@ -7,8 +7,8 @@
 
 #include <yaml-cpp/yaml.h>
 #include "View.h"
-#include "../common/Sprite.h"
-#include "../common/constants.h"
+#include "../../common/Sprite.h"
+#include "../../common/constants.h"
 //TODO: Hacer que esto sea un random choice entre los tres sprites de Rock.
 #define TEXTURES_ROCK_KEY "Rock"
 

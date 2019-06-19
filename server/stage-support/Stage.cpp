@@ -317,10 +317,6 @@ void Stage::step() {
     world->step();
 }
 
-Cake* Stage::getCake() {
-    return cake;
-}
-
 RockBlock* Stage::getBrickBlock(Coordinate* coordinate) {
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {
         if (*i->first == *coordinate) return i->second;
