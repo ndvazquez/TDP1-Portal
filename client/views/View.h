@@ -6,7 +6,7 @@
 #define PORTAL_VIEW_H
 
 
-#include "../common/Window.h"
+#include "../../common/Window.h"
 
 class View {
 protected:

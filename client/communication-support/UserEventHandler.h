@@ -5,11 +5,11 @@
 #ifndef PORTAL_USEREVENTHANDLER_H
 #define PORTAL_USEREVENTHANDLER_H
 
-#include "../common/constants.h"
-#include "Camera.h"
-#include "../common/UserEventQueue.h"
-#include "SoundCodeQueue.h"
-#include "../common/Thread.h"
+#include "../../common/constants.h"
+#include "views/Camera.h"
+#include "../../common/UserEventQueue.h"
+#include "audio/SoundCodeQueue.h"
+#include "../../common/Thread.h"
 
 
 class UserEventHandler : public Thread {

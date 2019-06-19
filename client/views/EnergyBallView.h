@@ -5,12 +5,12 @@
 #ifndef PORTAL_ENERGYBALLVIEW_H
 #define PORTAL_ENERGYBALLVIEW_H
 
-#include "../common/AnimatedSprite.h"
-#include "../common/Window.h"
+#include "../../common/AnimatedSprite.h"
+#include "../../common/Window.h"
 #include <string>
 #include <yaml-cpp/yaml.h>
 #include "View.h"
-#include "../common/constants.h"
+#include "../../common/constants.h"
 
 #define TEXTURES_EB_KEY "EnergyBall"
 

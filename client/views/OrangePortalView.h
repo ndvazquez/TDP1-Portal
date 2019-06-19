@@ -6,10 +6,10 @@
 #define PORTAL_ORANGEPORTALVIEW_H
 
 #include <yaml-cpp/yaml.h>
-#include "../common/Window.h"
-#include "../common/AnimatedSprite.h"
+#include "../../common/Window.h"
+#include "../../common/AnimatedSprite.h"
 #include "View.h"
-#include "../common/constants.h"
+#include "../../common/constants.h"
 #include <string>
 
 #define TEXTURES_ORANGE_PORTAL_KEY "OrangePortal"

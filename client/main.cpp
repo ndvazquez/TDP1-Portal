@@ -3,7 +3,7 @@
 //
 #include "../common/Window.h"
 #include "../common/Sprite.h"
-#include "StageView.h"
+#include "views/StageView.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
@@ -11,17 +11,17 @@
 #include "../common/SDLSession.h"
 #include <yaml-cpp/yaml.h>
 #include "../common/constants.h"
-#include "Camera.h"
-#include "AudioSystem.h"
+#include "views/Camera.h"
+#include "audio/AudioSystem.h"
 #include "../json/json.hpp"
-#include "ViewManager.h"
+#include "views/ViewManager.h"
 #include "../common/UserEvent.h"
 #include "../common/UserEventQueue.h"
-#include "UserEventHandler.h"
+#include "communication-support/UserEventHandler.h"
 #include "../common/Socket.h"
-#include "EventSender.h"
+#include "communication-support/EventSender.h"
 #include "../common/StageStatusQueue.h"
-#include "StageStatusReceiver.h"
+#include "communication-support/StageStatusReceiver.h"
 
 // It's recommended to use multiples of the MTP_FACTOR to get a smooth
 // experience.

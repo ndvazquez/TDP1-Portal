@@ -3,8 +3,8 @@
 //
 
 #include "EnergyBallView.h"
-#include "../common/AnimatedSprite.h"
-#include "../common/Window.h"
+#include "../../common/AnimatedSprite.h"
+#include "../../common/Window.h"
 #include <string>
 #include <yaml-cpp/yaml.h>
 #include "View.h"

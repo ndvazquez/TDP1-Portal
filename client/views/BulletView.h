@@ -7,10 +7,10 @@
 
 
 #include <yaml-cpp/yaml.h>
-#include "../common/Window.h"
-#include "../common/AnimatedSprite.h"
+#include "../../common/Window.h"
+#include "../../common/AnimatedSprite.h"
 #include "View.h"
-#include "../common/constants.h"
+#include "../../common/constants.h"
 
 #define TEXTURES_BULLET_KEY "Bullet"
 #define FRAMERATE_ADJUSTMENT 2
