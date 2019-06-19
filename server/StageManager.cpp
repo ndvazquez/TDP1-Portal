@@ -22,7 +22,7 @@ StageManager::~StageManager() {
         delete it->second;
     }
     for (auto it = clientQueues.begin(); it != clientQueues.end(); ++it) {
-        //delete it->second;
+        delete it->second;
     }
 }
 
@@ -96,7 +96,7 @@ void StageManager::run() {
 // This should use a factory but a switch will do for now.
 void StageManager::handleEvent(UserEvent &userEvent,
         Chell *chell) {
-    if (chell == nullptr || chell->hasWon()) return;
+    if (chell == nullptr || chell->hasWon() || chell->isDead()) return;
     std::string chell_id = userEvent.getUserId();
     int eventTypeCode = userEvent.getEventType();
     switch (eventTypeCode) {

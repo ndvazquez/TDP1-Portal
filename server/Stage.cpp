@@ -85,7 +85,6 @@ void Stage::addEnergyBall(std::string identifier, std::string id, float side,
     if (identifier == EB_HORIZONTAL_NAME) {
         EnergyBall* energy_ball = new EnergyBall(energy_ball_body, false);
         energy_balls.insert({id, energy_ball});
-
     } else if (identifier == EB_VERTICAL_NAME) {
         EnergyBall* energy_ball = new EnergyBall(energy_ball_body, true);
         energy_balls.insert({id, energy_ball});
@@ -194,46 +193,52 @@ void Stage::managePortals(Chell* chell, std::string id) {
 }
 
 void Stage::step() {
-    if (end_of_game) return;
     end_of_game = true;
-    for (auto i = chells.begin(); i != chells.end(); i++) {
+    
+    auto i = chells.begin();
+    while (i != chells.end()) {
         if (i->second->isDead()) {
             if (world->hasObject(i->second->getBody())) {
                 world->destroyBody(i->second->getBody());
+                delete i->second;
             }
+            i = chells.erase(i);
+        } else {
+            end_of_game &= i->second->hasWon();
+            managePortals(i->second, i->first);
+            i->second->update();
+            i++;
         }
-        end_of_game &= i->second->hasWon();
-        managePortals(i->second, i->first);
-        i->second->update();
     }
-    if (end_of_game) {
-        for (auto i = chells.begin(); i != chells.end(); i++) {
-            if (world->hasObject(i->second->getBody())) {
-                world->destroyBody(i->second->getBody());
-            }
-        }
-        return;
-    }
+
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
         if (i->second->isDead()) {
-            world->destroyBody(i->second->getBody());
+            if (world->hasObject(i->second->getBody())) {
+                world->destroyBody(i->second->getBody());
+            }
             {
                 blue_shots.erase(i->first);
+                delete i->second;
                 break;
             }
+        } else {
+            i->second->shoot();
         }
-        i->second->shoot();
     }
 
     for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
         if (i->second->isDead()) {
-            world->destroyBody(i->second->getBody());
+            if (world->hasObject(i->second->getBody())) {
+                world->destroyBody(i->second->getBody());
+            }
             {
                 orange_shots.erase(i->first);
+                delete i->second;
                 break;
             }
+        } else {
+            i->second->shoot();
         }
-        i->second->shoot();
     }
 
     for (auto i = energy_transmitters_horizontals.begin();
@@ -268,14 +273,17 @@ void Stage::step() {
 
     for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
         if (i->second->isDead()) {
-            world->destroyBody(i->second->getBody());
+            if (world->hasObject(i->second->getBody())) {
+                world->destroyBody(i->second->getBody());
+            }
             {
                 energy_balls.erase(i->first);
                 break;
             }
+        } else {
+            i->second->fly();
+            i->second->update();
         }
-        i->second->fly();
-        i->second->update();
     }
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
@@ -558,6 +566,7 @@ nlohmann::json Stage::getCurrentState() {
 
 
 Stage::~Stage() {
+    std::cout << "Se llamo al destructor" << std::endl;
     delete cake;
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
@@ -614,10 +623,14 @@ Stage::~Stage() {
         delete i->second;
     }
 
-    //just in case an energy balls isn't deleted before the end of the game
+    std::cout << energy_balls.size() << std::endl;
+
     for (auto i = energy_balls.begin() ; i != energy_balls.end() ; i++) {
+        std::cout << "se borro una energyball" << std::endl;
         delete i->second;
     }
+
+    std::cout << energy_balls.size() << std::endl;
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
         delete i->second;
