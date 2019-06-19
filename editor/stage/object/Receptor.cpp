@@ -46,8 +46,8 @@ void Receptor::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tile
     Object::removeFrom(x, y, tiles, textures);
 }
 
-std::pair<float, float> Receptor::centerOfMass(const std::pair<int, int> &position) {
-    return this->rectangleCenterOfMass(position, METAL_SIDE, METAL_SIDE);
+std::pair<float, float> Receptor::matrixPosToCenterOfMass(const std::pair<int, int> &position) {
+    return this->rectangleMatrixPosToCenterOfMass(position, METAL_SIDE, METAL_SIDE);
 }
 
 std::map<std::pair<int, int>, std::string> &Receptor::getNames() {
@@ -59,4 +59,8 @@ Receptor::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::un
                 bool needGravitySentinel) {
     names[std::make_pair(x, y)] = "";
     Object::addTo(x, y, tiles, textures);
+}
+
+std::pair<int, int> Receptor::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
+    return this->rectangleCenterOfMassToMatrixPos(pair, METAL_SIDE, METAL_SIDE);
 }

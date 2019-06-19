@@ -37,8 +37,8 @@ void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
 
 Button::~Button() = default;
 
-std::pair<float, float> Button::centerOfMass(const std::pair<int, int> &position) {
-    return this->rectangleCenterOfMass(position, BUTTON_WIDTH, BUTTON_HEIGHT);
+std::pair<float, float> Button::matrixPosToCenterOfMass(const std::pair<int, int> &position) {
+    return this->rectangleMatrixPosToCenterOfMass(position, BUTTON_WIDTH, BUTTON_HEIGHT);
 }
 
 std::map<std::pair<int, int>, std::string> &Button::getNames() {
@@ -49,4 +49,8 @@ void Button::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std:
                  bool needGravitySentinel) {
     names[std::make_pair(x, y)] = "";
     Object::addTo(x, y, tiles, textures);
+}
+
+std::pair<int, int> Button::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
+    return this->rectangleCenterOfMassToMatrixPos(pair, BUTTON_WIDTH, BUTTON_HEIGHT);
 }

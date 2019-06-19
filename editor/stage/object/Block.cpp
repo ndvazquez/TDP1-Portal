@@ -34,8 +34,12 @@ void Block::removeFrom(int x, int y, std::map<std::pair<int, int>, std::string> 
     Object::removeFrom(x, y, tiles, textures);
 }
 */
-std::pair<float, float> Block::centerOfMass(const std::pair<int, int> &position) {
-    return this->rectangleCenterOfMass(position, METAL_SIDE, METAL_SIDE);
+std::pair<float, float> Block::matrixPosToCenterOfMass(const std::pair<int, int> &position) {
+    return this->rectangleMatrixPosToCenterOfMass(position, METAL_SIDE, METAL_SIDE);
+}
+
+std::pair<int, int> Block::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
+    return this->rectangleCenterOfMassToMatrixPos(pair, METAL_SIDE, METAL_SIDE);
 }
 
 Block::~Block() = default;

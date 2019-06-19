@@ -3,6 +3,7 @@
 //
 
 #include "Menu.h"
+#include "../common/constants.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
@@ -36,10 +37,10 @@ void Menu::set() {
     YAML::const_iterator it = staticObjects.begin();
     for (; it != staticObjects.end(); ++it) {
         const YAML::Node& node = *it;
-        int name = node["id"].as<int>();
-        std::string path = node["path"].as<std::string>();
-        int x = node["w"].as<int>();
-        int y = node["h"].as<int>();
+        int name = node[OBJECT_ID].as<int>();
+        std::string path = node[IMAGE_PATH].as<std::string>();
+        int x = node[OBJECT_WIDTH].as<int>();
+        int y = node[OBJECT_HEIGHT].as<int>();
         struct SDL_Rect* rect = createSDL_Rect(0,0, x, y);
         MenuButton* mb = new MenuButton(rect, name, path);
         this->options.push_back(mb);
@@ -82,11 +83,13 @@ void Menu::draw() {
 
 
 Menu::~Menu() {
-    delete(this->me);
     auto it = this->options.begin();
     while (it != this->options.end()) {
-        delete(*it);
+        auto act = it;
+        it++;
+        delete(*act);
     }
+    delete(this->me);
 }
 
 void Menu::handleMouseButtonDown(MouseButton& event) {

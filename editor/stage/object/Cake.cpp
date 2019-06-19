@@ -10,6 +10,10 @@ Cake::Cake(std::string &path, Window &window, int totalFrames, int id, int w, in
 
 Cake::~Cake() = default;
 
-std::pair<float, float> Cake::centerOfMass(const std::pair<int, int> &position) {
-    return this->rectangleCenterOfMass(position, CAKE_WIDTH, CAKE_HEIGHT);
+std::pair<float, float> Cake::matrixPosToCenterOfMass(const std::pair<int, int> &position) {
+    return this->rectangleMatrixPosToCenterOfMass(position, CAKE_WIDTH, CAKE_HEIGHT);
+}
+
+std::pair<int, int> Cake::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
+    return this->rectangleCenterOfMassToMatrixPos(pair, CAKE_WIDTH, CAKE_HEIGHT);
 }

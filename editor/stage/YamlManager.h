@@ -24,9 +24,13 @@ public:
 
     void writeStage();
 
-    void getObjects(Window &window, YAML::Node &texturesInfo);
+    void getObjects(Window &window, std::string &texturesPath);
 
     void getWidthAndHeightInMeters(int *width, int *eight);
+
+    void readStage(std::string &texturesPath);
+
+    void MetersToMatrixPos(std::pair<float, float> &position, int width);
 };
 
 

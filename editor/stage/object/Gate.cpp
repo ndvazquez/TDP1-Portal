@@ -43,10 +43,14 @@ void Gate::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::u
     Object::addTo(x, y, tiles, textures);
 }
 
-std::pair<float, float> Gate::centerOfMass(const std::pair<int, int> &position) {
-    return this->rectangleCenterOfMass(position, GATE_WIDTH, GATE_HEIGHT);
+std::pair<float, float> Gate::matrixPosToCenterOfMass(const std::pair<int, int> &position) {
+    return this->rectangleMatrixPosToCenterOfMass(position, GATE_WIDTH, GATE_HEIGHT);
 }
 
 std::map<std::pair<int, int>, std::string> &Gate::getNames() {
     return names;
+}
+
+std::pair<int, int> Gate::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
+    return this->rectangleCenterOfMassToMatrixPos(pair, GATE_WIDTH, GATE_HEIGHT);
 }

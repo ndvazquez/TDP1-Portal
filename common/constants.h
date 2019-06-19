@@ -64,6 +64,18 @@ enum PortalType {
     INVALID
 };
 
+// Stage yaml key
+#define STAGE_ATTRIBUTES "Stage"
+#define STAGE_SIZE "dimentions"
+#define OBJECT_POSITION "position"
+#define VERTICAL_SIZE "height"
+#define HORIZONTAL_SIZE "width"
+#define HORIZONTAL_POSITION "x"
+#define VERTICAL_POSITION "y"
+#define SATAGE_OBJECTS_NAMES "Names"
+#define LOGICAL_GATES "Conditions"
+#define OBJECT_NAME "name"
+
 //Object names
 #define METAL_BLOCK_NAME "MetalBlock"
 #define DIAGONAL_METAL_BLOCK_NAME "DiagonalMetalBlock"
@@ -159,6 +171,13 @@ enum PortalType {
 #define REQUEST_LEN_SIZE 4
 #define PLAYER_ID_PREFIX "Chell"
 #endif //PORTAL_CONSTANTS_H
+
+
+// Editor metadata yaml keys
+#define IMAGE_PATH "path"
+#define OBJECT_ID "id"
+#define OBJECT_WIDTH "w"
+#define OBJECT_HEIGHT "h"
 
 // This should be put in a YAML config file.
 #define MTP_FACTOR 70

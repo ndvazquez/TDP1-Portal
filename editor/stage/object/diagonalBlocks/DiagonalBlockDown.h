@@ -10,8 +10,11 @@
 
 class DiagonalBlockDown : public StaticObject{
 public:
-    DiagonalBlockDown(std::string &path, Window &window, int id, int w, int h);
+    DiagonalBlockDown(std::string &path,
+            Window &window, int id, int w, int h);
+
     ~DiagonalBlockDown();
+
     bool hasGravity() override;
 };
 
