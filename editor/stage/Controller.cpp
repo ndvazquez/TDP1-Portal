@@ -107,7 +107,7 @@ void Controller::addCondition(int x, int y) {
 }
 
 
-void Controller::writeYaml(int lenPixelsInY) {
+void Controller::writeYaml() {
     try {
         std::cerr << "Ingrese el nombre de un archivo yaml del cual leer el escenario" << std::endl;
         std::string s;

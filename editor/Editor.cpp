@@ -45,8 +45,8 @@ void Editor::handleMouseRightClick(SDL_Event *event) {
 
 
 
-void Editor::close() {
-    stage.close();
+void Editor::save() {
+    stage.save();
 }
 
 void Editor::handleLeft() {

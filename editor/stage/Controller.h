@@ -46,7 +46,7 @@ public:
 
     void addCondition(int x, int y);
 
-    void writeYaml(int i);
+    void writeYaml();
 
     void drawCurrent(int id, int x, int y);
 };

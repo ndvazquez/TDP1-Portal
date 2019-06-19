@@ -25,7 +25,6 @@ int main(int argc, char* argv[]) {
 
              switch (e.type) {
                  case SDL_QUIT:
-                     editor.close();
                      quit = true;
                      break;
                  case SDL_MOUSEBUTTONDOWN: // if the event is mouse click
@@ -65,6 +64,10 @@ int main(int argc, char* argv[]) {
                      if (e.key.keysym.sym == SDLK_s &&
                                 e.key.repeat == 0) {
                          editor.handleDown();
+                     }
+                     else if (e.key.keysym.sym == SDLK_q &&
+                             e.key.repeat == 0) {
+                         editor.save();
                      }
              }
          }
