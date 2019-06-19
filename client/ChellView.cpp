@@ -25,8 +25,12 @@ ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         std::string name = node["name"].as<std::string>();
         std::string path = node["path"].as<std::string>();
         int frames = node["frames"].as<int>();
+        float width = node["width"].as<float>();
+        float height = node["height"].as<float>();
         AnimatedSprite* newSprite = new AnimatedSprite(path, window, frames);
         // This is wrong, we should use a set Width and Height.
+        statesWidth.push_back(width);
+        statesHeight.push_back(height);
         animations.push_back(newSprite);
         if (name == "Death") {
             deathCounterToStopDrawing = frames * DEATH_COUNTER_MULTIPLIER;
@@ -67,7 +71,14 @@ void ChellView::playAnimation(const SDL_Rect& camera) {
     if (currentState == DEAD){
         deathCounterToStopDrawing -= 1;
     }
-    animation->draw(viewPosX - camera.x, viewPosY - camera.y, flip);
+
+    int rectWidth = statesWidth[animationIndex] * mtpFactor;
+    int rectHeight = statesHeight[animationIndex] * mtpFactor;
+    SDL_Rect destRect = {viewPosX - camera.x,
+                         viewPosY - camera.y,
+                         rectWidth,
+                         rectHeight};
+    animation->draw(&destRect, flip);
     animation->updateFrameStep();
 }
 

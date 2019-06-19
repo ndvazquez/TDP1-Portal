@@ -24,7 +24,11 @@ EnergyBallView::~EnergyBallView() {
 
 void EnergyBallView::playAnimation(const SDL_Rect& camera) {
     if (!checkCollisionWithCamera(camera)) return;
-    animation->draw(viewPosX - camera.x, viewPosY - camera.y);
+    SDL_Rect destRect = {viewPosX - camera.x,
+                         viewPosY - camera.y,
+                         int(viewWidthInMeters * mtpFactor),
+                         int(viewHeightInMeters * mtpFactor)};
+    animation->draw(&destRect);
     animation->updateFrameStep();
 }
 

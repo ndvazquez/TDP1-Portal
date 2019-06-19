@@ -36,7 +36,7 @@ void ButtonView::playAnimation(const SDL_Rect &camera) {
     // We'll resize the button sprite to make it fit over two blocks.
     SDL_Rect destRect = {viewPosX - camera.x,
                          viewPosY - camera.y,
-                         int(mtpFactor * BUTTON_WIDTH),
-                         int(mtpFactor * BUTTON_HEIGHT)};
+                         int(viewWidthInMeters * mtpFactor),
+                         int(viewHeightInMeters * mtpFactor)};;
     sprite->draw(&destRect);
 }

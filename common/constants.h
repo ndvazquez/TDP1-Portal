@@ -159,3 +159,6 @@ enum PortalType {
 #define REQUEST_LEN_SIZE 4
 #define PLAYER_ID_PREFIX "Chell"
 #endif //PORTAL_CONSTANTS_H
+
+// This should be put in a YAML config file.
+#define MTP_FACTOR 70
