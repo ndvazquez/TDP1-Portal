@@ -15,7 +15,6 @@ void PortalManager::addPortal(std::string id, float v_side, float h_side,
     float y_pos = origin->getY();
 
     b2Body* portal_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
-
     Portal* portal = new Portal(portal_body, target, orientation, type);
     portals.insert({id, portal});
 }

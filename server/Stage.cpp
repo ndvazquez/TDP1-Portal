@@ -627,14 +627,9 @@ Stage::~Stage() {
         delete i->second;
     }
 
-    std::cout << energy_balls.size() << std::endl;
-
     for (auto i = energy_balls.begin() ; i != energy_balls.end() ; i++) {
-        std::cout << "se borro una energyball" << std::endl;
         delete i->second;
     }
-
-    std::cout << energy_balls.size() << std::endl;
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
         delete i->second;

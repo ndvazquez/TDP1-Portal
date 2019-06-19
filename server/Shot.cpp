@@ -22,6 +22,7 @@ Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
 
 Shot::~Shot() {
     delete origin;
+    delete target;
 }
 
 Chell* Shot::getChell() {

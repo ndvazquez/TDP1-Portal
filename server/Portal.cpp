@@ -13,7 +13,11 @@
 Portal::Portal(b2Body* body, Coordinate* target,
         PortalOrientation orientation, PortalType type):
     Entity(PORTAL_NAME, body) {
-    this->target = target;
+    if (target != nullptr) {
+        this->target = new Coordinate(target->getX(), target->getY());
+    } else {
+        this->target = nullptr;
+    }
     this->body->SetUserData(this);
     this->orientation = orientation;
     this->portal_type_target = type;
@@ -64,12 +68,11 @@ PortalOrientation Portal::getOrientation() {
     return orientation;
 }
 
-void Portal::addTarget(Coordinate* target) {
-    if (this->target != nullptr) delete this->target;
-    this->target = target;
+void Portal::addTarget(Coordinate* new_target) {
+    delete this->target;
+    this->target = new_target;
 }
 
 Portal::~Portal() {
-    std::cout << "llamo a este bello destructor" << std::endl;
-    if (target != nullptr) delete target;
+    delete target;
 }
