@@ -12,5 +12,4 @@ void Stop::move(float force) {
     stop(force);
 }
 
-Stop::~Stop() {
-}
+Stop::~Stop() = default;

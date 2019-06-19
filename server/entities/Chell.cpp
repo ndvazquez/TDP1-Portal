@@ -214,25 +214,25 @@ void Chell::removePortals() {
     this->orange_portal_to_teleport = nullptr;
 }
 
-void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {
+void Chell::addOrangePortal(PortalHolder* portal, Coordinate* to_teleport) {
     delete orange_portal;
     delete orange_portal_to_teleport;
     orange_portal = portal;
     orange_portal_to_teleport = to_teleport;
 }
 
-void Chell::addBluePortal(BluePortal* portal, Coordinate* to_teleport) {
+void Chell::addBluePortal(PortalHolder* portal, Coordinate* to_teleport) {
    delete blue_portal;
    delete blue_portal_to_teleport;
    blue_portal = portal;
    blue_portal_to_teleport = to_teleport;
 }
 
-BluePortal* Chell::getBluePortal() {
+PortalHolder* Chell::getBluePortal() {
     return blue_portal;
 }
 
-OrangePortal* Chell::getOrangePortal() {
+PortalHolder* Chell::getOrangePortal() {
     return orange_portal;
 }
 

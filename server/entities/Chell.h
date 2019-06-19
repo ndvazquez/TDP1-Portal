@@ -12,9 +12,8 @@
 #include "../../common/constants.h"
 #include "stage-support/Coordinate.h"
 #include "Portal.h"
-#include "portal-support/OrangePortal.h"
-#include "portal-support/BluePortal.h"
 #include <list>
+#include <portal-support/PortalHolder.h>
 
 class Chell: public Entity {
 private:
@@ -24,8 +23,8 @@ private:
     bool dead;
     Rock* rock;
     ChellState actual_state;
-    OrangePortal* orange_portal;
-    BluePortal* blue_portal;
+    PortalHolder* orange_portal;
+    PortalHolder* blue_portal;
     Coordinate* orange_portal_to_teleport;
     Coordinate* blue_portal_to_teleport;
     bool winner;
@@ -84,11 +83,11 @@ public:
 
     /* Saves the orange portal made by Chell and its corresponding
      * location to teleport */
-    void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
+    void addOrangePortal(PortalHolder* orangePortal, Coordinate* to_teleport);
 
     /* Saves the blue portal made by Chell and its corresponding
      * location to teleport */
-    void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);
+    void addBluePortal(PortalHolder* bluePortal, Coordinate* to_teleport);
 
     /* Chell teleports to the location indicated by coordinate */
     void teleport(Coordinate* coordinate, PortalType type);
@@ -100,10 +99,10 @@ public:
     ChellState getState();
 
     /* Returns blue portal made by Chell */
-    BluePortal* getBluePortal();
+    PortalHolder* getBluePortal();
 
     /* Returns orange portal made by Chell */
-    OrangePortal* getOrangePortal();
+    PortalHolder* getOrangePortal();
 
     /* Returns the coordinate of the blue portal */
     Coordinate* getBluePortalToTeleport();

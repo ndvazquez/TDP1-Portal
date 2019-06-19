@@ -159,6 +159,4 @@ bool Dynamic::jump(bool chellFloor) {
     return true;
 }
 
-
-Dynamic::~Dynamic() {
-}
+Dynamic::~Dynamic() = default;

@@ -11,8 +11,8 @@
 class Stop: public Dynamic {
 public:
     explicit Stop(b2Body* body);
-    virtual void move(float force) override;
-    virtual ~Stop();
+    void move(float force) override;
+    ~Stop() override;
 };
 
 #endif //PORTAL_STOP_H

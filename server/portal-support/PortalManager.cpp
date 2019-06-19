@@ -20,8 +20,8 @@ void PortalManager::addPortal(std::string id, float v_side, float h_side,
 }
 
 void PortalManager::managePortals(Chell *chell, std::string id) {
-    BluePortal *blue_portal = chell->getBluePortal();
-    OrangePortal *orange_portal = chell->getOrangePortal();
+    PortalHolder *blue_portal = chell->getBluePortal();
+    PortalHolder *orange_portal = chell->getOrangePortal();
     std::string id_orange = id;
     std::string replaced = "Chell";
     id_orange.replace(0, replaced.length(), "OrangePortal");

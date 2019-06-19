@@ -32,7 +32,7 @@ public:
     /* Adds a target to the portal */
     void addTarget(Coordinate* target);
 
-    /* Adds a type to the portal (horizontal or vertical */
+    /* Adds a type to the portal (right, left, up, down or invalid) */
     void addPortalType(PortalType type);
 
     /* Returns the portal's type */

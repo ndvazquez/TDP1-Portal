@@ -11,8 +11,8 @@
 class MoveLeft: public Dynamic {
 public:
     explicit MoveLeft(b2Body* body);
-    virtual void move(float force) override;
-    virtual ~MoveLeft();
+    void move(float force) override;
+    ~MoveLeft() override;
 };
 
 #endif //PORTAL_MOVELEFT_H

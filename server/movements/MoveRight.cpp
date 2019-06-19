@@ -12,5 +12,4 @@ void MoveRight::move(float force) {
     moveRight(force);
 }
 
-MoveRight::~MoveRight() {
-}
+MoveRight::~MoveRight() = default;

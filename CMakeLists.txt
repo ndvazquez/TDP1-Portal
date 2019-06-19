@@ -132,8 +132,6 @@ set(SERVER_SOURCE_FILES
         server/entities/EnergyTransmitterRight.cpp
         server/entities/Gate.cpp
         server/entities/Cake.cpp
-        server/portal-support/BluePortal.cpp
-        server/portal-support/OrangePortal.cpp
         server/stage-support/StageManager.cpp
         common/Thread.cpp
         common/Socket.cpp
@@ -151,7 +149,8 @@ set(SERVER_SOURCE_FILES
         server/stage-support/PhysicsWorld.cpp
         server/entities/ItemActivable.cpp
         server/portal-support/PortalManager.cpp
-        server/stage-support/YamlParser.cpp)
+        server/stage-support/YamlParser.cpp
+        server/portal-support/PortalHolder.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

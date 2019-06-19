@@ -18,9 +18,13 @@ private:
 public:
     PortalManager(std::unordered_map<std::string, Portal*>& portals,
     PhysicsWorld* world);
+
+    /* Adds a portal to the world */
     void addPortal(std::string id, float v_side, float h_side,
             Coordinate* origin, Coordinate* target,
             PortalOrientation orientation, PortalType type);
+
+    /* Organizate portals in the world */
     void managePortals(Chell* chell, std::string id);
 };
 

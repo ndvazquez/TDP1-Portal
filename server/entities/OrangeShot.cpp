@@ -48,7 +48,7 @@ void OrangeShot::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_left - portal_h_side - ROCK_WIDTH,
                         y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coord, true, LEFT);
+                PortalHolder* orangePortal = new PortalHolder(coord, true, LEFT);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
@@ -56,7 +56,7 @@ void OrangeShot::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_right + portal_h_side + ROCK_WIDTH,
                         y_pos_metal);
-                OrangePortal* orangePortal = new OrangePortal(coord, true, RIGHT);
+                PortalHolder* orangePortal = new PortalHolder(coord, true, RIGHT);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         } else {
@@ -69,7 +69,7 @@ void OrangeShot::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_down - portal_v_side);
-                OrangePortal* oPortal = new OrangePortal(coordinate, false, DOWN);
+                PortalHolder* oPortal = new PortalHolder(coordinate, false, DOWN);
                 chell->addOrangePortal(oPortal, coord_to_teleport);
             } else {
                 Coordinate* coord = new Coordinate(x_pos_metal,
@@ -77,7 +77,7 @@ void OrangeShot::handleCollision(Entity* entity) {
                 Coordinate* coord_to_teleport;
                 coord_to_teleport = new Coordinate(x_pos_metal,
                         y_top + portal_v_side + CHELL_HEIGHT);
-                OrangePortal* orangePortal = new OrangePortal(coord, false, UP);
+                PortalHolder* orangePortal = new PortalHolder(coord, false, UP);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }
         }
