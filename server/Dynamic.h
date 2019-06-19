@@ -30,7 +30,7 @@ public:
     void flyVertical();
     void fly(b2Vec2 velocity);
     bool handleCollisions();
-    void teleport(Coordinate* coordinate, PortalType type);
+    void teleport(Coordinate* coordinate, PortalType type, bool keep_impulse);
 };
 
 #endif //PORTAL_DYNAMIC_H

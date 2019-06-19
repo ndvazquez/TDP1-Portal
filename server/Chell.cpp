@@ -90,7 +90,7 @@ void Chell::handleCollision(Entity* entity) {
 }
 
 void Chell::teleport(Coordinate* coordinate, PortalType type) {
-    this->dynamic.teleport(coordinate, type);
+    this->dynamic.teleport(coordinate, type, false);
 }
 
 void Chell::die() {
@@ -205,24 +205,28 @@ ChellState Chell::getState() {
 }
 
 void Chell::removePortals() {
-    if (this->blue_portal) delete blue_portal;
-    if (this->orange_portal) delete orange_portal;
+    delete blue_portal;
+    delete blue_portal_to_teleport;
+    delete orange_portal;
+    delete orange_portal_to_teleport;
     this->blue_portal = nullptr;
+    this->blue_portal_to_teleport = nullptr;
     this->orange_portal = nullptr;
+    this->orange_portal_to_teleport = nullptr;
 }
 
 void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {
-    if (orange_portal != nullptr) delete orange_portal;
-    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
+    delete orange_portal;
+    delete orange_portal_to_teleport;
     orange_portal = portal;
     orange_portal_to_teleport = to_teleport;
 }
 
 void Chell::addBluePortal(BluePortal* portal, Coordinate* to_teleport) {
-    if (blue_portal != nullptr) delete blue_portal;
-    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
-    blue_portal = portal;
-    blue_portal_to_teleport = to_teleport;
+   delete blue_portal;
+   delete blue_portal_to_teleport;
+   blue_portal = portal;
+   blue_portal_to_teleport = to_teleport;
 }
 
 BluePortal* Chell::getBluePortal() {
@@ -243,8 +247,8 @@ Coordinate* Chell::getOrangePortalToTeleport() {
 
 Chell::~Chell() {
     destroyActualMovement();
-    if (orange_portal != nullptr) delete orange_portal;
-    if (blue_portal != nullptr) delete blue_portal;
-    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
-    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
+    delete orange_portal;
+    delete blue_portal;
+    delete orange_portal_to_teleport;
+    delete blue_portal_to_teleport;
 }

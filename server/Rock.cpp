@@ -119,7 +119,7 @@ void Rock::downloadToEarth() {
 }
 
 void Rock::teleport(Coordinate* target, PortalType type) {
-    this->dynamic.teleport(target, type);
+    this->dynamic.teleport(target, type, false);
 }
 
 void Rock::die() {

@@ -119,7 +119,7 @@ void EnergyBall::handleCollision(Entity* entity) {
 }
 
 void EnergyBall::teleport(Coordinate* target, PortalType type) {
-    this->dynamic.teleport(target, type);
+    this->dynamic.teleport(target, type, true);
 }
 
 void EnergyBall::update() {

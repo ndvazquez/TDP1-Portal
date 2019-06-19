@@ -18,7 +18,7 @@ Dynamic::Dynamic(b2Body* body):
 void Dynamic::move(float force) {
 }
 
-void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
+void Dynamic::teleport(Coordinate* coordinate, PortalType type, bool keep_impulse) {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
@@ -29,6 +29,8 @@ void Dynamic::teleport(Coordinate* coordinate, PortalType type) {
     float y = coordinate->getY();
 
     body->SetTransform(b2Vec2(x, y), 0);
+
+    if (keep_impulse) return;
 
     float gravity_force = -body->GetMass() * gameConfiguration.gravity;
     float net_force = gameConfiguration.elevationForce;
