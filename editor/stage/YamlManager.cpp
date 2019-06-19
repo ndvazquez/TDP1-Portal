@@ -184,65 +184,71 @@ void YamlManager::writeStage(std::string& stagePath) {
 
 
 void YamlManager::readStage(std::string& stagePath) {
-    std::map<std::pair<int, int>, Object*> centerOfMassPosition;
-    YAML::Node texturesInfo = YAML::LoadFile(stagePath);
-    const YAML::Node& node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
-    int width = (int) node[VERTICAL_SIZE].as<float>();
-    for (auto & texture : textures) {
-        int currentID = texture.first;
-        Object* object = texture.second;
-        const YAML::Node& objects = texturesInfo[currentID][OBJECT_POSITION];
-        for (YAML::const_iterator it = objects.begin();
-             it != objects.end(); ++it) {
-            const YAML::Node& node = *it;
-            float x = node[HORIZONTAL_POSITION].as<float>();
-            float y = node[VERTICAL_POSITION].as<float>();
-            std::pair<float, float> centerOfMass = std::make_pair(x,y);
-            centerOfMassPosition[centerOfMass] = object;
-            MetersToMatrixPos(centerOfMass, width);
-            std::pair<int, int> matrixPos =
-                    object->centerOfMassToMatrixPos(centerOfMass);
+    try {
+        std::map<std::pair<int, int>, Object *> centerOfMassPosition;
+        YAML::Node texturesInfo = YAML::LoadFile(stagePath);
+        const YAML::Node &node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
+        int width = (int) node[VERTICAL_SIZE].as<float>();
+        for (auto &texture : textures) {
+            int currentID = texture.first;
+            Object *object = texture.second;
+            const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
+            for (YAML::const_iterator it = objects.begin();
+                 it != objects.end(); ++it) {
+                const YAML::Node &node = *it;
+                float x = node[HORIZONTAL_POSITION].as<float>();
+                float y = node[VERTICAL_POSITION].as<float>();
+                std::pair<float, float> centerOfMass = std::make_pair(x, y);
+                centerOfMassPosition[centerOfMass] = object;
+                MetersToMatrixPos(centerOfMass, width);
+                std::pair<int, int> matrixPos =
+                        object->centerOfMassToMatrixPos(centerOfMass);
 
-            //std::cerr << "Posicion final: " << std::endl;
-            //std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
-            tiles[matrixPos] = currentID;
+                //std::cerr << "Posicion final: " << std::endl;
+                //std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
+                tiles[matrixPos] = currentID;
+            }
+        }
+
+        const YAML::Node &names = texturesInfo[SATAGE_OBJECTS_NAMES];
+        Object *currentObject;
+        std::pair<int, int> matrixPos;
+        std::string name;
+        for (YAML::const_iterator itNames = names.begin();
+             itNames != names.end(); ++itNames) {
+            const YAML::Node &node = *itNames;
+
+            name = node[OBJECT_NAME].as<std::string>();
+            float x = node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
+            float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
+
+            std::pair<float, float> centerOfMass = std::make_pair(x, y);
+            currentObject = centerOfMassPosition[centerOfMass];
+            MetersToMatrixPos(centerOfMass, width);
+            matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
+            logicGates.setName(currentObject, matrixPos, name);
+        }
+
+        const YAML::Node &conditions = texturesInfo[LOGICAL_GATES];
+        std::string condition;
+        for (YAML::const_iterator itNames = conditions.begin();
+             itNames != conditions.end(); ++itNames) {
+            const YAML::Node &node = *itNames;
+
+            condition = node[SATAGE_OBJECTS_CONDITIONS].as<std::string>();
+            float x = node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
+            float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
+
+            std::pair<float, float> centerOfMass = std::make_pair(x, y);
+            currentObject = centerOfMassPosition[centerOfMass];
+            MetersToMatrixPos(centerOfMass, width);
+            matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
+            logicGates.addCondition(currentObject, matrixPos, condition);
         }
     }
-
-    const YAML::Node& names = texturesInfo[SATAGE_OBJECTS_NAMES];
-    Object* currentObject;
-    std::pair<int, int> matrixPos;
-    std::string name;
-    for (YAML::const_iterator itNames = names.begin();
-         itNames != names.end(); ++itNames) {
-        const YAML::Node &node = *itNames;
-
-        name = node[OBJECT_NAME].as<std::string>();
-        float x =  node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
-        float y =  node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
-
-        std::pair<float, float> centerOfMass = std::make_pair(x,y);
-        currentObject = centerOfMassPosition[centerOfMass];
-        MetersToMatrixPos(centerOfMass, width);
-        matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
-        logicGates.setName(currentObject, matrixPos, name);
-    }
-
-    const YAML::Node& conditions = texturesInfo[LOGICAL_GATES];
-    std::string condition;
-    for (YAML::const_iterator itNames = conditions.begin();
-         itNames != conditions.end(); ++itNames) {
-        const YAML::Node &node = *itNames;
-
-        condition = node[SATAGE_OBJECTS_CONDITIONS].as<std::string>();
-        float x =  node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
-        float y =  node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
-
-        std::pair<float, float> centerOfMass = std::make_pair(x,y);
-        currentObject = centerOfMassPosition[centerOfMass];
-        MetersToMatrixPos(centerOfMass, width);
-        matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
-        logicGates.addCondition(currentObject, matrixPos, condition);
+    catch(YAML::BadFile &e) {
+        std::cerr << e.what() << std::endl;
+        throw InvalidFile();
     }
 }
 

@@ -13,9 +13,19 @@ Controller::Controller(Window &window, std::string texturesPath, int factor) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
                     yaml(textures, tiles, logicGates) {
-    yaml.getObjects(window, texturesPath);
-    std::string s = "file.yaml";
-    yaml.readStage(s);
+    try {
+        yaml.getObjects(window, texturesPath);
+        std::cerr << "Ingrese el nombre de un archivo yaml del cual leer el escenario" << std::endl;
+        std::string s;
+        std::getline(std::cin, s);
+        yaml.readStage(s);
+    }
+    catch(InvalidFile& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    catch (std::exception& e){
+        std::cerr << e.what() << std::endl;
+    }
 }
 
 void Controller::draw(SDL_Rect* camera, int yStart) {

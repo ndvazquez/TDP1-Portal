@@ -5,6 +5,8 @@
 #ifndef PORTAL_YAMLMANAGER_H
 #define PORTAL_YAMLMANAGER_H
 
+#define INV_FILE "The path was invalid."
+
 #include <yaml-cpp/node/node.h>
 #include <unordered_map>
 #include <map>
@@ -31,6 +33,22 @@ public:
     void MetersToMatrixPos(std::pair<float, float> &position, int width);
 
     void writeStage(std::string &stagePath);
+};
+
+
+
+
+class YamlManagerException : public std::exception {
+public:
+    explicit YamlManagerException() = default;
+};
+
+class InvalidFile : public YamlManagerException {
+public:
+    const char* what() const noexcept override {
+        return INV_FILE;
+    }
+    explicit InvalidFile() = default;
 };
 
 
