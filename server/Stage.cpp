@@ -43,6 +43,7 @@ void Stage::addBlock(std::string identifier, float side, float x_pos, float y_po
         MetalBlock* block = new MetalBlock(block_body);
         metal_blocks.insert({coordinates, block});
     } else if (identifier == CAKE_NAME) {
+        delete coordinates;
       this->cake = new Cake(block_body);
     } else {
         world->destroyBody(block_body);
@@ -557,6 +558,16 @@ nlohmann::json Stage::getCurrentState() {
 
 
 Stage::~Stage() {
+    delete cake;
+
+    for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
+        delete i->second;
+    }
+
+    for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
+        delete i->second;
+    }
+
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {
         delete i->first;
         delete i->second;
@@ -612,11 +623,14 @@ Stage::~Stage() {
         delete i->second;
     }
 
+    for (auto i = portals.begin(); i != portals.end(); i++) {
+        delete i->second;
+    }
+
     for (auto i = energy_receptors.begin();
     i != energy_receptors.end(); i++) {
         delete i->second;
     }
 
     delete world;
-    delete cake;
 }

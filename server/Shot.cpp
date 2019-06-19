@@ -19,6 +19,10 @@ Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
     this->angle = 0;
 }
 
+Shot::~Shot() {
+    delete target;
+}
+
 Chell* Shot::getChell() {
     return chell;
 }
