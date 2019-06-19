@@ -22,7 +22,7 @@ StageManager::~StageManager() {
         delete it->second;
     }
     for (auto it = clientQueues.begin(); it != clientQueues.end(); ++it) {
-        delete it->second;
+        //delete it->second;
     }
 }
 
