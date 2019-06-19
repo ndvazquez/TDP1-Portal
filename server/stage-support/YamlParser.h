@@ -17,8 +17,14 @@ private:
 
 public:
     YamlParser(const std::string& path, Stage& stage);
+
+    /* Reads a YAML and parse it in order to fill the stage */
     void parseAndAdd();
+
+    /* Returns a JSON with the data of the objects identified by an id */
     nlohmann::json getDynamicJson();
+
+    /* Returns a JSON with the data of the blocks */
     nlohmann::json getStaticJson();
 };
 

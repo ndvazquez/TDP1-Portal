@@ -48,6 +48,7 @@ private:
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
     std::unordered_map<Coordinate*, DiagonalMetalBlock*> diagonal_metal_blocks;
 
+    /* Objects identified by an id */
     std::unordered_map<std::string, EnergyBar*> energy_bars;
     std::unordered_map<std::string, Gate*> gates;
     std::unordered_map<std::string, Button*> buttons;
@@ -63,39 +64,61 @@ private:
     std::unordered_map<std::string, EnergyReceptor*>
     energy_receptors;
     std::unordered_map<std::string, Rock*> rocks;
-    std::unordered_map<std::string, Portal*> portals; //Id == shots
+    std::unordered_map<std::string, Portal*> portals;
 
 public:
     Stage(size_t width, size_t height);
     ~Stage();
 
+    /* Adds a block to the stage (specifically a metal block or a rock block) */
     void addBlock(std::string identifier, float side, float x_pos, float y_pos);
+
+    /* Adds a diagonal metal block to the stage */
     void addDiagonalBlock(float side, float x_pos, float y_pos, float angle);
+
+    /* Adds an energy ball to the stage */
     void addEnergyBall(std::string identifier, std::string id,
             float side, float x_pos, float y_pos);
+
+    /* Adds any kind of energy transmitter or energy receptor to the stage*/
     void addEnergyItem(std::string identifier, std::string id, float side,
                               float x_pos, float y_pos);
+
+    /* Adds a shot to the stage */
     void addShot(std::string identifier, std::string id, float v_side,
     float h_side, Chell* chell, Coordinate* target);
+
+    /* Adds an element to the stage (specifically a cake, a button,
+     * an energy bar or acid) */
     void addElement(std::string identifier, std::string id, float v_side,
             float h_side, float x_pos, float y_pos);
+
+    /* Adds a rock to the stage */
     void addRock(std::string id, float side,
                  float x_pos, float y_pos);
+
+    /* Adds a gate to the stage */
     void addGate(std::string id, float v_side, float h_side, float x_pos,
             float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                  std::string logic);
+
+    /* Adds Chell to the stage */
     void addChell(std::string id, float v_side, float h_side,
             float x_pos, float y_pos);
 
+    /* Returns the closest rock to a given position */
     Rock* getClosestRock(float x_pos, float y_pos);
+
+    /* Manage portals in the stage */
     void managePortals(Chell* chell, std::string id);
+
+    /* Step in simulation */
     void step();
 
-    Cake* getCake();
+    // Getters of different elements in the stage
     RockBlock* getBrickBlock(Coordinate* coordinate);
     MetalBlock* getMetalBlock(Coordinate* coordinate);
     DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
-
     EnergyBar* getEnergyBar(std::string id);
     Button* getButton(std::string id);
     Acid* getAcid(std::string id);
@@ -105,8 +128,8 @@ public:
     OrangeShot* getOrangeShot(std::string id);
     EnergyTransmitter* getEnergyTransmitter(std::string id);
     Rock* getRock(std::string id);
-    Gate* getGate(std::string id);
-    EnergyReceptor* getEnergyReceptor(std::string id);
+
+    /* Returns a json with the current state of the objects identified by and id */
     nlohmann::json getCurrentState();
 };
 

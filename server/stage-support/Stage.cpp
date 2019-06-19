@@ -404,13 +404,6 @@ EnergyTransmitter* Stage::getEnergyTransmitter(std::string id) {
     return nullptr;
 }
 
-EnergyReceptor* Stage::getEnergyReceptor(std::string id) {
-    for (auto i = energy_receptors.begin() ; i != energy_receptors.end() ; i++) {
-        if (i->first == id) return i->second;
-    }
-    return nullptr;
-}
-
 Rock* Stage::getRock(std::string id) {
     for (auto item = rocks.begin() ; item != rocks.end() ; item++) {
         if (item->first == id) return item->second;
@@ -434,13 +427,6 @@ Rock* Stage::getClosestRock(float x_pos, float y_pos) {
         }
     }
     return result_rock;
-}
-
-Gate* Stage::getGate(std::string id) {
-    for (auto item = gates.begin() ; item != gates.end() ; item++) {
-        if (item->first == id) return item->second;
-    }
-    return nullptr;
 }
 
 nlohmann::json Stage::getCurrentState() {
