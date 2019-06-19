@@ -113,6 +113,9 @@ std::pair<float, float> Object::rectangleMatrixPosToCenterOfMass(
 std::map<std::pair<int, int>, std::string> &Object::getNames() {
 }
 
+std::map<std::pair<int, int>, std::string>& Object::getConditions() {
+}
+
 int Object::getWidth() {
     return w;
 }

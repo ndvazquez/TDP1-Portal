@@ -101,13 +101,13 @@ std::map<std::pair<float, float>, std::string> &LogicGates::getNames() {
 std::map<std::pair<float, float>, std::string> &LogicGates::getConditions() {
     for(auto obj : conditionalElements) {
         std::map<std::pair<int, int>, std::string>& subConditions =
-                                                    obj->getNames();
+                                                    obj->getConditions();
         for(auto it : subConditions) {
             const std::pair<int,int>& position = it.first;
-            std::string& name = it.second;
+            std::string& condition = it.second;
             std::pair<float, float> centerOfMass =
                     obj->matrixPosToCenterOfMass(position);
-            conditions[centerOfMass] = name;
+            conditions[centerOfMass] = condition;
         }
     }
     return conditions;

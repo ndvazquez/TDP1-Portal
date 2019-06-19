@@ -40,6 +40,7 @@ public:
             const std::pair<float, float> &pair) override;
 
     std::map<std::pair<int, int>, std::string> &getNames() override;
+    std::map<std::pair<int, int>, std::string>& getConditions() override;
 };
 
 
