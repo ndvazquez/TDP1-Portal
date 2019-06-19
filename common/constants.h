@@ -75,7 +75,7 @@ enum PortalType {
 #define SATAGE_OBJECTS_NAMES "Names"
 #define LOGICAL_GATES "Conditions"
 #define OBJECT_NAME "name"
-#define OBJECT_CONDITION "condition"
+#define SATAGE_OBJECTS_CONDITIONS "condition"
 
 //Object names
 #define METAL_BLOCK_NAME "MetalBlock"

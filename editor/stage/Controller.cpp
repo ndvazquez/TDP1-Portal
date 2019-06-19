@@ -98,6 +98,7 @@ void Controller::addCondition(int x, int y) {
 
 
 void Controller::writeYaml(int lenPixelsInY) {
-    yaml.writeStage();
+    std::string s = "file.yaml";
+    yaml.writeStage(s);
 }
 

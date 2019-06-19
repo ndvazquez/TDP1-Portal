@@ -22,8 +22,6 @@ public:
                     std::map<std::pair<int, int>, int> &tiles,
                     LogicGates &logicGates);
 
-    void writeStage();
-
     void getObjects(Window &window, std::string &texturesPath);
 
     void getWidthAndHeightInMeters(int *width, int *eight);
@@ -31,6 +29,8 @@ public:
     void readStage(std::string &texturesPath);
 
     void MetersToMatrixPos(std::pair<float, float> &position, int width);
+
+    void writeStage(std::string &stagePath);
 };
 
 
