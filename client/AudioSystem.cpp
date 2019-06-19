@@ -40,13 +40,13 @@ AudioSystem::~AudioSystem() {
 }
 
 void AudioSystem::playMusic(int songCode) {
-    /*if (Mix_PlayingMusic() == 0) {
+    if (Mix_PlayingMusic() == 0) {
         // We set the second parameter to -1 to loop the track.
         auto it = this->backgroundMusic.find(songCode);
         if (it == this->backgroundMusic.end()) return;
         Mix_Music* song = it->second;
         Mix_PlayMusic(song, -1);
-    }*/
+    }
 }
 
 void AudioSystem::stopMusic() {

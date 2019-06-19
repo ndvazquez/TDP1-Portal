@@ -571,7 +571,6 @@ nlohmann::json Stage::getCurrentState() {
 
 
 Stage::~Stage() {
-    std::cout << "Se llamo al destructor" << std::endl;
     delete cake;
 
     for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
