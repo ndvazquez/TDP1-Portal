@@ -2,12 +2,12 @@
 #define __MYTESTSUITE_H
 
 #include <cxxtest/TestSuite.h>
-#include <Acid.h>
-#include <OrangeShot.h>
-#include "../server/Stage.h"
-#include "RockBlock.h"
-#include "MetalBlock.h"
-#include "DiagonalMetalBlock.h"
+#include <entities/Acid.h>
+#include <entities/OrangeShot.h>
+#include "stage-support/Stage.h"
+#include "entities/RockBlock.h"
+#include "entities/MetalBlock.h"
+#include "entities/DiagonalMetalBlock.h"
 #include "configuration.h"
 
 class BrickBlockTest : public CxxTest::TestSuite

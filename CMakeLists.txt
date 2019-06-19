@@ -102,56 +102,55 @@ set(EDITOR_SOURCE_FILES
         )
 
 set(SERVER_SOURCE_FILES
-        server/Stage.cpp
-        server/Coordinate.cpp
-        server/RockBlock.cpp
-        server/RockBlock.cpp
-        server/MetalBlock.cpp
-        server/DiagonalMetalBlock.cpp
-        server/EnergyTransmitter.cpp
-        server/Rock.cpp
-        server/EnergyBar.cpp
-        server/Button.cpp
-        server/Acid.cpp
-        server/Chell.cpp
-        server/Dynamic.cpp
-        server/MoveRight.cpp
-        server/MoveLeft.cpp
-        server/Stop.cpp
-        server/EnergyBall.cpp
-        server/Entity.cpp
+        server/stage-support/Stage.cpp
+        server/stage-support/Coordinate.cpp
+        server/entities/RockBlock.cpp
+        server/entities/RockBlock.cpp
+        server/entities/MetalBlock.cpp
+        server/entities/DiagonalMetalBlock.cpp
+        server/entities/EnergyTransmitter.cpp
+        server/entities/Rock.cpp
+        server/entities/EnergyBar.cpp
+        server/entities/Button.cpp
+        server/entities/Acid.cpp
+        server/entities/Chell.cpp
+        server/movements/Dynamic.cpp
+        server/movements/MoveRight.cpp
+        server/movements/MoveLeft.cpp
+        server/movements/Stop.cpp
+        server/entities/EnergyBall.cpp
+        server/entities/Entity.cpp
         server/configuration.cpp
-        server/Floor.cpp
-        server/BlueShot.cpp
-        server/OrangeShot.cpp
-        server/Shot.cpp
-        server/Portal.cpp
-        server/EnergyTransmitterUp.cpp
-        server/EnergyTransmitterDown.cpp
-        server/EnergyTransmitterLeft.cpp
-        server/EnergyTransmitterRight.cpp
-        server/Gate.cpp
-        server/Cake.cpp
-        server/BluePortal.cpp
-        server/OrangePortal.cpp
-        server/StageManager.cpp
+        server/entities/Floor.cpp
+        server/entities/BlueShot.cpp
+        server/entities/OrangeShot.cpp
+        server/entities/Shot.cpp
+        server/entities/Portal.cpp
+        server/entities/EnergyTransmitterUp.cpp
+        server/entities/EnergyTransmitterDown.cpp
+        server/entities/EnergyTransmitterLeft.cpp
+        server/entities/EnergyTransmitterRight.cpp
+        server/entities/Gate.cpp
+        server/entities/Cake.cpp
+        server/stage-support/StageManager.cpp
         common/Thread.cpp
         common/Socket.cpp
         common/StageStatusQueue.cpp
         common/UserEventQueue.cpp
         common/UserEvent.cpp
-        server/ClientHandler.cpp
-        server/ClientSender.cpp
-        server/ClientReceiver.cpp
-        server/EnergyReceptor.cpp
-        server/EnergyReceptorUp.cpp
-        server/EnergyReceptorDown.cpp
-        server/EnergyReceptorLeft.cpp
-        server/EnergyReceptorRight.cpp
-        server/PhysicsWorld.cpp
-        server/ItemActivable.cpp
-        server/PortalManager.cpp
-        server/YamlParser.cpp)
+        server/communication-support/ClientHandler.cpp
+        server/communication-support/ClientSender.cpp
+        server/communication-support/ClientReceiver.cpp
+        server/entities/EnergyReceptor.cpp
+        server/entities/EnergyReceptorUp.cpp
+        server/entities/EnergyReceptorDown.cpp
+        server/entities/EnergyReceptorLeft.cpp
+        server/entities/EnergyReceptorRight.cpp
+        server/stage-support/PhysicsWorld.cpp
+        server/entities/ItemActivable.cpp
+        server/portal-support/PortalManager.cpp
+        server/stage-support/YamlParser.cpp
+        server/portal-support/PortalHolder.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
