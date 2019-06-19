@@ -11,13 +11,13 @@
 
 class EnergyBall: public Entity {
 private:
-    bool is_vertical;
     Dynamic dynamic;
     std::chrono::system_clock::time_point timeStamp;
     bool is_dead;
+    Direction eb_type;
 
 public:
-    explicit EnergyBall(b2Body* body, bool is_vertical);
+    EnergyBall(b2Body* body, Direction eb_type);
 
     /* An EnergyBall flies */
     void fly();
@@ -28,6 +28,12 @@ public:
     /* Returns a boolean that indicates if an EnergyBall has died */
     bool isDead();
 
+    /* Changes orientation of an EnergyBall */
+    void applyOrientation(Direction direction);
+
+    /* Inverts orientation of an EnergyBall */
+    void invertDirection();
+
     /* Applies velocity to an EnergyBall in order to change its direction */
     void changeDirection(b2Vec2 velocity);
 
@@ -35,7 +41,7 @@ public:
     void handleCollision(Entity* entity) override;
 
     /* An EnergyBall teleports to the location indicated by coordinate */
-    void teleport(Coordinate* target, PortalType type);
+    void teleport(Coordinate* target, Direction type);
 
     /* Checks collisions for EnergyBall */
     void update();

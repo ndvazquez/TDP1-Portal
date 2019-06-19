@@ -14,8 +14,8 @@ Controller::Controller(Window &window, std::string texturesPath, int factor) :
                     factor(factor),
                     yaml(textures, tiles, logicGates) {
     yaml.getObjects(window, texturesPath);
-    std::string s = "file.yaml";
-    yaml.readStage(s);
+    //std::string s = "file.yaml";
+    //yaml.readStage(s);
 }
 
 void Controller::draw(SDL_Rect* camera, int yStart) {

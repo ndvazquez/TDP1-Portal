@@ -46,7 +46,7 @@ public:
     void handleCollision(Entity* entity) override;
 
     /* A Rock teleports to the location indicated by coordinate */
-    void teleport(Coordinate* target, PortalType type);
+    void teleport(Coordinate* target, Direction type);
 
     /* A Rock is released upwards */
     void release();

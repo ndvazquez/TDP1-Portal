@@ -15,13 +15,14 @@
 #include "EnergyReceptorDown.h"
 #include "DiagonalMetalBlock.h"
 
-EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
+EnergyBall::EnergyBall(b2Body* body, Direction eb_type):
     Entity(EB_NAME, body),
     dynamic(body) {
-    this->is_vertical = is_vertical;
+    this->eb_type = eb_type;
     body->SetUserData(this); //to handle collisions
     this->is_dead = false;
     this->timeStamp = std::chrono::system_clock::now();
+    body->SetGravityScale(0);
 }
 
 void EnergyBall::fly() {
@@ -32,11 +33,15 @@ void EnergyBall::fly() {
         die();
         return; //Dies after 10 seconds
     }
-    if (is_vertical) {
-        dynamic.flyVertical();
+    if (eb_type == RIGHT || eb_type == LEFT) {
+        dynamic.flyHorizontal(eb_type);
     } else {
-        dynamic.flyHorizontal();
+        dynamic.flyVertical(eb_type);
     }
+}
+
+void EnergyBall::applyOrientation(Direction direction) {
+    this->eb_type = direction;
 }
 
 void EnergyBall::changeDirection(b2Vec2 velocity) {
@@ -59,6 +64,11 @@ void EnergyBall::handleCollision(Entity* entity) {
     if (type == ROCK_BLOCK_NAME) {
         die();
     }
+
+    if (type == METAL_BLOCK_NAME) {
+        invertDirection();
+    }
+
     if (type == DIAGONAL_METAL_BLOCK_NAME) {
         b2Vec2 velocity = dynamic_cast<DiagonalMetalBlock*>(entity)->calculateVelocity();
         changeDirection(velocity);
@@ -68,9 +78,12 @@ void EnergyBall::handleCollision(Entity* entity) {
         die();
     }
     if (type == PORTAL_NAME) {
+        std::cout << "me tope con un portal" << std::endl;
         Portal* portal = dynamic_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
+            //Direction portal_type = portal->getPortalType();
+            //applyOrientation(portal_type);
             teleport(target, portal->getPortalType());
         }
     }
@@ -122,10 +135,23 @@ void EnergyBall::handleCollision(Entity* entity) {
     }
 }
 
-void EnergyBall::teleport(Coordinate* target, PortalType type) {
+void EnergyBall::invertDirection() {
+    if (eb_type == RIGHT) {
+        eb_type = LEFT;
+    } else if (eb_type == LEFT) {
+        eb_type = RIGHT;
+    } else if (eb_type == UP) {
+        eb_type = DOWN;
+    } else if (eb_type == DOWN) {
+        eb_type = UP;
+    }
+}
+
+void EnergyBall::teleport(Coordinate* target, Direction type) {
     this->dynamic.teleport(target, type, true);
 }
 
 void EnergyBall::update() {
+    std::cout << getHorizontalVelocity() << std::endl;
     this->dynamic.handleCollisions();
 }

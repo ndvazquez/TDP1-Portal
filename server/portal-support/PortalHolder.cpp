@@ -4,7 +4,7 @@
 
 #include "PortalHolder.h"
 
-PortalHolder::PortalHolder(Coordinate* portal, bool is_vertical, PortalType type) {
+PortalHolder::PortalHolder(Coordinate* portal, bool is_vertical, Direction type) {
     this->portal = portal;
     this->is_vertical = is_vertical;
     this->type = type;
@@ -18,7 +18,7 @@ Coordinate* PortalHolder::getPortal() {
     return portal;
 }
 
-PortalType PortalHolder::getPortalType() {
+Direction PortalHolder::getPortalType() {
     return type;
 }
 

@@ -77,7 +77,7 @@ public:
     void addDiagonalBlock(float side, float x_pos, float y_pos, float angle);
 
     /* Adds an energy ball to the stage */
-    void addEnergyBall(std::string identifier, std::string id,
+    void addEnergyBall(Direction identifier, std::string id,
             float side, float x_pos, float y_pos);
 
     /* Adds any kind of energy transmitter or energy receptor to the stage*/

@@ -40,10 +40,10 @@ public:
     void stop(float force);
 
     /* Makes an object fly in a horizontal direction */
-    void flyHorizontal();
+    void flyHorizontal(Direction eb_type);
 
     /* Makes an object fly in a vertical direction */
-    void flyVertical();
+    void flyVertical(Direction eb_type);
 
     /* Makes an object fly in a direction indicated by velocity */
     void fly(b2Vec2 velocity);
@@ -52,7 +52,7 @@ public:
     bool handleCollisions();
 
     /* Makes an object teleport, applicating an extra impulse if neccessary */
-    void teleport(Coordinate* coordinate, PortalType type, bool keep_impulse);
+    void teleport(Coordinate* coordinate, Direction type, bool keep_impulse);
 };
 
 #endif //PORTAL_DYNAMIC_H

@@ -37,3 +37,7 @@ void EnergyTransmitter::handleCollision(Entity *entity) {
         dynamic_cast<Chell*>(entity)->onFloor(true);
     }
 }
+
+Direction EnergyTransmitter::getTypeTransmitter() {
+    return type_transmitter;
+}

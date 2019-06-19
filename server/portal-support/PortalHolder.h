@@ -12,10 +12,10 @@ class PortalHolder {
 private:
     Coordinate* portal;
     bool is_vertical;
-    PortalType type;
+    Direction type;
 
 public:
-    PortalHolder(Coordinate* portal, bool is_vertical, PortalType type);
+    PortalHolder(Coordinate* portal, bool is_vertical, Direction type);
     ~PortalHolder();
 
     /* Returns a Coordinate* that indicates the location of the portal */
@@ -25,7 +25,7 @@ public:
     bool isVertical();
 
     /* Returns the Portal's type */
-    PortalType getPortalType();
+    Direction getPortalType();
 };
 
 #endif //PORTAL_BLUEPORTAL_H

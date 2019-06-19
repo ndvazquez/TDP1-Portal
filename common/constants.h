@@ -56,7 +56,7 @@ enum StageObjects {
     BUTTON
 };
 
-enum PortalType {
+enum Direction {
     RIGHT,
     LEFT,
     DOWN,

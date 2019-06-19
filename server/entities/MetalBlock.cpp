@@ -8,6 +8,7 @@
 #include "entities/Chell.h"
 #include "entities/OrangeShot.h"
 #include "entities/BlueShot.h"
+#include "EnergyBall.h"
 
 MetalBlock::MetalBlock(b2Body* body):
     Entity(METAL_BLOCK_NAME, body) {
@@ -19,6 +20,10 @@ void MetalBlock::handleCollision(Entity* entity) {
     if (type == CHELL_NAME) {
         Chell* chell = dynamic_cast<Chell*>(entity);
         chell->onFloor(true);
+    }
+
+    if (type == EB_NAME) {
+        dynamic_cast<EnergyBall*>(entity)->invertDirection();
     }
 
     if (type == BLUE_SHOT_NAME) {

@@ -18,7 +18,7 @@ Dynamic::Dynamic(b2Body* body):
 void Dynamic::move(float force) {
 }
 
-void Dynamic::teleport(Coordinate* coordinate, PortalType type, bool keep_impulse) {
+void Dynamic::teleport(Coordinate* coordinate, Direction type, bool keep_impulse) {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
@@ -101,32 +101,26 @@ bool Dynamic::handleCollisions() {
     return resul;
 }
 
-void Dynamic::flyHorizontal() {
-    body->SetGravityScale(0);
-
+void Dynamic::flyHorizontal(Direction eb_type) {
     if (body->GetLinearVelocity().x != 0) return; //Already flying
 
-    if (handleCollisions()) {
-        energy_ball_impulse = -energy_ball_impulse;
+    if (eb_type == RIGHT) {
         body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
     } else {
-        body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
+        body->ApplyLinearImpulse(b2Vec2(-energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
     }
 }
 
-void Dynamic::flyVertical() {
-    body->SetGravityScale(0);
-
+void Dynamic::flyVertical(Direction eb_type) {
     if (body->GetLinearVelocity().y != 0) return; //Already flying
 
-    if (handleCollisions()) {
-        energy_ball_impulse = -energy_ball_impulse;
+    if (eb_type == UP) {
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     } else {
-        body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
+        body->ApplyLinearImpulse(b2Vec2(0, -energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
 }
