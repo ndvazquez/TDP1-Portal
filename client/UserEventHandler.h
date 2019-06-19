@@ -11,9 +11,9 @@
 #include "SoundCodeQueue.h"
 #include "../common/Thread.h"
 
-#define MTP_FACTOR_INV 0.01f
 
 class UserEventHandler : public Thread {
+    const float mtpFactorInv = 1.0f / MTP_FACTOR;
     const Camera& camera;
     UserEventQueue& userEventQueue;
     const std::string& userId;

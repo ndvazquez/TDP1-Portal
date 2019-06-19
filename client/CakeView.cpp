@@ -22,8 +22,8 @@ void CakeView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
     SDL_Rect destRect = {viewPosX - camera.x,
                          viewPosY - camera.y,
-                         CAKE_WIDTH * mtpFactor,
-                         CAKE_HEIGHT * mtpFactor};
+                         int(viewWidthInMeters * mtpFactor),
+                         int(viewHeightInMeters * mtpFactor)};
     animation->draw(&destRect);
     animation->updateFrameStep();
 }

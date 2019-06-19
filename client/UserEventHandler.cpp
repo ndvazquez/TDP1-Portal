@@ -78,9 +78,9 @@ void UserEventHandler::handleEvent(SDL_Event &event) {
                 userEventQueue.push(userEvent);
             }
         case SDL_MOUSEBUTTONDOWN:
-            xMeters = (x + camera.getCameraX()) * MTP_FACTOR_INV;
+            xMeters = (x + camera.getCameraX()) * mtpFactorInv;
             yMeters = ((y + camera.getCameraY()) * -1 +
-                       levelHeight) *MTP_FACTOR_INV;
+                       levelHeight) *mtpFactorInv;
             if (event.button.button == SDL_BUTTON_LEFT) {
                 soundCodeQueue.push(PORTAL_GUN_SOUND);
                 userEvent = UserEvent(userId, USER_BLUE_PORTAL_CODE,

@@ -49,6 +49,10 @@ void AnimatedSprite::draw(int x, int y, double angle) {
     window.draw(*texture, sourceRect, destRect, angle);
 }
 
+void AnimatedSprite::draw(SDL_Rect *destRect, double angle){
+    SDL_Rect sourceRect = {currentFrameStep, 0, frameWidth, frameHeight};
+    window.draw(*texture, sourceRect, *destRect, angle);
+}
 int AnimatedSprite::getWidth() {
     return this->frameWidth;
 }

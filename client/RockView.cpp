@@ -22,8 +22,8 @@ void RockView::playAnimation(const SDL_Rect& camera) {
     if (!checkCollisionWithCamera(camera)) return;
     SDL_Rect destRect = {viewPosX - camera.x,
                          viewPosY - camera.y,
-                         mtpFactor,
-                         mtpFactor};
+                         int(viewWidthInMeters * mtpFactor),
+                         int(viewHeightInMeters * mtpFactor)};
     sprite->draw(&destRect);
 }
 

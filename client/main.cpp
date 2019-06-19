@@ -23,9 +23,11 @@
 #include "../common/StageStatusQueue.h"
 #include "StageStatusReceiver.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-#define MTP_FACTOR 100
+// It's recommended to use multiples of the MTP_FACTOR to get a smooth
+// experience.
+#define SCREEN_WIDTH 1050
+#define SCREEN_HEIGHT 700
+#define MTP_FACTOR 70
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
 void playGame(std::string& idChell) {
@@ -99,8 +101,7 @@ void playGame(std::string& idChell) {
             std::string stageStatusString = stageStatusQueue.pop();
             stageUpdateRequest = nlohmann::json::parse(stageStatusString);
         }
-        
-        SDL_Delay(1000/60);
+
         // Time to draw!
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;
