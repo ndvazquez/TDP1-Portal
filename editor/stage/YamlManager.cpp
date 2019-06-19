@@ -168,7 +168,7 @@ void YamlManager::writeStage() {
         std::string& name = it.second;
         out << YAML::Value << YAML::BeginMap;
 
-        out << YAML::Key << OBJECT_NAME;
+        out << YAML::Key << OBJECT_CONDITION;
         out << YAML::Value << name;
         out << YAML::Key << OBJECT_POSITION;
 
