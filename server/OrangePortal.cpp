@@ -21,3 +21,7 @@ Coordinate* OrangePortal::getPortal() {
 PortalType OrangePortal::getPortalType() {
     return type;
 }
+
+OrangePortal::~OrangePortal() {
+    delete portal;
+}

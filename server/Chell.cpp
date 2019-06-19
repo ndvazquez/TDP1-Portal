@@ -205,8 +205,8 @@ ChellState Chell::getState() {
 }
 
 void Chell::removePortals() {
-    if (this->blue_portal) delete blue_portal;
-    if (this->orange_portal) delete orange_portal;
+    if (this->blue_portal != nullptr) delete blue_portal;
+    if (this->orange_portal != nullptr) delete orange_portal;
     this->blue_portal = nullptr;
     this->orange_portal = nullptr;
 }

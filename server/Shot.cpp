@@ -21,9 +21,7 @@ Shot::Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target) :
 }
 
 Shot::~Shot() {
-    std::cout << "me llamaron" << std::endl;
     delete origin;
-    if (target != nullptr) delete target;
 }
 
 Chell* Shot::getChell() {

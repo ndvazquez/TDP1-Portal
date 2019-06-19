@@ -194,50 +194,49 @@ void Stage::managePortals(Chell* chell, std::string id) {
 
 void Stage::step() {
     end_of_game = true;
-    
-    auto i = chells.begin();
-    while (i != chells.end()) {
-        if (i->second->isDead()) {
-            if (world->hasObject(i->second->getBody())) {
-                world->destroyBody(i->second->getBody());
-                delete i->second;
+
+    auto i_chell = chells.begin();
+    while (i_chell != chells.end()) {
+        if (i_chell->second->isDead()) {
+            if (world->hasObject(i_chell->second->getBody())) {
+                world->destroyBody(i_chell->second->getBody());
+                i_chell->second->removePortals();
+                delete i_chell->second;
             }
-            i = chells.erase(i);
+            i_chell = chells.erase(i_chell);
         } else {
-            end_of_game &= i->second->hasWon();
-            managePortals(i->second, i->first);
-            i->second->update();
-            i++;
+            end_of_game &= i_chell->second->hasWon();
+            managePortals(i_chell->second, i_chell->first);
+            i_chell->second->update();
+            i_chell++;
         }
     }
 
-    for (auto i = blue_shots.begin(); i != blue_shots.end(); i++) {
-        if (i->second->isDead()) {
-            if (world->hasObject(i->second->getBody())) {
-                world->destroyBody(i->second->getBody());
+    auto i_blue_shot = blue_shots.begin();
+    while (i_blue_shot != blue_shots.end()) {
+        if (i_blue_shot->second->isDead()) {
+            if (world->hasObject(i_blue_shot->second->getBody())) {
+                world->destroyBody(i_blue_shot->second->getBody());
+                delete i_blue_shot->second;
             }
-            {
-                blue_shots.erase(i->first);
-                delete i->second;
-                break;
-            }
+            i_blue_shot = blue_shots.erase(i_blue_shot);
         } else {
-            i->second->shoot();
+            i_blue_shot->second->shoot();
+            i_blue_shot++;
         }
     }
 
-    for (auto i = orange_shots.begin(); i != orange_shots.end(); i++) {
-        if (i->second->isDead()) {
-            if (world->hasObject(i->second->getBody())) {
-                world->destroyBody(i->second->getBody());
+    auto i_orange_shot = orange_shots.begin();
+    while (i_orange_shot != orange_shots.end()) {
+        if (i_orange_shot->second->isDead()) {
+            if (world->hasObject(i_orange_shot->second->getBody())) {
+                world->destroyBody(i_orange_shot->second->getBody());
+                delete i_orange_shot->second;
             }
-            {
-                orange_shots.erase(i->first);
-                delete i->second;
-                break;
-            }
+            i_orange_shot = orange_shots.erase(i_orange_shot);
         } else {
-            i->second->shoot();
+            i_orange_shot->second->shoot();
+            i_orange_shot++;
         }
     }
 
@@ -271,34 +270,39 @@ void Stage::step() {
         }
     }
 
-    for (auto i = energy_balls.begin(); i != energy_balls.end(); i++) {
-        if (i->second->isDead()) {
-            if (world->hasObject(i->second->getBody())) {
-                world->destroyBody(i->second->getBody());
+
+    auto i_eb = energy_balls.begin();
+    while (i_eb != energy_balls.end()) {
+        if (i_eb->second->isDead()) {
+            if (world->hasObject(i_eb->second->getBody())) {
+                world->destroyBody(i_eb->second->getBody());
+                delete i_eb->second;
             }
-            {
-                energy_balls.erase(i->first);
-                break;
-            }
+            i_eb = energy_balls.erase(i_eb);
         } else {
-            i->second->fly();
-            i->second->update();
+            i_eb->second->fly();
+            i_eb->second->update();
+            i_eb++;
         }
     }
+
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
         i->second->update();
     }
 
-    for (auto i = rocks.begin(); i != rocks.end(); i++) {
-        if (i->second->isDead()) {
-            world->destroyBody(i->second->getBody());
-            {
-                rocks.erase(i->first);
-                break;
+    auto i_rock = rocks.begin();
+    while (i_rock != rocks.end()) {
+        if (i_rock->second->isDead()) {
+            if (world->hasObject(i_rock->second->getBody())) {
+                world->destroyBody(i_rock->second->getBody());
+                delete i_rock->second;
             }
+            i_rock = rocks.erase(i_rock);
+        } else {
+            i_rock->second->update();
+            i_rock++;
         }
-        i->second->update();
     }
 
     for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {

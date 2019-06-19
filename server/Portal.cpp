@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Portal.h"
 #include "Chell.h"
 #include "EnergyBall.h"
@@ -64,9 +65,11 @@ PortalOrientation Portal::getOrientation() {
 }
 
 void Portal::addTarget(Coordinate* target) {
+    if (this->target != nullptr) delete this->target;
     this->target = target;
 }
 
 Portal::~Portal() {
+    std::cout << "llamo a este bello destructor" << std::endl;
     if (target != nullptr) delete target;
 }
