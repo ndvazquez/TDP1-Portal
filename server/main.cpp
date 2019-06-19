@@ -4,11 +4,11 @@
 
 #include <string>
 #include <unordered_map>
-#include "Button.h"
-#include "Gate.h"
-#include "Stage.h"
+#include "entities/Button.h"
+#include "entities/Gate.h"
+#include "stage-support/Stage.h"
 #include "../common/Socket.h"
-#include "StageManager.h"
+#include "stage-support/StageManager.h"
 #include <iostream>
 
 void testRunServer() {
