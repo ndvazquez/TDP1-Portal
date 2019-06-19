@@ -201,6 +201,7 @@ void Stage::step() {
             if (world->hasObject(i_chell->second->getBody())) {
                 world->destroyBody(i_chell->second->getBody());
                 i_chell->second->removePortals();
+                managePortals(i_chell->second, i_chell->first);
                 delete i_chell->second;
             }
             i_chell = chells.erase(i_chell);

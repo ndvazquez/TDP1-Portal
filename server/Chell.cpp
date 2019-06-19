@@ -195,7 +195,7 @@ void Chell::jump() {
 bool Chell::inGround() {
     float epsilon = pow(10, -7);
     bool chell_is_still = body->GetLinearVelocity().y < epsilon
-                        && body->GetLinearVelocity().y > -epsilon;
+                          && body->GetLinearVelocity().y > -epsilon;
     if (chell_is_still) dynamic.handleCollisions();
     return chell_is_on_floor;
 }
@@ -205,22 +205,22 @@ ChellState Chell::getState() {
 }
 
 void Chell::removePortals() {
-    delete blue_portal;
-    delete orange_portal;
+    if (this->blue_portal) delete blue_portal;
+    if (this->orange_portal) delete orange_portal;
     this->blue_portal = nullptr;
     this->orange_portal = nullptr;
 }
 
 void Chell::addOrangePortal(OrangePortal* portal, Coordinate* to_teleport) {
-    delete orange_portal;
-    delete orange_portal_to_teleport;
+    if (orange_portal != nullptr) delete orange_portal;
+    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
     orange_portal = portal;
     orange_portal_to_teleport = to_teleport;
 }
 
 void Chell::addBluePortal(BluePortal* portal, Coordinate* to_teleport) {
-    delete blue_portal;
-    delete blue_portal_to_teleport;
+    if (blue_portal != nullptr) delete blue_portal;
+    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
     blue_portal = portal;
     blue_portal_to_teleport = to_teleport;
 }
@@ -243,8 +243,8 @@ Coordinate* Chell::getOrangePortalToTeleport() {
 
 Chell::~Chell() {
     destroyActualMovement();
-    delete orange_portal;
-    delete blue_portal;
-    delete blue_portal_to_teleport;
-    delete orange_portal_to_teleport;
+    if (orange_portal != nullptr) delete orange_portal;
+    if (blue_portal != nullptr) delete blue_portal;
+    if (orange_portal_to_teleport != nullptr) delete orange_portal_to_teleport;
+    if (blue_portal_to_teleport != nullptr) delete blue_portal_to_teleport;
 }

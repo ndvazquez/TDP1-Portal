@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 #include "Portal.h"
 #include "Chell.h"
 #include "EnergyBall.h"
@@ -13,11 +12,7 @@
 Portal::Portal(b2Body* body, Coordinate* target,
         PortalOrientation orientation, PortalType type):
     Entity(PORTAL_NAME, body) {
-    if (target != nullptr) {
-        this->target = new Coordinate(target->getX(), target->getY());
-    } else {
-        this->target = nullptr;
-    }
+    this->target = target;
     this->body->SetUserData(this);
     this->orientation = orientation;
     this->portal_type_target = type;
@@ -68,11 +63,10 @@ PortalOrientation Portal::getOrientation() {
     return orientation;
 }
 
-void Portal::addTarget(Coordinate* new_target) {
-    delete this->target;
-    this->target = new_target;
+void Portal::addTarget(Coordinate* target) {
+    this->target = target;
 }
 
 Portal::~Portal() {
-    delete target;
+    //if (target != nullptr) delete target;
 }

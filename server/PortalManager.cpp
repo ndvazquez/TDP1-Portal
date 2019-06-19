@@ -28,9 +28,7 @@ void PortalManager::managePortals(Chell *chell, std::string id) {
     std::string id_blue = id;
     id_blue.replace(0, replaced.length(), "BluePortal");
 
-    std::unordered_map<std::string, Portal*>::iterator it;
-
-    it = portals.find(id_blue);
+    auto it = portals.find(id_blue);
     if (it != portals.end()) {
         Portal *portal = it->second;
         float x_portal = portal->getHorizontalPosition();
@@ -39,7 +37,9 @@ void PortalManager::managePortals(Chell *chell, std::string id) {
         if ((blue_portal != nullptr && *blue_portal->getPortal() != coord_portal)
             || blue_portal == nullptr) {
             world->destroyBody(portal->getBody());
-            portals.erase(it->first);
+
+            delete it->second;
+            portals.erase(it);
         }
         if (orange_portal != nullptr) {
             Coordinate* orange_portal_coord = chell->getOrangePortalToTeleport();
@@ -67,7 +67,8 @@ void PortalManager::managePortals(Chell *chell, std::string id) {
         if ((orange_portal != nullptr && *orange_portal->getPortal() != coord_portal)
             || orange_portal == nullptr) {
             world->destroyBody(it->second->getBody());
-            portals.erase(it->first);
+            delete it->second;
+            portals.erase(it);
         }
         if (blue_portal != nullptr) {
             Coordinate* blue_portal_coord = chell->getBluePortalToTeleport();
