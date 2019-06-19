@@ -21,6 +21,8 @@
 #include "object/diagonalBlocks/DiagonalBlockDown.h"
 #include "object/diagonalBlocks/DiagonalBlockLeftDown.h"
 #include "object/diagonalBlocks/DiagonalBlockRightDown.h"
+#include "object/VerticalEnergyBar.h"
+#include "object/HorizontalEnergyBar.h"
 
 
 #define BLOCK_KEY "Blocks"
@@ -35,6 +37,8 @@
 #define DIAGONAL_BLOCK_LD_KEY "DiagonalBlockLD"
 #define DIAGONAL_BLOCK_RD_KEY "DiagonalBlockRD"
 #define RECPTOR_KEY "Receptors"
+#define V_ENERGY_BAR_KEY "VerticalEnergyBar"
+#define H_ENERGY_BAR_KEY "HorizontalEnergyBar"
 
 #define KEY_WITHOUT_GRAVITY_SENTINEL "WithoutGravitySentinel"
 #define KEY_GRAVITY_SENTINEL "GravitySentinel"
@@ -446,6 +450,32 @@ void YamlManager::getObjects(Window &window, std::string& texturesPath) {
         int h = node[OBJECT_HEIGHT].as<int>();
         DiagonalBlockRightDown* newObject =
                 new DiagonalBlockRightDown(path, window, id, w, h);
+        textures[id] = newObject;
+    }
+
+    const YAML::Node& vEnergyBar = texturesInfo[V_ENERGY_BAR_KEY];
+    for (YAML::const_iterator it = vEnergyBar.begin();
+         it != vEnergyBar.end(); ++it) {
+        const YAML::Node& node = *it;
+        int id = node[OBJECT_ID].as<int>();
+        std::string path = node[IMAGE_PATH].as<std::string>();
+        int w = node[OBJECT_WIDTH].as<int>();
+        int h = node[OBJECT_HEIGHT].as<int>();
+        VerticalEnergyBar* newObject =
+                new VerticalEnergyBar(path, window, id, w, h);
+        textures[id] = newObject;
+    }
+
+    const YAML::Node& hEnergyBar = texturesInfo[H_ENERGY_BAR_KEY];
+    for (YAML::const_iterator it = hEnergyBar.begin();
+         it != hEnergyBar.end(); ++it) {
+        const YAML::Node& node = *it;
+        int id = node[OBJECT_ID].as<int>();
+        std::string path = node[IMAGE_PATH].as<std::string>();
+        int w = node[OBJECT_WIDTH].as<int>();
+        int h = node[OBJECT_HEIGHT].as<int>();
+        HorizontalEnergyBar* newObject =
+                new HorizontalEnergyBar(path, window, id, w, h);
         textures[id] = newObject;
     }
 }

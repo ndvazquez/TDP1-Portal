@@ -119,15 +119,27 @@ Buttons: # gravity, no animation
     h: 1
 
 WithoutGravitySentinel:
-  - id: 23
+  - id: 100
     path: resources/blocks/sentinel.png
     w: 1
     h: 1
 
 GravitySentinel:
-  - id: 24
+  - id: 101
     path: resources/blocks/sentinel.png
     w: 1
+    h: 1
+
+VerticalEnergyBar:
+  - id: 23
+    path: resources/energy-bar/vertical.png
+    w: 1
+    h: 3
+
+HorizontalEnergyBar:
+  - id: 24
+    path: resources/energy-bar/horizontal.png
+    w: 3
     h: 1
 
 MenuData:
@@ -203,6 +215,14 @@ MenuData:
     path: resources/Acid/menu.png
     w: 3
     h: 1
+  - id: 23
+    path: resources/energy-bar/vertical.png
+    w: 1
+    h: 2
+  - id: 24
+    path: resources/energy-bar/horizontal.png
+    w: 1
+    h: 3
   - id: 7
     path: resources/lounch-block/receptor-down.png
     w: 2

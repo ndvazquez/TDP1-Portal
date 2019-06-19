@@ -53,7 +53,9 @@ enum StageObjects {
     CAKE,
     ACID,
     GATE,
-    BUTTON
+    BUTTON,
+    VERTICA_ENERGY_BAR,
+    HORIZONTAL_ENERGY_BAR
 };
 
 enum PortalType {
@@ -133,6 +135,8 @@ enum PortalType {
 #define GATE_WIDTH 1
 #define GATE_HEIGHT 2
 #define CHELL_WHEEL_RADIUS 0.25
+#define ENERGY_BAR_HEIGHT 3
+#define ENERGY_BAR_WIDTH 0.5
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0

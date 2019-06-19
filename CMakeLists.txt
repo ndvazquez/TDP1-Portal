@@ -74,6 +74,9 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
         editor/stage/object/Receptor.cpp
+        editor/stage/object/EnergyBar.cpp
+        editor/stage/object/VerticalEnergyBar.cpp
+        editor/stage/object/HorizontalEnergyBar.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockUp.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockRightUp.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockLeftUp.cpp
