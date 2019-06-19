@@ -221,8 +221,8 @@ MenuData:
     h: 2
   - id: 24
     path: resources/energy-bar/horizontal.png
-    w: 1
-    h: 3
+    w: 2
+    h: 1
   - id: 7
     path: resources/lounch-block/receptor-down.png
     w: 2
