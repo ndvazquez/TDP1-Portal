@@ -5,14 +5,14 @@
 #ifndef PORTAL_ENERGYRECEPTORDOWN_H
 #define PORTAL_ENERGYRECEPTORDOWN_H
 
-
 #include "EnergyReceptor.h"
 
 class EnergyReceptorDown: public EnergyReceptor {
 public:
     explicit EnergyReceptorDown(b2Body* body);
-    virtual void handleCollision(Entity* entity) override;
-};
 
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+};
 
 #endif //PORTAL_ENERGYRECEPTORDOWN_H

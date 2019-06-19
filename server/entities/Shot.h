@@ -20,13 +20,25 @@ protected:
 
 public:
     Shot(std::string type, b2Body *body, Chell* chell, Coordinate* target);
-    virtual void handleCollision(Entity* entity) override;
-    Chell* getChell();
-    void shoot();
-    bool isDead();
-    void die();
-    float getAngle();
     ~Shot();
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+
+    /* Returns Chell object asociated to the shot */
+    Chell* getChell();
+
+    /* Liberates a bullet */
+    void shoot();
+
+    /* Returns a boolean that indicates if the Shot has finished its trajectory */
+    bool isDead();
+
+    /* Kills a Shot */
+    void die();
+
+    /* Returns the angle of the Shot's trajectory */
+    float getAngle();
 };
 
 #endif //PORTAL_SHOT_H

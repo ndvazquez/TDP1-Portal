@@ -15,7 +15,12 @@ private:
     float angle;
 public:
     explicit DiagonalMetalBlock(b2Body* body, float angle);
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+
+    /* Returns the velocity that has to be applied to any
+     * object colliding against a DiagonalMetalBlock to bounce */
     b2Vec2 calculateVelocity();
 };
 

@@ -15,21 +15,49 @@ private:
     bool dead;
     bool grabbed;
 
+    /* Frees memory allocated for the movement */
+    void destroyActualMovement();
+
+    /* Activates the body's gravity */
+    void activateGravity();
+
 public:
     explicit Rock(b2Body* body);
+
+    /* Elevates a rock to a given coordinates */
     void elevate(Coordinate& coordinate);
+
+    /* Downloads a rock to the ground */
     void downloadToEarth();
+
+    /* A Rock moves right */
     void moveRight(Coordinate& coordinate);
+
+    /* A Rock moves left */
     void moveLeft(Coordinate& coordinate);
+
+    /* A Rock stops moving */
     void stop();
-    void destroyActualMovement();
+
+    /* Updates Rock's state through movement */
     void update();
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+
+    /* A Rock teleports to the location indicated by coordinate */
     void teleport(Coordinate* target, PortalType type);
+
+    /* A Rock is released upwards */
     void release();
-    void activateGravity();
+
+    /* Returns a boolean that indicates that a Rock has died */
     bool isDead();
+
+    /* Kills a Rock*/
     void die();
+
+    /* Returns a boolean that indicates if a rock is being grabbed */
     bool isGrabbed();
 };
 

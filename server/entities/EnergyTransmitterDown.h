@@ -10,8 +10,10 @@
 class EnergyTransmitterDown: public EnergyTransmitter {
 public:
     explicit EnergyTransmitterDown(b2Body* body);
-    virtual Coordinate* throwEnergyBall() override;
-};
 
+    /* Returns a Coordinate* that indicates the position
+     * an EnergyBall should be thrown */
+    Coordinate* throwEnergyBall() override;
+};
 
 #endif //PORTAL_ENERGYTRANSMITTERDOWN_H

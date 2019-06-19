@@ -10,7 +10,9 @@
 class EnergyReceptorUp: public EnergyReceptor {
 public:
     explicit EnergyReceptorUp(b2Body* body);
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_ENERGYRECEPTORUP_H

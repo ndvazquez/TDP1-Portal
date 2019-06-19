@@ -14,9 +14,15 @@ protected:
 
 public:
     explicit EnergyTransmitter(b2Body* body);
+
+    /* Returns boolean that indicates if it's time to throw an EnergyBall */
     bool isTimeToThrow();
+
+    /* Throws an EnergyBall */
     virtual Coordinate* throwEnergyBall() = 0;
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_ENERGYTRANSMITTER_H

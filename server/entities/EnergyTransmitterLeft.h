@@ -11,8 +11,10 @@
 class EnergyTransmitterLeft: public EnergyTransmitter {
 public:
     explicit EnergyTransmitterLeft(b2Body* body);
-    virtual Coordinate* throwEnergyBall() override;
-};
 
+    /* Returns a Coordinate* that indicates the position
+    * an EnergyBall should be thrown */
+    Coordinate* throwEnergyBall() override;
+};
 
 #endif //PORTAL_ENERGYTRANSMITTERLEFT_H

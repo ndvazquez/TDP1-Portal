@@ -5,7 +5,6 @@
 #ifndef PORTAL_PORTAL_H
 #define PORTAL_PORTAL_H
 
-
 #include "stage-support/Coordinate.h"
 #include "Entity.h"
 #include "../../common/constants.h"
@@ -19,14 +18,25 @@ private:
 
 public:
     Portal(b2Body* body, Coordinate* target, PortalOrientation orientation, PortalType type);
-    Coordinate* getTarget();
-    virtual void handleCollision(Entity* entity) override;
-    PortalOrientation getOrientation();
-    void addTarget(Coordinate* target);
-    void addPortalType(PortalType type);
-    PortalType getPortalType();
     ~Portal();
-};
 
+    /* Returns the portal's target */
+    Coordinate* getTarget();
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+
+    /* Returns the portal's orientation */
+    PortalOrientation getOrientation();
+
+    /* Adds a target to the portal */
+    void addTarget(Coordinate* target);
+
+    /* Adds a type to the portal (horizontal or vertical */
+    void addPortalType(PortalType type);
+
+    /* Returns the portal's type */
+    PortalType getPortalType();
+};
 
 #endif //PORTAL_PORTAL_H

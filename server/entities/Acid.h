@@ -11,7 +11,9 @@
 class Acid: public Entity {
 public:
     explicit Acid(b2Body* body);
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_ACID_H

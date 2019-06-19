@@ -12,7 +12,9 @@
 class MetalBlock: public Entity {
 public:
     explicit MetalBlock(b2Body* body);
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
 };
 
 #endif //PORTAL_METALBLOCK_H

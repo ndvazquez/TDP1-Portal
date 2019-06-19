@@ -12,13 +12,17 @@
 #include "ItemActivable.h"
 
 class Button: public ItemActivable {
+private:
     Dynamic dynamic;
 
 public:
     explicit Button(b2Body* body);
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+
+    /* Updates state of the button: on and off */
     void update();
 };
-
 
 #endif //PORTAL_BUTTON_H

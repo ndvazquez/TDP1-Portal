@@ -30,34 +30,85 @@ private:
     Coordinate* blue_portal_to_teleport;
     bool winner;
 
+    /* Frees memory allocated for the movement */
+    void destroyActualMovement();
+
 public:
     explicit Chell(b2Body* body);
     ~Chell();
 
+    /* Moves Chell in the right direction */
     void moveRight();
+
+    /* Moves Chell in the left direction */
     void moveLeft();
+
+    /* Stops Chell's movement */
     void stop();
+
+    /* Chell jumps */
     void jump();
-    void destroyActualMovement();
+
+    /* Updates Chell's state through movement */
     void update();
+
+    /* Returns boolean that indicates if Chell is in the ground */
     bool inGround();
+
+    /* Kills Chell */
     void die();
+
+    /* Chell wins */
     void win();
+
+    /* Returns boolean that indicates if Chell has died */
     bool isDead();
+
+    /* Returns boolean that indicates if Chell has won */
     bool hasWon();
-    virtual void handleCollision(Entity* entity) override;
+
+    /* Handles collision against other objects in the world */
+    void handleCollision(Entity* entity) override;
+
+    /* Updates Chell state on floor */
     void onFloor(bool onFloor);
+
+    /* Chell grabs a rock */
     void grabRock(Rock* rock);
+
+    /* Chell realeases a rock */
     void releaseRock();
+
+    /* Chell downloads a rock to earth */
     void downloadRock();
+
+    /* Saves the orange portal made by Chell and its corresponding
+     * location to teleport */
     void addOrangePortal(OrangePortal* orangePortal, Coordinate* to_teleport);
+
+    /* Saves the blue portal made by Chell and its corresponding
+     * location to teleport */
     void addBluePortal(BluePortal* bluePortal, Coordinate* to_teleport);
+
+    /* Chell teleports to the location indicated by coordinate */
     void teleport(Coordinate* coordinate, PortalType type);
+
+    /* Chell resets portals */
     void removePortals();
+
+    /* Returns Chell actual state */
     ChellState getState();
+
+    /* Returns blue portal made by Chell */
     BluePortal* getBluePortal();
+
+    /* Returns orange portal made by Chell */
     OrangePortal* getOrangePortal();
+
+    /* Returns the coordinate of the blue portal */
     Coordinate* getBluePortalToTeleport();
+
+    /* Returns the coordinate of the orange portal */
     Coordinate* getOrangePortalToTeleport();
 };
 
