@@ -19,11 +19,11 @@ GateView::~GateView() {
 
 void GateView::playAnimation(const SDL_Rect &camera) {
     if (!checkCollisionWithCamera(camera)) return;
-    SDL_Rect portalRect = {viewPosX - camera.x,
+    SDL_Rect destRect = {viewPosX - camera.x,
                            viewPosY - camera.y,
                            int(viewWidthInMeters * mtpFactor),
                            int(viewHeightInMeters * mtpFactor)};
-    sprite->draw(&portalRect);
+    sprite->draw(&destRect);
 }
 
 void GateView::setState(int state) {

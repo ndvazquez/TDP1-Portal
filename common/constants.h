@@ -178,3 +178,6 @@ enum PortalType {
 #define OBJECT_ID "id"
 #define OBJECT_WIDTH "w"
 #define OBJECT_HEIGHT "h"
+
+// This should be put in a YAML config file.
+#define MTP_FACTOR 70

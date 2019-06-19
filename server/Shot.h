@@ -26,6 +26,7 @@ public:
     bool isDead();
     void die();
     float getAngle();
+    ~Shot();
 };
 
 #endif //PORTAL_SHOT_H

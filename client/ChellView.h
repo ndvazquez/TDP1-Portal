@@ -33,6 +33,8 @@ class ChellView : public View {
     int deathCounterToStopDrawing;
     int runTimer;
     bool updateRunTimer();
+    std::vector<float> statesWidth;
+    std::vector<float> statesHeight;
 public:
     ChellView(Window &window,
             int xPos,

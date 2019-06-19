@@ -195,7 +195,7 @@ void Chell::jump() {
 bool Chell::inGround() {
     float epsilon = pow(10, -7);
     bool chell_is_still = body->GetLinearVelocity().y < epsilon
-                        && body->GetLinearVelocity().y > -epsilon;
+                          && body->GetLinearVelocity().y > -epsilon;
     if (chell_is_still) dynamic.handleCollisions();
     return chell_is_on_floor;
 }

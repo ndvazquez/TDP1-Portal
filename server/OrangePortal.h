@@ -19,6 +19,7 @@ public:
     Coordinate* getPortal();
     bool isVertical();
     PortalType getPortalType();
+    ~OrangePortal();
 };
 
 

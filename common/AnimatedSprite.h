@@ -29,6 +29,7 @@ public:
     void draw(int x, int y, SDL_RendererFlip flip = SDL_FLIP_NONE);
     void draw(SDL_Rect* destRect, SDL_RendererFlip flip = SDL_FLIP_NONE);
     void draw(int x, int y, double angle);
+    void draw(SDL_Rect* destRect, double angle);
     void updateFrameStep();
     int getWidth();
     int getHeight();
