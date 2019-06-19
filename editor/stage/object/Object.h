@@ -69,6 +69,8 @@ public:
 
     virtual bool hasCondition();
     virtual std::map<std::pair<int, int>, std::string>& getNames();
+
+    virtual std::map<std::pair<int, int>, std::string>& getConditions();
     int getWidth();
 };
 

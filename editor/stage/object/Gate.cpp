@@ -54,3 +54,7 @@ std::map<std::pair<int, int>, std::string> &Gate::getNames() {
 std::pair<int, int> Gate::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     return this->rectangleCenterOfMassToMatrixPos(pair, GATE_WIDTH, GATE_HEIGHT);
 }
+
+std::map<std::pair<int, int>, std::string> &Gate::getConditions() {
+    return conditions;
+}
