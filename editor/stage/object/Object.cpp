@@ -108,29 +108,7 @@ std::pair<float, float> Object::rectangleMatrixPosToCenterOfMass(
     return p;
 }
 
-std::pair<float, float> Object::triangleMatrixPosToCenterOfMass(
-        const std::pair<float, float> &a,
-        const std::pair<float, float> &b,
-        const std::pair<float, float> &c) {
-    float ax = a.first, ay = a.second + 1; //+1;
-    float bx = b.first, by = b.second + 1;
-    float cx = c.first, cy = c.second + 1;
 
-    std::pair<float, float> p((ax + bx + cx)/3, (ay + by + cy)/3);
-    /*
-    std::cerr << "\nSoy un " << name << std::endl;
-    std::cerr << "Mi pos es:" << std::endl;
-    std::cerr << "\t(" << ax << ", " << ay << ")" << std::endl;
-
-    std::cerr << "\t(" << bx << ", " << by << ")" << std::endl;
-
-    std::cerr << "\t(" << cx << ", " << cy << ")" << std::endl;
-
-    std::cerr << "Y me centro de masa:" << std::endl;
-    std::cerr << "\t(" << p.first << ", " << p.second << ")" << std::endl;
-    */
-    return p;
-}
 
 std::map<std::pair<int, int>, std::string> &Object::getNames() {
 }

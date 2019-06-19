@@ -55,11 +55,6 @@ public:
             const std::pair<int, int> &position,
             float w, float h);
 
-    std::pair<float, float> triangleMatrixPosToCenterOfMass(
-            const std::pair<float, float> &a,
-            const std::pair<float, float> &b,
-            const std::pair<float, float> &c);
-
     virtual std::pair<float, float> matrixPosToCenterOfMass(
             const std::pair<int, int> &position) = 0;
 

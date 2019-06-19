@@ -110,9 +110,16 @@ void YamlManager::writeStage() {
             const std::pair<int,int>& position = tile.first;
             int thisID = tile.second;
             if (thisID == currentID) {
+                std::cerr << "La posicion de matriz que estoy por guardar:" << std::endl;
+                std::cerr << "\t(" << position.first << ", " << position.second << ")" << std::endl;
+
                 std::pair<float, float> centerOfMass =
                         object->matrixPosToCenterOfMass(position);
+                std::cerr << "Centro de masa en sdl:" << std::endl;
+                std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
                 matrixPosToMeters(centerOfMass, height);
+                std::cerr << "Centro de masa en boxd:" << std::endl;
+                std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
                 out << YAML::Value << YAML::BeginMap;
                 out << YAML::Key << HORIZONTAL_POSITION;
                 out << YAML::Value << centerOfMass.first;

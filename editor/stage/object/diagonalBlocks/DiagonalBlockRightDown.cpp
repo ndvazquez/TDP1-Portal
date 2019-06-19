@@ -12,28 +12,19 @@ DiagonalBlockRightDown::~DiagonalBlockRightDown() = default;
 
 std::pair<float, float> DiagonalBlockRightDown::matrixPosToCenterOfMass(
         const std::pair<int, int> &position) {
-    float ax = position.first;
-    float ay = position.second;
+    float x = position.first;
+    float y = position.second;
 
-    float bx = ax;
-    float by = ay - h;
-
-    float cx = bx + w;
-    float cy = by;
-    return this->triangleMatrixPosToCenterOfMass(std::make_pair(ax, ay),
-                                                 std::make_pair(bx, by),
-                                                 std::make_pair(cx, cy));
+    float x1 = x + (1.0/3) * w;
+    float y1 = y - (2.0/3) * h;
+    return std::pair<float, float> (x1, y1 + 1);
 }
 
 std::pair<int, int> DiagonalBlockRightDown::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     float x = pair.first;
     float y = pair.second;
 
-    std::cerr << "\n\nEstoy donde quiero:" << std::endl;
-
-    std::pair<int, int> a(x - (-1.0/3)  * w - 1, y - (-2.0/3) * h);
-
-    std::cerr << "\t(w,h) = (" << w << ", " << h << ")" << std::endl;
-    std::cerr << "\ta = (" << a.first << ", " << a.second << ")" << std::endl;
-    return a;
+    float x1 = std::round(x - (1.0/3) * w);
+    float y1 = std::round(y + (2.0/3) * h);
+    return std::pair<int, int> (x1, y1 - 1);
 }
