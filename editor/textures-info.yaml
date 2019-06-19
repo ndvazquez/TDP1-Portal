@@ -115,7 +115,7 @@ Gate: # gravity, no animation
 Buttons: # gravity, no animation
   - id: 22
     path: resources/button/off.png
-    w: 1
+    w: 2
     h: 1
 
 WithoutGravitySentinel:

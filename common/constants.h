@@ -118,7 +118,7 @@ enum PortalType {
 #define METAL_SIDE 2
 #define CHELL_WIDTH 1
 #define CHELL_HEIGHT 1.95
-#define BUTTON_WIDTH 1
+#define BUTTON_WIDTH 2
 #define BUTTON_HEIGHT 0.5
 #define ACID_WIDTH 3
 #define ACID_HEIGHT 0.5
