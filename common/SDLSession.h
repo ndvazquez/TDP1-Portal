@@ -8,6 +8,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_mixer.h>
+#include <SDL_ttf.h>
 #include <exception>
 #include <string>
 
@@ -31,6 +32,14 @@ class MixInitException: public std::exception {
     virtual const char* what() const throw() {
         std::string message = "Failed to init required sound support: ";
         message += Mix_GetError();
+        return message.c_str();
+    }
+};
+
+class TextureInitException: public std::exception {
+    virtual const char* what() const throw() {
+        std::string message = "Failed to init required ttf support: ";
+        message += TTF_GetError();
         return message.c_str();
     }
 };
