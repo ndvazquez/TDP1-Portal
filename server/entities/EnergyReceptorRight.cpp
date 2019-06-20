@@ -16,12 +16,14 @@ void EnergyReceptorRight::handleCollision(Entity* entity) {
         dynamic_cast<Chell*>(entity)->onFloor(true);
     }
     if (type == EB_NAME) {
-        EnergyBall* energyBall = dynamic_cast<EnergyBall*>(entity);
+        EnergyBall *energyBall = dynamic_cast<EnergyBall *>(entity);
         float x_pos = getHorizontalPosition();
         float x_eb = energyBall->getHorizontalPosition();
         if (x_eb > x_pos) {
             activate();
             energyBall->die();
+        } else {
+            energyBall->invertDirection();
         }
     }
     if (type == BLUE_SHOT_NAME) {

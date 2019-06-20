@@ -22,6 +22,8 @@ void EnergyReceptorUp::handleCollision(Entity* entity) {
         if (y_eb > y_pos) {
             activate();
             energyBall->die();
+        } else {
+            energyBall->invertDirection();
         }
     }
     if (type == BLUE_SHOT_NAME) {

@@ -93,6 +93,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (x_eb > x_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ER_LEFT_NAME) {
@@ -102,6 +104,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (x_eb < x_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ER_UP_NAME) {
@@ -111,6 +115,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (y_eb > y_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ER_DOWN_NAME) {
@@ -120,6 +126,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (y_eb < y_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ROCK_NAME) {
