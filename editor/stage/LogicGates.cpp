@@ -85,6 +85,7 @@ void LogicGates::parseCondition(std::string &condition) {
 }
 
 std::map<std::pair<float, float>, std::string> &LogicGates::getNames() {
+    names.clear();
     for(auto obj : namedElements) {
         std::map<std::pair<int, int>, std::string>& subNames = obj->getNames();
         for(auto it : subNames) {
@@ -99,6 +100,7 @@ std::map<std::pair<float, float>, std::string> &LogicGates::getNames() {
 }
 
 std::map<std::pair<float, float>, std::string> &LogicGates::getConditions() {
+    conditions.clear();
     for(auto obj : conditionalElements) {
         std::map<std::pair<int, int>, std::string>& subConditions =
                                                     obj->getConditions();

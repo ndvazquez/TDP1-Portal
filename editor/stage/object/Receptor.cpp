@@ -42,7 +42,8 @@ bool Receptor::doesThisNameExist(std::string &string) {
 
 void Receptor::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
                           std::unordered_map<int, Object *> &textures) {
-    names.erase(std::make_pair(x, y));
+    auto it = names.find(std::make_pair(x, y));
+    names.erase(it);
     Object::removeFrom(x, y, tiles, textures);
 }
 

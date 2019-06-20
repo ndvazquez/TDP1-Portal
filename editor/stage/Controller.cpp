@@ -6,7 +6,7 @@
 #include <fstream>
 #include "Controller.h"
 #include "YamlManager.h"
-#define SET_YAML "Ingrese el nombre de un archivo yaml del cual leer el escenario"
+#define SET_YAML "Ingrese por terminal el nombre de un archivo yaml del cual leer el escenario"
 
 
 Controller::Controller(Window &window, std::string texturesPath, int factor) :
@@ -15,18 +15,12 @@ Controller::Controller(Window &window, std::string texturesPath, int factor) :
                     yaml(textures, tiles, logicGates) {
     try {
         yaml.getObjects(window, texturesPath);
-
-        std::cerr << "Hasya antes de la creación todo ok." << std::endl;
         Text text(window, SET_YAML, LIGHT_GREEN);
-        std::cerr << "Lo defini ok" << std::endl;
 
-
-        std::cerr << "LLamo a draw" << std::endl;
         window.clear();
         text.draw(0,0);
         window.render();
 
-        std::cerr << "Ingrese el nombre de un archivo yaml del cual leer el escenario" << std::endl;
         std::string s;
         std::getline(std::cin, s);
         yaml.readStage(s);

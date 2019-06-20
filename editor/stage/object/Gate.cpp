@@ -28,8 +28,10 @@ void Gate::addCondition(std::pair<int, int> position, std::string &condition) {
 
 void Gate::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
                       std::unordered_map<int, Object *> &textures) {
-    conditions.erase(std::make_pair(x, y));
-    names.erase(std::make_pair(x, y));
+    auto conditionsIt = conditions.find(std::make_pair(x, y));
+    conditions.erase(conditionsIt);
+    auto namesIt = names.find(std::make_pair(x, y));
+    names.erase(namesIt);
     Object::removeFrom(x, y, tiles, textures);
 }
 
