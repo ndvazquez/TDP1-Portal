@@ -65,8 +65,14 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
         float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                     std::string logic) {
     b2Body* gate_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
-
     Gate* gate = new Gate(gate_body, logic, items);
+    gates.insert({id, gate});
+}
+
+void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
+             float y_pos) {
+    b2Body* gate_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
+    Gate* gate = new Gate(gate_body);
     gates.insert({id, gate});
 }
 
@@ -502,9 +508,9 @@ nlohmann::json Stage::getCurrentState() {
         float x_pos_er = i->second->getHorizontalPosition();
         float y_pos_er = i->second->getVerticalPosition();
         SwitchState state = i->second->getState();
-        /*request[id_er] = {
+        request[id_er] = {
                 {"state", state}, {"x", x_pos_er}, {"y", y_pos_er}
-        };*/
+        };
     }
     for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
         std::string id_eb = i->first;

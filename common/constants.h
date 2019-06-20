@@ -74,10 +74,10 @@ enum PortalType {
 #define HORIZONTAL_SIZE "width"
 #define HORIZONTAL_POSITION "x"
 #define VERTICAL_POSITION "y"
-#define SATAGE_OBJECTS_NAMES "Names"
+#define STAGE_OBJECT_NAMES "Names"
 #define LOGICAL_GATES "Conditions"
 #define OBJECT_NAME "name"
-#define SATAGE_OBJECTS_CONDITIONS "condition"
+#define STAGE_OBJECT_CONDITIONS "condition"
 
 //Object names
 #define METAL_BLOCK_NAME "MetalBlock"
@@ -141,7 +141,7 @@ enum PortalType {
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
 #define ACID_VIEW_CODE 1
-#define ENERGY_BALL__VIEW_CODE 2
+#define ENERGY_BALL_VIEW_CODE 2
 #define ROCK_VIEW_CODE 3
 #define BLUE_PORTAL_VIEW_CODE 4
 #define ORANGE_PORTAL_VIEW_CODE 5
@@ -149,6 +149,7 @@ enum PortalType {
 #define BULLET_VIEW_CODE 7
 #define CAKE_VIEW_CODE 8
 #define GATE_VIEW_CODE 9
+#define RECEPTOR_VIEW_CODE 10
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0

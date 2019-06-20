@@ -101,6 +101,8 @@ public:
     void addGate(std::string id, float v_side, float h_side, float x_pos,
             float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                  std::string logic);
+    void addGate(std::string id, float v_side, float h_side, float x_pos,
+            float y_pos); //open gate
 
     /* Adds Chell to the stage */
     void addChell(std::string id, float v_side, float h_side,
