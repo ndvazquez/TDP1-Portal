@@ -19,7 +19,7 @@ and may not be redistributed without written permission.*/
 #include "Window.h"
 
 
-const SDL_Color LIGHT_GREEN = {124, 120, 33};
+const SDL_Color GREEN_MOLD = {124, 120, 33};
 const SDL_Color BLACK = {0, 0, 0};
 
 
