@@ -3,7 +3,6 @@
 //
 
 #include <Box2D/Box2D.h>
-#include <iostream>
 #include "Dynamic.h"
 #include "entities/Entity.h"
 #include "stage-support/Coordinate.h"
@@ -16,11 +15,11 @@ Dynamic::Dynamic(b2Body* body):
 void Dynamic::move(float force) {
 }
 
-void Dynamic::teleport(Coordinate* coordinate, Direction type, bool keep_impulse) {
+bool Dynamic::teleport(Coordinate* coordinate, Direction type, bool keep_impulse) {
     auto end = std::chrono::system_clock::now();
     auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
             (end - timeStamp).count();
-    if (difference <= 100) return; //0.1 seconds to teletransport
+    if (difference <= 100) return false; //0.1 seconds to teletransport
     timeStamp = std::chrono::system_clock::now();
 
     float x = coordinate->getX();
@@ -28,7 +27,7 @@ void Dynamic::teleport(Coordinate* coordinate, Direction type, bool keep_impulse
 
     body->SetTransform(b2Vec2(x, y), 0);
 
-    if (keep_impulse) return;
+    if (keep_impulse) return true;
 
     float gravity_force = -body->GetMass() * gameConfiguration.gravity;
     float net_force = gameConfiguration.elevationForce;
@@ -51,6 +50,7 @@ void Dynamic::teleport(Coordinate* coordinate, Direction type, bool keep_impulse
         body->ApplyForce(b2Vec2(-net_force, 0),
                          body->GetWorldCenter(), true);
     }
+    return true;
 }
 
 void Dynamic::moveRight(float force) {
@@ -107,18 +107,25 @@ void Dynamic::flyRect(Direction eb_type) {
         if (body->GetLinearVelocity().x > 0) return;
         body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
+        body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
+
     } else if (eb_type == LEFT) {
         if (body->GetLinearVelocity().x < 0) return;
         body->ApplyLinearImpulse(b2Vec2(-energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
+        body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
+
     } else if (eb_type == UP) {
         if (body->GetLinearVelocity().y > 0) return;
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
+        body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
+
     } else if (eb_type == DOWN) {
         if (body->GetLinearVelocity().y < 0) return;
         body->ApplyLinearImpulse(b2Vec2(0, -energy_ball_impulse),
                                  body->GetWorldCenter(), true);
+        body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
     }
 }
 

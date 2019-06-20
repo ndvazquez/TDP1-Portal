@@ -45,7 +45,6 @@ void Portal::handleCollision(Entity* entity) {
         EnergyBall* eb = dynamic_cast<EnergyBall*>(entity);
         if (target != nullptr) {
             eb->teleport(target, portal_type_target);
-            eb->applyOrientation(portal_type_target);
         }
     }
     if (type == BLUE_SHOT_NAME) {

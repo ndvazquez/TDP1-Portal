@@ -47,8 +47,9 @@ public:
     /* Handle collisions of the body against other objects */
     bool handleCollisions();
 
-    /* Makes an object teleport, applicating an extra impulse if neccessary */
-    void teleport(Coordinate* coordinate, Direction type, bool keep_impulse);
+    /* Makes an object teleport, applicating an extra impulse if neccessary.
+     * Returns false if it couldn't teleport and true otherwise */
+    bool teleport(Coordinate* coordinate, Direction type, bool keep_impulse);
 };
 
 #endif //PORTAL_DYNAMIC_H

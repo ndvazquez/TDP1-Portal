@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
@@ -78,8 +77,7 @@ void EnergyBall::handleCollision(Entity* entity) {
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
             Direction portal_type = portal->getPortalType();
-            applyOrientation(portal_type);
-            teleport(target, portal->getPortalType());
+            teleport(target, portal_type);
         }
     }
     if (type == BLUE_SHOT_NAME) {
@@ -128,6 +126,10 @@ void EnergyBall::handleCollision(Entity* entity) {
         dynamic_cast<Rock*>(entity)->die();
         die();
     }
+
+    if (type == ET_NAME) {
+        invertDirection();
+    }
 }
 
 void EnergyBall::invertDirection() {
@@ -143,7 +145,7 @@ void EnergyBall::invertDirection() {
 }
 
 void EnergyBall::teleport(Coordinate* target, Direction type) {
-    this->dynamic.teleport(target, type, true);
+    if (this->dynamic.teleport(target, type, true)) applyOrientation(type);
 }
 
 void EnergyBall::update() {
