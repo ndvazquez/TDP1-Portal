@@ -551,6 +551,34 @@ nlohmann::json Stage::getCurrentState() {
     return request;
 }
 
+Button* Stage::getButtonByPosition(Coordinate& coordinate) {
+    float x_coord = coordinate.getX();
+    float y_coord = coordinate.getY();
+    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+        Button* button = i->second;
+        float x_button = button->getHorizontalPosition();
+        float y_button = button->getVerticalPosition();
+        if (x_button == x_coord && y_button == y_coord) {
+            return button;
+        }
+    }
+    return nullptr;
+}
+
+EnergyReceptor* Stage::getEnergyReceptorByPosition(Coordinate& coordinate) {
+    float x_coord = coordinate.getX();
+    float y_coord = coordinate.getY();
+    for (auto i = energy_receptors.begin(); i != energy_receptors.end(); i++) {
+        EnergyReceptor* er = i->second;
+        float x_er = er->getHorizontalPosition();
+        float y_er = er->getVerticalPosition();
+        if (x_er == x_coord && y_er == y_coord) {
+            return er;
+        }
+    }
+    return nullptr;
+}
+
 
 Stage::~Stage() {
     delete cake;

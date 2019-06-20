@@ -71,7 +71,7 @@ void LogicGates::parseCondition(std::string &condition) {
         }
         if (!allGood) {
             std::cerr << "NOT ALL GOOD" << std::endl;
-            throw StageControllerInvalidConditionException();
+            //throw StageControllerInvalidConditionException();
         }
         i++;
     }
@@ -80,7 +80,7 @@ void LogicGates::parseCondition(std::string &condition) {
         return;
     } else {
         std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
-        throw StageControllerInvalidConditionException();
+        //throw StageControllerInvalidConditionException();
     }
 }
 

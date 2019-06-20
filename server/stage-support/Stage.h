@@ -131,6 +131,12 @@ public:
 
     /* Returns a json with the current state of the objects identified by and id */
     nlohmann::json getCurrentState();
+
+    /* Returns a Button determined by its position */
+    Button* getButtonByPosition(Coordinate& coordinate);
+
+    /* Returns an EnergyRecepttor determined by its position */
+    EnergyReceptor* getEnergyReceptorByPosition(Coordinate& coordinate);
 };
 
 #endif //PORTAL_STAGE_H

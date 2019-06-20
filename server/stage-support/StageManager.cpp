@@ -10,7 +10,7 @@ StageManager::StageManager(int stageWidth,
         int stageHeight) :
         playerCounter(1),
         stage(Stage(stageWidth, stageHeight)),
-        parser("file.yaml", stage) {
+        parser("holi.yaml", stage) {
     this->timeStamp = std::chrono::system_clock::now();
     parser.parseAndAdd();
 }

@@ -44,7 +44,6 @@ void YamlParser::parseAndAdd() {
     const YAML::Node& et_down = editor_data[std::to_string(LOUNCH_BLOCK_DOWN)]["position"];
     for (YAML::const_iterator it = et_down.begin();
          it != et_down.end(); ++it) {
-        std::cout << "Soy un emisor" << std::endl;
         const YAML::Node& position = *it;
         float x = position["x"].as<float>();
         float y = position["y"].as<float>();
@@ -333,9 +332,6 @@ void YamlParser::parseAndAdd() {
         acid_counter++;
     }
 
-    const YAML::Node& gates = editor_data[std::to_string(GATE)]["position"];
-    //TODO: missing logic
-
     int button_counter = 1;
     const YAML::Node& buttons = editor_data[std::to_string(BUTTON)]["position"];
     for (YAML::const_iterator it = buttons.begin();
@@ -351,6 +347,57 @@ void YamlParser::parseAndAdd() {
         button_counter++;
     }
 
+    // Read names and replace id
+
+    std::unordered_map<std::string, ItemActivable*> items;
+    const YAML::Node& names = editor_data["Names"];
+    for (YAML::const_iterator it = names.begin();
+         it != names.end(); ++it) {
+        const YAML::Node& name_and_position = *it;
+        std::string name = name_and_position["name"].as<std::string>();
+        float y_pos = name_and_position["position"]["y"].as<float>();
+        float x_pos = name_and_position["position"]["x"].as<float>();
+        Coordinate coordinate(x_pos, y_pos);
+
+        //Search in buttons
+        Button* button = stage.getButtonByPosition(coordinate);
+        if (button != nullptr) {
+            items.insert({name, button});
+        }
+        EnergyReceptor* er = stage.getEnergyReceptorByPosition(coordinate);
+        if (er != nullptr) {
+            items.insert({name, er});
+        }
+    }
+
+    // asumo que si o si le ponen la condicion a la puerta
+    // si 1 gate no tiene condicion no se agrega
+    int gate_counter = 1;
+
+    const YAML::Node& conditions = editor_data["Conditions"];
+    for (YAML::const_iterator it = conditions.begin();
+         it != conditions.end(); ++it) {
+        std::unordered_map<std::string, ItemActivable*> items_to_insert;
+        const YAML::Node& condition_and_position = *it;
+        std::string logic = condition_and_position["condition"].as<std::string>();
+
+        for (auto i = items.begin(); i != items.end(); i++)  {
+            std::string id = i->first;
+            if (logic.find(id) != std::string::npos) { //si el id está en la condición
+                items_to_insert.insert({i->first, i->second});
+            }
+        }
+        float y_pos = condition_and_position["position"]["y"].as<float>();
+        float x_pos = condition_and_position["position"]["x"].as<float>();
+
+        std::string id = GATE_NAME + std::to_string(gate_counter);
+
+        stage.addGate(id, GATE_HEIGHT, GATE_WIDTH, x_pos, y_pos, items_to_insert, logic);
+        dynamic_json[id] = {
+                {"type", GATE_VIEW_CODE}, {"state", CLOSED}, {"x", x_pos}, {"y", y_pos}
+        };
+        gate_counter++;
+    }
 }
 
 nlohmann::json YamlParser::getStaticJson() {
