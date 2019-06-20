@@ -14,7 +14,6 @@
 class Dynamic {
 private:
     b2Body* body;
-    float energy_ball_impulse;
     std::chrono::system_clock::time_point timeStamp;
 
     /* Adjusts gravity according to the jump */
@@ -39,11 +38,8 @@ public:
     /* Makes an object stop moving */
     void stop(float force);
 
-    /* Makes an object fly in a horizontal direction */
-    void flyHorizontal(Direction eb_type);
-
-    /* Makes an object fly in a vertical direction */
-    void flyVertical(Direction eb_type);
+    /* Makes an object fly in a rectified direction */
+    void flyRect(Direction eb_type);
 
     /* Makes an object fly in a direction indicated by velocity */
     void fly(b2Vec2 velocity);

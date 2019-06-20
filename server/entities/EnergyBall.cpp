@@ -33,11 +33,7 @@ void EnergyBall::fly() {
         die();
         return; //Dies after 10 seconds
     }
-    if (eb_type == RIGHT || eb_type == LEFT) {
-        dynamic.flyHorizontal(eb_type);
-    } else {
-        dynamic.flyVertical(eb_type);
-    }
+    dynamic.flyRect(eb_type);
 }
 
 void EnergyBall::applyOrientation(Direction direction) {
@@ -78,12 +74,11 @@ void EnergyBall::handleCollision(Entity* entity) {
         die();
     }
     if (type == PORTAL_NAME) {
-        std::cout << "me tope con un portal" << std::endl;
         Portal* portal = dynamic_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            //Direction portal_type = portal->getPortalType();
-            //applyOrientation(portal_type);
+            Direction portal_type = portal->getPortalType();
+            applyOrientation(portal_type);
             teleport(target, portal->getPortalType());
         }
     }
@@ -152,6 +147,5 @@ void EnergyBall::teleport(Coordinate* target, Direction type) {
 }
 
 void EnergyBall::update() {
-    std::cout << getHorizontalVelocity() << std::endl;
     this->dynamic.handleCollisions();
 }

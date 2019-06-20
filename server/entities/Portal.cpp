@@ -42,7 +42,6 @@ void Portal::handleCollision(Entity* entity) {
         }
     }
     if (type == EB_NAME) {
-        std::cout << "me choque una eb" << std::endl;
         EnergyBall* eb = dynamic_cast<EnergyBall*>(entity);
         if (target != nullptr) {
             eb->teleport(target, portal_type_target);

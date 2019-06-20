@@ -277,7 +277,6 @@ void Stage::step() {
         }
     }
 
-
     for (auto i = gates.begin(); i != gates.end(); i++) {
         i->second->update();
     }

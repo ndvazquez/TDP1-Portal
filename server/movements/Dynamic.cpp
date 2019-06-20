@@ -11,8 +11,6 @@
 
 Dynamic::Dynamic(b2Body* body):
         body(body) {
-    float energy_ball_factor = gameConfiguration.energyBallImpulseFactor;
-    this->energy_ball_impulse = body->GetMass() * energy_ball_factor;
 }
 
 void Dynamic::move(float force) {
@@ -101,25 +99,24 @@ bool Dynamic::handleCollisions() {
     return resul;
 }
 
-void Dynamic::flyHorizontal(Direction eb_type) {
-    if (body->GetLinearVelocity().x != 0) return; //Already flying
+void Dynamic::flyRect(Direction eb_type) {
+    float energy_ball_factor = gameConfiguration.energyBallImpulseFactor;
+    float energy_ball_impulse = body->GetMass() * energy_ball_factor;
 
     if (eb_type == RIGHT) {
+        if (body->GetLinearVelocity().x > 0) return;
         body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
-    } else {
+    } else if (eb_type == LEFT) {
+        if (body->GetLinearVelocity().x < 0) return;
         body->ApplyLinearImpulse(b2Vec2(-energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
-    }
-}
-
-void Dynamic::flyVertical(Direction eb_type) {
-    if (body->GetLinearVelocity().y != 0) return; //Already flying
-
-    if (eb_type == UP) {
+    } else if (eb_type == UP) {
+        if (body->GetLinearVelocity().y > 0) return;
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
-    } else {
+    } else if (eb_type == DOWN) {
+        if (body->GetLinearVelocity().y < 0) return;
         body->ApplyLinearImpulse(b2Vec2(0, -energy_ball_impulse),
                                  body->GetWorldCenter(), true);
     }
@@ -129,7 +126,6 @@ void Dynamic::fly(b2Vec2 velocity) {
     body->SetGravityScale(0);
 
     float factor = gameConfiguration.directionFactor;
-
     body->SetLinearVelocity(b2Vec2(velocity.x*factor, velocity.y*factor));
 }
 
