@@ -15,7 +15,7 @@ Controller::Controller(Window &window, std::string texturesPath, int factor) :
                     yaml(textures, tiles, logicGates) {
     try {
         yaml.getObjects(window, texturesPath);
-        Text text(window, SET_YAML, GREEN_MOLD);
+        TextOut text(window, SET_YAML, GREEN_MOLD);
 
         window.clear();
         text.drawInTheCenter();

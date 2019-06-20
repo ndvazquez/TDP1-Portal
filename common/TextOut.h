@@ -2,8 +2,8 @@
 // Created by camix on 20/06/19.
 //
 
-#ifndef PORTAL_TEXT_H
-#define PORTAL_TEXT_H
+#ifndef PORTAL_TEXTOUT_H
+#define PORTAL_TEXTOUT_H
 
 
 /*This source code copyrighted by Lazy Foo' Productions (2004-2019)
@@ -23,7 +23,7 @@ const SDL_Color BLACK = {0, 0, 0};
 
 
 //Texture wrapper class
-class Text {
+class TextOut {
 private:
     //The actual hardware texture
     SDL_Texture* mTexture{};
@@ -35,10 +35,10 @@ private:
 
 public:
     //Initializes variables
-    Text(Window &window, const char *message, SDL_Color color = BLACK);
+    TextOut(Window &window, const char *message, SDL_Color color = BLACK);
 
     //Deallocates memory
-    ~Text();
+    ~TextOut();
 
 
     //Set color modulation
@@ -73,4 +73,4 @@ public:
 };
 
 
-#endif //PORTAL_TEXT_H
+#endif //PORTAL_TEXTOUT_H
