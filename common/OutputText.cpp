@@ -19,17 +19,16 @@ SDL_Renderer* G_RENDER = NULL;
 TTF_Font *G_FONT = NULL;
 
 OutputText::OutputText(Window &window, const char *message, SDL_Color color) :
-        window(window) {
+        window(window), color(color){
     //Render text surface
-    TTF_Font* font = TTF_OpenFont(DEFAULT_FONT, 28);
+    font = TTF_OpenFont(DEFAULT_FONT, 28);
     //If there was an error in loading the font
     if (font == NULL) {
         std::cerr << "Error: " << TTF_GetError() << std::endl;
         throw TextInitException(TTF_GetError());
     }
-
     std::cerr << "1" << std::endl;
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, message, color);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, message, this->color);
     std::cerr << "2" << std::endl;
 
     if (!textSurface) {
@@ -60,6 +59,32 @@ OutputText::~OutputText() {
         mWidth = 0;
         mHeight = 0;
     }
+}
+
+void OutputText::changeMessage(const char *message) {
+    std::cerr << "1" << std::endl;
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, message, color);
+    std::cerr << "2" << std::endl;
+
+    if (!textSurface) {
+        std::cerr << "Error: " << TTF_GetError() << std::endl;
+        throw TextChangeNameException(TTF_GetError());
+    }
+
+    //Create texture from surface pixels
+    mTexture = SDL_CreateTextureFromSurface(window.renderer, textSurface);
+    if (!mTexture) {
+        std::cerr << "Error: " << SDL_GetError() << std::endl;
+        throw TextChangeNameException(SDL_GetError());
+    }
+    //Get image dimensions
+    mWidth = textSurface->w;
+    std::cerr << "\tmWidth: " << mWidth << std::endl;
+    mHeight = textSurface->h;
+
+    std::cerr << "\tmHeight: " << mHeight << std::endl;
+    //Get rid of old surface
+    SDL_FreeSurface( textSurface );
 }
 
 

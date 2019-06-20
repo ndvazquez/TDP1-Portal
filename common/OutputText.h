@@ -27,11 +27,14 @@ class OutputText {
 private:
     //The actual hardware texture
     SDL_Texture* mTexture{};
+    TTF_Font* font;
 
     //Image dimensions
     int mWidth{};
     int mHeight{};
     Window& window;
+    SDL_Color color;
+
 
 public:
     //Initializes variables
@@ -58,12 +61,14 @@ public:
     void drawInTheCenter();
 
     void drawFromTheCenter(int x, int y);
+
+    void changeMessage(const char *message);
 };
 
-class TextInitException: public std::exception {
+class TextException: public std::exception {
     const char* error;
 public:
-    TextInitException(const char* error) :
+    TextException(const char* error) :
             error(error){}
     virtual const char* what() const throw() {
         std::string message = "There was an error initializing the text: ";
@@ -72,5 +77,16 @@ public:
     }
 };
 
+class TextInitException: public TextException {
+public:
+    TextInitException(const char* error) :
+            TextException(error){}
+};
+
+class TextChangeNameException: public TextException {
+public:
+    TextChangeNameException(const char* error) :
+            TextException(error){}
+};
 
 #endif //PORTAL_OUTPUTTEXT_H
