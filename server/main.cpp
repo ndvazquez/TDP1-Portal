@@ -10,26 +10,23 @@
 #include "../common/Socket.h"
 #include "stage-support/StageManager.h"
 #include <iostream>
+#include <communication-support/RoomManager.h>
+#include <communication-support/RoomAcceptor.h>
 
 void testRunServer() {
     std::string host = "localhost";
     std::string service = "8000";
-    int stageWidth = 40;
-    int stageHeight = 20;
-    int chellPosX = 4;
-    int chellPosY = 1;
+    char c = '*';
     Socket acceptorSocket;
     acceptorSocket.bindAndListen(host, service);
-    Socket peerSocket1 = acceptorSocket.acceptPeer();
-    Socket peerSocket2 = acceptorSocket.acceptPeer();
-    StageManager stageManager(stageWidth, stageHeight);
-    stageManager.addPlayer(peerSocket1);
-    stageManager.addPlayer(peerSocket2);
-    stageManager.run();
-    // Sanity check.
-    peerSocket1.shutdownAndClose();
-    peerSocket2.shutdownAndClose();
-    acceptorSocket.shutdownAndClose();
+    RoomManager roomManager;
+    RoomAcceptor roomAcceptor(roomManager, acceptorSocket);
+    roomAcceptor.start();
+    while (c != 'q'){
+        std::cin.get(c);
+    }
+    roomAcceptor.stop();
+    roomAcceptor.join();
 }
 int main(int argc, char* argv[]) {
     testRunServer();

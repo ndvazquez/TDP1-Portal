@@ -44,8 +44,7 @@ void StageManager::run() {
         it->second->push(dynamic_json.dump());
     }
 
-    bool weGaming = true;
-    while (weGaming) {
+    while (!_isDead) {
         auto end = std::chrono::system_clock::now();
         auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
                 (end - timeStamp).count();
@@ -63,8 +62,9 @@ void StageManager::run() {
             nlohmann::json stageStatus = stage.getCurrentState();
             // Check if any client is dead (disconnected).
             // If so, then delete his queue and the ClientHandler.
-            for (auto it = clients.begin(); it != clients.end(); ){
-                auto clientIt = it++;
+            for (auto it = players.begin(); it != players.end(); ){
+                auto playerIt = it++;
+                auto clientIt = clients.find(playerIt->first);
                 if (clientIt->second->isDead()) {
                     std::string playerID = clientIt->first;
                     std::cout << "Removing " + playerID << " from the client pool\n";
@@ -77,6 +77,7 @@ void StageManager::run() {
                     clientQueues.erase(queueIt);
                     delete clientIt->second;
                     clients.erase(clientIt);
+                    players.erase(playerIt);
                     std::cout << "Client deleted\n";
                 }
             }
@@ -87,9 +88,10 @@ void StageManager::run() {
             }
             // Provisory way to exit the loop.
             if (clients.size() == 0) {
-                weGaming = false;
+                _isDead = true;
                 std::cout << "Goodbye!\n";
             }
+            //TODO: We need to quit the loop if the game is won.
         }
     }
 }
@@ -179,7 +181,7 @@ bool StageManager::addPlayer(Socket &socket,
     nlohmann::json successAction;
     successAction["result"] = SUCCESS_CODE;
     successAction["desc"] = "Joined game!";
-    successAction['idChell'] = chellID;
+    successAction["idChell"] = chellID;
     std::string successActionString = successAction.dump();
     int successActionSize = successActionString.size();
     socket.sendMessage(&successActionSize, REQUEST_LEN_SIZE);
@@ -194,4 +196,8 @@ bool StageManager::addPlayer(Socket &socket,
 
 bool StageManager::isFull() {
     return playerCounter == maxPlayers;
+}
+
+void StageManager::stop() {
+
 }

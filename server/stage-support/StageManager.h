@@ -15,7 +15,7 @@
 #include <unordered_map>
 #include <string>
 
-class StageManager {
+class StageManager : public Thread {
     int playerCounter;
     int maxPlayers;
     UserEventQueue userEventQueue;
@@ -34,6 +34,7 @@ public:
     ~StageManager();
     // This is going to run on another thread.
     void run();
+    void stop();
     bool addPlayer(Socket& socket,
             const std::string& playerID);
     bool isFull();
