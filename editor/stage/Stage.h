@@ -42,7 +42,7 @@ public:
     void handleMouseDoubleClick(MouseButton &event);
     void handleMouseRightClick(MouseButton &event);
 
-    void close();
+    void save();
 
     void pixelToMatrix(MouseButton &event, int *xPixel, int *yPixel, int *x, int *y);
 

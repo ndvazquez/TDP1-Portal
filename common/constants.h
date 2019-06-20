@@ -53,7 +53,9 @@ enum StageObjects {
     CAKE,
     ACID,
     GATE,
-    BUTTON
+    BUTTON,
+    VERTICA_ENERGY_BAR,
+    HORIZONTAL_ENERGY_BAR
 };
 
 enum PortalType {
@@ -75,7 +77,7 @@ enum PortalType {
 #define SATAGE_OBJECTS_NAMES "Names"
 #define LOGICAL_GATES "Conditions"
 #define OBJECT_NAME "name"
-#define OBJECT_CONDITION "condition"
+#define SATAGE_OBJECTS_CONDITIONS "condition"
 
 //Object names
 #define METAL_BLOCK_NAME "MetalBlock"
@@ -116,7 +118,7 @@ enum PortalType {
 #define METAL_SIDE 2
 #define CHELL_WIDTH 1
 #define CHELL_HEIGHT 1.95
-#define BUTTON_WIDTH 1
+#define BUTTON_WIDTH 2
 #define BUTTON_HEIGHT 0.5
 #define ACID_WIDTH 3
 #define ACID_HEIGHT 0.5
@@ -133,6 +135,8 @@ enum PortalType {
 #define GATE_WIDTH 1
 #define GATE_HEIGHT 2
 #define CHELL_WHEEL_RADIUS 0.25
+#define ENERGY_BAR_HEIGHT 3
+#define ENERGY_BAR_WIDTH 0.5
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0

@@ -21,6 +21,8 @@
 #include "object/diagonalBlocks/DiagonalBlockDown.h"
 #include "object/diagonalBlocks/DiagonalBlockLeftDown.h"
 #include "object/diagonalBlocks/DiagonalBlockRightDown.h"
+#include "object/VerticalEnergyBar.h"
+#include "object/HorizontalEnergyBar.h"
 
 
 #define BLOCK_KEY "Blocks"
@@ -35,6 +37,8 @@
 #define DIAGONAL_BLOCK_LD_KEY "DiagonalBlockLD"
 #define DIAGONAL_BLOCK_RD_KEY "DiagonalBlockRD"
 #define RECPTOR_KEY "Receptors"
+#define V_ENERGY_BAR_KEY "VerticalEnergyBar"
+#define H_ENERGY_BAR_KEY "HorizontalEnergyBar"
 
 #define KEY_WITHOUT_GRAVITY_SENTINEL "WithoutGravitySentinel"
 #define KEY_GRAVITY_SENTINEL "GravitySentinel"
@@ -76,146 +80,186 @@ void YamlManager::getWidthAndHeightInMeters(int *width, int *height) {
 }
 
 
-void YamlManager::writeStage() {
-    int width, height;
-    YAML::Emitter out;
-    getWidthAndHeightInMeters(&width, &height);
-    out << YAML::BeginMap;
-    out << YAML::Key << STAGE_ATTRIBUTES;
-    out << YAML::Value << YAML::BeginMap;
-    out << YAML::Key << STAGE_SIZE;
-
-    out << YAML::Value << YAML::BeginMap;
-    out << YAML::Key << HORIZONTAL_SIZE;
-    out << YAML::Value << width;
-    out << YAML::Key << VERTICAL_SIZE;
-    out << YAML::Value << height;
-    out << YAML::Value << YAML::EndMap;
-
-    out << YAML::Value << YAML::EndMap;
-
-
-    for(auto & texture : textures) {
-        int currentID = texture.first;
-        Object* object = texture.second;
-        if (currentID == GRAVITY_SENTINEL ||
-            currentID == WITHOUT_GRAVITY_SENTINEL) continue;
-        out << YAML::Key << currentID;
+void YamlManager::writeStage(std::string& stagePath) {
+    try {
+        int width, height;
+        YAML::Emitter out;
+        getWidthAndHeightInMeters(&width, &height);
+        out << YAML::BeginMap;
+        out << YAML::Key << STAGE_ATTRIBUTES;
+        out << YAML::Value << YAML::BeginMap;
+        out << YAML::Key << STAGE_SIZE;
 
         out << YAML::Value << YAML::BeginMap;
-        out << YAML::Key << OBJECT_POSITION;
+        out << YAML::Key << HORIZONTAL_SIZE;
+        out << YAML::Value << width;
+        out << YAML::Key << VERTICAL_SIZE;
+        out << YAML::Value << height;
+        out << YAML::Value << YAML::EndMap;
 
-        out << YAML::Key  << YAML::BeginSeq;
-        for (auto & tile : tiles) {
-            const std::pair<int,int>& position = tile.first;
-            int thisID = tile.second;
-            if (thisID == currentID) {
-                std::cerr << "La posicion de matriz que estoy por guardar:" << std::endl;
-                std::cerr << "\t(" << position.first << ", " << position.second << ")" << std::endl;
+        out << YAML::Value << YAML::EndMap;
 
-                std::pair<float, float> centerOfMass =
-                        object->matrixPosToCenterOfMass(position);
-                std::cerr << "Centro de masa en sdl:" << std::endl;
-                std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
-                matrixPosToMeters(centerOfMass, height);
-                std::cerr << "Centro de masa en boxd:" << std::endl;
-                std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
-                out << YAML::Value << YAML::BeginMap;
-                out << YAML::Key << HORIZONTAL_POSITION;
-                out << YAML::Value << centerOfMass.first;
-                out << YAML::Key << VERTICAL_POSITION;
-                out << YAML::Value << centerOfMass.second;
-                out << YAML::Value << YAML::EndMap;
+
+        for (auto &texture : textures) {
+            int currentID = texture.first;
+            Object *object = texture.second;
+            if (currentID == GRAVITY_SENTINEL ||
+                currentID == WITHOUT_GRAVITY_SENTINEL)
+                continue;
+            out << YAML::Key << currentID;
+
+            out << YAML::Value << YAML::BeginMap;
+            out << YAML::Key << OBJECT_POSITION;
+
+            out << YAML::Key << YAML::BeginSeq;
+            for (auto &tile : tiles) {
+                const std::pair<int, int> &position = tile.first;
+                int thisID = tile.second;
+                if (thisID == currentID) {
+                    std::pair<float, float> centerOfMass =
+                            object->matrixPosToCenterOfMass(position);
+                    matrixPosToMeters(centerOfMass, height);
+                    out << YAML::Value << YAML::BeginMap;
+                    out << YAML::Key << HORIZONTAL_POSITION;
+                    out << YAML::Value << centerOfMass.first;
+                    out << YAML::Key << VERTICAL_POSITION;
+                    out << YAML::Value << centerOfMass.second;
+                    out << YAML::Value << YAML::EndMap;
+                }
             }
+            out << YAML::Key << YAML::EndSeq;
+            out << YAML::Value << YAML::EndMap;
         }
-        out << YAML::Key  << YAML::EndSeq;
-        out << YAML::Value << YAML::EndMap;
+
+
+        std::map<std::pair<float, float>, std::string> &names = logicGates.getNames();
+        out << YAML::Key << SATAGE_OBJECTS_NAMES;
+        out << YAML::Key << YAML::BeginSeq;
+        for (auto &it : names) {
+            std::pair<float, float> centerOfMassPos = it.first;
+            matrixPosToMeters(centerOfMassPos, height);
+            std::string &name = it.second;
+            out << YAML::Value << YAML::BeginMap;
+
+            out << YAML::Key << OBJECT_NAME;
+            out << YAML::Value << name;
+            out << YAML::Key << OBJECT_POSITION;
+
+            out << YAML::Value << YAML::BeginMap;
+            out << YAML::Key << HORIZONTAL_POSITION;
+            out << YAML::Value << centerOfMassPos.first;
+            out << YAML::Key << VERTICAL_POSITION;
+            out << YAML::Value << centerOfMassPos.second;
+            out << YAML::Value << YAML::EndMap;
+
+
+            out << YAML::Value << YAML::EndMap;
+        }
+        out << YAML::Key << YAML::EndSeq;
+
+
+        std::map<std::pair<float, float>, std::string> &conditions = logicGates.getConditions();
+        out << YAML::Key << LOGICAL_GATES;
+        out << YAML::Key << YAML::BeginSeq;
+        for (auto &it : conditions) {
+            std::pair<float, float> centerOfMassPos = it.first;
+            matrixPosToMeters(centerOfMassPos, height);
+            std::string &name = it.second;
+            out << YAML::Value << YAML::BeginMap;
+
+            out << YAML::Key << SATAGE_OBJECTS_CONDITIONS;
+            out << YAML::Value << name;
+            out << YAML::Key << OBJECT_POSITION;
+
+            out << YAML::Value << YAML::BeginMap;
+            out << YAML::Key << HORIZONTAL_POSITION;
+            out << YAML::Value << centerOfMassPos.first;
+            out << YAML::Key << VERTICAL_POSITION;
+            out << YAML::Value << centerOfMassPos.second;
+            out << YAML::Value << YAML::EndMap;
+
+
+            out << YAML::Value << YAML::EndMap;
+        }
+        out << YAML::Key << YAML::EndSeq;
+
+        out << YAML::EndMap;
+        std::ofstream fileOut(stagePath);
+        fileOut << out.c_str();
     }
-
-
-    std::map<std::pair<float, float>, std::string>& names = logicGates.getNames();
-    out << YAML::Key << SATAGE_OBJECTS_NAMES;
-    out << YAML::Key << YAML::BeginSeq;
-    for(auto & it : names) {
-        std::pair<float, float> centerOfMassPos = it.first;
-        matrixPosToMeters(centerOfMassPos, height);
-        std::string& name = it.second;
-        out << YAML::Value << YAML::BeginMap;
-
-        out << YAML::Key << OBJECT_NAME;
-        out << YAML::Value << name;
-        out << YAML::Key << OBJECT_POSITION;
-
-        out << YAML::Value << YAML::BeginMap;
-        out << YAML::Key << HORIZONTAL_POSITION;
-        out << YAML::Value << centerOfMassPos.first;
-        out << YAML::Key << VERTICAL_POSITION;
-        out << YAML::Value << centerOfMassPos.second;
-        out << YAML::Value << YAML::EndMap;
-
-
-        out << YAML::Value << YAML::EndMap;
+    catch(YAML::BadFile &e) {
+        std::cerr << e.what() << std::endl;
+        throw InvalidFile();
     }
-    out << YAML::Key << YAML::EndSeq;
-
-
-    std::map<std::pair<float, float>, std::string>& conditions = logicGates.getConditions();
-    out << YAML::Key << LOGICAL_GATES;
-    out << YAML::Key << YAML::BeginSeq;
-    for(auto & it : conditions) {
-        std::pair<float, float> centerOfMassPos = it.first;
-        matrixPosToMeters(centerOfMassPos, height);
-        std::string& name = it.second;
-        out << YAML::Value << YAML::BeginMap;
-
-        out << YAML::Key << OBJECT_CONDITION;
-        out << YAML::Value << name;
-        out << YAML::Key << OBJECT_POSITION;
-
-        out << YAML::Value << YAML::BeginMap;
-        out << YAML::Key << HORIZONTAL_POSITION;
-        out << YAML::Value << centerOfMassPos.first;
-        out << YAML::Key << VERTICAL_POSITION;
-        out << YAML::Value << centerOfMassPos.second;
-        out << YAML::Value << YAML::EndMap;
-
-
-        out << YAML::Value << YAML::EndMap;
-    }
-    out << YAML::Key << YAML::EndSeq;
-
-    out << YAML::EndMap;
-    std::ofstream fileOut("file.yaml");
-    fileOut << out.c_str();
 }
 
 
-void YamlManager::readStage(std::string& texturesPath) {
-    YAML::Node texturesInfo = YAML::LoadFile(texturesPath);
-    const YAML::Node& node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
-    int width = (int) node[VERTICAL_SIZE].as<float>();
-    for (auto & texture : textures) {
-        int currentID = texture.first;
-        Object* object = texture.second;
-        const YAML::Node& objects = texturesInfo[currentID][OBJECT_POSITION];
-        for (YAML::const_iterator it = objects.begin();
-             it != objects.end(); ++it) {
-            const YAML::Node& node = *it;
-            float x = node[HORIZONTAL_POSITION].as<float>();
-            float y = node[VERTICAL_POSITION].as<float>();
-            std::pair<float, float> centerOfMass = std::make_pair(x,y);
-            std::cerr << "Leo el centro de masa ejes box2d:" << std::endl;
-            std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
-            MetersToMatrixPos(centerOfMass, width);
-            std::cerr << "El centro de masa en ejes SDL:" << std::endl;
-            std::cerr << "\t(" << centerOfMass.first << ", " << centerOfMass.second << ")" << std::endl;
-            std::pair<int, int> matrixPos =
-                    object->centerOfMassToMatrixPos(centerOfMass);
+void YamlManager::readStage(std::string& stagePath) {
+    try {
+        std::map<std::pair<int, int>, Object *> centerOfMassPosition;
+        YAML::Node texturesInfo = YAML::LoadFile(stagePath);
+        const YAML::Node &node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
+        int width = (int) node[VERTICAL_SIZE].as<float>();
+        for (auto &texture : textures) {
+            int currentID = texture.first;
+            Object *object = texture.second;
+            const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
+            for (YAML::const_iterator it = objects.begin();
+                 it != objects.end(); ++it) {
+                const YAML::Node &node = *it;
+                float x = node[HORIZONTAL_POSITION].as<float>();
+                float y = node[VERTICAL_POSITION].as<float>();
+                std::pair<float, float> centerOfMass = std::make_pair(x, y);
+                centerOfMassPosition[centerOfMass] = object;
+                MetersToMatrixPos(centerOfMass, width);
+                std::pair<int, int> matrixPos =
+                        object->centerOfMassToMatrixPos(centerOfMass);
 
-            std::cerr << "Posicion final: " << std::endl;
-            std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
-            tiles[matrixPos] = currentID;
+                //std::cerr << "Posicion final: " << std::endl;
+                //std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
+                tiles[matrixPos] = currentID;
+            }
         }
+
+        const YAML::Node &names = texturesInfo[SATAGE_OBJECTS_NAMES];
+        Object *currentObject;
+        std::pair<int, int> matrixPos;
+        std::string name;
+        for (YAML::const_iterator itNames = names.begin();
+             itNames != names.end(); ++itNames) {
+            const YAML::Node &node = *itNames;
+
+            name = node[OBJECT_NAME].as<std::string>();
+            float x = node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
+            float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
+
+            std::pair<float, float> centerOfMass = std::make_pair(x, y);
+            currentObject = centerOfMassPosition[centerOfMass];
+            MetersToMatrixPos(centerOfMass, width);
+            matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
+            logicGates.setName(currentObject, matrixPos, name);
+        }
+
+        const YAML::Node &conditions = texturesInfo[LOGICAL_GATES];
+        std::string condition;
+        for (YAML::const_iterator itNames = conditions.begin();
+             itNames != conditions.end(); ++itNames) {
+            const YAML::Node &node = *itNames;
+
+            condition = node[SATAGE_OBJECTS_CONDITIONS].as<std::string>();
+            float x = node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
+            float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
+
+            std::pair<float, float> centerOfMass = std::make_pair(x, y);
+            currentObject = centerOfMassPosition[centerOfMass];
+            MetersToMatrixPos(centerOfMass, width);
+            matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
+            logicGates.addCondition(currentObject, matrixPos, condition);
+        }
+    }
+    catch(YAML::BadFile &e) {
+        std::cerr << e.what() << std::endl;
+        throw InvalidFile();
     }
 }
 
@@ -406,6 +450,32 @@ void YamlManager::getObjects(Window &window, std::string& texturesPath) {
         int h = node[OBJECT_HEIGHT].as<int>();
         DiagonalBlockRightDown* newObject =
                 new DiagonalBlockRightDown(path, window, id, w, h);
+        textures[id] = newObject;
+    }
+
+    const YAML::Node& vEnergyBar = texturesInfo[V_ENERGY_BAR_KEY];
+    for (YAML::const_iterator it = vEnergyBar.begin();
+         it != vEnergyBar.end(); ++it) {
+        const YAML::Node& node = *it;
+        int id = node[OBJECT_ID].as<int>();
+        std::string path = node[IMAGE_PATH].as<std::string>();
+        int w = node[OBJECT_WIDTH].as<int>();
+        int h = node[OBJECT_HEIGHT].as<int>();
+        VerticalEnergyBar* newObject =
+                new VerticalEnergyBar(path, window, id, w, h);
+        textures[id] = newObject;
+    }
+
+    const YAML::Node& hEnergyBar = texturesInfo[H_ENERGY_BAR_KEY];
+    for (YAML::const_iterator it = hEnergyBar.begin();
+         it != hEnergyBar.end(); ++it) {
+        const YAML::Node& node = *it;
+        int id = node[OBJECT_ID].as<int>();
+        std::string path = node[IMAGE_PATH].as<std::string>();
+        int w = node[OBJECT_WIDTH].as<int>();
+        int h = node[OBJECT_HEIGHT].as<int>();
+        HorizontalEnergyBar* newObject =
+                new HorizontalEnergyBar(path, window, id, w, h);
         textures[id] = newObject;
     }
 }
