@@ -14,6 +14,7 @@
 class Button : public StaticObject {
 private:
     std::map<std::pair<int, int>, std::string> names;
+    std::string lastName;
 
 public:
     Button(std::string &path, Window &window, int id, int w, int h);

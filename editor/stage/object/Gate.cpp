@@ -28,8 +28,12 @@ void Gate::addCondition(std::pair<int, int> position, std::string &condition) {
 
 void Gate::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
                       std::unordered_map<int, Object *> &textures) {
-    conditions.erase(std::make_pair(x, y));
-    names.erase(std::make_pair(x, y));
+    auto conditionsIt = conditions.find(std::make_pair(x, y));
+    lastCondition = conditionsIt->second;
+    conditions.erase(conditionsIt);
+    auto namesIt = names.find(std::make_pair(x, y));
+    lastName = namesIt->second;
+    names.erase(namesIt);
     Object::removeFrom(x, y, tiles, textures);
 }
 
@@ -39,7 +43,8 @@ bool Gate::hasCondition() {
 
 void Gate::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures,
                  bool needGravitySentinel) {
-    conditions[std::make_pair(x, y)] = "";
+    conditions[std::make_pair(x, y)] = lastCondition;
+    names[std::make_pair(x, y)] = lastName;
     Object::addTo(x, y, tiles, textures);
 }
 

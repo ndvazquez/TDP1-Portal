@@ -14,6 +14,7 @@
 class Receptor : public StaticObject {
 private:
     std::map<std::pair<int, int>, std::string> names;
+    std::string lastName;
 
 public:
     Receptor(std::string &path, Window &window, int id, int w, int h);
@@ -42,6 +43,7 @@ public:
                std::map<std::pair<int, int>, int> &tiles,
                std::unordered_map<int, Object *> &textures,
                bool needGravitySentinel) override;
+
 };
 
 
