@@ -12,7 +12,7 @@
 #include "../../../common/Sprite.h"
 #include "ObjectException.h"
 #include "../../../common/constants.h"
-#include "../../../common/TextOut.h"
+#include "../../../common/OutputText.h"
 
 
 #define POSITIONS_ABOVE (h - 1)

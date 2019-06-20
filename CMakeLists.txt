@@ -58,7 +58,7 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        common/TextOut.cpp
+        common/OutputText.cpp
 
 
         editor/Menu.cpp

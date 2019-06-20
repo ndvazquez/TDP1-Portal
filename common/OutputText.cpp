@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "TextOut.h"
+#include "OutputText.h"
 
 
 #define X_CENTER window.getWindowWidth()/2 - mWidth/2
@@ -18,7 +18,7 @@ SDL_Renderer* G_RENDER = NULL;
 //Globally used font
 TTF_Font *G_FONT = NULL;
 
-TextOut::TextOut(Window &window, const char *message, SDL_Color color) :
+OutputText::OutputText(Window &window, const char *message, SDL_Color color) :
         window(window) {
     //Render text surface
     TTF_Font* font = TTF_OpenFont(DEFAULT_FONT, 28);
@@ -53,7 +53,7 @@ TextOut::TextOut(Window &window, const char *message, SDL_Color color) :
     SDL_FreeSurface( textSurface );
 }
 
-TextOut::~TextOut() {
+OutputText::~OutputText() {
     if (mTexture != NULL ) {
         SDL_DestroyTexture( mTexture );
         mTexture = NULL;
@@ -64,39 +64,39 @@ TextOut::~TextOut() {
 
 
 
-void TextOut::setColor( Uint8 red, Uint8 green, Uint8 blue ) {
+void OutputText::setColor( Uint8 red, Uint8 green, Uint8 blue ) {
     //Modulate texture rgb
     SDL_SetTextureColorMod( mTexture, red, green, blue );
 }
 
-void TextOut::setBlendMode( SDL_BlendMode blending ) {
+void OutputText::setBlendMode( SDL_BlendMode blending ) {
     //Set blending function
     SDL_SetTextureBlendMode( mTexture, blending );
 }
 
-void TextOut::setAlpha( Uint8 alpha ) {
+void OutputText::setAlpha( Uint8 alpha ) {
     //Modulate texture alpha
     SDL_SetTextureAlphaMod( mTexture, alpha );
 }
 
 
-void TextOut::draw(int x, int y) {
+void OutputText::draw(int x, int y) {
     SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
     SDL_Rect destRect = {x, y, this->mWidth, this->mHeight};
 
     window.draw(*this->mTexture, sourceRect, destRect);
 }
 
-void TextOut::draw(SDL_Rect* destRect) {
+void OutputText::draw(SDL_Rect* destRect) {
     SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
     window.draw(*this->mTexture, sourceRect, *destRect);
 }
 
-void TextOut::drawInTheCenter() {
+void OutputText::drawInTheCenter() {
     drawFromTheCenter(0,0);
 }
 
-void TextOut::drawFromTheCenter(int x, int y) {
+void OutputText::drawFromTheCenter(int x, int y) {
     SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
     SDL_Rect destRect = {X_CENTER - x , Y_CENTER - y, this->mWidth, this->mHeight};
     window.draw(*this->mTexture, sourceRect, destRect);
