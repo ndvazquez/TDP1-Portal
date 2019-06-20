@@ -8,7 +8,8 @@
 
 StageManager::StageManager(int stageWidth,
         int stageHeight) :
-        playerCounter(1),
+        playerCounter(0),
+        maxPlayers(2),
         stage(Stage(stageWidth, stageHeight)),
         parser("file.yaml", stage) {
     this->timeStamp = std::chrono::system_clock::now();
@@ -162,10 +163,26 @@ void StageManager::handleEvent(UserEvent &userEvent,
 }
 
 // For now we'll receive x and y to position Chell in stage.
-void StageManager::addPlayer(Socket &socket) {
-    std::string playerID = PLAYER_ID_PREFIX + std::to_string(playerCounter);
+bool StageManager::addPlayer(Socket &socket,
+        const std::string& playerID) {
+    // If there's a player with the same ID, then we can't add him.
+    // Sanity check, if it's full we can't add players.
+    if (isFull() || players.count(playerID) > 0) {
+        return false;
+    }
     ++playerCounter;
+    std::string chellID = PLAYER_ID_PREFIX + std::to_string(playerCounter);
     StageStatusQueue* newStatusQueue = new StageStatusQueue();
-    clientQueues.insert({playerID, newStatusQueue});
-    clients.insert({playerID, new ClientHandler(socket, userEventQueue, *newStatusQueue)});
+    // Might have to check this code again,
+    // if something fails it might corrupt the state of StageManager.
+    // Send success message here, with the ChellId associated to playerId;
+    players.insert({playerID, chellID});
+    clientQueues.insert({chellID, newStatusQueue});
+    clients.insert({chellID, new ClientHandler(socket,
+            userEventQueue,
+            *newStatusQueue)});
+}
+
+bool StageManager::isFull() {
+    return playerCounter == maxPlayers;
 }
