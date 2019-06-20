@@ -6,6 +6,8 @@
 #include "Text.h"
 
 
+#define X_CENTER window.getWindowWidth()/2 - mWidth/2
+#define Y_CENTER window.getWindowHeight()/2 - mHeight/2
 #define DEFAULT_FONT "font.ttf"
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
@@ -86,13 +88,16 @@ void Text::draw(int x, int y) {
 }
 
 void Text::draw(SDL_Rect* destRect) {
-    std::cerr << "\tEntre a draw" << std::endl;
     SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
-
     window.draw(*this->mTexture, sourceRect, *destRect);
-
-    std::cerr << "\tTermine el draw" << std::endl;
 }
 
+void Text::drawInTheCenter() {
+    drawFromTheCenter(0,0);
+}
 
-
+void Text::drawFromTheCenter(int x, int y) {
+    SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
+    SDL_Rect destRect = {X_CENTER - x , Y_CENTER - y, this->mWidth, this->mHeight};
+    window.draw(*this->mTexture, sourceRect, destRect);
+}

@@ -18,7 +18,6 @@ and may not be redistributed without written permission.*/
 #include <cmath>
 #include "Window.h"
 
-
 const SDL_Color GREEN_MOLD = {124, 120, 33};
 const SDL_Color BLACK = {0, 0, 0};
 
@@ -55,6 +54,10 @@ public:
     void draw(int x, int y);
 
     void draw(SDL_Rect *destRect);
+
+    void drawInTheCenter();
+
+    void drawFromTheCenter(int x, int y);
 };
 
 class TextInitException: public std::exception {

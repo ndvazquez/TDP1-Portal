@@ -18,7 +18,7 @@ Controller::Controller(Window &window, std::string texturesPath, int factor) :
         Text text(window, SET_YAML, GREEN_MOLD);
 
         window.clear();
-        text.draw(0,0);
+        text.drawInTheCenter();
         window.render();
 
         std::string s;
