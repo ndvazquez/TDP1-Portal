@@ -6,6 +6,7 @@
 #include "Text.h"
 
 
+#define DEFAULT_FONT "font.ttf"
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
@@ -18,7 +19,7 @@ TTF_Font *G_FONT = NULL;
 Text::Text(Window &window, const char *message, SDL_Color color) :
         window(window) {
     //Render text surface
-    TTF_Font* font = TTF_OpenFont("lazy.ttf", 28);
+    TTF_Font* font = TTF_OpenFont(DEFAULT_FONT, 28);
     //If there was an error in loading the font
     if (font == NULL) {
         std::cerr << "Error: " << TTF_GetError() << std::endl;
