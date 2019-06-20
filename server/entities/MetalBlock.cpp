@@ -3,11 +3,11 @@
 //
 
 #include <string>
-#include <iostream>
 #include "entities/MetalBlock.h"
 #include "entities/Chell.h"
 #include "entities/OrangeShot.h"
 #include "entities/BlueShot.h"
+#include "EnergyBall.h"
 
 MetalBlock::MetalBlock(b2Body* body):
     Entity(METAL_BLOCK_NAME, body) {
@@ -19,6 +19,10 @@ void MetalBlock::handleCollision(Entity* entity) {
     if (type == CHELL_NAME) {
         Chell* chell = dynamic_cast<Chell*>(entity);
         chell->onFloor(true);
+    }
+
+    if (type == EB_NAME) {
+        dynamic_cast<EnergyBall*>(entity)->invertDirection();
     }
 
     if (type == BLUE_SHOT_NAME) {
@@ -127,8 +131,10 @@ void MetalBlock::handleCollision(Entity* entity) {
                 Coordinate* coord = new Coordinate(x_right + portal_h_side/2,
                         y_pos_metal);
                 Coordinate* coord_to_teleport;
+
                 coord_to_teleport = new Coordinate(x_left + portal_h_side + ROCK_WIDTH*2,
                         y_pos_metal);
+
                 PortalHolder* orangePortal = new PortalHolder(coord, true, RIGHT);
                 chell->addOrangePortal(orangePortal, coord_to_teleport);
             }

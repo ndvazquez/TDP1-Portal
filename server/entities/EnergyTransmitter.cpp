@@ -36,4 +36,11 @@ void EnergyTransmitter::handleCollision(Entity *entity) {
     if (type == CHELL_NAME) {
         dynamic_cast<Chell*>(entity)->onFloor(true);
     }
+    if (type == EB_NAME) {
+        dynamic_cast<EnergyBall*>(entity)->invertDirection();
+    }
+}
+
+Direction EnergyTransmitter::getTypeTransmitter() {
+    return type_transmitter;
 }

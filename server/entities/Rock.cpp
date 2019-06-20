@@ -124,7 +124,7 @@ void Rock::downloadToEarth() {
     body->ApplyLinearImpulse(b2Vec2(0, -gameConfiguration.velocityDownload), body->GetWorldCenter(), true);
 }
 
-void Rock::teleport(Coordinate* target, PortalType type) {
+void Rock::teleport(Coordinate* target, Direction type) {
     this->dynamic.teleport(target, type, false);
 }
 

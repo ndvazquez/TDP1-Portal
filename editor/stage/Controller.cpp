@@ -12,7 +12,7 @@
 Controller::Controller(Window &window, std::string texturesPath, int factor) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
-                    yaml(textures, tiles, logicGates) {
+                    yaml(textures, tiles, logicGates) {                  
     try {
         yaml.getObjects(window, texturesPath);
         Text text(window, SET_YAML, LIGHT_GREEN);

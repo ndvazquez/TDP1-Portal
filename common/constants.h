@@ -58,7 +58,7 @@ enum StageObjects {
     HORIZONTAL_ENERGY_BAR
 };
 
-enum PortalType {
+enum Direction {
     RIGHT,
     LEFT,
     DOWN,
