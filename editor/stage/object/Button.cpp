@@ -32,6 +32,7 @@ bool Button::doesThisNameExist(std::string &string) {
 void Button::removeFrom(int x, int y, std::map<std::pair<int, int>, int> &tiles,
                         std::unordered_map<int, Object *> &textures) {
     auto it = names.find(std::make_pair(x, y));
+    lastName = it->second;
     names.erase(it);
     Object::removeFrom(x, y, tiles, textures);
 }
@@ -48,7 +49,7 @@ std::map<std::pair<int, int>, std::string> &Button::getNames() {
 
 void Button::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures,
                  bool needGravitySentinel) {
-    names[std::make_pair(x, y)] = "";
+    names[std::make_pair(x, y)] = lastName;
     Object::addTo(x, y, tiles, textures);
 }
 
