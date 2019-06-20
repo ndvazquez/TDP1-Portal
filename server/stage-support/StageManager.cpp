@@ -162,7 +162,7 @@ void StageManager::handleEvent(UserEvent &userEvent,
     }
 }
 
-// For now we'll receive x and y to position Chell in stage.
+
 bool StageManager::addPlayer(Socket &socket,
         const std::string& playerID) {
     // If there's a player with the same ID, then we can't add him.
@@ -176,11 +176,20 @@ bool StageManager::addPlayer(Socket &socket,
     // Might have to check this code again,
     // if something fails it might corrupt the state of StageManager.
     // Send success message here, with the ChellId associated to playerId;
+    nlohmann::json successAction;
+    successAction["result"] = SUCCESS_CODE;
+    successAction["desc"] = "Joined game!";
+    successAction['idChell'] = chellID;
+    std::string successActionString = successAction.dump();
+    int successActionSize = successActionString.size();
+    socket.sendMessage(&successActionSize, REQUEST_LEN_SIZE);
+    socket.sendMessage(&successActionString[0], successActionSize);
     players.insert({playerID, chellID});
     clientQueues.insert({chellID, newStatusQueue});
     clients.insert({chellID, new ClientHandler(socket,
             userEventQueue,
             *newStatusQueue)});
+    return true;
 }
 
 bool StageManager::isFull() {

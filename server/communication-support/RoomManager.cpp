@@ -9,8 +9,7 @@ RoomManager::RoomManager() {}
 RoomManager::~RoomManager() {
 }
 
-bool RoomManager::createGame(const std::string &gameName,
-        const std::string &playerId) {
+bool RoomManager::createGame(const std::string &gameName) {
     std::unique_lock<std::mutex> _lock(_mtx);
     if (rooms.count(gameName) > 0) {
         // There's already a game created with this name.

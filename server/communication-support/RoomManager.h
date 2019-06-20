@@ -19,8 +19,7 @@ public:
     RoomManager();
     ~RoomManager();
     // Creates a game and adds the creator to the game.
-    bool createGame(const std::string& gameName,
-            const std::string &playerId);
+    bool createGame(const std::string& gameName);
     // First checks if the player can join the game, if it's not possible
     // the socket won't be moved to the StageManager.
     bool addPlayerToGame(Socket& playerSocket,
