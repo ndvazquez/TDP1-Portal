@@ -132,7 +132,6 @@ set(SERVER_SOURCE_FILES
         server/movements/Stop.cpp
         server/entities/EnergyBall.cpp
         server/entities/Entity.cpp
-        server/configuration.cpp
         server/entities/Floor.cpp
         server/entities/BlueShot.cpp
         server/entities/OrangeShot.cpp
@@ -164,6 +163,7 @@ set(SERVER_SOURCE_FILES
         server/stage-support/YamlParser.cpp
         server/portal-support/PortalHolder.cpp
         common/Protocol.cpp
+        server/config/configuration.cpp
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp
         server/communication-support/RoomWorker.cpp)

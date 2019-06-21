@@ -8,7 +8,7 @@
 #include "entities/RockBlock.h"
 #include "entities/MetalBlock.h"
 #include "entities/DiagonalMetalBlock.h"
-#include "configuration.h"
+#include "config/configuration.h"
 
 class BrickBlockTest : public CxxTest::TestSuite
 {
