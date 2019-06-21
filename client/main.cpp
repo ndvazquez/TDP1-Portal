@@ -86,7 +86,6 @@ void playGame() {
         actionJson["id"] = playerId;
         std::string actionJsonString = actionJson.dump();
         clientProtocol.sendMessage(actionJsonString);
-
         std::cout << "Waiting response from server...\n";
 
         std::string serverResponse = clientProtocol.receiveMessage();
