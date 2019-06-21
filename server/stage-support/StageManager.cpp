@@ -7,11 +7,11 @@
 #include "YamlParser.h"
 
 StageManager::StageManager(float stageWidth,
-        float stageHeight) :
+        float stageHeight, std::string& levelPath) :
         playerCounter(0),
         maxPlayers(2),
         stage(Stage(stageWidth, stageHeight)),
-        parser("ceci.yaml", stage) {
+        parser(levelPath, stage) {
     this->timeStamp = std::chrono::system_clock::now();
     parser.parseAndAdd();
 }

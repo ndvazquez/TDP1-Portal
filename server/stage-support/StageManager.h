@@ -30,7 +30,7 @@ class StageManager : public Thread {
     void handleEvent(UserEvent& userEvent, Chell* chell);
 public:
     StageManager(float stageWidth,
-                float stageHeight);
+                float stageHeight, std::string& levelPath);
     ~StageManager();
     // This is going to run on another thread.
     void run();

@@ -67,6 +67,11 @@ void playGame() {
             clientSocket.shutdownAndClose();
             return;
         }
+        std::string levelPath;
+        if (action == "create") {
+            std::cout << "Enter the level path: \n";
+            std::getline(std::cin, levelPath);
+        }
         std::cout << "Enter game name: \n";
         std::string gameName;
         std::getline(std::cin, gameName);
@@ -86,6 +91,11 @@ void playGame() {
         int actionJsonSize = actionJsonString.size();
         clientSocket.sendMessage(&actionJsonSize, REQUEST_LEN_SIZE);
         clientSocket.sendMessage(&actionJsonString[0], actionJsonSize);
+        if (action == "create") {
+            int levelPathSize = levelPath.size();
+            clientSocket.sendMessage(&levelPathSize, REQUEST_LEN_SIZE);
+            clientSocket.sendMessage(&levelPath[0], levelPathSize);
+        }
         std::cout << "Waiting response from server...\n";
         int serverResponseSize;
         clientSocket.receiveMessage(&serverResponseSize, REQUEST_LEN_SIZE);
@@ -120,9 +130,9 @@ void playGame() {
 
     nlohmann::json metadata = nlohmann::json::parse(jsonMetadata);
 
-    int stageWidth = metadata["stage"]["width"].get<int>();
-    int stageHeight = metadata["stage"]["height"].get<int>();
-    
+    float stageWidth = metadata["stage"]["width"].get<float>();
+    float stageHeight = metadata["stage"]["height"].get<float>();
+
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
 
