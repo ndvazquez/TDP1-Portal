@@ -32,9 +32,8 @@ void testRunServer() {
 int main(int argc, char* argv[]) {
     try {
         testRunServer();
-    } catch(...) {
-        std::cerr << "Something went wrong\n.";
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
     }
-
     return 0;
 }

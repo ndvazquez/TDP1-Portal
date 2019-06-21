@@ -39,12 +39,7 @@ void playGame() {
     std::string service = "8000";
 
     Socket clientSocket;
-    int status = clientSocket.connectToHost(host, service);
-    if (status == -1){
-        std::cout << "Fallo la conexion" << std::endl;
-    } else {
-        std::cout << "Estamos conectados!" << std::endl;
-    }
+    clientSocket.connectToHost(host, service);
 
     bool login = true;
 
@@ -68,7 +63,7 @@ void playGame() {
         std::cout << "Do you want to [create] or [join] a game? Type [quit] to leave.\n";
         std::string action;
         std::getline(std::cin, action);
-        if (action.compare("quit") == 0) {
+        if (action == "quit") {
             clientSocket.shutdownAndClose();
             return;
         }
@@ -193,5 +188,9 @@ void playGame() {
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    playGame();
+    try {
+        playGame();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 }
