@@ -6,13 +6,14 @@
 #include "InputText.h"
 
 
+#define INITIAL ">>"
+#define INITIAL_LEN 2
 
 //Handle backspace
 void InputText::handle(SDL_Event* e) {
-    std::cerr << "Estoy entrando" << std::endl;
     //if(on == READ_INPUT_ON) return;
     if( e->type == SDL_KEYDOWN ) {
-        if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0 ) {
+        if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > INITIAL_LEN ) {
             //lop off character
             inputText.pop_back();
             renderText = true;
@@ -32,18 +33,18 @@ void InputText::handle(SDL_Event* e) {
             SDL_GetModState() & KMOD_CTRL ) ) {
         inputText += e->text.text;
 
-        std::cerr << "Se Ingreso texto, el input actualizado es: " << inputText << std::endl;
         renderText = true;
     }
 }
 
 InputText::InputText(Window &window, const char *message, SDL_Color color = BLACK) :
-    outputInstruction(window, message, color),
-    inputText("Enter here: "),
-    enteredText(window, inputText.c_str(), SILVER),
+    outputImage(window, message, color),
+    initial(INITIAL),
+    inputText(),
+    inputImage(window, INITIAL, SILVER),
     renderText(false),
     on(READ_INPUT_OFF),
-    space(std::round(4.0 * outputInstruction.getHeight()/3)) {
+    space(std::round(4.0 * outputImage.getHeight()/3)) {
 }
 
 void InputText::startReading() {
@@ -59,31 +60,34 @@ InputText::~InputText() = default;
 
 void InputText::draw(int x, int y) {
     refreshOutput();
-    outputInstruction.draw(x, y);
-    enteredText.draw(x,y + space);
+    outputImage.draw(x, y);
+    inputImage.draw(x,y + space);
 }
 
 
 void InputText::draw(SDL_Rect *destRect) {
     refreshOutput();
-    outputInstruction.draw(destRect);
+    outputImage.draw(destRect);
     destRect->y += space;
-    enteredText.draw(destRect);
+    inputImage.draw(destRect);
 }
 
 void InputText::drawInTheCenter() {
     refreshOutput();
-    outputInstruction.drawFromTheCenter(0, 0-space/2);
-    enteredText.drawFromTheCenter(0, space/2);
+    outputImage.drawFromTheCenter(0, 0-space/2);
+    inputImage.drawFromTheCenter(0, space/2);
 }
 
 void InputText::drawFromTheCenter(signed x, signed y) {
     refreshOutput();
-    outputInstruction.drawFromTheCenter(x, y-space/2);
-    enteredText.drawFromTheCenter(x, y+space/2);
+    outputImage.drawFromTheCenter(x, y-space/2);
+    inputImage.drawFromTheCenter(x, y+space/2);
 }
 
 void InputText::refreshOutput() {
-    std::cerr << "Al dibujar el texto es: " << inputText << std::endl;
-    enteredText.changeMessage(inputText.c_str());
+    inputImage.changeMessage((initial +inputText).c_str());
+}
+
+std::string &InputText::getText() {
+    return inputText;
 }

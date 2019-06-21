@@ -31,7 +31,7 @@ private:
     Menu menu;
 
 public:
-    explicit Editor(Window& window);
+    explicit Editor(Window &window, std::string &yamlPath);
     ~Editor();
     void draw(int x, int y);
     void handleMouseButtonUp(SDL_Event* event);

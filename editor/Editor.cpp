@@ -8,7 +8,9 @@
 #define SCREEN_HEIGHT 600
 
 
-Editor::Editor(Window& window) : window(window), stage(window, &current, HEIGHT_PROPORTION), menu(window, &current) {
+Editor::Editor(Window &window, std::string &yamlPath) :
+window(window), stage(window, &current, HEIGHT_PROPORTION, yamlPath),
+menu(window, &current) {
     this->current = INVALID_CURRENT;
 }
 

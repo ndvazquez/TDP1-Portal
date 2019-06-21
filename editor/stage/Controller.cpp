@@ -7,24 +7,18 @@
 #include "Controller.h"
 #include "YamlManager.h"
 #include "../../common/InputText.h"
-#define SET_YAML "INGRESE POR TERMINAL EL NOMBRE DE UN ARCHIVO YAML DEL CUAL LEER EL ESCENARIO"
 
 
-Controller::Controller(Window &window, std::string texturesPath, int factor) :
+Controller::Controller(Window &window,
+                       std::string texturesPath,
+                       int factor,
+                       std::string &stageYamlPath) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
                     yaml(textures, tiles, logicGates) {
     try {
         yaml.getObjects(window, texturesPath);
-        OutputText text(window, SET_YAML, GREEN_MOLD);
-
-        window.clear();
-        text.drawInTheCenter();
-        window.render();
-
-        std::string s;
-        std::getline(std::cin, s);
-        yaml.readStage(s);
+        yaml.readStage(stageYamlPath);
     }
     catch(InvalidFile& e) {
         std::cerr << e.what() << std::endl;

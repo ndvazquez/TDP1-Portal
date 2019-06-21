@@ -20,11 +20,12 @@
 
 class InputText {
 private:
+    std::string initial;
     std::string inputText;
     bool renderText;
     bool on;
-    OutputText outputInstruction;
-    OutputText enteredText;
+    OutputText outputImage;
+    OutputText inputImage;
     int space;
 
 public:
@@ -45,6 +46,8 @@ public:
     void drawFromTheCenter(signed x, signed y);
 
     void refreshOutput();
+
+    std::string &getText();
 };
 
 

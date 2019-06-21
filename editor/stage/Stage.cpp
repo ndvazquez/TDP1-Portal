@@ -24,9 +24,9 @@
 #define Y_PIXEL_TO_MATRIX_POSITION(yPixel) (((yPixel) - Y_START)/MATRIX_TO_PIXEL_FACTOR) + this->camera.y
 
 
-Stage::Stage(Window &window, int *current, int yPortion):
+Stage::Stage(Window &window, int *current, int yPortion, std::string &yamlPath) :
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
-    controller(window, TEXTURE_CONFIG_FILE, MATRIX_TO_PIXEL_FACTOR) ,
+    controller(window, TEXTURE_CONFIG_FILE, MATRIX_TO_PIXEL_FACTOR, yamlPath),
     current(current),
     yPortion(yPortion) {
     this->me = {X_START, Y_START, W, H};

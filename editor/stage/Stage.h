@@ -29,7 +29,7 @@ private:
     //for now is hard
 
 public:
-    explicit Stage(Window &window, int *current, int yPortion);
+    explicit Stage(Window &window, int *current, int yPortion, std::string &yamlPath);
 
     //Stage(uint8_t& current)//, uint32_t xStart);
     ~Stage();

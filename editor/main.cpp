@@ -11,45 +11,82 @@
 #define TOTAL_HEIGHT 1000
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
+#define SET_YAML_MESSAGE "SI USTED REALMENTE DESEA EL PASTEL INGRESE EL NOMBRE DE UN ARCHIVO YAML DEL CUAL LEER EL ESCENARIO"
+#define NO_YAML "SALTEAR (NO SOY MERECEDOR DEL PASTEL)"
+
+
+#define ENTERING_DONE "OK, ACÁ ESTÁ EL ARCHIVO. YA PUEDO TENER MI PASTEL?"
 
 int main(int argc, char* argv[]) {
     try {
         SDLSession sdlSession(SDL_INIT_VIDEO);
         Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
 
-        //Editor editor(window);
-        //editor.draw(0, 0);
-        InputText input(window, "JUST A TEST", GREEN_MOLD);
-        input.startReading();
-        window.clear();
-        input.drawFromTheCenter(0, 0);
-        window.render();
-        std::cerr << "Dibuje una vez" << std::endl;
-
-        bool quit = false;
+        InputText input(window, SET_YAML_MESSAGE, GREEN_MOLD);
         SDL_Event e;
-        while (!quit) {
+        bool quit = false;
+        int width = window.getWindowWidth();
+        int height = window.getWindowHeight();
+        SDL_Rect noYaml = {0,10,50,50};
+        OutputText noYamlImage(window, NO_YAML, BLACK);
+        SDL_Rect done = {0,height - 100,50,50};
+        OutputText doneImage(window, ENTERING_DONE, BLACK);
+        const char* droppedFilePath;
+        std::string& yamlPath = input.getText();
+        bool quitInitialMenu = false;
+        while (!quitInitialMenu) {
             while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
+                if (e.type == SDL_MOUSEBUTTONDOWN &&
+                    e.button.clicks == 1 &&
+                    e.button.button == SDL_BUTTON_LEFT) {
+                    SDL_Point sdlPoint = {e.button.x, e.button.y};
+                    if ((bool) SDL_PointInRect(&sdlPoint, &noYaml)) {
+                        std::cerr << "sali en el boton SIN archivo" << std::endl;
+                        yamlPath = "";
+
+                        quitInitialMenu = true;
+                        break;
+                    }
+                    if ((bool) SDL_PointInRect(&sdlPoint, &done)) {
+
+                        std::cerr << "sali en el boton CON archivo" << std::endl;
+                        std::cerr << "\tel archivo era: " << yamlPath << std::endl;
+                        quitInitialMenu = true;
+                        break;
+                    }
+                }
                 if (e.type == SDL_QUIT) {
+                    quitInitialMenu = true;
                     quit = true;
                     break;
                 }
-                else {
+                if (e.type == SDL_DROPFILE) {
+                    yamlPath = e.drop.file;
+                    quitInitialMenu = true;
+                    break;
+                }
+                if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_KP_ENTER) {
+                    quitInitialMenu = true;
+                    break;
+                } else {
                     input.handle(&e);
                     window.clear();
+                    noYamlImage.draw(&noYaml);
+                    doneImage.draw(&done);
                     input.drawFromTheCenter(0, 0);
                     window.render();
-                    std::cerr << "Dibuje devuelta" << std::endl;
+                    //std::cerr << "Dibuje devuelta" << std::endl;
                 }
-
                 //std::cerr << "Dibuje devuelta" << std::endl;
             }
         }
-    } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
-    }
-}
-/*
+
+
+        if (quit) return 0;
+        Editor editor(window, yamlPath);
+        editor.draw(0, 0);
+
+
         while (!quit) {
             while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
 
@@ -103,5 +140,4 @@ int main(int argc, char* argv[]) {
     catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
-
- }*/
+}
