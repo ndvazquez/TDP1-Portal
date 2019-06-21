@@ -13,6 +13,7 @@
 class RoomWorker : public Thread{
     RoomManager& roomManager;
     Socket clientSocket;
+    Protocol clientProtocol;
     bool handleGameCreation(nlohmann::json& actionData);
     bool handleJoinGame(nlohmann::json& actionData);
 public:
