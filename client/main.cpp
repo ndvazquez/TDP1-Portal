@@ -30,13 +30,82 @@
 #define MTP_FACTOR 70
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-void playGame(std::string& idChell) {
+void playGame() {
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+
+    std::string idChell;
+
+    std::string host = "localhost";
+    std::string service = "8000";
+
+    Socket clientSocket;
+    clientSocket.connectToHost(host, service);
+
+    bool login = true;
+
+    while (login) {
+        // We'll first receive a list of games availables.
+        int gamesAvailableSize;
+        clientSocket.receiveMessage(&gamesAvailableSize, REQUEST_LEN_SIZE);
+        std::string gaString(gamesAvailableSize, '\0');
+        clientSocket.receiveMessage(&gaString[0], gamesAvailableSize);
+        nlohmann::json gamesJson = nlohmann::json::parse(gaString);
+        std::vector<std::string> gamesAvailable = gamesJson["games"].get<std::vector<std::string>>();
+        if (gamesAvailable.size() == 0) {
+            std::cout << "No games available at the moment, create one!\n";
+        } else {
+            std::cout << "List of games available: \n";
+            for (auto it = gamesAvailable.begin(); it != gamesAvailable.end(); ++it) {
+                std::cout << *it << std::endl;
+            }
+        }
+        // TODO: Gotta validate the user input.
+        std::cout << "Do you want to [create] or [join] a game? Type [quit] to leave.\n";
+        std::string action;
+        std::getline(std::cin, action);
+        if (action == "quit") {
+            clientSocket.shutdownAndClose();
+            return;
+        }
+        std::cout << "Enter game name: \n";
+        std::string gameName;
+        std::getline(std::cin, gameName);
+        std::cout << "Enter your ID: \n";
+        std::string playerId;
+        std::getline(std::cin, playerId);
+        // Gotta check that no field is null, etc.
+        nlohmann::json actionJson;
+        int actionCode;
+        if (action.compare("create") == 0) actionCode = CREATE_GAME_CODE;
+        else if (action.compare("join") == 0) actionCode = JOIN_GAME_CODE;
+        actionJson["action"] = actionCode;
+        actionJson["gameName"] = gameName;
+        actionJson["id"] = playerId;
+        std::string actionJsonString = actionJson.dump();
+        std::cout << "Json accion: " << actionJsonString << std::endl;
+        int actionJsonSize = actionJsonString.size();
+        clientSocket.sendMessage(&actionJsonSize, REQUEST_LEN_SIZE);
+        clientSocket.sendMessage(&actionJsonString[0], actionJsonSize);
+        std::cout << "Waiting response from server...\n";
+        int serverResponseSize;
+        clientSocket.receiveMessage(&serverResponseSize, REQUEST_LEN_SIZE);
+        std::string serverResponse(serverResponseSize, '\0');
+        clientSocket.receiveMessage(&serverResponse[0], serverResponseSize);
+        nlohmann::json serverResponseJson = nlohmann::json::parse(serverResponse);
+        int responseCode = serverResponseJson["result"].get<int>();
+        std::cout << serverResponseJson["desc"].get<std::string>() << std::endl;
+        if (responseCode == SUCCESS_CODE) {
+            idChell = serverResponseJson["idChell"].get<std::string>();
+            std::cout << "Id chell asignada: " << idChell << std::endl;
+            login = false;
+        }
+
+    }
 
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
-    //std::string playerID = "Chell1";
+
     Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     // Cool space background.
     std::string bgPath = "resources/Backgrounds/NebulaRed.png";
@@ -54,17 +123,6 @@ void playGame(std::string& idChell) {
                                       idChell, levelHeight,
                                       soundQueue);
     StageStatusQueue stageStatusQueue;
-
-    std::string host = "localhost";
-    std::string service = "8000";
-
-    Socket clientSocket;
-    int status = clientSocket.connectToHost(host, service);
-    if (status == -1){
-        std::cout << "Fallo la conexion" << std::endl;
-    } else {
-        std::cout << "Estamos conectados!" << std::endl;
-    }
 
     EventSender eventSender(clientSocket, userEventQueue);
     StageStatusReceiver stageStatusReceiver(clientSocket, stageStatusQueue);
@@ -101,7 +159,10 @@ void playGame(std::string& idChell) {
             std::string stageStatusString = stageStatusQueue.pop();
             stageUpdateRequest = nlohmann::json::parse(stageStatusString);
         }
-
+        if (userEventHandler.isDead() || stageStatusReceiver.isDead()
+            || eventSender.isDead()) {
+            quit = true;
+        }
         // Time to draw!
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;
@@ -110,9 +171,11 @@ void playGame(std::string& idChell) {
         viewManager.showAndUpdateViews(stageUpdateRequest, camera);
         newWindow.render();
         audioSystem.playSoundEffects();
-        if (userEventHandler.isDead()) quit = true;
+
     }
-    
+    UserEvent eventSenderSuicidePill = UserEvent(idChell, USER_QUIT_CODE, 0, 0);
+    userEventQueue.push(eventSenderSuicidePill);
+
     clientSocket.shutdownAndClose();
     userEventHandler.stop();
     userEventHandler.join();
@@ -120,15 +183,14 @@ void playGame(std::string& idChell) {
     eventSender.join();
     stageStatusReceiver.stop();
     stageStatusReceiver.join();
-    
-    
+    std::cout << "Game finished, thanks for playing!\n";
 }
 
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    if (argc < 2) {
-        std::cout << "Falta el id del cliente\n";
+    try {
+        playGame();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
     }
-    std::string playerID = argv[1];
-    playGame(playerID);
 }

@@ -17,8 +17,10 @@ Controller::Controller(Window &window,
                        std::string &stageYamlPath) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
+
                     yaml(textures, tiles, logicGates),
                     texturesPath(texturesPath) {
+
     try {
         yaml.getObjects(window, texturesPath);
         yaml.readStage(stageYamlPath);

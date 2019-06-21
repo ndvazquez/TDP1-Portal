@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "Portal.h"
 #include "entities/Chell.h"
 #include "entities/EnergyBall.h"
@@ -10,7 +11,7 @@
 #include "OrangeShot.h"
 
 Portal::Portal(b2Body* body, Coordinate* target,
-        PortalOrientation orientation, PortalType type):
+        PortalOrientation orientation, Direction type):
     Entity(PORTAL_NAME, body) {
     this->target = target;
     this->body->SetUserData(this);
@@ -18,11 +19,11 @@ Portal::Portal(b2Body* body, Coordinate* target,
     this->portal_type_target = type;
 }
 
-PortalType Portal::getPortalType() {
+Direction Portal::getPortalType() {
     return portal_type_target;
 }
 
-void Portal::addPortalType(PortalType type) {
+void Portal::addPortalType(Direction type) {
     this->portal_type_target = type;
 }
 
