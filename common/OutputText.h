@@ -19,7 +19,8 @@ and may not be redistributed without written permission.*/
 #include "Window.h"
 
 const SDL_Color GREEN_MOLD = {124, 120, 33};
-const SDL_Color BLACK = {0, 0, 0};
+const SDL_Color WHITE = {225, 225, 225};
+const SDL_Color BLACK = {0,0,0};
 const SDL_Color LIGHT_GRAY {211, 211, 211};
 const SDL_Color SILVER {192,192,192};
 const SDL_Color DARK_GRAY {169,169,169};
@@ -41,7 +42,7 @@ private:
 
 public:
     //Initializes variables
-    OutputText(Window &window, const char *message, SDL_Color color = BLACK);
+    OutputText(Window &window, const char *message, SDL_Color color = WHITE);
 
     //Deallocates memory
     ~OutputText();
@@ -69,6 +70,8 @@ public:
     void drawFromTheCenter(signed x, signed y);
 
     void changeMessage(const char *message);
+
+    void writeTheScreen(std::string &message);
 };
 
 class TextException: public std::exception {

@@ -72,3 +72,8 @@ int Window::getWindowHeight() {
 SDL_Renderer *Window::getRenderer() {
     return renderer;
 }
+
+void Window::drawBlackBackground() {
+    SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0x0);
+    SDL_RenderClear(renderer);
+}

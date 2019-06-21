@@ -51,6 +51,7 @@ public:
     int getWindowWidth();
     int getWindowHeight();
     SDL_Renderer* getRenderer();
+    void drawBlackBackground();
 };
 
 #endif //PORTAL_WINDOW_H

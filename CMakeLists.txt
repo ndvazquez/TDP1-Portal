@@ -67,6 +67,7 @@ set(EDITOR_SOURCE_FILES
         editor/MenuButton.cpp
         editor/Event.cpp
         editor/MouseButton.cpp
+        editor/HomeScreen.cpp
 
 
         editor/stage/Controller.cpp

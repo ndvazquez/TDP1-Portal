@@ -7,13 +7,12 @@
 
 
 #define INITIAL ">>"
-#define INITIAL_LEN 2
 
 //Handle backspace
 void InputText::handle(SDL_Event* e) {
     //if(on == READ_INPUT_ON) return;
     if( e->type == SDL_KEYDOWN ) {
-        if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > INITIAL_LEN ) {
+        if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0) {
             //lop off character
             inputText.pop_back();
             renderText = true;
@@ -37,7 +36,7 @@ void InputText::handle(SDL_Event* e) {
     }
 }
 
-InputText::InputText(Window &window, const char *message, SDL_Color color = BLACK) :
+InputText::InputText(Window &window, const char *message, SDL_Color color = WHITE) :
     outputImage(window, message, color),
     initial(INITIAL),
     inputText(),

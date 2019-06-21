@@ -3,12 +3,14 @@
 //
 
 #include <iostream>
+#include <unistd.h>
 #include "OutputText.h"
 
 
 #define X_CENTER window.getWindowWidth()/2 - mWidth/2
 #define Y_CENTER window.getWindowHeight()/2 - mHeight/2
 #define DEFAULT_FONT "font.ttf"
+#define STEP 180
 //The window we'll be rendering to
 SDL_Window* gWindow = NULL;
 
@@ -122,4 +124,18 @@ int OutputText::getWidth() {
 
 int OutputText::getHeight() {
     return mHeight;
+}
+
+void OutputText::writeTheScreen(std::string &message) {
+    message += " ";
+    std::string aux;
+    for(size_t i = 1; i < message.size(); i++) {
+        window.clear();
+        window.drawBlackBackground();
+        aux = message.substr(0,i);
+        changeMessage(aux.c_str());
+        drawInTheCenter();
+        window.render();
+        SDL_Delay(STEP);
+    }
 }
