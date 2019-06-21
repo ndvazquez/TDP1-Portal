@@ -7,7 +7,7 @@
 #include "Event.h"
 #include "../common/InputText.h"
 #include "HomeScreen.h"
-#include "stage/gates-condition/InputManager.h"
+#include "stage/InputManager.h"
 
 #define TOTAL_WIDTH  1500
 #define TOTAL_HEIGHT 1000

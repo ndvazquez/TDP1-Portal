@@ -6,9 +6,9 @@
 #define PORTAL_INPUTMANAGER_H
 
 
-#include "../../../common/Window.h"
-#include "../../../common/InputText.h"
-#include "../View.h"
+#include "../../common/Window.h"
+#include "../../common/InputText.h"
+#include "View.h"
 
 class InputManager {
 private:

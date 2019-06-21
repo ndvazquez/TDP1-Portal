@@ -11,7 +11,7 @@
 #include <map>
 #include <yaml-cpp/node/node.h>
 
-#include "gates-condition/LogicGates.h"
+#include "LogicGates.h"
 #include "../../common/Window.h"
 #include "../../common/Sprite.h"
 #include "View.h"

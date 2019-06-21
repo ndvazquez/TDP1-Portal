@@ -11,7 +11,7 @@
 #include <unordered_map>
 #include <map>
 #include "object/Object.h"
-#include "gates-condition/LogicGates.h"
+#include "LogicGates.h"
 
 class YamlManager {
 private:

@@ -4,7 +4,7 @@
 
 #include <sstream>
 #include "LogicGates.h"
-#include "../../../common/InputText.h"
+#include "../../common/InputText.h"
 #include "InputManager.h"
 
 
