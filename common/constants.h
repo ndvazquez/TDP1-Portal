@@ -175,7 +175,10 @@ enum Direction {
 #define THREAD_SUICIDE_PILL "F"
 #define REQUEST_LEN_SIZE 4
 #define PLAYER_ID_PREFIX "Chell"
-#endif //PORTAL_CONSTANTS_H
+#define CREATE_GAME_CODE 0
+#define JOIN_GAME_CODE 1
+#define SUCCESS_CODE 0
+#define FAIL_CODE 1
 
 
 // Editor metadata yaml keys
@@ -186,3 +189,5 @@ enum Direction {
 
 // This should be put in a YAML config file.
 #define MTP_FACTOR 70
+
+#endif //PORTAL_CONSTANTS_H
