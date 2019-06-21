@@ -64,7 +64,7 @@ void StageManager::run() {
             // If so, then delete his queue and the ClientHandler.
             for (auto it = players.begin(); it != players.end(); ){
                 auto playerIt = it++;
-                auto clientIt = clients.find(playerIt->first);
+                auto clientIt = clients.find(playerIt->second);
                 if (clientIt->second->isDead()) {
                     std::string playerID = clientIt->first;
                     std::cout << "Removing " + playerID << " from the client pool\n";
@@ -186,6 +186,7 @@ bool StageManager::addPlayer(Socket &socket,
     int successActionSize = successActionString.size();
     socket.sendMessage(&successActionSize, REQUEST_LEN_SIZE);
     socket.sendMessage(&successActionString[0], successActionSize);
+    std::cout << "Insertamos el id del jugador en StageManager: " << playerID << std::endl;
     players.insert({playerID, chellID});
     clientQueues.insert({chellID, newStatusQueue});
     clients.insert({chellID, new ClientHandler(socket,
@@ -199,5 +200,5 @@ bool StageManager::isFull() {
 }
 
 void StageManager::stop() {
-
+    _isDead = true;
 }

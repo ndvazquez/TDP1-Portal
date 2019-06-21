@@ -3,10 +3,14 @@
 //
 
 #include "RoomManager.h"
+#include <iostream>
 
 RoomManager::RoomManager() {}
 
 RoomManager::~RoomManager() {
+//    for (auto it = rooms.begin(); it != rooms.end(); ++it) {
+//        delete it->second;
+//    }
 }
 
 bool RoomManager::createGame(const std::string &gameName) {
@@ -40,7 +44,9 @@ bool RoomManager::addPlayerToGame(Socket &playerSocket,
     bool playerAddedToGame = stageManager->addPlayer(playerSocket, playerId);
     if (!playerAddedToGame) return false;
     // Start the game if it's full!
-    if (stageManager->isFull()) stageManager->start();
+    if (stageManager->isFull()) {
+        stageManager->start();
+    }
     return true;
 }
 
@@ -49,7 +55,9 @@ std::vector<std::string> RoomManager::getAvailableGames() {
     int roomsSize = rooms.size();
     std::vector<std::string> availableGames(roomsSize);
     for (auto it = rooms.begin(); it != rooms.end(); ++it) {
-        availableGames.push_back(it->first);
+        if (!it->second->isFull()) {
+            availableGames.push_back(it->first);
+        }
     }
     return availableGames;
 }

@@ -22,6 +22,7 @@ void testRunServer() {
     RoomManager roomManager;
     RoomAcceptor roomAcceptor(roomManager, acceptorSocket);
     roomAcceptor.start();
+    std::cout << "Server running\n";
     while (c != 'q'){
         std::cin.get(c);
     }
@@ -29,6 +30,11 @@ void testRunServer() {
     roomAcceptor.join();
 }
 int main(int argc, char* argv[]) {
-    testRunServer();
+    try {
+        testRunServer();
+    } catch(...) {
+        std::cerr << "Something went wrong\n.";
+    }
+
     return 0;
 }
