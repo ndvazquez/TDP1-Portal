@@ -59,6 +59,7 @@ set(EDITOR_SOURCE_FILES
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
         common/OutputText.cpp
+        common/InputText.cpp
 
 
         editor/Menu.cpp

@@ -5,6 +5,7 @@
 #include <fstream>
 #include "Editor.h"
 #include "Event.h"
+#include "../common/InputText.h"
 
 #define TOTAL_WIDTH  1500
 #define TOTAL_HEIGHT 1000
@@ -16,11 +17,39 @@ int main(int argc, char* argv[]) {
         SDLSession sdlSession(SDL_INIT_VIDEO);
         Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
 
-        Editor editor(window);
-        editor.draw(0, 0);
+        //Editor editor(window);
+        //editor.draw(0, 0);
+        InputText input(window, "JUST A TEST", GREEN_MOLD);
+        input.startReading();
+        window.clear();
+        input.drawFromTheCenter(0, 0);
+        window.render();
+        std::cerr << "Dibuje una vez" << std::endl;
 
         bool quit = false;
         SDL_Event e;
+        while (!quit) {
+            while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
+                if (e.type == SDL_QUIT) {
+                    quit = true;
+                    break;
+                }
+                else {
+                    input.handle(&e);
+                    window.clear();
+                    input.drawFromTheCenter(0, 0);
+                    window.render();
+                    std::cerr << "Dibuje devuelta" << std::endl;
+                }
+
+                //std::cerr << "Dibuje devuelta" << std::endl;
+            }
+        }
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
+}
+/*
         while (!quit) {
             while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
 
@@ -49,19 +78,18 @@ int main(int argc, char* argv[]) {
                         }
                         break;
                     case SDL_KEYDOWN:
-                        if (e.key.keysym.sym == SDLK_d && e.key.repeat == 0) {
+                        if (e.key.keysym.sym == SDLK_RIGHT && e.key.repeat == 0) {
                             editor.handleRight();
-                        } else if (e.key.keysym.sym == SDLK_a &&
+                        } else if (e.key.keysym.sym == SDLK_LEFT &&
                                    e.key.repeat == 0) {
                             editor.handleLeft();
-                        } else if (e.key.keysym.sym == SDLK_w &&
+                        } else if (e.key.keysym.sym == SDLK_UP &&
                                    e.key.repeat == 0) {
                             editor.handleUp();
-                        }
-                        if (e.key.keysym.sym == SDLK_s &&
+                        } else if (e.key.keysym.sym == SDLK_DOWN &&
                             e.key.repeat == 0) {
                             editor.handleDown();
-                        } else if (e.key.keysym.sym == SDLK_q &&
+                        } else if (e.key.keysym.sym == SDLK_s &&
                                    e.key.repeat == 0) {
                             editor.save();
                         }
@@ -75,4 +103,5 @@ int main(int argc, char* argv[]) {
     catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
-}
+
+ }*/

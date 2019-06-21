@@ -67,14 +67,14 @@ void OutputText::changeMessage(const char *message) {
     std::cerr << "2" << std::endl;
 
     if (!textSurface) {
-        std::cerr << "Error: " << TTF_GetError() << std::endl;
+        std::cerr << "Error1: " << TTF_GetError() << std::endl;
         throw TextChangeNameException(TTF_GetError());
     }
 
     //Create texture from surface pixels
     mTexture = SDL_CreateTextureFromSurface(window.renderer, textSurface);
     if (!mTexture) {
-        std::cerr << "Error: " << SDL_GetError() << std::endl;
+        std::cerr << "Error2: " << SDL_GetError() << std::endl;
         throw TextChangeNameException(SDL_GetError());
     }
     //Get image dimensions
@@ -121,8 +121,16 @@ void OutputText::drawInTheCenter() {
     drawFromTheCenter(0,0);
 }
 
-void OutputText::drawFromTheCenter(int x, int y) {
+void OutputText::drawFromTheCenter(signed x, signed y) {
     SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
     SDL_Rect destRect = {X_CENTER - x , Y_CENTER - y, this->mWidth, this->mHeight};
     window.draw(*this->mTexture, sourceRect, destRect);
+}
+
+int OutputText::getWidth() {
+    return mWidth;
+}
+
+int OutputText::getHeight() {
+    return mHeight;
 }

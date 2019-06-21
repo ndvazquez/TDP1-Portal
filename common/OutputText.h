@@ -20,7 +20,10 @@ and may not be redistributed without written permission.*/
 
 const SDL_Color GREEN_MOLD = {124, 120, 33};
 const SDL_Color BLACK = {0, 0, 0};
-
+const SDL_Color LIGHT_GRAY {211, 211, 211};
+const SDL_Color SILVER {192,192,192};
+const SDL_Color DARK_GRAY {169,169,169};
+const SDL_Color GRAY {128,128,128};
 
 //Texture wrapper class
 class OutputText {
@@ -53,6 +56,9 @@ public:
     //Set alpha modulation
     void setAlpha( Uint8 alpha );
 
+    int getWidth();
+    int getHeight();
+
 
     void draw(int x, int y);
 
@@ -60,7 +66,7 @@ public:
 
     void drawInTheCenter();
 
-    void drawFromTheCenter(int x, int y);
+    void drawFromTheCenter(signed x, signed y);
 
     void changeMessage(const char *message);
 };

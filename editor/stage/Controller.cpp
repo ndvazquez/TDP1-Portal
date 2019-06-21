@@ -6,6 +6,7 @@
 #include <fstream>
 #include "Controller.h"
 #include "YamlManager.h"
+#include "../../common/InputText.h"
 #define SET_YAML "INGRESE POR TERMINAL EL NOMBRE DE UN ARCHIVO YAML DEL CUAL LEER EL ESCENARIO"
 
 
@@ -28,7 +29,7 @@ Controller::Controller(Window &window, std::string texturesPath, int factor) :
     catch(InvalidFile& e) {
         std::cerr << e.what() << std::endl;
     }
-    catch (TextInitException& e) {
+    catch (TextException& e) {
         std::cerr << e.what() << std::endl;
     }
     catch (std::exception& e){
