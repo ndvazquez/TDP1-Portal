@@ -46,10 +46,7 @@ void playGame() {
 
     while (login) {
         // We'll first receive a list of games availables.
-        int gamesAvailableSize;
-        clientSocket.receiveMessage(&gamesAvailableSize, REQUEST_LEN_SIZE);
-        std::string gaString(gamesAvailableSize, '\0');
-        clientSocket.receiveMessage(&gaString[0], gamesAvailableSize);
+        std::string gaString = clientProtocol.receiveMessage();
         nlohmann::json gamesJson = nlohmann::json::parse(gaString);
         std::vector<std::string> gamesAvailable = gamesJson["games"].get<std::vector<std::string>>();
         if (gamesAvailable.empty()) {
