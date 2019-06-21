@@ -15,12 +15,15 @@
 #include <unordered_map>
 #include <string>
 
-class StageManager {
+class StageManager : public Thread {
     int playerCounter;
+    int maxPlayers;
     UserEventQueue userEventQueue;
     Stage stage;
     std::unordered_map<std::string, ClientHandler*> clients;
     std::unordered_map<std::string, StageStatusQueue*> clientQueues;
+    // This maps a player ID to a Chell ID.
+    std::unordered_map<std::string, std::string> players;
     YamlParser parser;
 
     std::chrono::system_clock::time_point timeStamp;
@@ -31,7 +34,10 @@ public:
     ~StageManager();
     // This is going to run on another thread.
     void run();
-    void addPlayer(Socket& socket);
+    void stop();
+    bool addPlayer(Socket& socket,
+            const std::string& playerID);
+    bool isFull();
 };
 
 

@@ -11,7 +11,6 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
-
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_MIXER_INCLUDE_DIRS})
@@ -49,7 +48,8 @@ set(CLIENT_SOURCE_FILES
         common/Socket.cpp
         client/communication-support/EventSender.cpp
         client/communication-support/StageStatusReceiver.cpp
-        common/StageStatusQueue.cpp)
+        common/StageStatusQueue.cpp
+        )
 
 #EDITOR CONFIG
 
@@ -132,7 +132,6 @@ set(SERVER_SOURCE_FILES
         server/movements/Stop.cpp
         server/entities/EnergyBall.cpp
         server/entities/Entity.cpp
-        server/configuration.cpp
         server/entities/Floor.cpp
         server/entities/BlueShot.cpp
         server/entities/OrangeShot.cpp
@@ -162,7 +161,11 @@ set(SERVER_SOURCE_FILES
         server/entities/ItemActivable.cpp
         server/portal-support/PortalManager.cpp
         server/stage-support/YamlParser.cpp
-        server/portal-support/PortalHolder.cpp)
+        server/portal-support/PortalHolder.cpp
+        server/config/configuration.cpp)
+        server/communication-support/RoomManager.cpp
+        server/communication-support/RoomAcceptor.cpp
+        server/communication-support/RoomWorker.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

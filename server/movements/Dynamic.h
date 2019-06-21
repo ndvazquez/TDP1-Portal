@@ -7,7 +7,7 @@
 
 #include <Box2D/Dynamics/b2Body.h>
 #include <chrono>
-#include "configuration.h"
+#include "config/configuration.h"
 #include "stage-support/Coordinate.h"
 #include "../../common/constants.h"
 
