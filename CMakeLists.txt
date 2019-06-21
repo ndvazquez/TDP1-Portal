@@ -11,9 +11,11 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 find_package(SDL2_mixer REQUIRED)
 
+
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_MIXER_INCLUDE_DIRS})
+
 include_directories(${PROJECT_SOURCE_DIR}/client)
 include_directories(${PROJECT_SOURCE_DIR}/server)
 include_directories(${PROJECT_SOURCE_DIR}/tests)
@@ -56,13 +58,23 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        editor/stage/Stage.cpp
+        common/Text.cpp
+
+
         editor/Menu.cpp
         editor/Editor.cpp
         editor/MenuButton.cpp
         editor/Event.cpp
+        editor/MouseButton.cpp
+
+
         editor/stage/Controller.cpp
         editor/stage/View.cpp
+        editor/stage/Stage.cpp
+        editor/stage/LogicGates.cpp
+        editor/stage/YamlManager.cpp
+
+
         editor/stage/object/StaticObject.cpp
         editor/stage/object/Block.cpp
         editor/stage/object/Button.cpp
@@ -74,6 +86,9 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
         editor/stage/object/Receptor.cpp
+        editor/stage/object/EnergyBar.cpp
+        editor/stage/object/VerticalEnergyBar.cpp
+        editor/stage/object/HorizontalEnergyBar.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockUp.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockRightUp.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockLeftUp.cpp
@@ -81,13 +96,10 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/diagonalBlocks/DiagonalBlockLeftDown.cpp
         editor/stage/object/diagonalBlocks/DiagonalBlockRightDown.cpp
 
-
         editor/stage/object/WithOutGravitySentinel.cpp
         editor/stage/object/GravitySentinel.cpp
 
-        editor/MouseButton.cpp
-        editor/stage/LogicGates.cpp
-        editor/stage/YamlManager.cpp
+
 
         #ffmpeg/CodecContext.cpp
         #ffmpeg/FormatOutput.cpp
@@ -164,7 +176,7 @@ add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
 target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} pthread)
-target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}) # avformat avcodec avutil swscale)
+target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)# avformat avcodec avutil swscale)
 target_link_libraries(Server yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)

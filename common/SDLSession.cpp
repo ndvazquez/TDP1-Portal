@@ -15,6 +15,9 @@ SDLSession::SDLSession(uint32_t initFlags) {
     if (!(IMG_Init(imgFlags) & imgFlags)){
         throw IMGInitException();
     }
+    if( TTF_Init() == -1 ) {
+        throw TextureInitException();
+    }
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0){
         throw MixInitException();
     }
@@ -24,4 +27,5 @@ SDLSession::~SDLSession() {
     IMG_Quit();
     SDL_Quit();
     Mix_Quit();
+    TTF_Quit();
 }

@@ -7,6 +7,7 @@
 
 EnergyTransmitterDown::EnergyTransmitterDown(b2Body* body):
     EnergyTransmitter(body)  {
+    this->type_transmitter = DOWN;
 }
 
 Coordinate* EnergyTransmitterDown::throwEnergyBall() {

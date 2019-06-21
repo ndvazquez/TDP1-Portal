@@ -40,7 +40,7 @@ public:
     void handleMouseDoubleClick(SDL_Event *event);
     void handleMouseRightClick(SDL_Event *event);
 
-    void close();
+    void save();
 
     void handleLeft();
     void handleRight();

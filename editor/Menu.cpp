@@ -8,6 +8,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <yaml-cpp/yaml.h>
+#include <iostream>
 
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON 0
@@ -97,6 +98,7 @@ void Menu::handleMouseButtonDown(MouseButton& event) {
     for (; it != options.end(); it++) {
         if ((**it).has(event.getX(), event.getY())) {
             *current = (**it).getName();
+            std::cerr << "Se apretó el objeto del menu" << *current << std::endl;
             return;
         }
     }

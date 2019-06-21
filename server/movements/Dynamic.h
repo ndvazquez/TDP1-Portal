@@ -14,7 +14,6 @@
 class Dynamic {
 private:
     b2Body* body;
-    float energy_ball_impulse;
     std::chrono::system_clock::time_point timeStamp;
 
     /* Adjusts gravity according to the jump */
@@ -39,11 +38,8 @@ public:
     /* Makes an object stop moving */
     void stop(float force);
 
-    /* Makes an object fly in a horizontal direction */
-    void flyHorizontal();
-
-    /* Makes an object fly in a vertical direction */
-    void flyVertical();
+    /* Makes an object fly in a rectified direction */
+    void flyRect(Direction eb_type);
 
     /* Makes an object fly in a direction indicated by velocity */
     void fly(b2Vec2 velocity);
@@ -51,8 +47,9 @@ public:
     /* Handle collisions of the body against other objects */
     bool handleCollisions();
 
-    /* Makes an object teleport, applicating an extra impulse if neccessary */
-    void teleport(Coordinate* coordinate, PortalType type, bool keep_impulse);
+    /* Makes an object teleport, applicating an extra impulse if neccessary.
+     * Returns false if it couldn't teleport and true otherwise */
+    bool teleport(Coordinate* coordinate, Direction type, bool keep_impulse);
 };
 
 #endif //PORTAL_DYNAMIC_H

@@ -146,6 +146,6 @@ void Stage::handleDown() {
     this->camera.y ++;
 }
 
-void Stage::close() {
-    controller.writeYaml(Y_END);
+void Stage::save() {
+    controller.writeYaml();
 }

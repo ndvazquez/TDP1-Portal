@@ -78,20 +78,11 @@ void Stage::addChell(std::string id, float v_side, float h_side,
     chells.insert({id, chell});
 }
 
-void Stage::addEnergyBall(std::string identifier, std::string id, float side,
+void Stage::addEnergyBall(Direction identifier, std::string id, float side,
         float x_pos, float y_pos) {
     b2Body* energy_ball_body = world->addDynamicRectangle(side, side, x_pos, y_pos);
-
-    if (identifier == EB_HORIZONTAL_NAME) {
-        EnergyBall* energy_ball = new EnergyBall(energy_ball_body, false);
-        energy_balls.insert({id, energy_ball});
-    } else if (identifier == EB_VERTICAL_NAME) {
-        EnergyBall* energy_ball = new EnergyBall(energy_ball_body, true);
-        energy_balls.insert({id, energy_ball});
-    } else {
-        world->destroyBody(energy_ball_body);
-        throw StageBadIdentifierException();
-    }
+    EnergyBall* energy_ball = new EnergyBall(energy_ball_body, identifier);
+    energy_balls.insert({id, energy_ball});
 }
 
 void Stage::addEnergyItem(std::string identifier, std::string id, float side,
@@ -251,7 +242,7 @@ void Stage::step() {
                 std::string to_replace = "EnergyBall";
                 std::string replaced = "EnergyTransmitter";
                 id.replace(0, replaced.length(), to_replace);
-                addEnergyBall(EB_HORIZONTAL_NAME, id, 1, x_pos, y_pos);
+                addEnergyBall(i->second->getTypeTransmitter(), id, 1, x_pos, y_pos);
                 delete energyBallCoordinates;
             }
     }
@@ -266,11 +257,10 @@ void Stage::step() {
             std::string to_replace = "EnergyBall";
             std::string replaced = "EnergyTransmitter";
             id.replace(0, replaced.length(), to_replace);
-            addEnergyBall(EB_VERTICAL_NAME, id, 1, x_pos, y_pos);
+            addEnergyBall(i->second->getTypeTransmitter(), id, 1, x_pos, y_pos);
             delete energyBallCoordinates;
         }
     }
-
 
     auto i_eb = energy_balls.begin();
     while (i_eb != energy_balls.end()) {
@@ -286,7 +276,6 @@ void Stage::step() {
             i_eb++;
         }
     }
-
 
     for (auto i = gates.begin(); i != gates.end(); i++) {
         i->second->update();
