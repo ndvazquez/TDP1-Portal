@@ -7,7 +7,6 @@
 
 ClientReceiver::ClientReceiver(UserEventQueue &eventQueue, Socket &socket) :
                                 userEventQueue(eventQueue),
-                                //clientSocket(socket){
                                 clientProtocol(socket) {
 }
 
@@ -21,7 +20,7 @@ void ClientReceiver::run() {
             UserEvent userEvent(eventJson);
             // Could block here too.
             userEventQueue.push(userEvent);
-        } catch (std::runtime_error &e) { //TODO: it should be exception afterwards
+        } catch (const std::exception &e) {
             std::cout << "Force shutdown, expected behaviour." << std::endl;
             _isDead = true;
         } catch(...) {

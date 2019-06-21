@@ -16,13 +16,12 @@ void EventSender::run() {
         try {
             UserEvent userEvent = userEventQueue.pop();
             // No need for suicide pill, the Quit event is enough.
-            if (userEvent.getEventType() == USER_QUIT_CODE){
+            if (userEvent.getEventType() == USER_QUIT_CODE) {
                 _isDead = true;
             }
             std::string userEventJson = userEvent.toJsonString();
             clientProtocol.sendMessage(userEventJson);
-        } catch (std::runtime_error &e){
-            // TODO: Implement a real exception.
+        } catch (const std::exception &e) {
             _isDead = true;
         } catch (...) {
             _isDead = true;

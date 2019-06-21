@@ -24,8 +24,7 @@ void StageStatusReceiver::run() {
                 continue;
             }
             stageStatusQueue.push(stageStatusString);
-        } catch (std::runtime_error &e) {
-            //TODO: Implement a real exception for a socket blowing up.
+        } catch (const std::exception &e) {
             _isDead = true;
         } catch(...) {
             _isDead = true;

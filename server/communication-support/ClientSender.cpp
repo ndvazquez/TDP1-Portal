@@ -23,8 +23,7 @@ void ClientSender::run() {
                 break;
             }
             clientProtocol.sendMessage(stageStatus);
-        } catch (std::runtime_error &e){
-            // TODO: Implement a real exception.
+        } catch (const std::exception &e) {
             std::cout << "Force shutdown, expected behaviour." << std::endl;
             _isDead = true;
         } catch (...) {
