@@ -37,11 +37,7 @@ void RoomWorker::run() {
             nlohmann::json clientActionJson = nlohmann::json::parse(clientAction);
             int action = clientActionJson["action"].get<int>();
             if (action == CREATE_GAME_CODE) {
-                int levelPathSize;
-                clientSocket.receiveMessage(&levelPathSize, REQUEST_LEN_SIZE);
-                std::string levelPath(levelPathSize, '\0');
-                clientSocket.receiveMessage(&levelPath[0], levelPathSize);
-
+                std::string levelPath = clientProtocol.receiveMessage();
                 _isDead = (handleGameCreation(clientActionJson, levelPath) &&
                         handleJoinGame(clientActionJson));
             } else if (action == JOIN_GAME_CODE) {
@@ -54,7 +50,6 @@ void RoomWorker::run() {
                 failJson["result"] = FAIL_CODE;
                 failJson["desc"] = "Couldn't join or create the game.";
                 std::string failJsonString = failJson.dump();
-
                 clientProtocol.sendMessage(failJsonString);
             }
         } catch (const std::exception& e) {
@@ -66,7 +61,6 @@ void RoomWorker::run() {
             // Any other error.
             _isDead = true;
         }
-
     }
 }
 

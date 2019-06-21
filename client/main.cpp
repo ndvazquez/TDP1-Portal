@@ -86,6 +86,9 @@ void playGame() {
         actionJson["id"] = playerId;
         std::string actionJsonString = actionJson.dump();
         clientProtocol.sendMessage(actionJsonString);
+        if (action == "create") {
+            clientProtocol.sendMessage(levelPath);
+        }
         std::cout << "Waiting response from server...\n";
 
         std::string serverResponse = clientProtocol.receiveMessage();
@@ -110,11 +113,7 @@ void playGame() {
     std::string metalBlock = "MetalBlock";
 
     //Here we'll receive the metadata
-    int jsonMetadataSize;
-    clientSocket.receiveMessage(&jsonMetadataSize, REQUEST_LEN_SIZE);
-    std::string jsonMetadata(jsonMetadataSize, '\0');
-    clientSocket.receiveMessage(&jsonMetadata[0], jsonMetadataSize);
-
+    std::string jsonMetadata = clientProtocol.receiveMessage();
     nlohmann::json metadata = nlohmann::json::parse(jsonMetadata);
 
     float stageWidth = metadata["stage"]["width"].get<float>();
@@ -151,7 +150,7 @@ void playGame() {
     userEventHandler.start();
     eventSender.start();
     stageStatusReceiver.start();
-    
+
     nlohmann::json stageUpdateRequest = "{}"_json;
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
     bool quit = false;
