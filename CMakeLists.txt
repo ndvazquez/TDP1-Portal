@@ -162,7 +162,7 @@ set(SERVER_SOURCE_FILES
         server/portal-support/PortalManager.cpp
         server/stage-support/YamlParser.cpp
         server/portal-support/PortalHolder.cpp
-        server/config/configuration.cpp)
+        server/config/configuration.cpp
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp
         server/communication-support/RoomWorker.cpp)

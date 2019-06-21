@@ -111,8 +111,18 @@ void playGame() {
     std::string bgPath = "resources/Backgrounds/NebulaRed.png";
     Sprite background(bgPath, newWindow);
     std::string metalBlock = "MetalBlock";
-    int stageWidth = 40;
-    int stageHeight = 20;
+
+    //Here we'll receive the metadata
+    int jsonMetadataSize;
+    clientSocket.receiveMessage(&jsonMetadataSize, REQUEST_LEN_SIZE);
+    std::string jsonMetadata(jsonMetadataSize, '\0');
+    clientSocket.receiveMessage(&jsonMetadata[0], jsonMetadataSize);
+
+    nlohmann::json metadata = nlohmann::json::parse(jsonMetadata);
+
+    int stageWidth = metadata["stage"]["width"].get<int>();
+    int stageHeight = metadata["stage"]["height"].get<int>();
+    
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
 
