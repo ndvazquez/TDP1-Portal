@@ -8,7 +8,8 @@
 
 StageManager::StageManager(int stageWidth,
         int stageHeight) :
-        playerCounter(1),
+        playerCounter(0),
+        maxPlayers(2),
         stage(Stage(stageWidth, stageHeight)),
         parser("file.yaml", stage) {
     this->timeStamp = std::chrono::system_clock::now();
@@ -43,8 +44,7 @@ void StageManager::run() {
         it->second->push(dynamic_json.dump());
     }
 
-    bool weGaming = true;
-    while (weGaming) {
+    while (!_isDead) {
         auto end = std::chrono::system_clock::now();
         auto difference = std::chrono::duration_cast<std::chrono::milliseconds>
                 (end - timeStamp).count();
@@ -62,8 +62,9 @@ void StageManager::run() {
             nlohmann::json stageStatus = stage.getCurrentState();
             // Check if any client is dead (disconnected).
             // If so, then delete his queue and the ClientHandler.
-            for (auto it = clients.begin(); it != clients.end(); ){
-                auto clientIt = it++;
+            for (auto it = players.begin(); it != players.end(); ){
+                auto playerIt = it++;
+                auto clientIt = clients.find(playerIt->second);
                 if (clientIt->second->isDead()) {
                     std::string playerID = clientIt->first;
                     std::cout << "Removing " + playerID << " from the client pool\n";
@@ -76,6 +77,7 @@ void StageManager::run() {
                     clientQueues.erase(queueIt);
                     delete clientIt->second;
                     clients.erase(clientIt);
+                    players.erase(playerIt);
                     std::cout << "Client deleted\n";
                 }
             }
@@ -86,9 +88,10 @@ void StageManager::run() {
             }
             // Provisory way to exit the loop.
             if (clients.size() == 0) {
-                weGaming = false;
+                _isDead = true;
                 std::cout << "Goodbye!\n";
             }
+            //TODO: We need to quit the loop if the game is won.
         }
     }
 }
@@ -161,11 +164,41 @@ void StageManager::handleEvent(UserEvent &userEvent,
     }
 }
 
-// For now we'll receive x and y to position Chell in stage.
-void StageManager::addPlayer(Socket &socket) {
-    std::string playerID = PLAYER_ID_PREFIX + std::to_string(playerCounter);
+
+bool StageManager::addPlayer(Socket &socket,
+        const std::string& playerID) {
+    // If there's a player with the same ID, then we can't add him.
+    // Sanity check, if it's full we can't add players.
+    if (isFull() || players.count(playerID) > 0) {
+        return false;
+    }
     ++playerCounter;
+    std::string chellID = PLAYER_ID_PREFIX + std::to_string(playerCounter);
     StageStatusQueue* newStatusQueue = new StageStatusQueue();
-    clientQueues.insert({playerID, newStatusQueue});
-    clients.insert({playerID, new ClientHandler(socket, userEventQueue, *newStatusQueue)});
+    // Might have to check this code again,
+    // if something fails it might corrupt the state of StageManager.
+    // Send success message here, with the ChellId associated to playerId;
+    nlohmann::json successAction;
+    successAction["result"] = SUCCESS_CODE;
+    successAction["desc"] = "Joined game!";
+    successAction["idChell"] = chellID;
+    std::string successActionString = successAction.dump();
+    int successActionSize = successActionString.size();
+    socket.sendMessage(&successActionSize, REQUEST_LEN_SIZE);
+    socket.sendMessage(&successActionString[0], successActionSize);
+    std::cout << "Insertamos el id del jugador en StageManager: " << playerID << std::endl;
+    players.insert({playerID, chellID});
+    clientQueues.insert({chellID, newStatusQueue});
+    clients.insert({chellID, new ClientHandler(socket,
+            userEventQueue,
+            *newStatusQueue)});
+    return true;
+}
+
+bool StageManager::isFull() {
+    return playerCounter == maxPlayers;
+}
+
+void StageManager::stop() {
+    _isDead = true;
 }
