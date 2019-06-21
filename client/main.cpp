@@ -40,6 +40,7 @@ void playGame() {
 
     Socket clientSocket;
     clientSocket.connectToHost(host, service);
+    Protocol clientProtocol(clientSocket);
 
     bool login = true;
 
@@ -51,12 +52,12 @@ void playGame() {
         clientSocket.receiveMessage(&gaString[0], gamesAvailableSize);
         nlohmann::json gamesJson = nlohmann::json::parse(gaString);
         std::vector<std::string> gamesAvailable = gamesJson["games"].get<std::vector<std::string>>();
-        if (gamesAvailable.size() == 0) {
+        if (gamesAvailable.empty()) {
             std::cout << "No games available at the moment, create one!\n";
         } else {
             std::cout << "List of games available: \n";
-            for (auto it = gamesAvailable.begin(); it != gamesAvailable.end(); ++it) {
-                std::cout << *it << std::endl;
+            for (auto & it : gamesAvailable) {
+                std::cout << it << std::endl;
             }
         }
         // TODO: Gotta validate the user input.
@@ -82,15 +83,11 @@ void playGame() {
         actionJson["gameName"] = gameName;
         actionJson["id"] = playerId;
         std::string actionJsonString = actionJson.dump();
-        std::cout << "Json accion: " << actionJsonString << std::endl;
-        int actionJsonSize = actionJsonString.size();
-        clientSocket.sendMessage(&actionJsonSize, REQUEST_LEN_SIZE);
-        clientSocket.sendMessage(&actionJsonString[0], actionJsonSize);
+        clientProtocol.sendMessage(actionJsonString);
+
         std::cout << "Waiting response from server...\n";
-        int serverResponseSize;
-        clientSocket.receiveMessage(&serverResponseSize, REQUEST_LEN_SIZE);
-        std::string serverResponse(serverResponseSize, '\0');
-        clientSocket.receiveMessage(&serverResponse[0], serverResponseSize);
+
+        std::string serverResponse = clientProtocol.receiveMessage();
         nlohmann::json serverResponseJson = nlohmann::json::parse(serverResponse);
         int responseCode = serverResponseJson["result"].get<int>();
         std::cout << serverResponseJson["desc"].get<std::string>() << std::endl;
@@ -99,7 +96,6 @@ void playGame() {
             std::cout << "Id chell asignada: " << idChell << std::endl;
             login = false;
         }
-
     }
 
     SoundCodeQueue soundQueue;
@@ -129,16 +125,11 @@ void playGame() {
 
     // Here we'll receive two jsons with the data of the map to be played.
     // First one is for static objects without state.
-    int jsonSOsize;
-    clientSocket.receiveMessage(&jsonSOsize, REQUEST_LEN_SIZE);
-    std::string jsonStaticObjects(jsonSOsize, '\0');
-    clientSocket.receiveMessage(&jsonStaticObjects[0], jsonSOsize);
+    std::string jsonStaticObjects = clientProtocol.receiveMessage();
+
     // Second one is for objects with state.
-    int jsonDOsize;
-    clientSocket.receiveMessage(&jsonDOsize, REQUEST_LEN_SIZE);
-    std::string jsonDynamicObjects(jsonDOsize, '\0');
-    clientSocket.receiveMessage(&jsonDynamicObjects[0], jsonDOsize);
-    //
+    std::string jsonDynamicObjects = clientProtocol.receiveMessage();
+
     nlohmann::json staticObjects = nlohmann::json::parse(jsonStaticObjects);
     nlohmann::json dynamicObjects = nlohmann::json::parse(jsonDynamicObjects);
 
