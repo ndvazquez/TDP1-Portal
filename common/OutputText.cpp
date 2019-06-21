@@ -131,13 +131,24 @@ int OutputText::getHeight() {
 void OutputText::writeTheScreen(std::string &message) {
     message += " ";
     std::string aux;
-    for(size_t i = 1; i < message.size(); i++) {
-        window.clear();
-        window.drawBlackBackground();
-        aux = message.substr(0,i);
-        changeMessage(aux.c_str());
-        drawInTheCenter();
-        window.render();
-        SDL_Delay(STEP);
+    bool quit = false;
+    SDL_Event e;
+    while (!quit) {
+        for(size_t i = 1; i < message.size() & !quit; i++) {
+            window.clear();
+            window.drawBlackBackground();
+            aux = message.substr(0,i);
+            changeMessage(aux.c_str());
+            drawInTheCenter();
+            window.render();
+            SDL_Delay(STEP);
+            while (SDL_PollEvent(&e) != 0 && !quit) {
+                if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN) {
+                    quit = true;
+                    break;
+                }
+            }
+        }
+        break;
     }
 }
