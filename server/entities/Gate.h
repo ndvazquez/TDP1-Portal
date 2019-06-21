@@ -18,7 +18,6 @@ private:
     std::string replaced;
     std::unordered_map<std::string, ItemActivable*> items;
     GateState state;
-    bool always_open;
 
     /* Returns a boolean that indicates the result of a boolean expression */
     bool parseBool();

@@ -393,7 +393,7 @@ void YamlParser::parseAndAdd() {
         gate_counter++;
 
         if (logic.empty()) {
-            stage.addGate(id, GATE_HEIGHT, GATE_WIDTH, x_pos, y_pos);
+            stage.addGate(id, GATE_HEIGHT, GATE_WIDTH, x_pos, y_pos, items_to_insert, logic);
             dynamic_json[id] = {
                     {"type", GATE_VIEW_CODE}, {"state", OPEN}, {"x", x_pos}, {"y", y_pos}
             };

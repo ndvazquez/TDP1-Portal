@@ -69,13 +69,6 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
     gates.insert({id, gate});
 }
 
-void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
-             float y_pos) {
-    b2Body* gate_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
-    Gate* gate = new Gate(gate_body);
-    gates.insert({id, gate});
-}
-
 void Stage::addChell(std::string id, float v_side, float h_side,
         float x_pos, float y_pos) {
     b2Body* chell_body = world->addDynamicRectangleWithWheels(v_side, h_side, x_pos, y_pos);

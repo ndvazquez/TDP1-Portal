@@ -18,14 +18,10 @@ Gate::Gate(b2Body* body, std::string logic,
     this->items = std::move(items);
     this->state = CLOSED;
     this->replaced = "";
-    this->always_open = false;
-}
-
-Gate::Gate(b2Body* body):
-    Entity(GATE_NAME, body) {
-    this->always_open = true;
-    this->state = OPEN;
-    body->SetActive(false);
+    if (logic.empty()) {
+        this->state = OPEN;
+        body->SetActive(false);
+    }
 }
 
 bool evaluateSubString(std::string str) {
@@ -158,7 +154,8 @@ bool Gate::parseBool() {
 
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
-    if (always_open) return;
+    if (logic.empty()) return;
+
     replaced = logic;
     for (auto & item : items) {
         std::string id = item.first;
