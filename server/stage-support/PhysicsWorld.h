@@ -19,12 +19,12 @@ class WorldOutOfRangeException : public std::exception {
 class PhysicsWorld {
 private:
     b2World* world;
-    size_t width;
-    size_t height;
+    float width;
+    float height;
     Floor* floor;
 
 public:
-    PhysicsWorld(b2World* world, size_t width, size_t height);
+    PhysicsWorld(b2World* world, float width, float height);
     ~PhysicsWorld();
 
     /* Adds an static rectangle of a given dimention to the world */

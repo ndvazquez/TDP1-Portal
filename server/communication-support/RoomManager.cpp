@@ -4,6 +4,7 @@
 
 #include "RoomManager.h"
 #include <iostream>
+#include <yaml-cpp/yaml.h>
 
 RoomManager::RoomManager() {}
 
@@ -13,15 +14,18 @@ RoomManager::~RoomManager() {
 //    }
 }
 
-bool RoomManager::createGame(const std::string &gameName) {
+bool RoomManager::createGame(const std::string &gameName, std::string& levelPath) {
     std::unique_lock<std::mutex> _lock(_mtx);
     if (rooms.count(gameName) > 0) {
         // There's already a game created with this name.
         return false;
     }
-    int stageWidth = 40;
-    int stageHeight = 20;
-    StageManager* newStageManager = new StageManager(stageWidth, stageHeight);
+    YAML::Node metadata = YAML::LoadFile(levelPath);
+    const YAML::Node& dimentions = metadata[STAGE_ATTRIBUTES][STAGE_SIZE];
+    float stageWidth = dimentions[HORIZONTAL_SIZE].as<float>();
+    float stageHeight = dimentions[VERTICAL_SIZE].as<float>();
+    
+    StageManager* newStageManager = new StageManager(stageWidth, stageHeight, levelPath);
     rooms.insert({gameName, newStageManager});
     return true;
 }

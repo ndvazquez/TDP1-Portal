@@ -6,12 +6,12 @@
 #include "StageManager.h"
 #include "YamlParser.h"
 
-StageManager::StageManager(int stageWidth,
-        int stageHeight) :
+StageManager::StageManager(float stageWidth,
+        float stageHeight, std::string& levelPath) :
         playerCounter(0),
         maxPlayers(2),
         stage(Stage(stageWidth, stageHeight)),
-        parser("file.yaml", stage) {
+        parser(levelPath, stage) {
     this->timeStamp = std::chrono::system_clock::now();
     parser.parseAndAdd();
 }
@@ -35,11 +35,12 @@ void StageManager::run() {
     for (auto it = clients.begin(); it != clients.end(); ++it) {
         it->second->start();
     }
-
+    nlohmann::json metadata_json = parser.getMetadataJson();
     nlohmann::json static_json = parser.getStaticJson();
     nlohmann::json dynamic_json = parser.getDynamicJson();
 
     for (auto it = clientQueues.begin(); it != clientQueues.end(); it++) {
+        it->second->push(metadata_json.dump());
         it->second->push(static_json.dump());
         it->second->push(dynamic_json.dump());
     }

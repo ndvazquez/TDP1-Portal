@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by cecix on 9/06/19.
 //
@@ -12,10 +14,14 @@
 Gate::Gate(b2Body* body, std::string logic,
           std::unordered_map<std::string, ItemActivable*> items):
           Entity(GATE_NAME, body) {
-    this->logic = logic;
-    this->items = items;
+    this->logic = std::move(logic);
+    this->items = std::move(items);
     this->state = CLOSED;
     this->replaced = "";
+    if (logic.empty()) {
+        this->state = OPEN;
+        body->SetActive(false);
+    }
 }
 
 bool evaluateSubString(std::string str) {
@@ -148,6 +154,8 @@ bool Gate::parseBool() {
 
 void Gate::update() {
     // Replace the logic string with 0 and 1 according to button state
+    if (logic.empty()) return;
+
     replaced = logic;
     for (auto & item : items) {
         std::string id = item.first;

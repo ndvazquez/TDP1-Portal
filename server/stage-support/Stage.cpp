@@ -22,7 +22,7 @@
 #include "entities/EnergyReceptorUp.h"
 #include "portal-support/PortalManager.h"
 
-Stage::Stage(size_t width, size_t height) {
+Stage::Stage(float width, float height) {
     this->end_of_game = false;
     float module_gravity = gameConfiguration.gravity;
     b2Vec2 gravity(0.0f, module_gravity);
@@ -65,7 +65,6 @@ void Stage::addGate(std::string id, float v_side, float h_side, float x_pos,
         float y_pos, std::unordered_map<std::string, ItemActivable*> items,
                     std::string logic) {
     b2Body* gate_body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
-
     Gate* gate = new Gate(gate_body, logic, items);
     gates.insert({id, gate});
 }
@@ -191,11 +190,12 @@ void Stage::step() {
         if (i_chell->second->isDead()) {
             if (world->hasObject(i_chell->second->getBody())) {
                 world->destroyBody(i_chell->second->getBody());
+            } else {
                 i_chell->second->removePortals();
                 managePortals(i_chell->second, i_chell->first);
                 delete i_chell->second;
+                i_chell = chells.erase(i_chell);
             }
-            i_chell = chells.erase(i_chell);
         } else {
             end_of_game &= i_chell->second->hasWon();
             managePortals(i_chell->second, i_chell->first);
@@ -491,9 +491,9 @@ nlohmann::json Stage::getCurrentState() {
         float x_pos_er = i->second->getHorizontalPosition();
         float y_pos_er = i->second->getVerticalPosition();
         SwitchState state = i->second->getState();
-        /*request[id_er] = {
+        request[id_er] = {
                 {"state", state}, {"x", x_pos_er}, {"y", y_pos_er}
-        };*/
+        };
     }
     for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
         std::string id_eb = i->first;
@@ -538,6 +538,34 @@ nlohmann::json Stage::getCurrentState() {
         };
     }
     return request;
+}
+
+Button* Stage::getButtonByPosition(Coordinate& coordinate) {
+    float x_coord = coordinate.getX();
+    float y_coord = coordinate.getY();
+    for (auto i = buttons.begin(); i != buttons.end(); i++) {
+        Button* button = i->second;
+        float x_button = button->getHorizontalPosition();
+        float y_button = button->getVerticalPosition();
+        if (x_button == x_coord && y_button == y_coord) {
+            return button;
+        }
+    }
+    return nullptr;
+}
+
+EnergyReceptor* Stage::getEnergyReceptorByPosition(Coordinate& coordinate) {
+    float x_coord = coordinate.getX();
+    float y_coord = coordinate.getY();
+    for (auto i = energy_receptors.begin(); i != energy_receptors.end(); i++) {
+        EnergyReceptor* er = i->second;
+        float x_er = er->getHorizontalPosition();
+        float y_er = er->getVerticalPosition();
+        if (x_er == x_coord && y_er == y_coord) {
+            return er;
+        }
+    }
+    return nullptr;
 }
 
 
