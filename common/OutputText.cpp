@@ -102,7 +102,8 @@ void OutputText::draw(int x, int y) {
 }
 
 void OutputText::draw(SDL_Rect* destRect) {
-    SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
+    SDL_Rect sourceRect;
+    sourceRect = {0, 0, this->mWidth ,this->mHeight};
     destRect->w = mWidth;
     destRect->h = mHeight;
     window.draw(*this->mTexture, sourceRect, *destRect);
@@ -114,7 +115,8 @@ void OutputText::drawInTheCenter() {
 
 void OutputText::drawFromTheCenter(signed x, signed y) {
     SDL_Rect sourceRect = {0, 0 ,this->mWidth ,this->mHeight};
-    SDL_Rect destRect = {X_CENTER - x , Y_CENTER - y, this->mWidth, this->mHeight};
+    SDL_Rect destRect;
+    destRect = {X_CENTER - x , Y_CENTER - y, this->mWidth, this->mHeight};
     window.draw(*this->mTexture, sourceRect, destRect);
 }
 

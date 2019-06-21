@@ -74,6 +74,7 @@ public:
 
     virtual std::map<std::pair<int, int>, std::string>& getConditions();
     int getWidth();
+    virtual bool hasName();
 };
 
 #endif //PORTAL_OBJECT_H

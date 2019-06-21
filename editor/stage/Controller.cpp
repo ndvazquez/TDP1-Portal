@@ -88,25 +88,23 @@ int Controller::getName(int x, int y) {
     return point->second;
 }
 
-void Controller::nameAnObject(int x, int y, std::string& enteredName) {
+void Controller::nameAnObject(int x,
+                                int y,
+                                Window &window,
+                                SDL_Rect rect,
+                                SDL_Rect* camera,
+                                int yStart) {
     std::pair<int, int> pair = std::make_pair(x, y);
     Object* obj = textures[tiles[pair]];
-    logicGates.setName(obj, pair, enteredName);
+    logicGates.setName(obj, pair, window, &rect,camera, yStart, stageView);
 }
 
 void Controller::addCondition(int x, int y) {
     std::pair<int, int> pair = std::make_pair(x, y);
 
-    std::cerr << "Ingrese una condición lógica." << std::endl;
-
-    std::string enteredCondition;
-    std::getline(std::cin, enteredCondition);
-
-    std::cerr << "La condición ingresada es: " << enteredCondition << std::endl;
-
     Object* obj = textures[tiles[pair]];
 
-    logicGates.addCondition(obj, pair, enteredCondition);
+    logicGates.addCondition(obj, pair);
 }
 
 

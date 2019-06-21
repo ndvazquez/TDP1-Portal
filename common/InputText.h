@@ -23,7 +23,6 @@ private:
     std::string initial;
     std::string inputText;
     bool renderText;
-    bool on;
     OutputText outputImage;
     OutputText inputImage;
     int space;
@@ -32,10 +31,6 @@ public:
     InputText(Window &window, const char *message, SDL_Color color);
     ~InputText();
     void handle(SDL_Event* e);
-
-    void startReading();
-
-    void stopReading();
 
     void draw(int x, int y);
 

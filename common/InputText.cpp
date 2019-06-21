@@ -6,11 +6,10 @@
 #include "InputText.h"
 
 
-#define INITIAL ">>"
+#define INITIAL ">>  "
 
 //Handle backspace
 void InputText::handle(SDL_Event* e) {
-    //if(on == READ_INPUT_ON) return;
     if( e->type == SDL_KEYDOWN ) {
         if( e->key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0) {
             //lop off character
@@ -42,17 +41,7 @@ InputText::InputText(Window &window, const char *message, SDL_Color color = WHIT
     inputText(),
     inputImage(window, INITIAL, SILVER),
     renderText(false),
-    on(READ_INPUT_OFF),
     space(std::round(4.0 * outputImage.getHeight()/3)) {
-}
-
-void InputText::startReading() {
-    on = READ_INPUT_ON;
-}
-
-
-void InputText::stopReading() {
-    on = READ_INPUT_OFF;
 }
 
 InputText::~InputText() = default;
@@ -67,8 +56,9 @@ void InputText::draw(int x, int y) {
 void InputText::draw(SDL_Rect *destRect) {
     refreshOutput();
     outputImage.draw(destRect);
-    destRect->y += space;
-    inputImage.draw(destRect);
+    SDL_Rect newRect = {destRect->x, destRect->y, destRect->w, destRect->h};
+    newRect.y += space;
+    inputImage.draw(&newRect);
 }
 
 void InputText::drawInTheCenter() {
@@ -84,7 +74,9 @@ void InputText::drawFromTheCenter(signed x, signed y) {
 }
 
 void InputText::refreshOutput() {
+    if(!renderText) return;
     inputImage.changeMessage((initial +inputText).c_str());
+    renderText = false;
 }
 
 std::string &InputText::getText() {

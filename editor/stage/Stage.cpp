@@ -64,7 +64,6 @@ void Stage::draw(int x, int y) {
     x = (X_PIXEL_TO_MATRIX_POSITION(x)) - this->camera.x;
     y = (Y_PIXEL_TO_MATRIX_POSITION(y)) - this->camera.y;
     controller.drawCurrent(*current, x, y);
-
 }
 
 
@@ -109,12 +108,8 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
     catch(StageNotInsideMeException& e) {
         return;
     }
-    std::string enteredName;
-    std::cerr << "Ingrese un nombre para su objeto." << std::endl;
-    std::getline(std::cin, enteredName);
-
-    std::cerr << "El nombre ingresado es: " << enteredName << std::endl;
-    controller.nameAnObject(x,y, enteredName);
+    SDL_Rect menu = {0, me.h, window.getWindowWidth() ,window.getWindowHeight() - me.h};
+    controller.nameAnObject(x, y, window, menu, &this->camera , Y_START);
 }
 
 void Stage::handleMouseRightClick(MouseButton &event) {

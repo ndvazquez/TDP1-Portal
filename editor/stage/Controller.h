@@ -11,7 +11,7 @@
 #include <map>
 #include <yaml-cpp/node/node.h>
 
-#include "LogicGates.h"
+#include "gates-condition/LogicGates.h"
 #include "../../common/Window.h"
 #include "../../common/Sprite.h"
 #include "View.h"
@@ -42,7 +42,12 @@ public:
 
     int getName(int x, int y);
 
-    void nameAnObject(int x, int y, std::string& enteredName);
+    void nameAnObject(int x,
+                      int y,
+                      Window &window,
+                      SDL_Rect rect,
+                      SDL_Rect* camera,
+                      int yStart);
 
     void addCondition(int x, int y);
 

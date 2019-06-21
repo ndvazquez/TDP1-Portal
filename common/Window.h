@@ -52,6 +52,7 @@ public:
     int getWindowHeight();
     SDL_Renderer* getRenderer();
     void drawBlackBackground();
+    void drawBlackRectangle(SDL_Rect* rect);
 };
 
 #endif //PORTAL_WINDOW_H

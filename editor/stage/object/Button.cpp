@@ -56,3 +56,7 @@ void Button::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std:
 std::pair<int, int> Button::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     return this->rectangleCenterOfMassToMatrixPos(pair, BUTTON_WIDTH, BUTTON_HEIGHT);
 }
+
+bool Button::hasName() {
+    return true;
+}

@@ -57,7 +57,9 @@ std::map<std::pair<int, int>, std::string> &Receptor::getNames() {
 }
 
 void
-Receptor::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures,
+Receptor::addTo(int x, int y,
+        std::map<std::pair<int, int>, int> &tiles,
+        std::unordered_map<int, Object *> &textures,
                 bool needGravitySentinel) {
     names[std::make_pair(x, y)] = lastName;
     Object::addTo(x, y, tiles, textures);
@@ -66,3 +68,8 @@ Receptor::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::un
 std::pair<int, int> Receptor::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     return this->rectangleCenterOfMassToMatrixPos(pair, METAL_SIDE, METAL_SIDE);
 }
+
+bool Receptor::hasName() {
+    return true;
+}
+

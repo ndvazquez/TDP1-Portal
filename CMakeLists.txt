@@ -73,7 +73,7 @@ set(EDITOR_SOURCE_FILES
         editor/stage/Controller.cpp
         editor/stage/View.cpp
         editor/stage/Stage.cpp
-        editor/stage/LogicGates.cpp
+        editor/stage/gates-condition/LogicGates.cpp
         editor/stage/YamlManager.cpp
 
 
@@ -113,7 +113,7 @@ set(EDITOR_SOURCE_FILES
         #ffmpeg/BlockingQueue.cpp
         #ffmpeg/Consumer.cpp
         #ffmpeg/Thread.cpp
-        )
+        editor/stage/gates-condition/InputManager.cpp)
 
 set(SERVER_SOURCE_FILES
         server/stage-support/Stage.cpp

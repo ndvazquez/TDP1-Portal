@@ -63,3 +63,7 @@ std::pair<int, int> Gate::centerOfMassToMatrixPos(const std::pair<float, float> 
 std::map<std::pair<int, int>, std::string> &Gate::getConditions() {
     return conditions;
 }
+
+bool Gate::hasName() {
+    return true;
+}

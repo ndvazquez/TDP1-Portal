@@ -7,6 +7,7 @@
 #include "Event.h"
 #include "../common/InputText.h"
 #include "HomeScreen.h"
+#include "stage/gates-condition/InputManager.h"
 
 #define TOTAL_WIDTH  1500
 #define TOTAL_HEIGHT 1000
@@ -76,8 +77,11 @@ int main(int argc, char* argv[]) {
 
         SDL_Delay(500);
     }
-    catch (CloseException &e) {
+    catch (CloseException &e ) {
         return 0;
+    }
+    catch (CloseInputManagerException& e) {
+
     }
     catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
