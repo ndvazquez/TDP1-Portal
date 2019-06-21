@@ -104,12 +104,13 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
     int xPixel, yPixel, x, y;
     try {
         pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
-    }
-    catch(StageNotInsideMeException& e) {
+        SDL_Rect menu = {0, me.h, window.getWindowWidth() ,window.getWindowHeight() - me.h};
+        controller.nameAnObject(x, y, window, menu, &this->camera , Y_START);
+    } catch (StageNotInsideMeException& e) {
         return;
+    } catch (StageControllerException& e) {
+        std::cerr << e.what() << std::endl;
     }
-    SDL_Rect menu = {0, me.h, window.getWindowWidth() ,window.getWindowHeight() - me.h};
-    controller.nameAnObject(x, y, window, menu, &this->camera , Y_START);
 }
 
 void Stage::handleMouseRightClick(MouseButton &event) {

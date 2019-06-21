@@ -33,7 +33,7 @@ void LogicGates::setName(Object *obj,
                          SDL_Rect* camera,
                          int yStart,
                          View stageView) {
-    if (!obj->hasName()) return;
+    if (!obj || !obj->hasName()) return;
     InputManager input(window, "Enter a fucking name", rect);
     std::string& name = input.enteredString(position,
                                             obj,
