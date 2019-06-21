@@ -43,8 +43,21 @@ void LogicGates::setName(Object *obj,
     setName(obj, position, name);
 }
 
-void LogicGates::addCondition(Object* obj, std::pair<int, int> position) {
-
+void LogicGates::addCondition(Object *obj,
+                              std::pair<int, int> position,
+                              Window &window,
+                              SDL_Rect* rect,
+                              SDL_Rect* camera,
+                              int yStart,
+                              View stageView) {
+    if (!obj || !obj->hasCondition()) return;
+    InputManager input(window, "Enter a fucking name", rect);
+    std::string& condition = input.enteredString(position,
+                                            obj,
+                                            camera,
+                                            yStart,
+                                            stageView);
+    addCondition(obj, position, condition);
 }
 
 void LogicGates::setName(Object *obj, std::pair<int, int> position, std::string newName) {

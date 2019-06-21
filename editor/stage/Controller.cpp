@@ -99,12 +99,17 @@ void Controller::nameAnObject(int x,
     logicGates.setName(obj, pair, window, &rect,camera, yStart, stageView);
 }
 
-void Controller::addCondition(int x, int y) {
+void Controller::addCondition(int x,
+                              int y,
+                              Window &window,
+                              SDL_Rect rect,
+                              SDL_Rect* camera,
+                              int yStart) {
     std::pair<int, int> pair = std::make_pair(x, y);
 
     Object* obj = textures[tiles[pair]];
 
-    logicGates.addCondition(obj, pair);
+    logicGates.addCondition(obj, pair, window, &rect,camera, yStart, stageView);
 }
 
 

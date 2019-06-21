@@ -49,7 +49,12 @@ public:
                       SDL_Rect* camera,
                       int yStart);
 
-    void addCondition(int x, int y);
+    void addCondition(int x,
+                      int y,
+                      Window &window,
+                      SDL_Rect rect,
+                      SDL_Rect* camera,
+                      int yStart);
 
     void writeYaml();
 

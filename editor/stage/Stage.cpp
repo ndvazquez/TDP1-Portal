@@ -117,7 +117,8 @@ void Stage::handleMouseRightClick(MouseButton &event) {
     int xPixel, yPixel, x, y;
     try {
         pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
-        controller.addCondition(x, y);
+        SDL_Rect menu = {0, me.h, window.getWindowWidth() ,window.getWindowHeight() - me.h};
+        controller.addCondition(x, y, window, menu, &this->camera , Y_START);
     }
     catch(StageNotInsideMeException& e) {
         return;

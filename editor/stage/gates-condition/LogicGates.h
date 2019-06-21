@@ -35,13 +35,20 @@ public:
     void addConditionalElement(Object *obj);
 
 
-    void addCondition(Object *obj, std::pair<int, int> position);
-
     void setName(Object *obj,
                  std::pair<int, int> position,
                  Window &window,
                  SDL_Rect *rect,
                  SDL_Rect* camera,
+                 int yStart,
+                 View stageView);
+
+    void
+    addCondition(Object *obj,
+                 std::pair<int, int> position,
+                 Window &window,
+                 SDL_Rect *rect,
+                 SDL_Rect *camera,
                  int yStart,
                  View stageView);
 };
