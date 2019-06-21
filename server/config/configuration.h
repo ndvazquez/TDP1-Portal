@@ -8,7 +8,7 @@
 struct box2DConfiguration {
     float chellForce;
     float deltaError;
-    int energyBallImpulseFactor;
+    float energyBallImpulseFactor;
     float chellInitialVelocity;
     float gravityJump;
     float gravity;
@@ -24,6 +24,6 @@ struct box2DConfiguration {
     float shotFactor;
 };
 
-extern struct box2DConfiguration gameConfiguration;
+extern const struct box2DConfiguration gameConfiguration;
 
 #endif //PORTAL_CONFIGURATION_H

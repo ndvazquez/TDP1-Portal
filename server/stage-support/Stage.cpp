@@ -191,11 +191,12 @@ void Stage::step() {
         if (i_chell->second->isDead()) {
             if (world->hasObject(i_chell->second->getBody())) {
                 world->destroyBody(i_chell->second->getBody());
+            } else {
                 i_chell->second->removePortals();
                 managePortals(i_chell->second, i_chell->first);
                 delete i_chell->second;
+                i_chell = chells.erase(i_chell);
             }
-            i_chell = chells.erase(i_chell);
         } else {
             end_of_game &= i_chell->second->hasWon();
             managePortals(i_chell->second, i_chell->first);
