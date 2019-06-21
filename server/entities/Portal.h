@@ -14,10 +14,10 @@ class Portal: public Entity {
 private:
     Coordinate* target;
     PortalOrientation orientation;
-    PortalType portal_type_target;
+    Direction portal_type_target;
 
 public:
-    Portal(b2Body* body, Coordinate* target, PortalOrientation orientation, PortalType type);
+    Portal(b2Body* body, Coordinate* target, PortalOrientation orientation, Direction type);
     ~Portal();
 
     /* Returns the portal's target */
@@ -33,10 +33,10 @@ public:
     void addTarget(Coordinate* target);
 
     /* Adds a type to the portal (right, left, up, down or invalid) */
-    void addPortalType(PortalType type);
+    void addPortalType(Direction type);
 
     /* Returns the portal's type */
-    PortalType getPortalType();
+    Direction getPortalType();
 };
 
 #endif //PORTAL_PORTAL_H

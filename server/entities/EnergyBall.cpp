@@ -3,7 +3,6 @@
 //
 
 #include <string>
-#include <iostream>
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
@@ -15,13 +14,14 @@
 #include "EnergyReceptorDown.h"
 #include "DiagonalMetalBlock.h"
 
-EnergyBall::EnergyBall(b2Body* body, bool is_vertical):
+EnergyBall::EnergyBall(b2Body* body, Direction eb_type):
     Entity(EB_NAME, body),
     dynamic(body) {
-    this->is_vertical = is_vertical;
+    this->eb_type = eb_type;
     body->SetUserData(this); //to handle collisions
     this->is_dead = false;
     this->timeStamp = std::chrono::system_clock::now();
+    body->SetGravityScale(0);
 }
 
 void EnergyBall::fly() {
@@ -32,11 +32,11 @@ void EnergyBall::fly() {
         die();
         return; //Dies after 10 seconds
     }
-    if (is_vertical) {
-        dynamic.flyVertical();
-    } else {
-        dynamic.flyHorizontal();
-    }
+    dynamic.flyRect(eb_type);
+}
+
+void EnergyBall::applyOrientation(Direction direction) {
+    this->eb_type = direction;
 }
 
 void EnergyBall::changeDirection(b2Vec2 velocity) {
@@ -59,6 +59,11 @@ void EnergyBall::handleCollision(Entity* entity) {
     if (type == ROCK_BLOCK_NAME) {
         die();
     }
+
+    if (type == METAL_BLOCK_NAME) {
+        invertDirection();
+    }
+
     if (type == DIAGONAL_METAL_BLOCK_NAME) {
         b2Vec2 velocity = dynamic_cast<DiagonalMetalBlock*>(entity)->calculateVelocity();
         changeDirection(velocity);
@@ -71,7 +76,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         Portal* portal = dynamic_cast<Portal*>(entity);
         Coordinate* target = portal->getTarget();
         if (target != nullptr) {
-            teleport(target, portal->getPortalType());
+            Direction portal_type = portal->getPortalType();
+            teleport(target, portal_type);
         }
     }
     if (type == BLUE_SHOT_NAME) {
@@ -87,6 +93,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (x_eb > x_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ER_LEFT_NAME) {
@@ -96,6 +104,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (x_eb < x_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ER_UP_NAME) {
@@ -105,6 +115,8 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (y_eb > y_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ER_DOWN_NAME) {
@@ -114,16 +126,34 @@ void EnergyBall::handleCollision(Entity* entity) {
         if (y_eb < y_er) {
             er->activate();
             die();
+        } else {
+            invertDirection();
         }
     }
     if (type == ROCK_NAME) {
         dynamic_cast<Rock*>(entity)->die();
         die();
     }
+
+    if (type == ET_NAME) {
+        invertDirection();
+    }
 }
 
-void EnergyBall::teleport(Coordinate* target, PortalType type) {
-    this->dynamic.teleport(target, type, true);
+void EnergyBall::invertDirection() {
+    if (eb_type == RIGHT) {
+        eb_type = LEFT;
+    } else if (eb_type == LEFT) {
+        eb_type = RIGHT;
+    } else if (eb_type == UP) {
+        eb_type = DOWN;
+    } else if (eb_type == DOWN) {
+        eb_type = UP;
+    }
+}
+
+void EnergyBall::teleport(Coordinate* target, Direction type) {
+    if (this->dynamic.teleport(target, type, true)) applyOrientation(type);
 }
 
 void EnergyBall::update() {

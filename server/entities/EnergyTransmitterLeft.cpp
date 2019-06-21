@@ -6,6 +6,7 @@
 
 EnergyTransmitterLeft::EnergyTransmitterLeft(b2Body* body):
         EnergyTransmitter(body)  {
+    this->type_transmitter = LEFT;
 }
 
 Coordinate* EnergyTransmitterLeft::throwEnergyBall() {

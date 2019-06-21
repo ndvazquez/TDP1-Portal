@@ -11,9 +11,13 @@
 class EnergyTransmitter: public Entity {
 protected:
     std::chrono::system_clock::time_point timeStamp;
+    Direction type_transmitter;
 
 public:
     explicit EnergyTransmitter(b2Body* body);
+
+    /* Returns type of the transmitter (down, up, left or right) */
+    Direction getTypeTransmitter();
 
     /* Returns boolean that indicates if it's time to throw an EnergyBall */
     bool isTimeToThrow();

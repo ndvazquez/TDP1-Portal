@@ -6,6 +6,7 @@
 
 EnergyTransmitterUp::EnergyTransmitterUp(b2Body* body):
         EnergyTransmitter(body)  {
+    this->type_transmitter = UP;
 }
 
 Coordinate* EnergyTransmitterUp::throwEnergyBall() {

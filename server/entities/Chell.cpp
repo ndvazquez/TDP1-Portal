@@ -89,7 +89,7 @@ void Chell::handleCollision(Entity* entity) {
                         || type == ROCK_NAME || type == BUTTON_NAME || type == ET_NAME || type == ER_NAME;
 }
 
-void Chell::teleport(Coordinate* coordinate, PortalType type) {
+void Chell::teleport(Coordinate* coordinate, Direction type) {
     this->dynamic.teleport(coordinate, type, false);
 }
 

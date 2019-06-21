@@ -12,6 +12,8 @@ class Gate : public StaticObject {
 private:
     std::map<std::pair<int, int>, std::string> names;
     std::map<std::pair<int, int>, std::string> conditions;
+    std::string lastName;
+    std::string lastCondition;
 
 public:
     Gate(std::string &path, Window &window, int id, int w, int h);

@@ -12,6 +12,8 @@
 #include "../../../common/Sprite.h"
 #include "ObjectException.h"
 #include "../../../common/constants.h"
+#include "../../../common/Text.h"
+
 
 #define POSITIONS_ABOVE (h - 1)
 #define WITHOUT_GRAVITY_SENTINEL 100

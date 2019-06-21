@@ -90,7 +90,7 @@ public:
     void addBluePortal(PortalHolder* bluePortal, Coordinate* to_teleport);
 
     /* Chell teleports to the location indicated by coordinate */
-    void teleport(Coordinate* coordinate, PortalType type);
+    void teleport(Coordinate* coordinate, Direction type);
 
     /* Chell resets portals */
     void removePortals();

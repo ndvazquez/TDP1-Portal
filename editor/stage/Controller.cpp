@@ -6,21 +6,29 @@
 #include <fstream>
 #include "Controller.h"
 #include "YamlManager.h"
-
+#define SET_YAML "Ingrese por terminal el nombre de un archivo yaml del cual leer el escenario"
 
 
 Controller::Controller(Window &window, std::string texturesPath, int factor) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
-                    yaml(textures, tiles, logicGates) {
+                    yaml(textures, tiles, logicGates) {                  
     try {
         yaml.getObjects(window, texturesPath);
-        std::cerr << "Ingrese el nombre de un archivo yaml del cual leer el escenario" << std::endl;
+        Text text(window, SET_YAML, LIGHT_GREEN);
+
+        window.clear();
+        text.draw(0,0);
+        window.render();
+
         std::string s;
         std::getline(std::cin, s);
         yaml.readStage(s);
     }
     catch(InvalidFile& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    catch (TextInitException& e) {
         std::cerr << e.what() << std::endl;
     }
     catch (std::exception& e){
@@ -109,7 +117,7 @@ void Controller::addCondition(int x, int y) {
 
 void Controller::writeYaml() {
     try {
-        std::cerr << "Ingrese el nombre de un archivo yaml del cual leer el escenario" << std::endl;
+        std::cerr << "Ingrese el nombre de un archivo yaml en el cual escribir el escenario" << std::endl;
         std::string s;
         std::getline(std::cin, s);
         yaml.writeStage(s);
