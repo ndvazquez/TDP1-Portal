@@ -133,7 +133,7 @@ void YamlManager::writeStage(std::string& stagePath) {
 
 
         std::map<std::pair<float, float>, std::string> &names = logicGates.getNames();
-        out << YAML::Key << SATAGE_OBJECTS_NAMES;
+        out << YAML::Key << STAGE_OBJECT_NAMES;
         out << YAML::Key << YAML::BeginSeq;
         for (auto &it : names) {
             std::pair<float, float> centerOfMassPos = it.first;
@@ -167,7 +167,7 @@ void YamlManager::writeStage(std::string& stagePath) {
             std::string &name = it.second;
             out << YAML::Value << YAML::BeginMap;
 
-            out << YAML::Key << SATAGE_OBJECTS_CONDITIONS;
+            out << YAML::Key << STAGE_OBJECT_CONDITIONS;
             out << YAML::Value << name;
             out << YAML::Key << OBJECT_POSITION;
 
@@ -221,7 +221,7 @@ void YamlManager::readStage(std::string& stagePath) {
             }
         }
 
-        const YAML::Node &names = texturesInfo[SATAGE_OBJECTS_NAMES];
+        const YAML::Node &names = texturesInfo[STAGE_OBJECT_NAMES];
         Object *currentObject;
         std::pair<int, int> matrixPos;
         std::string name;
@@ -246,7 +246,7 @@ void YamlManager::readStage(std::string& stagePath) {
              itNames != conditions.end(); ++itNames) {
             const YAML::Node &node = *itNames;
 
-            condition = node[SATAGE_OBJECTS_CONDITIONS].as<std::string>();
+            condition = node[STAGE_OBJECT_CONDITIONS].as<std::string>();
             float x = node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
             float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
 

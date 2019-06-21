@@ -162,7 +162,7 @@ set(SERVER_SOURCE_FILES
         server/portal-support/PortalManager.cpp
         server/stage-support/YamlParser.cpp
         server/portal-support/PortalHolder.cpp
-        server/config/configuration.cpp)
+        server/config/configuration.cpp
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp
         server/communication-support/RoomWorker.cpp)
@@ -175,7 +175,7 @@ add_executable(Server server/main.cpp ${SERVER_SOURCE_FILES})
 add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
-target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} pthread)
+target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
 target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)# avformat avcodec avutil swscale)
 target_link_libraries(Server yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)

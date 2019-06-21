@@ -41,8 +41,13 @@ void RoomWorker::run() {
             // Need to check if it's a valid JSON.
             nlohmann::json clientActionJson = nlohmann::json::parse(clientAction);
             int action = clientActionJson["action"].get<int>();
-            if (action == CREATE_GAME_CODE){
-                _isDead = (handleGameCreation(clientActionJson) &&
+            if (action == CREATE_GAME_CODE) {
+                int levelPathSize;
+                clientSocket.receiveMessage(&levelPathSize, REQUEST_LEN_SIZE);
+                std::string levelPath(levelPathSize, '\0');
+                clientSocket.receiveMessage(&levelPath[0], levelPathSize);
+
+                _isDead = (handleGameCreation(clientActionJson, levelPath) &&
                         handleJoinGame(clientActionJson));
             } else if (action == JOIN_GAME_CODE) {
                 _isDead = handleJoinGame(clientActionJson);
@@ -71,9 +76,9 @@ void RoomWorker::run() {
     }
 }
 
-bool RoomWorker::handleGameCreation(nlohmann::json& actionData) {
+bool RoomWorker::handleGameCreation(nlohmann::json& actionData, std::string& levelPath) {
     std::string gameName = actionData["gameName"].get<std::string>();
-    bool result = roomManager.createGame(gameName);
+    bool result = roomManager.createGame(gameName, levelPath);
     return result;
 }
 
