@@ -25,6 +25,7 @@ private:
 public:
     Gate(b2Body* body, std::string logic,
             std::unordered_map<std::string, ItemActivable*> items);
+    explicit Gate(b2Body* body);
 
     /* Updates state of the gate (open and close)
      * evaluating the boolean condition */

@@ -33,7 +33,7 @@ View* ViewFactory::createView(int viewTypeCode,
         case ACID_VIEW_CODE:
             newView = new AcidView(gameWindow, 0, 0, mtpFactor, texturesData);
             break;
-        case ENERGY_BALL__VIEW_CODE:
+        case ENERGY_BALL_VIEW_CODE:
             newView = new EnergyBallView(gameWindow, 0, 0, mtpFactor,
                     texturesData);
             break;

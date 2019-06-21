@@ -14,6 +14,7 @@ private:
     Stage& stage;
     nlohmann::json dynamic_json;
     nlohmann::json static_json;
+    nlohmann::json metadata_json;
 
 public:
     YamlParser(const std::string& path, Stage& stage);
@@ -26,6 +27,9 @@ public:
 
     /* Returns a JSON with the data of the blocks */
     nlohmann::json getStaticJson();
+
+    /* Returns a JSON with metatada */
+    nlohmann::json getMetadataJson();
 };
 
 #endif //PORTAL_YAMLPARSER_H
