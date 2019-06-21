@@ -7,7 +7,8 @@
 
 ClientReceiver::ClientReceiver(UserEventQueue &eventQueue, Socket &socket) :
                                 userEventQueue(eventQueue),
-                                clientSocket(socket){
+                                //clientSocket(socket){
+                                clientProtocol(socket) {
 }
 
 ClientReceiver::~ClientReceiver() {}
@@ -15,23 +16,17 @@ ClientReceiver::~ClientReceiver() {}
 void ClientReceiver::run() {
     while (!_isDead) {
         try {
-            uint32_t string_size;
-            // It blocks here.
-            clientSocket.receiveMessage(&string_size, REQUEST_LEN_SIZE);
-            std::string eventString(string_size, '\0');
-            // It blocks here.
-            clientSocket.receiveMessage(&eventString[0], string_size);
+            std::string eventString = clientProtocol.receiveMessage();
             nlohmann::json eventJson = nlohmann::json::parse(eventString);
             UserEvent userEvent(eventJson);
             // Could block here too.
             userEventQueue.push(userEvent);
-        } catch (std::runtime_error &e) {
+        } catch (std::runtime_error &e) { //TODO: it should be exception afterwards
             std::cout << "Force shutdown, expected behaviour." << std::endl;
             _isDead = true;
         } catch(...) {
             _isDead = true;
             std::cout << "Aborting Receiver execution." << std::endl;
-
             return;
         }
     }

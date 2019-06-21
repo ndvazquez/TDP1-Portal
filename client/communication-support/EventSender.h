@@ -12,9 +12,10 @@
 #include "../../common/constants.h"
 #include "../../common/UserEventQueue.h"
 #include "../../common/UserEvent.h"
+#include "../../common/Protocol.h"
 
 class EventSender : public Thread{
-    Socket& clientSocket;
+    Protocol clientProtocol;
     UserEventQueue& userEventQueue;
 public:
     EventSender(Socket& socket,

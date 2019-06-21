@@ -5,7 +5,7 @@
 #include "EventSender.h"
 
 EventSender::EventSender(Socket &socket, UserEventQueue &eventQueue) :
-                        clientSocket(socket),
+                        clientProtocol(socket),
                         userEventQueue(eventQueue){
 }
 
@@ -20,9 +20,7 @@ void EventSender::run() {
                 _isDead = true;
             }
             std::string userEventJson = userEvent.toJsonString();
-            int userEventSize = userEventJson.size();
-            clientSocket.sendMessage(&userEventSize, REQUEST_LEN_SIZE);
-            clientSocket.sendMessage(&userEventJson[0], userEventSize);
+            clientProtocol.sendMessage(userEventJson);
         } catch (std::runtime_error &e){
             // TODO: Implement a real exception.
             _isDead = true;

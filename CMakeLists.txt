@@ -49,7 +49,8 @@ set(CLIENT_SOURCE_FILES
         common/Socket.cpp
         client/communication-support/EventSender.cpp
         client/communication-support/StageStatusReceiver.cpp
-        common/StageStatusQueue.cpp)
+        common/StageStatusQueue.cpp
+        common/Protocol.cpp)
 
 #EDITOR CONFIG
 
@@ -162,7 +163,8 @@ set(SERVER_SOURCE_FILES
         server/entities/ItemActivable.cpp
         server/portal-support/PortalManager.cpp
         server/stage-support/YamlParser.cpp
-        server/portal-support/PortalHolder.cpp)
+        server/portal-support/PortalHolder.cpp
+        common/Protocol.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

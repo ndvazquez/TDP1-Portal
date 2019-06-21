@@ -7,7 +7,7 @@
 
 ClientSender::ClientSender(StageStatusQueue &stageQueue, Socket &socket) :
                             stageStatusQueue(stageQueue),
-                            clientSocket(socket){
+                            clientProtocol(socket) {
 }
 
 ClientSender::~ClientSender() {}
@@ -22,9 +22,7 @@ void ClientSender::run() {
                 _isDead = true;
                 break;
             }
-            int stageStatusSize = stageStatus.size();
-            clientSocket.sendMessage(&stageStatusSize, REQUEST_LEN_SIZE);
-            clientSocket.sendMessage(&stageStatus[0], stageStatusSize);
+            clientProtocol.sendMessage(stageStatus);
         } catch (std::runtime_error &e){
             // TODO: Implement a real exception.
             std::cout << "Force shutdown, expected behaviour." << std::endl;
