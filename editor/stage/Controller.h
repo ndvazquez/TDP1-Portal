@@ -28,6 +28,7 @@ private:
     View stageView;
     LogicGates logicGates;
     YamlManager yaml;
+    std::string texturesPath;
 
 
 public:
@@ -56,7 +57,7 @@ public:
                       SDL_Rect* camera,
                       int yStart);
 
-    void writeYaml();
+    void writeYaml(std::string &yamlPath);
 
     void drawCurrent(int id, int x, int y);
 };

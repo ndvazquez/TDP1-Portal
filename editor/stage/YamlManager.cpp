@@ -200,9 +200,11 @@ void YamlManager::readStage(std::string& stagePath) {
         YAML::Node texturesInfo = YAML::LoadFile(stagePath);
         const YAML::Node &node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
         int width = (int) node[VERTICAL_SIZE].as<float>();
+        int i= 0;
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
+            if (currentID > 100) {std::cerr << "!obj" << std::endl; return;}
             const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
             for (YAML::const_iterator it = objects.begin();
                  it != objects.end(); ++it) {

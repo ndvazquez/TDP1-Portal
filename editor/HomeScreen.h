@@ -19,7 +19,7 @@ class HomeScreen {
 public:
     HomeScreen(Window &window);
     ~HomeScreen();
-    std::string & start();
+    std::string &start(bool withAnswer = false);
 };
 
 class CloseException: public std::exception {

@@ -47,8 +47,8 @@ void Editor::handleMouseRightClick(SDL_Event *event) {
 
 
 
-void Editor::save() {
-    stage.save();
+void Editor::save(std::string &yamlPath) {
+    stage.save(yamlPath);
 }
 
 void Editor::handleLeft() {
@@ -66,3 +66,4 @@ void Editor::handleUp() {
 void Editor::handleDown() {
     stage.handleDown();
 }
+

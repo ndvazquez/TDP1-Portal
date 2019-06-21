@@ -40,7 +40,7 @@ public:
     void handleMouseDoubleClick(SDL_Event *event);
     void handleMouseRightClick(SDL_Event *event);
 
-    void save();
+    void save(std::string &yamlPath);
 
     void handleLeft();
     void handleRight();

@@ -42,7 +42,7 @@ public:
     void handleMouseDoubleClick(MouseButton &event);
     void handleMouseRightClick(MouseButton &event);
 
-    void save();
+    void save(std::string &yamlPath);
 
     void pixelToMatrix(MouseButton &event, int *xPixel, int *yPixel, int *x, int *y);
 

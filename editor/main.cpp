@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
 
         HomeScreen home(window);
-        std::string& yamlPath = home.start();
+        std::string& yamlPath = home.start(true);
 
         Editor editor(window, yamlPath);
         editor.draw(0, 0);
@@ -66,9 +66,9 @@ int main(int argc, char* argv[]) {
                         } else if (e.key.keysym.sym == SDLK_DOWN &&
                             e.key.repeat == 0) {
                             editor.handleDown();
-                        } else if (e.key.keysym.sym == SDLK_s &&
-                                   e.key.repeat == 0) {
-                            editor.save();
+                        } else if (e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL) {
+                            std::string& yamlPath = home.start();
+                            editor.save(yamlPath);
                         }
                 }
             }

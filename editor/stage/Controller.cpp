@@ -9,19 +9,22 @@
 #include "../../common/InputText.h"
 
 
+#define AFTER_INVALID_FILE "THAT'S NOT EVEN A VALID FILE. YOU ARE MOVING AWAY FROM THE CAKE"
+
 Controller::Controller(Window &window,
                        std::string texturesPath,
                        int factor,
                        std::string &stageYamlPath) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
-                    yaml(textures, tiles, logicGates) {
+                    yaml(textures, tiles, logicGates),
+                    texturesPath(texturesPath) {
     try {
         yaml.getObjects(window, texturesPath);
         yaml.readStage(stageYamlPath);
     }
     catch(InvalidFile& e) {
-        std::cerr << e.what() << std::endl;
+        return;
     }
     catch (TextException& e) {
         std::cerr << e.what() << std::endl;
@@ -113,12 +116,9 @@ void Controller::addCondition(int x,
 }
 
 
-void Controller::writeYaml() {
+void Controller::writeYaml(std::string &yamlPath) {
     try {
-        std::cerr << "Ingrese el nombre de un archivo yaml en el cual escribir el escenario" << std::endl;
-        std::string s;
-        std::getline(std::cin, s);
-        yaml.writeStage(s);
+        yaml.writeStage(yamlPath);
     }
     catch(InvalidFile& e) {
         std::cerr << e.what() << std::endl;
@@ -127,4 +127,3 @@ void Controller::writeYaml() {
         std::cerr << e.what() << std::endl;
     }
 }
-

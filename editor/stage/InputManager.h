@@ -19,11 +19,11 @@ private:
 public:
     InputManager(Window &window, const char *message, SDL_Rect *rect);
     ~InputManager();
-    std::string &enteredString(std::pair<int, int> &position,
-                               Object* obj,
-                               SDL_Rect *camera,
-                               int stageY,
-                               View stageView);
+    std::string &startReading(std::pair<int, int> &position,
+                              Object *obj,
+                              SDL_Rect *camera,
+                              int stageY,
+                              View stageView);
 };
 
 class CloseInputManagerException: public std::exception {

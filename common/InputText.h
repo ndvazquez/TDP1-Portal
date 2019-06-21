@@ -43,6 +43,8 @@ public:
     void refreshOutput();
 
     std::string &getText();
+
+    void resetText();
 };
 
 

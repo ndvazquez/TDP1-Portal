@@ -143,6 +143,6 @@ void Stage::handleDown() {
     this->camera.y ++;
 }
 
-void Stage::save() {
-    controller.writeYaml();
+void Stage::save(std::string &yamlPath) {
+    controller.writeYaml(yamlPath);
 }

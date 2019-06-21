@@ -12,11 +12,11 @@ InputManager::InputManager(Window &window, const char *message, SDL_Rect *rect) 
     rect(rect) {
 }
 
-std::string & InputManager::enteredString(std::pair<int, int> &position,
-                                          Object* obj,
-                                          SDL_Rect *camera,
-                                          int stageY,
-                                          View stageView) {
+std::string & InputManager::startReading(std::pair<int, int> &position,
+                                         Object *obj,
+                                         SDL_Rect *camera,
+                                         int stageY,
+                                         View stageView) {
     SDL_Event e;
     bool close = false;
     int x = rect->x;

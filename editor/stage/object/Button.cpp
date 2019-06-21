@@ -15,8 +15,6 @@ void Button::setName(std::pair<int, int>& position, std::string& enteredName) {
         }
     }
     names[position] = enteredName;
-    std::cerr << "Soy un boton ";
-    std::cerr << "y mi nombre es " << enteredName << std::endl;
 }
 
 bool Button::doesThisNameExist(std::string &string) {

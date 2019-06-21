@@ -7,12 +7,11 @@
 #include "../common/Window.h"
 
 #define SET_YAML_WRONG_MESSAGE "IF YOU REALLY DONT WANT TO DIE"
-#define SET_YAML_MESSAGE "IF YOU REALLY WANT THE CAKE, ENTER THE NAME OF A YAML FILE FROM WHICH WE WILL READ THE SCENARIO"
+#define SET_YAML_MESSAGE "IF YOU REALLY WANT THE CAKE, ENTER THE NAME OF A YAML FILE"
 #define NO_YAML "(SKIP)"
 #define ENTERING_DONE "(OK, HERE IS THE FILE. CAN I ALREADY HAVE MY CAKE?)"
 
 #define AFTER_ENTER_FILE "HAHAHA YOU WISH.... IT WON'T BE THAT EASY"
-#define AFTER_INVALID_FILE "THAT'S NOT A VALID FILE. YOU ARE MOVING AWAY FROM THE CAKE"
 #define AFTER_SKIP "IF YOU THINK YOU ARE NOT WORTHY OF THE CAKE MAYBE YOU SHOULD NOT BE HERE"
 
 
@@ -27,7 +26,8 @@ HomeScreen::HomeScreen(Window &window) :
 
 HomeScreen::~HomeScreen() = default;
 
-std::string& HomeScreen::start() {
+std::string & HomeScreen::start(bool withAnswer) {
+    input.resetText();
     SDL_Event e;
     bool close = false;
     int width = window.getWindowWidth();
@@ -90,10 +90,14 @@ std::string& HomeScreen::start() {
             }
         }
     }
-    //doneImage.writeTheScreen(answer);
+    if (withAnswer) {
+        doneImage.writeTheScreen(answer);
+    }
     if (close) {
         answer = AFTER_QUI2;
-        //doneImage.writeTheScreen(answer);
+        if (withAnswer) {
+            doneImage.writeTheScreen(answer);
+        }
         throw CloseException();
     }
     return yamlPath;

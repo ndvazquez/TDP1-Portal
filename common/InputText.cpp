@@ -82,3 +82,8 @@ void InputText::refreshOutput() {
 std::string &InputText::getText() {
     return inputText;
 }
+
+void InputText::resetText() {
+    inputText = "";
+    renderText = true;
+}

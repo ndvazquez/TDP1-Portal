@@ -20,20 +20,15 @@ void Receptor::setName(std::pair<int, int>& position, std::string& enteredName) 
             throw SetNameException();
         }
     }
-    std::cerr << "Soy un receptor ";
     names[position] = enteredName;
-    std::cerr << "y mi nombre es " << names[position] << std::endl;
 }
 
 bool Receptor::doesThisNameExist(std::string &string) {
     auto it = this->names.begin();
-
-    std::cerr << "iterando por nombres: " << std::endl;
     for(; it != this->names.end(); it++) {
 
         std::cerr << it->second << std::endl;
         if (it->second == string) {
-            std::cerr << "este es igual" << std::endl;
             return true;
         }
     }
