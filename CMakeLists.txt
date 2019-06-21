@@ -132,7 +132,6 @@ set(SERVER_SOURCE_FILES
         server/movements/Stop.cpp
         server/entities/EnergyBall.cpp
         server/entities/Entity.cpp
-        server/configuration.cpp
         server/entities/Floor.cpp
         server/entities/BlueShot.cpp
         server/entities/OrangeShot.cpp
@@ -162,7 +161,8 @@ set(SERVER_SOURCE_FILES
         server/entities/ItemActivable.cpp
         server/portal-support/PortalManager.cpp
         server/stage-support/YamlParser.cpp
-        server/portal-support/PortalHolder.cpp)
+        server/portal-support/PortalHolder.cpp
+        server/config/configuration.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
