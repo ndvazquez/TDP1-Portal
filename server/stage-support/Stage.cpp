@@ -22,7 +22,7 @@
 #include "entities/EnergyReceptorUp.h"
 #include "portal-support/PortalManager.h"
 
-Stage::Stage(size_t width, size_t height) {
+Stage::Stage(float width, float height) {
     this->end_of_game = false;
     float module_gravity = gameConfiguration.gravity;
     b2Vec2 gravity(0.0f, module_gravity);

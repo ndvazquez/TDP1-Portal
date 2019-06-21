@@ -29,8 +29,8 @@ class StageManager : public Thread {
     std::chrono::system_clock::time_point timeStamp;
     void handleEvent(UserEvent& userEvent, Chell* chell);
 public:
-    StageManager(int stageWidth,
-                int stageHeight);
+    StageManager(float stageWidth,
+                float stageHeight);
     ~StageManager();
     // This is going to run on another thread.
     void run();

@@ -6,7 +6,7 @@
 #include "PhysicsWorld.h"
 #include "../../common/constants.h"
 
-PhysicsWorld::PhysicsWorld(b2World *world, size_t width, size_t height):
+PhysicsWorld::PhysicsWorld(b2World *world, float width, float height):
     world(world), width(width), height(height) {
 
     b2BodyDef body;

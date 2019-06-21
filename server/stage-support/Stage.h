@@ -67,7 +67,7 @@ private:
     std::unordered_map<std::string, Portal*> portals;
 
 public:
-    Stage(size_t width, size_t height);
+    Stage(float width, float height);
     ~Stage();
 
     /* Adds a block to the stage (specifically a metal block or a rock block) */

@@ -6,8 +6,8 @@
 #include "StageManager.h"
 #include "YamlParser.h"
 
-StageManager::StageManager(int stageWidth,
-        int stageHeight) :
+StageManager::StageManager(float stageWidth,
+        float stageHeight) :
         playerCounter(0),
         maxPlayers(2),
         stage(Stage(stageWidth, stageHeight)),

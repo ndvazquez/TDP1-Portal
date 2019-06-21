@@ -19,8 +19,8 @@ bool RoomManager::createGame(const std::string &gameName) {
         // There's already a game created with this name.
         return false;
     }
-    int stageWidth = 40;
-    int stageHeight = 20;
+    float stageWidth = 17;
+    float stageHeight = 18;
     StageManager* newStageManager = new StageManager(stageWidth, stageHeight);
     rooms.insert({gameName, newStageManager});
     return true;
