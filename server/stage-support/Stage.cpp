@@ -295,10 +295,6 @@ void Stage::step() {
         }
     }
 
-    for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
-        i->second->activateBody();
-    }
-
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
         i->second->update();
     }

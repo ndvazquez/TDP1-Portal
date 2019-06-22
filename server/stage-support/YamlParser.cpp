@@ -344,9 +344,7 @@ void YamlParser::parseAndAdd() {
          it != energy_bars.end(); ++it) {
         const YAML::Node& position = *it;
         float x = position[HORIZONTAL_POSITION].as<float>();
-        std::cout << x << std::endl;
         float y = position[VERTICAL_POSITION].as<float>();
-        std::cout << y << std::endl;
         std::string id = ENERGY_BAR_NAME + std::to_string(eb_counter);
         stage.addElement(ENERGY_BAR_NAME, id, ENERGY_BAR_HEIGHT, ENERGY_BAR_WIDTH, x, y);
         dynamic_json[id] = {

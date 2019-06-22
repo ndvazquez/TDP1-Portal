@@ -6,6 +6,7 @@
 
 #include <string>
 #include <iostream>
+#include <Box2D/Dynamics/b2Fixture.h>
 #include "OrangeShot.h"
 #include "MetalBlock.h"
 #include "entities/DiagonalMetalBlock.h"
@@ -13,6 +14,13 @@
 OrangeShot::OrangeShot(b2Body *body, Chell* chell, Coordinate* target) :
         Shot(ORANGE_SHOT_NAME, body, chell, target) {
     body->SetUserData(this);
+    
+    //Setting the category and mask bits
+    b2Fixture* fixture = body->GetFixtureList();
+    b2Filter filter = fixture->GetFilterData();
+    filter.categoryBits = 0x1100;
+    filter.maskBits = 0xFFFF;
+    fixture->SetFilterData(filter);
 }
 
 void OrangeShot::handleCollision(Entity* entity) {
