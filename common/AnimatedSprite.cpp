@@ -19,6 +19,7 @@ AnimatedSprite::AnimatedSprite(const std::string &path, Window &window,
     this->frameWidth = (this->imageWidth / this->frames) - 1;
     this->frameHeight = this->imageHeight;
     this->framerate = 1000 / frames;
+    this->reverse = false;
 }
 
 AnimatedSprite::~AnimatedSprite() {}
@@ -33,8 +34,15 @@ void AnimatedSprite::updateFrameStep() {
     if (currentFrame  >= frames - 1){
         currentFrame = 0;
     }
+    if (currentFrame < 0){
+        currentFrame = frames - 1;
+    }
     currentFrameStep = (frameWidth + 1) * currentFrame;
-    ++currentFrame;
+    if (reverse) {
+        --currentFrame;
+    } else {
+        ++currentFrame;
+    }
 }
 
 void AnimatedSprite::draw(int x, int y, SDL_RendererFlip flip) {
@@ -69,3 +77,8 @@ void AnimatedSprite::draw(SDL_Rect *destRect, SDL_RendererFlip flip) {
 void AnimatedSprite::setFrameRate(int newFrameRate) {
     framerate = newFrameRate;
 }
+
+void AnimatedSprite::reverseAnimation() {
+    reverse = !reverse;
+}
+
