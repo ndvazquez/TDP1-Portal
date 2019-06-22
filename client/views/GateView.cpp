@@ -3,7 +3,6 @@
 //
 
 #include "GateView.h"
-#include <iostream>
 
 GateView::GateView(Window &window, int xPos, int yPos,
                                    int factor, YAML::Node texturesData) :
