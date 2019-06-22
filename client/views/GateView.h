@@ -13,7 +13,7 @@
 
 #define TEXTURES_GATE_KEY "Gate"
 #define GATE_CLOSED 1
-#define TRANSITION_MULTIPLIER 12
+#define GATE_OPEN 0
 
 class GateView : public View {
     AnimatedSprite* animation;
