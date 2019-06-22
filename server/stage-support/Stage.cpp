@@ -498,7 +498,7 @@ nlohmann::json Stage::getCurrentState() {
     for (auto i = energy_bars.begin(); i != energy_bars.end(); i++) {
         std::string id_eb = i->first;
         float x_pos_eb = i->second->getHorizontalPosition();
-        float y_pos_eb = i->second->getHorizontalPosition();
+        float y_pos_eb = i->second->getVerticalPosition();
         request[id_eb] = {
                 {"state", 0}, {"x", x_pos_eb}, {"y", y_pos_eb}
         };
