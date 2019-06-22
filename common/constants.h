@@ -150,6 +150,7 @@ enum Direction {
 #define CAKE_VIEW_CODE 8
 #define GATE_VIEW_CODE 9
 #define RECEPTOR_VIEW_CODE 10
+#define ENERGY_BAR_VIEW_CODE 11
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0
