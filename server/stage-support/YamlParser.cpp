@@ -338,6 +338,21 @@ void YamlParser::parseAndAdd() {
         acid_counter++;
     }
 
+    int eb_counter = 1;
+    const YAML::Node& energy_bars = editor_data[std::to_string(VERTICAL_ENERGY_BAR)][OBJECT_POSITION];
+    for (YAML::const_iterator it = energy_bars.begin();
+         it != energy_bars.end(); ++it) {
+        const YAML::Node& position = *it;
+        float x = position[HORIZONTAL_POSITION].as<float>();
+        float y = position[VERTICAL_POSITION].as<float>();
+        std::string id = ENERGY_BAR_NAME + std::to_string(acid_counter);
+        stage.addElement(ENERGY_BAR_NAME, id, ENERGY_BAR_HEIGHT, ENERGY_BAR_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", ENERGY_BAR_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
+        eb_counter++;
+    }
+
     int button_counter = 1;
     const YAML::Node& buttons = editor_data[std::to_string(BUTTON)][OBJECT_POSITION];
     for (YAML::const_iterator it = buttons.begin();
@@ -376,7 +391,6 @@ void YamlParser::parseAndAdd() {
     }
 
     // If a gate hasn't a condition it should be open
-
     int gate_counter = 1;
 
     const YAML::Node& conditions = editor_data[LOGICAL_GATES];

@@ -54,7 +54,7 @@ enum StageObjects {
     ACID,
     GATE,
     BUTTON,
-    VERTICA_ENERGY_BAR,
+    VERTICAL_ENERGY_BAR,
     HORIZONTAL_ENERGY_BAR
 };
 
