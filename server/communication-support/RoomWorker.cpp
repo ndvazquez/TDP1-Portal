@@ -21,6 +21,9 @@ void RoomWorker::stop() {
 void RoomWorker::run() {
     while (!_isDead){
         try {
+            // Remove finished games, not sure if this is the best place
+            // to check this though.
+            roomManager.removeFinishedGames();
             // Prepare message with available games.
             std::vector<std::string> availableGames = roomManager.getAvailableGames();
             nlohmann::json availableGamesJson;
