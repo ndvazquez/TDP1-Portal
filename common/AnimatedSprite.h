@@ -36,6 +36,7 @@ public:
     int getHeight();
     void setFrameRate(int newFrameRate);
     void reverseAnimation();
+    int getCurrentFrame();
 };
 
 

@@ -31,10 +31,10 @@ void AnimatedSprite::updateFrameStep() {
 
     timeSinceLastUpdate = SDL_GetTicks();
 
-    if (currentFrame  >= frames - 1){
+    if (currentFrame  >= frames - 1 && !reverse){
         currentFrame = 0;
     }
-    if (currentFrame < 0){
+    if (currentFrame < 0 && reverse){
         currentFrame = frames - 1;
     }
     currentFrameStep = (frameWidth + 1) * currentFrame;
@@ -82,3 +82,6 @@ void AnimatedSprite::reverseAnimation() {
     reverse = !reverse;
 }
 
+int AnimatedSprite::getCurrentFrame() {
+    return currentFrame;
+}
