@@ -39,7 +39,8 @@ Bullet: {path: resources/Bullet/bullet.png, frames: 3}
 
 Rock: {path: resources/rocks/1.png}
 
-Gate: {path: resources/gate.png}
+Gate: {path: resources/Gate/GateAnimated.png, frames: 19}
+
 Button:
   - name: 1
     path: resources/button/on.png
