@@ -4,6 +4,8 @@
 
 #include <sstream>
 #include "LogicGates.h"
+#include "../../common/InputText.h"
+#include "InputManager.h"
 
 
 #define IS_ODD(x) x%2
@@ -22,6 +24,40 @@ void LogicGates::addNamedElement(Object *obj) {
 
 void LogicGates::addConditionalElement(Object *obj) {
     conditionalElements.push_back(obj);
+}
+
+void LogicGates::setName(Object *obj,
+                         std::pair<int, int> position,
+                         Window &window,
+                         SDL_Rect* rect,
+                         SDL_Rect* camera,
+                         int yStart,
+                         View stageView) {
+    if (!obj || !obj->hasName()) return;
+    InputManager input(window, "Enter a name", rect);
+    std::string& name = input.startReading(position,
+                                           obj,
+                                           camera,
+                                           yStart,
+                                           stageView);
+    setName(obj, position, name);
+}
+
+void LogicGates::addCondition(Object *obj,
+                              std::pair<int, int> position,
+                              Window &window,
+                              SDL_Rect* rect,
+                              SDL_Rect* camera,
+                              int yStart,
+                              View stageView) {
+    if (!obj || !obj->hasCondition()) return;
+    InputManager input(window, "Enter a condition", rect);
+    std::string& condition = input.startReading(position,
+                                                obj,
+                                                camera,
+                                                yStart,
+                                                stageView);
+    addCondition(obj, position, condition);
 }
 
 void LogicGates::setName(Object *obj, std::pair<int, int> position, std::string newName) {

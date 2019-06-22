@@ -28,10 +28,11 @@ private:
     View stageView;
     LogicGates logicGates;
     YamlManager yaml;
+    std::string texturesPath;
 
 
 public:
-    Controller(Window &window, std::string texturesPath, int factor);
+    Controller(Window &window, std::string texturesPath, int factor, std::string &stageYamlPath);
     ~Controller();
 
     void draw(SDL_Rect *camera, int xStart);
@@ -42,11 +43,21 @@ public:
 
     int getName(int x, int y);
 
-    void nameAnObject(int x, int y, std::string& enteredName);
+    void nameAnObject(int x,
+                      int y,
+                      Window &window,
+                      SDL_Rect rect,
+                      SDL_Rect* camera,
+                      int yStart);
 
-    void addCondition(int x, int y);
+    void addCondition(int x,
+                      int y,
+                      Window &window,
+                      SDL_Rect rect,
+                      SDL_Rect* camera,
+                      int yStart);
 
-    void writeYaml();
+    void writeYaml(std::string &yamlPath);
 
     void drawCurrent(int id, int x, int y);
 };

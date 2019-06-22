@@ -25,6 +25,8 @@ public:
          std::map<std::pair<int, int>, int> &tiles);
     ~View();
     void draw(SDL_Rect *camera, int xStart);
+
+    void drawObject(Object *object, std::pair<int, int> &postion, SDL_Rect *camera, int yStart);
 };
 
 

@@ -66,7 +66,6 @@ void Menu::set() {
     for (; optionsIt != options.end(); optionsIt++) {
         MenuButton* option = *optionsIt;
         acum = option->setRectangle(spaceBetweenX + acum, yStart + spaceBetweenY/2, h, h);
-        //acum += spaceBetweenX;
         i++;
     }
 
@@ -98,7 +97,6 @@ void Menu::handleMouseButtonDown(MouseButton& event) {
     for (; it != options.end(); it++) {
         if ((**it).has(event.getX(), event.getY())) {
             *current = (**it).getName();
-            std::cerr << "Se apretó el objeto del menu" << *current << std::endl;
             return;
         }
     }

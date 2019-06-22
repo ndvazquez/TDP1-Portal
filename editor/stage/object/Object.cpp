@@ -126,3 +126,7 @@ std::pair<int, int> Object::rectangleCenterOfMassToMatrixPos(
     return p;
 }
 
+bool Object::hasName() {
+    return false;
+}
+

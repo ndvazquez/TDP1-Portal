@@ -7,8 +7,10 @@
 
 #include <string>
 #include <map>
+#include <views/StageView.h>
 #include "object/Object.h"
 #include "object/Gate.h"
+#include "View.h"
 
 
 #define INVALID_CONDITION_EXC "Invalid condition\n"
@@ -31,6 +33,24 @@ public:
     std::map<std::pair<float, float>, std::string>& getConditions();
 
     void addConditionalElement(Object *obj);
+
+
+    void setName(Object *obj,
+                 std::pair<int, int> position,
+                 Window &window,
+                 SDL_Rect *rect,
+                 SDL_Rect* camera,
+                 int yStart,
+                 View stageView);
+
+    void
+    addCondition(Object *obj,
+                 std::pair<int, int> position,
+                 Window &window,
+                 SDL_Rect *rect,
+                 SDL_Rect *camera,
+                 int yStart,
+                 View stageView);
 };
 
 class StageControllerInvalidConditionException : public std::exception  {

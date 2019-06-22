@@ -12,7 +12,7 @@
 #include "../../../common/Sprite.h"
 #include "ObjectException.h"
 #include "../../../common/constants.h"
-#include "../../../common/Text.h"
+#include "../../../common/OutputText.h"
 
 
 #define POSITIONS_ABOVE (h - 1)
@@ -74,6 +74,7 @@ public:
 
     virtual std::map<std::pair<int, int>, std::string>& getConditions();
     int getWidth();
+    virtual bool hasName();
 };
 
 #endif //PORTAL_OBJECT_H

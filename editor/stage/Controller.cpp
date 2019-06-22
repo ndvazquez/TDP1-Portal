@@ -6,29 +6,29 @@
 #include <fstream>
 #include "Controller.h"
 #include "YamlManager.h"
-#define SET_YAML "Ingrese por terminal el nombre de un archivo yaml del cual leer el escenario"
+#include "../../common/InputText.h"
 
 
-Controller::Controller(Window &window, std::string texturesPath, int factor) :
+#define AFTER_INVALID_FILE "THAT'S NOT EVEN A VALID FILE. YOU ARE MOVING AWAY FROM THE CAKE"
+
+Controller::Controller(Window &window,
+                       std::string texturesPath,
+                       int factor,
+                       std::string &stageYamlPath) :
                     stageView(window, factor, textures, tiles),
                     factor(factor),
-                    yaml(textures, tiles, logicGates) {                  
+
+                    yaml(textures, tiles, logicGates),
+                    texturesPath(texturesPath) {
+
     try {
         yaml.getObjects(window, texturesPath);
-        Text text(window, SET_YAML, LIGHT_GREEN);
-
-        window.clear();
-        text.draw(0,0);
-        window.render();
-
-        std::string s;
-        std::getline(std::cin, s);
-        yaml.readStage(s);
+        yaml.readStage(stageYamlPath);
     }
     catch(InvalidFile& e) {
-        std::cerr << e.what() << std::endl;
+        return;
     }
-    catch (TextInitException& e) {
+    catch (TextException& e) {
         std::cerr << e.what() << std::endl;
     }
     catch (std::exception& e){
@@ -93,34 +93,34 @@ int Controller::getName(int x, int y) {
     return point->second;
 }
 
-void Controller::nameAnObject(int x, int y, std::string& enteredName) {
+void Controller::nameAnObject(int x,
+                                int y,
+                                Window &window,
+                                SDL_Rect rect,
+                                SDL_Rect* camera,
+                                int yStart) {
     std::pair<int, int> pair = std::make_pair(x, y);
     Object* obj = textures[tiles[pair]];
-    logicGates.setName(obj, pair, enteredName);
+    logicGates.setName(obj, pair, window, &rect,camera, yStart, stageView);
 }
 
-void Controller::addCondition(int x, int y) {
+void Controller::addCondition(int x,
+                              int y,
+                              Window &window,
+                              SDL_Rect rect,
+                              SDL_Rect* camera,
+                              int yStart) {
     std::pair<int, int> pair = std::make_pair(x, y);
-
-    std::cerr << "Ingrese una condición lógica." << std::endl;
-
-    std::string enteredCondition;
-    std::getline(std::cin, enteredCondition);
-
-    std::cerr << "La condición ingresada es: " << enteredCondition << std::endl;
 
     Object* obj = textures[tiles[pair]];
 
-    logicGates.addCondition(obj, pair, enteredCondition);
+    logicGates.addCondition(obj, pair, window, &rect,camera, yStart, stageView);
 }
 
 
-void Controller::writeYaml() {
+void Controller::writeYaml(std::string &yamlPath) {
     try {
-        std::cerr << "Ingrese el nombre de un archivo yaml en el cual escribir el escenario" << std::endl;
-        std::string s;
-        std::getline(std::cin, s);
-        yaml.writeStage(s);
+        yaml.writeStage(yamlPath);
     }
     catch(InvalidFile& e) {
         std::cerr << e.what() << std::endl;
@@ -129,4 +129,3 @@ void Controller::writeYaml() {
         std::cerr << e.what() << std::endl;
     }
 }
-

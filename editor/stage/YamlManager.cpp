@@ -44,6 +44,8 @@
 #define KEY_GRAVITY_SENTINEL "GravitySentinel"
 
 
+#define DIRECTORY "levels/"
+#define EXTENSION ".yaml"
 
 void matrixPosToMeters(std::pair<float, float> &pair, int totalMeters) {
     pair.second = totalMeters - pair.second;
@@ -184,7 +186,7 @@ void YamlManager::writeStage(std::string& stagePath) {
         out << YAML::Key << YAML::EndSeq;
 
         out << YAML::EndMap;
-        std::ofstream fileOut(stagePath);
+        std::ofstream fileOut(DIRECTORY +  stagePath + EXTENSION);
         fileOut << out.c_str();
     }
     catch(YAML::BadFile &e) {
@@ -197,12 +199,14 @@ void YamlManager::writeStage(std::string& stagePath) {
 void YamlManager::readStage(std::string& stagePath) {
     try {
         std::map<std::pair<int, int>, Object *> centerOfMassPosition;
-        YAML::Node texturesInfo = YAML::LoadFile(stagePath);
+        YAML::Node texturesInfo = YAML::LoadFile(DIRECTORY + stagePath + EXTENSION);
         const YAML::Node &node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
         int width = (int) node[VERTICAL_SIZE].as<float>();
+        int i= 0;
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
+            if (currentID > 100) {std::cerr << "!obj" << std::endl; return;}
             const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
             for (YAML::const_iterator it = objects.begin();
                  it != objects.end(); ++it) {
@@ -258,7 +262,6 @@ void YamlManager::readStage(std::string& stagePath) {
         }
     }
     catch(YAML::BadFile &e) {
-        std::cerr << e.what() << std::endl;
         throw InvalidFile();
     }
 }
