@@ -9,8 +9,8 @@
 #include "BlueShot.h"
 #include "OrangeShot.h"
 
-EnergyBar::EnergyBar(b2Body *body):
-    Entity(ENERGY_BAR_NAME, body) {
+EnergyBar::EnergyBar(b2Body *body, Orientation orientation):
+    Entity(ENERGY_BAR_NAME, body), orientation(orientation) {
     this->body->SetUserData(this);
 
     //Setting the category and mask bits

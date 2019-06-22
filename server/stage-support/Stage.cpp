@@ -162,8 +162,11 @@ void Stage::addElement(std::string identifier, std::string id, float v_side,
         float h_side, float x_pos, float y_pos) {
     b2Body* body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
 
-    if (identifier == ENERGY_BAR_NAME) {
-        EnergyBar* energy_bar = new EnergyBar(body);
+    if (identifier == ENERGY_HORIZONTAL_BAR_NAME) {
+        EnergyBar* energy_bar = new EnergyBar(body, HORIZONTAL);
+        energy_bars.insert({id, energy_bar});
+    } else if (identifier == ENERGY_VERTICAL_BAR_NAME) {
+        EnergyBar* energy_bar = new EnergyBar(body, VERTICAL);
         energy_bars.insert({id, energy_bar});
     } else if (identifier == ACID_NAME) {
         Acid* acid = new Acid(body);
@@ -519,7 +522,7 @@ nlohmann::json Stage::getCurrentState() {
     }
     for (auto i = portals.begin(); i != portals.end(); i++) {
         std::string id_portal = i->first;
-        PortalOrientation orientation = i->second->getOrientation();
+        Orientation orientation = i->second->getOrientation();
         float x_pos_portal = i->second->getHorizontalPosition();
         float y_pos_portal = i->second->getVerticalPosition();
         request[id_portal] = {

@@ -24,7 +24,7 @@ enum GateState {
     CLOSED
 };
 
-enum PortalOrientation {
+enum Orientation {
     HORIZONTAL,
     VERTICAL
 };
@@ -103,6 +103,8 @@ enum Direction {
 #define BLUE_SHOT_NAME "BlueShot"
 #define ORANGE_SHOT_NAME "OrangeShot"
 #define ACID_NAME "Acid"
+#define ENERGY_HORIZONTAL_BAR_NAME "EnergyHorizontalBar"
+#define ENERGY_VERTICAL_BAR_NAME "EnergyVerticalBar"
 #define ENERGY_BAR_NAME "EnergyBar"
 #define BUTTON_NAME "Button"
 #define ROCK_NAME "Rock"

@@ -339,19 +339,38 @@ void YamlParser::parseAndAdd() {
     }
 
     int eb_counter = 1;
-    const YAML::Node& energy_bars = editor_data[std::to_string(VERTICAL_ENERGY_BAR)][OBJECT_POSITION];
-    for (YAML::const_iterator it = energy_bars.begin();
-         it != energy_bars.end(); ++it) {
+    const YAML::Node& energy_vertical_bars = editor_data[std::to_string(VERTICAL_ENERGY_BAR)][OBJECT_POSITION];
+    for (YAML::const_iterator it = energy_vertical_bars.begin();
+         it != energy_vertical_bars.end(); ++it) {
+        const YAML::Node& position = *it;
+        float x = position[HORIZONTAL_POSITION].as<float>();
+        float y = position[VERTICAL_POSITION].as<float>();
+        std::string id = ENERGY_VERTICAL_BAR_NAME + std::to_string(eb_counter);
+        stage.addElement(ENERGY_VERTICAL_BAR_NAME, id, ENERGY_BAR_HEIGHT, ENERGY_BAR_WIDTH, x, y);
+        dynamic_json[id] = {
+                {"type", ENERGY_BAR_VIEW_CODE}, {"state", VERTICAL}, {"x", x}, {"y", y}
+        };
+        eb_counter++;
+    }
+
+    const YAML::Node& energy_horizontal_bars = editor_data[std::to_string(HORIZONTAL_ENERGY_BAR)][OBJECT_POSITION];
+    for (YAML::const_iterator it = energy_horizontal_bars.begin();
+         it != energy_horizontal_bars.end(); ++it) {
         const YAML::Node& position = *it;
         float x = position[HORIZONTAL_POSITION].as<float>();
         float y = position[VERTICAL_POSITION].as<float>();
         std::string id = ENERGY_BAR_NAME + std::to_string(eb_counter);
-        stage.addElement(ENERGY_BAR_NAME, id, ENERGY_BAR_HEIGHT, ENERGY_BAR_WIDTH, x, y);
+        stage.addElement(ENERGY_HORIZONTAL_BAR_NAME, id, ENERGY_BAR_WIDTH, ENERGY_BAR_HEIGHT, x, y);
         dynamic_json[id] = {
-                {"type", ENERGY_BAR_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+                {"type", ENERGY_BAR_VIEW_CODE}, {"state", HORIZONTAL}, {"x", x}, {"y", y}
         };
         eb_counter++;
     }
+
+
+
+
+
 
     int button_counter = 1;
     const YAML::Node& buttons = editor_data[std::to_string(BUTTON)][OBJECT_POSITION];

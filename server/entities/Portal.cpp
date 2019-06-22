@@ -11,7 +11,7 @@
 #include "OrangeShot.h"
 
 Portal::Portal(b2Body* body, Coordinate* target,
-        PortalOrientation orientation, Direction type):
+        Orientation orientation, Direction type):
     Entity(PORTAL_NAME, body) {
     this->target = target;
     this->body->SetUserData(this);
@@ -59,7 +59,7 @@ Coordinate* Portal::getTarget() {
     return target;
 }
 
-PortalOrientation Portal::getOrientation() {
+Orientation Portal::getOrientation() {
     return orientation;
 }
 
