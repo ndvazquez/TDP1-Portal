@@ -11,9 +11,10 @@
 #include "../../common/Socket.h"
 #include "../../json/json.hpp"
 #include "../../common/constants.h"
+#include "../../common/Protocol.h"
 
 class StageStatusReceiver : public Thread {
-    Socket& clientSocket;
+    Protocol clientProtocol;
     StageStatusQueue& stageStatusQueue;
 public:
     StageStatusReceiver(Socket& socket,

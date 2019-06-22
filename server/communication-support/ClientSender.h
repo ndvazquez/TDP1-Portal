@@ -10,10 +10,12 @@
 #include "../common/Socket.h"
 #include "../json/json.hpp"
 #include "../common/constants.h"
+#include "../../common/Protocol.h"
 
 class ClientSender : public Thread {
     StageStatusQueue& stageStatusQueue;
-    Socket& clientSocket;
+    Protocol clientProtocol;
+
 public:
     ClientSender(StageStatusQueue& stageQueue,
             Socket& socket);
@@ -21,6 +23,5 @@ public:
     void run();
     void stop();
 };
-
 
 #endif //PORTAL_CLIENTSENDER_H

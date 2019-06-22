@@ -49,7 +49,7 @@ set(CLIENT_SOURCE_FILES
         client/communication-support/EventSender.cpp
         client/communication-support/StageStatusReceiver.cpp
         common/StageStatusQueue.cpp
-        )
+        common/Protocol.cpp)
 
 #EDITOR CONFIG
 
@@ -162,6 +162,7 @@ set(SERVER_SOURCE_FILES
         server/portal-support/PortalManager.cpp
         server/stage-support/YamlParser.cpp
         server/portal-support/PortalHolder.cpp
+        common/Protocol.cpp
         server/config/configuration.cpp
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp

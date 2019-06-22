@@ -12,10 +12,13 @@
 #include "../common/Socket.h"
 #include "../json/json.hpp"
 #include "../common/constants.h"
+#include "../../common/Protocol.h"
 
 class ClientReceiver : public Thread {
     UserEventQueue& userEventQueue;
-    Socket& clientSocket;
+    //Socket& clientSocket;
+    Protocol clientProtocol;
+
 public:
     ClientReceiver(UserEventQueue& eventQueue,
             Socket& socket);

@@ -5,7 +5,7 @@
 #include "EventSender.h"
 
 EventSender::EventSender(Socket &socket, UserEventQueue &eventQueue) :
-                        clientSocket(socket),
+                        clientProtocol(socket),
                         userEventQueue(eventQueue){
 }
 
@@ -16,15 +16,12 @@ void EventSender::run() {
         try {
             UserEvent userEvent = userEventQueue.pop();
             // No need for suicide pill, the Quit event is enough.
-            if (userEvent.getEventType() == USER_QUIT_CODE){
+            if (userEvent.getEventType() == USER_QUIT_CODE) {
                 _isDead = true;
             }
             std::string userEventJson = userEvent.toJsonString();
-            int userEventSize = userEventJson.size();
-            clientSocket.sendMessage(&userEventSize, REQUEST_LEN_SIZE);
-            clientSocket.sendMessage(&userEventJson[0], userEventSize);
-        } catch (std::runtime_error &e){
-            // TODO: Implement a real exception.
+            clientProtocol.sendMessage(userEventJson);
+        } catch (const std::exception &e) {
             _isDead = true;
         } catch (...) {
             _isDead = true;

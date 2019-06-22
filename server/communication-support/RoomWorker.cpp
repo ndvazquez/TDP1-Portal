@@ -6,8 +6,9 @@
 #include <iostream>
 
  RoomWorker::RoomWorker(Socket &socket, RoomManager &roomManager) :
-                clientSocket(std::move(socket)),
-                roomManager(roomManager) {
+         roomManager(roomManager),
+         clientSocket(std::move(socket)),
+         clientProtocol(clientSocket) {
 }
 
 RoomWorker::~RoomWorker() {
@@ -24,29 +25,19 @@ void RoomWorker::run() {
             std::vector<std::string> availableGames = roomManager.getAvailableGames();
             nlohmann::json availableGamesJson;
             availableGamesJson["games"] = availableGames;
-            // Extract this into a Protocol.
+
             // Send the games availables to the client.
             std::string gamesString = availableGamesJson.dump();
-            std::cout << "Partidas disponibles: " << gamesString << std::endl;
-            int gamesStringSize = gamesString.size();
-            clientSocket.sendMessage(&gamesStringSize, REQUEST_LEN_SIZE);
-            clientSocket.sendMessage(&gamesString[0], gamesStringSize);
+            clientProtocol.sendMessage(gamesString);
+
             // Receive what the client wants to do.
-            int clientActionSize;
-            clientSocket.receiveMessage(&clientActionSize, REQUEST_LEN_SIZE);
-            std::cout << "Json action size: " << clientActionSize << std::endl;
-            std::string clientAction(clientActionSize, '\0');
-            clientSocket.receiveMessage(&clientAction[0], clientActionSize);
-            std::cout << "Accion recibida: " << clientAction << std::endl;
+           std::string clientAction = clientProtocol.receiveMessage();
+
             // Need to check if it's a valid JSON.
             nlohmann::json clientActionJson = nlohmann::json::parse(clientAction);
             int action = clientActionJson["action"].get<int>();
             if (action == CREATE_GAME_CODE) {
-                int levelPathSize;
-                clientSocket.receiveMessage(&levelPathSize, REQUEST_LEN_SIZE);
-                std::string levelPath(levelPathSize, '\0');
-                clientSocket.receiveMessage(&levelPath[0], levelPathSize);
-
+                std::string levelPath = clientProtocol.receiveMessage();
                 _isDead = (handleGameCreation(clientActionJson, levelPath) &&
                         handleJoinGame(clientActionJson));
             } else if (action == JOIN_GAME_CODE) {
@@ -59,12 +50,10 @@ void RoomWorker::run() {
                 failJson["result"] = FAIL_CODE;
                 failJson["desc"] = "Couldn't join or create the game.";
                 std::string failJsonString = failJson.dump();
-                int failJsonSize = failJsonString.size();
-                clientSocket.sendMessage(&failJsonSize, REQUEST_LEN_SIZE);
-                clientSocket.sendMessage(&failJsonString[0], failJsonSize);
+                clientProtocol.sendMessage(failJsonString);
             }
-        } catch (std::runtime_error& e) {
-            std::cout << e.what();
+        } catch (const std::exception& e) {
+            std::cout << e.what() << std::endl;
             // Client disconnected or the socket failed at some point.
             _isDead = true;
         } catch(...) {
@@ -72,7 +61,6 @@ void RoomWorker::run() {
             // Any other error.
             _isDead = true;
         }
-
     }
 }
 
