@@ -15,8 +15,6 @@ void Button::setName(std::pair<int, int>& position, std::string& enteredName) {
         }
     }
     names[position] = enteredName;
-    std::cerr << "Soy un boton ";
-    std::cerr << "y mi nombre es " << enteredName << std::endl;
 }
 
 bool Button::doesThisNameExist(std::string &string) {
@@ -55,4 +53,8 @@ void Button::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std:
 
 std::pair<int, int> Button::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     return this->rectangleCenterOfMassToMatrixPos(pair, BUTTON_WIDTH, BUTTON_HEIGHT);
+}
+
+bool Button::hasName() {
+    return true;
 }

@@ -29,7 +29,7 @@ private:
     //for now is hard
 
 public:
-    explicit Stage(Window &window, int *current, int yPortion);
+    explicit Stage(Window &window, int *current, int yPortion, std::string &yamlPath);
 
     //Stage(uint8_t& current)//, uint32_t xStart);
     ~Stage();
@@ -42,7 +42,7 @@ public:
     void handleMouseDoubleClick(MouseButton &event);
     void handleMouseRightClick(MouseButton &event);
 
-    void save();
+    void save(std::string &yamlPath);
 
     void pixelToMatrix(MouseButton &event, int *xPixel, int *yPixel, int *x, int *y);
 

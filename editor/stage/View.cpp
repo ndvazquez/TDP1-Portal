@@ -38,5 +38,17 @@ void View::draw(SDL_Rect *camera, int yStart) {
     }
 }
 
+
+void View::drawObject(Object *object,
+                      std::pair<int, int> &postion,
+                      SDL_Rect *camera,
+                      int yStart) {
+    SDL_Rect destRect = {0 , 0, factor, factor};
+    int camPosX = camera->x ;/// factor;
+    int camPosY = camera->y ; /// factor;
+    destRect.x = (postion.first - camPosX) * factor;
+    destRect.y = yStart + (postion.second - camPosY) * factor;
+    object->draw(&destRect);
+}
 View::~View() {}
 

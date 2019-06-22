@@ -24,9 +24,9 @@
 #define Y_PIXEL_TO_MATRIX_POSITION(yPixel) (((yPixel) - Y_START)/MATRIX_TO_PIXEL_FACTOR) + this->camera.y
 
 
-Stage::Stage(Window &window, int *current, int yPortion):
+Stage::Stage(Window &window, int *current, int yPortion, std::string &yamlPath) :
     window(window), textures(YAML::LoadFile(TEXTURE_CONFIG_FILE)),
-    controller(window, TEXTURE_CONFIG_FILE, MATRIX_TO_PIXEL_FACTOR) ,
+    controller(window, TEXTURE_CONFIG_FILE, MATRIX_TO_PIXEL_FACTOR, yamlPath),
     current(current),
     yPortion(yPortion) {
     this->me = {X_START, Y_START, W, H};
@@ -64,7 +64,6 @@ void Stage::draw(int x, int y) {
     x = (X_PIXEL_TO_MATRIX_POSITION(x)) - this->camera.x;
     y = (Y_PIXEL_TO_MATRIX_POSITION(y)) - this->camera.y;
     controller.drawCurrent(*current, x, y);
-
 }
 
 
@@ -105,23 +104,21 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
     int xPixel, yPixel, x, y;
     try {
         pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
-    }
-    catch(StageNotInsideMeException& e) {
+        SDL_Rect menu = {0, me.h, window.getWindowWidth() ,window.getWindowHeight() - me.h};
+        controller.nameAnObject(x, y, window, menu, &this->camera , Y_START);
+    } catch (StageNotInsideMeException& e) {
         return;
+    } catch (StageControllerException& e) {
+        std::cerr << e.what() << std::endl;
     }
-    std::string enteredName;
-    std::cerr << "Ingrese un nombre para su objeto." << std::endl;
-    std::getline(std::cin, enteredName);
-
-    std::cerr << "El nombre ingresado es: " << enteredName << std::endl;
-    controller.nameAnObject(x,y, enteredName);
 }
 
 void Stage::handleMouseRightClick(MouseButton &event) {
     int xPixel, yPixel, x, y;
     try {
         pixelToMatrix(event, &xPixel, &yPixel, &x, &y);
-        controller.addCondition(x, y);
+        SDL_Rect menu = {0, me.h, window.getWindowWidth() ,window.getWindowHeight() - me.h};
+        controller.addCondition(x, y, window, menu, &this->camera , Y_START);
     }
     catch(StageNotInsideMeException& e) {
         return;
@@ -146,6 +143,6 @@ void Stage::handleDown() {
     this->camera.y ++;
 }
 
-void Stage::save() {
-    controller.writeYaml();
+void Stage::save(std::string &yamlPath) {
+    controller.writeYaml(yamlPath);
 }

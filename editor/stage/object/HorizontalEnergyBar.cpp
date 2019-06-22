@@ -10,15 +10,11 @@ HorizontalEnergyBar::HorizontalEnergyBar(std::string &path,
                                      int w,
                                      int h) :
         EnergyBar(path, window, id, w, h) {
-
-    std::cerr << "SOy horizontal y mi ID es: " << id << std::endl;
-
 }
 
 HorizontalEnergyBar::~HorizontalEnergyBar() = default;
 
 void HorizontalEnergyBar::draw(SDL_Rect* rect) {
-    std::cerr << "Estoy dibujando una horizontal" << std::endl;
     SDL_Rect newRect = {rect->x, rect->y + rect->h/2, rect->w, rect->h/2};
     StaticObject::draw(&newRect);
 }

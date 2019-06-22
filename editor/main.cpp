@@ -5,6 +5,9 @@
 #include <fstream>
 #include "Editor.h"
 #include "Event.h"
+#include "../common/InputText.h"
+#include "HomeScreen.h"
+#include "stage/InputManager.h"
 
 #define TOTAL_WIDTH  1500
 #define TOTAL_HEIGHT 1000
@@ -16,10 +19,13 @@ int main(int argc, char* argv[]) {
         SDLSession sdlSession(SDL_INIT_VIDEO);
         Window window("EDITOR", TOTAL_WIDTH, TOTAL_HEIGHT, SDL_WINDOW_SHOWN);
 
-        Editor editor(window);
+        HomeScreen home(window);
+        std::string& yamlPath = home.start(true);
+
+        Editor editor(window, yamlPath);
         editor.draw(0, 0);
 
-        bool quit = false;
+        bool quit;
         SDL_Event e;
         while (!quit) {
             while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
@@ -49,21 +55,20 @@ int main(int argc, char* argv[]) {
                         }
                         break;
                     case SDL_KEYDOWN:
-                        if (e.key.keysym.sym == SDLK_d && e.key.repeat == 0) {
+                        if (e.key.keysym.sym == SDLK_RIGHT && e.key.repeat == 0) {
                             editor.handleRight();
-                        } else if (e.key.keysym.sym == SDLK_a &&
+                        } else if (e.key.keysym.sym == SDLK_LEFT &&
                                    e.key.repeat == 0) {
                             editor.handleLeft();
-                        } else if (e.key.keysym.sym == SDLK_w &&
+                        } else if (e.key.keysym.sym == SDLK_UP &&
                                    e.key.repeat == 0) {
                             editor.handleUp();
-                        }
-                        if (e.key.keysym.sym == SDLK_s &&
+                        } else if (e.key.keysym.sym == SDLK_DOWN &&
                             e.key.repeat == 0) {
                             editor.handleDown();
-                        } else if (e.key.keysym.sym == SDLK_q &&
-                                   e.key.repeat == 0) {
-                            editor.save();
+                        } else if (e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL) {
+                            std::string& yamlPath = home.start();
+                            editor.save(yamlPath);
                         }
                 }
             }
@@ -72,7 +77,14 @@ int main(int argc, char* argv[]) {
 
         SDL_Delay(500);
     }
+    catch (CloseException &e ) {
+        return 0;
+    }
+    catch (CloseInputManagerException& e) {
+
+    }
     catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
+        return 1;
     }
 }

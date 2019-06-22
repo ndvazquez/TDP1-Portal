@@ -8,7 +8,9 @@
 #define SCREEN_HEIGHT 600
 
 
-Editor::Editor(Window& window) : window(window), stage(window, &current, HEIGHT_PROPORTION), menu(window, &current) {
+Editor::Editor(Window &window, std::string &yamlPath) :
+window(window), stage(window, &current, HEIGHT_PROPORTION, yamlPath),
+menu(window, &current) {
     this->current = INVALID_CURRENT;
 }
 
@@ -45,8 +47,8 @@ void Editor::handleMouseRightClick(SDL_Event *event) {
 
 
 
-void Editor::save() {
-    stage.save();
+void Editor::save(std::string &yamlPath) {
+    stage.save(yamlPath);
 }
 
 void Editor::handleLeft() {
@@ -64,3 +66,4 @@ void Editor::handleUp() {
 void Editor::handleDown() {
     stage.handleDown();
 }
+

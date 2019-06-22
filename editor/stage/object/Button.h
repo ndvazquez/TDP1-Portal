@@ -39,6 +39,7 @@ public:
             std::unordered_map<int, Object *> &textures,
                bool needGravitySentinel) override;
 
+    bool hasName() override ;
 };
 
 

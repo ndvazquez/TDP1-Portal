@@ -58,7 +58,8 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        common/Text.cpp
+        common/OutputText.cpp
+        common/InputText.cpp
 
 
         editor/Menu.cpp
@@ -66,6 +67,7 @@ set(EDITOR_SOURCE_FILES
         editor/MenuButton.cpp
         editor/Event.cpp
         editor/MouseButton.cpp
+        editor/HomeScreen.cpp
 
 
         editor/stage/Controller.cpp
@@ -111,7 +113,7 @@ set(EDITOR_SOURCE_FILES
         #ffmpeg/BlockingQueue.cpp
         #ffmpeg/Consumer.cpp
         #ffmpeg/Thread.cpp
-        )
+        editor/stage/InputManager.cpp)
 
 set(SERVER_SOURCE_FILES
         server/stage-support/Stage.cpp

@@ -20,20 +20,15 @@ void Receptor::setName(std::pair<int, int>& position, std::string& enteredName) 
             throw SetNameException();
         }
     }
-    std::cerr << "Soy un receptor ";
     names[position] = enteredName;
-    std::cerr << "y mi nombre es " << names[position] << std::endl;
 }
 
 bool Receptor::doesThisNameExist(std::string &string) {
     auto it = this->names.begin();
-
-    std::cerr << "iterando por nombres: " << std::endl;
     for(; it != this->names.end(); it++) {
 
         std::cerr << it->second << std::endl;
         if (it->second == string) {
-            std::cerr << "este es igual" << std::endl;
             return true;
         }
     }
@@ -57,7 +52,9 @@ std::map<std::pair<int, int>, std::string> &Receptor::getNames() {
 }
 
 void
-Receptor::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::unordered_map<int, Object *> &textures,
+Receptor::addTo(int x, int y,
+        std::map<std::pair<int, int>, int> &tiles,
+        std::unordered_map<int, Object *> &textures,
                 bool needGravitySentinel) {
     names[std::make_pair(x, y)] = lastName;
     Object::addTo(x, y, tiles, textures);
@@ -66,3 +63,8 @@ Receptor::addTo(int x, int y, std::map<std::pair<int, int>, int> &tiles, std::un
 std::pair<int, int> Receptor::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
     return this->rectangleCenterOfMassToMatrixPos(pair, METAL_SIDE, METAL_SIDE);
 }
+
+bool Receptor::hasName() {
+    return true;
+}
+
