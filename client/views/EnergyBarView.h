@@ -20,7 +20,7 @@ public:
             int yPos,
             int factor,
             YAML::Node texturesData);
-    ~EnergyBarView()();
+    ~EnergyBarView();
     void playAnimation(const SDL_Rect& camera);
     void setState(int state);
 };
