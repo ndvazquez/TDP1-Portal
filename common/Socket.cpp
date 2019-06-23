@@ -140,6 +140,7 @@ int Socket::receiveMessage(void *buffer, int size){
         if (s == 0) {
             break;
         } else if (s < 0) {
+            *cBuffer = 0;
             throw DisconnectionWhileReceivingException();
         } else {
             received += s;
@@ -159,6 +160,7 @@ int Socket::sendMessage(const void *buffer, int size){
         if (s == 0) {
             is_the_socket_still_valid = false;
         } else if (s < 0) {
+            *cBuffer = 0;
             throw DisconnectionWhileSendingException();
         } else {
             sent += s;

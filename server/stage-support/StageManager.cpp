@@ -9,7 +9,7 @@
 StageManager::StageManager(float stageWidth,
         float stageHeight, std::string& levelPath) :
         playerCounter(0),
-        maxPlayers(2),
+        maxPlayers(1),
         stage(Stage(stageWidth, stageHeight)),
         parser(levelPath, stage) {
     this->timeStamp = std::chrono::system_clock::now();
@@ -184,10 +184,8 @@ bool StageManager::addPlayer(Socket &socket,
     successAction["desc"] = "Joined game!";
     successAction["idChell"] = chellID;
     std::string successActionString = successAction.dump();
-    int successActionSize = successActionString.size();
-    socket.sendMessage(&successActionSize, REQUEST_LEN_SIZE);
-    socket.sendMessage(&successActionString[0], successActionSize);
-    std::cout << "Insertamos el id del jugador en StageManager: " << playerID << std::endl;
+    Protocol protocol(socket);
+    protocol.sendMessage(successActionString);
     players.insert({playerID, chellID});
     clientQueues.insert({chellID, newStatusQueue});
     clients.insert({chellID, new ClientHandler(socket,
