@@ -4,12 +4,12 @@
 
 #include <iostream>
 #include "StageManager.h"
-#include "YamlParser.h"
+#include "stage-support/YamlParser.h"
 
 StageManager::StageManager(float stageWidth,
         float stageHeight, std::string& levelPath) :
         playerCounter(0),
-        maxPlayers(1),
+        maxPlayers(2),
         stage(Stage(stageWidth, stageHeight)),
         parser(levelPath, stage) {
     this->timeStamp = std::chrono::system_clock::now();

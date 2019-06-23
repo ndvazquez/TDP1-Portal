@@ -8,7 +8,7 @@
 #include "entities/Gate.h"
 #include "stage-support/Stage.h"
 #include "../common/Socket.h"
-#include "stage-support/StageManager.h"
+#include "communication-support/StageManager.h"
 #include <iostream>
 #include <communication-support/RoomManager.h>
 #include <communication-support/RoomAcceptor.h>
