@@ -24,11 +24,11 @@ bool RoomManager::createGame(const std::string &gameName, std::string& levelPath
         // There's already a game created with this name.
         return false;
     }
-    YAML::Node metadata = YAML::LoadFile(levelPath);
+    std::string actualPath = LEVELS_PATH + levelPath;
+    YAML::Node metadata = YAML::LoadFile(actualPath);
     const YAML::Node& dimentions = metadata[STAGE_ATTRIBUTES][STAGE_SIZE];
     float stageWidth = dimentions[HORIZONTAL_SIZE].as<float>();
     float stageHeight = dimentions[VERTICAL_SIZE].as<float>();
-
     const YAML::Node& chells = metadata[std::to_string(CHELL)][OBJECT_POSITION];
     int maxPlayers = chells.size();
     StageManager* newStageManager = new StageManager(stageWidth, stageHeight, levelPath, maxPlayers);
