@@ -32,6 +32,8 @@ int main(int argc, char* argv[]) {
 
                 switch (e.type) {
                     case SDL_QUIT:
+                        yamlPath = home.start();
+                        if (!yamlPath.empty())  editor.save(yamlPath);
                         quit = true;
                         break;
                     case SDL_MOUSEBUTTONDOWN: // if the event is mouse click
@@ -55,19 +57,25 @@ int main(int argc, char* argv[]) {
                         }
                         break;
                     case SDL_KEYDOWN:
-                        if (e.key.keysym.sym == SDLK_RIGHT && e.key.repeat == 0) {
+                        if ((e.key.keysym.sym == SDLK_RIGHT |
+                            e.key.keysym.sym == SDLK_d) && e.key.repeat == 0) {
                             editor.handleRight();
-                        } else if (e.key.keysym.sym == SDLK_LEFT &&
+                        } else if ((e.key.keysym.sym == SDLK_LEFT |
+                                    e.key.keysym.sym == SDLK_a)&&
                                    e.key.repeat == 0) {
                             editor.handleLeft();
-                        } else if (e.key.keysym.sym == SDLK_UP &&
+                        } else if ((e.key.keysym.sym == SDLK_UP |
+                                   e.key.keysym.sym == SDLK_w)&&
                                    e.key.repeat == 0) {
                             editor.handleUp();
-                        } else if (e.key.keysym.sym == SDLK_DOWN &&
-                            e.key.repeat == 0) {
+                        } else if ((e.key.keysym.sym == SDLK_DOWN |
+                                e.key.keysym.sym == SDLK_s) &&
+                            e.key.repeat == 0 && !(SDL_GetModState() & KMOD_CTRL)) {
                             editor.handleDown();
-                        } else if (e.key.keysym.sym == SDLK_s && SDL_GetModState() & KMOD_CTRL) {
+                        } else if (e.key.keysym.sym == SDLK_s &&
+                            SDL_GetModState() & KMOD_CTRL) {
                             std::string& yamlPath = home.start();
+                            if (yamlPath.empty()) break;
                             editor.save(yamlPath);
                         }
                 }

@@ -26,8 +26,6 @@ void Receptor::setName(std::pair<int, int>& position, std::string& enteredName) 
 bool Receptor::doesThisNameExist(std::string &string) {
     auto it = this->names.begin();
     for(; it != this->names.end(); it++) {
-
-        std::cerr << it->second << std::endl;
         if (it->second == string) {
             return true;
         }
