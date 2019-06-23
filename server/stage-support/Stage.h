@@ -44,6 +44,7 @@ private:
     Cake* cake;
     bool all_dead;
     bool winner;
+    GameState actual_state;
 
     std::unordered_map<Coordinate*, RockBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;

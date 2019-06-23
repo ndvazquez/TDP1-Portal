@@ -30,6 +30,7 @@ Stage::Stage(float width, float height) {
     this->cake = nullptr;
     this->winner = true;
     this->all_dead = false;
+    this->actual_state = PLAYING;
 }
 
 void Stage::addBlock(std::string identifier, float side, float x_pos, float y_pos) {
@@ -217,6 +218,14 @@ void Stage::step() {
     if (chells.empty()) {
         all_dead = true;
         winner = false;
+    }
+
+    if (all_dead) {
+        actual_state = LOST;
+    } else if (winner) {
+        actual_state = WON;
+    } else {
+        actual_state = PLAYING;
     }
 
     auto i_blue_shot = blue_shots.begin();
@@ -549,6 +558,11 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
         };
     }
+
+    request["Game"] = {
+            {"state", actual_state}, {"x", 0}, {"y", 0}
+    };
+
     return request;
 }
 

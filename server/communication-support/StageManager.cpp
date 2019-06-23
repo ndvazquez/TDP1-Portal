@@ -86,14 +86,10 @@ void StageManager::run() {
                     std::cout << "Client deleted\n";
                 }
             }
-
-            if (stage.gameLost()) {
+            
+            if (stage.gameLost() || stage.gameWon() || clients.empty()) {
                 _isDead = true;
-                std::cout << "All players have left the game. You lose!\n";
-            }
-            if (stage.gameWon()) {
-                _isDead = true;
-                std::cout << "Your team have won! Congratulations!\n";
+                std::cout << "End game!" << std::endl;
             }
 
             // Push stage status to each queue.
@@ -101,13 +97,6 @@ void StageManager::run() {
             for (auto it = clientQueues.begin(); it != clientQueues.end(); it++) {
                 it->second->push(stageStatus.dump());
             }
-
-            // Provisory way to exit the loop.
-            /*if (clients.empty()) {
-                _isDead = true;
-                std::cout << "All players have left the game. You lose!\n";
-            }*/
-            //TODO: We need to quit the loop if the game is won.
         }
     }
 }
