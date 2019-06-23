@@ -19,27 +19,33 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
-#define INVALID_CURRENT ""
+#define INVALID_CURRENT 0
 
 
 
 class Editor {
 private:
-    std::string current;
+    int current;
     Window& window;
     Stage stage;
     Menu menu;
 
 public:
-    explicit Editor(Window& window);
+    explicit Editor(Window &window, std::string &yamlPath);
     ~Editor();
-    void draw();
+    void draw(int x, int y);
     void handleMouseButtonUp(SDL_Event* event);
     void handleMouseButtonDown(SDL_Event* event);
 
     void handleMouseDoubleClick(SDL_Event *event);
     void handleMouseRightClick(SDL_Event *event);
 
+    void save(std::string &yamlPath);
+
+    void handleLeft();
+    void handleRight();
+    void handleUp();
+    void handleDown();
 };
 
 

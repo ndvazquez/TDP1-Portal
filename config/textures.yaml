@@ -2,20 +2,28 @@ Chell:
   - name: RestingIdle
     path: resources/Chell/RestingIdle.png
     frames: 7
+    width: 1
+    height: 2
   - name: Jumping
     path: resources/Chell/Jumping.png
     frames: 4
+    width: 1.25
+    height: 2.15
   - name: Death
     path: resources/Chell/Death.png
     frames: 14
+    width: 2
+    height: 2.15
   - name: Win
     path: resources/Chell/WinRelief.png
     frames: 13
+    width: 1
+    height: 1.95
   - name: Run
     path: resources/Chell/Run.png
     frames: 12
-
-
+    width: 2
+    height: 1.95
 
 BluePortal: {path: resources/portal/BluePortal.png, frames: 5}
 
@@ -29,7 +37,12 @@ Bullet: {path: resources/Bullet/bullet.png, frames: 3}
 
 Rock: {path: resources/rocks/1.png}
 
-Gate: {path: resources/gate.png}
+EnergyBar:
+  - path: resources/energy-bar/horizontal.png
+  - path: resources/energy-bar/vertical.png
+
+Gate: {path: resources/Gate/GateAnimated.png, frames: 19}
+
 Button:
   - name: 1
     path: resources/button/on.png

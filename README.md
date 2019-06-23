@@ -6,14 +6,36 @@
 - Nicolas Vázquez
 
 ### Estado del trabajo hasta el momento:
-Al ejecutar el main del cliente se pueden probar los movimientos de Chell con las teclas:
+
+Para compilar el proyecto ejecutar en el root del repo:
+```
+cmake CMakeLists.txt &&
+make Client &&
+make Server &&
+make Editor
+```
+
+Separamos cliente y servidor y está implementado el soporte multijugador. De momento está _hardcodeada_ la cantidad de clientes que atiende una partida, con un límite de dos. Al ejecutar un cliente hay que pasarle el ID correspondiente que utilizará en la partida (Debe ser Chell1 o Chell2 por ahora, esto es temporal, sólo para probar).
+
+Para ejecutarlo hay que hacer lo siguiente:
+
+1. `./Server`
+2. `./Client Chell1`
+3. `./Client Chell2`
+
+Después vamos a sacar esta versión harcodeada y usar los comandos vistos en los TPS individuales.
+
+Se pueden probar los movimientos de Chell con las teclas:
 - **w** para saltar
 - **d** para moverse a la derecha
 - **a** para moverse a la izquierda
+- **r** para quitar portales
+- **click izquierdo** para poner un portal azul.
+- **click derecho** para poner un portal naranja.
 
-Hay una roca en el escenario para levantarla con la tecla **g** y descargarla con la tecla **f**. Debajo de los dos bloques de metal dibujados hay dos portales horizontales colocados justo debajo de ellos donde se pueden teletransportar ambos objetos presentes en el escenario.
+El resto de las funcionalidades (mover rocas, botones, compuertas) están implementadas y testeadas, nos queda tener un mapa diseñado para integrar todo en un nivel, deberíamos tenerlo listo para el día martes 18/06.
 
-Estamos trabajando para enviar la información entre cliente y servidor a través de elementos de formato JSON y poder terminar de testear la lógica del juego y unirla a sus vistas.
+El juego completo está implementado pero la versión en master no tiene un nivel con todas las funcionalidades a testear. Arriba de todo hay una cake que si se llega a ella se gana. Estamos trabajando en el parseo del YAML del editor al comienzo del juego y en el soporte multipartida. Así mismo hay algunas vistas a fixear y algunos bugs detectados en los que vamos a trabajar esta semana.
 
 ### Dependencias a instalar:
 - Para la interfaz gráfica:

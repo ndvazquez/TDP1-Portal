@@ -11,8 +11,15 @@
 
 class Rock : public StaticObject {
 public:
-    Rock(std::string& path, Window& window, const std::string& name, int w, int h);
+    Rock(std::string &path, Window &window, int id, int w, int h);
+
     ~Rock();
+
+    std::pair<float, float> matrixPosToCenterOfMass(
+            const std::pair<int, int> &position) override;
+
+    std::pair<int, int> centerOfMassToMatrixPos(
+            const std::pair<float, float> &pair) override;
 };
 
 

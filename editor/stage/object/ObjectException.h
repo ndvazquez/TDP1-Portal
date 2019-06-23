@@ -8,52 +8,59 @@
 #include <iostream>
 
 #define EXC_INTRO "Couldn't add the tile: "
-#define GRAVITY ". That's not a valid place for an object with physics laws!\n"
+#define GRAVITY "That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
 #define FLOOR_NEEDED "The object above needs to be over a statick object\n"
-
+#define SET_NAME_EXC "Couldn't set the name: That name already exist in another object\n"
+#define END_OF_STAGE "That's not a valid place for an object\n"
 
 
 class ObjectException : public std::exception {
-protected:
-    std::string& name;
 public:
-    explicit ObjectException(std::string& name) : name(name) {}
+    explicit ObjectException() = default;
 };
 
 class AddTileGravityException : public ObjectException {
-    const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + GRAVITY;
-        return message.c_str();
-    }
-
 public:
-    explicit AddTileGravityException(std::string& name) :
-            ObjectException(name) {}
+    const char* what() const noexcept override {
+        return EXC_INTRO GRAVITY;
+    }
+    explicit AddTileGravityException() = default;
 };
 
 class AddTileTakenPositionException : public ObjectException {
-    const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + TAKEN_POSITION;
-        return message.c_str();
-    }
-
 public:
-    explicit AddTileTakenPositionException(std::string& name) :
-            ObjectException(name) {}
+    const char* what() const noexcept override {
+        return EXC_INTRO TAKEN_POSITION;
+    }
+    explicit AddTileTakenPositionException() = default;
+
+};
+
+class AddTileEndOfStageException : public ObjectException {
+public:
+    const char* what() const noexcept override {
+        return EXC_INTRO END_OF_STAGE;
+    }
+    explicit AddTileEndOfStageException() = default;
 
 };
 
 class RemoveTileFloorNeeded : public ObjectException {
-    const char* what() const noexcept override {
-        std::string message = EXC_INTRO + this->name + FLOOR_NEEDED;
-        std::cerr << message;
-        return message.c_str();
-    }
-
 public:
-    explicit RemoveTileFloorNeeded(std::string& name) :
-            ObjectException(name) {}
+    const char* what() const noexcept override {
+        return EXC_INTRO FLOOR_NEEDED;
+    }
+    explicit RemoveTileFloorNeeded() = default;
+};
+
+
+class SetNameException : public ObjectException {
+public:
+    const char* what() const noexcept override {
+        return EXC_INTRO SET_NAME_EXC;;
+    }
+    explicit SetNameException() = default;
 };
 
 #endif //PORTAL_STAGEOBJECTEX_H

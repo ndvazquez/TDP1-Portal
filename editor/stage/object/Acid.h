@@ -10,9 +10,16 @@
 
 class Acid : public AnimatedObject {
 public:
-    Acid(std::string &path, Window &window, int totalFrames, const std::string& name, int w, int h);
+    Acid(std::string &path, Window &window,
+            int totalFrames, int id, int w, int h);
     ~Acid();
     void draw(SDL_Rect* rect) override;
+
+    std::pair<float, float> matrixPosToCenterOfMass(
+            const std::pair<int, int> &position) override;
+
+    std::pair<int, int> centerOfMassToMatrixPos(
+            const std::pair<float, float> &pair) override;
 };
 
 

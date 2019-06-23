@@ -9,8 +9,15 @@
 
 class Cake : public AnimatedObject {
 public:
-    Cake(std::string &path, Window &window, int totalFrames, const std::string& name, int w, int h);
+    Cake(std::string &path, Window &window,
+            int totalFrames, int id, int w, int h);
     ~Cake();
+
+    std::pair<float, float> matrixPosToCenterOfMass(
+            const std::pair<int, int> &position) override;
+
+    std::pair<int, int> centerOfMassToMatrixPos(
+            const std::pair<float, float> &pair) override;
 };
 
 

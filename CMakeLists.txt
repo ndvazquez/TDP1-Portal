@@ -3,6 +3,7 @@ project(Portal)
 
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS -pthread)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
 
@@ -13,6 +14,7 @@ find_package(SDL2_mixer REQUIRED)
 include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
 include_directories(${SDL2_INCLUDE_DIR})
 include_directories(${SDL2_MIXER_INCLUDE_DIRS})
+
 include_directories(${PROJECT_SOURCE_DIR}/client)
 include_directories(${PROJECT_SOURCE_DIR}/server)
 include_directories(${PROJECT_SOURCE_DIR}/tests)
@@ -22,26 +24,35 @@ set(CLIENT_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        client/StageView.cpp
-        client/ChellView.cpp
-        client/EnergyBallView.cpp
-        client/AcidView.cpp
-        client/BulletView.cpp
-        client/View.cpp
-        client/RockView.cpp
-        client/ButtonView.cpp
-        client/BluePortalView.cpp
-        client/Camera.cpp
-        client/AudioSystem.cpp
-        client/SoundCodeQueue.cpp
-        client/ViewFactory.cpp
-        client/ViewManager.cpp
-        client/CakeView.cpp
+        client/views/StageView.cpp
+        client/views/ChellView.cpp
+        client/views/EnergyBallView.cpp
+        client/views/AcidView.cpp
+        client/views/BulletView.cpp
+        client/views/View.cpp
+        client/views/RockView.cpp
+        client/views/ButtonView.cpp
+        client/views/BluePortalView.cpp
+        client/views/Camera.cpp
+        client/audio/AudioSystem.cpp
+        client/audio/SoundCodeQueue.cpp
+        client/views/ViewFactory.cpp
+        client/views/ViewManager.cpp
+        client/views/CakeView.cpp
         common/UserEvent.cpp
-        client/UserEventHandler.cpp
+        client/communication-support/UserEventHandler.cpp
         common/UserEventQueue.cpp
-        client/OrangePortalView.cpp
-        client/GateView.cpp)
+        client/views/OrangePortalView.cpp
+        client/views/GateView.cpp
+        common/Thread.cpp
+        common/Socket.cpp
+        client/communication-support/EventSender.cpp
+        client/communication-support/StageStatusReceiver.cpp
+        common/StageStatusQueue.cpp
+        common/Protocol.cpp
+        client/Game.cpp
+        client/Drawer.cpp
+        client/views/EnergyBarView.cpp)
 
 #EDITOR CONFIG
 
@@ -50,13 +61,25 @@ set(EDITOR_SOURCE_FILES
         common/Sprite.cpp
         common/AnimatedSprite.cpp
         common/SDLSession.cpp
-        editor/stage/Stage.cpp
+        common/OutputText.cpp
+        common/InputText.cpp
+
+
         editor/Menu.cpp
         editor/Editor.cpp
         editor/MenuButton.cpp
         editor/Event.cpp
+        editor/MouseButton.cpp
+        editor/HomeScreen.cpp
+
+
         editor/stage/Controller.cpp
         editor/stage/View.cpp
+        editor/stage/Stage.cpp
+        editor/stage/LogicGates.cpp
+        editor/stage/YamlManager.cpp
+
+
         editor/stage/object/StaticObject.cpp
         editor/stage/object/Block.cpp
         editor/stage/object/Button.cpp
@@ -67,8 +90,20 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/Gate.cpp
         editor/stage/object/Cake.cpp
         editor/stage/object/Acid.cpp
-        editor/stage/object/DiagonalBlockUp.cpp
-        editor/MouseButton.cpp
+        editor/stage/object/Receptor.cpp
+        editor/stage/object/EnergyBar.cpp
+        editor/stage/object/VerticalEnergyBar.cpp
+        editor/stage/object/HorizontalEnergyBar.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockUp.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockRightUp.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockLeftUp.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockDown.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockLeftDown.cpp
+        editor/stage/object/diagonalBlocks/DiagonalBlockRightDown.cpp
+
+        editor/stage/object/WithOutGravitySentinel.cpp
+        editor/stage/object/GravitySentinel.cpp
+
 
 
         #ffmpeg/CodecContext.cpp
@@ -81,54 +116,79 @@ set(EDITOR_SOURCE_FILES
         #ffmpeg/BlockingQueue.cpp
         #ffmpeg/Consumer.cpp
         #ffmpeg/Thread.cpp
-        )
+        editor/stage/InputManager.cpp)
 
 set(SERVER_SOURCE_FILES
-        server/Stage.cpp
-        server/Coordinate.cpp
-        server/BrickBlock.cpp
-        server/BrickBlock.cpp
-        server/MetalBlock.cpp
-        server/DiagonalMetalBlock.cpp
-        server/EnergyTransmitter.cpp
-        server/Rock.cpp
-        server/EnergyBar.cpp
-        server/Button.cpp
-        server/Acid.cpp
-        server/Chell.cpp
-        server/Dynamic.cpp
-        server/MoveRight.cpp
-        server/MoveLeft.cpp
-        server/Stop.cpp
-        server/EnergyBall.cpp
-        server/Entity.cpp
-        server/configuration.cpp
-        server/Floor.cpp
-        server/BlueShot.cpp
-        server/OrangeShot.cpp
-        server/Shot.cpp
-        server/Portal.cpp
-        server/EnergyTransmitterUp.cpp
-        server/EnergyTransmitterDown.cpp
-        server/EnergyTransmitterLeft.cpp
-        server/EnergyTransmitterRight.cpp
-        server/Gate.cpp
-        server/Cake.cpp
-        server/BluePortal.cpp
-        server/OrangePortal.cpp
-        server/StageManager.cpp)
+        server/stage-support/Stage.cpp
+        server/stage-support/Coordinate.cpp
+        server/entities/RockBlock.cpp
+        server/entities/RockBlock.cpp
+        server/entities/MetalBlock.cpp
+        server/entities/DiagonalMetalBlock.cpp
+        server/entities/EnergyTransmitter.cpp
+        server/entities/Rock.cpp
+        server/entities/EnergyBar.cpp
+        server/entities/Button.cpp
+        server/entities/Acid.cpp
+        server/entities/Chell.cpp
+        server/movements/Dynamic.cpp
+        server/movements/MoveRight.cpp
+        server/movements/MoveLeft.cpp
+        server/movements/Stop.cpp
+        server/entities/EnergyBall.cpp
+        server/entities/Entity.cpp
+        server/entities/Floor.cpp
+        server/entities/BlueShot.cpp
+        server/entities/OrangeShot.cpp
+        server/entities/Shot.cpp
+        server/entities/Portal.cpp
+        server/entities/EnergyTransmitterUp.cpp
+        server/entities/EnergyTransmitterDown.cpp
+        server/entities/EnergyTransmitterLeft.cpp
+        server/entities/EnergyTransmitterRight.cpp
+        server/entities/Gate.cpp
+        server/entities/Cake.cpp
+        server/communication-support/StageManager.cpp
+        common/Thread.cpp
+        common/Socket.cpp
+        common/StageStatusQueue.cpp
+        common/UserEventQueue.cpp
+        common/UserEvent.cpp
+        server/communication-support/ClientHandler.cpp
+        server/communication-support/ClientSender.cpp
+        server/communication-support/ClientReceiver.cpp
+        server/entities/EnergyReceptor.cpp
+        server/entities/EnergyReceptorUp.cpp
+        server/entities/EnergyReceptorDown.cpp
+        server/entities/EnergyReceptorLeft.cpp
+        server/entities/EnergyReceptorRight.cpp
+        server/stage-support/PhysicsWorld.cpp
+        server/entities/ItemActivable.cpp
+        server/portal-support/PortalManager.cpp
+        server/stage-support/YamlParser.cpp
+        server/portal-support/PortalHolder.cpp
+        common/Protocol.cpp
+        server/config/configuration.cpp
+        server/communication-support/RoomManager.cpp
+        server/communication-support/RoomAcceptor.cpp
+        server/communication-support/RoomWorker.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
 
-add_executable(Client client/main.cpp ${CLIENT_SOURCE_FILES} ${SERVER_SOURCE_FILES})
+add_executable(Client client/main.cpp ${CLIENT_SOURCE_FILES})
 add_executable(Server server/main.cpp ${SERVER_SOURCE_FILES})
 add_executable(Test ${TEST_SOURCE_FILES} ${SERVER_SOURCE_FILES})
 add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
-target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} TG::Box2D)
-target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}) # avformat avcodec avutil swscale)
+target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY}
+        ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
+        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
+target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY}
+        ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
+        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)# avformat avcodec avutil swscale)
+target_link_libraries(Server yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
-target_link_libraries(Server TG::Box2D)
+target_link_libraries(Server TG::Box2D pthread)
 target_link_libraries(Test TG::Box2D)
