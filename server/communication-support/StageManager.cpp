@@ -19,6 +19,9 @@ StageManager::StageManager(float stageWidth,
 
 StageManager::~StageManager() {
     for (auto it = clients.begin(); it != clients.end(); ++it) {
+        auto clientId = it->first;
+        auto clientQueueIt = clientQueues.find(clientId);
+        clientQueueIt->second->push(THREAD_SUICIDE_PILL);
         it->second->stop();
         it->second->join();
         delete it->second;
@@ -67,7 +70,7 @@ void StageManager::run() {
             for (auto it = players.begin(); it != players.end(); ){
                 auto playerIt = it++;
                 auto clientIt = clients.find(playerIt->second);
-                if (clientIt->second->isDead() || stage.gameWon() || stage.gameLost()) {
+                if (clientIt->second->isDead()) {
                     std::string playerID = clientIt->first;
                     std::cout << "Removing " + playerID << " from the client pool\n";
                     auto queueIt = clientQueues.find(playerID);
