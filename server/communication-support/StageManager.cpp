@@ -67,7 +67,7 @@ void StageManager::run() {
             for (auto it = players.begin(); it != players.end(); ){
                 auto playerIt = it++;
                 auto clientIt = clients.find(playerIt->second);
-                if (clientIt->second->isDead()) {
+                if (clientIt->second->isDead() || stage.gameWon() || stage.gameLost()) {
                     std::string playerID = clientIt->first;
                     std::cout << "Removing " + playerID << " from the client pool\n";
                     auto queueIt = clientQueues.find(playerID);
@@ -83,16 +83,27 @@ void StageManager::run() {
                     std::cout << "Client deleted\n";
                 }
             }
+
+            if (stage.gameLost()) {
+                _isDead = true;
+                std::cout << "All players have left the game. You lose!\n";
+            }
+            if (stage.gameWon()) {
+                _isDead = true;
+                std::cout << "Your team have won! Congratulations!\n";
+            }
+
             // Push stage status to each queue.
             // Doing a dump for each queue might be a performance hit.
             for (auto it = clientQueues.begin(); it != clientQueues.end(); it++) {
                 it->second->push(stageStatus.dump());
             }
+
             // Provisory way to exit the loop.
-            if (clients.size() == 0) {
+            /*if (clients.empty()) {
                 _isDead = true;
-                std::cout << "Goodbye!\n";
-            }
+                std::cout << "All players have left the game. You lose!\n";
+            }*/
             //TODO: We need to quit the loop if the game is won.
         }
     }
