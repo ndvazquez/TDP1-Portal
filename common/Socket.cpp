@@ -2,7 +2,6 @@
 // Created by ndv on 6/15/19.
 //
 
-#define _POSIX_C_SOURCE 200112L
 #include "Socket.h"
 #include <stdio.h>
 #include <string.h>
