@@ -21,11 +21,11 @@ void ClientReceiver::run() {
             // Could block here too.
             userEventQueue.push(userEvent);
         } catch (const std::exception &e) {
-            std::cout << "Force shutdown, expected behaviour." << std::endl;
+            std::cout << e.what() << std::endl;
             _isDead = true;
         } catch(...) {
             _isDead = true;
-            std::cout << "Aborting Receiver execution." << std::endl;
+            std::cout << "Unexpected crash." << std::endl;
             return;
         }
     }
