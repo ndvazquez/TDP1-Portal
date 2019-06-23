@@ -25,7 +25,7 @@ bool Game::play(std::string& idChell) {
         nlohmann::json gamesJson = nlohmann::json::parse(gaString);
         std::vector<std::string> gamesAvailable = gamesJson["games"].get<std::vector<std::string>>();
         if (gamesAvailable.empty()) {
-            std::cout << "No games available at the moment, create one!\n";
+            std::cout << "No games available at the moment, [create] one!\n";
         } else {
             std::cout << "List of games available: \n";
             for (auto & it : gamesAvailable) {
@@ -37,14 +37,16 @@ bool Game::play(std::string& idChell) {
         std::getline(std::cin, action);
 
         while (action != CREATE_ACTION && action != JOIN_ACTION && action != QUIT_ACTION) {
-            std::cout << "Please enter a valid action. "
-                         "Remember you can [create] and [join] games and you can [quit] to leave \n";
+            std::cout << "Please enter a valid action.\n"
+                         "Remember that you can [create] and [join] games or you can [quit].\n"
+                         " Quitters ain't winners though!\n";
             std::getline(std::cin, action);
         }
 
         while (action == JOIN_ACTION && gamesAvailable.empty()) {
-            std::cout << "Remember you can't join a game if there's no one available. "
-                         "The only option you have is [create] a new one.\n";
+            std::cout << "It seems like you tried to [join] a non-existent game.\n"
+                         "You might want to [create] one, or [quit].\n"
+                         "But remember, quitters ain't winners!\n";
             std::getline(std::cin, action);
         }
 
@@ -78,10 +80,10 @@ bool Game::play(std::string& idChell) {
                     std::cout << it << std::endl;
                 }
             }
-            std::cout << "Enter the level path you want: \n";
+            std::cout << "Choose a level by typing its name: \n";
             std::getline(std::cin, levelPath);
             while (laString.find(levelPath) == std::string::npos) {
-                std::cout << "Please enter a valid path: \n";
+                std::cout << "Please enter a valid level name: \n";
                 std::getline(std::cin, levelPath);
             }
         }
@@ -114,7 +116,6 @@ bool Game::play(std::string& idChell) {
         std::cout << serverResponseJson["desc"].get<std::string>() << std::endl;
         if (responseCode == SUCCESS_CODE) {
             idChell = serverResponseJson["idChell"].get<std::string>();
-            std::cout << "Id chell asignada: " << idChell << std::endl;
             login = false;
         }
     }
