@@ -5,7 +5,7 @@
 #include "RoomWorker.h"
 #include <iostream>
 
- RoomWorker::RoomWorker(Socket &socket, RoomManager &roomManager) :
+RoomWorker::RoomWorker(Socket &socket, RoomManager &roomManager) :
          roomManager(roomManager),
          clientSocket(std::move(socket)),
          clientProtocol(clientSocket) {
@@ -21,8 +21,7 @@ void RoomWorker::stop() {
 void RoomWorker::run() {
     while (!_isDead){
         try {
-            // Remove finished games, not sure if this is the best place
-            // to check this though.
+            // Remove finished games
             roomManager.removeFinishedGames();
             // Prepare message with available games.
             std::vector<std::string> availableGames = roomManager.getAvailableGames();
@@ -35,16 +34,28 @@ void RoomWorker::run() {
 
             // Receive what the client wants to do.
            std::string clientAction = clientProtocol.receiveMessage();
-
-            // Need to check if it's a valid JSON.
             nlohmann::json clientActionJson = nlohmann::json::parse(clientAction);
             int action = clientActionJson["action"].get<int>();
             if (action == CREATE_GAME_CODE) {
+                // Prepare message with available levels.
+                std::vector<std::string> availableLevels = roomManager.getAvailableLevels();
+                nlohmann::json availableLevelsJson;
+                availableLevelsJson["levels"] = availableLevels;
+
+                // Send the available levels to the client.
+                std::string levelString = availableLevelsJson.dump();
+                clientProtocol.sendMessage(levelString);
+            }
+            // Receive the other fields from the client.
+            std::string clientFields = clientProtocol.receiveMessage();
+            nlohmann::json clientFieldJson = nlohmann::json::parse(clientFields);
+            if (action == CREATE_GAME_CODE) {
+                // Receive the path of the level
                 std::string levelPath = clientProtocol.receiveMessage();
-                _isDead = (handleGameCreation(clientActionJson, levelPath) &&
-                        handleJoinGame(clientActionJson));
+                _isDead = (handleGameCreation(clientFieldJson, levelPath) &&
+                        handleJoinGame(clientFieldJson));
             } else if (action == JOIN_GAME_CODE) {
-                _isDead = handleJoinGame(clientActionJson);
+                _isDead = handleJoinGame(clientFieldJson);
             }
             if (!_isDead) {
                 // If something went wrong, we send a message to the client
@@ -60,7 +71,7 @@ void RoomWorker::run() {
             // Client disconnected or the socket failed at some point.
             _isDead = true;
         } catch(...) {
-            std::cout << "Excepcion inesperada\n";
+            std::cout << "Unexpected error\n";
             // Any other error.
             _isDead = true;
         }

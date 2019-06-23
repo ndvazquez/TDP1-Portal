@@ -1,0 +1,98 @@
+Stage:
+  dimentions:
+    width: 23
+    height: 18
+0:
+  position:
+    []
+13:
+  position:
+    []
+12:
+  position:
+    []
+11:
+  position:
+    []
+14:
+  position:
+    []
+20:
+  position:
+    []
+19:
+  position:
+    []
+21:
+  position:
+    []
+18:
+  position:
+    - x: 17.5
+      y: 4.975
+    - x: 18.5
+      y: 4.975
+6:
+  position:
+    []
+5:
+  position:
+    - x: 16
+      y: 1
+22:
+  position:
+    []
+4:
+  position:
+    - x: 10
+      y: 3
+3:
+  position:
+    - x: 16
+      y: 9
+1:
+  position:
+    - x: 5
+      y: 6
+    - x: 8
+      y: 3
+    - x: 10
+      y: 9
+    - x: 10
+      y: 1
+    - x: 14
+      y: 3
+    - x: 16
+      y: 3
+    - x: 18
+      y: 3
+    - x: 23
+      y: 1
+2:
+  position:
+    []
+7:
+  position:
+    []
+8:
+  position:
+    []
+9:
+  position:
+    []
+10:
+  position:
+    []
+15:
+  position:
+    []
+16:
+  position:
+    []
+17:
+  position:
+    []
+Names:
+  []
+Conditions:
+  []

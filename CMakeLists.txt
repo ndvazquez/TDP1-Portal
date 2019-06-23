@@ -148,7 +148,7 @@ set(SERVER_SOURCE_FILES
         server/entities/EnergyTransmitterRight.cpp
         server/entities/Gate.cpp
         server/entities/Cake.cpp
-        server/stage-support/StageManager.cpp
+        server/communication-support/StageManager.cpp
         common/Thread.cpp
         common/Socket.cpp
         common/StageStatusQueue.cpp

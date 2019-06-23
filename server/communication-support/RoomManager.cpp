@@ -5,6 +5,8 @@
 #include "RoomManager.h"
 #include <iostream>
 #include <yaml-cpp/yaml.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 RoomManager::RoomManager() {}
 
@@ -65,6 +67,20 @@ std::vector<std::string> RoomManager::getAvailableGames() {
         }
     }
     return availableGames;
+}
+
+std::vector<std::string> RoomManager::getAvailableLevels() {
+    std::unique_lock<std::mutex> _lock(_mtx);
+    std::vector<std::string> availableLevels;
+    DIR* dirp = opendir(LEVELS_PATH);
+    struct dirent * dp;
+    while ((dp = readdir(dirp)) != nullptr) {
+        std::string name = dp->d_name;
+        if (name.find(".yaml") == std::string::npos) continue;
+        availableLevels.push_back(dp->d_name);
+    }
+    closedir(dirp);
+    return availableLevels;
 }
 
 void RoomManager::removeFinishedGames() {
