@@ -105,9 +105,9 @@ void YamlManager::writeStage(std::string& stagePath) {
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
-            if (currentID == GRAVITY_SENTINEL ||
-                currentID == WITHOUT_GRAVITY_SENTINEL)
-                continue;
+            //if (currentID == GRAVITY_SENTINEL ||
+            //    currentID == WITHOUT_GRAVITY_SENTINEL)
+            //    continue;
             out << YAML::Key << currentID;
 
             out << YAML::Value << YAML::BeginMap;
@@ -205,7 +205,7 @@ void YamlManager::readStage(std::string& stagePath) {
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
-            if (currentID > 100) {return;}
+            //if (currentID > 100) {return;}
             const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
             for (YAML::const_iterator it = objects.begin();
                  it != objects.end(); ++it) {
