@@ -11,8 +11,7 @@ Game::Game(Protocol &clientProtocol, Socket &clientSocket):
     clientProtocol(clientProtocol), clientSocket(clientSocket) {
 }
 
-void Game::play() {
-    std::string idChell;
+void Game::play(std::string& idChell) {
     bool login = true;
 
     while (login) {

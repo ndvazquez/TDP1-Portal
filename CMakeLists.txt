@@ -49,7 +49,9 @@ set(CLIENT_SOURCE_FILES
         client/communication-support/EventSender.cpp
         client/communication-support/StageStatusReceiver.cpp
         common/StageStatusQueue.cpp
-        common/Protocol.cpp)
+        common/Protocol.cpp
+        client/Game.cpp
+        client/Drawer.cpp)
 
 #EDITOR CONFIG
 
