@@ -24,7 +24,7 @@ enum GateState {
     CLOSED
 };
 
-enum PortalOrientation {
+enum Orientation {
     HORIZONTAL,
     VERTICAL
 };
@@ -54,7 +54,7 @@ enum StageObjects {
     ACID,
     GATE,
     BUTTON,
-    VERTICA_ENERGY_BAR,
+    VERTICAL_ENERGY_BAR,
     HORIZONTAL_ENERGY_BAR
 };
 
@@ -103,6 +103,8 @@ enum Direction {
 #define BLUE_SHOT_NAME "BlueShot"
 #define ORANGE_SHOT_NAME "OrangeShot"
 #define ACID_NAME "Acid"
+#define ENERGY_HORIZONTAL_BAR_NAME "EnergyHorizontalBar"
+#define ENERGY_VERTICAL_BAR_NAME "EnergyVerticalBar"
 #define ENERGY_BAR_NAME "EnergyBar"
 #define BUTTON_NAME "Button"
 #define ROCK_NAME "Rock"
@@ -150,6 +152,7 @@ enum Direction {
 #define CAKE_VIEW_CODE 8
 #define GATE_VIEW_CODE 9
 #define RECEPTOR_VIEW_CODE 10
+#define ENERGY_BAR_VIEW_CODE 11
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0

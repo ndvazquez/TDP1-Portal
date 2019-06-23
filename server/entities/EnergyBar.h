@@ -5,25 +5,22 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include <chrono>
 #include "Entity.h"
+#include "../../common/constants.h"
 
 #ifndef PORTAL_ENERGYBAR_H
 #define PORTAL_ENERGYBAR_H
 
 class EnergyBar: public Entity {
 private:
-    std::chrono::system_clock::time_point timeStamp;
-
+    Orientation orientation;
 public:
-    explicit EnergyBar(b2Body* body);
+    EnergyBar(b2Body* body, Orientation orientation);
 
-    /* Chell teleports to the location indicated by coordinate */
+    /* Handles collision against other objects in the world */
     void handleCollision(Entity* entity) override;
 
-    /* Makes body invisible for all objects */
-    void disableBody();
-
-    /* Makes body visible for all objects */
-    void activateBody();
+    /* Returns orientation */
+    Orientation getOrientation();
 };
 
 #endif //PORTAL_ENERGYBAR_H

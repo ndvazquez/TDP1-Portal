@@ -13,8 +13,8 @@
 #include <string>
 
 #define TEXTURES_ORANGE_PORTAL_KEY "OrangePortal"
-#define PORTAL_VERTICAL 0
-#define PORTAL_HORIZONTAL 1
+#define PORTAL_VERTICAL 1
+#define PORTAL_HORIZONTAL 0
 
 class OrangePortalView : public View {
     AnimatedSprite* animation;
