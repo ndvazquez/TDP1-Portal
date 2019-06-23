@@ -13,8 +13,6 @@
 #define STEP 180
 
 
-OutputText::OutputText(Window &window) :
-            window(window) {}
 
 OutputText::OutputText(Window &window, const char *message, SDL_Color color) :
         window(window), color(color){

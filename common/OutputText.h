@@ -41,8 +41,6 @@ private:
 
 
 public:
-    OutputText(Window &window);
-
     //Initializes variables
     OutputText(Window &window, const char *message, SDL_Color color = WHITE);
 

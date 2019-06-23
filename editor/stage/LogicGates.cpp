@@ -35,7 +35,7 @@ void LogicGates::setName(Object *obj,
                          View stageView) {
     try {
         if (!obj || !obj->hasName()) return;
-        InputManager input(window, "Enter a name", rect);
+        InputManager input(window, "ENTER A NAME", rect);
         std::string &name = input.startReading(position,
                                                obj,
                                                camera,
@@ -43,12 +43,16 @@ void LogicGates::setName(Object *obj,
                                                stageView);
         setName(obj, position, name);
     } catch (SetNameException &e) {
-        std::cerr << "catched" << std::endl;
-        OutputText out(window);
         std::string error = e.what();
+        OutputText out(window, error.c_str());
         out.writeTheScreen(error);
     }
 }
+#define INVALID_CONDITION_MESSAGE1 "APPARENTLY YOU ENTERED AN INVALID CONDITION."
+#define INVALID_CONDITION_MESSAGE2 "I REALLY DO NOT KNOW WHY IS INVALID. YOU KNOW IT?"
+#define INVALID_CONDITION_MESSAGE3 "NEVER MIND. IT'S A MYSTERY I'LL SOLVE LATER..."
+#define INVALID_CONDITION_MESSAGE4 "BY MYSELF..."
+#define INVALID_CONDITION_MESSAGE5 "BECAUSE YOU WILL BE DEAD."
 
 void LogicGates::addCondition(Object *obj,
                               std::pair<int, int> position,
@@ -57,14 +61,28 @@ void LogicGates::addCondition(Object *obj,
                               SDL_Rect* camera,
                               int yStart,
                               View stageView) {
-    if (!obj || !obj->hasCondition()) return;
-    InputManager input(window, "Enter a condition", rect);
-    std::string& condition = input.startReading(position,
-                                                obj,
-                                                camera,
-                                                yStart,
-                                                stageView);
-    addCondition(obj, position, condition);
+    try {
+        if (!obj || !obj->hasCondition()) return;
+        InputManager input(window, "ENTER A CONDITION", rect);
+        std::string &condition = input.startReading(position,
+                                                    obj,
+                                                    camera,
+                                                    yStart,
+                                                    stageView);
+        addCondition(obj, position, condition);
+    } catch (StageControllerInvalidConditionException& e) {
+        OutputText out(window, INVALID_CONDITION_MESSAGE1);
+        std::string message = INVALID_CONDITION_MESSAGE1;
+        out.writeTheScreen(message);
+        message = INVALID_CONDITION_MESSAGE2;
+        out.writeTheScreen(message);
+        message = INVALID_CONDITION_MESSAGE3;
+        out.writeTheScreen(message);
+        message = INVALID_CONDITION_MESSAGE4;
+        out.writeTheScreen(message);
+        message = INVALID_CONDITION_MESSAGE5;
+        out.writeTheScreen(message);
+    }
 }
 
 void LogicGates::setName(Object *obj, std::pair<int, int> position, std::string newName) {
@@ -77,14 +95,12 @@ void LogicGates::setName(Object *obj, std::pair<int, int> position, std::string 
 }
 
 void LogicGates::addCondition(Object* obj, std::pair<int, int> position, std::string &condition) {
-    if(!obj->hasCondition()) {
-        return;
-    }
     try {
+        if(!obj->hasCondition()) return;
         this->parseCondition(condition);
         obj->addCondition(position, condition);
-    } catch (...) {
-        return;
+    } catch (StageControllerInvalidConditionException) {
+        __throw_exception_again;
     }
 }
 
@@ -97,7 +113,7 @@ void LogicGates::parseCondition(std::string &condition) {
         if (IS_ODD(i)) { //it is a button name
             allGood = word != AND && word != OR;
             if (!allGood) {
-                std::cerr << "Parece que no es & o |. Es: " << word << std::endl;
+                throw StageControllerInvalidConditionException();
             }
         } else {
             if (word[0] == NOT or word[0] == OPEN_BRACKET) {
@@ -113,7 +129,7 @@ void LogicGates::parseCondition(std::string &condition) {
 
         }
         if (!allGood) {
-            std::cerr << "NOT ALL GOOD" << std::endl;
+            throw StageControllerInvalidConditionException();
         }
         i++;
     }
@@ -121,7 +137,7 @@ void LogicGates::parseCondition(std::string &condition) {
     if (IS_ODD(i)) {
         return;
     } else {
-        std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
+        throw StageControllerInvalidConditionException();
     }
 }
 

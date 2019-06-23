@@ -11,7 +11,7 @@
 #define GRAVITY "That's not a valid place for an object with physics laws!\n"
 #define TAKEN_POSITION "That's not an empty position\n"
 #define FLOOR_NEEDED "The object above needs to be over a statick object\n"
-#define SET_NAME_EXC "Couldn't set the name: That name already exist in another object\n"
+#define SET_NAME_EXC "CAN NOT SET THE NAME BECAUSE IT ALREADY EXISTS IN ANOTHER OBJECT"
 #define END_OF_STAGE "That's not a valid place for an object\n"
 
 
@@ -58,7 +58,7 @@ public:
 class SetNameException : public ObjectException {
 public:
     const char* what() const noexcept override {
-        return EXC_INTRO SET_NAME_EXC;;
+        return SET_NAME_EXC;;
     }
     explicit SetNameException() = default;
 };
