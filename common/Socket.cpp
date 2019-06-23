@@ -138,9 +138,9 @@ int Socket::receiveMessage(void *buffer, int size){
     while (received < size) {
         s = recv(this->_fd, &cBuffer[received], size-received, MSG_NOSIGNAL);
         if (s == 0) {
-            break;
+            throw DisconnectionWhileReceivingException();
         } else if (s < 0) {
-            *cBuffer = 0;
+            // TODO: Change this exception to something along the lines of UnexpectedError.
             throw DisconnectionWhileReceivingException();
         } else {
             received += s;
@@ -160,7 +160,6 @@ int Socket::sendMessage(const void *buffer, int size){
         if (s == 0) {
             is_the_socket_still_valid = false;
         } else if (s < 0) {
-            *cBuffer = 0;
             throw DisconnectionWhileSendingException();
         } else {
             sent += s;
