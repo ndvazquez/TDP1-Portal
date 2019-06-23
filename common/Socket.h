@@ -18,7 +18,7 @@ class WrongBindException : public std::exception {
 
 class NoAdressInformationException : public std::exception {
     virtual const char* what() const throw() {
-        return "It was imposible to get information in the adress";
+        return "It was imposible to get information in the address";
     }
 };
 

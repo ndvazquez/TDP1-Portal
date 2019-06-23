@@ -2,7 +2,6 @@
 // Created by ndv on 6/15/19.
 //
 
-#define _POSIX_C_SOURCE 200112L
 #include "Socket.h"
 #include <stdio.h>
 #include <string.h>
@@ -138,8 +137,9 @@ int Socket::receiveMessage(void *buffer, int size){
     while (received < size) {
         s = recv(this->_fd, &cBuffer[received], size-received, MSG_NOSIGNAL);
         if (s == 0) {
-            break;
+            throw DisconnectionWhileReceivingException();
         } else if (s < 0) {
+            // TODO: Change this exception to something along the lines of UnexpectedError.
             throw DisconnectionWhileReceivingException();
         } else {
             received += s;
