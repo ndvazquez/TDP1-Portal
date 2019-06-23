@@ -9,7 +9,7 @@
 StageManager::StageManager(float stageWidth,
         float stageHeight, std::string& levelPath) :
         playerCounter(0),
-        maxPlayers(2),
+        maxPlayers(1),
         stage(Stage(stageWidth, stageHeight)),
         parser(levelPath, stage) {
     this->timeStamp = std::chrono::system_clock::now();
