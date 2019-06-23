@@ -33,3 +33,7 @@ void EnergyBar::handleCollision(Entity *entity) {
         dynamic_cast<OrangeShot*>(entity)->die();
     }
 }
+
+Orientation EnergyBar::getOrientation() {
+    return orientation;
+}

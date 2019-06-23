@@ -498,8 +498,9 @@ nlohmann::json Stage::getCurrentState() {
         std::string id_eb = i->first;
         float x_pos_eb = i->second->getHorizontalPosition();
         float y_pos_eb = i->second->getVerticalPosition();
+        Orientation  state = i->second->getOrientation();
         request[id_eb] = {
-                {"state", 0}, {"x", x_pos_eb}, {"y", y_pos_eb}
+                {"state", state}, {"x", x_pos_eb}, {"y", y_pos_eb}
         };
     }
     for (auto i = buttons.begin(); i != buttons.end(); i++) {
