@@ -24,9 +24,18 @@ StageView::StageView(Window& window, YAML::Node& texturesInfo,
     }
     for (const auto& item : objectsData.items()){
         nlohmann::json& data = item.value();
-        int xPos = data["x"].get<float>();
-        int yPos = data["y"].get<float>();
+        float x = data["x"].get<float>();
+        float y = data["y"].get<float>();
         const std::string& blockName = data["type"].get<std::string>();
+        int xPos;
+        int yPos;
+        if (blockName.find("Diagonal") != std::string::npos) {
+            xPos = std::round(x - (2.0/3) * BLOCK_SIZE) + 1;
+            yPos = std::round(y + (2.0/3) * BLOCK_SIZE) - 1;
+        } else {
+            xPos = x;
+            yPos = y;
+        }
         this->addTile(xPos, yPos * -1 + stageHeight, blockName);
     }
 }
