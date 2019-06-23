@@ -190,7 +190,6 @@ void YamlManager::writeStage(std::string& stagePath) {
         fileOut << out.c_str();
     }
     catch(YAML::BadFile &e) {
-        std::cerr << e.what() << std::endl;
         throw InvalidFile();
     }
 }
