@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 #include <communication-support/StageManager.h>
+#define LEVELS_PATH "levels"
 
 class RoomManager {
     std::mutex _mtx;

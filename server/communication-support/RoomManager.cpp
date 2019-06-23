@@ -72,7 +72,7 @@ std::vector<std::string> RoomManager::getAvailableGames() {
 std::vector<std::string> RoomManager::getAvailableLevels() {
     std::unique_lock<std::mutex> _lock(_mtx);
     std::vector<std::string> availableLevels;
-    DIR* dirp = opendir("../TDP1-Portal/levels");
+    DIR* dirp = opendir(LEVELS_PATH);
     struct dirent * dp;
     while ((dp = readdir(dirp)) != nullptr) {
         std::string name = dp->d_name;
