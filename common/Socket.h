@@ -34,6 +34,12 @@ class DisconnectionWhileReceivingException : public std::exception {
     }
 };
 
+class UnexpectedDisconnectionException : public std::exception {
+    virtual const char* what() const throw() {
+        return "The message couldn't be received given to an unexpected disconnection";
+    }
+};
+
 class DisconnectionWhileSendingException : public std::exception {
     virtual const char* what() const throw() {
         return "The message couldn't be sent given to a disconnection";
