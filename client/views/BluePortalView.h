@@ -13,8 +13,8 @@
 #include <string>
 
 #define TEXTURES_BLUE_PORTAL_KEY "BluePortal"
-#define PORTAL_VERTICAL 0
-#define PORTAL_HORIZONTAL 1
+#define PORTAL_VERTICAL 1
+#define PORTAL_HORIZONTAL 0
 
 class BluePortalView : public View {
     AnimatedSprite* animation;

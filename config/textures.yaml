@@ -37,7 +37,9 @@ Bullet: {path: resources/Bullet/bullet.png, frames: 3}
 
 Rock: {path: resources/rocks/1.png}
 
-EnergyBar: {path: resources/energy-bar/vertical.png}
+EnergyBar:
+  - path: resources/energy-bar/horizontal.png
+  - path: resources/energy-bar/vertical.png
 
 Gate: {path: resources/Gate/GateAnimated.png, frames: 19}
 
