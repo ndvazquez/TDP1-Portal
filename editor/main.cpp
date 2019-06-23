@@ -32,8 +32,8 @@ int main(int argc, char* argv[]) {
 
                 switch (e.type) {
                     case SDL_QUIT:
-                        yamlPath = home.start();
-                        if (!yamlPath.empty())  editor.save(yamlPath);
+                        //yamlPath = home.start();
+                        //if (!yamlPath.empty())  editor.save(yamlPath);
                         quit = true;
                         break;
                     case SDL_MOUSEBUTTONDOWN: // if the event is mouse click
