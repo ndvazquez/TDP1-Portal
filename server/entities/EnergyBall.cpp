@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <Box2D/Dynamics/b2Fixture.h>
 #include "EnergyBall.h"
 #include "Chell.h"
 #include "EnergyBar.h"
@@ -22,6 +23,13 @@ EnergyBall::EnergyBall(b2Body* body, Direction eb_type):
     this->is_dead = false;
     this->timeStamp = std::chrono::system_clock::now();
     body->SetGravityScale(0);
+
+    //Setting the category and mask bits
+    b2Fixture* fixture = body->GetFixtureList();
+    b2Filter filter = fixture->GetFilterData();
+    filter.categoryBits = 0x0001;
+    filter.maskBits = 0xFF0F;
+    fixture->SetFilterData(filter);
 }
 
 void EnergyBall::fly() {
@@ -53,9 +61,6 @@ bool EnergyBall::isDead() {
 
 void EnergyBall::handleCollision(Entity* entity) {
     const std::string& type = entity->getType();
-    if (type == ENERGY_BAR_NAME) {
-        dynamic_cast<EnergyBar*>(entity)->disableBody();
-    }
     if (type == ROCK_BLOCK_NAME) {
         die();
     }

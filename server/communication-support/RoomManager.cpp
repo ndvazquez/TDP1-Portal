@@ -9,9 +9,11 @@
 RoomManager::RoomManager() {}
 
 RoomManager::~RoomManager() {
-//    for (auto it = rooms.begin(); it != rooms.end(); ++it) {
-//        delete it->second;
-//    }
+    for (auto it = rooms.begin(); it != rooms.end(); ++it) {
+        it->second->stop();
+        it->second->join();
+        delete it->second;
+    }
 }
 
 bool RoomManager::createGame(const std::string &gameName, std::string& levelPath) {
@@ -56,12 +58,25 @@ bool RoomManager::addPlayerToGame(Socket &playerSocket,
 
 std::vector<std::string> RoomManager::getAvailableGames() {
     std::unique_lock<std::mutex> _lock(_mtx);
-    int roomsSize = rooms.size();
-    std::vector<std::string> availableGames(roomsSize);
+    std::vector<std::string> availableGames;
     for (auto it = rooms.begin(); it != rooms.end(); ++it) {
         if (!it->second->isFull()) {
             availableGames.push_back(it->first);
         }
     }
     return availableGames;
+}
+
+void RoomManager::removeFinishedGames() {
+    std::unique_lock<std::mutex> _lock(_mtx);
+    for (auto it = rooms.begin(); it != rooms.end();) {
+        auto stageIt = it++;
+        auto stage = stageIt->second;
+        if (stage->isDead()) {
+            stage->stop();
+            stage->join();
+            delete stage;
+            rooms.erase(stageIt);
+        }
+    }
 }

@@ -15,6 +15,7 @@
 #include "OrangeShot.h"
 #include "EnergyBall.h"
 #include <Box2D/Dynamics/b2World.h>
+#include <Box2D/Dynamics/b2Fixture.h>
 
 Rock::Rock(b2Body* body):
         Entity(ROCK_NAME, body),
@@ -23,6 +24,13 @@ Rock::Rock(b2Body* body):
     body->SetUserData(this);
     this->dead = false;
     this->grabbed = false;
+
+    //Setting the category and mask bits
+    b2Fixture* fixture = body->GetFixtureList();
+    b2Filter filter = fixture->GetFilterData();
+    filter.categoryBits = 0x1100;
+    filter.maskBits = 0xFFFF;
+    fixture->SetFilterData(filter);
 }
 
 void Rock::handleCollision(Entity *entity) {

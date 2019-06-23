@@ -35,6 +35,13 @@ Chell::Chell(b2Body* body):
     blue_portal_to_teleport = nullptr;
     orange_portal_to_teleport = nullptr;
     winner = false;
+
+    //Setting the category and mask bits
+    b2Fixture* fixture = body->GetFixtureList();
+    b2Filter filter = fixture->GetFilterData();
+    filter.categoryBits = 0x0011;
+    filter.maskBits = 0xFF0F;
+    fixture->SetFilterData(filter);
 }
 
 void Chell::handleCollision(Entity* entity) {
@@ -64,10 +71,6 @@ void Chell::handleCollision(Entity* entity) {
 
     if (type == CAKE_NAME) {
         win();
-    }
-
-    if (type == ENERGY_BAR_NAME) {
-        dynamic_cast<EnergyBar*>(entity)->disableBody();
     }
 
     if (type == BUTTON_NAME) {
@@ -112,7 +115,7 @@ bool Chell::hasWon() {
 }
 
 void Chell::grabRock(Rock* rock) {
-    if (this->rock) return;
+    if (this->rock || rock == nullptr) return;
     Coordinate coord(getHorizontalPosition(), getVerticalPosition());
     rock->elevate(coord);
     this->rock = rock;
@@ -133,7 +136,7 @@ void Chell::moveRight() {
     destroyActualMovement();
     this->actual_movement = new MoveRight(body);
     if (chell_is_on_floor) this->actual_state = MOVING_RIGHT;
-    if (this->rock) {
+    if (this->rock != nullptr) {
         Coordinate coord(getHorizontalPosition(), getVerticalPosition());
         rock->moveRight(coord);
     }
@@ -144,7 +147,7 @@ void Chell::moveLeft() {
     destroyActualMovement();
     this->actual_movement = new MoveLeft(body);
     if (chell_is_on_floor) this->actual_state = MOVING_LEFT;
-    if (this->rock) {
+    if (this->rock != nullptr) {
         Coordinate coord(getHorizontalPosition(), getVerticalPosition());
         rock->moveLeft(coord);
     }

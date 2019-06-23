@@ -29,11 +29,11 @@ void BluePortalView::playAnimation(const SDL_Rect &camera) {
 }
 
 void BluePortalView::setState(int state) {
-    if (state == PORTAL_VERTICAL) {
+    if (state == PORTAL_HORIZONTAL) {
         viewWidthInMeters = PORTAL_HEIGHT;
         viewHeightInMeters = PORTAL_WIDTH;
     }
-    if (state == PORTAL_HORIZONTAL) {
+    if (state == PORTAL_VERTICAL) {
         viewWidthInMeters = PORTAL_WIDTH;
         viewHeightInMeters = PORTAL_HEIGHT;
     }

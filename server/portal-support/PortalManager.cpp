@@ -10,7 +10,7 @@ PortalManager::PortalManager(std::unordered_map<std::string, Portal *> &portals,
 
 void PortalManager::addPortal(std::string id, float v_side, float h_side,
                           Coordinate* origin, Coordinate* target,
-                          PortalOrientation orientation, Direction type) {
+                          Orientation orientation, Direction type) {
     float x_pos = origin->getX();
     float y_pos = origin->getY();
 

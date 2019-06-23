@@ -13,6 +13,7 @@
 #include "CakeView.h"
 #include "OrangePortalView.h"
 #include "GateView.h"
+#include "EnergyBarView.h"
 
 ViewFactory::ViewFactory(int mtpFactor) :
         mtpFactor(mtpFactor) {
@@ -64,6 +65,9 @@ View* ViewFactory::createView(int viewTypeCode,
             newView = new GateView(gameWindow, 0, 0, mtpFactor,
                                    texturesData);
             break;
+        case ENERGY_BAR_VIEW_CODE:
+            newView = new EnergyBarView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
         default:
             break;
     }

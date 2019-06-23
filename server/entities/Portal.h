@@ -13,11 +13,11 @@
 class Portal: public Entity {
 private:
     Coordinate* target;
-    PortalOrientation orientation;
+    Orientation orientation;
     Direction portal_type_target;
 
 public:
-    Portal(b2Body* body, Coordinate* target, PortalOrientation orientation, Direction type);
+    Portal(b2Body* body, Coordinate* target, Orientation orientation, Direction type);
     ~Portal();
 
     /* Returns the portal's target */
@@ -27,7 +27,7 @@ public:
     void handleCollision(Entity* entity) override;
 
     /* Returns the portal's orientation */
-    PortalOrientation getOrientation();
+    Orientation getOrientation();
 
     /* Adds a target to the portal */
     void addTarget(Coordinate* target);

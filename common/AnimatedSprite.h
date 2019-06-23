@@ -23,6 +23,7 @@ class AnimatedSprite : public Sprite {
     int currentFrameStep;
     unsigned long timeSinceLastUpdate;
     int framerate;
+    bool reverse;
 public:
     AnimatedSprite(const std::string& path, Window& window, int totalFrames);
     ~AnimatedSprite();
@@ -34,6 +35,8 @@ public:
     int getWidth();
     int getHeight();
     void setFrameRate(int newFrameRate);
+    void reverseAnimation();
+    int getCurrentFrame();
 };
 
 

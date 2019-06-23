@@ -9,12 +9,16 @@ GateView::GateView(Window &window, int xPos, int yPos,
         View(window, xPos, yPos, factor, GATE_WIDTH, GATE_HEIGHT){
     const YAML::Node& spriteData = texturesData[TEXTURES_GATE_KEY];
     std::string path = spriteData["path"].as<std::string>();
-    sprite = new Sprite(path, window);
-    currentState = GATE_CLOSED;
+    int frames = spriteData["frames"].as<int>();
+    animation = new AnimatedSprite(path, window, frames);
+    previousState = GATE_OPEN;
+    currentState = GATE_OPEN;
+    transitionAnimation = false;
+    lastFrame = frames - 1;
 }
 
 GateView::~GateView() {
-    delete sprite;
+    delete animation;
 }
 
 void GateView::playAnimation(const SDL_Rect &camera) {
@@ -23,9 +27,22 @@ void GateView::playAnimation(const SDL_Rect &camera) {
                            viewPosY - camera.y,
                            int(viewWidthInMeters * mtpFactor),
                            int(viewHeightInMeters * mtpFactor)};
-    sprite->draw(&destRect);
+    animation->draw(&destRect);
+    if (transitionAnimation) {
+        animation->updateFrameStep();
+        if ((animation->getCurrentFrame() ==  lastFrame && currentState == GATE_OPEN) ||
+                (animation->getCurrentFrame() ==  0 && currentState == GATE_CLOSED)) {
+            transitionAnimation = false;
+        }
+    }
+
 }
 
 void GateView::setState(int state) {
+    previousState = currentState;
     currentState = state;
+    if (previousState != currentState) {
+        transitionAnimation = true;
+        animation->reverseAnimation();
+    }
 }
