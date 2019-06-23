@@ -105,9 +105,9 @@ void YamlManager::writeStage(std::string& stagePath) {
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
-            if (currentID == GRAVITY_SENTINEL ||
-                currentID == WITHOUT_GRAVITY_SENTINEL)
-                continue;
+            //if (currentID == GRAVITY_SENTINEL ||
+            //    currentID == WITHOUT_GRAVITY_SENTINEL)
+            //    continue;
             out << YAML::Key << currentID;
 
             out << YAML::Value << YAML::BeginMap;
@@ -190,7 +190,6 @@ void YamlManager::writeStage(std::string& stagePath) {
         fileOut << out.c_str();
     }
     catch(YAML::BadFile &e) {
-        std::cerr << e.what() << std::endl;
         throw InvalidFile();
     }
 }
@@ -198,7 +197,7 @@ void YamlManager::writeStage(std::string& stagePath) {
 
 void YamlManager::readStage(std::string& stagePath) {
     try {
-        std::map<std::pair<int, int>, Object *> centerOfMassPosition;
+        std::map<std::pair<float, float>, int> centerOfMassPosition;
         YAML::Node texturesInfo = YAML::LoadFile(DIRECTORY + stagePath + EXTENSION);
         const YAML::Node &node = texturesInfo[STAGE_ATTRIBUTES][STAGE_SIZE];
         int width = (int) node[VERTICAL_SIZE].as<float>();
@@ -206,7 +205,7 @@ void YamlManager::readStage(std::string& stagePath) {
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
-            if (currentID > 100) {std::cerr << "!obj" << std::endl; return;}
+            //if (currentID > 100) {return;}
             const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
             for (YAML::const_iterator it = objects.begin();
                  it != objects.end(); ++it) {
@@ -214,13 +213,10 @@ void YamlManager::readStage(std::string& stagePath) {
                 float x = node[HORIZONTAL_POSITION].as<float>();
                 float y = node[VERTICAL_POSITION].as<float>();
                 std::pair<float, float> centerOfMass = std::make_pair(x, y);
-                centerOfMassPosition[centerOfMass] = object;
+                centerOfMassPosition[std::make_pair(x, y)] = currentID;
                 MetersToMatrixPos(centerOfMass, width);
                 std::pair<int, int> matrixPos =
                         object->centerOfMassToMatrixPos(centerOfMass);
-
-                //std::cerr << "Posicion final: " << std::endl;
-                //std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
                 tiles[matrixPos] = currentID;
             }
         }
@@ -237,10 +233,11 @@ void YamlManager::readStage(std::string& stagePath) {
             float x = node[OBJECT_POSITION][HORIZONTAL_POSITION].as<float>();
             float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
 
-            std::pair<float, float> centerOfMass = std::make_pair(x, y);
-            currentObject = centerOfMassPosition[centerOfMass];
-            MetersToMatrixPos(centerOfMass, width);
-            matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
+            std::pair<float, float> centerPos = std::make_pair(x, y);
+            int id = centerOfMassPosition[std::make_pair(x, y)];
+            currentObject = textures[id];
+            MetersToMatrixPos(centerPos, width);
+            matrixPos = currentObject->centerOfMassToMatrixPos(centerPos);
             logicGates.setName(currentObject, matrixPos, name);
         }
 
@@ -255,7 +252,8 @@ void YamlManager::readStage(std::string& stagePath) {
             float y = node[OBJECT_POSITION][VERTICAL_POSITION].as<float>();
 
             std::pair<float, float> centerOfMass = std::make_pair(x, y);
-            currentObject = centerOfMassPosition[centerOfMass];
+            int id = centerOfMassPosition[std::make_pair(x, y)];
+            currentObject = textures[id];
             MetersToMatrixPos(centerOfMass, width);
             matrixPos = currentObject->centerOfMassToMatrixPos(centerOfMass);
             logicGates.addCondition(currentObject, matrixPos, condition);

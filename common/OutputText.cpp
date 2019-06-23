@@ -11,14 +11,8 @@
 #define Y_CENTER window.getWindowHeight()/2 - mHeight/2
 #define DEFAULT_FONT "font.ttf"
 #define STEP 180
-//The window we'll be rendering to
-SDL_Window* gWindow = NULL;
 
-//The window renderer
-SDL_Renderer* G_RENDER = NULL;
 
-//Globally used font
-TTF_Font *G_FONT = NULL;
 
 OutputText::OutputText(Window &window, const char *message, SDL_Color color) :
         window(window), color(color){
@@ -152,3 +146,4 @@ void OutputText::writeTheScreen(std::string &message) {
         break;
     }
 }
+
