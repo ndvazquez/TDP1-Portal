@@ -31,7 +31,7 @@ bool RoomManager::createGame(const std::string &gameName, std::string& levelPath
     float stageHeight = dimentions[VERTICAL_SIZE].as<float>();
     const YAML::Node& chells = metadata[std::to_string(CHELL)][OBJECT_POSITION];
     int maxPlayers = chells.size();
-    StageManager* newStageManager = new StageManager(stageWidth, stageHeight, levelPath, maxPlayers);
+    StageManager* newStageManager = new StageManager(stageWidth, stageHeight, actualPath, maxPlayers);
     rooms.insert({gameName, newStageManager});
     return true;
 }
