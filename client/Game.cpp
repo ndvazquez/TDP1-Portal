@@ -11,7 +11,7 @@ Game::Game(Protocol &clientProtocol, Socket &clientSocket):
     clientProtocol(clientProtocol), clientSocket(clientSocket) {
 }
 
-void Game::play(std::string& idChell) {
+bool Game::play(std::string& idChell) {
     bool login = true;
 
     while (login) {
@@ -33,7 +33,7 @@ void Game::play(std::string& idChell) {
         std::getline(std::cin, action);
         if (action == "quit") {
             clientSocket.shutdownAndClose();
-            return;
+            return false;
         }
         std::string levelPath;
         if (action == "create") {
@@ -71,4 +71,5 @@ void Game::play(std::string& idChell) {
             login = false;
         }
     }
+    return true;
 }

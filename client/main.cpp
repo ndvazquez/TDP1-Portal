@@ -21,7 +21,7 @@ void playGame() {
     Protocol clientProtocol(clientSocket);
 
     Game game(clientProtocol, clientSocket);
-    game.play(idChell);
+    if (!game.play(idChell)) return;
 
     Drawer drawer(clientProtocol, clientSocket);
     drawer.draw(idChell);

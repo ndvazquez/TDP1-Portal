@@ -19,8 +19,7 @@
 
 // It's recommended to use multiples of the MTP_FACTOR to get a smooth
 // experience.
-#define SCREEN_WIDTH 1050
-#define SCREEN_HEIGHT 700
+
 #define MTP_FACTOR 70
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
@@ -29,16 +28,17 @@ Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket):
 }
 
 void Drawer::draw(std::string& idChell) {
+    const int screenWidth = 1050;
+    const int screenHeight = 700;
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
 
-    Window newWindow(title, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
     // Cool space background.
     std::string bgPath = "resources/Backgrounds/NebulaRed.png";
     Sprite background(bgPath, newWindow);
-    std::string metalBlock = "MetalBlock";
 
     //Here we'll receive the metadata
     std::string jsonMetadata = clientProtocol.receiveMessage();
@@ -50,7 +50,7 @@ void Drawer::draw(std::string& idChell) {
     int levelWidth = stageWidth * MTP_FACTOR;
     int levelHeight = stageHeight * MTP_FACTOR;
 
-    Camera camera(SCREEN_WIDTH, SCREEN_HEIGHT, levelWidth, levelHeight);
+    Camera camera(screenWidth, screenHeight, levelWidth, levelHeight);
 
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,

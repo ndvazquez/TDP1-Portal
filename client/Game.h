@@ -14,7 +14,7 @@ private:
     Socket& clientSocket;
 public:
     Game(Protocol& clientProtocol, Socket& clientSocket);
-    void play(std::string& idChell);
+    bool play(std::string& idChell);
 };
 
 
