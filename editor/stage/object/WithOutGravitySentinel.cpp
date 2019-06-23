@@ -29,12 +29,16 @@ void WithOutGravitySentinel::addTo(int x, int y, std::map<std::pair<int, int>, i
     //you can't be added on your own. U does not exist by your own.
 }
 
-std::pair<float, float> WithOutGravitySentinel::matrixPosToCenterOfMass(const std::pair<int, int> &position) {
-    return std::pair<int, int>();
+std::pair<float, float> WithOutGravitySentinel::matrixPosToCenterOfMass(
+        const std::pair<int, int> &position) {
+    return this->rectangleMatrixPosToCenterOfMass(
+            position, METAL_SIDE, METAL_SIDE);
 }
 
-std::pair<int, int> WithOutGravitySentinel::centerOfMassToMatrixPos(const std::pair<float, float> &pair) {
-    return std::pair<int, int>();
+std::pair<int, int> WithOutGravitySentinel::centerOfMassToMatrixPos(
+        const std::pair<float, float> &pair) {
+        return this->rectangleCenterOfMassToMatrixPos(
+                pair, METAL_SIDE, METAL_SIDE);
 }
 
 WithOutGravitySentinel::~WithOutGravitySentinel() = default;

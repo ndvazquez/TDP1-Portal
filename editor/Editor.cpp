@@ -4,9 +4,6 @@
 
 #include "Editor.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
-
 
 Editor::Editor(Window &window, std::string &yamlPath) :
 window(window), stage(window, &current, HEIGHT_PROPORTION, yamlPath),
@@ -30,7 +27,7 @@ void Editor::handleMouseButtonDown(SDL_Event* event) {
 }
 
 void Editor::handleMouseDoubleClick(SDL_Event *event) {
-    MouseButton e(event);
+        MouseButton e(event);
     this->stage.handleMouseDoubleClick(e);
 }
 
@@ -66,4 +63,3 @@ void Editor::handleUp() {
 void Editor::handleDown() {
     stage.handleDown();
 }
-

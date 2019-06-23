@@ -47,6 +47,12 @@ std::string & HomeScreen::start(bool withAnswer) {
     bool quit = false;
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
+            if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)) {
+                answer = AFTER_SKIP;
+                yamlPath = "";
+                quit = true;
+                break;
+            }
             if (e.type == SDL_MOUSEBUTTONDOWN &&
                 e.button.clicks == 1 &&
                 e.button.button == SDL_BUTTON_LEFT) {
