@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "StageManager.h"
-#include "YamlParser.h"
+#include "stage-support/YamlParser.h"
 
 StageManager::StageManager(float stageWidth,
         float stageHeight, std::string& levelPath,
