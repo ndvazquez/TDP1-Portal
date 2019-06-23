@@ -33,14 +33,21 @@ void LogicGates::setName(Object *obj,
                          SDL_Rect* camera,
                          int yStart,
                          View stageView) {
-    if (!obj || !obj->hasName()) return;
-    InputManager input(window, "Enter a name", rect);
-    std::string& name = input.startReading(position,
-                                           obj,
-                                           camera,
-                                           yStart,
-                                           stageView);
-    setName(obj, position, name);
+    try {
+        if (!obj || !obj->hasName()) return;
+        InputManager input(window, "Enter a name", rect);
+        std::string &name = input.startReading(position,
+                                               obj,
+                                               camera,
+                                               yStart,
+                                               stageView);
+        setName(obj, position, name);
+    } catch (SetNameException &e) {
+        std::cerr << "catched" << std::endl;
+        OutputText out(window);
+        std::string error = e.what();
+        out.writeTheScreen(error);
+    }
 }
 
 void LogicGates::addCondition(Object *obj,
@@ -65,7 +72,7 @@ void LogicGates::setName(Object *obj, std::pair<int, int> position, std::string 
         obj->setName(position, newName);
     }
     catch (SetNameException &e) {
-        std::cerr << e.what();
+        __throw_exception_again;
     }
 }
 
@@ -107,7 +114,6 @@ void LogicGates::parseCondition(std::string &condition) {
         }
         if (!allGood) {
             std::cerr << "NOT ALL GOOD" << std::endl;
-            //throw StageControllerInvalidConditionException();
         }
         i++;
     }
@@ -116,7 +122,6 @@ void LogicGates::parseCondition(std::string &condition) {
         return;
     } else {
         std::cerr << "NOT THE CORRECT NUMBER" << std::endl;
-        //throw StageControllerInvalidConditionException();
     }
 }
 

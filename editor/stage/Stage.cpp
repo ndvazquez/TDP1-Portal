@@ -107,8 +107,6 @@ void Stage::handleMouseDoubleClick(MouseButton &event) {
         controller.nameAnObject(x, y, window, menu, &this->camera , Y_START);
     } catch (StageNotInsideMeException& e) {
         return;
-    } catch (StageControllerException& e) {
-        std::cerr << e.what() << std::endl;
     }
 }
 

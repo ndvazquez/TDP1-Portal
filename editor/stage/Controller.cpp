@@ -65,7 +65,7 @@ void Controller::removeTile(int x, int y) {
         obj->removeFrom(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
-        std::cerr << e.what();
+        std::cerr << "Controller removeTile:" << e.what() << std::endl;
         throw StageControllerRemoveTileException();
     }
 }
@@ -128,6 +128,6 @@ void Controller::writeYaml(std::string &yamlPath) {
     }
     catch (std::exception& e) {
         std::cerr << "Controller Write YAML: " << e.what() << std::endl;
-        std::cerr << e.what() << std::endl;
+        __throw_exception_again;
     }
 }
