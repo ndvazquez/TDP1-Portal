@@ -86,11 +86,21 @@ bool Game::play(std::string& idChell) {
                 std::cout << "Please enter a valid level name: \n";
                 std::getline(std::cin, levelPath);
             }
+            if (levelPath.find(".yaml") == std::string::npos) {
+                levelPath += ".yaml";
+            }
         }
         // Prepare other fields needed to process
         std::cout << "Enter game name: \n";
         std::string gameName;
         std::getline(std::cin, gameName);
+
+        while (action == JOIN_ACTION && gaString.find(gameName) == std::string::npos) {
+            std::cout << "The game you are looking for doesn't exist. "
+                         "Please enter one of the games available: \n";
+            std::getline(std::cin, gameName);
+        }
+
         std::cout << "Enter your ID: \n";
         std::string playerId;
         std::getline(std::cin, playerId);
@@ -117,6 +127,9 @@ bool Game::play(std::string& idChell) {
         if (responseCode == SUCCESS_CODE) {
             idChell = serverResponseJson["idChell"].get<std::string>();
             login = false;
+        }
+        else {
+            std::cout << "The ID you've just entered already exists! \n";
         }
     }
     return true;
