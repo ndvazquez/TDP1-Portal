@@ -206,7 +206,7 @@ void YamlManager::readStage(std::string& stagePath) {
         for (auto &texture : textures) {
             int currentID = texture.first;
             Object *object = texture.second;
-            if (currentID > 100) {std::cerr << "!obj" << std::endl; return;}
+            if (currentID > 100) {return;}
             const YAML::Node &objects = texturesInfo[currentID][OBJECT_POSITION];
             for (YAML::const_iterator it = objects.begin();
                  it != objects.end(); ++it) {
@@ -218,9 +218,6 @@ void YamlManager::readStage(std::string& stagePath) {
                 MetersToMatrixPos(centerOfMass, width);
                 std::pair<int, int> matrixPos =
                         object->centerOfMassToMatrixPos(centerOfMass);
-
-                //std::cerr << "Posicion final: " << std::endl;
-                //std::cerr << "\t(" << matrixPos.first << ", " << matrixPos.second << ")" << std::endl;
                 tiles[matrixPos] = currentID;
             }
         }

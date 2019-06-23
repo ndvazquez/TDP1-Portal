@@ -75,7 +75,6 @@ void Stage::handleMouseButtonDown(MouseButton& event) {
         controller.removeTile(x,y);
     }
     catch (StageControllerException& e) {
-        std::cerr << "Estoy empty" << std::endl;
         *current = EMPTY;
         return;
     }

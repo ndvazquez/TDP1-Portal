@@ -29,10 +29,12 @@ Controller::Controller(Window &window,
         return;
     }
     catch (TextException& e) {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Controller Init: " << e.what() << std::endl;
+        __throw_exception_again;
     }
     catch (std::exception& e){
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Controller Init: " << e.what() << std::endl;
+        __throw_exception_again;
     }
 }
 
@@ -49,7 +51,6 @@ void Controller::addTile(int x, int y, int id) {
         obj->addTo(x, y, tiles, textures);
     }
     catch(ObjectException& e) {
-        std::cerr << e.what();
         throw StageControllerAddTileException();
     }
 }
@@ -123,9 +124,10 @@ void Controller::writeYaml(std::string &yamlPath) {
         yaml.writeStage(yamlPath);
     }
     catch(InvalidFile& e) {
-        std::cerr << e.what() << std::endl;
+        return;
     }
-    catch (std::exception& e){
+    catch (std::exception& e) {
+        std::cerr << "Controller Write YAML: " << e.what() << std::endl;
         std::cerr << e.what() << std::endl;
     }
 }
