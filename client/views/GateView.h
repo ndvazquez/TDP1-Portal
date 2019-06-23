@@ -7,16 +7,21 @@
 
 #include <yaml-cpp/yaml.h>
 #include "../../common/Window.h"
-#include "../../common/Sprite.h"
+#include "../../common/AnimatedSprite.h"
 #include "View.h"
 #include "../../common/constants.h"
 
 #define TEXTURES_GATE_KEY "Gate"
 #define GATE_CLOSED 1
+#define GATE_OPEN 0
 
 class GateView : public View {
-    Sprite* sprite;
+    AnimatedSprite* animation;
+    int previousState;
     int currentState;
+    bool transitionAnimation;
+    int frameCounter;
+    int lastFrame;
 public:
     GateView(Window &window,
     int xPos,

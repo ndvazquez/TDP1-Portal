@@ -26,7 +26,7 @@ public:
             const std::string& gameName,
             const std::string &playerId);
     std::vector<std::string> getAvailableGames();
-
+    void removeFinishedGames();
 };
 
 

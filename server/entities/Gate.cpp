@@ -18,7 +18,7 @@ Gate::Gate(b2Body* body, std::string logic,
     this->items = std::move(items);
     this->state = CLOSED;
     this->replaced = "";
-    if (logic.empty()) {
+    if (this->logic.empty()) {
         this->state = OPEN;
         body->SetActive(false);
     }
