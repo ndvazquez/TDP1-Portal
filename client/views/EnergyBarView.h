@@ -9,11 +9,15 @@
 #include "View.h"
 #include "../../common/Sprite.h"
 #include "../../common/constants.h"
+#include <vector>
 
 #define TEXTURES_ENERGY_BAR_KEY "EnergyBar"
+#define ENERGY_BAR_HORIZONTAL 0
+#define ENERGY_BAR_VERTICAL 1
 
 class EnergyBarView : public View {
-    Sprite* sprite;
+    std::vector<Sprite*> sprites;
+    int currentState;
 public:
     EnergyBarView(Window &window,
             int xPos,

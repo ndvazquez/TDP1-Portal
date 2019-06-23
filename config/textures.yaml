@@ -41,7 +41,10 @@ Rock: {path: resources/rocks/1.png}
 
 Gate: {path: resources/gate.png}
 
-EnergyBar: {path: resources/energy-bar/vertical.png}
+EnergyBar:
+  - path: resources/energy-bar/horizontal.png
+  - path: resources/energy-bar/vertical.png
+
 
 Button:
   - name: 1
