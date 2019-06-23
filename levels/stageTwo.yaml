@@ -1,0 +1,129 @@
+Stage:
+  dimentions:
+    width: 17
+    height: 11
+0:
+  position:
+    []
+24:
+  position:
+    []
+23:
+  position:
+    []
+13:
+  position:
+    []
+12:
+  position:
+    []
+11:
+  position:
+    []
+14:
+  position:
+    []
+20:
+  position:
+    []
+19:
+  position:
+    - x: 13.5
+      y: 2.5
+21:
+  position:
+    - x: 10.5
+      y: 3
+18:
+  position:
+    - x: 2.5
+      y: 2.975
+    - x: 10.5
+      y: 8.975
+6:
+  position:
+    []
+5:
+  position:
+    []
+22:
+  position:
+    - x: 5
+      y: 2.25
+4:
+  position:
+    []
+3:
+  position:
+    []
+1:
+  position:
+    - x: 1
+      y: 1
+    - x: 3
+      y: 1
+    - x: 5
+      y: 1
+    - x: 7
+      y: 1
+    - x: 9
+      y: 1
+    - x: 11
+      y: 7
+    - x: 11
+      y: 5
+    - x: 11
+      y: 1
+    - x: 13
+      y: 7
+    - x: 13
+      y: 1
+    - x: 15
+      y: 7
+    - x: 15
+      y: 1
+2:
+  position:
+    - x: 17
+      y: 7
+    - x: 17
+      y: 5
+    - x: 17
+      y: 3
+    - x: 17
+      y: 1
+7:
+  position:
+    []
+8:
+  position:
+    []
+9:
+  position:
+    []
+10:
+  position:
+    []
+15:
+  position:
+    []
+16:
+  position:
+    []
+17:
+  position:
+    []
+Names:
+  - name: Button
+    position:
+      x: 5
+      y: 2.25
+  - name: ""
+    position:
+      x: 10.5
+      y: 3
+Conditions:
+  - condition: Button
+    position:
+      x: 10.5
+      y: 3
