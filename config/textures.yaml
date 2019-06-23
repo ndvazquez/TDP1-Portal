@@ -72,3 +72,11 @@ StaticObjects:
     path: resources/rocks/2.png
   - name: Rock3
     path: resources/rocks/3.png
+  - name: DiagonalUpLeft
+    path: resources/blocks/diagonal-up-left.png
+  - name: DiagonalUpRight
+    path: resources/blocks/diagonal-up-right.png
+  - name: DiagonalDownRight
+    path: resources/blocks/diagonal-down-right.png
+  - name: DiagonalDownLeft
+    path: resources/blocks/diagonal-down-left.png
