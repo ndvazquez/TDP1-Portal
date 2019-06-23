@@ -10,7 +10,8 @@
 #include <unordered_map>
 #include <string>
 #include <vector>
-#include <stage-support/StageManager.h>
+#include <communication-support/StageManager.h>
+#define LEVELS_PATH "levels/"
 
 class RoomManager {
     std::mutex _mtx;
@@ -26,6 +27,7 @@ public:
             const std::string& gameName,
             const std::string &playerId);
     std::vector<std::string> getAvailableGames();
+    std::vector<std::string> getAvailableLevels();
     void removeFinishedGames();
 };
 

@@ -37,7 +37,7 @@ void Drawer::draw(std::string& idChell) {
 
     Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
     // Cool space background.
-    std::string bgPath = "resources/Backgrounds/NebulaRed.png";
+    std::string bgPath = "resources/editor-stage-bg.png";
     Sprite background(bgPath, newWindow);
 
     //Here we'll receive the metadata

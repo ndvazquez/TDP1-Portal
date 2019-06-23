@@ -139,8 +139,7 @@ int Socket::receiveMessage(void *buffer, int size){
         if (s == 0) {
             throw DisconnectionWhileReceivingException();
         } else if (s < 0) {
-            // TODO: Change this exception to something along the lines of UnexpectedError.
-            throw DisconnectionWhileReceivingException();
+            throw UnexpectedDisconnectionException();
         } else {
             received += s;
         }

@@ -7,11 +7,11 @@
 
 
 #include "../../common/UserEventQueue.h"
-#include "Stage.h"
+#include "stage-support/Stage.h"
 #include "../../common/constants.h"
 #include "../../common/StageStatusQueue.h"
 #include "communication-support/ClientHandler.h"
-#include "YamlParser.h"
+#include "stage-support/YamlParser.h"
 #include <unordered_map>
 #include <string>
 
@@ -30,7 +30,8 @@ class StageManager : public Thread {
     void handleEvent(UserEvent& userEvent, Chell* chell);
 public:
     StageManager(float stageWidth,
-                float stageHeight, std::string& levelPath);
+                float stageHeight, std::string& levelPath,
+                int maxPlayers);
     ~StageManager();
     // This is going to run on another thread.
     void run();

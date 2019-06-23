@@ -5,6 +5,8 @@
 #include "RoomManager.h"
 #include <iostream>
 #include <yaml-cpp/yaml.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 RoomManager::RoomManager() {}
 
@@ -22,12 +24,14 @@ bool RoomManager::createGame(const std::string &gameName, std::string& levelPath
         // There's already a game created with this name.
         return false;
     }
-    YAML::Node metadata = YAML::LoadFile(levelPath);
+    std::string actualPath = LEVELS_PATH + levelPath;
+    YAML::Node metadata = YAML::LoadFile(actualPath);
     const YAML::Node& dimentions = metadata[STAGE_ATTRIBUTES][STAGE_SIZE];
     float stageWidth = dimentions[HORIZONTAL_SIZE].as<float>();
     float stageHeight = dimentions[VERTICAL_SIZE].as<float>();
-    
-    StageManager* newStageManager = new StageManager(stageWidth, stageHeight, levelPath);
+    const YAML::Node& chells = metadata[std::to_string(CHELL)][OBJECT_POSITION];
+    int maxPlayers = chells.size();
+    StageManager* newStageManager = new StageManager(stageWidth, stageHeight, actualPath, maxPlayers);
     rooms.insert({gameName, newStageManager});
     return true;
 }
@@ -65,6 +69,20 @@ std::vector<std::string> RoomManager::getAvailableGames() {
         }
     }
     return availableGames;
+}
+
+std::vector<std::string> RoomManager::getAvailableLevels() {
+    std::unique_lock<std::mutex> _lock(_mtx);
+    std::vector<std::string> availableLevels;
+    DIR* dirp = opendir(LEVELS_PATH);
+    struct dirent * dp;
+    while ((dp = readdir(dirp)) != nullptr) {
+        std::string name = dp->d_name;
+        if (name.find(".yaml") == std::string::npos) continue;
+        availableLevels.push_back(dp->d_name);
+    }
+    closedir(dirp);
+    return availableLevels;
 }
 
 void RoomManager::removeFinishedGames() {
