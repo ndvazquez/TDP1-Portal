@@ -23,12 +23,14 @@
 #include "portal-support/PortalManager.h"
 
 Stage::Stage(float width, float height) {
-    this->end_of_game = false;
     float module_gravity = gameConfiguration.gravity;
     b2Vec2 gravity(0.0f, module_gravity);
     b2World* world = new b2World(gravity);
     this->world = new PhysicsWorld(world, width, height);
     this->cake = nullptr;
+    this->winner = true;
+    this->all_dead = false;
+    this->actual_state = PLAYING;
 }
 
 void Stage::addBlock(std::string identifier, float side, float x_pos, float y_pos) {
@@ -180,14 +182,21 @@ void Stage::addElement(std::string identifier, std::string id, float v_side,
     }
 }
 
+bool Stage::gameWon() {
+    return winner;
+}
+
+bool Stage::gameLost() {
+    return all_dead;
+}
+
 void Stage::managePortals(Chell* chell, std::string id) {
     PortalManager manager(portals, world);
     manager.managePortals(chell, id);
 }
 
 void Stage::step() {
-    end_of_game = true;
-
+    winner = true;
     auto i_chell = chells.begin();
     while (i_chell != chells.end()) {
         if (i_chell->second->isDead()) {
@@ -200,11 +209,23 @@ void Stage::step() {
                 i_chell = chells.erase(i_chell);
             }
         } else {
-            end_of_game &= i_chell->second->hasWon();
+            winner &= i_chell->second->hasWon();
             managePortals(i_chell->second, i_chell->first);
             i_chell->second->update();
             i_chell++;
         }
+    }
+    if (chells.empty()) {
+        all_dead = true;
+        winner = false;
+    }
+
+    if (all_dead) {
+        actual_state = LOST;
+    } else if (winner) {
+        actual_state = WON;
+    } else {
+        actual_state = PLAYING;
     }
 
     auto i_blue_shot = blue_shots.begin();
@@ -537,6 +558,11 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
         };
     }
+
+    request["Game"] = {
+            {"state", actual_state}, {"x", 0}, {"y", 0}
+    };
+
     return request;
 }
 

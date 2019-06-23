@@ -24,11 +24,11 @@ void ClientSender::run() {
             }
             clientProtocol.sendMessage(stageStatus);
         } catch (const std::exception &e) {
-            std::cout << "Force shutdown, expected behaviour." << std::endl;
+            std::cout << e.what() << std::endl;
             _isDead = true;
         } catch (...) {
             _isDead = true;
-            std::cout << "Aborting Sender execution." << std::endl;
+            std::cout << "Unexpected crash." << std::endl;
             return;
         }
     }

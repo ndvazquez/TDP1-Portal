@@ -58,6 +58,12 @@ enum StageObjects {
     HORIZONTAL_ENERGY_BAR
 };
 
+enum GameState {
+    WON,
+    LOST,
+    PLAYING
+};
+
 enum Direction {
     RIGHT,
     LEFT,

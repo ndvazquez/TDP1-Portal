@@ -19,6 +19,9 @@ StageManager::StageManager(float stageWidth,
 
 StageManager::~StageManager() {
     for (auto it = clients.begin(); it != clients.end(); ++it) {
+        auto clientId = it->first;
+        auto clientQueueIt = clientQueues.find(clientId);
+        clientQueueIt->second->push(THREAD_SUICIDE_PILL);
         it->second->stop();
         it->second->join();
         delete it->second;
@@ -83,17 +86,17 @@ void StageManager::run() {
                     std::cout << "Client deleted\n";
                 }
             }
+            
+            if (stage.gameLost() || stage.gameWon() || clients.empty()) {
+                _isDead = true;
+                std::cout << "End game!" << std::endl;
+            }
+
             // Push stage status to each queue.
             // Doing a dump for each queue might be a performance hit.
             for (auto it = clientQueues.begin(); it != clientQueues.end(); it++) {
                 it->second->push(stageStatus.dump());
             }
-            // Provisory way to exit the loop.
-            if (clients.size() == 0) {
-                _isDead = true;
-                std::cout << "Goodbye!\n";
-            }
-            //TODO: We need to quit the loop if the game is won.
         }
     }
 }

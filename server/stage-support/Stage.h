@@ -42,7 +42,9 @@ class Stage {
 private:
     PhysicsWorld* world;
     Cake* cake;
-    bool end_of_game;
+    bool all_dead;
+    bool winner;
+    GameState actual_state;
 
     std::unordered_map<Coordinate*, RockBlock*> brick_blocks;
     std::unordered_map<Coordinate*, MetalBlock*> metal_blocks;
@@ -69,6 +71,12 @@ private:
 public:
     Stage(float width, float height);
     ~Stage();
+
+    /* Returns a boolean that indicates if they have won the game */
+    bool gameWon();
+
+    /* Returns a boolean that indicates if they have lost the game */
+    bool gameLost();
 
     /* Adds a block to the stage (specifically a metal block or a rock block) */
     void addBlock(std::string identifier, float side, float x_pos, float y_pos);
