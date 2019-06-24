@@ -72,7 +72,7 @@ void Drawer::draw(std::string& idChell) {
 
     StageView stageView(newWindow, textures, MTP_FACTOR, staticObjects, stageHeight);
     ViewManager viewManager(newWindow, levelHeight,
-                            MTP_FACTOR, idChell, dynamicObjects, soundQueue);
+                            MTP_FACTOR, idChell, dynamicObjects, soundQueue, metadata);
     audioSystem.playMusic(BG_SONG_GAME);
     userEventHandler.start();
     eventSender.start();
