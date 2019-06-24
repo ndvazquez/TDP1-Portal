@@ -37,6 +37,7 @@ std::string LevelMenu::start(const char* principalMessage) {
     std::string& enteredLevel = input.getText();
     bool quit = false;
     while (!quit) {
+        SDL_Delay(1);
         while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
             if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE)) {
                 enteredLevel = "";

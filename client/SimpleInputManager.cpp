@@ -24,6 +24,7 @@ void SimpleInputManager::start(InputText &input, Window &window) {
 
     bool quit = false;
     while (!quit) {
+        SDL_Delay(1);
         while (SDL_PollEvent(&e) != 0) { // check to see if an event has happened
             if (e.type == SDL_MOUSEBUTTONDOWN &&
                 e.button.clicks == 1 &&
