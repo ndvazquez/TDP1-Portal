@@ -2,22 +2,24 @@
 // Created by camix on 24/06/19.
 //
 
-#ifndef PORTAL_LEVELOPTION_H
-#define PORTAL_LEVELOPTION_H
+#ifndef PORTAL_LEVELMENU_H
+#define PORTAL_LEVELMENU_H
 
 
 #define CLOSED_EXC "The user want to end the process\n"
 
 #include "../common/Window.h"
+
+#include "CloseException.h"
 #include <vector>
 
-class LevelOption {
+class LevelMenu {
 private:
     Window& window;
     std::vector<std::string>& levelsAvailable;
 
 public:
-    LevelOption(Window& window, std::vector<std::string>& levelsAvailable);
+    LevelMenu(Window& window, std::vector<std::string>& levelsAvailable);
 
     std::string start(const char *principalMessage);
 };
@@ -32,4 +34,4 @@ public:
     }
 };
 
-#endif //PORTAL_LEVELOPTION_H
+#endif //PORTAL_LEVELMENU_H

@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include "LevelOption.h"
+#include "LevelMenu.h"
 #include "../common/OutputText.h"
 #include "../common/InputText.h"
 
@@ -13,12 +13,12 @@
 
 #define EXTENSION ".yaml"
 
-LevelOption::LevelOption(Window &window,
+LevelMenu::LevelMenu(Window &window,
                          std::vector<std::string> &levelsAvailable) :
         window(window), levelsAvailable(levelsAvailable) {
 }
 
-std::string LevelOption::start(const char* principalMessage) {
+std::string LevelMenu::start(const char* principalMessage) {
     OutputText listTitle(window, OPTIONS_TITLE, LIGHT_GRAY);
     std::vector<OutputText*> optionsList;
     for (auto & it : levelsAvailable) {
@@ -87,7 +87,7 @@ std::string LevelOption::start(const char* principalMessage) {
     }
 
     if(close) {
-        throw LevelOptionCloseEventException();
+        throw CloseException();
     }
 
     auto it = optionsList.begin();

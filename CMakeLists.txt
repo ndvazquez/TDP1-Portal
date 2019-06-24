@@ -55,7 +55,7 @@ set(CLIENT_SOURCE_FILES
         client/views/EnergyBarView.cpp
         client/InitialMenu.cpp
         common/OutputText.cpp
-        common/InputText.cpp client/LevelOption.cpp client/LevelOption.h)
+        common/InputText.cpp client/LevelMenu.cpp client/LevelMenu.h client/GameNameMenu.cpp client/GameNameMenu.h client/SimpleInputManager.cpp client/SimpleInputManager.h)
 
 #EDITOR CONFIG
 
@@ -119,7 +119,7 @@ set(EDITOR_SOURCE_FILES
         #ffmpeg/BlockingQueue.cpp
         #ffmpeg/Consumer.cpp
         #ffmpeg/Thread.cpp
-        editor/stage/InputManager.cpp)
+        editor/stage/InputManager.cpp client/CloseException.h)
 
 set(SERVER_SOURCE_FILES
         server/stage-support/Stage.cpp

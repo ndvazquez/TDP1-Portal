@@ -9,9 +9,7 @@
 #include "../common/Window.h"
 #include <vector>
 
-#define QUIT_ACTION 0
-#define CREATE_ACTION 1
-#define JOIN_ACTION 2
+#include "../common/constants.h"
 
 
 class InitialMenu {
