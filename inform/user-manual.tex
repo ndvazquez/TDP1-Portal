@@ -68,7 +68,7 @@
 
 La configuración del juego se realiza por medio de un archivo de formato \texttt{YAML} que se encuentra localizado en la carpeta \texttt{config} dentro de la carpeta \texttt{server} del repositorio. Hay ciertos parámetros comunes que pueden variarse, pero se recomienda mantenerlos dentro del mismo rango para obtener el juego que fue testeado numerosas veces por sus creadores.
 
-\section{Forma de uso}
+\section{Forma de uso del juego}
 El juego es de tipo \textit{cooperativo}, lo que implica que para finalizar la partida todos deben alcanzar el objetivo reconocido como victoria. En este caso particular, \textbf{todos} los jugadores deben llegar a la llamada \textit{cake} que se trata de una torta localizada en algún lugar del escenario. Para ello deberán sortear con distintos obstáculos, en los cuales podrían morir. En el caso en que un jugador muera, esto no genera ninguna diferencia en la condición de victoria, incluso a veces puede ser necesario por ejemplo si todo el grupo llegó a la torta y un solo jugador quedó varado en el camino. En esta implementación del juego portal hay 3 causas de muerte:
 \begin{enumerate}
 	\item Si una bola de energia choca a Chell desde cualquier posición
@@ -269,11 +269,54 @@ Se muestra en la \textit{Figura 18} un ejemplo de nivel editado para mostrar a l
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{example.png}}
-	\caption{Editor}
+	\caption{Ejemplo de edición}
 	\label{fig:diagrama18}
 \end{figure}
 
 \newpage
 
+Otra característica del editor es la posibilidad de hacer el escenario \textit{infinito} y moverlo para seleccionar los diversos objetos y posicionarlos en el lugar deseado. Esto se hace con las \textbf{flechas izquierda y derecha} del teclado y las teclas \textbf{a} y \textbf{d}. Un ejemplo de cómo se ve el escenario luego de correr el escenario hacia la derecha y abajo se observa en la \textit{Figura 19}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{infinit.png}}
+	\caption{Editor infinito}
+	\label{fig:diagrama19}
+\end{figure}
+
+\newpage
+
+Un tema aparte es la lógica de compuertas y botones y receptores. Para designar un nombre a un botón o receptor basta con hacer \textbf{doble cliz izquierdo} sobre el mismo y escribir el nombre. Se puede observar en la primera figura el caso de nombrar a un botón y en la segunda el de nombrar a un receptor. Para designar una condición a una compuerta se hace \textbf{clic derecho} sobre la misma y se escribe la condición, luego apretando \textbf{enter} o haciendo \textbf{clic} en el \texttt{OK} que figura en pantalla.
+
+En el caso que no se asigne un nombre a un botón o receptor, ese botón simplemente no se tiene en cuenta para la lógica de compuertas y así mismo si no se designa una condición a una compuerta, la misma pertenece abierta por default.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{button.png}}
+	\caption{Designar nombre a un botón}
+	\label{fig:diagrama20}
+\end{figure}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{receptor.png}}
+	\caption{Designar nombre a un receptor}
+	\label{fig:diagrama21}
+\end{figure}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{condition.png}}
+	\caption{Designar una condición a una compuerta}
+	\label{fig:diagrama22}
+\end{figure}
+
+\newpage
+
+Una vez finalizada la edición, el mismo se guarda haciendo \textbf{CTRL+S} y se escribe el nombre del nivel que se desea utilizar.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{saving_editor.png}}
+	\caption{Guardar un nivel en el editor}
+	\label{fig:diagrama23}
+\end{figure}
+
+Luego en el juego se puede seleccionar un nivel en el momento de creación del juego. Se muestra una serie de niveles a elegir y el usuario escribe el que haya seleccionado. Los últimos pasos para la creación de una partida es elegir un nombre para el juego y un ID. La cantidad de jugadores está predefinida por el editor, por lo que si se edita un nivel con 3 jugadores deberán conectarse 3 clientes para comenzar el juego. La unión a una partida se configura seleccionando alguno de los juegos disponibles y eligiendo un ID (distinto al de los jugadores en juego). El juego se desarrolla hasta que se gana (todos llegan a la \textit{cake}) o se pierde (todos mueren), mostrando un mensaje por pantalla que indica el resultado y finaliza la ejecución.
 
 \end{document}
