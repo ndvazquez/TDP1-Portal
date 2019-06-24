@@ -28,19 +28,18 @@ void DiagonalMetalBlock::calculateCenterMass() {
             x_diagonal_center_mass = getHorizontalPosition() + vector[i].x + 1;
             y_diagonal_center_mass = getVerticalPosition() + vector[i].y + 1;
             return;
-        }
-        if (i == 1 && angle == 315) {
-            std::cout << "Entre al if correcto" << std::endl;
-            x_diagonal_center_mass = getHorizontalPosition() + vector[i].x - 1;
+        } else if (i == 1 && angle == 315) {
+            x_diagonal_center_mass = getHorizontalPosition();
             y_diagonal_center_mass = getVerticalPosition() + vector[i].y - 1;
             return;
-        }
-        else {
+        } else if (i == 1 && angle == 225) {
+            x_diagonal_center_mass = getHorizontalPosition() + vector[i].x + 1;
+            y_diagonal_center_mass = getVerticalPosition() + vector[i].y - 1;
+            return;
+        } else {
             x_diagonal_center_mass = getHorizontalPosition();
             y_diagonal_center_mass = getVerticalPosition();
         }
-        std::cout << vector[i].x << std::endl;
-        std::cout << vector[i].y << std::endl;
     }
 }
 
