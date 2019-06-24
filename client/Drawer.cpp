@@ -109,7 +109,7 @@ void Drawer::draw(std::string& idChell) {
             output.writeTheScreen(s);
             quit = true;
         }
-
+        if (quit) break;
         // Time to draw!
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;

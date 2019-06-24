@@ -40,7 +40,6 @@ try {
         rst = menu.start();
 
         if (rst == QUIT_ACTION) {
-            std::cerr << "QUIT" << std::endl;
             clientSocket.shutdownAndClose();
             return false;
         }
@@ -49,10 +48,8 @@ try {
         nlohmann::json actionJson;
         int actionCode;
         if (rst == CREATE_ACTION) {
-            std::cerr << "CREATE" << std::endl;
             actionCode = CREATE_GAME_CODE;
         } else if (rst == JOIN_ACTION) {
-            std::cerr << "JOIN" << std::endl;
             actionCode = JOIN_GAME_CODE;
         }
         actionJson["action"] = actionCode;
@@ -86,7 +83,6 @@ try {
         GameNameMenu gameNameMenu(window, gaString);
         std::string gameName = gameNameMenu.start(rst);
 
-        std::cerr << "gameName: " << gameName << std::endl;
 
         InputText input(window, "Enter your ID" , GREEN_MOLD);
         std::string& playerId = input.getText();
@@ -94,7 +90,6 @@ try {
         m.start(input, window);
 
 
-        std::cerr << "ID: " << playerId << std::endl;
 
         nlohmann::json fieldsJson;
 
@@ -122,7 +117,6 @@ try {
     }
     return true;
 } catch (CloseException) {
-    std::cerr << "QUIT" << std::endl;
     clientSocket.shutdownAndClose();
     return false;
 }
