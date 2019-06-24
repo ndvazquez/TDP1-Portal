@@ -23,8 +23,8 @@
 #define MTP_FACTOR 70
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket):
-    clientProtocol(clientProtocol), clientSocket(clientSocket) {
+Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window):
+    clientProtocol(clientProtocol), clientSocket(clientSocket), newWindow(window) {
 }
 
 void Drawer::draw(std::string& idChell) {
@@ -35,7 +35,7 @@ void Drawer::draw(std::string& idChell) {
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
 
-    Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+    //Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
     // Cool space background.
     std::string bgPath = "resources/editor-stage-bg.png";
     Sprite background(bgPath, newWindow);

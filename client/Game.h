@@ -7,13 +7,15 @@
 
 
 #include "../common/Protocol.h"
+#include "../common/Window.h"
 
 class Game {
 private:
     Protocol& clientProtocol;
     Socket& clientSocket;
+    Window& window;
 public:
-    Game(Protocol& clientProtocol, Socket& clientSocket);
+    Game(Protocol& clientProtocol, Socket& clientSocket, Window& window);
     bool play(std::string& idChell);
 };
 

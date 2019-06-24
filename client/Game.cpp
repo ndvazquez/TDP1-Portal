@@ -12,8 +12,8 @@
 #include "../json/json.hpp"
 #include "../common/constants.h"
 
-Game::Game(Protocol &clientProtocol, Socket &clientSocket):
-    clientProtocol(clientProtocol), clientSocket(clientSocket) {
+Game::Game(Protocol &clientProtocol, Socket &clientSocket, Window& window):
+    clientProtocol(clientProtocol), clientSocket(clientSocket), window(window) {
 }
 
 bool Game::play(std::string& idChell) {
