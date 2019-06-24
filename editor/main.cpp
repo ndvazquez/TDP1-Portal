@@ -8,9 +8,6 @@
 #include "../common/InputText.h"
 #include "HomeScreen.h"
 #include "stage/InputManager.h"
-#include "../ffmpeg/BlockingQueue.h"
-#include "../ffmpeg/SwsContext.h"
-#include "../ffmpeg/Consumer.h"
 
 #define TOTAL_WIDTH  1500
 #define TOTAL_HEIGHT 1000
@@ -28,20 +25,7 @@ int main(int argc, char* argv[]) {
         Editor editor(window, yamlPath);
         editor.draw(0, 0);
 
-        /// FFMPEG {
-        BlockingQueue queue; // needed for concurrency
-
-        av_register_all();  // REALLY IMPORTANT.
-        // If you do not call this function before initializing Cosumer
-        // your program will crash
-        SwsContext ctx(queue, window);
-        std::string filename = "ffmpegtest.mkv";
-        Consumer consumer(queue, filename, window);
-
-        consumer.start();
-        /// }
-
-
+        
         bool quit;
         SDL_Event e;
         while (!quit) {
@@ -90,11 +74,8 @@ int main(int argc, char* argv[]) {
                 }
             }
             editor.draw((int) e.motion.x, (int) e.motion.y);
-            ctx.write();
         }
-        queue.close();  // hey queue when you get empty it means that we finish.
-                        // We are not going tu push anything else.
-        consumer.join();
+
         SDL_Delay(500);
     }
     catch (CloseException &e ) {
