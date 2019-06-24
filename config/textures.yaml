@@ -75,6 +75,8 @@ ReceptorRight:
   - name: 1
     path: resources/lounch-block/receptor-right.png
 
+Pintool: {path: resources/Pintool/pintool.png}
+
 StaticObjects:
   - name: MetalBlock
     path: resources/blocks/metal-block.png

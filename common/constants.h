@@ -147,6 +147,8 @@ enum Direction {
 #define ENERGY_BAR_WIDTH 0.5
 #define RECEPTOR_WIDTH 2
 #define RECEPTOR_HEIGHT 2
+#define PINTOOL_WIDTH 0.25
+#define PINTOOL_HEIGHT 0.25
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
@@ -164,7 +166,7 @@ enum Direction {
 #define ER_DOWN_VIEW_CODE 12
 #define ER_LEFT_VIEW_CODE 13
 #define ER_RIGHT_VIEW_CODE 14
-
+#define PINTOOL_VIEW_CODE 15
 
 // AudioSystem sound codes.
 #define RUN_SOUND 0

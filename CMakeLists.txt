@@ -62,7 +62,8 @@ set(CLIENT_SOURCE_FILES
         client/views/ReceptorUpView.cpp
         client/views/ReceptorDownView.cpp
         client/views/ReceptorLeftView.cpp
-        client/views/ReceptorRightView.cpp)
+        client/views/ReceptorRightView.cpp
+        client/views/Pintool.cpp)
 
 #EDITOR CONFIG
 

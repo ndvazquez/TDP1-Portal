@@ -18,6 +18,7 @@
 #include "ReceptorDownView.h"
 #include "ReceptorLeftView.h"
 #include "ReceptorRightView.h"
+#include "Pintool.h"
 
 ViewFactory::ViewFactory(int mtpFactor) :
         mtpFactor(mtpFactor) {
@@ -89,6 +90,9 @@ View* ViewFactory::createView(int viewTypeCode,
             newView = new ReceptorRightView(gameWindow, 0, 0, mtpFactor,
                                          texturesData);
             break;
+        case PINTOOL_VIEW_CODE:
+            newView = new PintoolView(gameWindow, 0, 0, mtpFactor,
+                                         texturesData);
         default:
             break;
     }
