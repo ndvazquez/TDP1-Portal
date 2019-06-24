@@ -24,10 +24,32 @@ void DiagonalMetalBlock::calculateCenterMass() {
     vector = shape->m_vertices;
     
     for (int i = 0; i < 3; i++) {
-        std::cout << "x: " << vector[i].x << std::endl;
-        std::cout << "y: " << vector[i].y << std::endl;
-    }   
+        if (i == 2 && angle == 135) {
+            x_diagonal_center_mass = getHorizontalPosition() + vector[i].x + 1;
+            y_diagonal_center_mass = getVerticalPosition() + vector[i].y + 1;
+            return;
+        }
+        if (i == 1 && angle == 315) {
+            std::cout << "Entre al if correcto" << std::endl;
+            x_diagonal_center_mass = getHorizontalPosition() + vector[i].x - 1;
+            y_diagonal_center_mass = getVerticalPosition() + vector[i].y - 1;
+            return;
+        }
+        else {
+            x_diagonal_center_mass = getHorizontalPosition();
+            y_diagonal_center_mass = getVerticalPosition();
+        }
+        std::cout << vector[i].x << std::endl;
+        std::cout << vector[i].y << std::endl;
+    }
+}
 
+float DiagonalMetalBlock::getXCM() {
+    return x_diagonal_center_mass;
+}
+
+float DiagonalMetalBlock::getYCM() {
+    return y_diagonal_center_mass;
 }
 
 void DiagonalMetalBlock::handleCollision(Entity* entity) {

@@ -19,6 +19,12 @@ private:
 
 public:
     explicit DiagonalMetalBlock(b2Body* body, float angle);
+    
+    /* Returns the x coordinate of the CM if it were a square */
+    float getXCM();
+
+    /* Returns the y coordinate of the CM if it were a square */
+    float getYCM();
 
     /* Handles collision against other objects in the world */
     void handleCollision(Entity* entity) override;
