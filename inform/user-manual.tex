@@ -212,7 +212,9 @@ Cabe recordar que las bolas de energía rebotan contra un bloque de metal u otro
 	\label{fig:diagrama11}
 \end{figure}
 
-Por último un caso especial es el de los bloques en diagonal. Chell resbala por los mismos si camina por encima y las bolas de energía al rebotar contra ellas cambian su dirección. Es importante tener en cuenta esto porque Chell puede estar posicionada en una dirección que no está en la trayectoria de la bola designada por el emisor e ignorar el hecho que puede chocarla en cualquier momento por dicho desvío.
+\newpage
+
+Por último un caso especial es el de los bloques en diagonal. Chell resbala por los mismos si camina por encima y las bolas de energía al rebotar contra ellas cambian su dirección. Esto quiere decir que si una bola que tiene una trayectoria horizontal choca con un bloque en diagonal tendrá una trayectoria vertical. Esto es importante tenerlo en cuenta primero para la vida de Chell, ya que hay que ser atento al movimiento de la bola de energía para no perder la vida. Luego, es importante porque como los receptores se activan con bolas de energía puede ser necesario modificar la trayectoria y utilizar portales para transportarla.
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_1.png}}
@@ -220,7 +222,7 @@ Por último un caso especial es el de los bloques en diagonal. Chell resbala por
 	\label{fig:diagrama12}
 \end{figure}
 
-Se observa en las siguientes figuras que la bola de energia inicialmente presenta una trayectoria horizontal y luego sigue una trayectoria paralela a la normal de la hipotenusa del bloque en diagonal.
+Se observa en las siguientes figuras que la bola de energia inicialmente presenta una trayectoria vertical y luego sigue una trayectoria horizontal.
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_2.png}}
