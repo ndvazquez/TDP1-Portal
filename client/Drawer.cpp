@@ -35,9 +35,7 @@ void Drawer::draw(std::string& idChell) {
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
-
-    //Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
-    // Cool space background.
+    
     std::string bgPath = "resources/editor-stage-bg.png";
     Sprite background(bgPath, newWindow);
 
