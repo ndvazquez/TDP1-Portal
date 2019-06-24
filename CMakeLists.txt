@@ -52,7 +52,10 @@ set(CLIENT_SOURCE_FILES
         common/Protocol.cpp
         client/Game.cpp
         client/Drawer.cpp
-        client/views/EnergyBarView.cpp)
+        client/views/EnergyBarView.cpp
+        client/InitialMenu.cpp
+        common/OutputText.cpp
+        common/InputText.cpp)
 
 #EDITOR CONFIG
 
