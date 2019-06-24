@@ -213,5 +213,6 @@ enum Direction {
 #define RECORD_GAME0 'Y'
 #define RECORD_GAME1 'y'
 #define VIDEO_EXTENSION ".mkv"
+#define VIDEO_DIRECTORY "recorded-games/"
 
 #endif //PORTAL_CONSTANTS_H

@@ -15,7 +15,7 @@ private:
     Window& newWindow;
 public:
     Drawer(Protocol& clientProtocol, Socket& clientSocket, Window& window);
-    void draw(std::string& idChell);
+    void draw(std::string &idChell, bool *recordVideo, std::string videoPath);
 };
 
 #endif //PORTAL_DRAWER_H

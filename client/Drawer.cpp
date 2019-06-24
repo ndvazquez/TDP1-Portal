@@ -16,7 +16,9 @@
 #include "../common/StageStatusQueue.h"
 #include "views/ViewManager.h"
 #include "../common/InputText.h"
+#include "../ffmpeg/FfmpegWrapper.h"
 #include <yaml-cpp/node/node.h>
+
 
 // It's recommended to use multiples of the MTP_FACTOR to get a smooth
 // experience.
@@ -28,9 +30,9 @@ Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window):
     clientProtocol(clientProtocol), clientSocket(clientSocket), newWindow(window) {
 }
 
-void Drawer::draw(std::string& idChell) {
-    const int screenWidth = 1050;
-    const int screenHeight = 700;
+void Drawer::draw(std::string &idChell, bool *recordVideo, std::string videoPath) {
+    const int screenWidth = newWindow.getWindowWidth();
+    const int screenHeight = newWindow.getWindowHeight();
     YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
@@ -84,6 +86,14 @@ void Drawer::draw(std::string& idChell) {
     };
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
+
+    /// FFMPEG {
+    FfmpegWrapper ffmpeg(newWindow, recordVideo, videoPath);
+    /// }
+
+
+
+
     bool quit = false;
     while (!quit) {
         if (!stageStatusQueue.empty()) {
@@ -114,6 +124,9 @@ void Drawer::draw(std::string& idChell) {
         background.draw(bgRect);
         stageView.draw(cameraRect);
         viewManager.showAndUpdateViews(stageUpdateRequest, camera);
+        /// FFMPEG {
+        ffmpeg.run();
+        /// }
         newWindow.render();
         audioSystem.playSoundEffects();
 
@@ -128,4 +141,7 @@ void Drawer::draw(std::string& idChell) {
     eventSender.join();
     stageStatusReceiver.stop();
     stageStatusReceiver.join();
+    /// FFMPEG {
+    ffmpeg.stop();
+    /// }
 }

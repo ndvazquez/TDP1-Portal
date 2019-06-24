@@ -21,8 +21,8 @@ void playGame() {
     clientSocket.connectToHost(host, service);
     Protocol clientProtocol(clientSocket);
 
-    const int screenWidth = 1050;
-    const int screenHeight = 700;
+    const int screenWidth = 1040;
+    const int screenHeight = 688;
     std::string title = "Portal";
     Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 
@@ -32,7 +32,7 @@ void playGame() {
     if (!game.play(idChell, &recorVideo, videoPath)) return;
 
     Drawer drawer(clientProtocol, clientSocket, newWindow);
-    drawer.draw(idChell);
+    drawer.draw(idChell, &recorVideo, videoPath);
     std::cout << "Game finished, thanks for playing!\n";
 }
 

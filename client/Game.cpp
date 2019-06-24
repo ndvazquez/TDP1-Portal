@@ -99,7 +99,7 @@ bool Game::play(std::string &idChell, bool *recordGame, std::string &videoPath) 
                 std::string &videoName = record.getText();
                 SimpleInputManager inputManager;
                 inputManager.start(record, window, RECOR_MESSAGE1);
-                videoPath = videoName + VIDEO_EXTENSION;
+                videoPath = VIDEO_DIRECTORY + videoName + VIDEO_EXTENSION;
             }
 
             nlohmann::json fieldsJson;

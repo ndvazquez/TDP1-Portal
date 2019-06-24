@@ -12,11 +12,11 @@ CodecContext::CodecContext(AVCodec *codec, Window &window) :
     if (!codecContext) {
         throw CodecContextInitException();
     }
-    // La resolución debe ser múltiplo de 2
+    // La resolución debe ser múltiplo de 16
     this->codecContext->width = window.getWindowWidth();
     this->codecContext->height = window.getWindowHeight();
-    this->codecContext->time_base = {1,25};
-    this->codecContext->framerate = {25,1};
+    this->codecContext->time_base = {1,60};
+    this->codecContext->framerate = {60,1};
     this->codecContext->pix_fmt = AV_PIX_FMT_YUV420P;
     this->codecContext->gop_size = 10;
     this->codecContext->max_b_frames = 2;
