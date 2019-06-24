@@ -39,10 +39,10 @@ static void encode(CodecContext* codecContext, Frame* frame, Packet* pkt,
     }
 }
 
-Output::Output(FormatContext& context, const std::string& filename) :
+Output::Output(FormatContext &context, const std::string &filename, Window &window) :
         context(context) ,
         format(filename),
-        codecContext(format.getCodec()),
+        codecContext(format.getCodec(), window),
         frame(codecContext.getPixFmt(), codecContext.getWidth(), codecContext.getHeight()) {
     this->outputFile = fopen(filename.c_str(), "wb");
 }

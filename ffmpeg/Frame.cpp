@@ -28,7 +28,7 @@ Frame::~Frame() {
 void Frame::write(const char *data, SwsContext *ctx) {
     const u_int8_t* tmp = (const u_int8_t*) data;
     // El ancho del video x3 por la cantidad de bytes
-    int width = 352 * 3;
+    int width = this->frame->width * 3;
     sws_scale(ctx, &tmp, &width, 0, frame->height, frame->data, frame->linesize);
     frame->pts = currentPts;
     currentPts++;
