@@ -176,6 +176,8 @@ Una posible solución sería saltar ese ácido, pero eso podría resultar arries
 	\label{fig:diagrama7}
 \end{figure}
 
+\newpage
+
 \subsection{Muestra de objetos}
 
 Ahora se presentan otros elementos del juego para que el usuario se familiarice con los mismos. 
@@ -188,21 +190,25 @@ En un primer lugar, se muestra una bola de energía, transmitida por un emisor y
 	\label{fig:diagrama8}
 \end{figure}
 
+\newpage
+
 Otra función que cumplen las bolas de energía es activar los llamados receptores, utilizados para la lógica de compuertas. Esta activación consiste en que la bola de energía colisione con la "boca" del receptor. Una vez activado, queda activado por siempre y \textit{puede} permitir abrir una puerta. Hay casos en los que por la disposición de los emisores y receptores, los receptores serán activados por estar en la trayectoria de la bola. Podría suceder que no sea así y que para activarlo se deba crear un portal que teletransporte la bola de energía y cambie su trayectoria.
 
 En la \textit{Figura 9} se observa un emisor que emite bolas de energía hacia arriba y un receptor que las recibe desde abajo. Se muestra la diferencia entre un receptor desactivado (primer caso) y un receptor activado (segundo caso).
 
 \begin{figure}[!h]
-	\makebox[\textwidth][c]{\includegraphics[width=0.25\textwidth]{er_off.png}}
+	\makebox[\textwidth][c]{\includegraphics[width=0.20\textwidth]{er_off.png}}
 	\caption{Receptor desactivado}
 	\label{fig:diagrama9}
 \end{figure}
 
 \begin{figure}[!h]
-	\makebox[\textwidth][c]{\includegraphics[width=0.25\textwidth]{er_on.png}}
+	\makebox[\textwidth][c]{\includegraphics[width=0.20\textwidth]{er_on.png}}
 	\caption{Receptor activado}
 	\label{fig:diagrama10}
 \end{figure}
+
+\newpage
 
 Cabe recordar que las bolas de energía rebotan contra un bloque de metal u otro emisor, pero mueren contra un bloque de roca. Se observa en la \textit{Figura 10} que la bola de energía rebota contra el bloque de metal.
 
@@ -214,7 +220,7 @@ Cabe recordar que las bolas de energía rebotan contra un bloque de metal u otro
 
 \newpage
 
-Por último un caso especial es el de los bloques en diagonal. Chell resbala por los mismos si camina por encima y las bolas de energía al rebotar contra ellas cambian su dirección. Esto quiere decir que si una bola que tiene una trayectoria horizontal choca con un bloque en diagonal tendrá una trayectoria vertical. Esto es importante tenerlo en cuenta primero para la vida de Chell, ya que hay que ser atento al movimiento de la bola de energía para no perder la vida. Luego, es importante porque como los receptores se activan con bolas de energía puede ser necesario modificar la trayectoria y utilizar portales para transportarla.
+Por último un caso especial es el de los bloques en diagonal. Chell resbala por los mismos si camina por encima y las bolas de energía al rebotar contra ellas cambian su dirección. Esto quiere decir que si una bola que tiene una trayectoria horizontal choca con un bloque en diagonal tendrá una trayectoria vertical y viceversa. Esto es importante tenerlo en cuenta primero para la vida de Chell, ya que hay que ser atento al movimiento de la bola de energía para no perder la vida. Luego, también puede ser necesario modificar la trayectoria de una bola de energía y teletransportarla con el uso de portales para activar los receptores.
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_1.png}}
