@@ -5,9 +5,6 @@
 #ifndef PORTAL_GAMENAMEMENU_H
 #define PORTAL_GAMENAMEMENU_H
 
-
-
-
 #include "../common/Window.h"
 #include "../common/constants.h"
 #include "../common/InputText.h"

@@ -7,10 +7,8 @@
 #include "../common/OutputText.h"
 #include "../common/InputText.h"
 
-
 #define ENTERING_DONE "(DONE)"
 #define OPTIONS_TITLE "LIST OF LEVEL AVAILABLES"
-
 #define EXTENSION ".yaml"
 
 LevelMenu::LevelMenu(Window &window,
@@ -25,12 +23,7 @@ std::string LevelMenu::start(const char* principalMessage) {
         int len = it.size();
         optionsList.push_back(new OutputText(window, it.substr(0,len-5).c_str(), LIGHT_GRAY));
     }
-
-
-
     InputText input(window, principalMessage, GREEN_MOLD);
-
-
     SDL_Event e;
     bool close = false;
     int width = window.getWindowWidth();
@@ -86,7 +79,7 @@ std::string LevelMenu::start(const char* principalMessage) {
         }
     }
 
-    if(close) {
+    if (close) {
         throw CloseException();
     }
 

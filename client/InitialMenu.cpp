@@ -8,7 +8,7 @@
 #include "../common/OutputText.h"
 #include "../common/InputText.h"
 
-#define PINCIPAL_MESSAGE  "DO YOU WANT TO (CREATE) OR (JOIN) A GAME?"
+#define PRINCIPAL_MESSAGE  "DO YOU WANT TO (CREATE) OR (JOIN) A GAME?"
 #define CREATE_MESSAGE "(CREATE)"
 #define JOIN_MESSAGE "(JOIN)"
 #define SENTINEL_MESSAGE "  "
@@ -26,7 +26,7 @@ int InitialMenu::start() {
     int width = window.getWindowWidth();
     int height = window.getWindowHeight();
 
-    OutputText principal(window, PINCIPAL_MESSAGE, GREEN_MOLD);
+    OutputText principal(window, PRINCIPAL_MESSAGE, GREEN_MOLD);
     int principalImageH = principal.getHeight();
 
     // Setting skip option
