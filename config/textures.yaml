@@ -51,6 +51,30 @@ Button:
 
 Cake: {path: resources/cake/initial.png, frames: 8}
 
+ReceptorUp:
+  - name: 0
+    path: resources/lounch-block/up.png
+  - name: 1
+    path: resources/lounch-block/receptor-up.png
+
+ReceptorDown:
+  - name: 0
+    path: resources/lounch-block/down.png
+  - name: 1
+    path: resources/lounch-block/receptor-down.png
+
+ReceptorLeft:
+  - name: 0
+    path: resources/lounch-block/left.png
+  - name: 1
+    path: resources/lounch-block/receptor-left.png
+
+ReceptorRight:
+  - name: 0
+    path: resources/lounch-block/right.png
+  - name: 1
+    path: resources/lounch-block/receptor-right.png
+
 StaticObjects:
   - name: MetalBlock
     path: resources/blocks/metal-block.png

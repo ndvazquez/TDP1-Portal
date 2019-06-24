@@ -1,0 +1,282 @@
+Stage:
+  dimentions:
+    width: 19
+    height: 11
+24:
+  position:
+    []
+23:
+  position:
+    []
+13:
+  position:
+    []
+12:
+  position:
+    []
+11:
+  position:
+    []
+14:
+  position:
+    []
+20:
+  position:
+    []
+19:
+  position:
+    - x: 17.5
+      y: 2.5
+21:
+  position:
+    - x: 14.5
+      y: 3
+18:
+  position:
+    - x: 2.5
+      y: 2.975
+6:
+  position:
+    - x: 5
+      y: 7
+5:
+  position:
+    []
+22:
+  position:
+    []
+4:
+  position:
+    []
+3:
+  position:
+    []
+1:
+  position:
+    - x: 1
+      y: 1
+    - x: 3
+      y: 1
+    - x: 5
+      y: 9
+    - x: 5
+      y: 5
+    - x: 5
+      y: 1
+    - x: 7
+      y: 9
+    - x: 7
+      y: 1
+    - x: 9
+      y: 9
+    - x: 9
+      y: 1
+    - x: 11
+      y: 9
+    - x: 11
+      y: 1
+    - x: 13
+      y: 9
+    - x: 13
+      y: 7
+    - x: 13
+      y: 1
+    - x: 15
+      y: 5
+    - x: 15
+      y: 1
+    - x: 17
+      y: 5
+    - x: 17
+      y: 1
+    - x: 19
+      y: 5
+    - x: 19
+      y: 3
+    - x: 19
+      y: 1
+2:
+  position:
+    []
+7:
+  position:
+    []
+8:
+  position:
+    []
+9:
+  position:
+    - x: 13
+      y: 5
+10:
+  position:
+    []
+100:
+  position:
+    - x: 1
+      y: 2
+    - x: 2
+      y: 2
+    - x: 2
+      y: 1
+    - x: 3
+      y: 2
+    - x: 4
+      y: 2
+    - x: 4
+      y: 1
+    - x: 5
+      y: 10
+    - x: 5
+      y: 8
+    - x: 5
+      y: 6
+    - x: 5
+      y: 2
+    - x: 6
+      y: 10
+    - x: 6
+      y: 9
+    - x: 6
+      y: 8
+    - x: 6
+      y: 7
+    - x: 6
+      y: 6
+    - x: 6
+      y: 5
+    - x: 6
+      y: 2
+    - x: 6
+      y: 1
+    - x: 7
+      y: 10
+    - x: 7
+      y: 2
+    - x: 8
+      y: 10
+    - x: 8
+      y: 9
+    - x: 8
+      y: 2
+    - x: 8
+      y: 1
+    - x: 9
+      y: 10
+    - x: 9
+      y: 2
+    - x: 10
+      y: 10
+    - x: 10
+      y: 9
+    - x: 10
+      y: 2
+    - x: 10
+      y: 1
+    - x: 11
+      y: 10
+    - x: 11
+      y: 2
+    - x: 12
+      y: 10
+    - x: 12
+      y: 9
+    - x: 12
+      y: 2
+    - x: 12
+      y: 1
+    - x: 13
+      y: 10
+    - x: 13
+      y: 8
+    - x: 13
+      y: 6
+    - x: 13
+      y: 2
+    - x: 14
+      y: 10
+    - x: 14
+      y: 9
+    - x: 14
+      y: 8
+    - x: 14
+      y: 7
+    - x: 14
+      y: 6
+    - x: 14
+      y: 5
+    - x: 14
+      y: 2
+    - x: 14
+      y: 1
+    - x: 15
+      y: 6
+    - x: 15
+      y: 2
+    - x: 16
+      y: 6
+    - x: 16
+      y: 5
+    - x: 16
+      y: 2
+    - x: 16
+      y: 1
+    - x: 17
+      y: 6
+    - x: 17
+      y: 2
+    - x: 18
+      y: 6
+    - x: 18
+      y: 5
+    - x: 18
+      y: 2
+    - x: 18
+      y: 1
+    - x: 19
+      y: 6
+    - x: 19
+      y: 4
+    - x: 19
+      y: 2
+    - x: 20
+      y: 6
+    - x: 20
+      y: 5
+    - x: 20
+      y: 4
+    - x: 20
+      y: 3
+    - x: 20
+      y: 2
+    - x: 20
+      y: 1
+15:
+  position:
+    []
+101:
+  position:
+    - x: 3
+      y: 4
+    - x: 15
+      y: 4
+16:
+  position:
+    []
+17:
+  position:
+    []
+Names:
+  - name: Receptor
+    position:
+      x: 13
+      y: 5
+  - name: ""
+    position:
+      x: 14.5
+      y: 3
+Conditions:
+  - condition: Receptor
+    position:
+      x: 14.5
+      y: 3
