@@ -13,28 +13,28 @@ int main(int argc, char** argv){
                             // If you do not call this function before initializing Cosumer
                             // your program will crash
         SwsContext ctx(queue, window);
-        std::string outputFilename = argv[1];
+        std::string filename = argv[1];
         Consumer consumer(queue, filename, window);
 
 
         window.clear();
         // Draw whatever you want
-        window.render()
+        window.render();
 
-        consumer.start()
+        consumer.start();
         while (running) {
             
             handleSDLEvent(x, y, running);
             
             window.clear();
             // Draw whatever you want
-            window.render()
+            window.render();
 
-            ctx.write(window);  // Reads from the window.render and writes on disk
+            ctx.write();  // Reads from the window.render and writes on disk
         }
         
         queue.close() // hey queue when you get empty it means that we finish. 
-                      // We are not going tu give you anything else to encolate
+                      // We are not going to push anything else.
                       
         consumer.join()
         

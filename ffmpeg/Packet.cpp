@@ -23,6 +23,5 @@ void Packet::write(FILE *outfile) {
 }
 
 Packet::~Packet() {
-    std::cerr << "entro a destruir el packet" << std::endl;
     av_packet_free(&pkt);
 }
