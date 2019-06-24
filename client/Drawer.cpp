@@ -105,7 +105,7 @@ void Drawer::draw(std::string& idChell) {
         if (gameState == WON) {
 
             OutputText output(newWindow,"  ", GREEN_MOLD);
-            std::string s = "Your team have won! Congratulations!";
+            std::string s = "Your team has won! Congratulations!";
             output.writeTheScreen(s);
             quit = true;
         }
