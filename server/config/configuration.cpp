@@ -22,6 +22,5 @@ const struct box2DConfiguration gameConfiguration = {
         .offsetEnergyTransmitter = configuration_data["offsetEnergyTransmitter"].as<float>(),
         .velocityDownload = configuration_data["velocityDownload"].as<float>(),
         .velocityRelease = configuration_data["velocityRelease"].as<float>(),
-        .directionFactor = configuration_data["directionFactor"].as<float>(),
         .shotFactor = configuration_data["shotFactor"].as<float>()
 };

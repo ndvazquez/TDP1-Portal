@@ -34,14 +34,14 @@ public:
     /* Inverts orientation of an EnergyBall */
     void invertDirection();
 
-    /* Applies velocity to an EnergyBall in order to change its direction */
-    void changeDirection(b2Vec2 velocity);
-
     /* Handles collision against other objects in the world */
     void handleCollision(Entity* entity) override;
 
     /* An EnergyBall teleports to the location indicated by coordinate */
     void teleport(Coordinate* target, Direction type);
+
+    /* Returns the actual direction of an EnergyBall */
+    Direction getDirection();
 
     /* Checks collisions for EnergyBall */
     void update();

@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "entities/MetalBlock.h"
 #include "entities/Chell.h"
 #include "entities/OrangeShot.h"
@@ -22,6 +23,7 @@ void MetalBlock::handleCollision(Entity* entity) {
     }
 
     if (type == EB_NAME) {
+        std::cout << "eb!" << std::endl;
         dynamic_cast<EnergyBall*>(entity)->invertDirection();
     }
 

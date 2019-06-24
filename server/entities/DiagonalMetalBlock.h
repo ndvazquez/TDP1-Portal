@@ -8,6 +8,7 @@
 #include <Box2D/Dynamics/b2Body.h>
 #include "Entity.h"
 #include "stage-support/Coordinate.h"
+#include "../../common/constants.h"
 
 class DiagonalMetalBlock: public Entity  {
 private:
@@ -29,9 +30,7 @@ public:
     /* Handles collision against other objects in the world */
     void handleCollision(Entity* entity) override;
 
-    /* Returns the velocity that has to be applied to any
-     * object colliding against a DiagonalMetalBlock to bounce */
-    b2Vec2 calculateVelocity();
+    Direction getDirection(Direction eb_type);
 };
 
 #endif //PORTAL_DIAGONALMETALBLOCK_H
