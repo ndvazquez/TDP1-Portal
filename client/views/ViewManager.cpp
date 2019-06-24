@@ -13,7 +13,8 @@ ViewManager::ViewManager(Window& window,
         int factor,
         std::string& playerID,
         nlohmann::json& objectsData,
-        SoundCodeQueue& soundCodeQueue)
+        SoundCodeQueue& soundCodeQueue,
+        nlohmann::json& metadata)
         : gameWindow(window),
         levelHeight(levelHeight),
         mtpFactor(factor),
@@ -29,12 +30,21 @@ ViewManager::ViewManager(Window& window,
         float yPos = data["y"].get<float>();
         newView->move(xPos, yPos, levelHeight);
         const std::string& viewName = item.key();
+        if (viewName.find(PLAYER_ID_PREFIX) != std::string::npos) {
+            std::string playerName = metadata["playerNames"][viewName].get<std::string>();
+            OutputText* playerNameText = new OutputText(gameWindow, playerName.c_str());
+            playerNames.insert({viewName, playerNameText});
+        }
         views.insert({viewName, newView});
+
     }
 }
 
 ViewManager::~ViewManager() {
     for (auto it = views.begin(); it != views.end(); ++it){
+        delete it->second;
+    }
+    for (auto it = playerNames.begin(); it != playerNames.end(); ++it){
         delete it->second;
     }
 }
@@ -59,6 +69,22 @@ void ViewManager::showAndUpdateViews(nlohmann::json &objectsData,
             int playerPosY = view->getCenterPosY();
             camera.centerCameraOnPlayer(playerPosX, playerPosY);
         }
+        if (objectID.find(PLAYER_ID_PREFIX) != std::string::npos) {
+            auto playerName = playerNames.find(objectID);
+            int playerPosX = view->getViewPositionX();
+            int playerPosY = view->getViewPositionY();
+            SDL_Rect textRect = {playerPosX,
+                                 playerPosY,
+                                 2 * MTP_FACTOR,
+                                 MTP_FACTOR};
+            if (SDL_HasIntersection(&textRect, &cameraRect)) {
+                textRect.x = playerPosX - cameraRect.x;
+                textRect.y = playerPosY - MTP_FACTOR / 2 - cameraRect.y;
+                playerName->second->draw(&textRect);
+            }
+        }
+
         view->playAnimation(cameraRect);
+
     }
 }

@@ -39,7 +39,12 @@ void StageManager::run() {
     for (auto it = clients.begin(); it != clients.end(); ++it) {
         it->second->start();
     }
+
     nlohmann::json metadata_json = parser.getMetadataJson();
+    metadata_json["playerNames"] = {};
+    for (auto it = players.begin(); it != players.end(); ++it) {
+        metadata_json["playerNames"][it->second] = it->first;
+    }
     nlohmann::json static_json = parser.getStaticJson();
     nlohmann::json dynamic_json = parser.getDynamicJson();
 
