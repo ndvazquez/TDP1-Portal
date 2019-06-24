@@ -43,6 +43,9 @@ void UserEventHandler::handleEvent(SDL_Event &event) {
             userEventQueue.push(userEvent);
             _isDead = true;
             break;
+        case SDL_MOUSEMOTION:
+            SDL_GetMouseState(&x, &y);
+            break;
         case SDL_KEYDOWN:
             int eventCode;
             if (event.key.keysym.sym == SDLK_w && event.key.repeat == 0) {
@@ -61,6 +64,11 @@ void UserEventHandler::handleEvent(SDL_Event &event) {
             }
             else if (event.key.keysym.sym == SDLK_r && event.key.repeat == 0) {
                 eventCode = USER_REMOVE_PORTAL;
+            }  else if (event.key.keysym.sym == SDLK_p && event.key.repeat == 0) {
+                eventCode = USER_PINTOOL;
+                xMeters = (x + camera.getCameraX()) * mtpFactorInv;
+                yMeters = ((y + camera.getCameraY()) * -1 +
+                           levelHeight) * mtpFactorInv;
             }
 
             else {
@@ -95,6 +103,7 @@ void UserEventHandler::handleEvent(SDL_Event &event) {
                 userEventQueue.push(userEvent);
                 break;
             }
+
         default:
             break;
     }

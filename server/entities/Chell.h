@@ -14,6 +14,7 @@
 #include "Portal.h"
 #include <list>
 #include <portal-support/PortalHolder.h>
+#include "PinTool.h"
 
 class Chell: public Entity {
 private:
@@ -28,6 +29,7 @@ private:
     Coordinate* orange_portal_to_teleport;
     Coordinate* blue_portal_to_teleport;
     bool winner;
+    PinTool* pintool;
 
     /* Frees memory allocated for the movement */
     void destroyActualMovement();
@@ -89,6 +91,9 @@ public:
      * location to teleport */
     void addBluePortal(PortalHolder* bluePortal, Coordinate* to_teleport);
 
+    /* Saves the pintool made by Chell */
+    void addPinTool(PinTool* pintool);
+
     /* Chell teleports to the location indicated by coordinate */
     void teleport(Coordinate* coordinate, Direction type);
 
@@ -109,6 +114,9 @@ public:
 
     /* Returns the coordinate of the orange portal */
     Coordinate* getOrangePortalToTeleport();
+
+    /* Returns the pintool made by Chell */
+    PinTool* getPinTool();
 };
 
 #endif //PORTAL_CHELL_H

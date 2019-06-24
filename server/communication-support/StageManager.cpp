@@ -169,6 +169,17 @@ void StageManager::handleEvent(UserEvent &userEvent,
         case USER_REMOVE_PORTAL:
             chell->removePortals();
             break;
+        case USER_PINTOOL:
+        {
+            std::string id = chell_id;
+            std::string replaced = "Chell";
+            id.replace(0, replaced.length(), "PinTool");
+            float x_pos = userEvent.getUserPosX();
+            float y_pos = userEvent.getUserPosY();
+            stage.addPinTool(id, PINTOOL_HEIGHT, PINTOOL_WIDTH,
+                             x_pos, y_pos, chell);
+        }
+            break;
         default:
             break;
     }

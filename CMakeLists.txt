@@ -183,7 +183,8 @@ set(SERVER_SOURCE_FILES
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp
         server/communication-support/RoomWorker.cpp
-        server/communication-support/Server.cpp)
+        server/communication-support/Server.cpp
+        server/entities/PinTool.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)

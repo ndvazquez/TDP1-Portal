@@ -121,6 +121,7 @@ enum Direction {
 #define GATE_NAME "Gate"
 #define BLUE_PORTAL_NAME "BluePortal"
 #define ORANGE_PORTAL_NAME "OrangePortal"
+#define PINTOOL_NAME "PinTool"
 
 // Objects sizes.
 #define METAL_SIDE 2
@@ -147,8 +148,8 @@ enum Direction {
 #define ENERGY_BAR_WIDTH 0.5
 #define RECEPTOR_WIDTH 2
 #define RECEPTOR_HEIGHT 2
-#define PINTOOL_WIDTH 0.25
-#define PINTOOL_HEIGHT 0.25
+#define PINTOOL_WIDTH 1
+#define PINTOOL_HEIGHT 1
 
 // ViewFactory view type codes.
 #define CHELL_VIEW_CODE 0
@@ -188,6 +189,7 @@ enum Direction {
 #define USER_DROP_ROCK 8
 #define USER_THROW_ROCK 9
 #define USER_REMOVE_PORTAL 10
+#define USER_PINTOOL 11
 
 // Protocol stuff
 #define THREAD_SUICIDE_PILL "F"

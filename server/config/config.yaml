@@ -13,3 +13,4 @@ offsetEnergyTransmitter : 2
 velocityDownload : 5
 velocityRelease : 2
 shotFactor : 6
+deathPinTool : 10000
