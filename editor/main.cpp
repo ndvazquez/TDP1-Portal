@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
         Editor editor(window, yamlPath);
         editor.draw(0, 0);
 
-        
+
         bool quit;
         SDL_Event e;
         while (!quit) {
