@@ -15,7 +15,10 @@ public:
     SimpleInputManager();
     ~SimpleInputManager();
 
-    void start(InputText &input, Window &window);
+    void start(InputText &input,
+               Window &window,
+               const char* secondOutput = "  ",
+               const char* thirdOutputconst = "  ");
 };
 
 

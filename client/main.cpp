@@ -27,7 +27,9 @@ void playGame() {
     Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 
     Game game(clientProtocol, clientSocket, newWindow);
-    if (!game.play(idChell)) return;
+    bool recorVideo;
+    std::string videoPath;
+    if (!game.play(idChell, &recorVideo, videoPath)) return;
 
     Drawer drawer(clientProtocol, clientSocket, newWindow);
     drawer.draw(idChell);

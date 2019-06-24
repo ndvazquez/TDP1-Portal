@@ -10,7 +10,10 @@ SimpleInputManager::SimpleInputManager() = default;
 
 SimpleInputManager::~SimpleInputManager() = default;
 
-void SimpleInputManager::start(InputText &input, Window &window) {
+void SimpleInputManager::start(InputText &input,
+                               Window &window,
+                               const char* secondOutput,
+                               const char* thirdOutput) {
     SDL_Event e;
     bool close = false;
     int width = window.getWindowWidth();
@@ -20,6 +23,12 @@ void SimpleInputManager::start(InputText &input, Window &window) {
     OutputText doneImage(window, DONE_MESSAGE, WHITE);
     int imageW = doneImage.getWidth();
     SDL_Rect done = {width - imageW - 40,height - 40,50,50};
+
+
+    OutputText sOImage(window, secondOutput, GREEN_MOLD);
+    int sOW = sOImage.getWidth();
+    OutputText tOImage(window, thirdOutput, GREEN_MOLD);
+    int tOW = tOImage.getWidth();
 
 
     bool quit = false;
@@ -47,6 +56,8 @@ void SimpleInputManager::start(InputText &input, Window &window) {
                 input.handle(&e);
                 window.clear();
                 window.drawBlackBackground();
+                sOImage.drawFromTheCenter(0, -50);
+                tOImage.drawFromTheCenter(0, -80);
                 doneImage.draw(&done);
                 input.drawFromTheCenter(0, 0);
                 window.render();

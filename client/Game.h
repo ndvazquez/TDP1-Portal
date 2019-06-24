@@ -16,7 +16,7 @@ private:
     Window& window;
 public:
     Game(Protocol& clientProtocol, Socket& clientSocket, Window& window);
-    bool play(std::string& idChell);
+    bool play(std::string &idChell, bool *recordGame, std::string &videoPath);
 };
 
 

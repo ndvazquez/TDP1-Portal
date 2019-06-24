@@ -210,5 +210,8 @@ enum Direction {
 #define QUIT_ACTION 0
 #define CREATE_ACTION 1
 #define JOIN_ACTION 2
+#define RECORD_GAME0 'Y'
+#define RECORD_GAME1 'y'
+#define VIDEO_EXTENSION ".mkv"
 
 #endif //PORTAL_CONSTANTS_H

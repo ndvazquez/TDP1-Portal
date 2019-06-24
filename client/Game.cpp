@@ -16,11 +16,17 @@
 #define INVALID_LEVEL_REQUEST "THE NAME YOU ENTERED WAS INVALID. ENTER A VALID LEVEL NAME"
 #define LEVEL_REQUEST "ENTER A LEVEL NAME"
 
+#define RECOR_REQUEST0 "DO YOU WANT TO RECORD THE GAME?"
+#define RECOR_REQUEST1 "(N/y)"
+#define RECOR_MESSAGE0 "SO... YOU WANT TO RECORD THE GAME"
+#define RECOR_MESSAGE1 "JUST WRITE A NAME FOR THE FILE IN WHICH THE VIDEO WILL BE SAVED"
+
+
 Game::Game(Protocol &clientProtocol, Socket &clientSocket, Window& window):
     clientProtocol(clientProtocol), clientSocket(clientSocket), window(window) {
 }
 
-bool Game::play(std::string& idChell) {
+bool Game::play(std::string &idChell, bool *recordGame, std::string &videoPath) {
     bool login = true;
     try {
         while (login) {
@@ -74,10 +80,27 @@ bool Game::play(std::string& idChell) {
             GameNameMenu gameNameMenu(window, gaString);
             std::string gameName = gameNameMenu.start(rst);
 
-            InputText input(window, "Enter your ID" , GREEN_MOLD);
-            std::string& playerId = input.getText();
-            SimpleInputManager m;
-            m.start(input, window);
+            InputText idInput(window, "ENTER YOU ID" , GREEN_MOLD);
+            std::string& playerId = idInput.getText();
+            SimpleInputManager idManager;
+            idManager.start(idInput, window);
+
+            // DO_NOT_RECORD_GAME0 'n'
+            // DO_NOT_RECORD_GAME1 'N'
+            InputText recordRequest(window, RECOR_REQUEST0 , GREEN_MOLD);
+            std::string& recordAnswer = recordRequest.getText();
+            SimpleInputManager requestManager;
+            requestManager.start(recordRequest, window, RECOR_REQUEST1);
+            *recordGame = false;
+
+            if(recordAnswer[0] == RECORD_GAME0 | recordAnswer[0] == RECORD_GAME1) {
+                *recordGame = true;
+                InputText record(window, RECOR_MESSAGE0, GREEN_MOLD);
+                std::string &videoName = record.getText();
+                SimpleInputManager inputManager;
+                inputManager.start(record, window, RECOR_MESSAGE1);
+                videoPath = videoName + VIDEO_EXTENSION;
+            }
 
             nlohmann::json fieldsJson;
             fieldsJson["gameName"] = gameName;
