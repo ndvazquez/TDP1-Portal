@@ -112,6 +112,68 @@ Ahora para poder localizar la torta es necesario moverse por el escenario, en el
 	\item Se pueden resetear tanto los portales como los pintools de manera de utilizar otra combinación más estratégica.
 \end{itemize}
 
+\subsection{Ejemplo de uso}
+
+A continuación se muestra un ejemplo de uso del juego. Este se trata de un nivel confeccionado por el Editor que refleja las funcionalidades básicas del juego. 
+
+En un primer lugar se muestra la forma en la que se ve una piedra cuando Chell la agarra. La idea es levantarla del piso y que su movimiento esté acoplado al de Chell. Es decir, si Chell se mueve para la derecha o izquierda, la roca sigue su movimiento. Chell no puede saltar con una roca pero sí puede lanzarla hacia arriba o dejarla en el piso.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Holding_rock.png}}
+	\caption{Chell agarra roca}
+	\label{fig:diagrama1}
+\end{figure}
+
+La idea de llevar rocas y utilizarlas es principalmente para colocarlas sobre botones y así abrir las puertas que impiden que Chell llegue a un lugar específico. Observando el siguiente ejemplo, se ve que la puerta está cerrada y que debería activarse al menos un botón para abrir la puerta. Puede pasar en el desarrollo del juego que el jugador deba tantear la condición lógica ya que no se mostrará explícitamente la misma en pantalla para motivar la estrategia. En este caso puntual deben activarse ambos botones para poder abrirla, como puede observarse en la \textit{Figura 3}. Vale la pena recordar que la activación del botón se realiza tanto con el peso de una piedra como de otro jugador.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Door_closed.png}}
+	\caption{Puerta cerrada}
+	\label{fig:diagrama2}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Door_open.png}}
+	\caption{Puerta abierta}
+	\label{fig:diagrama3}
+\end{figure}
+
+Ahora sí, al inicio de este nivel se presenta la siguiente situación: la puerta está cerrada y el botón está más arriba de lo que Chell puede lanzar una piedra (además de que sería un movimiento en vertical difícil de alcanzar). Además Chell no puede saltar con la piedra y tampoco puede activarla con su propio peso porque hay solo un jugador.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Strategy.png}}
+	\caption{Primer desafío}
+	\label{fig:diagrama4}
+\end{figure}
+
+Una posible solución (y probablemente no la única) es hacerle caso al nombre del juego y crear un portal para lanzar la piedra y que llegue al botón y así abrir la puerta. Hay que recordar que los bloques de roca no permiten la creación de portales por lo que la única alternativa es crear los portales en los bloques de metal. Por supuesto los portales podrían ubicarse de otra forma, invertirlos (uno azul arriba y uno naranja abajo), poner alguno en el piso y otro más arriba, cualquier opción en la cual el usuario se sienta más cómodo. Hay que recordar que si la piedra toca la cabeza de Chell se muere en el instante por lo que se recomienda tomar la opción que resulte más segura.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Strategy_open.png}}
+	\caption{Primer desafío superado}
+	\label{fig:diagrama5}
+\end{figure}
+
+Ahora se presenta un nuevo desafío: el ácido es letal y hay que llegar a la \textit{cake} para ganar el juego.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Reaching_the_cake.png}}
+	\caption{Segundo desafío}
+	\label{fig:diagrama6}
+\end{figure}
+
+Una posible solución sería saltar ese ácido, pero eso podría resultar arriesgado. Por lo tanto, se recurre nuevamente a los famosos portales para llegar al objetivo. No es casualidad que el nivel esté diseñado de manera tal que los únicos dos bloques donde se puede realizar portales sean los que resulten más beneficiosos al jugador.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{Cake_reached.png}}
+	\caption{Segundo desafío superado}
+	\label{fig:diagrama7}
+\end{figure}
+
+
+
+
 \section{Apéndice de errores}
 
 
