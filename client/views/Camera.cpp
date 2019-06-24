@@ -9,8 +9,10 @@ Camera::Camera(int screenWidth, int screenHeight,
         int levelWidth, int levelHeight) :
         levelWidth(levelWidth),
         levelHeight(levelHeight) {
-       cameraRect.w = screenWidth;
-       cameraRect.h = screenHeight;
+        // If the level is smaller than the camera in some way,
+        // then we'll set the camera size according to the level size.
+       cameraRect.w = screenWidth <= levelWidth ? screenWidth : levelWidth;
+       cameraRect.h = screenHeight <= levelHeight ? screenHeight : levelHeight;
        cameraRect.x = 0;
        cameraRect.y = 0;
 }

@@ -53,6 +53,12 @@ set(CLIENT_SOURCE_FILES
         client/Game.cpp
         client/Drawer.cpp
         client/views/EnergyBarView.cpp
+        client/InitialMenu.cpp
+        common/OutputText.cpp
+        common/InputText.cpp 
+        client/LevelMenu.cpp 
+        client/GameNameMenu.cpp 
+        client/SimpleInputManager.cpp
         client/views/ReceptorUpView.cpp
         client/views/ReceptorDownView.cpp
         client/views/ReceptorLeftView.cpp
@@ -120,7 +126,7 @@ set(EDITOR_SOURCE_FILES
         #ffmpeg/BlockingQueue.cpp
         #ffmpeg/Consumer.cpp
         #ffmpeg/Thread.cpp
-        editor/stage/InputManager.cpp)
+        editor/stage/InputManager.cpp client/CloseException.h)
 
 set(SERVER_SOURCE_FILES
         server/stage-support/Stage.cpp

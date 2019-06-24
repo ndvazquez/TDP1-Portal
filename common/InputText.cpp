@@ -83,6 +83,10 @@ std::string &InputText::getText() {
     return inputText;
 }
 
+std::string InputText::copyText() {
+    return inputText;
+}
+
 void InputText::resetText() {
     inputText = "";
     renderText = true;

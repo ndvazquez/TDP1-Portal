@@ -9,6 +9,7 @@
 #include "../common/Protocol.h"
 #include "Game.h"
 #include "../common/SDLSession.h"
+#include "../common/Window.h"
 
 void playGame() {
     std::string idChell;
@@ -20,10 +21,15 @@ void playGame() {
     clientSocket.connectToHost(host, service);
     Protocol clientProtocol(clientSocket);
 
-    Game game(clientProtocol, clientSocket);
+    const int screenWidth = 1050;
+    const int screenHeight = 700;
+    std::string title = "Portal";
+    Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+
+    Game game(clientProtocol, clientSocket, newWindow);
     if (!game.play(idChell)) return;
 
-    Drawer drawer(clientProtocol, clientSocket);
+    Drawer drawer(clientProtocol, clientSocket, newWindow);
     drawer.draw(idChell);
     std::cout << "Game finished, thanks for playing!\n";
 }

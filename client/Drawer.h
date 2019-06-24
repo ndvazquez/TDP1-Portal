@@ -13,19 +13,21 @@
 #include <communication-support/StageStatusReceiver.h>
 #include "../common/Window.h"
 #include "../common/Sprite.h"
-#include "../editor/Editor.h"
+#include "views/StageView.h"
 #include "views/Camera.h"
 #include "../common/UserEventQueue.h"
 #include "../common/StageStatusQueue.h"
 #include "views/ViewManager.h"
 #include <yaml-cpp/node/node.h>
 #include "../common/constants.h"
+
 class Drawer {
 private:
     Protocol& clientProtocol;
     Socket& clientSocket;
+    Window& newWindow;
 public:
-    Drawer(Protocol& clientProtocol, Socket& clientSocket);
+    Drawer(Protocol& clientProtocol, Socket& clientSocket, Window& window);
     void draw(std::string& idChell);
 };
 

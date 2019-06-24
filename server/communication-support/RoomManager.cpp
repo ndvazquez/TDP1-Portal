@@ -52,7 +52,9 @@ bool RoomManager::addPlayerToGame(Socket &playerSocket,
         return false;
     }
     bool playerAddedToGame = stageManager->addPlayer(playerSocket, playerId);
-    if (!playerAddedToGame) return false;
+    if (!playerAddedToGame) {
+        return false;
+    }
     // Start the game if it's full!
     if (stageManager->isFull()) {
         stageManager->start();
