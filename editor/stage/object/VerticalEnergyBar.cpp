@@ -17,7 +17,6 @@ VerticalEnergyBar::VerticalEnergyBar(std::string &path,
 VerticalEnergyBar::~VerticalEnergyBar() = default;
 
 void VerticalEnergyBar::draw(SDL_Rect* rect) {
-    std::cerr << "Estoy dibujando una vertical" << std::endl;
     SDL_Rect newRect = {rect->x, rect->y, rect->w/2, rect->h};
     StaticObject::draw(&newRect);
 }

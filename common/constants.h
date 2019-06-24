@@ -206,4 +206,9 @@ enum Direction {
 // This should be put in a YAML config file.
 #define MTP_FACTOR 70
 
+// client options
+#define QUIT_ACTION 0
+#define CREATE_ACTION 1
+#define JOIN_ACTION 2
+
 #endif //PORTAL_CONSTANTS_H

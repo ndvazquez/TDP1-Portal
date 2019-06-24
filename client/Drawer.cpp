@@ -15,6 +15,7 @@
 #include "../common/UserEventQueue.h"
 #include "../common/StageStatusQueue.h"
 #include "views/ViewManager.h"
+#include "../common/InputText.h"
 #include <yaml-cpp/node/node.h>
 
 // It's recommended to use multiples of the MTP_FACTOR to get a smooth
@@ -23,8 +24,8 @@
 #define MTP_FACTOR 70
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
-Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket):
-    clientProtocol(clientProtocol), clientSocket(clientSocket) {
+Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window):
+    clientProtocol(clientProtocol), clientSocket(clientSocket), newWindow(window) {
 }
 
 void Drawer::draw(std::string& idChell) {
@@ -34,9 +35,7 @@ void Drawer::draw(std::string& idChell) {
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
-
-    Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
-    // Cool space background.
+    
     std::string bgPath = "resources/editor-stage-bg.png";
     Sprite background(bgPath, newWindow);
 
@@ -86,7 +85,6 @@ void Drawer::draw(std::string& idChell) {
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
     bool quit = false;
-    bool printable = false;
     while (!quit) {
         if (!stageStatusQueue.empty()) {
             std::string stageStatusString = stageStatusQueue.pop();
@@ -96,15 +94,20 @@ void Drawer::draw(std::string& idChell) {
             quit = true;
         }
         GameState gameState = stageUpdateRequest["Game"]["state"].get<GameState>();
-        if (gameState == LOST && ! printable) {
-            std::cout << "All players have left the game. You lose!\n";
-            printable = true;
+        if (gameState == LOST) {
+            OutputText output(newWindow,"  ", GREEN_MOLD);
+            std::string s = "All players have left the game. You lose!";
+            output.writeTheScreen(s);
+            quit = true;
         }
-        if (gameState == WON && ! printable) {
-            std::cout << "Your team have won! Congratulations!\n";
-            printable = true;
-        }
+        if (gameState == WON) {
 
+            OutputText output(newWindow,"  ", GREEN_MOLD);
+            std::string s = "Your team has won! Congratulations!";
+            output.writeTheScreen(s);
+            quit = true;
+        }
+        if (quit) break;
         // Time to draw!
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;
