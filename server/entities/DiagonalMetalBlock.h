@@ -13,6 +13,10 @@ class DiagonalMetalBlock: public Entity  {
 private:
     bool portal;
     float angle;
+    float x_diagonal_center_mass;
+    float y_diagonal_center_mass;
+    void calculateCenterMass();
+
 public:
     explicit DiagonalMetalBlock(b2Body* body, float angle);
 

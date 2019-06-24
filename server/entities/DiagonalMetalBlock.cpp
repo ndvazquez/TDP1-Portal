@@ -14,6 +14,20 @@ DiagonalMetalBlock::DiagonalMetalBlock(b2Body* body, float angle):
     Entity(DIAGONAL_METAL_BLOCK_NAME, body) {
     body->SetUserData(this); //to handle collisions
     this->angle = angle;
+    calculateCenterMass();
+}
+
+void DiagonalMetalBlock::calculateCenterMass() {
+    b2Fixture* fixture = body->GetFixtureList();
+    b2PolygonShape* shape = (b2PolygonShape*) fixture->GetShape();
+    b2Vec2* vector;
+    vector = shape->m_vertices;
+    
+    for (int i = 0; i < 3; i++) {
+        std::cout << "x: " << vector[i].x << std::endl;
+        std::cout << "y: " << vector[i].y << std::endl;
+    }   
+
 }
 
 void DiagonalMetalBlock::handleCollision(Entity* entity) {
