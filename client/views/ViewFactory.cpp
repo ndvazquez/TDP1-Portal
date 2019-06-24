@@ -14,6 +14,10 @@
 #include "OrangePortalView.h"
 #include "GateView.h"
 #include "EnergyBarView.h"
+#include "ReceptorUpView.h"
+#include "ReceptorDownView.h"
+#include "ReceptorLeftView.h"
+#include "ReceptorRightView.h"
 
 ViewFactory::ViewFactory(int mtpFactor) :
         mtpFactor(mtpFactor) {
@@ -68,6 +72,23 @@ View* ViewFactory::createView(int viewTypeCode,
         case ENERGY_BAR_VIEW_CODE:
             newView = new EnergyBarView(gameWindow, 0, 0, mtpFactor,
                     texturesData);
+            break;
+        case ER_UP_VIEW_CODE:
+            newView = new ReceptorUpView(gameWindow, 0, 0, mtpFactor,
+                    texturesData);
+            break;
+        case ER_DOWN_VIEW_CODE:
+            newView = new ReceptorDownView(gameWindow, 0, 0, mtpFactor,
+                                         texturesData);
+            break;
+        case ER_LEFT_VIEW_CODE:
+            newView = new ReceptorLeftView(gameWindow, 0, 0, mtpFactor,
+                                         texturesData);
+            break;
+        case ER_RIGHT_VIEW_CODE:
+            newView = new ReceptorRightView(gameWindow, 0, 0, mtpFactor,
+                                         texturesData);
+            break;
         default:
             break;
     }

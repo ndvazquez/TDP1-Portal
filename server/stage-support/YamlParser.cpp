@@ -135,7 +135,7 @@ void YamlParser::parseAndAdd() {
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_DOWN_NAME, id, METAL_SIDE, x, y);
         dynamic_json[id] = {
-                {"type", RECEPTOR_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
+                {"type", ER_DOWN_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
         };
         er_counter++;
     }
@@ -149,7 +149,7 @@ void YamlParser::parseAndAdd() {
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_UP_NAME, id, METAL_SIDE, x, y);
         dynamic_json[id] = {
-                {"type", RECEPTOR_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
+                {"type", ER_UP_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
         };
         er_counter++;
     }
@@ -163,7 +163,7 @@ void YamlParser::parseAndAdd() {
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_LEFT_NAME, id, METAL_SIDE, x, y);
         dynamic_json[id] = {
-                {"type", RECEPTOR_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
+                {"type", ER_LEFT_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
         };
         er_counter++;
     }
@@ -177,7 +177,7 @@ void YamlParser::parseAndAdd() {
         std::string id = ER_NAME + std::to_string(er_counter);
         stage.addEnergyItem(ER_RIGHT_NAME, id, METAL_SIDE, x, y);
         dynamic_json[id] = {
-                {"type", RECEPTOR_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
+                {"type", ER_RIGHT_VIEW_CODE}, {"state", OFF}, {"x", x}, {"y", y}
         };
         er_counter++;
     }
