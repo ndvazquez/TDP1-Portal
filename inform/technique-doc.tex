@@ -107,11 +107,193 @@ Agregar algo relativo al sh para la compilación
 
 El proyecto se constituye de los siguientes módulos:
 
+\begin{itemize}
+	\item Servidor
+	\item Cliente gráfico
+	\item Editor
+\end{itemize}
+
+VER ESTO PORQUE NO SÉ QUÉ PONER
+
 \section{Servidor}
 
 \subsection{Descripción general}
+Las funcionalidades del servidor se dividen en dos partes:
+\begin{enumerate}
+	\item Las relativas al motor físico, es decir, el modelado físico del juego.
+	\item Las relativas al manejo de threading y sockets para brindar un soporte multijugador y multipartida.
+\end{enumerate}
+
+A continuación se enumeran las principales clases que se encargan de implementar dichas funcionalidades y sus principales atributos y métodos.
 
 \subsection{Clases}
+
+Para describir las clases utilizadas se dividirán las clases en 5 categorías:
+\begin{itemize}
+	\item Soporte de comunicación (threading y sockets)
+	\item Entidades del juego
+	\item Manejo de portales
+	\item Manejo del escenario
+	\item Movimientos del juego
+\end{itemize} 
+
+\subsubsection{Soporte de comunicación}
+
+Estas clases se realizaron para modelar la comunicación con el cliente. Son las que encapsulan la comunicación por medio de sockets y el manejo de threads para brindar el soporte multipartida y multijugador del juego.
+
+\begin{itemize}
+	\item \textbf{Stage Manager}
+\end{itemize}
+
+Se encarga de controlar todo lo relativo al escenario y la partida a crear. Tiene como principales atributos una cantidad máxima de jugadores, una referencia al escenario de partida, un parser que se encarga de manejar el archivo \texttt{YAML} que contiene la información de los niveles a utilizar, una cola de eventos y una cola de clientes que contiene el estado actual de los mapas.  Cabe destacar que esta clase es la que se encarga de manejar los eventos de usuario y traducirlos a eventos en el mundo físico.
+
+\begin{itemize}
+	\item \textbf{Room Worker}
+\end{itemize}
+
+Esta clase se encarga de manejar la creación y la unión de partidas. Por lo tanto, es necesario que mantenga una referencia al socket del cliente, a su respectivo protocolo que encapsula la comunicación y a la clase \texttt{Room Manager} que se encarga de brindar los recursos necesarios para llevar esto a cabo.
+
+\begin{itemize}
+	\item \textbf{Room Manager}
+\end{itemize}
+
+Esta clase se encarga de organizar las diversas partidas creadas, agregar los jugadores a las mismas y remover las partidas que finalizaron.
+
+\begin{itemize}
+	\item \textbf{Room Acceptor}
+\end{itemize}
+
+Esta clase se utiliza para encapsular la aceptación de los clientes al servidor por lo que tiene como principal atributo un vector de punteros a la clase \texttt{Room Worker} para lanzarlos con el método \texttt{start} para inicializar los threads.
+
+\begin{itemize}
+	\item \textbf{Client Sender}
+\end{itemize}
+
+Esta clase se encarga de mandar a los clientes el estado actual del mundo físico por lo que sus atributos son referencias al socket del cliente y su protocolo así como una cola que guarda el estado actual del escenario.
+
+\begin{itemize}
+	\item \textbf{Client Receiver}
+\end{itemize}
+
+Esta clase se encarga de recibir los eventos de usuario para luego manejarlos por lo que mantiene una referencia al socket del cliente y una cola de eventos de usuario para encolar la serie de eventos recibidos.
+
+\begin{itemize}
+	\item \textbf{Client Handler}
+\end{itemize}
+
+Esta clase se encarga de manejar e inicializar las clases \texttt{Client Sender} y \texttt{Client Receiver} por lo que debe tener como atributos una referencia al socket del cliente y tanto una cola de eventos de usuario como una cola de estados actuales del escenario.
+	
+\subsubsection{Entidades del juego}
+
+Se realizó una clase para cada elemento del juego de manera de modelizar sus responsabilidades y además se agregaron otras clases para hacer uso del polimorfismo y herencia de C++.
+
+Es pertinente aclarar como elemento base del modelo que se utiliza una clase \texttt{Entity} de la cual derivan la gran mayoria de las clases para poder modelizar las colisiones entre objetos. De esta manera, en caso de ocurrir una colisión, siempre sucedía entre dos entidades y por medio de la herencia se pudo manejar cada caso en particular con la sobreescritura de un método llamado \texttt{handleCollisions}. 
+
+\begin{itemize}
+	\item \textbf{Entity}
+\end{itemize}
+
+Tiene como atributos un string que denota el tipo de objeto y un puntero a un objeto de tipo \texttt{b2Body} de la libería Box2D. Tiene el método virtual puro \texttt{void handleCollision(Entity* entity)} para que lo implementen las clases derivadas y hagan un correcto manejo de colisiones.
+
+\begin{itemize}
+	\item \textbf{Acid}
+\end{itemize}
+
+Es una clase derivada de \texttt{Entity}. Contempla las colisiones con instancias de la clase \texttt{Chell} ya que debe matarla.
+
+\begin{itemize}
+	\item \textbf{Shot}
+\end{itemize}
+
+Esta clase hereda de la clase \texttt{Entity} y se encarga de modelizar el disparo. Tiene como atributos dos punteros a la clase \texttt{Coordinate} (que representa una coordenada) tanto para el origen como el destino del disparo, un booleano que indica si finalizó el recorrido, un angulo de disparo y un puntero a la clase \texttt{Chell} para poder asignarle los portales creados a la misma.
+
+\begin{itemize}
+	\item \textbf{Blue Shot}
+\end{itemize}
+
+Esta clase hereda de la clase \texttt{Shot} y maneja la colisión con un bloque de metal ya que debe crear un portal sobre el mismo de color azul.
+
+\begin{itemize}
+	\item \textbf{Orange Shot}
+\end{itemize}
+
+Esta clase hereda de la clase \texttt{Shot} y maneja la colisión con un bloque de metal ya que debe crear un portal sobre el mismo de color naranja.
+
+\begin{itemize}
+	\item \textbf{Cake}
+\end{itemize}
+
+Esta clase hereda de la clase \texttt{Entity} y maneja las colisiones con la clase \texttt{Chell} ya que debe ganar en caso de colisionar.
+
+\begin{itemize}
+	\item \textbf{Chell}
+\end{itemize}
+
+
+
+
+
+\begin{itemize}
+	\item \textbf{Diagonal Metal Block}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Metal Block}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Rock Block}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Energy Ball}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Energy Transmitter}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Energy Bar}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Gate}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Item Activable}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Button}
+\end{itemize}
+
+\begin{itemize}
+	\item \textbf{Energy Receptor}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Portal}
+\end{itemize}
+
+
+\begin{itemize}
+	\item \textbf{Rock}
+\end{itemize}
+
+\subsubsection{Manejo de portales}
+
+\subsubsection{Manejo del escenario}
+
+\subsubsection{Movimientos del juego}
 
 \subsection{Diagramas UML}
 
