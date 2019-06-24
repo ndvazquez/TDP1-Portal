@@ -66,6 +66,8 @@
 
 \section{Configuración}
 
+La configuración del juego se realiza por medio de un archivo de formato \texttt{YAML} que se encuentra localizado en la carpeta \texttt{config} dentro de la carpeta \texttt{server} del repositorio. Hay ciertos parámetros comunes que pueden variarse, pero se recomienda mantenerlos dentro del mismo rango para obtener el juego que fue testeado numerosas veces por sus creadores.
+
 \section{Forma de uso}
 El juego es de tipo \textit{cooperativo}, lo que implica que para finalizar la partida todos deben alcanzar el objetivo reconocido como victoria. En este caso particular, \textbf{todos} los jugadores deben llegar a la llamada \textit{cake} que se trata de una torta localizada en algún lugar del escenario. Para ello deberán sortear con distintos obstáculos, en los cuales podrían morir. En el caso en que un jugador muera, esto no genera ninguna diferencia en la condición de victoria, incluso a veces puede ser necesario por ejemplo si todo el grupo llegó a la torta y un solo jugador quedó varado en el camino. En esta implementación del juego portal hay 3 causas de muerte:
 \begin{enumerate}
@@ -105,6 +107,8 @@ Ahora para poder localizar la torta es necesario moverse por el escenario, en el
 	
 	\item La roca se desintegra completamente al toparse con una barra de energía. Igualmente no representa en un peligro en sí para Chell.
 	
+	\item Si una roca y una bola de energía colisionan, ambas mueren en el acto.
+	
 	\item Pueden teletransportarse rocas por los portales de manera de acceder a otros lugares del escenario, donde puede ser necesario activar un botón. Para hacerlo, como se mencionó previamente se recomienda lanzar la roca hacia arriba o abandonarla si el portal está por debajo.
 	
 	\item Existe el objeto \texttt{pintool} para armonizar el trabajo en grupo y llegar al pastel. Este elemento se utiliza para que un jugador indique a otro que estaría bueno que cree un portal ahí para cumplir el objetivo del nivel. Queda a completa responsabilidad del usuario ser inteligente con el mismo y colocarlo de la manera más estratégica posible. Así mismo, mueren después de un determinado tiempo y no pueden crearse más de uno por jugador, por lo que la creación de un segundo pin tool en el escenario por parte del mismo jugador elimina inmediatamente el anterior.
@@ -114,7 +118,7 @@ Ahora para poder localizar la torta es necesario moverse por el escenario, en el
 
 \subsection{Ejemplo de uso}
 
-A continuación se muestra un ejemplo de uso del juego. Este se trata de un nivel confeccionado por el Editor que refleja las funcionalidades básicas del juego. 
+A continuación se muestra un ejemplo de uso del juego. Este se trata de un nivel confeccionado por el \texttt{Editor} que refleja las funcionalidades básicas del juego. Se explicará cómo usar el mismo luego.
 
 En un primer lugar se muestra la forma en la que se ve una piedra cuando Chell la agarra. La idea es levantarla del piso y que su movimiento esté acoplado al de Chell. Es decir, si Chell se mueve para la derecha o izquierda, la roca sigue su movimiento. Chell no puede saltar con una roca pero sí puede lanzarla hacia arriba o dejarla en el piso.
 
@@ -184,7 +188,7 @@ En un primer lugar, se muestra una bola de energía, transmitida por un emisor y
 	\label{fig:diagrama8}
 \end{figure}
 
-Otra función que cumplen las bolas de energía es activar los llamados receptores, utilizados para la lógica de compuertas. Esta activación consiste en que la bola de energía colisione con la "boca" del receptor. Una vez activado, queda activado por siempre y puede permitir abrir una puerta. Hay casos en los que por la disposición de los emisores y receptores, los receptores serán activados por estar en la trayectoria de la bola. Podría suceder que no sea así y que para activarlo se deba crear un portal que teletransporte la bola de energía y cambie su trayectoria.
+Otra función que cumplen las bolas de energía es activar los llamados receptores, utilizados para la lógica de compuertas. Esta activación consiste en que la bola de energía colisione con la "boca" del receptor. Una vez activado, queda activado por siempre y \textit{puede} permitir abrir una puerta. Hay casos en los que por la disposición de los emisores y receptores, los receptores serán activados por estar en la trayectoria de la bola. Podría suceder que no sea así y que para activarlo se deba crear un portal que teletransporte la bola de energía y cambie su trayectoria.
 
 En la \textit{Figura 9} se observa un emisor que emite bolas de energía hacia arriba y un receptor que las recibe desde abajo. Se muestra la diferencia entre un receptor desactivado (primer caso) y un receptor activado (segundo caso).
 
@@ -208,16 +212,68 @@ Cabe recordar que las bolas de energía rebotan contra un bloque de metal u otro
 	\label{fig:diagrama11}
 \end{figure}
 
-Por último un caso especial es el de los bloques en diagonal. Chell resbala por los mismos si camina por encima y las bolas de energía al rebotar contra ellas cambian su dirección.
+Por último un caso especial es el de los bloques en diagonal. Chell resbala por los mismos si camina por encima y las bolas de energía al rebotar contra ellas cambian su dirección. Es importante tener en cuenta esto porque Chell puede estar posicionada en una dirección que no está en la trayectoria de la bola designada por el emisor e ignorar el hecho que puede chocarla en cualquier momento por dicho desvío.
 
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_1.png}}
+	\caption{Bola de energía cambia direccion en bloque de metal diagonal}
+	\label{fig:diagrama12}
+\end{figure}
 
+Se observa en las siguientes figuras que la bola de energia inicialmente presenta una trayectoria horizontal y luego sigue una trayectoria paralela a la normal de la hipotenusa del bloque en diagonal.
 
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_2.png}}
+	\caption{Bola de energía cambia direccion en bloque de metal diagonal}
+	\label{fig:diagrama13}
+\end{figure}
 
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_3.png}}
+	\caption{Bola de energía cambia direccion en bloque de metal diagonal}
+	\label{fig:diagrama14}
+\end{figure}
 
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.5\textwidth]{diagonal_4.png}}
+	\caption{Bola de energía cambia direccion en bloque de metal diagonal}
+	\label{fig:diagrama15}
+\end{figure}
 
-\section{Apéndice de errores}
+\newpage 
 
+\section{Forma de uso del editor}
+El editor se utiliza para crear o editar los niveles de juego. Pueden disponerse los elementos en la posición que el usuario desee y guardarlo todo en un archivo que luego será seleccionado al iniciar el juego.
 
+Al iniciar el editor se observará la siguiente pantalla:
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{editor_initial.png}}
+	\caption{Pantalla de inicio del editor}
+	\label{fig:diagrama16}
+\end{figure}
+
+Aquí puede escribirse el nombre del nivel que se desea editar y hacer clic en \texttt{OK, HERE IS THE NAME, CAN I ALREADY HAVE MY CAKE?} o decidir iniciar un nuevo nivel y hacer clic en \texttt{<SKIP>}. 
+
+Una vez elegido esto, aparece la pantalla dispuesta en la \textit{Figura 17} que es el editor en sí mismo. Se puede observar que aparecen todos los elementos descritos en la sección anterior. La forma de uso consiste en arrastrar los elementos al escenario de la manera que se desee. Si se desea cambiar de lugar un elemento simplemente se arrastra hacia el lugar deseado y si se desea eliminar se arrastra afuera de la pantalla. 
+
+Por otro lado, para respetar ciertas leyes físicas, se impide la colocación de los objetos que obedecen la ley de la gravedad sobre la nada para evitar que caigan al iniciar el juego. Estos son el botón, Chell, la compuerta, las rocas, la \textit{cake} y el ácido. Esto quiere decir que sólo pueden colocarse sobre los bloques de metal, de piedra y los emisores y receptores. Si se desea hacer lo contrario, se imprime el siguiente mensaje de error en la terminal: \texttt{Couldn't add the tile: That's not a valid place for an object with physics laws!}.
+
+Se muestra en la \textit{Figura 18} un ejemplo de nivel editado para mostrar a los objetos con ley de gravedad bien dispuestos y la posición libre del resto de los objetos.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{editor.png}}
+	\caption{Editor}
+	\label{fig:diagrama17}
+\end{figure}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{example.png}}
+	\caption{Editor}
+	\label{fig:diagrama18}
+\end{figure}
+
+\newpage
 
 
 \end{document}
