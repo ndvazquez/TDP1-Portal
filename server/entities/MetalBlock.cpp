@@ -3,6 +3,7 @@
 //
 
 #include <string>
+#include <iostream>
 #include "entities/MetalBlock.h"
 #include "entities/Chell.h"
 #include "entities/OrangeShot.h"

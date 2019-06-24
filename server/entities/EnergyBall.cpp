@@ -47,10 +47,6 @@ void EnergyBall::applyOrientation(Direction direction) {
     this->eb_type = direction;
 }
 
-void EnergyBall::changeDirection(b2Vec2 velocity) {
-    this->dynamic.fly(velocity);
-}
-
 void EnergyBall::die() {
     this->is_dead = true;
 }
@@ -64,14 +60,13 @@ void EnergyBall::handleCollision(Entity* entity) {
     if (type == ROCK_BLOCK_NAME) {
         die();
     }
-
     if (type == METAL_BLOCK_NAME) {
         invertDirection();
     }
 
     if (type == DIAGONAL_METAL_BLOCK_NAME) {
-        b2Vec2 velocity = dynamic_cast<DiagonalMetalBlock*>(entity)->calculateVelocity();
-        changeDirection(velocity);
+        Direction direction = dynamic_cast<DiagonalMetalBlock*>(entity)->getDirection(eb_type);
+        applyOrientation(direction);
     }
     if (type == CHELL_NAME) {
         dynamic_cast<Chell*>(entity)->die();
@@ -163,4 +158,8 @@ void EnergyBall::teleport(Coordinate* target, Direction type) {
 
 void EnergyBall::update() {
     this->dynamic.handleCollisions();
+}
+
+Direction EnergyBall::getDirection() {
+    return eb_type;
 }

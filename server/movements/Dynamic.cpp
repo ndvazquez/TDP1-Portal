@@ -88,13 +88,14 @@ bool Dynamic::handleCollisions() {
                 if (typeB == "EnergyBall" || typeB == "Button") resul = true;
             }
             if (user_A != NULL && user_B != NULL) {
+                counter++;
+                if (counter >= 2) break;
                 Entity* entity_A = static_cast<Entity*>(user_A);
                 Entity* entity_B = static_cast<Entity*> (user_B);
                 entity_A->handleCollision(entity_B);
-            }
+             }
         }
         edge = edge->next;
-        counter++;
     }
     return resul;
 }
@@ -104,36 +105,28 @@ void Dynamic::flyRect(Direction eb_type) {
     float energy_ball_impulse = body->GetMass() * energy_ball_factor;
 
     if (eb_type == RIGHT) {
-        if (body->GetLinearVelocity().x > 0) return;
+        if (body->GetLinearVelocity().x >= 7) return;
+        body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
         body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
-        body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
-
     } else if (eb_type == LEFT) {
-        if (body->GetLinearVelocity().x < 0) return;
+        if (body->GetLinearVelocity().x <= -7) return;
         body->ApplyLinearImpulse(b2Vec2(-energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
 
     } else if (eb_type == UP) {
-        if (body->GetLinearVelocity().y > 0) return;
+        if (body->GetLinearVelocity().y >= 7) return;
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 
     } else if (eb_type == DOWN) {
-        if (body->GetLinearVelocity().y < 0) return;
+        if (body->GetLinearVelocity().y <= -7) return;
         body->ApplyLinearImpulse(b2Vec2(0, -energy_ball_impulse),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
     }
-}
-
-void Dynamic::fly(b2Vec2 velocity) {
-    body->SetGravityScale(0);
-
-    float factor = gameConfiguration.directionFactor;
-    body->SetLinearVelocity(b2Vec2(velocity.x*factor, velocity.y*factor));
 }
 
 void Dynamic::adjustJump() {

@@ -2,26 +2,8 @@
 // Created by cecix on 22/06/19.
 //
 
-#include <audio/SoundCodeQueue.h>
-#include <audio/AudioSystem.h>
-#include <communication-support/UserEventHandler.h>
-#include <communication-support/EventSender.h>
-#include <communication-support/StageStatusReceiver.h>
 #include "Drawer.h"
-#include "../common/Window.h"
-#include "../common/Sprite.h"
-#include "../editor/Editor.h"
-#include "views/Camera.h"
-#include "../common/UserEventQueue.h"
-#include "../common/StageStatusQueue.h"
-#include "views/ViewManager.h"
-#include "../common/InputText.h"
-#include <yaml-cpp/node/node.h>
 
-// It's recommended to use multiples of the MTP_FACTOR to get a smooth
-// experience.
-
-#define MTP_FACTOR 70
 #define TEXTURE_CONFIG_FILE "config/textures.yaml"
 
 Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window):

@@ -189,8 +189,10 @@ void YamlParser::parseAndAdd() {
         float x = position[HORIZONTAL_POSITION].as<float>();
         float y = position[VERTICAL_POSITION].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 45);
+        Coordinate cm(x,y);
+        DiagonalMetalBlock* db = stage.getDiagonalMetalBlock(cm);
         static_json[std::to_string(counter)] = {
-                {"type", DIAGONAL_METAL_BLOCK_45}, {"x", x}, {"y", y}
+                {"type", DIAGONAL_METAL_BLOCK_UP_LEFT}, {"x", db->getXCM()}, {"y", db->getYCM()}
         };
         counter++;
     }
@@ -202,8 +204,10 @@ void YamlParser::parseAndAdd() {
         float x = position[HORIZONTAL_POSITION].as<float>();
         float y = position[VERTICAL_POSITION].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 135);
+        Coordinate cm(x,y);
+        DiagonalMetalBlock* db = stage.getDiagonalMetalBlock(cm);
         static_json[std::to_string(counter)] = {
-                {"type", DIAGONAL_METAL_BLOCK_135}, {"x", x}, {"y", y}
+                {"type", DIAGONAL_METAL_BLOCK_UP_RIGHT}, {"x", db->getXCM()}, {"y", db->getYCM()}
         };
         counter++;
     }
@@ -215,8 +219,10 @@ void YamlParser::parseAndAdd() {
         float x = position[HORIZONTAL_POSITION].as<float>();
         float y = position[VERTICAL_POSITION].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 225);
+        Coordinate cm(x,y);
+        DiagonalMetalBlock* db = stage.getDiagonalMetalBlock(cm);
         static_json[std::to_string(counter)] = {
-                {"type", DIAGONAL_METAL_BLOCK_225}, {"x", x}, {"y", y}
+                {"type", DIAGONAL_METAL_BLOCK_DOWN_RIGHT}, {"x", db->getXCM()}, {"y", db->getYCM()}
         };
         counter++;
     }
@@ -228,8 +234,10 @@ void YamlParser::parseAndAdd() {
         float x = position[HORIZONTAL_POSITION].as<float>();
         float y = position[VERTICAL_POSITION].as<float>();
         stage.addDiagonalBlock(METAL_SIDE, x, y, 315);
+        Coordinate cm(x,y);
+        DiagonalMetalBlock* db = stage.getDiagonalMetalBlock(cm);
         static_json[std::to_string(counter)] = {
-                {"type", DIAGONAL_METAL_BLOCK_315}, {"x", x}, {"y", y}
+                {"type", DIAGONAL_METAL_BLOCK_DOWN_LEFT}, {"x", db->getXCM()}, {"y", db->getYCM()}
         };
         counter++;
     }

@@ -41,9 +41,6 @@ public:
     /* Makes an object fly in a rectified direction */
     void flyRect(Direction eb_type);
 
-    /* Makes an object fly in a direction indicated by velocity */
-    void fly(b2Vec2 velocity);
-
     /* Handle collisions of the body against other objects */
     bool handleCollisions();
 

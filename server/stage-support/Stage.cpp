@@ -326,24 +326,24 @@ void Stage::step() {
     world->step();
 }
 
-RockBlock* Stage::getBrickBlock(Coordinate* coordinate) {
+RockBlock* Stage::getBrickBlock(Coordinate& coordinate) {
     for (auto i = brick_blocks.begin() ; i != brick_blocks.end() ; i++) {
-        if (*i->first == *coordinate) return i->second;
+        if (*i->first == coordinate) return i->second;
     }
     return nullptr;
 }
 
-MetalBlock* Stage::getMetalBlock(Coordinate* coordinate) {
+MetalBlock* Stage::getMetalBlock(Coordinate& coordinate) {
     for (auto i = metal_blocks.begin() ; i != metal_blocks.end() ; i++) {
-        if (*i->first == *coordinate) return i->second;
+        if (*i->first == coordinate) return i->second;
     }
     return nullptr;
 }
 
-DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate* coordinate) {
+DiagonalMetalBlock* Stage::getDiagonalMetalBlock(Coordinate& coordinate) {
     for (auto i = diagonal_metal_blocks.begin() ;
          i != diagonal_metal_blocks.end() ; i++) {
-        if (*i->first == *coordinate) return i->second;
+        if (*i->first == coordinate) return i->second;
     }
     return nullptr;
 }

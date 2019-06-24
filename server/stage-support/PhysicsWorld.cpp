@@ -96,7 +96,6 @@ b2Body* PhysicsWorld::addTriangle(float side, float x_pos, float y_pos, float an
         vertices[1].Set((1.0/3) * side, (2.0/3) * side);
         vertices[2].Set((1.0/3) * side,  (-1.0/3) * side);
     } else if (angle == 135) {
-        std::cout << "Seteo bien" << std::endl;
         vertices[0].Set((-1.0/3) * side, (-1.0/3) * side);
         vertices[1].Set((-1.0/3) * side, (2.0/3) * side);
         vertices[2].Set((2.0/3) * side,  (-1.0/3) * side);

@@ -20,7 +20,6 @@ struct box2DConfiguration {
     float offsetEnergyTransmitter;
     float velocityDownload;
     float velocityRelease;
-    float directionFactor;
     float shotFactor;
 };
 
