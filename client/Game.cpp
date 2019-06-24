@@ -5,7 +5,6 @@
 
 
 #include "Game.h"
-#include <iostream>
 #include "../json/json.hpp"
 #include "../common/constants.h"
 #include "InitialMenu.h"
@@ -31,11 +30,8 @@ try {
         std::string gaString = clientProtocol.receiveMessage();
         nlohmann::json gamesJson = nlohmann::json::parse(gaString);
         std::vector<std::string> gamesAvailable = gamesJson["games"].get<std::vector<std::string>>();
-
-
         std::string action;
         int rst;
-
         InitialMenu menu(window, gamesAvailable);
         rst = menu.start();
 
@@ -56,6 +52,7 @@ try {
         std::string actionJsonString = actionJson.dump();
         clientProtocol.sendMessage(actionJsonString);
 
+        OutputText message(window, " ");
         std::string levelPath;
         if (rst == CREATE_ACTION) {
             // Receive the available levels
@@ -63,7 +60,7 @@ try {
             nlohmann::json levelsJson = nlohmann::json::parse(laString);
             std::vector<std::string> levelsAvailable = levelsJson["levels"].get<std::vector<std::string>>();
             if (levelsAvailable.empty()) {
-                OutputText message(window, " ");
+
                 std::string text = NO_LEVELS;
                 message.writeTheScreen(text);
                 clientSocket.shutdownAndClose();
@@ -78,18 +75,14 @@ try {
             }
         }
 
-
         // Prepare other fields needed to process
         GameNameMenu gameNameMenu(window, gaString);
         std::string gameName = gameNameMenu.start(rst);
-
 
         InputText input(window, "Enter your ID" , GREEN_MOLD);
         std::string& playerId = input.getText();
         SimpleInputManager m;
         m.start(input, window);
-
-
 
         nlohmann::json fieldsJson;
 
@@ -104,12 +97,15 @@ try {
             // Send the level path to the client.
             clientProtocol.sendMessage(levelPath);
         }
-        //std::cout << "Waiting response from server...\n";
+        OutputText output(window, "WAITING RESPONSE FROM SERVER...");
+        window.clear();
+        window.drawBlackBackground();
+        output.drawInTheCenter();
+        window.render();
 
         std::string serverResponse = clientProtocol.receiveMessage();
         nlohmann::json serverResponseJson = nlohmann::json::parse(serverResponse);
         int responseCode = serverResponseJson["result"].get<int>();
-        std::cout << serverResponseJson["desc"].get<std::string>() << std::endl;
         if (responseCode == SUCCESS_CODE) {
             idChell = serverResponseJson["idChell"].get<std::string>();
             login = false;

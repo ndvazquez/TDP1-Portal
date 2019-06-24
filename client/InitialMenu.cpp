@@ -101,7 +101,7 @@ int InitialMenu::start() {
                 int y = 20;
                 available.draw(x, y);
                 noAvailable.draw(x, y);
-                y += 10;
+                y += 40;
                 for (auto it : optionsList) {
                     it->draw(x, y);
                     y += it->getHeight() + 20;

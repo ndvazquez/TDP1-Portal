@@ -47,8 +47,6 @@ bool RoomManager::addPlayerToGame(Socket &playerSocket,
     auto it = rooms.find(gameName);
     StageManager* stageManager = it->second;
     if (stageManager->isFull()) {
-
-        std::cerr << "FALSE 2 " << std::endl;
         // Game is full and hence has started.
         // Can't add players!
         return false;

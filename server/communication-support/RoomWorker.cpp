@@ -52,10 +52,8 @@ void RoomWorker::run() {
                 std::string levelPath = clientProtocol.receiveMessage();
                 _isDead = (handleGameCreation(clientFieldJson, levelPath) &&
                         handleJoinGame(clientFieldJson));
-                std::cerr << "Is dead en el create: " << _isDead << std::endl;
             } else if (action == JOIN_GAME_CODE) {
                 _isDead = handleJoinGame(clientFieldJson);
-                std::cerr << "Is dead en el join: " << _isDead << std::endl;
             }
             if (!_isDead) {
                 // If something went wrong, we send a message to the client
@@ -81,17 +79,12 @@ void RoomWorker::run() {
 bool RoomWorker::handleGameCreation(nlohmann::json& actionData, std::string& levelPath) {
     std::string gameName = actionData["gameName"].get<std::string>();
     bool result = roomManager.createGame(gameName, levelPath);
-
-    std::cerr << "Result en el create: " << result << std::endl;
     return result;
 }
 
 bool RoomWorker::handleJoinGame(nlohmann::json& actionData) {
     std::string gameName = actionData["gameName"].get<std::string>();
     std::string playerId = actionData["id"].get<std::string>();
-    std::cerr << "ID: " << playerId << std::endl;
     bool result = roomManager.addPlayerToGame(clientSocket, gameName, playerId);
-
-    std::cerr << "Result en el joi: " << result << std::endl;
     return result;
 }
