@@ -45,6 +45,8 @@ public:
     std::string &getText();
 
     void resetText();
+
+    std::string copyText();
 };
 
 

@@ -2,6 +2,7 @@
 // Created by camix on 24/06/19.
 //
 
+#include <iostream>
 #include "GameNameMenu.h"
 #include "../common/InputText.h"
 #include "SimpleInputManager.h"
@@ -21,16 +22,17 @@ void GameNameMenu::getInput(InputText& input) {
 
 }
 
-std::string &GameNameMenu::start(int rst) {
+std::string GameNameMenu::start(int rst) {
     InputText input(window, GAME_REQUEST, GREEN_MOLD);
-    std::string& gameName = input.getText();
     SimpleInputManager m;
     m.start(input, window);
 
-    InputText otherInput(window, INVLID_GAME_REQUEST, GREEN_MOLD);
+    std::string gameName = input.copyText();
+
     while (rst == JOIN_ACTION && gaString.find(gameName) == std::string::npos) {
-        gameName = otherInput.getText();
+        InputText otherInput(window, INVLID_GAME_REQUEST, GREEN_MOLD);
         m.start(otherInput, window);
+        gameName = otherInput.copyText();
     }
 
     return gameName;

@@ -80,7 +80,13 @@ int InitialMenu::start() {
                     break;
                 }
             }
-            if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN){
+            if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_j){
+                ret = JOIN_ACTION;
+                quit = true;
+                break;
+            }
+            if ((e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN) ||
+                    (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_c)){
                 ret = CREATE_ACTION;
                 quit = true;
                 break;

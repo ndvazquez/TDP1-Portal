@@ -21,7 +21,7 @@ public:
     explicit GameNameMenu(Window& window,
                           std::string& gaString);
 
-    std::string &start(int rst);
+    std::string start(int rst);
 
     void getInput(InputText &input);
 };
