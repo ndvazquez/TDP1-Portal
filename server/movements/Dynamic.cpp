@@ -3,6 +3,7 @@
 //
 
 #include <Box2D/Box2D.h>
+#include <iostream>
 #include "Dynamic.h"
 #include "entities/Entity.h"
 #include "stage-support/Coordinate.h"
@@ -104,25 +105,25 @@ void Dynamic::flyRect(Direction eb_type) {
     float energy_ball_impulse = body->GetMass() * energy_ball_factor;
 
     if (eb_type == RIGHT) {
-        if (body->GetLinearVelocity().x > 0) return;
+        if (body->GetLinearVelocity().x != 0) return;
         body->ApplyLinearImpulse(b2Vec2(energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
 
     } else if (eb_type == LEFT) {
-        if (body->GetLinearVelocity().x < 0) return;
+        if (body->GetLinearVelocity().x != 0) return;
         body->ApplyLinearImpulse(b2Vec2(-energy_ball_impulse, 0),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, 0));
 
     } else if (eb_type == UP) {
-        if (body->GetLinearVelocity().y > 0) return;
+        if (body->GetLinearVelocity().y != 0) return;
         body->ApplyLinearImpulse(b2Vec2(0, energy_ball_impulse),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
 
     } else if (eb_type == DOWN) {
-        if (body->GetLinearVelocity().y < 0) return;
+        if (body->GetLinearVelocity().y != 0) return;
         body->ApplyLinearImpulse(b2Vec2(0, -energy_ball_impulse),
                                  body->GetWorldCenter(), true);
         body->SetLinearVelocity(b2Vec2(0, body->GetLinearVelocity().y));
@@ -131,9 +132,10 @@ void Dynamic::flyRect(Direction eb_type) {
 
 void Dynamic::fly(b2Vec2 velocity) {
     body->SetGravityScale(0);
-
-    float factor = gameConfiguration.directionFactor;
-    body->SetLinearVelocity(b2Vec2(velocity.x*factor, velocity.y*factor));
+    float energy_ball_factor = gameConfiguration.energyBallImpulseFactor;
+    float eb_impulse = body->GetMass() * energy_ball_factor;
+    body->ApplyLinearImpulse(b2Vec2(velocity.x*eb_impulse, velocity.y*eb_impulse),
+            body->GetWorldCenter(), true);
 }
 
 void Dynamic::adjustJump() {

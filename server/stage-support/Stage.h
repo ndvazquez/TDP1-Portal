@@ -124,9 +124,9 @@ public:
     void step();
 
     // Getters of different elements in the stage
-    RockBlock* getBrickBlock(Coordinate* coordinate);
-    MetalBlock* getMetalBlock(Coordinate* coordinate);
-    DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate* coordinate);
+    RockBlock* getBrickBlock(Coordinate& coordinate);
+    MetalBlock* getMetalBlock(Coordinate& coordinate);
+    DiagonalMetalBlock* getDiagonalMetalBlock(Coordinate& coordinate);
     EnergyBar* getEnergyBar(std::string id);
     Button* getButton(std::string id);
     Acid* getAcid(std::string id);

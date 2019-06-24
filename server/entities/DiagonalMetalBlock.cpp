@@ -25,20 +25,17 @@ void DiagonalMetalBlock::calculateCenterMass() {
     
     for (int i = 0; i < 3; i++) {
         if (i == 2 && angle == 135) {
-            x_diagonal_center_mass = getHorizontalPosition() + vector[i].x + 1;
-            y_diagonal_center_mass = getVerticalPosition() + vector[i].y + 1;
-            return;
+            x_diagonal_center_mass = getHorizontalPosition() - vector[i].x;
+            y_diagonal_center_mass = getVerticalPosition() - vector[i].y;
         } else if (i == 1 && angle == 315) {
             x_diagonal_center_mass = getHorizontalPosition();
             y_diagonal_center_mass = getVerticalPosition() + vector[i].y - 1;
-            return;
         } else if (i == 1 && angle == 225) {
             x_diagonal_center_mass = getHorizontalPosition() + vector[i].x + 1;
             y_diagonal_center_mass = getVerticalPosition() + vector[i].y - 1;
-            return;
-        } else {
+        } else if (i == 2 && angle == 45) {
             x_diagonal_center_mass = getHorizontalPosition();
-            y_diagonal_center_mass = getVerticalPosition();
+            y_diagonal_center_mass = getVerticalPosition() - vector[i].y;
         }
     }
 }
@@ -91,7 +88,6 @@ b2Vec2 DiagonalMetalBlock::calculateVelocity() {
             y_rect = -vector[i].y;
         }
     }
-
     b2Vec2 velocity(x_rect, y_rect);
     velocity.Normalize();
     return velocity;
