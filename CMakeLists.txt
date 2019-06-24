@@ -55,7 +55,14 @@ set(CLIENT_SOURCE_FILES
         client/views/EnergyBarView.cpp
         client/InitialMenu.cpp
         common/OutputText.cpp
-        common/InputText.cpp client/LevelMenu.cpp client/LevelMenu.h client/GameNameMenu.cpp client/GameNameMenu.h client/SimpleInputManager.cpp client/SimpleInputManager.h)
+        common/InputText.cpp 
+        client/LevelMenu.cpp 
+        client/GameNameMenu.cpp 
+        client/SimpleInputManager.cpp
+        client/views/ReceptorUpView.cpp
+        client/views/ReceptorDownView.cpp
+        client/views/ReceptorLeftView.cpp
+        client/views/ReceptorRightView.cpp)
 
 #EDITOR CONFIG
 
