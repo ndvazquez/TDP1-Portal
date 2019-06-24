@@ -106,16 +106,16 @@ set(EDITOR_SOURCE_FILES
 
 
 
-        #ffmpeg/CodecContext.cpp
-        #ffmpeg/FormatOutput.cpp
-        #ffmpeg/FormatContext.cpp
-        #ffmpeg/Frame.cpp
-        #ffmpeg/Output.cpp
-        #ffmpeg/Packet.cpp
-        #ffmpeg/SwsContext.cpp
-        #ffmpeg/BlockingQueue.cpp
-        #ffmpeg/Consumer.cpp
-        #ffmpeg/Thread.cpp
+        ffmpeg/CodecContext.cpp
+        ffmpeg/FormatOutput.cpp
+        ffmpeg/FormatContext.cpp
+        ffmpeg/Frame.cpp
+        ffmpeg/Output.cpp
+        ffmpeg/Packet.cpp
+        ffmpeg/SwsContext.cpp
+        ffmpeg/BlockingQueue.cpp
+        ffmpeg/Consumer.cpp
+        ffmpeg/Thread.cpp
         editor/stage/InputManager.cpp)
 
 set(SERVER_SOURCE_FILES
@@ -186,7 +186,7 @@ target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
 target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
-        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)# avformat avcodec avutil swscale)
+        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf avformat avcodec avutil swscale)
 target_link_libraries(Server yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
