@@ -6,7 +6,6 @@
 #define PORTAL_LEVELMENU_H
 
 
-#define CLOSED_EXC "The user want to end the process\n"
 
 #include "../common/Window.h"
 
@@ -24,14 +23,5 @@ public:
     std::string start(const char *principalMessage);
 };
 
-
-
-class LevelOptionCloseEventException : public std::exception {
-public:
-    LevelOptionCloseEventException() = default;
-    virtual const char* what() const throw() {
-        return CLOSED_EXC;
-    }
-};
 
 #endif //PORTAL_LEVELMENU_H

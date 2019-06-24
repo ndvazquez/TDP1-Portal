@@ -97,6 +97,5 @@ std::string LevelMenu::start(const char* principalMessage) {
         delete act;
     }
 
-    std::cerr << "\nENTERED LEVEL:" << enteredLevel << "\n" << std::endl;
     return enteredLevel + EXTENSION;
 }

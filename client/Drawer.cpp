@@ -15,6 +15,7 @@
 #include "../common/UserEventQueue.h"
 #include "../common/StageStatusQueue.h"
 #include "views/ViewManager.h"
+#include "../common/InputText.h"
 #include <yaml-cpp/node/node.h>
 
 // It's recommended to use multiples of the MTP_FACTOR to get a smooth
@@ -86,7 +87,6 @@ void Drawer::draw(std::string& idChell) {
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
     bool quit = false;
-    bool printable = false;
     while (!quit) {
         if (!stageStatusQueue.empty()) {
             std::string stageStatusString = stageStatusQueue.pop();
@@ -96,13 +96,18 @@ void Drawer::draw(std::string& idChell) {
             quit = true;
         }
         GameState gameState = stageUpdateRequest["Game"]["state"].get<GameState>();
-        if (gameState == LOST && ! printable) {
-            std::cout << "All players have left the game. You lose!\n";
-            printable = true;
+        if (gameState == LOST) {
+            OutputText output(newWindow,"  ", GREEN_MOLD);
+            std::string s = "All players have left the game. You lose!";
+            output.writeTheScreen(s);
+            quit = true;
         }
-        if (gameState == WON && ! printable) {
-            std::cout << "Your team have won! Congratulations!\n";
-            printable = true;
+        if (gameState == WON) {
+
+            OutputText output(newWindow,"  ", GREEN_MOLD);
+            std::string s = "Your team have won! Congratulations!";
+            output.writeTheScreen(s);
+            quit = true;
         }
 
         // Time to draw!
