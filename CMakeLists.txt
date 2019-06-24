@@ -55,7 +55,7 @@ set(CLIENT_SOURCE_FILES
         client/views/EnergyBarView.cpp
         client/InitialMenu.cpp
         common/OutputText.cpp
-        common/InputText.cpp)
+        common/InputText.cpp client/LevelOption.cpp client/LevelOption.h)
 
 #EDITOR CONFIG
 

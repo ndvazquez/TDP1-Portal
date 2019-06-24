@@ -8,12 +8,12 @@
 #include "../common/OutputText.h"
 #include "../common/InputText.h"
 
-#define PINCIPAL_MESSAGE  "Do you want to (create) or (join) a game?"
+#define PINCIPAL_MESSAGE  "DO YOU WANT TO (CREATE) OR (JOIN) A GAME?"
 #define CREATE_MESSAGE "(CREATE)"
 #define JOIN_MESSAGE "(JOIN)"
 #define SENTINEL_MESSAGE "  "
-#define NO_GAMES_AVAILABLE "No games available at the moment, (create) one!"
-#define GAMES_AVAILABLE "List of games available: "
+#define NO_GAMES_AVAILABLE "NO GAMES AVALIABLE AT THE MOMENT, (CREATE) ONE!"
+#define GAMES_AVAILABLE "LIST OF GAMES AVALIABLE:"
 
 InitialMenu::InitialMenu(Window &window,
                     std::vector<std::string> &gamesAvailable) :
@@ -80,6 +80,11 @@ int InitialMenu::start() {
                     break;
                 }
             }
+            if (e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_RETURN){
+                ret = CREATE_ACTION;
+                quit = true;
+                break;
+            }
             if (e.type == SDL_QUIT) {
                 ret = QUIT_ACTION;
                 quit = true;
@@ -105,10 +110,13 @@ int InitialMenu::start() {
             }
         }
     }
-
-    for (auto it = optionsList.begin(); it != optionsList.end();) {
-        delete *it;
-    }
+    /*
+    auto it = optionsList.begin();
+    while (it != optionsList.end()) {
+        auto act = *it;
+        it++;
+        delete act;
+    }*/
 
     return ret;
 }

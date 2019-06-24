@@ -9,6 +9,13 @@
 #include "../json/json.hpp"
 #include "../common/constants.h"
 #include "InitialMenu.h"
+#include "../common/OutputText.h"
+#include "LevelOption.h"
+
+#define NO_LEVELS "NO LEVELS AVAILABLE AT THE MOMENT, CREATE ONE WITH THE EDITOR!"
+#define INVALID_LEVEL_REQUEST "THE NAME YOU ENTERED WAS INVALID. ENTER A VALID LEVEL NAME"
+#define LEVEL_REQUEST "ENTER A LEVEL NAME"
+
 
 Game::Game(Protocol &clientProtocol, Socket &clientSocket, Window& window):
     clientProtocol(clientProtocol), clientSocket(clientSocket), window(window) {
@@ -58,23 +65,30 @@ bool Game::play(std::string& idChell) {
             nlohmann::json levelsJson = nlohmann::json::parse(laString);
             std::vector<std::string> levelsAvailable = levelsJson["levels"].get<std::vector<std::string>>();
             if (levelsAvailable.empty()) {
-                std::cout << "No levels available at the moment, create one with the editor!\n";
+                OutputText message(window, " ");
+                std::string text = NO_LEVELS;
+                message.writeTheScreen(text);
                 clientSocket.shutdownAndClose();
                 return false;
             } else {
-                std::cout << "List of levels available: \n";
-                for (auto & it : levelsAvailable) {
-                    std::cout << it << std::endl;
+
+                //std::cout << "List of levels available: \n";
+                //for (auto & it : levelsAvailable) {
+                //    std::cout << it << std::endl;
+                //}
+            }
+            try {
+                LevelOption option(window, levelsAvailable);
+                levelPath = option.start(LEVEL_REQUEST);
+                size_t n = laString.find(levelPath);
+                while (laString.find(levelPath) == std::string::npos) {
+                    levelPath = option.start(INVALID_LEVEL_REQUEST);
+
                 }
-            }
-            std::cout << "Choose a level by typing its name: \n";
-            std::getline(std::cin, levelPath);
-            while (laString.find(levelPath) == std::string::npos) {
-                std::cout << "Please enter a valid level name: \n";
-                std::getline(std::cin, levelPath);
-            }
-            if (levelPath.find(".yaml") == std::string::npos) {
-                levelPath += ".yaml";
+            } catch (LevelOptionCloseEventException) {
+                std::cerr << "QUIT" << std::endl;
+                clientSocket.shutdownAndClose();
+                return false;
             }
         }
         // Prepare other fields needed to process
