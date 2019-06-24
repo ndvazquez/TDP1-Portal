@@ -66,18 +66,31 @@ void Drawer::draw(std::string& idChell) {
     stageStatusReceiver.start();
 
     nlohmann::json stageUpdateRequest = "{}"_json;
+    stageUpdateRequest["Game"] = {
+            {"state", PLAYING}, {"x", 0}, {"y", 0}
+    };
     const SDL_Rect& cameraRect = camera.getCameraRectangle();
 
     bool quit = false;
+    bool printable = false;
     while (!quit) {
         if (!stageStatusQueue.empty()) {
             std::string stageStatusString = stageStatusQueue.pop();
             stageUpdateRequest = nlohmann::json::parse(stageStatusString);
         }
-        if (userEventHandler.isDead() || stageStatusReceiver.isDead()
-            || eventSender.isDead()) {
+        if (userEventHandler.isDead()) {
             quit = true;
         }
+        GameState gameState = stageUpdateRequest["Game"]["state"].get<GameState>();
+        if (gameState == LOST && ! printable) {
+            std::cout << "All players have left the game. You lose!\n";
+            printable = true;
+        }
+        if (gameState == WON && ! printable) {
+            std::cout << "Your team have won! Congratulations!\n";
+            printable = true;
+        }
+
         // Time to draw!
         newWindow.clear();
         SDL_Rect* bgRect = nullptr;

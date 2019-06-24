@@ -34,7 +34,7 @@ private:
 
 public:
     // Ctor
-    Output(FormatContext& context, const std::string& filename);
+    Output(FormatContext &context, const std::string &filename, Window &window);
     // Dtor
     ~Output();
     // Escribe un frame a disco. Utiliza `swsContext` para convertir

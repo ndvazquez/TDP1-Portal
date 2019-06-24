@@ -7,14 +7,14 @@ extern "C" {
 }
 #include "CodecContext.h"
 
-CodecContext::CodecContext(AVCodec *codec) :
+CodecContext::CodecContext(AVCodec *codec, Window &window) :
         codecContext(avcodec_alloc_context3(codec)) {
     if (!codecContext) {
         throw CodecContextInitException();
     }
     // La resolución debe ser múltiplo de 2
-    this->codecContext->width = 352;
-    this->codecContext->height = 288;
+    this->codecContext->width = window.getWindowWidth();
+    this->codecContext->height = window.getWindowHeight();
     this->codecContext->time_base = {1,25};
     this->codecContext->framerate = {25,1};
     this->codecContext->pix_fmt = AV_PIX_FMT_YUV420P;

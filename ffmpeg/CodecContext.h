@@ -10,6 +10,8 @@ extern "C" {
 #include <libavcodec/avcodec.h>
 }
 #include <string>
+#include "../common/Window.h"
+
 #define INIT_CODEC_CONTEXT_EXC "There was an error while allocating memory for a CodecContext\n"
 
 class CodecContextException : public std::exception {
@@ -34,7 +36,7 @@ private:
     AVCodecContext* codecContext;
 
 public:
-    explicit CodecContext(AVCodec *codec);
+    explicit CodecContext(AVCodec *codec, Window &window);
 
     ~CodecContext();
 

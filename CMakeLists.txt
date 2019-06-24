@@ -171,7 +171,8 @@ set(SERVER_SOURCE_FILES
         server/config/configuration.cpp
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp
-        server/communication-support/RoomWorker.cpp)
+        server/communication-support/RoomWorker.cpp
+        server/communication-support/Server.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
