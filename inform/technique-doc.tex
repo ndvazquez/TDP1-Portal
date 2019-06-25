@@ -187,6 +187,8 @@ Se tratan de diversas clases que se consideró que podían ser útiles para más
 
 Se tratan de clases que no necesariamente están relacionadas entre sí por lo que se considera que no es pertinente a la documentación exponer un diagrama de clases. Sin embargo, sí se mostrará su relación con las futuras clases. De esta forma, las principales clases que componen este módulo son:
 
+\newpage
+
 \begin{itemize}
 	\item \textbf{Socket}
 \end{itemize}
@@ -222,7 +224,7 @@ Se trata de una cola bloqueante a la que se encola el estado del escenario en un
 	\item \textbf{Window}
 \end{itemize}
 
-Se trata de una clase wrapper de SDL\_Window y SDL\_Renderer. Se utiliza en absolutamente todas las vistas y operaciones que requieran dibujar a pantalla.
+Se trata de una clase wrapper de \texttt{SDL\_Window} y \texttt{SDL\_Renderer}. Se utiliza en absolutamente todas las vistas y operaciones que requieran dibujar a pantalla.
 La clase fue protegida debido a que ha de ser compartida entre el hilo que procesa input de usuario y el hilo que dibuja, para poder manejar el cambio de tamaño de la pantalla de Fullscreen a Windowed y viceversa.
 
 \begin{itemize}
@@ -330,6 +332,7 @@ Tiene como atributos un string que denota el tipo de objeto y un puntero a un ob
 
 Su principal método consiste en contempla las colisiones con instancias de la clase \texttt{Chell} ya que debe matarla.
 
+\newpage
 \begin{itemize}
 	\item \textbf{Shot}
 \end{itemize}
@@ -377,6 +380,8 @@ Esta clase tiene como responsabilidad principal manejar las colisiones con las b
 \end{itemize}
 
 Esta clase se encarga principalmente de manejar las colisiones con las bolas de energía para que desaparezcan y con los disparos para no generar portales en caso de colisionar.
+
+\newpage
 
 \begin{itemize}
 	\item \textbf{Energy Ball}
@@ -488,7 +493,9 @@ La clase \texttt{Dynamic} alberga la responsabilidad de simular desde la física
 
 \subsection{Diagramas UML}
 
-Se procede a exponer los diagramas de clase realizados para las diversas secciones:
+Se procede a exponer los diagramas de clase realizados para las diversas secciones.
+
+\newpage 
 
 \subsubsection{Entidades del juego}
 
@@ -508,11 +515,12 @@ Se procede a exponer los diagramas de clase realizados para las diversas seccion
 \subsubsection{Manejo de portales}
 
 \begin{figure}[!h]
-	\makebox[\textwidth][c]{\includegraphics[width=0.65\textwidth]{server_class_3.png}}
+	\makebox[\textwidth][c]{\includegraphics[width=0.6\textwidth]{server_class_3.png}}
 	\caption{Diagrama de clases de los elementos utilizados para manejar los portales}
 	\label{fig:diagrama3}
 \end{figure}
 
+\newpage
 
 \subsubsection{Manejo del escenario}
 
@@ -521,6 +529,8 @@ Se procede a exponer los diagramas de clase realizados para las diversas seccion
 	\caption{Diagrama de clases de los elementos utilizados para manejar el escenario}
 	\label{fig:diagrama4}
 \end{figure}
+
+\newpage
 
 \subsubsection{Soporte de comunicación}
 
@@ -685,18 +695,44 @@ Sus atributos son un protocolo \texttt{Protocol} y una referencia a una cola de 
 
 Sus atributos son un protocolo \texttt{Protocol} y una referencia a una cola de estados del escenario \texttt{StageStatusQueue}. Se encarga de recibir los diversos estados del escenario, enviados por el servidor, para dibujar los elementos dinámicos en su estado actual.
 
+\newpage
+
 \subsection{Diagramas UML}
 
-\subsubsection{Soporte para sonidos}
+\subsubsection{Soporte para vistas y sonidos}
 
-\subsubsection{Soporte para vistas}
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{umlDrawer.png}}
+	\caption{Diagrama de clases del soporte para vistas y sonidos}
+	\label{fig:diagram6}
+\end{figure}
 
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{umlGame.png}}
+	\caption{Diagrama de clases del soporte para vistas y sonidos}
+	\label{fig:diagram7}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{umlViewManager.png}}
+	\caption{Diagrama de clases del soporte para vistas y sonidos}
+	\label{fig:diagram8}
+\end{figure}
+
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{umlViews.png}}
+	\caption{Diagrama de clases del soporte para vistas y sonidos}
+	\label{fig:diagram9}
+\end{figure}
+\newpage
 \subsubsection{Soporte para comunicación}
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{client_class_1.png}}
 	\caption{Diagrama de clases del soporte de comunicación del cliente}
-	\label{fig:diagram6}
+	\label{fig:diagram10}
 \end{figure}
 
 \subsection{Descripción de archivos y protocolos}
@@ -706,6 +742,8 @@ Contamos con un archivo de configuración para setear la resolución de la venta
 Como ya se mencionó en la sección del servidor, se utiliza el formato JSON para el envío y recepción de información.
 
 Adicionalmente a los requests ya descriptos en la sección del servidor, contamos con los siguientes requests:
+
+\newpage
 
 \begin{enumerate}
 	\item Lista de juegos:
