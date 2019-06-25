@@ -6,7 +6,7 @@
 #define PORTAL_CONSUMER_H
 
 
-#include "Thread.h"
+#include "../common/Thread.h"
 #include "BlockingQueue.h"
 #include "Output.h"
 #include "FormatContext.h"
@@ -28,6 +28,7 @@ public:
     ~Consumer();
 
     virtual void run() override;
+    virtual void stop() override;
 
 };
 

@@ -27,6 +27,11 @@ void Consumer::run() {
     }
 }
 
+
+void Consumer::stop() {
+}
+
+
 Consumer::~Consumer() {
     videoOutput.close();
     sws_freeContext(ctx);

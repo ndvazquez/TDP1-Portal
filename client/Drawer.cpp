@@ -3,6 +3,9 @@
 //
 
 #include "Drawer.h"
+#include "../ffmpeg/Consumer.h"
+#include "../ffmpeg/SwsContext.h"
+
 
 Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window,
         int mtpFactor):
@@ -11,6 +14,15 @@ Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window,
 }
 
 void Drawer::draw(std::string& idChell) {
+    BlockingQueue queue; // needed for concurrency
+
+    av_register_all();  // REALLY IMPORTANT.
+    // If you do not call this function before initializing Cosumer
+    // your program will crash
+    SwsContext ctx(queue, newWindow);
+    std::string filename = "testffmpeg.mkv";
+    Consumer consumer(queue, filename, newWindow);
+
     const int screenWidth = newWindow.getWindowWidth();
     const int screenHeight = newWindow.getWindowHeight();
     YAML::Node textures = YAML::LoadFile(CLIENT_TEXTURE_CONFIG_FILE);
@@ -101,11 +113,21 @@ void Drawer::draw(std::string& idChell) {
         stageView.draw(cameraRect);
         viewManager.showAndUpdateViews(stageUpdateRequest, camera);
         newWindow.render();
+
+
+        ctx.write();  // Reads from the window.render and writes on disk
+
+
         audioSystem.playSoundEffects();
 
     }
     UserEvent eventSenderSuicidePill = UserEvent(idChell, USER_QUIT_CODE, 0, 0);
     userEventQueue.push(eventSenderSuicidePill);
+
+    queue.close(); // hey queue when you get empty it means that we finish.
+    // We are not going to push anything else.
+
+    consumer.join();
 
     clientSocket.shutdownAndClose();
     userEventHandler.stop();

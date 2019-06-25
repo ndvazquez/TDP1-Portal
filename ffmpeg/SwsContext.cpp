@@ -25,6 +25,8 @@ SwsContext::~SwsContext() = default;
 
 void SwsContext::write() {
     // Obtengo los bytes de la textura en el buffer
+    static int counter = 0;
+    ++counter;
     int res = SDL_RenderReadPixels(window.getRenderer(), NULL, SDL_PIXELFORMAT_RGB24, dataBuffer.data(), width * 3);
     if (res) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "RendererReadPixels error", SDL_GetError(), NULL);
@@ -32,5 +34,8 @@ void SwsContext::write() {
     }
     //operacion lenta que pasó a otro thread:
     //videoOutput.writeFrame(dataBuffer.data(), ctx);
-    producedFrames.push(dataBuffer);
+    if (countr = 60) {
+        producedFrames.push(dataBuffer);
+        count = 0;
+    }
 }

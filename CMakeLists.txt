@@ -63,7 +63,17 @@ set(CLIENT_SOURCE_FILES
         client/views/ReceptorDownView.cpp
         client/views/ReceptorLeftView.cpp
         client/views/ReceptorRightView.cpp
-        client/views/Pintool.cpp)
+        client/views/Pintool.cpp
+
+        ffmpeg/CodecContext.cpp
+        ffmpeg/FormatOutput.cpp
+        ffmpeg/FormatContext.cpp
+        ffmpeg/Frame.cpp
+        ffmpeg/Output.cpp
+        ffmpeg/Packet.cpp
+        ffmpeg/SwsContext.cpp
+        ffmpeg/BlockingQueue.cpp
+        ffmpeg/Consumer.cpp)
 
 #EDITOR CONFIG
 
@@ -116,17 +126,6 @@ set(EDITOR_SOURCE_FILES
         editor/stage/object/GravitySentinel.cpp
 
 
-
-        #ffmpeg/CodecContext.cpp
-        #ffmpeg/FormatOutput.cpp
-        #ffmpeg/FormatContext.cpp
-        #ffmpeg/Frame.cpp
-        #ffmpeg/Output.cpp
-        #ffmpeg/Packet.cpp
-        #ffmpeg/SwsContext.cpp
-        #ffmpeg/BlockingQueue.cpp
-        #ffmpeg/Consumer.cpp
-        #ffmpeg/Thread.cpp
         editor/stage/InputManager.cpp client/CloseException.h)
 
 set(SERVER_SOURCE_FILES
@@ -196,10 +195,10 @@ add_executable(Editor editor/main.cpp ${EDITOR_SOURCE_FILES})
 add_subdirectory(Box2D)
 target_link_libraries(Client yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
-        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread)
+        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf pthread avformat avcodec avutil swscale)
 target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
-        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)# avformat avcodec avutil swscale)
+        ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)#
 target_link_libraries(Server yaml-cpp)
 target_link_libraries(Test yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)
