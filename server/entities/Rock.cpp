@@ -33,6 +33,10 @@ Rock::Rock(b2Body* body):
     fixture->SetFilterData(filter);
 }
 
+Rock::~Rock() {
+    delete actual_movement;
+}
+
 void Rock::handleCollision(Entity *entity) {
     const std::string& type = entity->getType();
     if (type == PORTAL_NAME) {
