@@ -222,7 +222,7 @@ Se trata de una cola bloqueante a la que se encola el estado del escenario en un
 	\item \textbf{Window}
 \end{itemize}
 
-Se trata de una clase wrapper de SDL_Window y SDL_Renderer. Se utiliza en absolutamente todas las vistas y operaciones que requieran dibujar a pantalla.
+Se trata de una clase wrapper de SDL\_Window y SDL\_Renderer. Se utiliza en absolutamente todas las vistas y operaciones que requieran dibujar a pantalla.
 La clase fue protegida debido a que ha de ser compartida entre el hilo que procesa input de usuario y el hilo que dibuja, para poder manejar el cambio de tamaño de la pantalla de Fullscreen a Windowed y viceversa.
 
 \begin{itemize}
@@ -584,7 +584,7 @@ A continuación se enumeran las principales clases que se encargan de implementa
 
 \subsection{Clases}
 
-Para describir las clases utilizadas se dividirán las clases en 3 categorı́as:
+Para describir las clases utilizadas se dividirán las clases en 3 categorías:
 
 \subsubsection{Soporte para input de usuario}
 
@@ -603,7 +603,7 @@ Esta clase se corre en un thread propio, para poder procesar eventos de SDL sól
 	\item \textbf{View}
 \end{itemize}
 
-Sus atributos principales son una ventana \texttt{Window}, un factor para pasar de unidades de Box2D a pixeles, y una caja de colisión \texttt{SDL_Rect} para revisar colisiones contra la cámara.
+Sus atributos principales son una ventana \texttt{Window}, un factor para pasar de unidades de Box2D a pixeles, y una caja de colisión \texttt{SDL\_Rect} para revisar colisiones contra la cámara.
 Esta clase es virtual, es decir, ha de ser implementada por cada una de las vistas que representan entidades del modelo.
 Cuenta con métodos implementados, los cuales son \texttt{move} para actualizar la posición actual de la vista en pantalla, y \texttt{checkCollisionWithCamera} el cual es utilizado por las vistas para determinar si deben ser dibujadas o no.
 El fin de revisar colisión con la cámara es evitar dibujar innecesariamente texturas que el jugador no podrá ver, mejorando la performance del programa.
@@ -626,7 +626,7 @@ En el caso de la muerte, se reproduce la misma durante una cantidad predetermina
 	\item \textbf{Camara}
 \end{itemize}
 
-Esta clase consta de un SDL_Rect, el cual determinará qué se muestra en pantalla. La misma se centra sobre el jugador asignado al usuario.
+Esta clase consta de un SDL\_Rect, el cual determinará qué se muestra en pantalla. La misma se centra sobre el jugador asignado al usuario.
 Es una clase protegida ya que debió ser utilizada entre dos distintos threads, por lo tanto fue pertinente protegerla para evitar race conditions.
 
 \begin{itemize}
@@ -654,7 +654,7 @@ Finalmente, sólo dibujamos los bloques que existan en nuestro mapa y cuyas clav
 \end{itemize}
 
 Esta clase se encarga de consumir códigos de sonido desde una cola de códigos de sonido, y reproducirlos.
-Los sonidos se guardan en un mapa donde tenemos como clave un código de sonido, y como valor asociado un \texttt{Mix_Chunk*} el cual contiene el sonido a reproducir.
+Los sonidos se guardan en un mapa donde tenemos como clave un código de sonido, y como valor asociado un \texttt{Mix\_Chunk*} el cual contiene el sonido a reproducir.
 Adicionalmente, contamos con un mapa similar pero para música. En la implementación actual del TP no fue utilizado en todo su potencial este feature, pero en próximos releases agregaremos más canciones y la posibilidad de cambiar de música en medio de la partida.
 
 \begin{itemize}
@@ -719,7 +719,7 @@ Adicionalmente a los requests ya descriptos en la sección del servidor, contamo
 	{ "action": CREATE_GAME_CODE
 	};
 	\end{verbatim}
-	Donde CREATE_GAME_CODE y JOIN_GAME_CODE son enteros, 0 y 1 respectivamente.
+	Donde CREATE\_GAME\_CODE y JOIN\_GAME\_CODE son enteros, 0 y 1 respectivamente.
 	\item Campos de partida y ID jugador:
 	\begin{verbatim}
 	{ "game": gameName,
@@ -732,7 +732,7 @@ Adicionalmente a los requests ya descriptos en la sección del servidor, contamo
 	  "idChell": Chell1
 	};
 	\end{verbatim}
-	El campo "result" puede ser SUCCESS_CODE o FAIL_CODE, dependiendo de si salió todo bien o no. "idChell" es el ID asignado por el servidor a la Chell del jugador.
+	El campo "result" puede ser SUCCESS\_CODE o FAIL\_CODE, dependiendo de si salió todo bien o no. "idChell" es el ID asignado por el servidor a la Chell del jugador.
 	\item UserEvent enviado al servidor:
 	\begin{verbatim}
 	{ "id": userId,
@@ -743,7 +743,8 @@ Adicionalmente a los requests ya descriptos en la sección del servidor, contamo
 	\end{verbatim}
 	Este request contiene toda la información que necesita el servidor para poder procesar un evento de usuario. X e Y respectivamente se dejan en 0 si el evento no requiere saber estos valores.
 	EventTypeCode es un entero con distintos valores, el listado completo puede observarse en el archivo \texttt{common/constants.h}
-\end
+\end{enumerate}
+
 \section{Editor}
 
 \subsection{Descripción general}
