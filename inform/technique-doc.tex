@@ -789,11 +789,102 @@ Adicionalmente a los requests ya descriptos en la sección del servidor, contamo
 
 \subsection{Descripción general}
 
+Las funcionalidades del servidor se dividen en dos partes:
+\begin{enumerate}
+\item El menú donde el usuario podrá ver los distintos elementos que son posibles agregar al escenario.
+\item El escenario el cual el usuario podrá editar e ir viendo su progreso.
+\end{enumerate}
+
 \subsection{Clases}
 
-\subsection{Diagramas UML}
+\subsubsection{Editor}
 
-\subsection{Descripción de archivos y protocolos}
+El Editor es una suerte de “manejador” del Stage y Menu. Se encarga de recibir los handles de SDL y articular entre ambas clases según sea necesario.
+
+\subsubsection{Menu}
+
+El objetivo principal de esta clase es mostrar todos los posibles elementos en pantalla y actualizar la referencia al objeto seleccionado. Es decir, que cada vez que el usuario hace un click en alguna de las opciones proporcionadas el Menu guarda en una variable compartida el ID de este objeto.
+
+\begin{itemize}
+\item \textbf{MenuButton}
+\end{itemize}
+
+Esta clase es utilizada por el Menu para instanciar las distintas opciones. Cada uno de los elementos visibles en el menú es una instancia de esta clase con una imagen específica. Su principales labores son dibujarse y verificar si el handle detectado se dio dentro de ellos para así brindar el ID de la opci+on que representan.
+
+\subsubsection{Stage}
+
+La funcionalidad principal del stage es manejar todos los pedido provenientes del Editor para ello debe:
+\begin{enumerate}
+\item Verificar que realmente el evento generado por el usuario se encuentre dentro del escenario.
+\item Ejecutar el handle. En punto en general consta de enviarle una instrucción al Controller.
+\end{enumerate}
+
+\begin{itemize}
+\item \textbf{Controller}
+Esta clase cuenta con:
+\begin{enumerate}
+\item Referencia a todas las posibles opciones ID a agregar y un puntero a una instancia real de lo que ese ID representa (`Object*`).
+\item Una lista de tipo clave-valor de todas las posiciones del escenarios (como clave) y el ID del objeto que ocupa ese lugar (como valor).
+\item Una instancia de View.
+\item Una instancia de LogicGates.
+\item Una instancia de YamlManager.
+\end{enumerate}
+
+El controlador inicialmente se encargaba únicamente de agregar y sacar elementos del mapa. A través de los últimas 3 atributos el controller pudo deriva parte de sus nuevas funcionalidades. Las mismas son: dibujar el mapa que se está editando, nombrar los objetos que pueden ser nombrados (botones, receptores, compuertas) agregar condiciones lógicas a las compuertas y leer y escribir archivos de tipo `.yaml`. En conclusión el controlador es el encargado de manejar todos los aspectos del escenario.
+
+\item \textbf{LogicGates}
+
+Esta clase tiene una referencia a todos los objetos que pueden ser nombrados (en el modelo actual son sólo 3) y todos los objetos que conllevan una condición lógica (en el modelo actual existe sólo 1). Su funcion principal es comunicarse con el usuario por la pantalla y asi pedirle un string para poder almacenarlo en el objeto que corresponda.
+
+\item \textbf{YamlManager}
+
+Esta clase conoce perfectamente el manejador de archivos de extención `.yaml` así como las necesidades del servidor. Es decir, se encarga de escribir un archivo de forma tal que pueda ser interpretado por este. Ademas el mismo tiene la capacidad de interpretar el archivo que produce y de setear un enescenario en edición a partir del mismo. Es menester que el YamlManager conozca al LogicGates intanciado por el Controller porque es necesario plasmar en el archivo de salida las condiciones lógicas ingresadas por el usuario.
+
+
+\item \textbf{View}
+
+Esta clase se encarga de dibujar el mapa completo. La implementación del controller facilita que el escenario sea infinito sin ningún problema de performance. Para que este feature sea visible al usuario es esencial que esta clase sepa plasmar el movimiento del movimiento del mapa. Esto es posible ya que a la hora de ser dibujado recibe como parámetro un SDLRect* que indica la posición de la cámara con respecto a los objetos del escenario.
+
+\item \textbf{Object clase base}
+
+Los objetos y su polimorfismo son esenciales para la implementación de este modelo. Cada objeto tiene su alto y ancho y su propio id. Además los objetos saben cuando pueden agregarse o quitarse del escenario. Así como calcular su centro de masa a partir de una posición en una matriz y viceversa.
+
+\item \textbf{Object clases derivadas}
+
+Las clases derivadas se encargan de sobrescribir ciertos comportamiento en los que difieren de la clase madre. Por ejemplo, StacticObjects y AnimatedObject sobrescriben la forma de dibujarse.
+
+\end{itemize}
+
+\subsection{Diagramas UML}
+Se procede a exponer los diagramas de clase realizados para las diversas secciones.
+
+\newpage
+
+\subsubsection{Clases principales}
+
+\begin{figure}[!h]
+\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{editor_clases_basico.png}}
+\caption{Diagrama de clases más abarcativas del editor}
+\label{fig:diagrama5}
+\end{figure}
+
+\newpage
+\subsubsection{Modelo del stage}
+
+\begin{figure}[!h]
+\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{editor_stage_zoom.png}}
+\caption{Diagrama de clases más funcionales del editor}
+\label{fig:diagrama6}
+\end{figure}
+
+\newpage
+\subsubsection{Objetos del escenario}
+
+\begin{figure}[!h]
+\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{editor_object_zoom.png}}
+\caption{Diagrama de clases más especificas del editor}
+\label{fig:diagrama7}
+\end{figure}
 
 
 \end{document}
