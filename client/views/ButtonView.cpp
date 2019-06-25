@@ -6,7 +6,7 @@
 #include <string>
 
 ButtonView::ButtonView(Window &window, int xPos, int yPos, int factor,
-        YAML::Node texturesData) :
+        YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, BUTTON_WIDTH, BUTTON_HEIGHT) {
     YAML::Node spritesData = texturesData[TEXTURES_BUTTON_KEY];
     for (YAML::const_iterator it = spritesData.begin();

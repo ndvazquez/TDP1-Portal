@@ -5,7 +5,7 @@
 #include "EnergyBarView.h"
 
 EnergyBarView::EnergyBarView(Window &window, int xPos, int yPos,
-                   int factor, YAML::Node texturesData) :
+                   int factor, YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, ENERGY_BAR_WIDTH, ENERGY_BAR_HEIGHT) {
     const YAML::Node& spritesData = texturesData[TEXTURES_ENERGY_BAR_KEY];
     for (YAML::const_iterator it = spritesData.begin();

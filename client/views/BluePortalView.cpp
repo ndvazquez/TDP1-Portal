@@ -6,7 +6,7 @@
 #include <string>
 
 BluePortalView::BluePortalView(Window &window, int xPos, int yPos,
-        int factor, YAML::Node texturesData) :
+        int factor, YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, PORTAL_WIDTH, PORTAL_HEIGHT){
     YAML::Node animationData = texturesData[TEXTURES_BLUE_PORTAL_KEY];
     std::string path = animationData["path"].as<std::string>();

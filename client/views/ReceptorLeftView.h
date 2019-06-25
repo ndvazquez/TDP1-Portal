@@ -25,7 +25,7 @@ public:
                      int xPos,
                      int yPos,
                      int factor,
-                     YAML::Node texturesData);
+                     YAML::Node& texturesData);
     ~ReceptorLeftView();
     void setState(int state);
     void playAnimation(const SDL_Rect& camera);

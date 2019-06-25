@@ -6,7 +6,7 @@
 #include <string>
 
 CakeView::CakeView(Window &window, int xPos, int yPos, int factor,
-                   YAML::Node texturesData) :
+                   YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, CAKE_WIDTH, CAKE_HEIGHT) {
     YAML::Node animationData = texturesData[TEXTURES_CAKE_KEY];
     std::string path = animationData["path"].as<std::string>();
