@@ -5,6 +5,19 @@
 - Cecilia Hortas
 - Nicolas Vázquez
 
+### Dependencias a instalar:
+
+Es necesario contar con Cmake en la versión `3.14.5` o superior.
+
+- Para la interfaz gráfica:
+```
+sudo apt-get install libsdl2-dev
+sudo apt-get install libsdl2-image-dev
+sudo apt-get install libsdl2-mixer-dev
+sudo apt-get install libsdl2-ttf-dev 
+sudo apt-get install libyaml-cpp-dev
+```
+
 ### Instalación:
 
 Para instalar el juego en su totalidad:
@@ -35,19 +48,6 @@ Los controles del juego son:
 - **p** para poner un pin (marca en la pantalla)
 - **click izquierdo** para poner un portal azul
 - **click derecho** para poner un portal naranja
-
-### Dependencias a instalar:
-
-Es necesario contar con Cmake en la versión `3.14.5` o superior.
-
-- Para la interfaz gráfica:
-```
-sudo apt-get install libsdl2-dev
-sudo apt-get install libsdl2-image-dev
-sudo apt-get install libsdl2-mixer-dev
-sudo apt-get install libsdl2-ttf-dev 
-sudo apt-get install libyaml-cpp-dev
-```
 
 ### Ffmpeg
 Este feature fue desarrollado en un repositorio externo. 
