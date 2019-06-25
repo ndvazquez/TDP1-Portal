@@ -108,12 +108,56 @@ Agregar algo relativo al sh para la compilación
 El proyecto se constituye de los siguientes módulos:
 
 \begin{itemize}
-	\item Servidor
-	\item Cliente gráfico
-	\item Editor
+	\item \textbf{Servidor}
+
+Se encuentran tanto las clases designadas al soporte físico del juego como al soporte multijugador y multipartida.
+
+	\item \textbf{Cliente gráfico}
+	
+Se encuentran las clases designadas para modelar el cliente desde un lado gráfico con el uso de la librería \texttt{SDL} así como el soporte para manejar la recepción del estado actual del escenario para dibujarlo y el envío de los diversos eventos de usuarios para que sean modelados por el motor físico.
+	\item \textbf{Editor}
+	
+Se encuentran las clases designadas para el modelado del editor que se tratan escencialmente de \textit{wrappers} de diversas funcionalidades de \texttt{SDL} y \texttt{ffmpeg}.
+
+	\item \textbf{Archivos compartidos}
+	
+Se tratan de diversas clases que se consideró que podían ser útiles para más de un módulo por lo que se colocaron en un espacio común para su correcta compilación.
 \end{itemize}
 
-VER ESTO PORQUE NO SÉ QUÉ PONER
+\section{Archivos compartidos}
+
+Se tratan de clases que no necesariamente están relacionadas entre sí por lo que se considera que no es pertinente a la documentación exponer un diagrama de clases. Sin embargo, sí se mostrará su relación con las futuras clases. De esta forma, las principales clases que componen este módulo son:
+
+\begin{itemize}
+	\item \textbf{Socket}
+\end{itemize}
+
+Esta clase encapsula todas las operaciones realizadas para la comunicación a través de un socket.
+
+\begin{itemize}
+	\item \textbf{Protocol}
+\end{itemize}
+
+Esta clase encapsula el protócolo utilizado para el desarrollo del juego. Contiene una referencia a un \texttt{Socket} y modela el envío y recepción de \texttt{strings}.
+
+\begin{itemize}
+	\item \textbf{Thread}
+\end{itemize}
+
+Esta clase encapsula el funcionamiento de un thread. Su principal atributo es una variable de tipo \texttt{std::thread} a la que se le pasa como parámetro una
+referencia a la función \texttt{run()} que encapsula la ejecución.
+
+\begin{itemize}
+	\item \textbf{UserEventQueue}
+\end{itemize}
+
+Se trata de una cola bloqueante a la que se encola los diversos eventos de usuarios que deben ser modelados por el motor físico.
+
+\begin{itemize}
+	\item \textbf{StageStatusQueue}
+\end{itemize}
+
+Se trata de una cola bloqueante a la que se encola el estado del escenario en un step dado por el escenario para que sea dibujado por los diversos clientes.
 
 \section{Servidor}
 
@@ -359,6 +403,51 @@ La clase \texttt{Dynamic} alberga la responsabilidad de simular desde la física
 
 \subsection{Diagramas UML}
 
+Se procede a exponer los diagramas de clase realizados para las diversas secciones:
+
+\subsubsection{Entidades del juego}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{server_class_1.png}}
+	\caption{Diagrama de clases de los elementos del juego}
+	\label{fig:diagrama1}
+\end{figure}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{server_class_2.png}}
+	\caption{Diagrama de clases de los elementos del juego}
+	\label{fig:diagrama2}
+\end{figure}
+
+\newpage
+\subsubsection{Manejo de portales}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.65\textwidth]{server_class_3.png}}
+	\caption{Diagrama de clases de los elementos utilizados para manejar los portales}
+	\label{fig:diagrama3}
+\end{figure}
+
+
+\subsubsection{Manejo del escenario}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.25\textwidth]{server_class_4.png}}
+	\caption{Diagrama de clases de los elementos utilizados para manejar el escenario}
+	\label{fig:diagrama4}
+\end{figure}
+
+\subsubsection{Soporte de comunicación}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{server_class_5.png}}
+	\caption{Diagrama de clases de los elementos utilizados para el soporte de comunicación}
+	\label{fig:diagrama5}
+\end{figure}
+
+Es pertinente aclarar que no se mostró en el diagrama la relación con la clase \texttt{Protocol} y la clase \texttt{Socket} por claridad.
+\newpage
+
 \subsection{Descripción de archivos y protocolos}
 
 El protocolo implementado consistió en enviar y recibir \texttt{strings} por medio de sockets utilizando el protocolo \texttt{TCP}. Estos strings provenían de objetos de la clase \texttt{nlohmann::json}, implementada por la librería \texttt{nlohman} \footnote{https://github.com/nlohmann/json} que tienen un método de conversión a strings. Para el envío de strings se envía primero el largo del string y luego el string. Para recibir simplemente se recibe un string.
@@ -416,10 +505,6 @@ Luego, en cada \texttt{step} simulado por \texttt{Box2D} se envía al cliente un
 \subsection{Diagramas UML}
 
 \subsection{Descripción de archivos y protocolos}
-
-\section{Programas intermedios y de prueba}
-
-\section{Código fuente}
 
 
 \end{document}
