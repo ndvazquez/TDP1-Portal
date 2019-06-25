@@ -10,13 +10,15 @@ UserEventHandler::UserEventHandler(const Camera &camera,
         UserEventQueue &userEventQueue,
         const std::string& userId,
         int levelHeight, SoundCodeQueue& soundCodeQueue,
-        Window& gameWindow) :
+        Window& gameWindow,
+        float factorInv) :
         camera(camera),
         userEventQueue(userEventQueue),
         userId(userId),
         levelHeight(levelHeight),
         soundCodeQueue(soundCodeQueue),
-        gameWindow(gameWindow){
+        gameWindow(gameWindow),
+        mtpFactorInv(factorInv){
 }
 
 UserEventHandler::~UserEventHandler() {}

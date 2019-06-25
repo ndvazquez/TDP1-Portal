@@ -21,13 +21,17 @@
 #include <yaml-cpp/node/node.h>
 #include "../common/constants.h"
 
+#define CLIENT_TEXTURE_CONFIG_FILE "config/textures.yaml"
+
 class Drawer {
 private:
     Protocol& clientProtocol;
     Socket& clientSocket;
     Window& newWindow;
+    int mtpFactor;
 public:
-    Drawer(Protocol& clientProtocol, Socket& clientSocket, Window& window);
+    Drawer(Protocol& clientProtocol, Socket& clientSocket, Window& window,
+            int mtpFactor);
     void draw(std::string& idChell);
 };
 

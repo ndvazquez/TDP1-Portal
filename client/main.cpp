@@ -11,6 +11,8 @@
 #include "../common/SDLSession.h"
 #include "../common/Window.h"
 
+#define CLIENT_CONFIG_FILE_PATH "config/client_config.yaml"
+
 void playGame() {
     std::string idChell;
 
@@ -21,15 +23,18 @@ void playGame() {
     clientSocket.connectToHost(host, service);
     Protocol clientProtocol(clientSocket);
 
-    const int screenWidth = 1050;
-    const int screenHeight = 700;
+    YAML::Node configFile = YAML::LoadFile(CLIENT_CONFIG_FILE_PATH);
+
+    int screenWidth = configFile["ScreenResolution"]["screenWidth"].as<int>();
+    int screenHeight = configFile["ScreenResolution"]["screenHeight"].as<int>();
+    int mtpFactor = configFile["ScreenResolution"]["mtpFactor"].as<int>();
     std::string title = "Portal";
     Window newWindow(title, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 
     Game game(clientProtocol, clientSocket, newWindow);
     if (!game.play(idChell)) return;
 
-    Drawer drawer(clientProtocol, clientSocket, newWindow);
+    Drawer drawer(clientProtocol, clientSocket, newWindow, mtpFactor);
     drawer.draw(idChell);
     std::cout << "Game finished, thanks for playing!\n";
 }

@@ -14,13 +14,13 @@
 
 
 class UserEventHandler : public Thread {
-    const float mtpFactorInv = 1.0f / MTP_FACTOR;
     const Camera& camera;
     UserEventQueue& userEventQueue;
     const std::string& userId;
     int levelHeight;
     SoundCodeQueue& soundCodeQueue;
     Window& gameWindow;
+    float mtpFactorInv;
     void handleEvent(SDL_Event& event);
 
 public:
@@ -29,7 +29,8 @@ public:
             const std::string& userId,
             int levelHeight,
             SoundCodeQueue& soundCodeQueue,
-            Window& gameWindow);
+            Window& gameWindow,
+            float factorInv);
     ~UserEventHandler();
     void run();
     void stop();

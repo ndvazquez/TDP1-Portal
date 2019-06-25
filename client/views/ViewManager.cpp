@@ -75,11 +75,11 @@ void ViewManager::showAndUpdateViews(nlohmann::json &objectsData,
             int playerPosY = view->getViewPositionY();
             SDL_Rect textRect = {playerPosX,
                                  playerPosY,
-                                 2 * MTP_FACTOR,
-                                 MTP_FACTOR};
+                                 2 * mtpFactor,
+                                 mtpFactor};
             if (SDL_HasIntersection(&textRect, &cameraRect)) {
                 textRect.x = playerPosX - cameraRect.x;
-                textRect.y = playerPosY - MTP_FACTOR / 2 - cameraRect.y;
+                textRect.y = playerPosY - mtpFactor / 2 - cameraRect.y;
                 playerName->second->draw(&textRect);
             }
         }
