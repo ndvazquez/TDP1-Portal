@@ -490,9 +490,56 @@ Luego, en cada \texttt{step} simulado por \texttt{Box2D} se envía al cliente un
 
 \subsection{Descripción general}
 
+La funcionalidad del cliente puede dividirse en tres grupos:
+\begin{enumerate}
+	\item Soporte para sonidos
+	\item Soporte para vistas
+	\item Soporte para comunicación con el servidor
+\end{enumerate}
+
+En la próxima sección se enumeran las diversas clases relacionadas con dichas funcionalidades.
+
 \subsection{Clases}
 
+\subsubsection{Soporte para sonidos}
+
+\subsubsection{Soporte para vistas}
+
+\subsubsection{Soporte para comunicación}
+
+\begin{itemize}
+	\item \textbf{Event Sender}
+\end{itemize}
+
+Sus atributos son un protocolo \texttt{Protocol} y una referencia a una cola de eventos de usuario \texttt{UserEventQueue}. Se encarga de enviar los diversos eventos de usuario al servidor, por medio del protocolo que encapsula el envío a través de sockets.
+
+\begin{itemize}
+	\item \textbf{State Status Receiver}
+\end{itemize}
+
+Sus atributos son un protocolo \texttt{Protocol} y una referencia a una cola de estados del escenario \texttt{StageStatusQueue}. Se encarga de recibir los diversos estados del escenario, enviados por el servidor, para dibujar los elementos dinámicos en su estado actual.
+
+\begin{itemize}
+	\item \textbf{User Event Handler}
+\end{itemize}
+
+Sus principales atributos son una referencia a la cola de sonidos \texttt{SoundCodeQueue} y a la cola de eventos de usuario \texttt{UserEventQueue}.
+
+Se encarga de reproducir el sonido designado para cada evento y además decodificar cada input del teclado y del mouse en un código guardado como \texttt{int} para encolarlo en la cola de eventos.
+
 \subsection{Diagramas UML}
+
+\subsubsection{Soporte para sonidos}
+
+\subsubsection{Soporte para vistas}
+
+\subsubsection{Soporte para comunicación}
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{client_class_1.png}}
+	\caption{Diagrama de clases del soporte de comunicación del cliente}
+	\label{fig:diagram6}
+\end{figure}
 
 \subsection{Descripción de archivos y protocolos}
 
