@@ -11,8 +11,8 @@ Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window,
 }
 
 void Drawer::draw(std::string& idChell) {
-    const int screenWidth = 1050;
-    const int screenHeight = 700;
+    const int screenWidth = newWindow.getWindowWidth();
+    const int screenHeight = newWindow.getWindowHeight();
     YAML::Node textures = YAML::LoadFile(CLIENT_TEXTURE_CONFIG_FILE);
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
@@ -70,6 +70,8 @@ void Drawer::draw(std::string& idChell) {
 
     bool quit = false;
     while (!quit) {
+        // We don't need no, busy loops!
+        SDL_Delay(GAME_LOOP_SLEEP_STEP);
         if (!stageStatusQueue.empty()) {
             std::string stageStatusString = stageStatusQueue.pop();
             stageUpdateRequest = nlohmann::json::parse(stageStatusString);

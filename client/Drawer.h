@@ -22,6 +22,11 @@
 #include "../common/constants.h"
 
 #define CLIENT_TEXTURE_CONFIG_FILE "config/textures.yaml"
+#define GAME_LOOP_SLEEP_STEP 8
+// Should run aprox at 60fps, seems like it takes 8ms to process
+// a game cycle, so 8ms should do to avoid high CPU usage and not waste
+// game cycles waiting.
+// It might cause jittering on high end PCs though.
 
 class Drawer {
 private:
