@@ -6,7 +6,7 @@
 #include <string>
 
 AcidView::AcidView(Window &window, int xPos, int yPos, int factor,
-        YAML::Node texturesData) :
+        YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, ACID_WIDTH, ACID_HEIGHT) {
     YAML::Node animationData = texturesData[TEXTURES_ACID_KEY];
     std::string path = animationData["path"].as<std::string>();

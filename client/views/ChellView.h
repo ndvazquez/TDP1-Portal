@@ -41,7 +41,7 @@ public:
             int yPos,
             int factor,
             SoundCodeQueue& queue,
-            YAML::Node texturesData);
+            YAML::Node& texturesData);
     ~ChellView();
     void playAnimation(const SDL_Rect& camera);
     void setState(int state);

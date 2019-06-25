@@ -7,7 +7,7 @@
 #include <string>
 
 BulletView::BulletView(Window &window, int xPos, int yPos, int factor,
-                   YAML::Node texturesData) :
+                   YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, BULLET_WIDTH, BULLET_HEIGHT),
         rotationAngle(0) {
     YAML::Node animationData = texturesData[TEXTURES_BULLET_KEY];

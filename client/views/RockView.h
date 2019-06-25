@@ -19,7 +19,7 @@ public:
             int xPos,
             int yPos,
             int factor,
-            YAML::Node texturesData);
+            YAML::Node& texturesData);
     ~RockView();
     void playAnimation(const SDL_Rect& camera);
     void setState(int state);

@@ -6,7 +6,7 @@
 #include <string>
 
 ReceptorLeftView::ReceptorLeftView(Window &window, int xPos, int yPos, int factor,
-                               YAML::Node texturesData) :
+                               YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, RECEPTOR_WIDTH, RECEPTOR_HEIGHT) {
     YAML::Node spritesData = texturesData[TEXTURES_ER_LEFT_KEY];
     for (YAML::const_iterator it = spritesData.begin();

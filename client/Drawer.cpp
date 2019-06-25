@@ -4,16 +4,16 @@
 
 #include "Drawer.h"
 
-#define TEXTURE_CONFIG_FILE "config/textures.yaml"
-
-Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window):
-    clientProtocol(clientProtocol), clientSocket(clientSocket), newWindow(window) {
+Drawer::Drawer(Protocol &clientProtocol, Socket &clientSocket, Window& window,
+        int mtpFactor):
+    clientProtocol(clientProtocol), clientSocket(clientSocket),
+    newWindow(window), mtpFactor(mtpFactor) {
 }
 
 void Drawer::draw(std::string& idChell) {
     const int screenWidth = 1050;
     const int screenHeight = 700;
-    YAML::Node textures = YAML::LoadFile(TEXTURE_CONFIG_FILE);
+    YAML::Node textures = YAML::LoadFile(CLIENT_TEXTURE_CONFIG_FILE);
     SoundCodeQueue soundQueue;
     AudioSystem audioSystem(soundQueue);
     std::string title = "Portal";
@@ -28,15 +28,17 @@ void Drawer::draw(std::string& idChell) {
     float stageWidth = metadata["stage"]["width"].get<float>();
     float stageHeight = metadata["stage"]["height"].get<float>();
 
-    int levelWidth = stageWidth * MTP_FACTOR;
-    int levelHeight = stageHeight * MTP_FACTOR;
+    int levelWidth = stageWidth * mtpFactor;
+    int levelHeight = stageHeight * mtpFactor;
 
     Camera camera(screenWidth, screenHeight, levelWidth, levelHeight);
 
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,
                                       idChell, levelHeight,
-                                      soundQueue);
+                                      soundQueue,
+                                      newWindow,
+                                      1.0f / mtpFactor);
     StageStatusQueue stageStatusQueue;
 
     EventSender eventSender(clientSocket, userEventQueue);
@@ -52,9 +54,9 @@ void Drawer::draw(std::string& idChell) {
     nlohmann::json staticObjects = nlohmann::json::parse(jsonStaticObjects);
     nlohmann::json dynamicObjects = nlohmann::json::parse(jsonDynamicObjects);
 
-    StageView stageView(newWindow, textures, MTP_FACTOR, staticObjects, stageHeight);
+    StageView stageView(newWindow, textures, mtpFactor, staticObjects, stageHeight);
     ViewManager viewManager(newWindow, levelHeight,
-                            MTP_FACTOR, idChell, dynamicObjects, soundQueue, metadata);
+                            mtpFactor, idChell, dynamicObjects, soundQueue, metadata);
     audioSystem.playMusic(BG_SONG_GAME);
     userEventHandler.start();
     eventSender.start();

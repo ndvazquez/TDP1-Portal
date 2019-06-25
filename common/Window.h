@@ -9,6 +9,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <exception>
+#include <mutex>
 
 class WindowInitException: public std::exception {
     virtual const char* what() const throw() {
@@ -21,9 +22,10 @@ class WindowInitException: public std::exception {
 
 class Window {
     friend class Sprite;
+    std::mutex _mtx;
     int windowWidth;
     int windowHeight;
-
+    bool fullScreenState;
 public:
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -53,6 +55,7 @@ public:
     SDL_Renderer* getRenderer();
     void drawBlackBackground();
     void drawBlackRectangle(SDL_Rect* rect);
+    void changeFullScreenState();
 };
 
 #endif //PORTAL_WINDOW_H

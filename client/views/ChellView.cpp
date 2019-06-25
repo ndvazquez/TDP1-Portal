@@ -12,7 +12,7 @@
 
 ChellView::ChellView(Window &window, int xPos, int yPos, int factor,
         SoundCodeQueue& queue,
-        YAML::Node texturesData) :
+        YAML::Node& texturesData) :
             View(window, xPos, yPos, factor, CHELL_WIDTH, CHELL_HEIGHT),
             soundsQueue(queue),
             flip(SDL_FLIP_NONE) {

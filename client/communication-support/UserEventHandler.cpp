@@ -9,12 +9,16 @@
 UserEventHandler::UserEventHandler(const Camera &camera,
         UserEventQueue &userEventQueue,
         const std::string& userId,
-        int levelHeight, SoundCodeQueue& soundCodeQueue) :
+        int levelHeight, SoundCodeQueue& soundCodeQueue,
+        Window& gameWindow,
+        float factorInv) :
         camera(camera),
         userEventQueue(userEventQueue),
         userId(userId),
         levelHeight(levelHeight),
-        soundCodeQueue(soundCodeQueue){
+        soundCodeQueue(soundCodeQueue),
+        gameWindow(gameWindow),
+        mtpFactorInv(factorInv){
 }
 
 UserEventHandler::~UserEventHandler() {}
@@ -47,6 +51,10 @@ void UserEventHandler::handleEvent(SDL_Event &event) {
             SDL_GetMouseState(&x, &y);
             break;
         case SDL_KEYDOWN:
+            if (event.key.keysym.sym == SDLK_m && event.key.repeat == 0) {
+                gameWindow.changeFullScreenState();
+                break;
+            }
             int eventCode;
             if (event.key.keysym.sym == SDLK_w && event.key.repeat == 0) {
                 eventCode = USER_JUMP_CODE;

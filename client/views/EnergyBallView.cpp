@@ -10,7 +10,7 @@
 #include "View.h"
 
 EnergyBallView::EnergyBallView(Window &window, int xPos, int yPos, int factor,
-        YAML::Node texturesData) :
+        YAML::Node& texturesData) :
         View(window, xPos, yPos, factor, ENERGY_BALL_WIDTH, ENERGY_BALL_HEIGHT){
     YAML::Node animationData = texturesData[TEXTURES_EB_KEY];
     std::string path = animationData["path"].as<std::string>();

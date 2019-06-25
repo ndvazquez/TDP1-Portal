@@ -207,9 +207,6 @@ enum Direction {
 #define OBJECT_WIDTH "w"
 #define OBJECT_HEIGHT "h"
 
-// This should be put in a YAML config file.
-#define MTP_FACTOR 70
-
 // client options
 #define QUIT_ACTION 0
 #define CREATE_ACTION 1
