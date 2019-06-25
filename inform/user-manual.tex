@@ -60,7 +60,7 @@
 
 \subsection{Requerimientos de software}
 
-En primer lugar el juego fue desarrollado en un entorno Linux por lo que se debe correr en dicho sistema operativo. Para poder instalar el programa se debe primero clonar el repositorio y luego instalar las dependencias que son las que siguen:
+En primer lugar el juego fue desarrollado en un entorno Linux por lo que se debe correr en dicho sistema operativo. Para poder instalar el programa se debe primero clonar el repositorio y luego instalar:
 
 \begin{itemize}
 	\item \texttt{SDL}: se debe instalar a partir de los siguientes comandos:
@@ -139,13 +139,19 @@ sudo apt-get install libsdl2-ttf-dev
 
 \subsection{Proceso de instalación}
 
-En el \texttt{root} del repositorio clonado se encuentra un archivo \texttt{install.sh}. Para realizar la instalación se debe seguir los siguientes pasos:
+En el \texttt{root} del repositorio clonado se encuentra un archivo \texttt{install.sh}. Para realizar la instalación se deben seguir los siguientes pasos:
 
 \begin{verbatim}
 chmod +x install.sh
-./install.sh pathWanted
+./install.sh <path>
 \end{verbatim}
-donde \texttt{pathWanted} es el directorio donde se desea instalar el juego.
+donde \texttt{<path>} es el directorio donde se desea instalar el juego.
+
+\begin{enumerate}
+	\item Levantar un servidor con el comando \texttt{./Server <port>}
+	\item Conectarse con el cliente con \texttt{./Client <host> <port>} siendo \texttt{<host>} una dirección IP y \texttt{<port>} el mismo puerto del servidor.
+	\item Para crear y editar mapas, ejecutar \texttt{./Editor}.
+\end{enumerate}
 
 \section{Configuración}
 
@@ -231,6 +237,8 @@ Ahora sí, al inicio de este nivel se presenta la siguiente situación: la puert
 	\label{fig:diagrama4}
 \end{figure}
 
+\newpage
+
 Una posible solución (y probablemente no la única) es hacerle caso al nombre del juego y crear un portal para lanzar la piedra y que llegue al botón y así abrir la puerta. Hay que recordar que los bloques de roca no permiten la creación de portales por lo que la única alternativa es crear los portales en los bloques de metal. Por supuesto los portales podrían ubicarse de otra forma, invertirlos (uno azul arriba y uno naranja abajo), poner alguno en el piso y otro más arriba, cualquier opción en la cual el usuario se sienta más cómodo. Hay que recordar que si la piedra toca la cabeza de Chell se muere en el instante por lo que se recomienda tomar la opción que resulte más segura.
 
 \begin{figure}[!h]
@@ -267,8 +275,6 @@ En un primer lugar, se muestra una bola de energía, transmitida por un emisor y
 	\caption{Bola de energía y barra de energía}
 	\label{fig:diagrama8}
 \end{figure}
-
-\newpage
 
 Otra función que cumplen las bolas de energía es activar los llamados receptores, utilizados para la lógica de compuertas. Esta activación consiste en que la bola de energía colisione con la "boca" del receptor. Una vez activado, queda activado por siempre y \textit{puede} permitir abrir una puerta. Hay casos en los que por la disposición de los emisores y receptores, los receptores serán activados por estar en la trayectoria de la bola. Podría suceder que no sea así y que para activarlo se deba crear un portal que teletransporte la bola de energía y cambie su trayectoria.
 

@@ -145,13 +145,22 @@ sudo apt-get install libsdl2-ttf-dev
 \end{itemize}
 
 \subsection{Instalación}
-En el \texttt{root} del repositorio clonado se encuentra un archivo \texttt{install.sh}. Para realizar la instalación se debe seguir los siguientes pasos:
+En el \texttt{root} del repositorio clonado se encuentra un archivo \texttt{install.sh}. Para realizar la instalación se deben seguir los siguientes pasos:
 
 \begin{verbatim}
 chmod +x install.sh
-./install.sh pathWanted
+./install.sh <path>
 \end{verbatim}
-donde \texttt{pathWanted} es el directorio donde se desea instalar el juego.
+donde \texttt{<path>} es el directorio donde se desea instalar el juego.
+
+Para proceder a jugar al juego se deben seguir los siguientes pasos:
+
+\begin{enumerate}
+	\item Levantar un servidor con el comando \texttt{./Server <port>}
+	\item Conectarse con el cliente con \texttt{./Client <host> <port>} siendo \texttt{<host>} una dirección IP y \texttt{<port>} el mismo puerto del servidor.
+\end{enumerate}
+
+Para crear y editar mapas, ejecutar \texttt{./Editor}.
 
 \section{Descripción general}
 
