@@ -71,7 +71,10 @@ El cronograma propuesto por la cátedra pudo seguirse en las primeras semanas de
 \section{Inconvenientes encontrados}
 En cuanto al servidor, un gran inconveniente encontrado fue relativo a la librería \texttt{Box 2D}. Si bien la misma está muy bien documentada y se encuentra un amplio material sobre ello en internet, algunos elementos no son amigables para su implementación e interpone algunas dificultades. Así mismo, en lo personal algunos detalles de implementación que propone la librería resultan contrarias a la filosofía de programación orientada a objetos que se espera obtener con el trabajo, por lo que implicó un gran tiempo empleado en un diseño relativamente compatible con ella. Otro factor a tener en cuenta es que la amplia variedad de funcionalidades que se espera obtener del juego puede resultar un trabajo bastante pesado para la cantidad de tiempo estipulado y genera muchos casos borde que pueden ser dificiles de alcanzar y sobretodo debuggear en un trabajo de este nivel.
 
-Editor: agregar dificultades
+En el editor, como en cualquier proyecto, la primera traba se dió durante la interiorización de su librería principal SDL. Una vez pasada esta barrera el editor siguió su rumbo a muy buen ritmo hasta toparse con la implementación de las compuertas lógicas.
+Las compuertas lógicas atrajeron dos problemas. En primer lugar la necesidad de volver a interiorizarse con otra librería (también de SDL) para poder interactuar con el usuario. Para ello se quería escribir un mensaje en pantalla para informar al usuario lo que había que hacer. A su vez se quería recibir la respuesta que ingrese el usuario (mostrando también este por pantalla).  En segundo lugar el modelo planteado no había tenido en cuenta este feature. Llegar al modelo final conllevo mucho tiempo de planeamiento, varias refactorizaciones, bugs y aún así sentimos que la implementación no es la más prolija/clara. No obstante, creemos que vale la pena aclarar que la primera dificultad fue menor en comparación a la dificultad de plantear un modelo que realmente se adapte a este feature.
+Por último un inconveniente mínimo generado por la librería gráfica fue la acarreó de dependencias. Se decidió simplemente arrastrar esto durante todo el trabajo ya que el origen de este inconveniente no era nuestro.
+
 
 Cliente: agregar dificultades
 
