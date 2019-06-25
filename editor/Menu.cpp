@@ -12,7 +12,7 @@
 
 #define BACKGROUND "resources/editor-menu-bg.png"
 #define NO_BUTTON 0
-#define MENU_TEXTURES "editor/textures-info.yaml"
+#define MENU_TEXTURES "config/editor_textures_info.yaml"
 #define MENU_TEXTURES_KEY "MenuData"
 
 struct SDL_Rect* createSDL_Rect(int x, int y, int w, int h) {
