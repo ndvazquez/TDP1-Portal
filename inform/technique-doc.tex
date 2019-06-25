@@ -187,7 +187,7 @@ Esta clase se encarga de manejar e inicializar las clases \texttt{Client Sender}
 
 Se realizó una clase para cada elemento del juego de manera de modelizar sus responsabilidades y además se agregaron otras clases para hacer uso del polimorfismo y herencia de C++.
 
-Es pertinente aclarar como elemento base del modelo que se utiliza una clase \texttt{Entity} de la cual derivan la gran mayoria de las clases para poder modelizar las colisiones entre objetos. De esta manera, en caso de ocurrir una colisión, siempre sucedía entre dos entidades y por medio de la herencia se pudo manejar cada caso en particular con la sobreescritura de un método llamado \texttt{handleCollisions}. 
+Es pertinente aclarar como elemento base del modelo que se utiliza una clase \texttt{Entity} de la cual derivan todas las clases de esta sección para poder modelizar las colisiones entre objetos. De esta manera, en caso de ocurrir una colisión, siempre sucede entre dos objetos de la clase \texttt{Entity} y por medio de la herencia se pudo manejar cada caso en particular con la sobreescritura de un método llamado \texttt{handleCollisions}. 
 
 \begin{itemize}
 	\item \textbf{Entity}
@@ -199,13 +199,13 @@ Tiene como atributos un string que denota el tipo de objeto y un puntero a un ob
 	\item \textbf{Acid}
 \end{itemize}
 
-Es una clase derivada de \texttt{Entity}. Contempla las colisiones con instancias de la clase \texttt{Chell} ya que debe matarla.
+Su principal método consiste en contempla las colisiones con instancias de la clase \texttt{Chell} ya que debe matarla.
 
 \begin{itemize}
 	\item \textbf{Shot}
 \end{itemize}
 
-Esta clase hereda de la clase \texttt{Entity} y se encarga de modelizar el disparo. Tiene como atributos dos punteros a la clase \texttt{Coordinate} (que representa una coordenada) tanto para el origen como el destino del disparo, un booleano que indica si finalizó el recorrido, un angulo de disparo y un puntero a la clase \texttt{Chell} para poder asignarle los portales creados a la misma.
+Esta clase se encarga de modelizar el disparo. Tiene como atributos dos punteros a la clase \texttt{Coordinate} (que representa una coordenada) tanto para el origen como el destino del disparo, un booleano que indica si finalizó el recorrido, un ángulo de disparo y un puntero a la clase \texttt{Chell} para poder asignarle los portales creados a la misma.
 
 \begin{itemize}
 	\item \textbf{Blue Shot}
@@ -223,81 +223,179 @@ Esta clase hereda de la clase \texttt{Shot} y maneja la colisión con un bloque 
 	\item \textbf{Cake}
 \end{itemize}
 
-Esta clase hereda de la clase \texttt{Entity} y maneja las colisiones con la clase \texttt{Chell} ya que debe ganar en caso de colisionar.
+Esta clase principalmente maneja las colisiones con objetos de la clase \texttt{Chell} ya que debe ganar en caso de colisionar.
 
 \begin{itemize}
 	\item \textbf{Chell}
 \end{itemize}
 
-
-
-
+Esta clase tiene como atributos un puntero al objeto que alberga el portal naranja, otro al objeto que alberga el portal azul y dos punteros a la clase \texttt{Coordinate} que representan los dos portales a teletransportarse. Además guarda un puntero a la clase \texttt{PinTool} y a la clase \texttt{Rock} en caso de estar agarrando una roca. Sus principales métodos implican moverse a la derecha, moverse a la izquierda, saltar, agarrar una roca y dejarla, agregar los portales una vez realizados y contemplar los diversos casos de colisión con el resto de los objetos,
 
 \begin{itemize}
 	\item \textbf{Diagonal Metal Block}
 \end{itemize}
 
+Esta clase tiene como atributo el ángulo de rotación para representar los cuatro bloques en diagonal y su principal método consiste en manejar las colisiones con los objetos de la clase \texttt{Energy Ball} para que cambie su dirección en caso de colisionar.
+
 \begin{itemize}
 	\item \textbf{Metal Block}
 \end{itemize}
 
+Esta clase tiene como responsabilidad principal manejar las colisiones con las bolas de energía para invertir su sentido y además con los disparos \texttt{Blue Shot} y \texttt{Orange Shot} para generar los portales.
 
 \begin{itemize}
 	\item \textbf{Rock Block}
 \end{itemize}
 
+Esta clase se encarga principalmente de manejar las colisiones con las bolas de energía para que desaparezcan y con los disparos para no generar portales en caso de colisionar.
 
 \begin{itemize}
 	\item \textbf{Energy Ball}
 \end{itemize}
 
+Esta clase tiene como método principal el que consiste en volar de acuerdo a la dirección establecida por el emisor de energía y además cambiar su dirección en caso de colisionar con un objeto de la clase \texttt{Diagonal Block} o rebotar en caso de colisionar con un objeto de la clase \texttt{Metal Block}.
+
 \begin{itemize}
 	\item \textbf{Energy Transmitter}
 \end{itemize}
 
+Esta clase se encarga principalmente de controlar la frecuencia de lanzamiento de las bolas de energía. De esta clase derivan las otras cuatro clases que designan las cuatro direcciones posibles que pueden tomar las bolas de energía (arriba, abajo, izquierda o derecha).
 
 \begin{itemize}
 	\item \textbf{Energy Bar}
 \end{itemize}
+
+Esta clase principalmente maneja las colisiones con los disparos y con las rocas para evitar el traspaso de las mismas.
 
 
 \begin{itemize}
 	\item \textbf{Gate}
 \end{itemize}
 
+Esta clase tiene como atributos un string que designa la lógica que debe seguirse para abrir la puerta y además un mapa que guarda los distintos botones involucrados en dicha lógica con su id como clave y un puntero al objeto \texttt{Button} como valor. Su principal método es el encargado de determinar si la puerta está abierta o cerrada de acuerdo al estado actual de los botones (encendido y apagado).
 
 \begin{itemize}
 	\item \textbf{Item Activable}
 \end{itemize}
 
+Esta clase fue implementada para que los dos objetos que pueden ser encendidos del escenario puedan heredar de ella. Por lo tanto, sus principales métodos consisten en activarlos, desactivarlos y determinar su estado.
 
 \begin{itemize}
 	\item \textbf{Button}
 \end{itemize}
 
+Esta clase hereda de la clase \texttt{Item Activable}. Su principal método consiste en manejar las colisiones con los objetos de la clase \texttt{Chell} y \texttt{Rock} para poder determinar su estado (encendido u apagado), guardado como atributo.
+
 \begin{itemize}
 	\item \textbf{Energy Receptor}
 \end{itemize}
 
+Esta clase hereda de la clase \texttt{Item Activable}. Su principal método consiste en manejar las colisiones con los objetos de la clase \texttt{Energy Ball} para poder determinar su estado (encendido u apagado), guardado como atributo.
 
 \begin{itemize}
 	\item \textbf{Portal}
 \end{itemize}
 
+Esta clase tiene como atributo un enum de tipo \texttt{Orientation} que designa la orientación vertical u horizontal del portal y un enum de tipo \texttt{Direction} que designa la dirección en que deben salir los objetos al teletransportarse por el otro portal, es decir, izquierda, derecha, abajo o arriba. Se encarga de manejar las colisiones con los objetos de la clase \texttt{Chell}, \texttt{Energy Ball} y \texttt{Rock} para que se teletransporten al topar con un portal.
 
 \begin{itemize}
 	\item \textbf{Rock}
 \end{itemize}
 
+Esta clase tiene como atributos un booleano que designa si está vivo o muerto y otro para designar si está siendo agarrado o no por Chell. Su principal método consiste en manejar las colisiones con los diversos objetos del mundo, por ejemplo, un objeto de la clase \texttt{Button} para activarlo, de la clase \texttt{Chel}l para matarla si está por encima de ella y morir en caso de topar con un objeto de la clase \texttt{Energy Bar}.
+
+\begin{itemize}
+	\item \textbf{PinTool}
+\end{itemize}
+
+Esta clase tiene como método principal el que consiste en eliminar el objeto del escenario luego de pasado cierto tiempo predefenido.
+
 \subsubsection{Manejo de portales}
+
+Esta sección tiene las clases que se utilizan para designar los portales en el escenario. Es necesario seguir una cierta organización para unir los portales a un objeto de la clase \texttt{Chell} en particular, borrar un portal de un color en caso de crearse otro del mismo color y resetear los portales (borarlos del escenario). Las clases que se encargan de dichas responsabilidades son las que siguen:
+
+\begin{itemize}
+	\item \textbf{Portal Holder}
+\end{itemize}
+
+Esta clase guarda como atributos un puntero a la clase \texttt{Coordinate} que representa las coordenadas de un portal, un enum \texttt{Orientation} que designa su orientación (vertical u horizontal) y un enum \texttt{Direction} que indica para donde deben teletransportarse los objetos en caso de toparse con su portal contrario.
+
+\begin{itemize}
+	\item \textbf{Portal Manager}
+\end{itemize}
+
+Esta clase tiene como atributos una referencia a un \texttt{unordered\_map} que tiene como claves los ids como string de los portales y como valor un puntero al objeto de la clase \texttt{Portal}, además de una referencia al objeto de clase \texttt{Stage}. De esta manera se encarga de eliminar los portales del mundo y de crearlos de acuerdo a los portales actuales de la clase \texttt{Chell}.
 
 \subsubsection{Manejo del escenario}
 
+Estas clases son las encargadas de la organización global de los objetos en el escenario, su disposición en el escenario y su representación en \texttt{Box2D}.
+
+\begin{itemize}
+	\item \textbf{Coordinates}
+\end{itemize}
+Esta clase guarda dos atributos de tipo \texttt{float} que representan las coordenadas \texttt{x} e \texttt{y}.
+
+\begin{itemize}
+	\item \textbf{Physics World}
+\end{itemize}
+Esta clase se encarga de encapsular la creación de objetos en el mundo de \texttt{Box2D}. Por eso sus atributos son un puntero a un objeto de tipo \texttt{b2World} y el ancho y el largo del escenario como \texttt{floats}. Los principales métodos consisten en agregar rectángulos estáticos y dinámicos al escenario, triángulos estáticos y el caso particular para el objeto de la clase \texttt{Chell}: un rectangulo con dos ruedas en su parte inferior. Esto tuvo que realizarse para evitar que el objeto se trabe en los diversos rectángulos simulados como piso. Además, se encarga de la correcta destrucción de los objetos en el mundo y de simular el \textit{step} de \texttt{Box2D}.
+
+\begin{itemize}
+	\item \textbf{Stage}
+\end{itemize}
+
+Esta clase tiene como atributos una serie de \texttt{unordered\_map} donde se guardan todos los objetos del mundo como valor y como clave un id de clase \texttt{string} o un objeto de la clase \texttt{Coordinate} para el caso de los bloques estáticos. Su principal método es el que simula el \texttt{step} y llama a los diversos métodos que deben convocarse en cada llamada a la modelación del mundo físico. Además tiene un método que devuelve el \texttt{json} necesario para actualizar las vistas de los diversos clientes.
+
+\begin{itemize}
+	\item \textbf{Yaml Parser}
+\end{itemize}
+Esta clase es la encargada de unir el editor y el servidor. Tiene como atributos un nodo \texttt{YAML} y una referencia al \texttt{Stage}. De esta manera, lee el archivo \texttt{YAML} generado por el editor, agrega los objetos que debe agregar al escenario y genera los \texttt{json} pertinentes para inicializar las vistas.
+
 \subsubsection{Movimientos del juego}
+
+Estas clases se realizaron para designar los movimientos básicos de Chell y la roca. Se siguió una implementación en la que cada clase en su método de actualización llamada al método \texttt{move()}, sin importar qué clase se está llamando. De esta manera, las clases que simulan el movimiento \texttt{Move Right}, \texttt{Move Left} y \texttt{Stop} heredan de una clase \texttt{Dynamic} y sobreescriben el método \texttt{move()}.
+
+La clase \texttt{Dynamic} alberga la responsabilidad de simular desde la física el salto de Chell, los movimientos de las piedras y todo lo relativo al vuelo de las bolas de energía así como el manejo de colisiones de los objetos y la teletransportación de los mismos al toparse con un portal.
 
 \subsection{Diagramas UML}
 
 \subsection{Descripción de archivos y protocolos}
+
+El protocolo implementado consistió en enviar y recibir \texttt{strings} por medio de sockets utilizando el protocolo \texttt{TCP}. Estos strings provenían de objetos de la clase \texttt{nlohmann::json}, implementada por la librería \texttt{nlohman} \footnote{https://github.com/nlohmann/json} que tienen un método de conversión a strings. Para el envío de strings se envía primero el largo del string y luego el string. Para recibir simplemente se recibe un string.
+
+La idea utilizada consistió en inicialmente mandar tres jsons de estado:
+\begin{enumerate}
+	\item Metadata: largo y ancho del escenario:
+	\begin{verbatim}
+	json[id] = {
+		 {"height", height}, {"width", width}
+	};
+	\end{verbatim}
+	\item Data de objetos estáticos (bloques metálicos, bloques en diagonal y bloques de roca):
+	\begin{verbatim}
+		json[id] = {
+			{"type", NAME}, {"x", x}, {"y", y}
+	};
+	\end{verbatim}
+	La constante \texttt{NAME} varia para cada objeto y fue definida en un archivo de uso compartido \texttt{constants.h}.
+	\item Data de objetos dinámicos (todo el resto de los objetos). Se trata de los objetos que fueron designados con un id en particular:
+	\begin{verbatim}
+			json[id] = {
+	{"state", state}, {type", NAME}, {"x", x}, {"y", y}
+	};
+	\end{verbatim}
+	Nuevamente la constante \texttt{NAME} se trata de un \texttt{int} definido en el archivo \texttt{constants.h} y el estado se designa de acuerdo al tipo de objeto. Hay objetos que no tienen estado pero la gran mayoría sí:
+	\begin{itemize}
+		\item Chell: IDLE, JUMPING, MOVING RIGHT, MOVING LEFT
+		\item Portal: HORIZONTAL o VERTICAL
+		\item Button: ON o OFF
+		\item Receptor: ON o OFF
+		\item Energy Bar: HORIZONTAL o VERTICAL
+		\item Gate: OPEN o CLOSED
+	\end{itemize}
+\end{enumerate}
+
+Luego, en cada \texttt{step} simulado por \texttt{Box2D} se envía al cliente un \texttt{json} en forma de \texttt{string} como el último descrito, es decir, con la actualización de los objetos dinámicos en el mundo físico.
 
 \section{Cliente}
 
