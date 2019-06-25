@@ -58,9 +58,9 @@
 
 \section{División de tareas}
 
-Para la división de tareas se eligió dividir el trabajo de la forma dispuesta en el enunciado.
+Para la división de tareas se eligió dividir el trabajo de una forma distinta a la dispuesta en el enunciado.
 \begin{enumerate}
-	\item Uno se encargó de realizar el cliente gráfico, implementado todo lo relativo a la interfaz gráfica del trabajo con el uso de la herramienta \texttt{SDL} y el soporte de partidas multijugador, aplicando los conceptos vistos en la cursada de multithreading y sockets.
+	\item Uno se encargó de realizar el cliente gráfico, implementado todo lo relativo a la interfaz gráfica del trabajo con el uso de la herramienta \texttt{SDL} y el soporte de la arquitectura cliente-servidor aplicando los conceptos vistos en la cursada de multithreading y sockets.
 	\item Otro se encargó de realizar el servidor, modelando el juego desde su parte física con el uso de la libreria \texttt{Box2D} y el testing correspondiente con la librería \texttt{CxxTest}.
 	\item Finalmente, el último integrante se encargó de realizar el editor de escenarios, con el uso de la herramienta \texttt{SDL} para graficar los elementos,  \texttt{ffmpeg} para brindar el soporte para la grabación de partidas y \texttt{yaml} para colocar en un archivo la información del escenario.
 \end{enumerate}
@@ -75,8 +75,8 @@ En el editor, como en cualquier proyecto, la primera traba se dio durante la int
 Las compuertas lógicas atrajeron dos problemas. En primer lugar la necesidad de volver a interiorizarse con otra librería (también de SDL) para poder interactuar con el usuario. Para ello se quería escribir un mensaje en pantalla para informar al usuario lo que había que hacer. A su vez se quería recibir la respuesta que ingrese el usuario (mostrando también este por pantalla).  En segundo lugar el modelo planteado no había tenido en cuenta este feature. Llegar al modelo final conllevó mucho tiempo de planeamiento, varias refactorizaciones, bugs y aún así sentimos que la implementación no es la más prolija/clara. No obstante, creemos que vale la pena aclarar que la primera dificultad fue menor en comparación a la dificultad de plantear un modelo que realmente se adapte a este feature.
 Por último un inconveniente mínimo generado por la librería gráfica fue el acarreo de dependencias. Se decidió simplemente arrastrar esto durante todo el trabajo ya que el origen de este inconveniente no era nuestro.
 
+Finalmente, en cuanto al cliente los principales problemas surgieron de realizar las clases que simulan ser un wrapper de las funcionalidades de dibujo de SDL. Además presentó una dificultad adicional modelar la arquitectura cliente-servidor y manejar de manera adecuada los threads para no caer en problemas de concurrencia.
 
-Cliente: agregar dificultades
 
 \section{Análisis de puntos pendientes}
 
@@ -93,6 +93,8 @@ El editor si bien cumple con lo pedido en la consigna hay pequeñas mejoras pend
 La esquina inferior izquierda es realmente un bloque de metal y las otras 3 esquinas son simplemente centinelas que el editor guarda para saber que la posición está ocupada (en este caso ocupada por el bloque de metal pero el modelo no sabe esto). El problema es que esta forma de implementar el editor no logró ser completamente transparente al usuario. Si el usuario cliquea un bloque de metal sobre alguna de las 3 esquinas-centinelas no obtendrá ninguna respuesta. Solucionar este problema pensamos que no requiere de mucho trabajo pero a la hora de priorizar las tareas debido al tiempo que quedaba no terminó en una buena posición. 
 Otro feature que quedó pendiente fue poder abrir un escenario en cualquier momento de la edición, no sólo en una primera instancia. Esta idea tenía una dificultad menor a la anterior pero también una prioridad.
 Las últimas dos ideas que quedaron pendientes fueron agregarle musica al editor y que los objetos seleccionados queden seleccionados una vez colocados en el escenario. Es decir que cuando el usuario seleccione un bloque de metal del menú luego pueda poner la cantidad de bloques que quiera en el escenario teniendo que acceder al menú sólo si quiere colocar un objeto distinto.
+
+Finalmente, en cuanto a la arquitectura cliente-servidor se considera que faltaría incluir soporte para reconectar un cliente al terminar una partida, mostrar los jugadores conectados a una partida y cuánto falta para llenar el juego. En el cliente faltaría implementar un sistema de sonido con una mayor variedad de sonidos, además de incluir una transición entre temas en el medio del juego. Sin ir más lejos, la animación relativa al motor gráfico podría ser mejorada para soportar una mejor transición entre animaciones.
 
 \section{Herramientas}
 
