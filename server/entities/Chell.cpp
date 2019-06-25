@@ -35,6 +35,7 @@ Chell::Chell(b2Body* body):
     blue_portal_to_teleport = nullptr;
     orange_portal_to_teleport = nullptr;
     winner = false;
+    pintool = nullptr;
 
     //Setting the category and mask bits
     b2Fixture* fixture = body->GetFixtureList();
@@ -245,6 +246,14 @@ Coordinate* Chell::getBluePortalToTeleport() {
 
 Coordinate* Chell::getOrangePortalToTeleport() {
     return orange_portal_to_teleport;
+}
+
+void Chell::addPinTool(PinTool* pintool) {
+    this->pintool = pintool;
+}
+
+PinTool* Chell::getPinTool() {
+    return pintool;
 }
 
 Chell::~Chell() {

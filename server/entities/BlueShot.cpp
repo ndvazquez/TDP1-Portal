@@ -24,6 +24,9 @@ BlueShot::BlueShot(b2Body *body, Chell* chell, Coordinate* target) :
 
 void BlueShot::handleCollision(Entity* entity) {
     const std::string& type = entity->getType();
+    if (type == PINTOOL_NAME) {
+        dynamic_cast<PinTool*>(entity)->die();
+    }
     if (type == METAL_BLOCK_NAME) {
         MetalBlock* metalBlock = dynamic_cast<MetalBlock*>(entity);
         float x_pos_metal = metalBlock->getHorizontalPosition();

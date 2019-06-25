@@ -182,6 +182,20 @@ void Stage::addElement(std::string identifier, std::string id, float v_side,
     }
 }
 
+void Stage::addPinTool(std::string id, float v_side, float h_side,
+                       float x_pos, float y_pos, Chell* chell) {
+    PinTool* pinTool = chell->getPinTool();
+    if (pinTool != nullptr) {
+        if (world->hasObject(pinTool->getBody())) {
+            world->destroyBody(pinTool->getBody());
+        }
+    }
+    b2Body* body = world->addStaticRectangle(v_side, h_side, x_pos, y_pos);
+    pinTool = new PinTool(body);
+    chell->addPinTool(pinTool);
+    pintools.insert({id, pinTool});
+}
+
 bool Stage::gameWon() {
     return winner;
 }
@@ -239,6 +253,20 @@ void Stage::step() {
         } else {
             i_blue_shot->second->shoot();
             i_blue_shot++;
+        }
+    }
+
+    auto i_pintools = pintools.begin();
+    while (i_pintools != pintools.end()) {
+        if (i_pintools->second->isDead()) {
+            if (world->hasObject(i_pintools->second->getBody())) {
+                world->destroyBody(i_pintools->second->getBody());
+                delete i_pintools->second;
+            }
+            i_pintools = pintools.erase(i_pintools);
+        } else {
+            i_pintools->second->update();
+            i_pintools++;
         }
     }
 
@@ -558,6 +586,14 @@ nlohmann::json Stage::getCurrentState() {
                 {"state", 0}, {"x", x_pos_cake}, {"y", y_pos_cake}
         };
     }
+    for (auto i = pintools.begin(); i != pintools.end(); i++) {
+        std::string id_pintool = i->first;
+        float x_pos_portal = i->second->getHorizontalPosition();
+        float y_pos_portal = i->second->getVerticalPosition();
+        request[id_pintool] = {
+                {"state", 0}, {"x", x_pos_portal}, {"y", y_pos_portal}
+        };
+    }
 
     request["Game"] = {
             {"state", actual_state}, {"x", 0}, {"y", 0}
@@ -668,6 +704,8 @@ Stage::~Stage() {
     i != energy_receptors.end(); i++) {
         delete i->second;
     }
-
+    for (auto i = pintools.begin(); i != pintools.end(); i++) {
+        delete i->second;
+    }
     delete world;
 }

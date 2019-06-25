@@ -297,6 +297,7 @@ void YamlParser::parseAndAdd() {
         std::string orange_shot_id = ORANGE_SHOT_NAME + std::to_string(chell_counter);
         std::string blue_portal_id = BLUE_PORTAL_NAME + std::to_string(chell_counter);
         std::string orange_portal_id  = ORANGE_PORTAL_NAME + std::to_string(chell_counter);
+        std::string pintool_id = PINTOOL_NAME + std::to_string(chell_counter);
 
         stage.addChell(chell_id, CHELL_HEIGHT, CHELL_WIDTH, x, y);
         dynamic_json[chell_id] = {
@@ -313,6 +314,9 @@ void YamlParser::parseAndAdd() {
         };
         dynamic_json[orange_portal_id] = {
                 {"type", ORANGE_PORTAL_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
+        };
+        dynamic_json[pintool_id] = {
+                {"type", PINTOOL_VIEW_CODE}, {"state", 0}, {"x", x}, {"y", y}
         };
 
         chell_counter++;

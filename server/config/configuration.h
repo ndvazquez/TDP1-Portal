@@ -21,6 +21,7 @@ struct box2DConfiguration {
     float velocityDownload;
     float velocityRelease;
     float shotFactor;
+    float deathPinTool;
 };
 
 extern const struct box2DConfiguration gameConfiguration;

@@ -62,7 +62,8 @@ set(CLIENT_SOURCE_FILES
         client/views/ReceptorUpView.cpp
         client/views/ReceptorDownView.cpp
         client/views/ReceptorLeftView.cpp
-        client/views/ReceptorRightView.cpp)
+        client/views/ReceptorRightView.cpp
+        client/views/Pintool.cpp)
 
 #EDITOR CONFIG
 
@@ -182,7 +183,8 @@ set(SERVER_SOURCE_FILES
         server/communication-support/RoomManager.cpp
         server/communication-support/RoomAcceptor.cpp
         server/communication-support/RoomWorker.cpp
-        server/communication-support/Server.cpp)
+        server/communication-support/Server.cpp
+        server/entities/PinTool.cpp)
 
 set(TEST_SOURCE_FILES
         tests/tests.cpp)
