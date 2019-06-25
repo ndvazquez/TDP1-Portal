@@ -22,6 +22,7 @@
 #include "../common/constants.h"
 
 #define CLIENT_TEXTURE_CONFIG_FILE "config/textures.yaml"
+#define GAME_LOOP_SLEEP_STEP 1000/60
 
 class Drawer {
 private:

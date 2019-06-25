@@ -70,6 +70,8 @@ void Drawer::draw(std::string& idChell) {
 
     bool quit = false;
     while (!quit) {
+        // We don't need no, busy loops!
+        SDL_Delay(GAME_LOOP_SLEEP_STEP);
         if (!stageStatusQueue.empty()) {
             std::string stageStatusString = stageStatusQueue.pop();
             stageUpdateRequest = nlohmann::json::parse(stageStatusString);
