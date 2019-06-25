@@ -6,7 +6,7 @@
 #include <yaml-cpp/yaml.h>
 #include "configuration.h"
 
-YAML::Node configuration_data = YAML::LoadFile("server/config/config.yaml");
+YAML::Node configuration_data = YAML::LoadFile("config/server_config.yaml");
 const struct box2DConfiguration gameConfiguration = {
         .chellForce = configuration_data["chellForce"].as<float>(),
         .deltaError = configuration_data["deltaError"].as<float>(),

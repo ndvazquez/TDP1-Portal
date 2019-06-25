@@ -8,7 +8,7 @@
 
 
 
-#define TEXTURE_CONFIG_FILE "editor/textures-info.yaml"
+#define TEXTURE_CONFIG_FILE "config/editor_textures_info.yaml"
 
 #define Y_END this->window.getWindowHeight() - this->window.getWindowHeight()/this->yPortion
 #define Y_START 0
