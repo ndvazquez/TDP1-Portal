@@ -6,7 +6,8 @@
 
 RoomAcceptor::RoomAcceptor(RoomManager &roomManager, Socket &socket) :
                     roomManager(roomManager),
-                    acceptorSocket(std::move(socket)){
+                    acceptorSocket(std::move(socket)) {
+    this->keepRunning = true;
 }
 
 RoomAcceptor::~RoomAcceptor() {

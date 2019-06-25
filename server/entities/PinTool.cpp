@@ -13,18 +13,10 @@ PinTool::PinTool(b2Body *body):
     body->SetUserData(this);
     this->timeStamp = std::chrono::system_clock::now();
     this->is_dead = false;
+    body->SetActive(false);
 }
 
 void PinTool::handleCollision(Entity *entity) {
-    std::string type = entity->getType();
-    if (type == BLUE_SHOT_NAME) {
-        dynamic_cast<BlueShot*>(entity)->die();
-        die();
-    }
-    if (type == ORANGE_SHOT_NAME) {
-        dynamic_cast<OrangeShot*>(entity)->die();
-        die();
-    }
 }
 
 void PinTool::die() {

@@ -23,6 +23,7 @@ private:
 
 public:
     explicit Rock(b2Body* body);
+    ~Rock();
 
     /* Elevates a rock to a given coordinates */
     void elevate(Coordinate& coordinate);
