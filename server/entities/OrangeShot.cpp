@@ -25,9 +25,6 @@ OrangeShot::OrangeShot(b2Body *body, Chell* chell, Coordinate* target) :
 
 void OrangeShot::handleCollision(Entity* entity) {
     std::string type = entity->getType();
-    if (type == PINTOOL_NAME) {
-        dynamic_cast<PinTool*>(entity)->die();
-    }
     if (type == METAL_BLOCK_NAME) {
         MetalBlock* metalBlock = dynamic_cast<MetalBlock*>(entity);
 
