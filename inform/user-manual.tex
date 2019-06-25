@@ -105,24 +105,51 @@ sudo apt-get install libsdl2-ttf-dev
 \end{itemize}
 
 \begin{itemize}
-	\item \texttt{CMake}: se debe instalar a partir de los siguientes comandos:
+	\item \texttt{CMake}: se debe instalar a partir de los siguientes comandos \footnote{Fuente: https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line}
+	
+	\begin{enumerate}
+		\item Desinstalar cualquier versión previa de CMake:
+		\begin{verbatim}
+		sudo apt remove --purge --auto-remove cmake
+		\end{verbatim}
+		\item Ir a la página oficial de CMake y bajar la última versión: 
+		\begin{verbatim}
+		http://www.cmake.org/download
+		\end{verbatim}
+		\item Correr los siguientes comandos:
+		\begin{verbatim}
+		$ version=3.14
+		$ build=5
+		$ mkdir ~/temp
+		$ cd ~/temp
+		$ wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+		$ tar -xzvf cmake-$version.$build.tar.gz
+		$ cd cmake-$version.$build/
+		$ ./bootstrap
+		$ make -j4
+		$ sudo make install
+		\end{verbatim}
+		\item Verificar la versión de CMake:
+		\begin{verbatim}
+		$ cmake --version
+		cmake version 3.14.X
+		\end{verbatim}
+	\end{enumerate}
 \end{itemize}
-
-\begin{verbatim}
-> wget https://cmake.org/files/v3.4/cmake-3.4.1-Linux-x86_64.tar.gz
-> tar xf cmake-3.4.1-Linux-x86_64.tar.gz
-> export PATH="`pwd`/cmake-3.4.1-Linux-x86_64/bin:$PATH"
-\end{verbatim}
-
-\subsection{Requerimientos de hardware}
 
 \subsection{Proceso de instalación}
 
-\textbf{AGREGAR COMPILACIÓN CON SH}
+En el \texttt{root} del repositorio clonado se encuentra un archivo \texttt{install.sh}. Para realizar la instalación se debe seguir los siguientes pasos:
+
+\begin{verbatim}
+chmod +x install.sh
+./install.sh pathWanted
+\end{verbatim}
+donde \texttt{pathWanted} es el directorio donde se desea instalar el juego.
 
 \section{Configuración}
 
-La configuración del juego se realiza por medio de un archivo de formato \texttt{YAML} que se encuentra localizado en la carpeta \texttt{config} dentro de la carpeta \texttt{server} del repositorio. Hay ciertos parámetros comunes que pueden variarse, pero se recomienda mantenerlos dentro del mismo rango para obtener el juego que fue testeado numerosas veces por sus creadores.
+La configuración del juego se realiza por medio de archivos de formato \texttt{YAML} que se encuentran localizados en la carpeta \texttt{config}. Hay ciertos parámetros comunes que pueden variarse, pero se recomienda mantenerlos dentro del mismo rango para obtener el juego que fue testeado numerosas veces por sus creadores.
 
 \section{Forma de uso del juego}
 El juego es de tipo \textit{cooperativo}, lo que implica que para finalizar la partida todos deben alcanzar el objetivo reconocido como victoria. En este caso particular, \textbf{todos} los jugadores deben llegar a la llamada \textit{cake} que se trata de una torta localizada en algún lugar del escenario. Para ello deberán sortear con distintos obstáculos, en los cuales podrían morir. En el caso en que un jugador muera, esto no genera ninguna diferencia en la condición de victoria, incluso a veces puede ser necesario por ejemplo si todo el grupo llegó a la torta y un solo jugador quedó varado en el camino. En esta implementación del juego portal hay 3 causas de muerte:

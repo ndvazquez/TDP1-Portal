@@ -112,16 +112,46 @@ sudo apt-get install libsdl2-ttf-dev
 
 \begin{itemize}
 	\item \texttt{CMake}: se debe instalar a partir de los siguientes comandos:
+	\footnote{Fuente: https://askubuntu.com/questions/355565/how-do-i-install-the-latest-version-of-cmake-from-the-command-line}
+	
+	\begin{enumerate}
+		\item Desinstalar cualquier versión previa de CMake:
+		\begin{verbatim}
+		sudo apt remove --purge --auto-remove cmake
+		\end{verbatim}
+		\item Ir a la página oficial de CMake y bajar la última versión: 
+		\begin{verbatim}
+		http://www.cmake.org/download
+		\end{verbatim}
+		\item Correr los siguientes comandos:
+		\begin{verbatim}
+		$ version=3.14
+		$ build=5
+		$ mkdir ~/temp
+		$ cd ~/temp
+		$ wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+		$ tar -xzvf cmake-$version.$build.tar.gz
+		$ cd cmake-$version.$build/
+		$ ./bootstrap
+		$ make -j4
+		$ sudo make install
+		\end{verbatim}
+		\item Verificar la versión de CMake:
+		\begin{verbatim}
+		$ cmake --version
+		cmake version 3.14.X
+		\end{verbatim}
+	\end{enumerate}
 \end{itemize}
 
+\subsection{Instalación}
+En el \texttt{root} del repositorio clonado se encuentra un archivo \texttt{install.sh}. Para realizar la instalación se debe seguir los siguientes pasos:
+
 \begin{verbatim}
-> wget https://cmake.org/files/v3.4/cmake-3.4.1-Linux-x86_64.tar.gz
-> tar xf cmake-3.4.1-Linux-x86_64.tar.gz
-> export PATH="`pwd`/cmake-3.4.1-Linux-x86_64/bin:$PATH"
+chmod +x install.sh
+./install.sh pathWanted
 \end{verbatim}
-
-
-\textbf{Agregar algo relativo al sh para la compilación}
+donde \texttt{pathWanted} es el directorio donde se desea instalar el juego.
 
 \section{Descripción general}
 
