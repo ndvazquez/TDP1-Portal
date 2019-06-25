@@ -2,7 +2,7 @@ Chell:
   - name: RestingIdle
     path: resources/Chell/RestingIdle.png
     frames: 7
-    width: 1
+    width: 1.5
     height: 2
   - name: Jumping
     path: resources/Chell/Jumping.png
@@ -17,7 +17,7 @@ Chell:
   - name: Win
     path: resources/Chell/WinRelief.png
     frames: 13
-    width: 1
+    width: 2
     height: 1.95
   - name: Run
     path: resources/Chell/Run.png
