@@ -199,6 +199,7 @@ target_link_libraries(Editor yaml-cpp ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES}
         ${SDL2_TTF_LIBRARIES} -lSDL2_ttf)# avformat avcodec avutil swscale)
 target_link_libraries(Server yaml-cpp)
+target_link_libraries(Test yaml-cpp)
 target_compile_features(Server PUBLIC cxx_std_17)
 target_compile_features(Test PUBLIC cxx_std_17)
 target_link_libraries(Server TG::Box2D pthread)
