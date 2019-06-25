@@ -6,14 +6,14 @@
 #include <unordered_map>
 #include <iostream>
 #include <communication-support/Server.h>
+#define PORT_POS 1
 
-
-int main(int argc, char* argv[]) {
-    char c = '*';
-    std::string host = "localhost";
-    std::string service = "8000";
+void runServer(const std::string& port) {
     try {
-        Server server(host, service);
+        char c = '*';
+        const std::string& host = "localhost";
+
+        Server server(host, port);
         server.start();
         while (c != 'q') {
             std::cin.get(c);
@@ -23,5 +23,14 @@ int main(int argc, char* argv[]) {
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
     }
+}
+
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cout << "Invalid arguments.\nRun:\n./Server <port>\n";
+        return -1;
+    }
+    const std::string& port = argv[PORT_POS];
+    runServer(port);
     return 0;
 }

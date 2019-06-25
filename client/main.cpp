@@ -12,15 +12,14 @@
 #include "../common/Window.h"
 
 #define CLIENT_CONFIG_FILE_PATH "config/client_config.yaml"
+#define HOST_POS 1
+#define PORT_POS 2
 
-void playGame() {
+void playGame(const std::string& host, const std::string& port) {
     std::string idChell;
 
-    std::string host = "localhost";
-    std::string service = "8000";
-
     Socket clientSocket;
-    clientSocket.connectToHost(host, service);
+    clientSocket.connectToHost(host, port);
     Protocol clientProtocol(clientSocket);
 
     YAML::Node configFile = YAML::LoadFile(CLIENT_CONFIG_FILE_PATH);
@@ -42,8 +41,15 @@ void playGame() {
 int main(int argc, char* argv[]){
     SDLSession sdlSession(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
     try {
-        playGame();
+        if (argc != 3) {
+            std::cout << "Invalid arguments.\nRun:\n./Client <host> <port>\n";
+            return -1;
+        }
+        const std::string& host = argv[HOST_POS];
+        const std::string& port = argv[PORT_POS];
+        playGame(host, port);
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
     }
+    return 0;
 }
