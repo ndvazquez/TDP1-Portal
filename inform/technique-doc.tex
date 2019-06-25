@@ -218,6 +218,32 @@ Se trata de una cola bloqueante a la que se encola los diversos eventos de usuar
 
 Se trata de una cola bloqueante a la que se encola el estado del escenario en un step dado por el escenario para que sea dibujado por los diversos clientes.
 
+\begin{itemize}
+	\item \textbf{Window}
+\end{itemize}
+
+Se trata de una clase wrapper de SDL\_Window y SDL\_Renderer. Se utiliza en absolutamente todas las vistas y operaciones que requieran dibujar a pantalla.
+La clase fue protegida debido a que ha de ser compartida entre el hilo que procesa input de usuario y el hilo que dibuja, para poder manejar el cambio de tamaño de la pantalla de Fullscreen a Windowed y viceversa.
+
+\begin{itemize}
+	\item \textbf{SDLSession}
+\end{itemize}
+
+Se trata de una clase wrapper de la inicialización de los distintos módulos de SDL. Se utiliza en el Cliente y en el Editor.
+
+\begin{itemize}
+	\item \textbf{Sprite}
+\end{itemize}
+
+Se trata de una clase wrapper para la carga de texturas en SDL.
+
+\begin{itemize}
+	\item \textbf{AnimatedSprite}
+\end{itemize}
+
+Se trata de una clase wrapper para mostrar animaciones por pantalla. Utiliza tiras de sprites cargadas en un Sprite para poder dibujar cada cuadro de la tira de sprites cada cierto tiempo.
+Cuenta con un timer para determinar cada cuánto tiempo hay que actualizar el cuadro actual que será dibujado en el loop principal del juego.
+
 \section{Servidor}
 
 \subsection{Descripción general}
@@ -548,21 +574,102 @@ Luego, en cada \texttt{step} simulado por \texttt{Box2D} se envía al cliente un
 \section{Cliente}
 
 \subsection{Descripción general}
-
-La funcionalidad del cliente puede dividirse en tres grupos:
+Las funcionalidades del cliente se dividen en tres partes:
 \begin{enumerate}
-	\item Soporte para sonidos
-	\item Soporte para vistas
-	\item Soporte para comunicación con el servidor
+	\item Las relativas al motor gráfico, es decir, aquellas que sólo se encargan de representar el modelo del juego visual y auditivamente y distintas pantallas a modo de menu.
+	\item Las relativas al manejo de sockets para poder comunicarse con un servidor.
 \end{enumerate}
 
-En la próxima sección se enumeran las diversas clases relacionadas con dichas funcionalidades.
+A continuación se enumeran las principales clases que se encargan de implementar dichas funcionalidades y sus principales atributos y métodos.
 
 \subsection{Clases}
 
-\subsubsection{Soporte para sonidos}
+Para describir las clases utilizadas se dividirán las clases en 3 categorías:
 
-\subsubsection{Soporte para vistas}
+\subsubsection{Soporte para input de usuario}
+
+\begin{itemize}
+	\item \textbf{UserEventHandler}
+\end{itemize}
+
+Sus atributos principales son una camara \texttt{Camara}, una cola de sonidos \texttt{SoundCodeQueue} y una referencia a una cola de eventos de usuario \texttt{UserEventQueue}. 
+Se encarga de procesar eventos de SDL y crear eventos propios \texttt{UserEvent} para encolar en la cola, así como también encolar sonidos a reproducir cuando corresponda (por ejemplo, al disparar).
+Estos eventos luego serán consumidos por \texttt{EventSender}.
+Esta clase se corre en un thread propio, para poder procesar eventos de SDL sólo si existe uno, en lugar de hacer polling en el thread principal, lo cual además podría impactar la performance de dicho thread ya que allí se dibuja a pantalla, y es crítico mantener una performance aceptable para una mejor experiencia de usuario.
+
+\subsubsection{Soporte para vistas y sonidos}
+
+\begin{itemize}
+	\item \textbf{View}
+\end{itemize}
+
+Sus atributos principales son una ventana \texttt{Window}, un factor para pasar de unidades de Box2D a pixeles, y una caja de colisión \texttt{SDL\_Rect} para revisar colisiones contra la cámara.
+Esta clase es virtual, es decir, ha de ser implementada por cada una de las vistas que representan entidades del modelo.
+Cuenta con métodos implementados, los cuales son \texttt{move} para actualizar la posición actual de la vista en pantalla, y \texttt{checkCollisionWithCamera} el cual es utilizado por las vistas para determinar si deben ser dibujadas o no.
+El fin de revisar colisión con la cámara es evitar dibujar innecesariamente texturas que el jugador no podrá ver, mejorando la performance del programa.
+
+Los métodos virtuales que han de ser implementados por las clases derivadas son \texttt{playAnimation} y \texttt{setState}. El primero contendrá la lógica para ejecutar las animaciones de cada vista derivada, y el segundo se utiliza para la lógica de cambio de estado de una entidad del modelo, con el fin de representar con mayor fidelidad a las entidades modeladas en el motor físico.
+
+No se describiran la totalidad de las vistas derivadas, sólo la más compleja que es \texttt{ChellView}.
+
+\begin{itemize}
+	\item \textbf{ChellView}
+\end{itemize}
+
+Esta clase deriva de View. Se encarga de representar en pantalla a nuestro personaje principal.
+Entre sus atributos, tenemos un estado actual y un estado previo, esto se utiliza para encolar el sonido del salto en la cola de sonidos. Además cuenta con un timer para saber cuándo encolar un sonido al correr, y otro para saber cuándo dejar de dibujar la animación de muerte.
+En el método \texttt{setState}, se actualiza el estado previo y el estado actual con el estado recibido por parámetro.
+En el método \texttt{playAnimation} se decide qué animación dibujar, dependiendo del estado actual de Chell. Si Chell está corriendo, se chequea el timer para saber si hay que reproducir un sonido en este estado, el chequeo se encarga de actualizar dicho timer.
+En el caso de la muerte, se reproduce la misma durante una cantidad predeterminada de iteraciones.
+
+\begin{itemize}
+	\item \textbf{Camara}
+\end{itemize}
+
+Esta clase consta de un SDL\_Rect, el cual determinará qué se muestra en pantalla. La misma se centra sobre el jugador asignado al usuario.
+Es una clase protegida ya que debió ser utilizada entre dos distintos threads, por lo tanto fue pertinente protegerla para evitar race conditions.
+
+\begin{itemize}
+	\item \textbf{ViewManager}
+\end{itemize}
+
+Esta clase se encarga de manejar todas las vistas que requieren una actualización de estado, tienen animación o requieren actualizar su posición en el mundo.
+Para esto se tiene un mapa donde cada clave es un ID y el valor asociado un puntero a una View. Adicionalmente, cuenta con otro mapa para asociar ID de ChellView con nombre de jugador, para así poder dibujar en pantalla el nombre del jugador sobre su personaje, para poder distinguir entre distintos jugadores.
+En cuanto a la actualización del modelo, se consumen JSONs desde una cola diseñada para contener el estado del modelo en dicho formato. La idea principal es que ViewManager sólo actualizará y dibujará aquellas  Views cuyos IDs se hayan recibido en el JSON que contiene la actualización del modelo del juego.
+En cuanto a la creación, se recibe inicialmente un JSON con todas las vistas que serán necesarias durante la ejecución del nivel.
+
+\begin{itemize}
+	\item \textbf{StageView}
+\end{itemize}
+
+Esta clase se encarga de dibujar todos los sprites estáticos que no cambiarán nunca de posición, como por ejemplo los bloques de metal, roca, diagonal, etc.
+En cuanto a la creación, se recibe inicialmente un JSON con todos los bloques que serán necesarios durante la ejecución del nivel.
+El dibujado de los bloques naturalmente posa un problema importante: Si se dibuja todo el nivel en todo momento, podríamos ocasionar un buffer overflow en el buffer que contiene las texturas dibujadas.
+Para evitar este problema, se pensó el diseño de la clase de forma tal que sólo se dibujen aquellos bloques que colisionarían con la cámara. Para esto se guardan los bloques según sus coordenadas, luego se toma el origen de la cámara y se lo transforma a metros.
+El paso siguiente es determinar dos rangos para iterar las claves del mapa de bloques, uno en X (se hace con el origen en X de la cámara y el ancho de la misma) y el otro en Y (misma idea pero en Y y con el alto), adicionalmente agregamos algunos bloques extra a modo de borde, para que la transicion entre texturas en la pantalla sea más suave y se obtenga una mejor experiencia de usuario.
+Finalmente, sólo dibujamos los bloques que existan en nuestro mapa y cuyas claves (coordenadas)estén dentro de este rango.
+
+\begin{itemize}
+	\item \textbf{AudioSystem}
+\end{itemize}
+
+Esta clase se encarga de consumir códigos de sonido desde una cola de códigos de sonido, y reproducirlos.
+Los sonidos se guardan en un mapa donde tenemos como clave un código de sonido, y como valor asociado un \texttt{Mix\_Chunk*} el cual contiene el sonido a reproducir.
+Adicionalmente, contamos con un mapa similar pero para música. En la implementación actual del TP no fue utilizado en todo su potencial este feature, pero en próximos releases agregaremos más canciones y la posibilidad de cambiar de música en medio de la partida.
+
+\begin{itemize}
+	\item \textbf{Game}
+\end{itemize}
+
+Esta clase se encarga del flujo previo al inicio de una partida, es decir, creación/unión de partida.
+Cuenta con clases para representar las pantallas de unión/creación de partida, selección de nivel, selección de nombre de jugador.
+
+\begin{itemize}
+	\item \textbf{Drawer}
+\end{itemize}
+
+Esta clase contiene a las clases necesarias para poder dibujar el modelo del juego en pantalla, así como también realizar la comunicación con un servidor dado.
+Aquí encontramos el game loop, en donde consumimos el estado actual del modelo enviado por el servidor, a través de una cola bloqueante. Si no hay un estado nuevo, simplemente utilizamos el estado anterior para dibujar, de esta forma evitamos cortar el dibujado en caso de alta latencia.
 
 \subsubsection{Soporte para comunicación}
 
@@ -577,14 +684,6 @@ Sus atributos son un protocolo \texttt{Protocol} y una referencia a una cola de 
 \end{itemize}
 
 Sus atributos son un protocolo \texttt{Protocol} y una referencia a una cola de estados del escenario \texttt{StageStatusQueue}. Se encarga de recibir los diversos estados del escenario, enviados por el servidor, para dibujar los elementos dinámicos en su estado actual.
-
-\begin{itemize}
-	\item \textbf{User Event Handler}
-\end{itemize}
-
-Sus principales atributos son una referencia a la cola de sonidos \texttt{SoundCodeQueue} y a la cola de eventos de usuario \texttt{UserEventQueue}.
-
-Se encarga de reproducir el sonido designado para cada evento y además decodificar cada input del teclado y del mouse en un código guardado como \texttt{int} para encolarlo en la cola de eventos.
 
 \subsection{Diagramas UML}
 
@@ -601,6 +700,50 @@ Se encarga de reproducir el sonido designado para cada evento y además decodifi
 \end{figure}
 
 \subsection{Descripción de archivos y protocolos}
+
+Contamos con un archivo de configuración para setear la resolución de la ventana de juego, y del factor utilizado para convertir unidades de Box2D a pixeles. Es importante que la resolución sea múltiplo de este factor, para así obtener una transición suave entre texturas al mover la cámara.
+
+Como ya se mencionó en la sección del servidor, se utiliza el formato JSON para el envío y recepción de información.
+
+Adicionalmente a los requests ya descriptos en la sección del servidor, contamos con los siguientes requests:
+
+\begin{enumerate}
+	\item Lista de juegos:
+	\begin{verbatim}
+	{ "games":
+		 ["Aprueben", "este", "tp", "por favor"]
+	};
+	\end{verbatim}
+	\item Creación o unión:
+	\begin{verbatim}
+	{ "action": CREATE_GAME_CODE
+	};
+	\end{verbatim}
+	Donde CREATE\_GAME\_CODE y JOIN\_GAME\_CODE son enteros, 0 y 1 respectivamente.
+	\item Campos de partida y ID jugador:
+	\begin{verbatim}
+	{ "game": gameName,
+	  "id": somePlayerName
+	};
+	\end{verbatim}
+	\item Resultado de la acción procesada en el servidor:
+	\begin{verbatim}
+	{ "result": SUCCESS_CODE,
+	  "idChell": Chell1
+	};
+	\end{verbatim}
+	El campo "result" puede ser SUCCESS\_CODE o FAIL\_CODE, dependiendo de si salió todo bien o no. "idChell" es el ID asignado por el servidor a la Chell del jugador.
+	\item UserEvent enviado al servidor:
+	\begin{verbatim}
+	{ "id": userId,
+	  "eventType": eventTypeCode,
+	  "x": mousePositionX,
+	  "y": mousePositionY
+	};
+	\end{verbatim}
+	Este request contiene toda la información que necesita el servidor para poder procesar un evento de usuario. X e Y respectivamente se dejan en 0 si el evento no requiere saber estos valores.
+	EventTypeCode es un entero con distintos valores, el listado completo puede observarse en el archivo \texttt{common/constants.h}
+\end{enumerate}
 
 \section{Editor}
 
