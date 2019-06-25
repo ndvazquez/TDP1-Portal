@@ -13,6 +13,7 @@ PinTool::PinTool(b2Body *body):
     body->SetUserData(this);
     this->timeStamp = std::chrono::system_clock::now();
     this->is_dead = false;
+    body->SetActive(false);
 }
 
 void PinTool::handleCollision(Entity *entity) {
