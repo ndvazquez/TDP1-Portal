@@ -10,6 +10,7 @@
 #include "../../common/UserEventQueue.h"
 #include "audio/SoundCodeQueue.h"
 #include "../../common/Thread.h"
+#include "../../common/Window.h"
 
 
 class UserEventHandler : public Thread {
@@ -19,6 +20,7 @@ class UserEventHandler : public Thread {
     const std::string& userId;
     int levelHeight;
     SoundCodeQueue& soundCodeQueue;
+    Window& gameWindow;
     void handleEvent(SDL_Event& event);
 
 public:
@@ -26,7 +28,8 @@ public:
             UserEventQueue& userEventQueue,
             const std::string& userId,
             int levelHeight,
-            SoundCodeQueue& soundCodeQueue);
+            SoundCodeQueue& soundCodeQueue,
+            Window& gameWindow);
     ~UserEventHandler();
     void run();
     void stop();

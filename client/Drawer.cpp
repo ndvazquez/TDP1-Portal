@@ -36,7 +36,8 @@ void Drawer::draw(std::string& idChell) {
     UserEventQueue userEventQueue;
     UserEventHandler userEventHandler(camera, userEventQueue,
                                       idChell, levelHeight,
-                                      soundQueue);
+                                      soundQueue,
+                                      newWindow);
     StageStatusQueue stageStatusQueue;
 
     EventSender eventSender(clientSocket, userEventQueue);
