@@ -88,7 +88,6 @@ A continuación se enumeran los distintos movimientos habilitados por las teclas
 	\item \textbf{clic izquierdo} para lanzar un disparo con intenciones de colocar un portal de color azul. 
 	\item \textbf{r} para borrar los portales creados por el mismo jugador.
 	\item \textbf{p} para colocar un \textit{pintool} en cualquier lugar de la pantalla. Para eso debe moverse el mouse hasta la posición determinada y luego presionar la tecla susodicha.
-	\item \textbf{o} para eliminar el pintool puesto por el mismo jugador.
 \end{itemize}
 
 Ahora para poder localizar la torta es necesario moverse por el escenario, en el cual el usuario podría encontrarse con alguna dificultad u objeto desconocido. Se enumeran una serie de preceptos a tener en cuenta a la hora de jugar el juego:
@@ -112,8 +111,6 @@ Ahora para poder localizar la torta es necesario moverse por el escenario, en el
 	\item Pueden teletransportarse rocas por los portales de manera de acceder a otros lugares del escenario, donde puede ser necesario activar un botón. Para hacerlo, como se mencionó previamente se recomienda lanzar la roca hacia arriba o abandonarla si el portal está por debajo.
 	
 	\item Existe el objeto \texttt{pintool} para armonizar el trabajo en grupo y llegar al pastel. Este elemento se utiliza para que un jugador indique a otro que estaría bueno que cree un portal ahí para cumplir el objetivo del nivel. Queda a completa responsabilidad del usuario ser inteligente con el mismo y colocarlo de la manera más estratégica posible. Así mismo, mueren después de un determinado tiempo y no pueden crearse más de uno por jugador, por lo que la creación de un segundo pin tool en el escenario por parte del mismo jugador elimina inmediatamente el anterior.
-	
-	\item Se pueden resetear tanto los portales como los pintools de manera de utilizar otra combinación más estratégica.
 \end{itemize}
 
 \subsection{Ejemplo de uso}
@@ -175,8 +172,6 @@ Una posible solución sería saltar ese ácido, pero eso podría resultar arries
 	\caption{Segundo desafío superado}
 	\label{fig:diagrama7}
 \end{figure}
-
-\newpage
 
 \subsection{Muestra de objetos}
 
@@ -248,6 +243,16 @@ Se observa en las siguientes figuras que la bola de energia inicialmente present
 	\label{fig:diagrama15}
 \end{figure}
 
+\newpage
+
+Finalmente se muestra cómo se ve una \textit{pintool} en pantalla. Se trata de un circulo celeste y se recomienda usarla para mostrar a otro jugador donde podría posicionar un portal para alcanzar el objetivo grupal.
+
+\begin{figure}[!h]
+	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{pintool.png}}
+	\caption{Pintool}
+	\label{fig:diagrama16}
+\end{figure}
+
 \newpage 
 
 \section{Forma de uso del editor}
@@ -258,7 +263,7 @@ Al iniciar el editor se observará la siguiente pantalla:
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{editor_initial.png}}
 	\caption{Pantalla de inicio del editor}
-	\label{fig:diagrama16}
+	\label{fig:diagrama17}
 \end{figure}
 
 Aquí puede escribirse el nombre del nivel que se desea editar y hacer clic en \texttt{OK, HERE IS THE NAME, CAN I ALREADY HAVE MY CAKE?} o decidir iniciar un nuevo nivel y hacer clic en \texttt{<SKIP>}. 
@@ -272,13 +277,13 @@ Se muestra en la \textit{Figura 18} un ejemplo de nivel editado para mostrar a l
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{editor.png}}
 	\caption{Editor}
-	\label{fig:diagrama17}
+	\label{fig:diagrama18}
 \end{figure}
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{example.png}}
 	\caption{Ejemplo de edición}
-	\label{fig:diagrama18}
+	\label{fig:diagrama19}
 \end{figure}
 
 \newpage
@@ -288,7 +293,7 @@ Otra característica del editor es la posibilidad de hacer el escenario \textit{
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{infinit.png}}
 	\caption{Editor infinito}
-	\label{fig:diagrama19}
+	\label{fig:diagrama20}
 \end{figure}
 
 \newpage
@@ -300,19 +305,19 @@ En el caso que no se asigne un nombre a un botón o receptor, ese botón simplem
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{button.png}}
 	\caption{Designar nombre a un botón}
-	\label{fig:diagrama20}
+	\label{fig:diagrama21}
 \end{figure}
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{receptor.png}}
 	\caption{Designar nombre a un receptor}
-	\label{fig:diagrama21}
+	\label{fig:diagrama22}
 \end{figure}
 
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=0.75\textwidth]{condition.png}}
 	\caption{Designar una condición a una compuerta}
-	\label{fig:diagrama22}
+	\label{fig:diagrama23}
 \end{figure}
 
 \newpage
@@ -322,7 +327,7 @@ Una vez finalizada la edición, el mismo se guarda haciendo \textbf{CTRL+S} y se
 \begin{figure}[!h]
 	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{saving_editor.png}}
 	\caption{Guardar un nivel en el editor}
-	\label{fig:diagrama23}
+	\label{fig:diagrama24}
 \end{figure}
 
 Luego en el juego se puede seleccionar un nivel en el momento de creación del juego. Se muestra una serie de niveles a elegir y el usuario escribe el que haya seleccionado. Los últimos pasos para la creación de una partida es elegir un nombre para el juego y un ID. La cantidad de jugadores está predefinida por el editor, por lo que si se edita un nivel con 3 jugadores deberán conectarse 3 clientes para comenzar el juego. La unión a una partida se configura seleccionando alguno de los juegos disponibles y eligiendo un ID (distinto al de los jugadores en juego). El juego se desarrolla hasta que se gana (todos llegan a la \textit{cake}) o se pierde (todos mueren), mostrando un mensaje por pantalla que indica el resultado y finaliza la ejecución.
