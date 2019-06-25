@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "Creating build directory.."
-mkdir - p build
+mkdir -p build
 cd build
 echo "Building project..."
 cmake ..
