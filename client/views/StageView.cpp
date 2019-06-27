@@ -24,8 +24,8 @@ StageView::StageView(Window& window, YAML::Node& texturesInfo,
     }
     for (const auto& item : objectsData.items()){
         nlohmann::json& data = item.value();
-        float x = data["x"].get<float>();
-        float y = data["y"].get<float>();
+        float x = std::round(data["x"].get<float>());
+        float y = std::round(data["y"].get<float>());
         const std::string& blockName = data["type"].get<std::string>();
         int xPos = x;
         int yPos = y;
